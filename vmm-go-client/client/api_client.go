@@ -14,7 +14,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"io"
 	"io/ioutil"
-	"log"
+	"net"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -37,7 +37,7 @@ var (
 	xmlCheck        = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 	uriCheck        = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
 	retryStatusList = []int{408, 503, 504}
-	userAgent       = "Nutanix-vmm/v4.0.1-alpha.1"
+	userAgent       = "Nutanix-vmm/v4.0.2-alpha.1"
 )
 
 /**
@@ -48,6 +48,7 @@ var (
   templates.
 
   Parameters :-
+    Scheme (string) : URI scheme for connecting to the cluster (HTTP or HTTPS using SSL/TLS) (default : https)
     Host (string) : Host IPV4, IPV6 or FQDN for all http request made by this client (default : localhost)
     Port (string) : Port for the host to connect to make all http request (default : 9440)
     Username (string) : Username to connect to a cluster
@@ -55,29 +56,58 @@ var (
     Debug (bool) : flag to enable debug logging (default : empty)
     VerifySSL (bool) : Verify SSL certificate of cluster (default: true)
     MaxRetryAttempts (int) : Maximum number of retry attempts to be made at a time (default: 5)
-    Timeout (time.Duration) : Global timeout for all operations
+    ReadTimeout (time.Duration) : Read timeout for all operations in milliseconds
+    ConnectTimeout (time.Duration) : Connection timeout for all operations in milliseconds
     RetryInterval (time.Duration) : Interval between successive retry attempts (default: 3 sec)
     LoggerFile (string) : Log file to write activity logs
 */
 type ApiClient struct {
-	Host             string            `json:"host,omitempty"`
-	Port             int               `json:"port,omitempty"`
-	Username         string            `json:"username,omitempty"`
-	Password         string            `json:"password,omitempty"`
-	Debug            bool              `json:"debug,omitempty"`
+	Scheme           string `json:"scheme,omitempty"`
+	Host             string `json:"host,omitempty"`
+	Port             int    `json:"port,omitempty"`
+	Username         string `json:"username,omitempty"`
+	Password         string `json:"password,omitempty"`
+	Debug            bool   `json:"debug,omitempty"`
 	VerifySSL        bool
-	MaxRetryAttempts int               `json:"maxRetryAttempts,omitempty"`
-	Timeout          time.Duration     `json:"timeout,omitempty"`
-	RetryInterval    time.Duration     `json:"retryInterval,omitempty"`
-	LoggerFile       string            `json:"loggerFile,omitempty"`
+	Proxy            *Proxy
+	MaxRetryAttempts int           `json:"maxRetryAttempts,omitempty"`
+	ReadTimeout      time.Duration `json:"readTimeout,omitempty"`
+	ConnectTimeout   time.Duration `json:"connectTimeout,omitempty"`
+	RetryInterval    time.Duration `json:"retryInterval,omitempty"`
+	LoggerFile       string        `json:"loggerFile,omitempty"`
 	defaultHeaders   map[string]string
 	retryClient      *retryablehttp.Client
 	httpClient       *http.Client
+	dialer           *net.Dialer
 	authentication   map[string]interface{}
 	cookie           string
 	refreshCookie    bool
 	previousAuth     string
 	basicAuth        *BasicAuth
+	logger           *logrus.Logger
+
+	// maxIdleConns controls the maximum number of idle (keep-alive)
+	// connections across all hosts. Zero means no limit.
+	maxIdleConns int
+
+	// maxIdleConnsPerHost, if non-zero, controls the maximum idle
+	// (keep-alive) connections to keep per-host. If zero,
+	// DefaultMaxIdleConnsPerHost is used.
+	maxIdleConnsPerHost int
+
+	// maxConnsPerHost optionally limits the total number of
+	// connections per host, including connections in the dialing,
+	// active, and idle states. On limit violation, dials will block.
+	// Zero means no limit.
+	maxConnsPerHost int
+
+	// idleConnTimeout is the maximum amount of time an idle
+	// (keep-alive) connection will remain idle before closing itself.
+	// Zero means no limit.
+	idleConnTimeout time.Duration
+
+	// Timeout for the time spent during TLS handshake
+	tlsHandshakeTimeout time.Duration
 }
 
 /**
@@ -90,17 +120,24 @@ func NewApiClient() *ApiClient {
 	authentication["basicAuthScheme"] = basicAuth
 
 	a := &ApiClient{
-		Host:             "localhost",
-		Port:             9440,
-		Debug:            false,
-		VerifySSL:        true,
-		MaxRetryAttempts: 5,
-		Timeout:          30 * time.Second,
-		RetryInterval:    3 * time.Second,
-		defaultHeaders:   make(map[string]string),
-		refreshCookie:    true,
-		basicAuth:        basicAuth,
-		authentication:   authentication,
+		Scheme:              "https",
+		Host:                "localhost",
+		Port:                9440,
+		Debug:               false,
+		VerifySSL:           true,
+		MaxRetryAttempts:    5,
+		ReadTimeout:         30 * time.Second,
+		ConnectTimeout:      30 * time.Second,
+		RetryInterval:       3 * time.Second,
+		maxIdleConns:        10,
+		maxIdleConnsPerHost: 10,
+		maxConnsPerHost:     100,
+		idleConnTimeout:     90 * time.Second,
+		tlsHandshakeTimeout: 10 * time.Second,
+		defaultHeaders:      make(map[string]string),
+		refreshCookie:       true,
+		basicAuth:           basicAuth,
+		authentication:      authentication,
 	}
 
 	a.setupClient()
@@ -122,7 +159,7 @@ func (a *ApiClient) AddDefaultHeader(headerName string, headerValue string) {
 func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	queryParams url.Values, headerParams map[string]string, formParams url.Values,
 	accepts []string, contentType []string, authNames []string) ([]byte, error) {
-	path := "https://" + a.Host + ":" + strconv.Itoa(a.Port) + *uri
+	path := a.Scheme + "://" + a.Host + ":" + strconv.Itoa(a.Port) + *uri
 
 	if headerParams["Authorization"] != "" {
 		a.previousAuth = headerParams["Authorization"]
@@ -158,18 +195,23 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 
 	request, err := a.prepareRequest(path, httpMethod, body, headerParams, queryParams, formParams, authNames)
 	if err != nil {
+		a.logger.Error(err.Error())
 		return nil, err
 	}
+
+	a.setupClient()
 
 	if a.Debug {
 		dump, err := httputil.DumpRequestOut(request, true)
 		if err != nil {
+			a.logger.Debugf("Error while logging request details: %s", err.Error())
 			return nil, err
 		}
-		log.Printf("\n%s\n", string(dump))
+		a.logger.Debug(string(dump))
+	} else {
+		a.logger.Infof("%s %s", request.Method, request.URL.String())
 	}
 
-	a.setupClient()
 	response, err := a.httpClient.Do(request)
 
 	// Retry one more time without the cookie but with basic auth header
@@ -183,19 +225,25 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	}
 
 	if err != nil {
+		a.logger.Error(err.Error())
 		return nil, err
 	}
 
 	if a.Debug {
 		dump, err := httputil.DumpResponse(response, true)
 		if err != nil {
+			a.logger.Debugf("Error while logging response details: %s", err.Error())
 			return nil, err
 		}
-		log.Printf("\n%s\n", string(dump))
+		a.logger.Debug(string(dump))
+	} else {
+		a.logger.Infof("%s %s", response.Proto, response.Status)
 	}
 
 	if nil == response {
-		return nil, ReportError("response is nil!")
+		msg := "Response is nil!"
+		a.logger.Error(msg)
+		return nil, ReportError(msg)
 	}
 
 	a.updateCookies(response)
@@ -206,13 +254,14 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 
 	responseBody, err := ioutil.ReadAll(response.Body)
 	if err != nil {
+		a.logger.Error(err.Error())
 		return nil, err
 	}
 	response.Body.Close()
 	response.Body = ioutil.NopCloser(bytes.NewBuffer(responseBody))
 
 	if !(200 <= response.StatusCode && response.StatusCode <= 209) {
-		return nil, GenericOpenAPIError {
+		return nil, GenericOpenAPIError{
 			Body:   responseBody,
 			Status: response.Status,
 		}
@@ -275,7 +324,7 @@ func (a *ApiClient) SetApiKeyPrefix(apiKeyPrefix string) error {
 // Helper method to set access token for the first OAuth2 authentication.
 func (a *ApiClient) SetAccessToken(accessToken string) error {
 	for _, value := range a.authentication {
-		if  auth, ok := value.(*OAuth); ok {
+		if auth, ok := value.(*OAuth); ok {
 			auth.AccessToken = accessToken
 			return nil
 		}
@@ -291,26 +340,14 @@ func (a *ApiClient) SetMaxRetryAttempts(maxRetryAttempts int) {
 	a.MaxRetryAttempts = maxRetryAttempts
 }
 
-/**
-  Helper method to set httpclient timeout.
-  After the initial instantiation of ApiClient, timeout must be modified only via this method
-*/
-func (a *ApiClient) SetTimeout(ms int) {
-	dur := time.Duration(ms) * time.Millisecond
-	setTimeout(dur, a)
-}
-
-func setTimeout(dur time.Duration, apiClient *ApiClient) {
-	apiClient.Timeout = dur
+func getValidTimeout(dur time.Duration, apiClient *ApiClient) time.Duration {
 	if dur <= 0 {
-		log.Printf("Timeout cannot be 0 or less. Setting 30 second as default timeout.")
-		apiClient.Timeout = 30 * time.Second
+		dur = 30 * time.Second
 	} else if dur > (30 * time.Minute) {
-		log.Printf("Timeout cannot be greater than 30 minutes. Setting 30 minutes as default timeout.")
-		apiClient.Timeout = 30 * time.Minute
+		dur = 30 * time.Minute
 	}
 
-	apiClient.httpClient.Timeout = apiClient.Timeout
+	return dur
 }
 
 /**
@@ -338,9 +375,31 @@ func (a *ApiClient) setupClient() {
 	}
 
 	var transport = a.retryClient.HTTPClient.Transport.(*http.Transport)
-	if isRetryClientModified || transport.TLSClientConfig == nil || transport.TLSClientConfig.InsecureSkipVerify != !a.VerifySSL {
+	if isRetryClientModified || transport.TLSClientConfig == nil || transport.TLSClientConfig.InsecureSkipVerify != !a.VerifySSL ||
+		a.dialer == nil || a.dialer.Timeout != a.ConnectTimeout {
+		a.dialer = &net.Dialer{
+			Timeout: getValidTimeout(a.ConnectTimeout, a),
+		}
 		transport := &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: !a.VerifySSL},
+			DialContext:           a.dialer.DialContext,
+			TLSClientConfig:       &tls.Config{InsecureSkipVerify: !a.VerifySSL},
+			MaxIdleConns:          a.maxIdleConns,
+			MaxIdleConnsPerHost:   a.maxIdleConnsPerHost,
+			MaxConnsPerHost:       a.maxConnsPerHost,
+			IdleConnTimeout:       a.idleConnTimeout,
+			TLSHandshakeTimeout:   a.tlsHandshakeTimeout,
+			ExpectContinueTimeout: 1 * time.Second,
+		}
+		if (a.Proxy != nil) && (*a.Proxy != Proxy{}) {
+			path := a.Proxy.Host
+			if a.Proxy.Port != 0 {
+				path = path + ":" + strconv.Itoa(a.Proxy.Port)
+			}
+			transport.Proxy = http.ProxyURL(&url.URL{
+				Scheme: a.Proxy.Scheme,
+				User:   url.UserPassword(a.Proxy.Username, a.Proxy.Password),
+				Host:   path,
+			})
 		}
 		a.retryClient.HTTPClient.Transport = transport
 		isRetryClientModified = true
@@ -356,26 +415,87 @@ func (a *ApiClient) setupClient() {
 	a.retryClient.RetryWaitMax = a.RetryInterval
 	a.retryClient.CheckRetry = retryPolicy
 
-	if a.LoggerFile != "" {
-		log := logrus.New()
-		leveledLogrus := LeveledLogrus{log}
-		leveledLogrus.setLoggerFilePath(a.LoggerFile)
-		if a.Debug {
-			log.SetLevel(logrus.DebugLevel)
-		} else {
-			log.SetLevel(logrus.WarnLevel)
-		}
-
-		a.retryClient.Logger = retryablehttp.LeveledLogger(&leveledLogrus)
-	} else {
-		a.retryClient.Logger = nil
-	}
-
+	configureLogger(a)
 
 	if isRetryClientModified {
 		a.httpClient = a.retryClient.StandardClient()
-		setTimeout(a.Timeout, a)
 	}
+
+	a.httpClient.Timeout = getValidTimeout(a.ConnectTimeout, a) + a.tlsHandshakeTimeout + getValidTimeout(a.ReadTimeout, a)
+}
+
+func configureLogger(a *ApiClient) {
+	a.retryClient.Logger = nil
+
+	logLevel := logrus.InfoLevel
+	if a.Debug {
+		logLevel = logrus.DebugLevel
+	}
+
+	var output io.Writer
+	if a.LoggerFile == "" {
+		output = os.Stderr
+	} else {
+		f, _ := os.OpenFile(a.LoggerFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0777)
+		output = io.MultiWriter(os.Stderr, f)
+	}
+
+	if a.logger == nil {
+		a.logger = &logrus.Logger{
+			Out:   output,
+			Level: logLevel,
+			Formatter: &myFormatter{
+				logrus.TextFormatter{
+					FullTimestamp:          true,
+					TimestampFormat:        "2006-01-02 15:04:05.000",
+					ForceColors:            true,
+					DisableLevelTruncation: true,
+				},
+			},
+		}
+	} else {
+		a.logger.Out = output
+		a.logger.Level = logLevel
+	}
+}
+
+// Custom formatter for logrus
+type myFormatter struct {
+	logrus.TextFormatter
+}
+
+// Format function implementation for the Formatter interface of logrus
+func (f *myFormatter) Format(entry *logrus.Entry) ([]byte, error) {
+	var b *bytes.Buffer
+
+	if entry.Buffer != nil {
+		b = entry.Buffer
+	} else {
+		b = &bytes.Buffer{}
+	}
+
+	b.WriteString(entry.Time.Format(f.TimestampFormat))
+	b.WriteByte(' ')
+	b.WriteString(strings.ToUpper(entry.Level.String()))
+
+	if entry.Message != "" {
+		b.WriteString(" - ")
+		b.WriteString(entry.Message)
+	}
+
+	if len(entry.Data) > 0 {
+		b.WriteString(" || ")
+	}
+
+	for key, value := range entry.Data {
+		b.WriteString(key)
+		b.WriteByte('=')
+		fmt.Fprint(b, value)
+		b.WriteString(", ")
+	}
+
+	b.WriteByte('\n')
+	return b.Bytes(), nil
 }
 
 // SelectHeaderContentType select a content type from the available list.
@@ -468,61 +588,60 @@ func (a *ApiClient) prepareRequest(
 	if len(headerParams) > 0 {
 		headers := http.Header{}
 		for h, v := range headerParams {
-			headers.Set(h, v)
+			headers[h] = []string{v}
 		}
 		localVarRequest.Header = headers
 	}
 
 	// Add the user agent to the request.
-	localVarRequest.Header.Add("User-Agent", userAgent)
+	localVarRequest.Header["User-Agent"] = []string{userAgent}
 
 	// Authentication
 	a.SetUserName(a.Username)
 	a.SetPassword(a.Password)
 	for _, authName := range authNames {
 		// Basic HTTP authentication
-		if  auth, ok := a.authentication[authName].(*BasicAuth); ok {
+		if auth, ok := a.authentication[authName].(*BasicAuth); ok {
 			if auth.UserName != "" && auth.Password != "" {
 				localVarRequest.SetBasicAuth(auth.UserName, auth.Password)
 			}
-		// API Key authentication
+			// API Key authentication
 		} else if auth, ok := a.authentication[authName].(map[string]interface{}); ok {
 			var key string
-			if apiKey,ok := auth["apiKey"].(*APIKey); ok && apiKey.Prefix != "" {
+			if apiKey, ok := auth["apiKey"].(*APIKey); ok && apiKey.Prefix != "" {
 				key = apiKey.Prefix + " " + apiKey.Key
 			} else {
 				key = apiKey.Key
 			}
 
 			if auth["in"] == "header" {
-				localVarRequest.Header.Add(auth["name"].(string), key)
+				localVarRequest.Header[auth["name"].(string)] = []string{key}
 			}
 			if auth["in"] == "query" {
 				queries := localVarRequest.URL.Query()
 				queries.Add(auth["name"].(string), key)
 				localVarRequest.URL.RawQuery = queries.Encode()
 			}
-		// OAuth or Bearer authentication
+			// OAuth or Bearer authentication
 		} else if auth, ok := a.authentication[authName].(*OAuth); ok {
-			localVarRequest.Header.Add("Authorization", "Bearer " + auth.AccessToken)
+			localVarRequest.Header["Authorization"] = []string{"Bearer " + auth.AccessToken}
 		} else {
 			return nil, ReportError("unknown authentication type: %s", authName)
 		}
 	}
 
 	for header, value := range a.defaultHeaders {
-		localVarRequest.Header.Add(header, value)
+		localVarRequest.Header[header] = []string{value}
 	}
 
 	// Add the cookie to the request.
 	if len(a.cookie) > 0 {
-		localVarRequest.Header.Add("Cookie", a.cookie)
+		localVarRequest.Header["Cookie"] = []string{a.cookie}
 		delete(localVarRequest.Header, "Authorization")
 	}
 
 	return localVarRequest, nil
 }
-
 
 // RetryPolicy provides a callback for Client.CheckRetry, specifies retry on
 // error codes mentioned in RetryStatusList
@@ -592,7 +711,7 @@ func (a *ApiClient) GetEtag(object interface{}) string {
 	} else if reflect.TypeOf(object).Kind() == reflect.Interface || reflect.TypeOf(object).Kind() == reflect.Ptr {
 		reserved = reflect.ValueOf(object).Elem().FieldByName("Reserved_")
 	} else {
-		log.Printf("\nUnrecognized input type %s for %s to retrieve etag!\n", reflect.TypeOf(object).Kind(), object)
+		a.logger.Warnf("Unrecognized input type %s for %s to retrieve etag!", reflect.TypeOf(object).Kind(), object)
 		return ""
 	}
 
@@ -707,6 +826,25 @@ type BasicAuth struct {
 	Password string `json:"password,omitempty"`
 }
 
+/**
+  Configuration for the Proxy Server that
+  requests are to be routed through.
+
+  Parameters :-
+    Scheme (string) : URI Scheme for connecting to the proxy ("http", "https" or "socks5")
+    Host (string) : Host of the proxy to which the client will connect to
+    Port (string) : Port of the proxy to which the client will connect to
+    Username (string) : Username to connect to the proxy
+    Password (string) : Password to connect to the proxy
+*/
+type Proxy struct {
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
+	Scheme   string `json:"scheme,omitempty"`
+	Host     string `json:"host,omitempty"`
+	Port     int    `json:"port,omitempty"`
+}
+
 // APIKey provides API key based authentication to a request passed via context using ContextAPIKey
 type APIKey struct {
 	Key    string
@@ -806,7 +944,7 @@ func fields(keysAndValues []interface{}) map[string]interface{} {
 }
 
 func (l *LeveledLogrus) setLoggerFilePath(filename string) error {
-	logFile, err := os.OpenFile(filename, os.O_APPEND | os.O_CREATE | os.O_RDWR, 0666)
+	logFile, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
 	if err != nil {
 		l.Error("Error opening log file", "error", err)
 		return err

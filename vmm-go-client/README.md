@@ -1,4 +1,4 @@
-# Go Client For Nutanix Nutanix Vmm Versioned APIs
+# Go Client For Nutanix Vmm Versioned APIs
 
 The Go client for Nutanix Vmm Versioned APIs is designed for Go client application developers offering them simple and flexible access to APIs that manage the life-cycle of virtual machines hosted on Nutanix.
 
@@ -10,7 +10,7 @@ The Go client for Nutanix Vmm Versioned APIs is designed for Go client applicati
 
 ## Version
 - API version: v4.0.a1
-- Package version: v4.0.1-alpha.1
+- Package version: v4.0.2-alpha.1
 
 ## Requirements.
 Go 1.11 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/...@v4.0.1-alpha.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/...@v4.0.2-alpha.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4 v4.0.1-alpha.1
+	github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4 v4.0.2-alpha.1
 )
 ```
 
@@ -70,16 +70,29 @@ The Go client for Nutanix Vmm Versioned APIs can be configured with the followin
 
 | Parameter | Description                                                                      | Required | Default Value|
 |-----------|----------------------------------------------------------------------------------|----------|--------------|
+| Scheme    | URI scheme for connecting to the cluster (HTTP or HTTPS using SSL/TLS)           | No       | https        |
 | Host      | IPv4/IPv6 address or FQDN of the cluster to which the client will connect to     | Yes      | N/A          |
 | Port      | Port on the cluster to which the client will connect to                          | No       | 9440         |
 | Username  | Username to connect to a cluster                                                 | Yes      | N/A          |
 | Password  | Password to connect to a cluster                                                 | Yes      | N/A          |
 | Debug     | Runs the client in debug mode if specified                                       | No       | False        |
 | VerifySSL | Verify SSL certificate of cluster, the client will connect to                    | No       | True         |
+| Proxy     | Configure a proxy, the client will connect to                                    | No       | N/A          |
 | MaxRetryAttempts| Maximum number of retry attempts while connecting to the cluster           | No       | 5            |
 | RetryInterval| Interval in milliseconds at which retry attempts are made                     | No       | 3000         |
-| LoggerFile | File location to which debug logs are written to                                | No       | N/A|
-| Timeout | Global timeout in milliseconds for all operations                                  | No       | 30000        |
+| LoggerFile | File location to which debug logs are written to                                | No       | N/A          |
+| ConnectTimeout | Connection timeout in milliseconds for all operations                       | No       | 30000        |
+| ReadTimeout | Read timeout in milliseconds for all operations                                | No       | 30000        |
+
+A Proxy can be configured with the following parameters
+
+| Parameter      | Description                                                            | Required | Default Value|
+|----------------|------------------------------------------------------------------------|----------|--------------|
+| Proxy.Scheme   | URI Scheme for connecting to the proxy ("http", "https" or "socks5")   | Yes      | N/A          |
+| Proxy.Host     | Host of the proxy to which the client will connect to                  | Yes      | N/A          |
+| Proxy.Port     | Port of the proxy to which the client will connect to                  | Yes      | N/A          |
+| Proxy.Username | Username to connect to the proxy                                       | -        | N/A          |
+| Proxy.Password | Password to connect to the proxy                                       | -        | N/A          |
 
 ### Sample Configuration
 ```go
@@ -95,6 +108,29 @@ ApiClientInstance.Host = "10.19.50.27" // IPv4/IPv6 address or FQDN of the clust
 ApiClientInstance.Port = 9440 // Port to which to connect to
 ApiClientInstance.Username = "admin" // UserName to connect to the cluster
 ApiClientInstance.Password = "password" // Password to connect to the cluster
+
+```
+
+### Proxy Configuration
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
+)
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+// Configure the client as shown in the previous step
+// ...
+
+ApiClientInstance.Proxy = new(client.Proxy)
+
+ApiClientInstance.Proxy.Scheme = "socks5"
+ApiClientInstance.Proxy.Username = "proxy_admin"
+ApiClientInstance.Proxy.Password = "proxy_password"
+ApiClientInstance.Proxy.Host = "127.0.0.1"
+ApiClientInstance.Proxy.Port = 1080
 
 ```
 
@@ -134,7 +170,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	PlacementPoliciesApiInstance *api.PlacementPoliciesApi
+	VmApiInstance *api.VmApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -142,11 +178,12 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-PlacementPoliciesApiInstance = api.NewPlacementPoliciesApi(ApiClientInstance)
-extId := "^FaDd5c64-d2Ad-F5da-2AB2-87Fc2413BBc9$"
+VmApiInstance = api.NewVmApi(ApiClientInstance)
+vmExtId := "DcC82C76-aaA6-eDa8-0E5e-0aaF80FefBdA"
+extId := "BdBdD0fE-eB8C-67ab-8bE2-CcC1DC7fCBB6"
 
 // 
-getResponse, err := PlacementPoliciesApiInstance.GetPlacementPolicyByExtId(extId)
+getResponse, err := VmApiInstance.GetCdromByExtId(&vmExtId, &extId)
 if err != nil {
 ....
 }
@@ -182,7 +219,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	PlacementPoliciesApiInstance *api.PlacementPoliciesApi
+	VmApiInstance *api.VmApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -190,11 +227,12 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-PlacementPoliciesApiInstance = api.NewPlacementPoliciesApi(ApiClientInstance)
-extId := "^FaDd5c64-d2Ad-F5da-2AB2-87Fc2413BBc9$"
+VmApiInstance = api.NewVmApi(ApiClientInstance)
+vmExtId := "DcC82C76-aaA6-eDa8-0E5e-0aaF80FefBdA"
+extId := "BdBdD0fE-eB8C-67ab-8bE2-CcC1DC7fCBB6"
 
 // 
-getResponse, err := PlacementPoliciesApiInstance.GetPlacementPolicyByExtId(extId)
+getResponse, err := VmApiInstance.GetCdromByExtId(&vmExtId, &extId)
 if err != nil {
     ....
 }
@@ -207,11 +245,11 @@ args["If-Match"] = etagValue
 // ...
 // Perform update call with received E-Tag reference
 // initialize/change parameters for update
-}
-placementPolicy := getResponse.GetData().(import1.PlacementPolicy)
+// ...
+cdrom := getResponse.GetData().(import1.Cdrom)
 
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := PlacementPoliciesApiInstance.UpdatePlacementPolicyByExtId(placementPolicy, extId, args)
+response, err := VmApiInstance.UpdateCdrom(&cdrom, &vmExtId, &extId, args)
 if err != nil {
 ....
 }
@@ -222,8 +260,8 @@ List Operations for Nutanix APIs support pagination, filtering, sorting and proj
 
 | Parameter | Description
 |-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| _page     | specifies the page number of the result set. Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will be set to its nearest bound. In other words, a page number of less than 0 would be set to 0 and a page number greater than the total available pages would be set to the last page.|
-| _limit    | specifies the total number of records returned in the result set. Must be a positive integer between 0 and 100. Any number out of this range will be set to the default maximum number of records, which is 100. |
+| _page     | specifies the page number of the result set. Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.|
+| _limit    | specifies the total number of records returned in the result set. Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set|
 | _filter   | allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the [OData V4.01 URL](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_SystemQueryOptionfilter) conventions. |
 | _orderby  | allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified the resources will be sorted in ascending order by default. For example, 'orderby=templateName desc' would get all templates sorted by templateName in desc order. |
 | _select   | allows clients to request a specific set of properties for each entity or complex type. Expression specified with the $select must conform to the OData V4.01 URL conventions. If a $select expression consists of a single select item that is an asterisk (i.e. *), then all properties on the matching resource will be returned. |
@@ -236,7 +274,7 @@ import (
 )
 var (
 	ApiClientInstance *client.ApiClient
-	PlacementPoliciesApiInstance *api.PlacementPoliciesApi
+	VmApiInstance *api.VmApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -244,14 +282,14 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-PlacementPoliciesApiInstance = api.NewPlacementPoliciesApi(ApiClientInstance)
-$page := 0
-$limit := 50
-$filter := "string_sample_data"
-$orderby := "string_sample_data"
+VmApiInstance = api.NewVmApi(ApiClientInstance)
+page := 0
+limit := 50
+filter := "string_sample_data"
+orderby := "string_sample_data"
 
 // 
-response, err := PlacementPoliciesApiInstance.GetPlacementPoliciesList($page, $limit, $filter, $orderby)
+response, err := VmApiInstance.ListVms(&page, &limit, &filter, &orderby)
 if err != nil {
     ....
 }
@@ -262,10 +300,10 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=vmm&version=v4.0.a1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).
 
 ## Contact us
-In case of issues please reach out to us at the [mailing list](@sdk@nutanix.com)
+In case of issues please reach out to us at the [mailing list](mailto:sdk@nutanix.com)

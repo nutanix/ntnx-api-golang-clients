@@ -11,8 +11,9 @@ available for the following namespaces.
 | aiops        | Manage Nutanix infrastructure using Analysis, Reporting, Capacity Planning, What if Analysis, VM Rightsizing, Troubleshooting, App Discovery, Broad Observability, and Ops Automation through Playbooks.|
 | storage      | Manage Volume Groups and Storage Containers hosted on Nutanix clusters.                                     |
 | iam          | Manage User Identity and Access                                                                     |
-| lcm          | Manage Infrastructure, Software and Firmware Upgrades. |
-| files        | Manage virtual file servers, create and configure shares for client access, protect them using DR and sync policies, provision storage space and administer security controls.|
+| lcm          | Manage Infrastructure, Software and Firmware Upgrades.                                                                     |
+| files        | Manage virtual file servers, create and configure shares for client access, protect them using DR and sync policies, provision storage space and administer security controls.|                                                                    |
+| networking   | Manage networking configuration on Nutanix clusters, including AHV and advanced networking.|                                                                    |
 
 # Project Structure
 Project contains a top level directory corresponding to each namespace as listed above.The directory name would be
@@ -94,4 +95,4 @@ These clients have a full set of [API Reference Documentation](https://developer
 This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).
 
 ## Contact us
-In case of issues, please reach out to us at the [mailing list](@sdk@nutanix.com).
+In case of issues, please reach out to us at the [mailing list](mailto:sdk@nutanix.com).
