@@ -37,29 +37,24 @@ var (
 	xmlCheck        = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 	uriCheck        = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
 	retryStatusList = []int{408, 503, 504}
-	userAgent       = "Nutanix-prism/v4.0.2-alpha.1"
+	userAgent       = "Nutanix-prism/v4.0.3-alpha.2"
 )
 
-/**
-  Generic API client for Swagger client library builds.
-  Swagger generic API client. This client handles the client-
-  server communication, and is invariant across implementations. Specifics of
-  the methods and models for each application are generated from the Swagger
-  templates.
+/*
+  API client to handle the client-server communication, and is invariant across implementations.
 
-  Parameters :-
-    Scheme (string) : URI scheme for connecting to the cluster (HTTP or HTTPS using SSL/TLS) (default : https)
-    Host (string) : Host IPV4, IPV6 or FQDN for all http request made by this client (default : localhost)
-    Port (string) : Port for the host to connect to make all http request (default : 9440)
-    Username (string) : Username to connect to a cluster
-    Password (string) : Password to connect to a cluster
-    Debug (bool) : flag to enable debug logging (default : empty)
-    VerifySSL (bool) : Verify SSL certificate of cluster (default: true)
-    MaxRetryAttempts (int) : Maximum number of retry attempts to be made at a time (default: 5)
-    ReadTimeout (time.Duration) : Read timeout for all operations in milliseconds
-    ConnectTimeout (time.Duration) : Connection timeout for all operations in milliseconds
-    RetryInterval (time.Duration) : Interval between successive retry attempts (default: 3 sec)
-    LoggerFile (string) : Log file to write activity logs
+    Scheme (optional) : URI scheme for connecting to the cluster (HTTP or HTTPS using SSL/TLS) (default : https)
+    Host (required) : Host IPV4, IPV6 or FQDN for all http request made by this client (default : localhost)
+    Port (optional) : Port for the host to connect to make all http request (default : 9440)
+    Username (required) : Username to connect to a cluster
+    Password (required) : Password to connect to a cluster
+    Debug (optional) : flag to enable debug logging (default : empty)
+    VerifySSL (optional) : Verify SSL certificate of cluster (default: true)
+    MaxRetryAttempts (optional) : Maximum number of retry attempts to be made at a time (default: 5)
+    ReadTimeout (optional) : Read timeout for all operations in milliseconds
+    ConnectTimeout (optional) : Connection timeout for all operations in milliseconds
+    RetryInterval (optional) : Interval between successive retry attempts (default: 3 sec)
+    LoggerFile (optional) : Log file to write activity logs
 */
 type ApiClient struct {
 	Scheme           string `json:"scheme,omitempty"`
@@ -110,9 +105,7 @@ type ApiClient struct {
 	tlsHandshakeTimeout time.Duration
 }
 
-/**
-  Returns a newly generated ApiClient instance populated with default values
-*/
+// Returns a newly generated ApiClient instance populated with default values
 func NewApiClient() *ApiClient {
 
 	basicAuth := new(BasicAuth)
@@ -144,9 +137,7 @@ func NewApiClient() *ApiClient {
 	return a
 }
 
-/*AddDefaultHeader
-Adds a default header to current api client instance for all the HTTP calls.
-*/
+// Adds a default header to current api client instance for all the HTTP calls.
 func (a *ApiClient) AddDefaultHeader(headerName string, headerValue string) {
 	if headerName == "Authorization" {
 		a.cookie = ""
@@ -216,11 +207,16 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 
 	// Retry one more time without the cookie but with basic auth header
 	if response != nil && response.StatusCode == 401 {
+		a.logger.Debug("Retrying the request to refresh cookie...")
+		request, _ = a.prepareRequest(path, httpMethod, body, headerParams, queryParams, formParams, authNames)
 		a.refreshCookie = true
 		if len(a.previousAuth) > 0 {
 			request.Header["Authorization"] = []string{a.previousAuth}
 		}
 		delete(request.Header, "Cookie")
+
+		dump, _ := httputil.DumpRequestOut(request, true)
+		a.logger.Debug(string(dump))
 		response, err = a.httpClient.Do(request)
 	}
 
@@ -332,10 +328,8 @@ func (a *ApiClient) SetAccessToken(accessToken string) error {
 	return ReportError("no OAuth2 authentication configured!")
 }
 
-/**
-  Helper method to set maximum retry attempts.
-  After the initial instantiation of ApiClient, maximum retry attempts must be modified only via this method
-*/
+// Helper method to set maximum retry attempts.
+// After the initial instantiation of ApiClient, maximum retry attempts must be modified only via this method
 func (a *ApiClient) SetMaxRetryAttempts(maxRetryAttempts int) {
 	a.MaxRetryAttempts = maxRetryAttempts
 }
@@ -350,18 +344,15 @@ func getValidTimeout(dur time.Duration, apiClient *ApiClient) time.Duration {
 	return dur
 }
 
-/**
-  Helper method to enable/disable SSL verification. By default, SSL verification is enabled.
-  Please note that disabling SSL verification is not recommended and should only be done for test purposes.
-*/
+// Helper method to enable/disable SSL verification. By default, SSL verification is enabled.
+//
+// Please note that disabling SSL verification is not recommended and should only be done for test purposes.
 func (a *ApiClient) SetVerifySSL(verifySSL bool) {
 	a.VerifySSL = verifySSL
 }
 
-/**
-  Helper method to set retry back off period.
-  After the initial instantiation of ApiClient, back off period must be modified only via this method
-*/
+// Helper method to set retry back off period.
+// After the initial instantiation of ApiClient, back off period must be modified only via this method
 func (a *ApiClient) SetRetryIntervalInMilliSeconds(ms int) {
 	a.RetryInterval = time.Duration(ms) * time.Millisecond
 }
@@ -498,7 +489,7 @@ func (f *myFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	return b.Bytes(), nil
 }
 
-// SelectHeaderContentType select a content type from the available list.
+// Select a content type from the available list.
 func (a *ApiClient) selectHeaderContentType(contentTypes []string) string {
 	if len(contentTypes) == 0 {
 		return ""
@@ -509,7 +500,7 @@ func (a *ApiClient) selectHeaderContentType(contentTypes []string) string {
 	return contentTypes[0] // use the first content type specified in 'consumes'
 }
 
-// selectHeaderAccept join all accept types and return
+// Join all accept types and return
 func (a *ApiClient) selectHeaderAccept(accepts []string) string {
 	if len(accepts) == 0 {
 		return ""
@@ -522,7 +513,7 @@ func (a *ApiClient) selectHeaderAccept(accepts []string) string {
 	return strings.Join(accepts, ",")
 }
 
-// prepareRequest build the request
+// Build the request
 func (a *ApiClient) prepareRequest(
 	path string, method string,
 	postBody interface{},
@@ -634,6 +625,8 @@ func (a *ApiClient) prepareRequest(
 		localVarRequest.Header[header] = []string{value}
 	}
 
+	a.previousAuth = localVarRequest.Header.Get("Authorization")
+
 	// Add the cookie to the request.
 	if len(a.cookie) > 0 {
 		localVarRequest.Header["Cookie"] = []string{a.cookie}
@@ -657,7 +650,7 @@ func retryPolicy(ctx context.Context, resp *http.Response, err error) (bool, err
 	return false, nil
 }
 
-// contains is a case insensitive match, finding needle in a haystack
+// Case-insensitive match for finding an item in the list.
 func contains(haystack []string, needle string) bool {
 	for _, a := range haystack {
 		if strings.ToLower(a) == strings.ToLower(needle) {
@@ -667,7 +660,7 @@ func contains(haystack []string, needle string) bool {
 	return false
 }
 
-// detectContentType method is used to figure out `Request.Body` content type for request header
+// Figure out `Request.Body` content type for request header
 func detectContentType(body interface{}) string {
 	contentType := "text/plain; charset=utf-8"
 	kind := reflect.TypeOf(body).Kind()
@@ -688,7 +681,7 @@ func detectContentType(body interface{}) string {
 	return contentType
 }
 
-// addEtagReferenceToHeader method is used to read ETag and add it to If-Match header
+// Read ETag and add it to If-Match header
 func addEtagReferenceToHeader(body interface{}, headerParams map[string]string) {
 	if reflect.ValueOf(body).Elem().Kind() == reflect.Struct {
 		if reserved := reflect.ValueOf(body).Elem().FieldByName("Reserved_"); reserved.IsValid() {
@@ -700,10 +693,8 @@ func addEtagReferenceToHeader(body interface{}, headerParams map[string]string) 
 	}
 }
 
-/*GetEtag
-Get ETag from an object if exists, otherwise returns empty string.
-The ETag is usually provided in the response of the GET API calls, which can further be used in other HTTP operations.
-*/
+// Get ETag from an object if exists, otherwise returns empty string.
+// The ETag is usually provided in the response of the GET API calls, which can further be used in other HTTP operations.
 func (a *ApiClient) GetEtag(object interface{}) string {
 	var reserved reflect.Value
 	if reflect.TypeOf(object).Kind() == reflect.Struct {
@@ -728,7 +719,7 @@ func (a *ApiClient) GetEtag(object interface{}) string {
 	return ""
 }
 
-// addEtagReferenceToResponse method is used to read ETag and add it to response
+// Read ETag and add it to response
 func addEtagReferenceToResponse(headers http.Header, body []byte) []byte {
 	if etag := headers.Get(eTag); etag != "" {
 		responseMap := map[string]interface{}{}
@@ -820,22 +811,20 @@ func (a *ApiClient) updateCookies(response *http.Response) {
 	}
 }
 
-// BasicAuth provides basic http authentication to a request passed via context using ContextBasicAuth
+// Provides basic http authentication to a request passed via context using ContextBasicAuth
 type BasicAuth struct {
 	UserName string `json:"userName,omitempty"`
 	Password string `json:"password,omitempty"`
 }
 
-/**
-  Configuration for the Proxy Server that
-  requests are to be routed through.
+/*
+  Configuration for the Proxy Server that requests are to be routed through.
 
-  Parameters :-
-    Scheme (string) : URI Scheme for connecting to the proxy ("http", "https" or "socks5")
-    Host (string) : Host of the proxy to which the client will connect to
-    Port (string) : Port of the proxy to which the client will connect to
-    Username (string) : Username to connect to the proxy
-    Password (string) : Password to connect to the proxy
+    Scheme: URI Scheme for connecting to the proxy ("http", "https" or "socks5")
+    Host: Host of the proxy to which the client will connect to
+    Port: Port of the proxy to which the client will connect to
+    Username: Username to connect to the proxy
+    Password: Password to connect to the proxy
 */
 type Proxy struct {
 	Username string `json:"username,omitempty"`
@@ -845,30 +834,30 @@ type Proxy struct {
 	Port     int    `json:"port,omitempty"`
 }
 
-// APIKey provides API key based authentication to a request passed via context using ContextAPIKey
+// Provides API key based authentication to a request passed via context using ContextAPIKey
 type APIKey struct {
 	Key    string
 	Prefix string
 }
 
-// OAuth provides OAuth authentication
+// Provides OAuth authentication
 type OAuth struct {
 	AccessToken string
 }
 
-// GenericOpenAPIError Provides access to the body (error), status and model on returned errors.
+// Provides access to the body (error), status and model on returned errors.
 type GenericOpenAPIError struct {
 	Body   []byte
 	Model  interface{}
 	Status string
 }
 
-// Error returns non-empty string if there was an error.
+// Returns non-empty string if there was an error.
 func (e GenericOpenAPIError) Error() string {
 	return string(e.Body)
 }
 
-// Error returns deserialized response body if compatible with GenericOpenAPIError.Model
+// Returns deserialized response body if compatible with GenericOpenAPIError.Model
 func (e GenericOpenAPIError) DeserializedModel() interface{} {
 	err := json.Unmarshal(e.Body, e.Model)
 	if err != nil {
@@ -877,7 +866,7 @@ func (e GenericOpenAPIError) DeserializedModel() interface{} {
 	return e.Model
 }
 
-// parameterToString convert interface{} parameters to string, using a delimiter if format is provided.
+// Convert interface{} parameters to string, using a delimiter if format is provided.
 func ParameterToString(obj interface{}, collectionFormat string) string {
 	var delimiter string
 
@@ -901,7 +890,7 @@ func ParameterToString(obj interface{}, collectionFormat string) string {
 	return fmt.Sprintf("%v", obj)
 }
 
-// helper for converting interface{} parameters to json strings
+// Helper for converting interface{} parameters to json strings
 func ParameterToJson(obj interface{}) (string, error) {
 	jsonBuf, err := json.Marshal(obj)
 	if err != nil {

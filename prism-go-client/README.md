@@ -9,8 +9,8 @@ The Go client for Nutanix Prism Versioned APIs is designed for Go client applica
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.a1
-- Package version: v4.0.2-alpha.1
+- API version: v4.0.a2
+- Package version: v4.0.3-alpha.2
 
 ## Requirements.
 Go 1.11 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/...@v4.0.2-alpha.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/...@v4.0.3-alpha.2
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4 v4.0.2-alpha.1
+	github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4 v4.0.3-alpha.2
 )
 ```
 
@@ -179,11 +179,10 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 SystemDefinedPoliciesApiInstance = api.NewSystemDefinedPoliciesApi(ApiClientInstance)
-entityUid := "string_sample_data"
-globalConfig := true
+extId := "string_sample_data"
 
 // 
-getResponse, err := SystemDefinedPoliciesApiInstance.GetSdaPolicyById(&entityUid, &globalConfig)
+getResponse, err := SystemDefinedPoliciesApiInstance.GetSdaPolicyById(&extId)
 if err != nil {
 ....
 }
@@ -228,11 +227,10 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 SystemDefinedPoliciesApiInstance = api.NewSystemDefinedPoliciesApi(ApiClientInstance)
-entityUid := "string_sample_data"
-globalConfig := true
+extId := "string_sample_data"
 
 // 
-getResponse, err := SystemDefinedPoliciesApiInstance.GetSdaPolicyById(&entityUid, &globalConfig)
+getResponse, err := SystemDefinedPoliciesApiInstance.GetSdaPolicyById(&extId)
 if err != nil {
     ....
 }
@@ -246,10 +244,10 @@ args["If-Match"] = etagValue
 // Perform update call with received E-Tag reference
 // initialize/change parameters for update
 // ...
-systemDefined := getResponse.GetData().(import1.SystemDefined)
+systemDefinedPolicy := getResponse.GetData().(import1.SystemDefinedPolicy)
 
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := SystemDefinedPoliciesApiInstance.UpdateSdaPolicy(&systemDefined, &entityUid, args)
+response, err := SystemDefinedPoliciesApiInstance.UpdateSdaPolicy(&systemDefinedPolicy&extId, , args)
 if err != nil {
 ....
 }
@@ -300,7 +298,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=prism&version=v4.0.a1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=prism&version=v4.0.a2&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).

@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/common/common_model.go.
  *
- * Product version: 4.0.2-alpha-1
+ * Product version: 4.0.3-alpha-2
  *
  * Part of the Nutanix Prism Versioned APIs
  *
@@ -20,32 +20,34 @@ import (
 	"errors"
 	"fmt"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/common/v1/response"
+	"time"
 )
 
-/**
-The source entity associated with the alert. This field exists for every alert.
-*/
 type AlertEntityReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
-
+	/*
+	  The name of the entity.
+	*/
 	Name *string `json:"name,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
-
+	/*
+	  The type of entity. For example, VM, node, cluster and so on.
+	*/
 	Type *string `json:"type,omitempty"`
 }
 
@@ -53,7 +55,7 @@ func NewAlertEntityReference() *AlertEntityReference {
 	p := new(AlertEntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.common.AlertEntityReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a1.common.AlertEntityReference"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a2.common.AlertEntityReference"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -84,13 +86,13 @@ func NewBoolValue() *BoolValue {
 	p := new(BoolValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.common.BoolValue"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a1.common.BoolValue"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a2.common.BoolValue"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Possible causes, resolutions and additional details to troubleshoot this alert.
 */
 type CauseAndResolution struct {
@@ -99,11 +101,11 @@ type CauseAndResolution struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Possible cause for the generated alert/event.
 	*/
 	Cause *string `json:"cause,omitempty"`
-	/**
+	/*
 	  Possible resolution for the generated alert/event.
 	*/
 	Resolution *string `json:"resolution,omitempty"`
@@ -113,13 +115,13 @@ func NewCauseAndResolution() *CauseAndResolution {
 	p := new(CauseAndResolution)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.common.CauseAndResolution"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a1.common.CauseAndResolution"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a2.common.CauseAndResolution"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 The comparison operator used for the condition evaluation.
 */
 type ComparisonOperator int
@@ -132,10 +134,11 @@ const (
 	COMPARISONOPERATOR_GREATER_THAN_OR_EQUAL_TO ComparisonOperator = 4
 	COMPARISONOPERATOR_LESS_THAN                ComparisonOperator = 5
 	COMPARISONOPERATOR_LESS_THAN_OR_EQUAL_TO    ComparisonOperator = 6
-	COMPARISONOPERATOR_CONTAINS                 ComparisonOperator = 7
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *ComparisonOperator) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -145,7 +148,6 @@ func (e *ComparisonOperator) name(index int) string {
 		"GREATER_THAN_OR_EQUAL_TO",
 		"LESS_THAN",
 		"LESS_THAN_OR_EQUAL_TO",
-		"CONTAINS",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -153,7 +155,25 @@ func (e *ComparisonOperator) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e ComparisonOperator) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"EQUAL_TO",
+		"GREATER_THAN",
+		"GREATER_THAN_OR_EQUAL_TO",
+		"LESS_THAN",
+		"LESS_THAN_OR_EQUAL_TO",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *ComparisonOperator) index(name string) ComparisonOperator {
 	names := [...]string{
 		"$UNKNOWN",
@@ -163,7 +183,6 @@ func (e *ComparisonOperator) index(name string) ComparisonOperator {
 		"GREATER_THAN_OR_EQUAL_TO",
 		"LESS_THAN",
 		"LESS_THAN_OR_EQUAL_TO",
-		"CONTAINS",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -193,7 +212,7 @@ func (e ComparisonOperator) Ref() *ComparisonOperator {
 	return &e
 }
 
-/**
+/*
 Indicating if this symptom is caused by static threshold or anomaly (dynamic threshold) evaluation.  If an indicator is raised, there may have another indicator indicating the safeguard zone value.
 */
 type ConditionType int
@@ -202,18 +221,16 @@ const (
 	CONDITIONTYPE_UNKNOWN          ConditionType = 0
 	CONDITIONTYPE_REDACTED         ConditionType = 1
 	CONDITIONTYPE_STATIC_THRESHOLD ConditionType = 2
-	CONDITIONTYPE_ANOMALY          ConditionType = 3
-	CONDITIONTYPE_SAFETY_ZONE      ConditionType = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *ConditionType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"STATIC_THRESHOLD",
-		"ANOMALY",
-		"SAFETY_ZONE",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -221,14 +238,26 @@ func (e *ConditionType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e ConditionType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"STATIC_THRESHOLD",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *ConditionType) index(name string) ConditionType {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"STATIC_THRESHOLD",
-		"ANOMALY",
-		"SAFETY_ZONE",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -258,7 +287,7 @@ func (e ConditionType) Ref() *ConditionType {
 	return &e
 }
 
-/**
+/*
 Data type of the metric value as stored in database.
 */
 type DataType int
@@ -272,7 +301,9 @@ const (
 	DATATYPE_LONG     DataType = 5
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *DataType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -288,7 +319,24 @@ func (e *DataType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e DataType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"STRING",
+		"BOOLEAN",
+		"DOUBLE",
+		"LONG",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *DataType) index(name string) DataType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -351,14 +399,14 @@ func NewDoubleValue() *DoubleValue {
 	p := new(DoubleValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.common.DoubleValue"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a1.common.DoubleValue"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a2.common.DoubleValue"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-The source entity associated with the alert/event.
+/*
+The source entity associated with the alert/event/audit.
 */
 type EntityReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -366,15 +414,15 @@ type EntityReference struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Unique UUID of the entity.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  The name of the entity.
 	*/
 	Name *string `json:"name,omitempty"`
-	/**
+	/*
 	  The type of entity. For example, VM, node, cluster and so on.
 	*/
 	Type *string `json:"type,omitempty"`
@@ -384,13 +432,13 @@ func NewEntityReference() *EntityReference {
 	p := new(EntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.common.EntityReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a1.common.EntityReference"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a2.common.EntityReference"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 The impact this alert/event will have on the system. For example, availability, performance, capacity and so on.
 */
 type ImpactType int
@@ -408,7 +456,9 @@ const (
 	IMPACTTYPE_STORAGE_CAPACITY ImpactType = 9
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *ImpactType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -428,7 +478,28 @@ func (e *ImpactType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e ImpactType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"AVAILABILITY",
+		"CAPACITY",
+		"CONFIGURATION",
+		"PERFORMANCE",
+		"SYSTEM_INDICATOR",
+		"CPU_CAPACITY",
+		"MEMORY_CAPACITY",
+		"STORAGE_CAPACITY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *ImpactType) index(name string) ImpactType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -495,7 +566,7 @@ func NewIntValue() *IntValue {
 	p := new(IntValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.common.IntValue"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a1.common.IntValue"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a2.common.IntValue"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -513,39 +584,39 @@ type MetricDetail struct {
 	ConditionType *ConditionType `json:"conditionType,omitempty"`
 
 	DataType *DataType `json:"dataType,omitempty"`
-	/**
+	/*
 	  Broad category under which this metric falls. For example, Disk, CPU, Memory and so on.
 	*/
 	MetricCategory *string `json:"metricCategory,omitempty"`
-	/**
+	/*
 	  English readable name of the metric.
 	*/
 	MetricDisplayName *string `json:"metricDisplayName,omitempty"`
-	/**
-	  The metric key.
+	/*
+	  The metric key. Allowed values of metrics list can be found at https://portal.nutanix.com/page/documents/details?targetId=Prism-Central-Guide-vpc_2022_9:mul-alerts-user-created-metrics-r.html
 	*/
 	MetricName *string `json:"metricName,omitempty"`
 
 	MetricValueItemDiscriminator_ *string `json:"$metricValueItemDiscriminator,omitempty"`
-	/**
+	/*
 	  Raw value of the metric when the condition threshold was exceeded.
 	*/
 	MetricValue *OneOfMetricDetailMetricValue `json:"metricValue,omitempty"`
 
 	ThresholdValueItemDiscriminator_ *string `json:"$thresholdValueItemDiscriminator,omitempty"`
-	/**
+	/*
 	  The threshold value that was used for the condition evaluation.
 	*/
 	ThresholdValue *OneOfMetricDetailThresholdValue `json:"thresholdValue,omitempty"`
-	/**
-	  The time when the event was triggered.
+	/*
+	  The time in ISO 8601 format when the event was triggered.
 	*/
-	TriggerTimestamp *int64 `json:"triggerTimestamp,omitempty"`
-	/**
+	TriggerTime *time.Time `json:"triggerTime,omitempty"`
+	/*
 	  How long the metric breached the given condition before raising an event.
 	*/
 	TriggerWaitTime *int64 `json:"triggerWaitTime,omitempty"`
-	/**
+	/*
 	  Unit of the metric. For example, percentage, ms, usecs and so on.
 	*/
 	Unit *string `json:"unit,omitempty"`
@@ -555,7 +626,7 @@ func NewMetricDetail() *MetricDetail {
 	p := new(MetricDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.common.MetricDetail"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a1.common.MetricDetail"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a2.common.MetricDetail"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -582,45 +653,58 @@ func (p *MetricDetail) SetMetricValue(v interface{}) error {
 	return e
 }
 
-/**
+/*
 The operation type associated with the audit. For example, CREATE, UPDATE, DELETE and so on.
 */
 type OperationType int
 
 const (
-	OPERATIONTYPE_UNKNOWN          OperationType = 0
-	OPERATIONTYPE_REDACTED         OperationType = 1
-	OPERATIONTYPE_CREATE           OperationType = 2
-	OPERATIONTYPE_UPDATE           OperationType = 3
-	OPERATIONTYPE_DELETE           OperationType = 4
-	OPERATIONTYPE_POWERSTATECHANGE OperationType = 5
-	OPERATIONTYPE_HA               OperationType = 6
-	OPERATIONTYPE_RESTORE          OperationType = 7
-	OPERATIONTYPE_MIGRATE          OperationType = 8
-	OPERATIONTYPE_ENABLE           OperationType = 9
-	OPERATIONTYPE_DISABLE          OperationType = 10
-	OPERATIONTYPE_RESET            OperationType = 11
-	OPERATIONTYPE_LOGIN            OperationType = 12
-	OPERATIONTYPE_LOGOUT           OperationType = 13
-	OPERATIONTYPE_VALIDATE         OperationType = 14
-	OPERATIONTYPE_FAILOVER         OperationType = 15
-	OPERATIONTYPE_INPROGRESS       OperationType = 16
-	OPERATIONTYPE_TRUE             OperationType = 17
-	OPERATIONTYPE_FALSE            OperationType = 18
-	OPERATIONTYPE_JOINED           OperationType = 19
-	OPERATIONTYPE_UNJOINED         OperationType = 20
-	OPERATIONTYPE_PROTECTED        OperationType = 21
-	OPERATIONTYPE_UNPROTECTED      OperationType = 22
-	OPERATIONTYPE_QUARENTINED      OperationType = 23
-	OPERATIONTYPE_UNQUARENTINED    OperationType = 24
-	OPERATIONTYPE_START            OperationType = 25
-	OPERATIONTYPE_END              OperationType = 26
-	OPERATIONTYPE_TESTFAILOVER     OperationType = 27
-	OPERATIONTYPE_IMPORT           OperationType = 28
-	OPERATIONTYPE_EXPORT           OperationType = 29
+	OPERATIONTYPE_UNKNOWN                     OperationType = 0
+	OPERATIONTYPE_REDACTED                    OperationType = 1
+	OPERATIONTYPE_CREATE                      OperationType = 2
+	OPERATIONTYPE_UPDATE                      OperationType = 3
+	OPERATIONTYPE_DELETE                      OperationType = 4
+	OPERATIONTYPE_POWERSTATECHANGE            OperationType = 5
+	OPERATIONTYPE_HA                          OperationType = 6
+	OPERATIONTYPE_RESTORE                     OperationType = 7
+	OPERATIONTYPE_MIGRATE                     OperationType = 8
+	OPERATIONTYPE_ENABLE                      OperationType = 9
+	OPERATIONTYPE_DISABLE                     OperationType = 10
+	OPERATIONTYPE_RESET                       OperationType = 11
+	OPERATIONTYPE_LOGIN                       OperationType = 12
+	OPERATIONTYPE_LOGOUT                      OperationType = 13
+	OPERATIONTYPE_VALIDATE                    OperationType = 14
+	OPERATIONTYPE_FAILOVER                    OperationType = 15
+	OPERATIONTYPE_INPROGRESS                  OperationType = 16
+	OPERATIONTYPE_ON                          OperationType = 17
+	OPERATIONTYPE_OFF                         OperationType = 18
+	OPERATIONTYPE_JOINED                      OperationType = 19
+	OPERATIONTYPE_UNJOINED                    OperationType = 20
+	OPERATIONTYPE_PROTECTED                   OperationType = 21
+	OPERATIONTYPE_UNPROTECTED                 OperationType = 22
+	OPERATIONTYPE_QUARENTINED                 OperationType = 23
+	OPERATIONTYPE_UNQUARENTINED               OperationType = 24
+	OPERATIONTYPE_START                       OperationType = 25
+	OPERATIONTYPE_END                         OperationType = 26
+	OPERATIONTYPE_TESTFAILOVER                OperationType = 27
+	OPERATIONTYPE_IMPORT                      OperationType = 28
+	OPERATIONTYPE_EXPORT                      OperationType = 29
+	OPERATIONTYPE_IMAGEIMPORT                 OperationType = 30
+	OPERATIONTYPE_IMAGETRANSFER               OperationType = 31
+	OPERATIONTYPE_IMAGEREMOVE                 OperationType = 32
+	OPERATIONTYPE_IMAGEUPLOAD                 OperationType = 33
+	OPERATIONTYPE_TEMPLATEGUESTUPDATEINITIATE OperationType = 34
+	OPERATIONTYPE_TEMPLATEGUESTUPDATECANCEL   OperationType = 35
+	OPERATIONTYPE_TEMPLATEGUESTUPDATECOMPLETE OperationType = 36
+	OPERATIONTYPE_TEMPLATEDEPLOY              OperationType = 37
+	OPERATIONTYPE_TEMPLATEVERSIONPUBLISH      OperationType = 38
+	OPERATIONTYPE_CROSSCLUSTERMIGRATE         OperationType = 39
+	OPERATIONTYPE_FLOWCLUSTERMIGRATE          OperationType = 40
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *OperationType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -640,8 +724,8 @@ func (e *OperationType) name(index int) string {
 		"VALIDATE",
 		"FAILOVER",
 		"INPROGRESS",
-		"true",
-		"false",
+		"ON",
+		"OFF",
 		"JOINED",
 		"UNJOINED",
 		"PROTECTED",
@@ -653,6 +737,17 @@ func (e *OperationType) name(index int) string {
 		"TESTFAILOVER",
 		"IMPORT",
 		"EXPORT",
+		"IMAGEIMPORT",
+		"IMAGETRANSFER",
+		"IMAGEREMOVE",
+		"IMAGEUPLOAD",
+		"TEMPLATEGUESTUPDATEINITIATE",
+		"TEMPLATEGUESTUPDATECANCEL",
+		"TEMPLATEGUESTUPDATECOMPLETE",
+		"TEMPLATEDEPLOY",
+		"TEMPLATEVERSIONPUBLISH",
+		"CROSSCLUSTERMIGRATE",
+		"FLOWCLUSTERMIGRATE",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -660,7 +755,59 @@ func (e *OperationType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e OperationType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CREATE",
+		"UPDATE",
+		"DELETE",
+		"POWERSTATECHANGE",
+		"HA",
+		"RESTORE",
+		"MIGRATE",
+		"ENABLE",
+		"DISABLE",
+		"RESET",
+		"LOGIN",
+		"LOGOUT",
+		"VALIDATE",
+		"FAILOVER",
+		"INPROGRESS",
+		"ON",
+		"OFF",
+		"JOINED",
+		"UNJOINED",
+		"PROTECTED",
+		"UNPROTECTED",
+		"QUARENTINED",
+		"UNQUARENTINED",
+		"START",
+		"END",
+		"TESTFAILOVER",
+		"IMPORT",
+		"EXPORT",
+		"IMAGEIMPORT",
+		"IMAGETRANSFER",
+		"IMAGEREMOVE",
+		"IMAGEUPLOAD",
+		"TEMPLATEGUESTUPDATEINITIATE",
+		"TEMPLATEGUESTUPDATECANCEL",
+		"TEMPLATEGUESTUPDATECOMPLETE",
+		"TEMPLATEDEPLOY",
+		"TEMPLATEVERSIONPUBLISH",
+		"CROSSCLUSTERMIGRATE",
+		"FLOWCLUSTERMIGRATE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *OperationType) index(name string) OperationType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -680,8 +827,8 @@ func (e *OperationType) index(name string) OperationType {
 		"VALIDATE",
 		"FAILOVER",
 		"INPROGRESS",
-		"true",
-		"false",
+		"ON",
+		"OFF",
 		"JOINED",
 		"UNJOINED",
 		"PROTECTED",
@@ -693,6 +840,17 @@ func (e *OperationType) index(name string) OperationType {
 		"TESTFAILOVER",
 		"IMPORT",
 		"EXPORT",
+		"IMAGEIMPORT",
+		"IMAGETRANSFER",
+		"IMAGEREMOVE",
+		"IMAGEUPLOAD",
+		"TEMPLATEGUESTUPDATEINITIATE",
+		"TEMPLATEGUESTUPDATECANCEL",
+		"TEMPLATEGUESTUPDATECOMPLETE",
+		"TEMPLATEDEPLOY",
+		"TEMPLATEVERSIONPUBLISH",
+		"CROSSCLUSTERMIGRATE",
+		"FLOWCLUSTERMIGRATE",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -728,11 +886,15 @@ type Parameter struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  Name or key of additional parameter for an instance.
+	*/
 	ParamName *string `json:"paramName,omitempty"`
 
 	ParamValueItemDiscriminator_ *string `json:"$paramValueItemDiscriminator,omitempty"`
-
+	/*
+	  Value of additional parameter for an instance.
+	*/
 	ParamValue *OneOfParameterParamValue `json:"paramValue,omitempty"`
 }
 
@@ -740,7 +902,7 @@ func NewParameter() *Parameter {
 	p := new(Parameter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.common.Parameter"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a1.common.Parameter"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a2.common.Parameter"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -767,7 +929,7 @@ func (p *Parameter) SetParamValue(v interface{}) error {
 	return e
 }
 
-/**
+/*
 Severity of an alert
 */
 type Severity int
@@ -780,7 +942,9 @@ const (
 	SEVERITY_CRITICAL Severity = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *Severity) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -795,7 +959,23 @@ func (e *Severity) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e Severity) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"INFO",
+		"WARNING",
+		"CRITICAL",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *Severity) index(name string) Severity {
 	names := [...]string{
 		"$UNKNOWN",
@@ -857,7 +1037,7 @@ func NewStringValue() *StringValue {
 	p := new(StringValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.common.StringValue"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a1.common.StringValue"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "prism.v4.r0.a2.common.StringValue"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

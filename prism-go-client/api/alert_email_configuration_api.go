@@ -10,17 +10,17 @@ import (
 	"strings"
 )
 
-type AlertsApi struct {
+type AlertEmailConfigurationApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewAlertsApi(apiClient *client.ApiClient) *AlertsApi {
+func NewAlertEmailConfigurationApi(apiClient *client.ApiClient) *AlertEmailConfigurationApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &AlertsApi{
+	a := &AlertEmailConfigurationApi{
 		ApiClient: apiClient,
 	}
 
@@ -33,22 +33,15 @@ func NewAlertsApi(apiClient *client.ApiClient) *AlertsApi {
 	return a
 }
 
-// Get alert details for a given UUID.
-func (api *AlertsApi) GetAlertById(extId *string, args ...map[string]interface{}) (*import1.AlertApiResponse, error) {
+// Get alert email configuration.
+func (api *AlertEmailConfigurationApi) GetAlertEmailConfiguration(args ...map[string]interface{}) (*import1.AlertEmailConfigurationApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0.a2/serviceability/alerts/{extId}"
+	uri := "/api/prism/v4.0.a2/serviceability/alerts/email-config"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -77,47 +70,35 @@ func (api *AlertsApi) GetAlertById(extId *string, args ...map[string]interface{}
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.AlertApiResponse)
+	unmarshalledResp := new(import1.AlertEmailConfigurationApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get the list of alerts.
-func (api *AlertsApi) GetAlerts(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.AlertListApiResponse, error) {
+// Update alert email configuration.
+func (api *AlertEmailConfigurationApi) UpdateAlertEmailConfiguration(body *import1.AlertEmailConfiguration, args ...map[string]interface{}) (*import1.AlertEmailConfigurationApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0.a2/serviceability/alerts"
+	uri := "/api/prism/v4.0.a2/serviceability/alerts/email-config"
+
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{}
+	contentTypes := []string{"application/json"}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Query Params
-	if page_ != nil {
-
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
-	}
-	if limit_ != nil {
-
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
-	}
-	if filter_ != nil {
-
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
-	}
-	if orderby_ != nil {
-
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -132,11 +113,11 @@ func (api *AlertsApi) GetAlerts(page_ *int, limit_ *int, filter_ *string, orderb
 
 	authNames := []string{"basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.AlertListApiResponse)
+	unmarshalledResp := new(import1.AlertEmailConfigurationApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
