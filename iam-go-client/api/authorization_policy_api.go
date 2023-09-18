@@ -4,23 +4,23 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/authn"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/authz"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type DirectoryServiceApi struct {
+type AuthorizationPolicyApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewDirectoryServiceApi(apiClient *client.ApiClient) *DirectoryServiceApi {
+func NewAuthorizationPolicyApi(apiClient *client.ApiClient) *AuthorizationPolicyApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &DirectoryServiceApi{
+	a := &AuthorizationPolicyApi{
 		ApiClient: apiClient,
 	}
 
@@ -33,22 +33,65 @@ func NewDirectoryServiceApi(apiClient *client.ApiClient) *DirectoryServiceApi {
 	return a
 }
 
-// Check connection to the directory service
-func (api *DirectoryServiceApi) ConnectionStatusDirectoryService(extId *string, body *import1.DirectoryServiceConnectionRequest, args ...map[string]interface{}) (*import1.ConnectionDirectoryServiceApiResponse, error) {
+// Create an authorization policy
+func (api *AuthorizationPolicyApi) CreateAuthorizationPolicyAPI(body *import2.AuthorizationPolicy, args ...map[string]interface{}) (*import2.CreateAuthorizationPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/directory-services/{extId}/$actions/verify-connection-status"
+	uri := "/api/iam/v4.0.b1/authz/authorization-policies"
+
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+	unmarshalledResp := new(import2.CreateAuthorizationPolicyApiResponse)
+	json.Unmarshal(responseBody, &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Delete an authorization policy
+func (api *AuthorizationPolicyApi) DeleteAuthorizationPolicyAPI(extId *string, args ...map[string]interface{}) (*import2.DeleteAuthorizationPolicyApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b1/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -58,7 +101,7 @@ func (api *DirectoryServiceApi) ConnectionStatusDirectoryService(extId *string, 
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
+	contentTypes := []string{}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
@@ -77,70 +120,23 @@ func (api *DirectoryServiceApi) ConnectionStatusDirectoryService(extId *string, 
 
 	authNames := []string{"basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ConnectionDirectoryServiceApiResponse)
+	unmarshalledResp := new(import2.DeleteAuthorizationPolicyApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Create a directory service
-func (api *DirectoryServiceApi) CreateDirectoryService(body *import1.DirectoryService, args ...map[string]interface{}) (*import1.CreateDirectoryServiceApiResponse, error) {
+// List all the authorization policy(ies)
+func (api *AuthorizationPolicyApi) ListAuthorizationPolicyAPI(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListAuthorizationPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/directory-services"
-
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import1.CreateDirectoryServiceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// List all directory service(s)
-func (api *DirectoryServiceApi) GetDirectoryServiceList(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListDirectoryServiceApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/iam/v4.0.b1/authn/directory-services"
+	uri := "/api/iam/v4.0.b1/authz/authorization-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -169,6 +165,10 @@ func (api *DirectoryServiceApi) GetDirectoryServiceList(page_ *int, limit_ *int,
 
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	if expand_ != nil {
+
+		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	}
 	if select_ != nil {
 
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
@@ -191,121 +191,19 @@ func (api *DirectoryServiceApi) GetDirectoryServiceList(page_ *int, limit_ *int,
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ListDirectoryServiceApiResponse)
+	unmarshalledResp := new(import2.ListAuthorizationPolicyApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// View a directory service
-func (api *DirectoryServiceApi) GetDirectoryServicebyId(extId *string, args ...map[string]interface{}) (*import1.GetDirectoryServiceApiResponse, error) {
+// Update an authorization policy
+func (api *AuthorizationPolicyApi) UpdateAuthorizationPolicyAPI(extId *string, body *import2.AuthorizationPolicy, args ...map[string]interface{}) (*import2.UpdateAuthorizationPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/directory-services/{extId}"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import1.GetDirectoryServiceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Search user or group in the directory service
-func (api *DirectoryServiceApi) SearchDirectoryService(extId *string, body *import1.DirectoryServiceSearchQuery, args ...map[string]interface{}) (*import1.SearchDirectoryServiceApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/iam/v4.0.b1/authn/directory-services/{extId}/$actions/search"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import1.SearchDirectoryServiceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Update a directory service
-func (api *DirectoryServiceApi) UpdateDirectoryService(extId *string, body *import1.DirectoryService, args ...map[string]interface{}) (*import1.UpdateDirectoryServiceApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/iam/v4.0.b1/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.0.b1/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -346,7 +244,56 @@ func (api *DirectoryServiceApi) UpdateDirectoryService(extId *string, body *impo
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.UpdateDirectoryServiceApiResponse)
+	unmarshalledResp := new(import2.UpdateAuthorizationPolicyApiResponse)
+	json.Unmarshal(responseBody, &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// View an authorization policy
+func (api *AuthorizationPolicyApi) ViewAuthorizationPolicyAPI(extId *string, args ...map[string]interface{}) (*import2.ViewAuthorizationPolicyApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b1/authz/authorization-policies/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+	unmarshalledResp := new(import2.ViewAuthorizationPolicyApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }

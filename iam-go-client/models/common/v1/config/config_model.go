@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/config/config_model.go.
  *
- * Product version: 4.0.2-alpha-1
+ * Product version: 4.0.1-beta-1
  *
  * Part of the Nutanix Iam Versioned APIs
  *
@@ -21,7 +21,7 @@ import (
 	"fmt"
 )
 
-/**
+/*
 Many entities in the Nutanix APIs carry flags.  This object captures all the flags associated with that entity through this object.  The field that hosts this type of object must have an attribute called x-bounded-map-keys that tells which flags are actually present for that entity.
 */
 type Flag struct {
@@ -49,7 +49,7 @@ func NewFlag() *Flag {
 	return p
 }
 
-/**
+/*
 A map describing a set of keys and their corresponding values.
 */
 type KVPair struct {
@@ -58,15 +58,15 @@ type KVPair struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  The key of this key-value pair
 	*/
 	Name *string `json:"name,omitempty"`
-	/**
+	/*
 
 	 */
 	ValueItemDiscriminator_ *string `json:"$valueItemDiscriminator,omitempty"`
-	/**
+	/*
 	  The value associated with the key for this key-value pair
 	*/
 	Value *OneOfKVPairValue `json:"value,omitempty"`
@@ -109,15 +109,17 @@ type Message struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  A code that uniquely identifies a message.
 	*/
 	Code *string `json:"code,omitempty"`
-	/**
+	/*
 	  The locale for the message description.
 	*/
 	Locale *string `json:"locale,omitempty"`
-
+	/*
+	  The description of the message.
+	*/
 	Message *string `json:"message,omitempty"`
 
 	Severity *MessageSeverity `json:"severity,omitempty"`
@@ -136,7 +138,7 @@ func NewMessage() *Message {
 	return p
 }
 
-/**
+/*
 The message severity.
 */
 type MessageSeverity int
@@ -149,7 +151,9 @@ const (
 	MESSAGESEVERITY_ERROR    MessageSeverity = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *MessageSeverity) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -164,7 +168,23 @@ func (e *MessageSeverity) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e MessageSeverity) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"INFO",
+		"WARNING",
+		"ERROR",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *MessageSeverity) index(name string) MessageSeverity {
 	names := [...]string{
 		"$UNKNOWN",
@@ -201,7 +221,7 @@ func (e MessageSeverity) Ref() *MessageSeverity {
 	return &e
 }
 
-/**
+/*
 A model base class whose instances are bound to a specific tenant.  This model adds a tenantId to the base model class that it extends and is automatically set by the server.
 */
 type TenantAwareModel struct {
@@ -210,7 +230,7 @@ type TenantAwareModel struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -227,10 +247,13 @@ func NewTenantAwareModel() *TenantAwareModel {
 }
 
 type OneOfKVPairValue struct {
-	Discriminator *string `json:"-"`
-	ObjectType_   *string `json:"-"`
-	oneOfType1003 *int    `json:"-"`
-	oneOfType1002 *string `json:"-"`
+	Discriminator *string           `json:"-"`
+	ObjectType_   *string           `json:"-"`
+	oneOfType1004 *bool             `json:"-"`
+	oneOfType1003 *int              `json:"-"`
+	oneOfType1002 *string           `json:"-"`
+	oneOfType1005 []string          `json:"-"`
+	oneOfType1006 map[string]string `json:"-"`
 }
 
 func NewOneOfKVPairValue() *OneOfKVPairValue {
@@ -245,6 +268,19 @@ func (p *OneOfKVPairValue) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfKVPairValue is nil"))
 	}
 	switch v.(type) {
+	case bool:
+		if nil == p.oneOfType1004 {
+			p.oneOfType1004 = new(bool)
+		}
+		*p.oneOfType1004 = v.(bool)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Boolean"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Boolean"
 	case int:
 		if nil == p.oneOfType1003 {
 			p.oneOfType1003 = new(int)
@@ -271,6 +307,26 @@ func (p *OneOfKVPairValue) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = "String"
+	case []string:
+		p.oneOfType1005 = v.([]string)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<String>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<String>"
+	case map[string]string:
+		p.oneOfType1006 = v.(map[string]string)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Map<String, String>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Map<String, String>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -278,16 +334,41 @@ func (p *OneOfKVPairValue) SetValue(v interface{}) error {
 }
 
 func (p *OneOfKVPairValue) GetValue() interface{} {
+	if "Boolean" == *p.Discriminator {
+		return *p.oneOfType1004
+	}
 	if "Integer" == *p.Discriminator {
 		return *p.oneOfType1003
 	}
 	if "String" == *p.Discriminator {
 		return *p.oneOfType1002
 	}
+	if "List<String>" == *p.Discriminator {
+		return p.oneOfType1005
+	}
+	if "Map<String, String>" == *p.Discriminator {
+		return p.oneOfType1006
+	}
 	return nil
 }
 
 func (p *OneOfKVPairValue) UnmarshalJSON(b []byte) error {
+	vOneOfType1004 := new(bool)
+	if err := json.Unmarshal(b, vOneOfType1004); err == nil {
+		if nil == p.oneOfType1004 {
+			p.oneOfType1004 = new(bool)
+		}
+		*p.oneOfType1004 = *vOneOfType1004
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Boolean"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Boolean"
+		return nil
+	}
 	vOneOfType1003 := new(int)
 	if err := json.Unmarshal(b, vOneOfType1003); err == nil {
 		if nil == p.oneOfType1003 {
@@ -320,15 +401,50 @@ func (p *OneOfKVPairValue) UnmarshalJSON(b []byte) error {
 		*p.ObjectType_ = "String"
 		return nil
 	}
+	vOneOfType1005 := new([]string)
+	if err := json.Unmarshal(b, vOneOfType1005); err == nil {
+		p.oneOfType1005 = *vOneOfType1005
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<String>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<String>"
+		return nil
+	}
+	vOneOfType1006 := new(map[string]string)
+	if err := json.Unmarshal(b, vOneOfType1006); err == nil {
+		p.oneOfType1006 = *vOneOfType1006
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Map<String, String>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Map<String, String>"
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfKVPairValue"))
 }
 
 func (p *OneOfKVPairValue) MarshalJSON() ([]byte, error) {
+	if "Boolean" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1004)
+	}
 	if "Integer" == *p.Discriminator {
 		return json.Marshal(p.oneOfType1003)
 	}
 	if "String" == *p.Discriminator {
 		return json.Marshal(p.oneOfType1002)
+	}
+	if "List<String>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1005)
+	}
+	if "Map<String, String>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1006)
 	}
 	return nil, errors.New("No value to marshal for OneOfKVPairValue")
 }

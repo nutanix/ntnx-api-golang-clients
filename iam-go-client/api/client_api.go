@@ -10,17 +10,17 @@ import (
 	"strings"
 )
 
-type OperationApi struct {
+type ClientApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewOperationApi(apiClient *client.ApiClient) *OperationApi {
+func NewClientApi(apiClient *client.ApiClient) *ClientApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &OperationApi{
+	a := &ClientApi{
 		ApiClient: apiClient,
 	}
 
@@ -33,14 +33,14 @@ func NewOperationApi(apiClient *client.ApiClient) *OperationApi {
 	return a
 }
 
-// List all the operation(s)
-func (api *OperationApi) ListOperationAPI(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListOperationApiResponse, error) {
+// List all the client(s) registered
+func (api *ClientApi) ListRegisteredClientAPI(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListClientApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authz/operations"
+	uri := "/api/iam/v4.0.b1/authz/clients"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -91,19 +91,19 @@ func (api *OperationApi) ListOperationAPI(page_ *int, limit_ *int, filter_ *stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ListOperationApiResponse)
+	unmarshalledResp := new(import2.ListClientApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// View an operation
-func (api *OperationApi) ViewOperationAPI(extId *string, args ...map[string]interface{}) (*import2.ViewOperationApiResponse, error) {
+// View a Registered Client Information
+func (api *ClientApi) ViewRegisteredClientAPI(extId *string, args ...map[string]interface{}) (*import2.ViewClientApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authz/operations/{extId}"
+	uri := "/api/iam/v4.0.b1/authz/clients/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -140,7 +140,7 @@ func (api *OperationApi) ViewOperationAPI(extId *string, args ...map[string]inte
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ViewOperationApiResponse)
+	unmarshalledResp := new(import2.ViewClientApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }

@@ -1,7 +1,7 @@
 /*
  * Generated file models/iam/v4/common/common_model.go.
  *
- * Product version: 4.0.2-alpha-1
+ * Product version: 4.0.1-beta-1
  *
  * Part of the Nutanix Iam Versioned APIs
  *
@@ -21,7 +21,7 @@ import (
 	"fmt"
 )
 
-/**
+/*
 DecRef(sortOrderDesc)
 */
 type SortOrderType int
@@ -33,7 +33,9 @@ const (
 	SORTORDERTYPE_DESC     SortOrderType = 3
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *SortOrderType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -47,7 +49,22 @@ func (e *SortOrderType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e SortOrderType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ASC",
+		"DESC",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *SortOrderType) index(name string) SortOrderType {
 	names := [...]string{
 		"$UNKNOWN",
