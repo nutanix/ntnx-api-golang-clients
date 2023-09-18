@@ -10,17 +10,17 @@ import (
 	"strings"
 )
 
-type RouteTableApi struct {
+type VpcVirtualSwitchMappingsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewRouteTableApi(apiClient *client.ApiClient) *RouteTableApi {
+func NewVpcVirtualSwitchMappingsApi(apiClient *client.ApiClient) *VpcVirtualSwitchMappingsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &RouteTableApi{
+	a := &VpcVirtualSwitchMappingsApi{
 		ApiClient: apiClient,
 	}
 
@@ -33,63 +33,14 @@ func NewRouteTableApi(apiClient *client.ApiClient) *RouteTableApi {
 	return a
 }
 
-// Get the route table for the specified extId. Requires Prism Central >= pc.2022.9.
-func (api *RouteTableApi) GetRouteTable(extId *string, args ...map[string]interface{}) (*import1.RouteTableApiResponse, error) {
+// Get the VPC for virtual switch mappings config. Requires Prism Central >= pc.2023.1.
+func (api *VpcVirtualSwitchMappingsApi) GetVpcVirtualSwitchMappings(page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import1.VpcVirtualSwitchMappingsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/route-tables/{extId}"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import1.RouteTableApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// List route tables. Requires Prism Central >= pc.2022.9.
-func (api *RouteTableApi) ListRouteTables(page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import1.RouteTableListApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/networking/v4.0.b1/config/route-tables"
+	uri := "/api/networking/v4.0.b1/config/vpc-virtual-switch-mappings"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -132,31 +83,25 @@ func (api *RouteTableApi) ListRouteTables(page_ *int, limit_ *int, filter_ *stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.RouteTableListApiResponse)
+	unmarshalledResp := new(import1.VpcVirtualSwitchMappingsApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update route table. Requires Prism Central >= pc.2022.9.
-func (api *RouteTableApi) UpdateRouteTable(extId *string, body *import1.RouteTable, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Set VPC for virtual switch mappings traffic config. Requires Prism Central >= pc.2023.1.
+func (api *VpcVirtualSwitchMappingsApi) SetVpcVirtualSwitchMappings(body *[]import1.VpcVirtualSwitchMapping, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/route-tables/{extId}"
+	uri := "/api/networking/v4.0.b1/config/vpc-virtual-switch-mappings"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
 	// verify the required parameter 'body' is set
 	if nil == body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -181,7 +126,7 @@ func (api *RouteTableApi) UpdateRouteTable(extId *string, body *import1.RouteTab
 
 	authNames := []string{"basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}

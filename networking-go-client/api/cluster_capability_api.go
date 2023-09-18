@@ -4,24 +4,23 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/common/v1/stats"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/stats"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type Layer2StretchStatsApi struct {
+type ClusterCapabilityApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewLayer2StretchStatsApi(apiClient *client.ApiClient) *Layer2StretchStatsApi {
+func NewClusterCapabilityApi(apiClient *client.ApiClient) *ClusterCapabilityApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &Layer2StretchStatsApi{
+	a := &ClusterCapabilityApi{
 		ApiClient: apiClient,
 	}
 
@@ -34,22 +33,15 @@ func NewLayer2StretchStatsApi(apiClient *client.ApiClient) *Layer2StretchStatsAp
 	return a
 }
 
-// Get Layer2Stretch statistics. Requires Prism Central >= pc.2022.9.
-func (api *Layer2StretchStatsApi) GetLayer2StretchStats(extId *string, startTime_ *string, endTime_ *string, samplingInterval_ *int, statType_ *import2.DownSamplingOperator, page_ *int, limit_ *int, select_ *string, args ...map[string]interface{}) (*import3.Layer2StretchStatsApiResponse, error) {
+// List the capabilities for one or more cluster UUIDs. Requires Prism Central >= pc.2023.3.
+func (api *ClusterCapabilityApi) GetClusterCapabilities(page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import1.ClusterCapabilityApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/stats/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/capabilities"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -61,22 +53,6 @@ func (api *Layer2StretchStatsApi) GetLayer2StretchStats(extId *string, startTime
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if startTime_ != nil {
-
-		queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-	}
-	if endTime_ != nil {
-
-		queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	}
-	if samplingInterval_ != nil {
-
-		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
-	}
-	if statType_ != nil {
-		enumVal := statType_.GetName()
-		queryParams.Add("$statType", client.ParameterToString(enumVal, ""))
-	}
 	if page_ != nil {
 
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
@@ -85,9 +61,9 @@ func (api *Layer2StretchStatsApi) GetLayer2StretchStats(extId *string, startTime
 
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
-	if select_ != nil {
+	if filter_ != nil {
 
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -107,7 +83,7 @@ func (api *Layer2StretchStatsApi) GetLayer2StretchStats(extId *string, startTime
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import3.Layer2StretchStatsApiResponse)
+	unmarshalledResp := new(import1.ClusterCapabilityApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }

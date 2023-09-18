@@ -12,7 +12,8 @@ import (
 )
 
 type VpnConnectionStatsApi struct {
-	ApiClient *client.ApiClient
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
 }
 
 func NewVpnConnectionStatsApi(apiClient *client.ApiClient) *VpnConnectionStatsApi {
@@ -23,31 +24,24 @@ func NewVpnConnectionStatsApi(apiClient *client.ApiClient) *VpnConnectionStatsAp
 	a := &VpnConnectionStatsApi{
 		ApiClient: apiClient,
 	}
+
+	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
-/**
-  Get VPN connection statistics
-  Get VPN connection statistics
-
-  parameters:-
-  -> extId (string) (required) : VPN connection UUID
-  -> startTime_ (string) (optional) : The start time of the period for which stats should be reported. The value should be in extended ISO-8601 format. For example, start time of 2022-04-23T01:23:45.678+09:00 would consider all stats starting at 1:23:45.678 on the 23rd of April 2022. Details around ISO-8601 format can be found at https://www.iso.org/standard/70907.html
-  -> endTime_ (string) (optional) : The end time of the period for which stats should be reported. The value should be in extended ISO-8601 format. For example, end time of 2022-04-23T013:23:45.678+09:00 would consider all stats till 13:23:45 .678 on the 23rd of April 2022. Details around ISO-8601 format can be found at https://www.iso.org/standard/70907.html
-  -> samplingInterval_ (int) (optional) : The sampling interval in seconds at which statistical data should be collected For example, do you want performance statistics every 30 seconds? Every 60 seconds?
-  -> statType_ (common.v1.stats.DownSamplingOperator) (optional)
-  -> select_ (string) (optional) : A URL query parameter that allows clients to request a specific set of properties for each entity or complex type. Expression specified with the $select must conform to the OData V4.01 URL conventions. If a $select expression consists of a single select item that is an asterisk (i.e. *), then all properties on the matching resource will be returned. - entityUuid - extId - links - statType - tenantId - throughputRxKbps - throughputTxKbps
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.stats.VpnConnectionStatsApiResponse, error)
-*/
-func (api *VpnConnectionStatsApi) GetVpnConnectionStats(extId *string, startTime_ *string, endTime_ *string, samplingInterval_ *int, statType_ *import2.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import3.VpnConnectionStatsApiResponse, error) {
+// Get VPN connection statistics. Requires Prism Central >= pc.2022.9.
+func (api *VpnConnectionStatsApi) GetVpnConnectionStats(extId *string, startTime_ *string, endTime_ *string, samplingInterval_ *int, statType_ *import2.DownSamplingOperator, page_ *int, limit_ *int, select_ *string, args ...map[string]interface{}) (*import3.VpnConnectionStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/stats/vpn-connections/{extId}"
+	uri := "/api/networking/v4.0.b1/stats/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -68,28 +62,45 @@ func (api *VpnConnectionStatsApi) GetVpnConnectionStats(extId *string, startTime
 
 	// Query Params
 	if startTime_ != nil {
+
 		queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
 	}
 	if endTime_ != nil {
+
 		queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
 	}
 	if samplingInterval_ != nil {
+
 		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
 	}
 	if statType_ != nil {
-		queryParams.Add("$statType", client.ParameterToString(*statType_, ""))
+		enumVal := statType_.GetName()
+		queryParams.Add("$statType", client.ParameterToString(enumVal, ""))
+	}
+	if page_ != nil {
+
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if select_ != nil {
+
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)

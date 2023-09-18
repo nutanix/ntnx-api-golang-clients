@@ -1,7 +1,7 @@
 /*
  * Generated file models/networking/v4/config/config_model.go.
  *
- * Product version: 4.0.1-alpha-1
+ * Product version: 4.0.1-beta-1
  *
  * Part of the Nutanix Networking Versioned APIs
  *
@@ -25,17 +25,17 @@ import (
 	import4 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/prism/v4/config"
 )
 
-/**
+/*
 Information pertaining to an assigned or reserved IP address on a subnet.
 */
-type AddressAssignmentInfo struct {
+type Address struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	AssignedDetails *AssignedAddressInfo `json:"assignedDetails,omitempty"`
+	AssignedDetails *AssignedAddress `json:"assignedDetails,omitempty"`
 
 	IpAddress *import1.IPAddress `json:"ipAddress,omitempty"`
 
@@ -45,22 +45,20 @@ type AddressAssignmentInfo struct {
 
 	IsReserved *bool `json:"isReserved,omitempty"`
 
-	LearnedDetails []LearnedAddressInfo `json:"learnedDetails,omitempty"`
-
-	ReservedDetails *ReservedAddressInfo `json:"reservedDetails,omitempty"`
+	ReservedDetails *ReservedAddress `json:"reservedDetails,omitempty"`
 }
 
-func NewAddressAssignmentInfo() *AddressAssignmentInfo {
-	p := new(AddressAssignmentInfo)
+func NewAddress() *Address {
+	p := new(Address)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.AddressAssignmentInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.AddressAssignmentInfo"}
+	*p.ObjectType_ = "networking.v4.config.Address"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Address"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Address Type like "EXTERNAL" or "ANY".
 */
 type AddressType int
@@ -70,15 +68,19 @@ const (
 	ADDRESSTYPE_REDACTED AddressType = 1
 	ADDRESSTYPE_ANY      AddressType = 2
 	ADDRESSTYPE_EXTERNAL AddressType = 3
+	ADDRESSTYPE_SUBNET   AddressType = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *AddressType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"ANY",
 		"EXTERNAL",
+		"SUBNET",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -86,13 +88,30 @@ func (e *AddressType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e AddressType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ANY",
+		"EXTERNAL",
+		"SUBNET",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *AddressType) index(name string) AddressType {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"ANY",
 		"EXTERNAL",
+		"SUBNET",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -122,7 +141,7 @@ func (e AddressType) Ref() *AddressType {
 	return &e
 }
 
-/**
+/*
 Address Type like "EXTERNAL" or "ANY".
 */
 type AddressTypeObject struct {
@@ -133,6 +152,8 @@ type AddressTypeObject struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	AddressType *AddressType `json:"addressType"`
+
+	SubnetPrefix *IPSubnet `json:"subnetPrefix,omitempty"`
 }
 
 func (p *AddressTypeObject) MarshalJSON() ([]byte, error) {
@@ -150,66 +171,70 @@ func NewAddressTypeObject() *AddressTypeObject {
 	p := new(AddressTypeObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AddressTypeObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.AddressTypeObject"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AddressTypeObject"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-type AncConfig struct {
+type Anc struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Resolve name server for the ANC services.
 	*/
 	AncDomainNameServerList []import1.IPAddress `json:"ancDomainNameServerList,omitempty"`
-	/**
+	/*
 	  URL of Atlas Network Controller (ANC).
 	*/
 	AncUrl *string `json:"ancUrl,omitempty"`
-	/**
-	  True if atlas networking is enabled and false otherwise.
-	*/
-	AtlasNetworkingEnabled *bool `json:"atlasNetworkingEnabled,omitempty"`
-	/**
+	/*
 	  Configuration version for the current ANC. It is the logical timestamp for the current V4 release and will be updated by the actual configuration version in future releases.
 	*/
 	ConfigVersion *int64 `json:"configVersion,omitempty"`
-	/**
+	/*
+	  UUIDs of the clusters excluded from advanced networking.
+	*/
+	ExcludedClusters []string `json:"excludedClusters,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
+	  True if atlas networking is enabled and false otherwise.
+	*/
+	IsAtlasNetworkingEnabled *bool `json:"isAtlasNetworkingEnabled,omitempty"`
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  OVN remote address of the Atlas Network Controller (ANC).
 	*/
 	OvnRemoteAddress *string `json:"ovnRemoteAddress,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
 
-func NewAncConfig() *AncConfig {
-	p := new(AncConfig)
+func NewAnc() *Anc {
+	p := new(Anc)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.AncConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.AncConfig"}
+	*p.ObjectType_ = "networking.v4.config.Anc"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Anc"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/anc Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/anc Get operation
 */
 type AncConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -217,7 +242,7 @@ type AncConfigApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -231,7 +256,7 @@ func NewAncConfigApiResponse() *AncConfigApiResponse {
 	p := new(AncConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AncConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.AncConfigApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AncConfigApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -258,32 +283,32 @@ func (p *AncConfigApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 Information pertaining to an assigned IP address on a subnet.
 */
-type AssignedAddressInfo struct {
+type AssignedAddress struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	MacAddress *MacAddress `json:"macAddress,omitempty"`
+	MacAddress *string `json:"macAddress,omitempty"`
 
 	VmReference *import1.EntityReference `json:"vmReference,omitempty"`
 }
 
-func NewAssignedAddressInfo() *AssignedAddressInfo {
-	p := new(AssignedAddressInfo)
+func NewAssignedAddress() *AssignedAddress {
+	p := new(AssignedAddress)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.AssignedAddressInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.AssignedAddressInfo"}
+	*p.ObjectType_ = "networking.v4.config.AssignedAddress"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AssignedAddress"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Authentication algorithm.
 */
 type AuthenticationAlgorithm int
@@ -298,7 +323,9 @@ const (
 	AUTHENTICATIONALGORITHM_SHA512   AuthenticationAlgorithm = 6
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *AuthenticationAlgorithm) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -315,7 +342,25 @@ func (e *AuthenticationAlgorithm) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e AuthenticationAlgorithm) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"MD5",
+		"SHA1",
+		"SHA256",
+		"SHA384",
+		"SHA512",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *AuthenticationAlgorithm) index(name string) AuthenticationAlgorithm {
 	names := [...]string{
 		"$UNKNOWN",
@@ -354,7 +399,7 @@ func (e AuthenticationAlgorithm) Ref() *AuthenticationAlgorithm {
 	return &e
 }
 
-/**
+/*
 Authentication type.
 */
 type AuthenticationType int
@@ -366,7 +411,9 @@ const (
 	AUTHENTICATIONTYPE_MD5        AuthenticationType = 3
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *AuthenticationType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -380,7 +427,22 @@ func (e *AuthenticationType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e AuthenticationType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PLAIN_TEXT",
+		"MD5",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *AuthenticationType) index(name string) AuthenticationType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -416,7 +478,61 @@ func (e AuthenticationType) Ref() *AuthenticationType {
 	return &e
 }
 
-/**
+/*
+Authorization data.
+*/
+type AuthorizationData struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Client Id.
+	*/
+	ClientId *string `json:"clientId,omitempty"`
+	/*
+	  Expiry time of the authorization token.
+	*/
+	ExpiryTimeSeconds *int64 `json:"expiryTimeSeconds,omitempty"`
+	/*
+	  Subscription ID.
+	*/
+	SubscriptionId *string `json:"subscriptionId"`
+	/*
+	  Tenant Id.
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Authorization token.
+	*/
+	Token *string `json:"token"`
+}
+
+func (p *AuthorizationData) MarshalJSON() ([]byte, error) {
+	type AuthorizationDataProxy AuthorizationData
+	return json.Marshal(struct {
+		*AuthorizationDataProxy
+		SubscriptionId *string `json:"subscriptionId,omitempty"`
+		Token          *string `json:"token,omitempty"`
+	}{
+		AuthorizationDataProxy: (*AuthorizationDataProxy)(p),
+		SubscriptionId:         p.SubscriptionId,
+		Token:                  p.Token,
+	})
+}
+
+func NewAuthorizationData() *AuthorizationData {
+	p := new(AuthorizationData)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.AuthorizationData"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AuthorizationData"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Azure configuration.
 */
 type AzureConfig struct {
@@ -425,10 +541,22 @@ type AzureConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+
+	AuthorizationData *AuthorizationData `json:"authorizationData,omitempty"`
+
+	BgpInfo *BgpInfo `json:"bgpInfo,omitempty"`
+	/*
+	  External routing domain UUID list.
+	*/
+	ExternalRoutingDomainUuidList []string `json:"externalRoutingDomainUuidList,omitempty"`
+	/*
 	  The external subnet configuration list for the Azure cloud.
 	*/
 	ExternalSubnetConfigList []AzureExternalSubnetConfig `json:"externalSubnetConfigList"`
+	/*
+	  True if flow gateway scale out is supported.
+	*/
+	IsScaleOut *bool `json:"isScaleOut,omitempty"`
 }
 
 func (p *AzureConfig) MarshalJSON() ([]byte, error) {
@@ -446,13 +574,16 @@ func NewAzureConfig() *AzureConfig {
 	p := new(AzureConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AzureConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.AzureConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AzureConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	p.IsScaleOut = new(bool)
+	*p.IsScaleOut = false
 
 	return p
 }
 
-/**
+/*
 Binding of Atlas Flow Gateway external subnet with Azure external subnet.
 */
 type AzureExternalSubnetBinding struct {
@@ -463,7 +594,7 @@ type AzureExternalSubnetBinding struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	AzureExternalNetworkPrefix *IPSubnet `json:"azureExternalNetworkPrefix"`
-	/**
+	/*
 	  External network interface Id.
 	*/
 	EniId *string `json:"eniId,omitempty"`
@@ -471,7 +602,11 @@ type AzureExternalSubnetBinding struct {
 	EniPrimaryIp *import1.IPAddress `json:"eniPrimaryIp,omitempty"`
 
 	PeerToPeerNetworkPrefix *IPSubnet `json:"peerToPeerNetworkPrefix,omitempty"`
-	/**
+	/*
+	  Resource group Id.
+	*/
+	ResourceGroupId *string `json:"resourceGroupId,omitempty"`
+	/*
 	  MAC address of the router port of Atlas Flow Gateway.
 	*/
 	RouterPortMac *string `json:"routerPortMac"`
@@ -494,13 +629,13 @@ func NewAzureExternalSubnetBinding() *AzureExternalSubnetBinding {
 	p := new(AzureExternalSubnetBinding)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AzureExternalSubnetBinding"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.AzureExternalSubnetBinding"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AzureExternalSubnetBinding"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 The external subnet configuration for the Azure cloud.
 */
 type AzureExternalSubnetConfig struct {
@@ -509,13 +644,13 @@ type AzureExternalSubnetConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Gateway MAC address of the external subnet.
 	*/
 	GatewayMacAddress *string `json:"gatewayMacAddress,omitempty"`
 
 	IpConfig *IPConfig `json:"ipConfig"`
-	/**
+	/*
 	  List of mappings of private IP (SNAT or floating IP) to public IP.
 	*/
 	PublicIpMappingList []PublicIpMapping `json:"publicIpMappingList,omitempty"`
@@ -536,13 +671,13 @@ func NewAzureExternalSubnetConfig() *AzureExternalSubnetConfig {
 	p := new(AzureExternalSubnetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AzureExternalSubnetConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.AzureExternalSubnetConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AzureExternalSubnetConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 BGP configuration
 */
 type BgpConfig struct {
@@ -551,34 +686,59 @@ type BgpConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Autonomous system number. 0 and 4294967295 are reserved.
 	*/
 	Asn *int64 `json:"asn,omitempty"`
-	/**
+	/*
 	  BPG password
 	*/
 	Password *string `json:"password,omitempty"`
-	/**
+	/*
 	  Redistribute routes over eBGP. Applicable only to network gateways deployed on VLAN subnets with eBGP over VPN.
 	*/
-	RedistributeRoutes *bool `json:"redistributeRoutes,omitempty"`
+	ShouldRedistributeRoutes *bool `json:"shouldRedistributeRoutes,omitempty"`
 }
 
 func NewBgpConfig() *BgpConfig {
 	p := new(BgpConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.BgpConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
-	p.RedistributeRoutes = new(bool)
-	*p.RedistributeRoutes = false
+	p.ShouldRedistributeRoutes = new(bool)
+	*p.ShouldRedistributeRoutes = false
 
 	return p
 }
 
-/**
+/*
+BGP info needed for flow gateway scale out model.
+*/
+type BgpInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	LocalBgpGatewayList []LocalBgpGateway `json:"localBgpGatewayList,omitempty"`
+
+	RemoteBgpGatewayList []RemoteBgpGateway `json:"remoteBgpGatewayList,omitempty"`
+}
+
+func NewBgpInfo() *BgpInfo {
+	p := new(BgpInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.BgpInfo"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpInfo"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 BGP session.
 */
 type BgpSession struct {
@@ -587,55 +747,59 @@ type BgpSession struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Advertised routes.
 	*/
 	AdvertisedRoutes []Route `json:"advertisedRoutes,omitempty"`
-	/**
+	/*
 	  BGP session description.
 	*/
 	Description *string `json:"description,omitempty"`
-	/**
+	/*
 	  The priority assigned to routes received over this BGP session.
 	*/
 	DynamicRoutePriority *int `json:"dynamicRoutePriority,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  Received routes that are ignored either because the next hop is not L2-adjacent to the VPC or the upper limit of the received routes per session has exceeded.
 	*/
 	IgnoredRoutes []Route `json:"ignoredRoutes,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
-	/**
+
+	LocalGateway *Gateway `json:"localGateway,omitempty"`
+	/*
 	  The local BGP gateway reference.
 	*/
 	LocalGatewayReference *string `json:"localGatewayReference"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  BGP session name.
 	*/
 	Name *string `json:"name"`
-	/**
+	/*
 	  BGP password
 	*/
 	Password *string `json:"password,omitempty"`
-	/**
+	/*
 	  Received routes.
 	*/
 	ReceivedRoutes []Route `json:"receivedRoutes,omitempty"`
-	/**
+
+	RemoteGateway *Gateway `json:"remoteGateway,omitempty"`
+	/*
 	  The remote BGP gateway reference.
 	*/
 	RemoteGatewayReference *string `json:"remoteGatewayReference"`
 
 	Status *Status `json:"status,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -660,14 +824,14 @@ func NewBgpSession() *BgpSession {
 	p := new(BgpSession)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpSession"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.BgpSession"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpSession"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/bgp-sessions/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/bgp-sessions/{extId} Get operation
 */
 type BgpSessionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -675,7 +839,7 @@ type BgpSessionApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -689,7 +853,7 @@ func NewBgpSessionApiResponse() *BgpSessionApiResponse {
 	p := new(BgpSessionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpSessionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.BgpSessionApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpSessionApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -716,8 +880,8 @@ func (p *BgpSessionApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/bgp-sessions Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/bgp-sessions Get operation
 */
 type BgpSessionListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -725,7 +889,7 @@ type BgpSessionListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -739,7 +903,7 @@ func NewBgpSessionListApiResponse() *BgpSessionListApiResponse {
 	p := new(BgpSessionListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpSessionListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.BgpSessionListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpSessionListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -766,7 +930,98 @@ func (p *BgpSessionListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+type BgpSessionProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Advertised routes.
+	*/
+	AdvertisedRoutes []Route `json:"advertisedRoutes,omitempty"`
+	/*
+	  BGP session description.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  The priority assigned to routes received over this BGP session.
+	*/
+	DynamicRoutePriority *int `json:"dynamicRoutePriority,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+
+	GatewayProjection *GatewayProjection `json:"gatewayProjection,omitempty"`
+	/*
+	  Received routes that are ignored either because the next hop is not L2-adjacent to the VPC or the upper limit of the received routes per session has exceeded.
+	*/
+	IgnoredRoutes []Route `json:"ignoredRoutes,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	LocalGateway *Gateway `json:"localGateway,omitempty"`
+	/*
+	  The local BGP gateway reference.
+	*/
+	LocalGatewayReference *string `json:"localGatewayReference"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  BGP session name.
+	*/
+	Name *string `json:"name"`
+	/*
+	  BGP password
+	*/
+	Password *string `json:"password,omitempty"`
+	/*
+	  Received routes.
+	*/
+	ReceivedRoutes []Route `json:"receivedRoutes,omitempty"`
+
+	RemoteGateway *Gateway `json:"remoteGateway,omitempty"`
+	/*
+	  The remote BGP gateway reference.
+	*/
+	RemoteGatewayReference *string `json:"remoteGatewayReference"`
+
+	Status *Status `json:"status,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *BgpSessionProjection) MarshalJSON() ([]byte, error) {
+	type BgpSessionProjectionProxy BgpSessionProjection
+	return json.Marshal(struct {
+		*BgpSessionProjectionProxy
+		LocalGatewayReference  *string `json:"localGatewayReference,omitempty"`
+		Name                   *string `json:"name,omitempty"`
+		RemoteGatewayReference *string `json:"remoteGatewayReference,omitempty"`
+	}{
+		BgpSessionProjectionProxy: (*BgpSessionProjectionProxy)(p),
+		LocalGatewayReference:     p.LocalGatewayReference,
+		Name:                      p.Name,
+		RemoteGatewayReference:    p.RemoteGatewayReference,
+	})
+}
+
+func NewBgpSessionProjection() *BgpSessionProjection {
+	p := new(BgpSessionProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.BgpSessionProjection"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpSessionProjection"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 The types of bond modes
 */
 type BondModeType int
@@ -780,7 +1035,9 @@ const (
 	BONDMODETYPE_NONE          BondModeType = 5
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *BondModeType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -796,7 +1053,24 @@ func (e *BondModeType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e BondModeType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ACTIVE_BACKUP",
+		"BALANCE_SLB",
+		"BALANCE_TCP",
+		"NONE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *BondModeType) index(name string) BondModeType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -834,7 +1108,162 @@ func (e BondModeType) Ref() *BondModeType {
 	return &e
 }
 
-/**
+/*
+Schema of bridge to migrate to a Virtual Switch
+*/
+type Bridge struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Input body to migrate to a Virtual Switch
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  Name of bridge to convert from
+	*/
+	ExistingBridgeName *string `json:"existingBridgeName"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Virtual Switch name to migrate to
+	*/
+	Name *string `json:"name"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Bridge) MarshalJSON() ([]byte, error) {
+	type BridgeProxy Bridge
+	return json.Marshal(struct {
+		*BridgeProxy
+		ExistingBridgeName *string `json:"existingBridgeName,omitempty"`
+		Name               *string `json:"name,omitempty"`
+	}{
+		BridgeProxy:        (*BridgeProxy)(p),
+		ExistingBridgeName: p.ExistingBridgeName,
+		Name:               p.Name,
+	})
+}
+
+func NewBridge() *Bridge {
+	p := new(Bridge)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.Bridge"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Bridge"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type BridgeProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Input body to migrate to a Virtual Switch
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  Name of bridge to convert from
+	*/
+	ExistingBridgeName *string `json:"existingBridgeName"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Virtual Switch name to migrate to
+	*/
+	Name *string `json:"name"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *BridgeProjection) MarshalJSON() ([]byte, error) {
+	type BridgeProjectionProxy BridgeProjection
+	return json.Marshal(struct {
+		*BridgeProjectionProxy
+		ExistingBridgeName *string `json:"existingBridgeName,omitempty"`
+		Name               *string `json:"name,omitempty"`
+	}{
+		BridgeProjectionProxy: (*BridgeProjectionProxy)(p),
+		ExistingBridgeName:    p.ExistingBridgeName,
+		Name:                  p.Name,
+	})
+}
+
+func NewBridgeProjection() *BridgeProjection {
+	p := new(BridgeProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.BridgeProjection"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BridgeProjection"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Capability dictionary entry with capability name and boolean value indicating support
+*/
+type Capability struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of the capability e.g. "SUPPORTS_PC_SPAN"
+	*/
+	CapabilityName *string `json:"capabilityName"`
+	/*
+	  Boolean - true if the capability is supported, false otherwise
+	*/
+	IsSupported *bool `json:"isSupported"`
+}
+
+func (p *Capability) MarshalJSON() ([]byte, error) {
+	type CapabilityProxy Capability
+	return json.Marshal(struct {
+		*CapabilityProxy
+		CapabilityName *string `json:"capabilityName,omitempty"`
+		IsSupported    *bool   `json:"isSupported,omitempty"`
+	}{
+		CapabilityProxy: (*CapabilityProxy)(p),
+		CapabilityName:  p.CapabilityName,
+		IsSupported:     p.IsSupported,
+	})
+}
+
+func NewCapability() *Capability {
+	p := new(Capability)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.Capability"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Capability"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 API Schema for Cloud Network.
 */
 type CloudNetwork struct {
@@ -843,25 +1272,25 @@ type CloudNetwork struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Cloud Network annotation.
 	*/
 	Description *string `json:"description,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
-	  The external routing domain UUID
+	/*
+	  External routing domain associated with this route table
 	*/
 	ExternalRoutingDomainReference *string `json:"externalRoutingDomainReference,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -871,14 +1300,14 @@ func NewCloudNetwork() *CloudNetwork {
 	p := new(CloudNetwork)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.CloudNetwork"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.CloudNetwork"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.CloudNetwork"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/cloud-networks/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/cloud-networks/{extId} Get operation
 */
 type CloudNetworkApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -886,7 +1315,7 @@ type CloudNetworkApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -900,7 +1329,7 @@ func NewCloudNetworkApiResponse() *CloudNetworkApiResponse {
 	p := new(CloudNetworkApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.CloudNetworkApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.CloudNetworkApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.CloudNetworkApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -927,8 +1356,8 @@ func (p *CloudNetworkApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/cloud-networks Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/cloud-networks Get operation
 */
 type CloudNetworkListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -936,7 +1365,7 @@ type CloudNetworkListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -950,7 +1379,7 @@ func NewCloudNetworkListApiResponse() *CloudNetworkListApiResponse {
 	p := new(CloudNetworkListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.CloudNetworkListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.CloudNetworkListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.CloudNetworkListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -977,7 +1406,7 @@ func (p *CloudNetworkListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 Cloud substrate of the network controller, for e.g. Azure.
 */
 type CloudSubstrate int
@@ -988,7 +1417,9 @@ const (
 	CLOUDSUBSTRATE_AZURE    CloudSubstrate = 2
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *CloudSubstrate) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1001,7 +1432,21 @@ func (e *CloudSubstrate) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e CloudSubstrate) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"AZURE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *CloudSubstrate) index(name string) CloudSubstrate {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1036,7 +1481,7 @@ func (e CloudSubstrate) Ref() *CloudSubstrate {
 	return &e
 }
 
-/**
+/*
 Input body to configure cluster
 */
 type Cluster struct {
@@ -1045,11 +1490,13 @@ type Cluster struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Reference ExtId for the cluster. This is a required parameter on Prism Element ; and is optional on Prism Central
 	*/
 	ExtId *string `json:"extId"`
-	/**
+
+	GatewayIpAddress *import1.IPv4Address `json:"gatewayIpAddress,omitempty"`
+	/*
 	  Host configuration array
 	*/
 	Hosts []Host `json:"hosts"`
@@ -1072,13 +1519,116 @@ func NewCluster() *Cluster {
 	p := new(Cluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Cluster"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Cluster"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Cluster"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+type ClusterCapability struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A dictionary with a key as a capability name and a value as a boolean, true if supported by the cluster, false if not.  For example, dictionary will look like { "SUPPORTS_PC_SPAN": true, "SUPPORTS_VGPU_CONSOLE": true }
+	*/
+	Capabilities []Capability `json:"capabilities"`
+	/*
+	  Cluster UUID whose capabilities are retrieved.
+	*/
+	ClusterId *string `json:"clusterId"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ClusterCapability) MarshalJSON() ([]byte, error) {
+	type ClusterCapabilityProxy ClusterCapability
+	return json.Marshal(struct {
+		*ClusterCapabilityProxy
+		Capabilities []Capability `json:"capabilities,omitempty"`
+		ClusterId    *string      `json:"clusterId,omitempty"`
+	}{
+		ClusterCapabilityProxy: (*ClusterCapabilityProxy)(p),
+		Capabilities:           p.Capabilities,
+		ClusterId:              p.ClusterId,
+	})
+}
+
+func NewClusterCapability() *ClusterCapability {
+	p := new(ClusterCapability)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ClusterCapability"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterCapability"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/capabilities Get operation
+*/
+type ClusterCapabilityApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfClusterCapabilityApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewClusterCapabilityApiResponse() *ClusterCapabilityApiResponse {
+	p := new(ClusterCapabilityApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ClusterCapabilityApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterCapabilityApiResponse"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ClusterCapabilityApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ClusterCapabilityApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfClusterCapabilityApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
 Get the Flow Networking usage of each registered Prism Element cluster.
 */
 type ClusterFlowStatus struct {
@@ -1087,7 +1637,7 @@ type ClusterFlowStatus struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Flow Networking usage status for every cluster.
 	*/
 	ClusterStatusList []ClusterStatus `json:"clusterStatusList,omitempty"`
@@ -1097,14 +1647,14 @@ func NewClusterFlowStatus() *ClusterFlowStatus {
 	p := new(ClusterFlowStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterFlowStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.ClusterFlowStatus"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterFlowStatus"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/cluster-flow-status Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/cluster-flow-status Get operation
 */
 type ClusterFlowStatusApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1112,7 +1662,7 @@ type ClusterFlowStatusApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -1126,7 +1676,7 @@ func NewClusterFlowStatusApiResponse() *ClusterFlowStatusApiResponse {
 	p := new(ClusterFlowStatusApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterFlowStatusApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.ClusterFlowStatusApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterFlowStatusApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1153,7 +1703,7 @@ func (p *ClusterFlowStatusApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 Flow Networking usage status for a Prism Element cluster.
 */
 type ClusterStatus struct {
@@ -1162,27 +1712,27 @@ type ClusterStatus struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  UUID of respective cluster.
 	*/
 	ClusterReference *string `json:"clusterReference,omitempty"`
-	/**
+	/*
 	  Indicates the flow status on the cluster. It is set to True if the cluster has at least one vNIC that is part of an Atlas subnet
 	*/
-	FlowStatus *bool `json:"flowStatus,omitempty"`
+	HasFlowStatus *bool `json:"hasFlowStatus,omitempty"`
 }
 
 func NewClusterStatus() *ClusterStatus {
 	p := new(ClusterStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.ClusterStatus"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterStatus"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Current status of the network controller.
 */
 type ControllerStatus int
@@ -1195,7 +1745,9 @@ const (
 	CONTROLLERSTATUS_DOWN     ControllerStatus = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *ControllerStatus) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1210,7 +1762,23 @@ func (e *ControllerStatus) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e ControllerStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"UP",
+		"DEGRADED",
+		"DOWN",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *ControllerStatus) index(name string) ControllerStatus {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1247,7 +1815,86 @@ func (e ControllerStatus) Ref() *ControllerStatus {
 	return &e
 }
 
-/**
+/*
+Default VLAN stack(Legacy or Advanced) to instatiate VLAN-backed subnets on if advanced networking is enabled
+*/
+type DefaultVlanStack int
+
+const (
+	DEFAULTVLANSTACK_UNKNOWN  DefaultVlanStack = 0
+	DEFAULTVLANSTACK_REDACTED DefaultVlanStack = 1
+	DEFAULTVLANSTACK_ADVANCED DefaultVlanStack = 2
+	DEFAULTVLANSTACK_LEGACY   DefaultVlanStack = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *DefaultVlanStack) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ADVANCED",
+		"LEGACY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e DefaultVlanStack) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ADVANCED",
+		"LEGACY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *DefaultVlanStack) index(name string) DefaultVlanStack {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ADVANCED",
+		"LEGACY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return DefaultVlanStack(idx)
+		}
+	}
+	return DEFAULTVLANSTACK_UNKNOWN
+}
+
+func (e *DefaultVlanStack) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for DefaultVlanStack:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *DefaultVlanStack) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e DefaultVlanStack) Ref() *DefaultVlanStack {
+	return &e
+}
+
+/*
 List of DHCP options to be configured.
 */
 type DhcpOptions struct {
@@ -1256,27 +1903,27 @@ type DhcpOptions struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Boot file name (option 67).
 	*/
 	BootFileName *string `json:"bootFileName,omitempty"`
-	/**
+	/*
 	  The DNS domain name of the client (option 15).
 	*/
 	DomainName *string `json:"domainName,omitempty"`
-	/**
+	/*
 	  List of Domain Name Server addresses (option 6).
 	*/
 	DomainNameServers []import1.IPAddress `json:"domainNameServers,omitempty"`
-	/**
+	/*
 	  List of NTP server addresses (option 42).
 	*/
 	NtpServers []import1.IPAddress `json:"ntpServers,omitempty"`
-	/**
+	/*
 	  The DNS domain search list (option 119).
 	*/
 	SearchDomains []string `json:"searchDomains,omitempty"`
-	/**
+	/*
 	  TFTP server name (option 66).
 	*/
 	TftpServerName *string `json:"tftpServerName,omitempty"`
@@ -1286,13 +1933,13 @@ func NewDhcpOptions() *DhcpOptions {
 	p := new(DhcpOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.DhcpOptions"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.DhcpOptions"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.DhcpOptions"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Dead peer detection configuration for the VPN connection
 */
 type DpdConfig struct {
@@ -1301,13 +1948,13 @@ type DpdConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  The amount of time the peer waits for traffic before sending a DPD request
 	*/
 	IntervalSecs *int64 `json:"intervalSecs,omitempty"`
 
 	Operation *DpdOperation `json:"operation,omitempty"`
-	/**
+	/*
 	  The maximum amount of time to wait for a DPD response before marking the peer as dead
 	*/
 	TimeoutSecs *int64 `json:"timeoutSecs,omitempty"`
@@ -1317,14 +1964,14 @@ func NewDpdConfig() *DpdConfig {
 	p := new(DpdConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.DpdConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.DpdConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.DpdConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-Operation to be performed on detecting a dead peer
+/*
+Operation to be performed on detecting a dead peer. The default is HOLD.
 */
 type DpdOperation int
 
@@ -1336,7 +1983,9 @@ const (
 	DPDOPERATION_HOLD     DpdOperation = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *DpdOperation) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1351,7 +2000,23 @@ func (e *DpdOperation) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e DpdOperation) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"RESTART",
+		"CLEAR",
+		"HOLD",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *DpdOperation) index(name string) DpdOperation {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1388,7 +2053,7 @@ func (e DpdOperation) Ref() *DpdOperation {
 	return &e
 }
 
-/**
+/*
 Encryption algorithm.
 */
 type EncryptionAlgorithm int
@@ -1401,7 +2066,9 @@ const (
 	ENCRYPTIONALGORITHM_TRIPLE_DES EncryptionAlgorithm = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *EncryptionAlgorithm) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1416,7 +2083,23 @@ func (e *EncryptionAlgorithm) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e EncryptionAlgorithm) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"AES128",
+		"AES256",
+		"TRIPLE_DES",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *EncryptionAlgorithm) index(name string) EncryptionAlgorithm {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1453,7 +2136,7 @@ func (e EncryptionAlgorithm) Ref() *EncryptionAlgorithm {
 	return &e
 }
 
-/**
+/*
 Contains the UUID and scope type information for a particular export scope.
 */
 type ExportScope struct {
@@ -1472,14 +2155,14 @@ func NewExportScope() *ExportScope {
 	p := new(ExportScope)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ExportScope"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.ExportScope"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ExportScope"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-IPFIX exporter  protocol:the permissible values are TCP or UDP.
+/*
+IPFIX exporter protocol:the permissible values are TCP or UDP.
 */
 type ExporterProtocol int
 
@@ -1490,7 +2173,9 @@ const (
 	EXPORTERPROTOCOL_UDP      ExporterProtocol = 3
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *ExporterProtocol) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1504,7 +2189,22 @@ func (e *ExporterProtocol) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e ExporterProtocol) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"TCP",
+		"UDP",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *ExporterProtocol) index(name string) ExporterProtocol {
 	names := [...]string{
 		"$UNKNOWN",
@@ -1540,7 +2240,7 @@ func (e ExporterProtocol) Ref() *ExporterProtocol {
 	return &e
 }
 
-/**
+/*
 Information about the external subnet, SNAT IPs and the gateway nodes.
 */
 type ExternalSubnet struct {
@@ -1551,15 +2251,15 @@ type ExternalSubnet struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	ActiveGatewayNode *GatewayNodeReference `json:"activeGatewayNode,omitempty"`
-	/**
+	/*
 	  List of IP Addresses used for SNAT, if NAT is enabled on the external subnet. If NAT is not enabled, this specifies the IP address of the VPC port connected to the external gateway.
 	*/
 	ExternalIps []import1.IPAddress `json:"externalIps,omitempty"`
-	/**
+	/*
 	  List of gateway nodes that can be used for external connectivity.
 	*/
 	GatewayNodes []string `json:"gatewayNodes,omitempty"`
-	/**
+	/*
 	  External subnet reference.
 	*/
 	SubnetReference *string `json:"subnetReference"`
@@ -1580,13 +2280,13 @@ func NewExternalSubnet() *ExternalSubnet {
 	p := new(ExternalSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ExternalSubnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.ExternalSubnet"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ExternalSubnet"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Floating IP address.
 */
 type FloatingIPAddress struct {
@@ -1605,7 +2305,7 @@ func NewFloatingIPAddress() *FloatingIPAddress {
 	p := new(FloatingIPAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIPAddress"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FloatingIPAddress"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIPAddress"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1628,7 +2328,7 @@ type FloatingIPv4Address struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Prefix length of the network to which this host IPv4 address belongs.
 	*/
 	PrefixLength *int `json:"prefixLength,omitempty"`
@@ -1640,7 +2340,7 @@ func NewFloatingIPv4Address() *FloatingIPv4Address {
 	p := new(FloatingIPv4Address)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIPv4Address"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FloatingIPv4Address"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIPv4Address"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.PrefixLength = new(int)
@@ -1655,7 +2355,7 @@ type FloatingIPv6Address struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Prefix length of the network to which this host IPv6 address belongs.
 	*/
 	PrefixLength *int `json:"prefixLength,omitempty"`
@@ -1667,7 +2367,7 @@ func NewFloatingIPv6Address() *FloatingIPv6Address {
 	p := new(FloatingIPv6Address)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIPv6Address"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FloatingIPv6Address"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIPv6Address"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.PrefixLength = new(int)
@@ -1676,7 +2376,7 @@ func NewFloatingIPv6Address() *FloatingIPv6Address {
 	return p
 }
 
-/**
+/*
 Configure a floating IP.
 */
 type FloatingIp struct {
@@ -1685,56 +2385,82 @@ type FloatingIp struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
+	  Association status of floating IP.
+	*/
+	AssociationStatus *string `json:"AssociationStatus,omitempty"`
+	/*
 
 	 */
 	AssociationItemDiscriminator_ *string `json:"$associationItemDiscriminator,omitempty"`
-	/**
+	/*
 	  Association of the Floating IP with either NIC or Private IP
 	*/
 	Association *OneOfFloatingIpAssociation `json:"association,omitempty"`
-	/**
+	/*
 	  Description for the Floating IP.
 	*/
 	Description *string `json:"description,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+
+	ExternalSubnet *Subnet `json:"externalSubnet,omitempty"`
+	/*
 	  External subnet reference for the Floating IP to be allocated in on-prem only.
 	*/
 	ExternalSubnetReference *string `json:"externalSubnetReference,omitempty"`
 
 	FloatingIp *FloatingIPAddress `json:"floatingIp,omitempty"`
-	/**
+	/*
+	  Floating IP value in string
+	*/
+	FloatingIpValue *string `json:"floatingIpValue,omitempty"`
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  Name of the floating IP.
 	*/
 	Name *string `json:"name,omitempty"`
-	/**
+	/*
+	  Private IP value in string
+	*/
+	PrivateIp *string `json:"privateIp,omitempty"`
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+
+	VmNic *VmNic `json:"vmNic,omitempty"`
+	/*
+	  VM NIC reference.
+	*/
+	VmNicReference *string `json:"vmNicReference,omitempty"`
+
+	Vpc *Vpc `json:"vpc,omitempty"`
+	/*
+	  VPC reference UUID
+	*/
+	VpcReference *string `json:"vpcReference,omitempty"`
 }
 
 func NewFloatingIp() *FloatingIp {
 	p := new(FloatingIp)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIp"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FloatingIp"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIp"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/floating-ips/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/floating-ips/{extId} Get operation
 */
 type FloatingIpApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1742,7 +2468,7 @@ type FloatingIpApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -1756,7 +2482,7 @@ func NewFloatingIpApiResponse() *FloatingIpApiResponse {
 	p := new(FloatingIpApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIpApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FloatingIpApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIpApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1783,8 +2509,8 @@ func (p *FloatingIpApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/floating-ips Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/floating-ips Get operation
 */
 type FloatingIpListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1792,7 +2518,7 @@ type FloatingIpListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -1806,7 +2532,7 @@ func NewFloatingIpListApiResponse() *FloatingIpListApiResponse {
 	p := new(FloatingIpListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIpListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FloatingIpListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIpListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1833,37 +2559,121 @@ func (p *FloatingIpListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
+type FloatingIpProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Association status of floating IP.
+	*/
+	AssociationStatus *string `json:"AssociationStatus,omitempty"`
+
+	AssociationItemDiscriminator_ *string `json:"$associationItemDiscriminator,omitempty"`
+	/*
+	  Association of the Floating IP with either NIC or Private IP
+	*/
+	Association *OneOfFloatingIpProjectionAssociation `json:"association,omitempty"`
+	/*
+	  Description for the Floating IP.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+
+	ExternalSubnet *Subnet `json:"externalSubnet,omitempty"`
+	/*
+	  External subnet reference for the Floating IP to be allocated in on-prem only.
+	*/
+	ExternalSubnetReference *string `json:"externalSubnetReference,omitempty"`
+
+	FloatingIp *FloatingIPAddress `json:"floatingIp,omitempty"`
+	/*
+	  Floating IP value in string
+	*/
+	FloatingIpValue *string `json:"floatingIpValue,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  Name of the floating IP.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  Private IP value in string
+	*/
+	PrivateIp *string `json:"privateIp,omitempty"`
+
+	SubnetProjection *SubnetProjection `json:"subnetProjection,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	VmNic *VmNic `json:"vmNic,omitempty"`
+
+	VmNicProjection *VmNicProjection `json:"vmNicProjection,omitempty"`
+	/*
+	  VM NIC reference.
+	*/
+	VmNicReference *string `json:"vmNicReference,omitempty"`
+
+	Vpc *Vpc `json:"vpc,omitempty"`
+
+	VpcProjection *VpcProjection `json:"vpcProjection,omitempty"`
+	/*
+	  VPC reference UUID
+	*/
+	VpcReference *string `json:"vpcReference,omitempty"`
+}
+
+func NewFloatingIpProjection() *FloatingIpProjection {
+	p := new(FloatingIpProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.FloatingIpProjection"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIpProjection"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
 type FlowGateway struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  List of bindings of the Atlas Flow Gateway external subnet with the Azure external subnet.
 	*/
 	AzureExternalSubnetBindingList []AzureExternalSubnetBinding `json:"azureExternalSubnetBindingList"`
-	/**
+	/*
 	  Chassis UUID of the Atlas Flow Gateway.
 	*/
 	ChassisUuid *string `json:"chassisUuid"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 
 	GatewayStatus *FlowGatewayStatus `json:"gatewayStatus,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  Version of the OVN controller
 	*/
 	OvnControllerVersion *string `json:"ovnControllerVersion,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -1886,14 +2696,14 @@ func NewFlowGateway() *FlowGateway {
 	p := new(FlowGateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGateway"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FlowGateway"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGateway"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/flow-gateways/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/flow-gateways/{extId} Get operation
 */
 type FlowGatewayApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1901,7 +2711,7 @@ type FlowGatewayApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -1915,7 +2725,7 @@ func NewFlowGatewayApiResponse() *FlowGatewayApiResponse {
 	p := new(FlowGatewayApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGatewayApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FlowGatewayApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1942,134 +2752,74 @@ func (p *FlowGatewayApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-type FlowGatewayKeepAliveRequest struct {
+/*
+Response model for Flow Gateway Keepalive.
+*/
+type FlowGatewayKeepAlive struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  Chassis UUID of the Atlas Flow Gateway.
-	*/
-	ChassisUuid *string `json:"chassisUuid"`
-	/**
-	  List of external network interface's primary IP addresses corresponding to the external subnet bindings in the flow gateway.
-	*/
-	EniPrimaryIpList []import1.IPAddress `json:"eniPrimaryIpList,omitempty"`
-	/**
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-
-	GatewayStatus *FlowGatewayStatus `json:"gatewayStatus,omitempty"`
-	/**
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
-	/**
-	  Version of the OVN controller
-	*/
-	OvnControllerVersion *string `json:"ovnControllerVersion,omitempty"`
-	/**
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func (p *FlowGatewayKeepAliveRequest) MarshalJSON() ([]byte, error) {
-	type FlowGatewayKeepAliveRequestProxy FlowGatewayKeepAliveRequest
-	return json.Marshal(struct {
-		*FlowGatewayKeepAliveRequestProxy
-		ChassisUuid *string `json:"chassisUuid,omitempty"`
-	}{
-		FlowGatewayKeepAliveRequestProxy: (*FlowGatewayKeepAliveRequestProxy)(p),
-		ChassisUuid:                      p.ChassisUuid,
-	})
-}
-
-func NewFlowGatewayKeepAliveRequest() *FlowGatewayKeepAliveRequest {
-	p := new(FlowGatewayKeepAliveRequest)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAliveRequest"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FlowGatewayKeepAliveRequest"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-type FlowGatewayKeepAliveResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  Indicates whether the keep alive request was successful or not.
 	*/
 	KeepAliveResponse *string `json:"keepAliveResponse,omitempty"`
-	/**
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	/*
+	  Version of the network controller on the Prism Central.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
-	/**
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
+	NetworkControllerVersion *string `json:"networkControllerVersion,omitempty"`
 }
 
-func NewFlowGatewayKeepAliveResponse() *FlowGatewayKeepAliveResponse {
-	p := new(FlowGatewayKeepAliveResponse)
+func NewFlowGatewayKeepAlive() *FlowGatewayKeepAlive {
+	p := new(FlowGatewayKeepAlive)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAliveResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FlowGatewayKeepAliveResponse"}
+	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAlive"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayKeepAlive"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/flow-gateways/$actions/keep-alive Post operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/flow-gateways/$actions/keep-alive Post operation
 */
-type FlowGatewayKeepAliveResponseApiResponse struct {
+type FlowGatewayKeepAliveApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfFlowGatewayKeepAliveResponseApiResponseData `json:"data,omitempty"`
+	Data *OneOfFlowGatewayKeepAliveApiResponseData `json:"data,omitempty"`
 
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewFlowGatewayKeepAliveResponseApiResponse() *FlowGatewayKeepAliveResponseApiResponse {
-	p := new(FlowGatewayKeepAliveResponseApiResponse)
+func NewFlowGatewayKeepAliveApiResponse() *FlowGatewayKeepAliveApiResponse {
+	p := new(FlowGatewayKeepAliveApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAliveResponseApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FlowGatewayKeepAliveResponseApiResponse"}
+	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAliveApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayKeepAliveApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *FlowGatewayKeepAliveResponseApiResponse) GetData() interface{} {
+func (p *FlowGatewayKeepAliveApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *FlowGatewayKeepAliveResponseApiResponse) SetData(v interface{}) error {
+func (p *FlowGatewayKeepAliveApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfFlowGatewayKeepAliveResponseApiResponseData()
+		p.Data = NewOneOfFlowGatewayKeepAliveApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2081,8 +2831,54 @@ func (p *FlowGatewayKeepAliveResponseApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/flow-gateways Get operation
+/*
+Request model for Flow Gateway Keepalive.
+*/
+type FlowGatewayKeepAliveRequestSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Chassis UUID of the Atlas Flow Gateway.
+	*/
+	ChassisUuid *string `json:"chassisUuid"`
+	/*
+	  List of external network interface's primary IP addresses corresponding to the external subnet bindings in the flow gateway.
+	*/
+	EniPrimaryIpList []import1.IPAddress `json:"eniPrimaryIpList,omitempty"`
+
+	GatewayStatus *FlowGatewayStatus `json:"gatewayStatus,omitempty"`
+	/*
+	  Version of the OVN controller
+	*/
+	OvnControllerVersion *string `json:"ovnControllerVersion,omitempty"`
+}
+
+func (p *FlowGatewayKeepAliveRequestSpec) MarshalJSON() ([]byte, error) {
+	type FlowGatewayKeepAliveRequestSpecProxy FlowGatewayKeepAliveRequestSpec
+	return json.Marshal(struct {
+		*FlowGatewayKeepAliveRequestSpecProxy
+		ChassisUuid *string `json:"chassisUuid,omitempty"`
+	}{
+		FlowGatewayKeepAliveRequestSpecProxy: (*FlowGatewayKeepAliveRequestSpecProxy)(p),
+		ChassisUuid:                          p.ChassisUuid,
+	})
+}
+
+func NewFlowGatewayKeepAliveRequestSpec() *FlowGatewayKeepAliveRequestSpec {
+	p := new(FlowGatewayKeepAliveRequestSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAliveRequestSpec"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayKeepAliveRequestSpec"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/flow-gateways Get operation
 */
 type FlowGatewayListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2090,7 +2886,7 @@ type FlowGatewayListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -2104,7 +2900,7 @@ func NewFlowGatewayListApiResponse() *FlowGatewayListApiResponse {
 	p := new(FlowGatewayListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGatewayListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FlowGatewayListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2131,7 +2927,7 @@ func (p *FlowGatewayListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 State of the Atlas Flow Gateway.
 */
 type FlowGatewayState int
@@ -2145,7 +2941,9 @@ const (
 	FLOWGATEWAYSTATE_MAINTENANCE  FlowGatewayState = 5
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *FlowGatewayState) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -2161,7 +2959,24 @@ func (e *FlowGatewayState) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e FlowGatewayState) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HEALTHY",
+		"DOWN",
+		"PROVISIONING",
+		"MAINTENANCE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *FlowGatewayState) index(name string) FlowGatewayState {
 	names := [...]string{
 		"$UNKNOWN",
@@ -2199,7 +3014,7 @@ func (e FlowGatewayState) Ref() *FlowGatewayState {
 	return &e
 }
 
-/**
+/*
 Status of the Atlas Flow Gateway.
 */
 type FlowGatewayStatus struct {
@@ -2208,7 +3023,7 @@ type FlowGatewayStatus struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Status detail of the Atlas Flow Gateway.
 	*/
 	Detail *string `json:"detail,omitempty"`
@@ -2220,13 +3035,293 @@ func NewFlowGatewayStatus() *FlowGatewayStatus {
 	p := new(FlowGatewayStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGatewayStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.FlowGatewayStatus"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayStatus"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
+Network gateway
+*/
+type Gateway struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Cloud network on which network gateway is deployed
+	*/
+	CloudNetworkReference *string `json:"cloudNetworkReference,omitempty"`
+
+	Deployment *GatewayDeployment `json:"deployment,omitempty"`
+	/*
+	  Description of the gateway
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Third-party gateway vendor
+	*/
+	GatewayDeviceVendor *string `json:"gatewayDeviceVendor,omitempty"`
+	/*
+	  Software version installed on the gateway appliance
+	*/
+	InstalledSoftwareVersion *string `json:"installedSoftwareVersion,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  Name of the gateway
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+
+	 */
+	ServicesItemDiscriminator_ *string `json:"$servicesItemDiscriminator,omitempty"`
+
+	Services *OneOfGatewayServices `json:"services,omitempty"`
+
+	Status *Status `json:"status,omitempty"`
+	/*
+	  Supported gateway appliance version
+	*/
+	SupportedSoftwareVersion *string `json:"supportedSoftwareVersion,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Vm *Vm `json:"vm,omitempty"`
+	/*
+	  Reference to a dedicated VM on which a local gateway is deployed
+	*/
+	VmReference *string `json:"vmReference,omitempty"`
+
+	Vpc *Vpc `json:"vpc,omitempty"`
+	/*
+	  VPC
+	*/
+	VpcReference *string `json:"vpcReference,omitempty"`
+}
+
+func NewGateway() *Gateway {
+	p := new(Gateway)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.Gateway"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Gateway"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/gateways/{extId} Get operation
+*/
+type GatewayApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGatewayApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGatewayApiResponse() *GatewayApiResponse {
+	p := new(GatewayApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GatewayApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayApiResponse"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GatewayApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GatewayApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGatewayApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Network gateway deployment configuration
+*/
+type GatewayDeployment struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Cluster reference required to identify which on-prem cluster to deploy the gateway VM on
+	*/
+	ClusterReference *string `json:"clusterReference,omitempty"`
+
+	ManagementInterface *GatewayManagementInterface `json:"managementInterface,omitempty"`
+	/*
+	  vCenter datastore to which the gateway disks and images will be uploaded during deployment
+	*/
+	VcenterDatastoreName *string `json:"vcenterDatastoreName,omitempty"`
+}
+
+func NewGatewayDeployment() *GatewayDeployment {
+	p := new(GatewayDeployment)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GatewayDeployment"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayDeployment"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/gateways Get operation
+*/
+type GatewayListApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGatewayListApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGatewayListApiResponse() *GatewayListApiResponse {
+	p := new(GatewayListApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GatewayListApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayListApiResponse"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GatewayListApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GatewayListApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGatewayListApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Network interface used to deliver network services and for managing the gateway. If a VPC reference is supplied then the gateway will be deployed on a dedicated subnet within the VPC. If a VPC reference is not supplied, then this interface defines the subnet on which the gateway will be deployed, and the address it will be assigned. When a VPC reference is not present, either a subnet reference or a VLAN id must be supplied, along with the address and default gateway of the subnet. A VLAN network without IPAM may be used.
+*/
+type GatewayManagementInterface struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Address *import1.IPAddress `json:"address,omitempty"`
+
+	DefaultGateway *import1.IPAddress `json:"defaultGateway,omitempty"`
+	/*
+	  MTU of management interface
+	*/
+	Mtu *int `json:"mtu,omitempty"`
+	/*
+	  The on-prem vlan subnet to deploy the network gateway VM on
+	*/
+	SubnetReference *string `json:"subnetReference,omitempty"`
+	/*
+	  The on-prem VLAN to deploy the gateway on
+	*/
+	VlanId *int `json:"vlanId,omitempty"`
+}
+
+func NewGatewayManagementInterface() *GatewayManagementInterface {
+	p := new(GatewayManagementInterface)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GatewayManagementInterface"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayManagementInterface"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Information of the VNICs attached to the local BGP gateways.
+*/
+type GatewayNic struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Index of the NIC.
+	*/
+	Index *int `json:"index,omitempty"`
+
+	IpAddress *import1.IPAddress `json:"ipAddress,omitempty"`
+	/*
+	  MAC address of the NIC.
+	*/
+	MacAddress *string `json:"macAddress,omitempty"`
+}
+
+func NewGatewayNic() *GatewayNic {
+	p := new(GatewayNic)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GatewayNic"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayNic"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Reference of gateway nodes
 */
 type GatewayNodeReference struct {
@@ -2245,13 +3340,93 @@ func NewGatewayNodeReference() *GatewayNodeReference {
 	p := new(GatewayNodeReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayNodeReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.GatewayNodeReference"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayNodeReference"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+type GatewayProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Cloud network on which network gateway is deployed
+	*/
+	CloudNetworkReference *string `json:"cloudNetworkReference,omitempty"`
+
+	Deployment *GatewayDeployment `json:"deployment,omitempty"`
+	/*
+	  Description of the gateway
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Third-party gateway vendor
+	*/
+	GatewayDeviceVendor *string `json:"gatewayDeviceVendor,omitempty"`
+	/*
+	  Software version installed on the gateway appliance
+	*/
+	InstalledSoftwareVersion *string `json:"installedSoftwareVersion,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  Name of the gateway
+	*/
+	Name *string `json:"name,omitempty"`
+
+	ServicesItemDiscriminator_ *string `json:"$servicesItemDiscriminator,omitempty"`
+
+	Services *OneOfGatewayProjectionServices `json:"services,omitempty"`
+
+	Status *Status `json:"status,omitempty"`
+	/*
+	  Supported gateway appliance version
+	*/
+	SupportedSoftwareVersion *string `json:"supportedSoftwareVersion,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Vm *Vm `json:"vm,omitempty"`
+
+	VmProjection *VmProjection `json:"vmProjection,omitempty"`
+	/*
+	  Reference to a dedicated VM on which a local gateway is deployed
+	*/
+	VmReference *string `json:"vmReference,omitempty"`
+
+	Vpc *Vpc `json:"vpc,omitempty"`
+
+	VpcProjection *VpcProjection `json:"vpcProjection,omitempty"`
+	/*
+	  VPC
+	*/
+	VpcReference *string `json:"vpcReference,omitempty"`
+}
+
+func NewGatewayProjection() *GatewayProjection {
+	p := new(GatewayProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GatewayProjection"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayProjection"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Local gateway role (acceptor or initiator) in the connection
 */
 type GatewayRole int
@@ -2263,7 +3438,9 @@ const (
 	GATEWAYROLE_ACCEPTOR  GatewayRole = 3
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *GatewayRole) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -2277,7 +3454,22 @@ func (e *GatewayRole) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e GatewayRole) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"INITIATOR",
+		"ACCEPTOR",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *GatewayRole) index(name string) GatewayRole {
 	names := [...]string{
 		"$UNKNOWN",
@@ -2313,7 +3505,7 @@ func (e GatewayRole) Ref() *GatewayRole {
 	return &e
 }
 
-/**
+/*
 Input body to configure hosts
 */
 type Host struct {
@@ -2322,18 +3514,24 @@ type Host struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Reference to the host
 	*/
 	ExtId *string `json:"extId"`
-	/**
+	/*
 	  Host NIC array
 	*/
 	HostNics []string `json:"hostNics"`
-	/**
+	/*
 	  Internal bridge name as br0
 	*/
 	InternalBridgeName *string `json:"internalBridgeName,omitempty"`
+
+	IpAddress *IPv4Subnet `json:"ipAddress,omitempty"`
+	/*
+	  Internal route table number for the routing rules associated with the IP address on this host
+	*/
+	RouteTable *int `json:"routeTable,omitempty"`
 }
 
 func (p *Host) MarshalJSON() ([]byte, error) {
@@ -2353,16 +3551,16 @@ func NewHost() *Host {
 	p := new(Host)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Host"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Host"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Host"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 ICMP parameters to be matched in routing policy.
 */
-type ICMP struct {
+type ICMPObject struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2374,51 +3572,17 @@ type ICMP struct {
 	IcmpType *int `json:"icmpType,omitempty"`
 }
 
-func NewICMP() *ICMP {
-	p := new(ICMP)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.ICMP"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.ICMP"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
-ICMP parameters to be matched in routing policy.
-*/
-type ICMPObject struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	Icmp *ICMP `json:"icmp"`
-}
-
-func (p *ICMPObject) MarshalJSON() ([]byte, error) {
-	type ICMPObjectProxy ICMPObject
-	return json.Marshal(struct {
-		*ICMPObjectProxy
-		Icmp *ICMP `json:"icmp,omitempty"`
-	}{
-		ICMPObjectProxy: (*ICMPObjectProxy)(p),
-		Icmp:            p.Icmp,
-	})
-}
-
 func NewICMPObject() *ICMPObject {
 	p := new(ICMPObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ICMPObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.ICMPObject"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ICMPObject"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 IP configuration.
 */
 type IPConfig struct {
@@ -2437,7 +3601,7 @@ func NewIPConfig() *IPConfig {
 	p := new(IPConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2460,43 +3624,43 @@ type IPFIXExporter struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  The IP address of the IPFIX collector.
 	*/
 	CollectorIp *string `json:"collectorIp"`
-	/**
+	/*
 	  The port number of the IPFIX collector.
 	*/
 	CollectorPort *int64 `json:"collectorPort"`
-	/**
+	/*
 	  IPFIX exporter description.
 	*/
 	Description *string `json:"description,omitempty"`
-	/**
+	/*
 	  The maximum export rate in bits per second(bps) at which the exporter should try to export data.
 	*/
 	ExportRateLimitPerNode *int64 `json:"exportRateLimitPerNode,omitempty"`
-	/**
+	/*
 	  List of IPFIX exporter scopes.
 	*/
 	ExportScopes []ExportScope `json:"exportScopes"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  Name of the IPFIX Exporter.
 	*/
 	Name *string `json:"name"`
 
 	Protocol *ExporterProtocol `json:"protocol"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -2525,14 +3689,14 @@ func NewIPFIXExporter() *IPFIXExporter {
 	p := new(IPFIXExporter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPFIXExporter"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPFIXExporter"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPFIXExporter"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/ipfix-exporters/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/ipfix-exporters/{extId} Get operation
 */
 type IPFIXExporterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2540,7 +3704,7 @@ type IPFIXExporterApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -2554,7 +3718,7 @@ func NewIPFIXExporterApiResponse() *IPFIXExporterApiResponse {
 	p := new(IPFIXExporterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPFIXExporterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPFIXExporterApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPFIXExporterApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2581,8 +3745,8 @@ func (p *IPFIXExporterApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/ipfix-exporters Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/ipfix-exporters Get operation
 */
 type IPFIXExporterListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2590,7 +3754,7 @@ type IPFIXExporterListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -2604,7 +3768,7 @@ func NewIPFIXExporterListApiResponse() *IPFIXExporterListApiResponse {
 	p := new(IPFIXExporterListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPFIXExporterListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPFIXExporterListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPFIXExporterListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2631,6 +3795,37 @@ func (p *IPFIXExporterListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
+/*
+IP pool Usage.
+*/
+type IPPoolUsage struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Number of free IPs.
+	*/
+	NumFreeIPs *int64 `json:"numFreeIPs,omitempty"`
+	/*
+	  Total number of IPs in this pool.
+	*/
+	NumTotalIPs *int64 `json:"numTotalIPs,omitempty"`
+
+	Range *IPv4Pool `json:"range,omitempty"`
+}
+
+func NewIPPoolUsage() *IPPoolUsage {
+	p := new(IPPoolUsage)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.IPPoolUsage"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPPoolUsage"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
 type IPSubnet struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -2647,7 +3842,7 @@ func NewIPSubnet() *IPSubnet {
 	p := new(IPSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPSubnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPSubnet"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPSubnet"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2664,41 +3859,42 @@ func (i *IPSubnet) IsValid() bool {
 	return i.HasIpv4() || i.HasIpv6()
 }
 
-/**
-IP address and prefix length of the subnet.
+/*
+IP usage statistics.
 */
-type IPSubnetObject struct {
+type IPUsage struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	IpSubnet *IPSubnet `json:"ipSubnet"`
+	IpPoolUsages []IPPoolUsage `json:"ipPoolUsages,omitempty"`
+	/*
+	  Number of assigned IPs.
+	*/
+	NumAssignedIPs *int64 `json:"numAssignedIPs,omitempty"`
+	/*
+	  Number of free IPs.
+	*/
+	NumFreeIPs *int64 `json:"numFreeIPs,omitempty"`
+	/*
+	  Number of MAC addresses.
+	*/
+	NumMacs *int64 `json:"numMacs,omitempty"`
 }
 
-func (p *IPSubnetObject) MarshalJSON() ([]byte, error) {
-	type IPSubnetObjectProxy IPSubnetObject
-	return json.Marshal(struct {
-		*IPSubnetObjectProxy
-		IpSubnet *IPSubnet `json:"ipSubnet,omitempty"`
-	}{
-		IPSubnetObjectProxy: (*IPSubnetObjectProxy)(p),
-		IpSubnet:            p.IpSubnet,
-	})
-}
-
-func NewIPSubnetObject() *IPSubnetObject {
-	p := new(IPSubnetObject)
+func NewIPUsage() *IPUsage {
+	p := new(IPUsage)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.IPSubnetObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPSubnetObject"}
+	*p.ObjectType_ = "networking.v4.config.IPUsage"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPUsage"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 IP V4 configuration.
 */
 type IPv4Config struct {
@@ -2713,7 +3909,7 @@ type IPv4Config struct {
 	DhcpServerAddress *import1.IPv4Address `json:"dhcpServerAddress,omitempty"`
 
 	IpSubnet *IPv4Subnet `json:"ipSubnet"`
-	/**
+	/*
 	  Pool of IP addresses from where IPs are allocated.
 	*/
 	PoolList []IPv4Pool `json:"poolList,omitempty"`
@@ -2734,13 +3930,13 @@ func NewIPv4Config() *IPv4Config {
 	p := new(IPv4Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Config"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPv4Config"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv4Config"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Start/end IP address range.
 */
 type IPv4Pool struct {
@@ -2772,7 +3968,7 @@ func NewIPv4Pool() *IPv4Pool {
 	p := new(IPv4Pool)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Pool"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPv4Pool"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv4Pool"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2807,13 +4003,13 @@ func NewIPv4Subnet() *IPv4Subnet {
 	p := new(IPv4Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Subnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPv4Subnet"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv4Subnet"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 IP V6 configuration.
 */
 type IPv6Config struct {
@@ -2828,7 +4024,7 @@ type IPv6Config struct {
 	DhcpServerAddress *import1.IPv6Address `json:"dhcpServerAddress,omitempty"`
 
 	IpSubnet *IPv6Subnet `json:"ipSubnet"`
-	/**
+	/*
 	  Pool of IP addresses from where IPs are allocated.
 	*/
 	PoolList []IPv6Pool `json:"poolList,omitempty"`
@@ -2849,13 +4045,13 @@ func NewIPv6Config() *IPv6Config {
 	p := new(IPv6Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv6Config"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPv6Config"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv6Config"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Start/end IP address range.
 */
 type IPv6Pool struct {
@@ -2887,7 +4083,7 @@ func NewIPv6Pool() *IPv6Pool {
 	p := new(IPv6Pool)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv6Pool"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPv6Pool"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv6Pool"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2922,13 +4118,13 @@ func NewIPv6Subnet() *IPv6Subnet {
 	p := new(IPv6Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv6Subnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IPv6Subnet"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv6Subnet"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Internal BGP configuration
 */
 type IbgpConfig struct {
@@ -2937,36 +4133,36 @@ type IbgpConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Autonomous system number. 0 and 4294967295 are reserved.
 	*/
 	Asn *int64 `json:"asn,omitempty"`
-	/**
+	/*
 	  BPG password
 	*/
 	Password *string `json:"password,omitempty"`
 
 	PeerIp *import1.IPAddress `json:"peerIp,omitempty"`
-	/**
+	/*
 	  Redistribute routes over eBGP. Applicable only to network gateways deployed on VLAN subnets with eBGP over VPN.
 	*/
-	RedistributeRoutes *bool `json:"redistributeRoutes,omitempty"`
+	ShouldRedistributeRoutes *bool `json:"shouldRedistributeRoutes,omitempty"`
 }
 
 func NewIbgpConfig() *IbgpConfig {
 	p := new(IbgpConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IbgpConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IbgpConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IbgpConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
-	p.RedistributeRoutes = new(bool)
-	*p.RedistributeRoutes = false
+	p.ShouldRedistributeRoutes = new(bool)
+	*p.ShouldRedistributeRoutes = false
 
 	return p
 }
 
-/**
+/*
 Describes the routing protocol configuration spec needed by this gateway to peer and learn routes from internal routers using either iBGP or OSPF.
 */
 type InternalRoutingConfig struct {
@@ -2975,11 +4171,11 @@ type InternalRoutingConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  iBGP configuration.
 	*/
 	IbgpConfigList []IbgpConfig `json:"ibgpConfigList,omitempty"`
-	/**
+	/*
 	  List of local prefixes to be advertised over eBGP.
 	*/
 	LocalPrefixList []IPSubnet `json:"localPrefixList,omitempty"`
@@ -2991,26 +4187,26 @@ func NewInternalRoutingConfig() *InternalRoutingConfig {
 	p := new(InternalRoutingConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.InternalRoutingConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.InternalRoutingConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.InternalRoutingConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Input required to reserve IP addresses on a subnet.
 */
-type IpReserveInput struct {
+type IpReserveSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Optional context a client wishes to associate with a reservation of IP addresses.
 	*/
 	ClientContext *string `json:"clientContext,omitempty"`
-	/**
+	/*
 	  Number of IP addresses reserved.
 	*/
 	Count *int64 `json:"count,omitempty"`
@@ -3022,64 +4218,41 @@ type IpReserveInput struct {
 	StartIpAddress *import1.IPAddress `json:"startIpAddress,omitempty"`
 }
 
-func (p *IpReserveInput) MarshalJSON() ([]byte, error) {
-	type IpReserveInputProxy IpReserveInput
+func (p *IpReserveSpec) MarshalJSON() ([]byte, error) {
+	type IpReserveSpecProxy IpReserveSpec
 	return json.Marshal(struct {
-		*IpReserveInputProxy
+		*IpReserveSpecProxy
 		ReserveType *ReserveType `json:"reserveType,omitempty"`
 	}{
-		IpReserveInputProxy: (*IpReserveInputProxy)(p),
-		ReserveType:         p.ReserveType,
+		IpReserveSpecProxy: (*IpReserveSpecProxy)(p),
+		ReserveType:        p.ReserveType,
 	})
 }
 
-func NewIpReserveInput() *IpReserveInput {
-	p := new(IpReserveInput)
+func NewIpReserveSpec() *IpReserveSpec {
+	p := new(IpReserveSpec)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.IpReserveInput"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IpReserveInput"}
+	*p.ObjectType_ = "networking.v4.config.IpReserveSpec"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IpReserveSpec"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-Output that the client can consume to see what IP addresses were reserved after the reservation is completed.
-*/
-type IpReserveOutput struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	IpAddresses []import1.IPAddress `json:"ipAddresses,omitempty"`
-}
-
-func NewIpReserveOutput() *IpReserveOutput {
-	p := new(IpReserveOutput)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.IpReserveOutput"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IpReserveOutput"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
+/*
 Input required to unreserve IP addresses on a subnet.
 */
-type IpUnreserveInput struct {
+type IpUnreserveSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Optional context a client wishes to associate with a reservation of IP addresses.
 	*/
 	ClientContext *string `json:"clientContext,omitempty"`
-	/**
+	/*
 	  Number of IP addresses unreserved.
 	*/
 	Count *int64 `json:"count,omitempty"`
@@ -3091,28 +4264,28 @@ type IpUnreserveInput struct {
 	UnreserveType *UnreserveType `json:"unreserveType"`
 }
 
-func (p *IpUnreserveInput) MarshalJSON() ([]byte, error) {
-	type IpUnreserveInputProxy IpUnreserveInput
+func (p *IpUnreserveSpec) MarshalJSON() ([]byte, error) {
+	type IpUnreserveSpecProxy IpUnreserveSpec
 	return json.Marshal(struct {
-		*IpUnreserveInputProxy
+		*IpUnreserveSpecProxy
 		UnreserveType *UnreserveType `json:"unreserveType,omitempty"`
 	}{
-		IpUnreserveInputProxy: (*IpUnreserveInputProxy)(p),
-		UnreserveType:         p.UnreserveType,
+		IpUnreserveSpecProxy: (*IpUnreserveSpecProxy)(p),
+		UnreserveType:        p.UnreserveType,
 	})
 }
 
-func NewIpUnreserveInput() *IpUnreserveInput {
-	p := new(IpUnreserveInput)
+func NewIpUnreserveSpec() *IpUnreserveSpec {
+	p := new(IpUnreserveSpec)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.IpUnreserveInput"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IpUnreserveInput"}
+	*p.ObjectType_ = "networking.v4.config.IpUnreserveSpec"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IpUnreserveSpec"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 IPSec configuration
 */
 type IpsecConfig struct {
@@ -3121,7 +4294,7 @@ type IpsecConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Diffie-Hellman group value of 14, 19 or 20 to be used for Perfect Forward Secrecy (PFS)
 	*/
 	EspPfsDhGroupNumber *int `json:"espPfsDhGroupNumber,omitempty"`
@@ -3129,7 +4302,7 @@ type IpsecConfig struct {
 	IkeAuthenticationAlgorithm *AuthenticationAlgorithm `json:"ikeAuthenticationAlgorithm,omitempty"`
 
 	IkeEncryptionAlgorithm *EncryptionAlgorithm `json:"ikeEncryptionAlgorithm,omitempty"`
-	/**
+	/*
 	  IKE lifetime (seconds)
 	*/
 	IkeLifetimeSecs *int64 `json:"ikeLifetimeSecs,omitempty"`
@@ -3137,21 +4310,21 @@ type IpsecConfig struct {
 	IpsecAuthenticationAlgorithm *AuthenticationAlgorithm `json:"ipsecAuthenticationAlgorithm,omitempty"`
 
 	IpsecEncryptionAlgorithm *EncryptionAlgorithm `json:"ipsecEncryptionAlgorithm,omitempty"`
-	/**
+	/*
 	  IPSec lifetime (seconds)
 	*/
 	IpsecLifetimeSecs *int64 `json:"ipsecLifetimeSecs,omitempty"`
-	/**
+	/*
 	  Local IKE authentication Id used for this connection
 	*/
 	LocalAuthenticationId *string `json:"localAuthenticationId,omitempty"`
 
 	LocalVtiIp *import1.IPAddress `json:"localVtiIp,omitempty"`
-	/**
+	/*
 	  Shared secret for authentication between gateway peers
 	*/
 	PreSharedKey *string `json:"preSharedKey"`
-	/**
+	/*
 	  IKE authentication Id of the remote peer
 	*/
 	RemoteAuthenticationId *string `json:"remoteAuthenticationId,omitempty"`
@@ -3174,7 +4347,7 @@ func NewIpsecConfig() *IpsecConfig {
 	p := new(IpsecConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IpsecConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.IpsecConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IpsecConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3188,15 +4361,15 @@ type Layer2Stretch struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	ConnectionType *StretchConnectionType `json:"connectionType,omitempty"`
-	/**
+	/*
 	  Layer2 stretch configuration details between subnets on two sites.
 	*/
 	Description *string `json:"description,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
@@ -3204,11 +4377,11 @@ type Layer2Stretch struct {
 	LocalSiteParams *SiteParams `json:"localSiteParams,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  The MTU size setting for the VXLAN session.
 	*/
 	Mtu *int `json:"mtu,omitempty"`
-	/**
+	/*
 	  Layer2 stretch configuration name.
 	*/
 	Name *string `json:"name"`
@@ -3218,11 +4391,11 @@ type Layer2Stretch struct {
 	RemoteStretchStatus []RemoteVtepStretchStatus `json:"remoteStretchStatus,omitempty"`
 
 	StretchStatus *StretchStatus `json:"stretchStatus,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
-	/**
+	/*
 	  The VXLAN network identifier used to uniquely identify the VXLAN tunnel.
 	*/
 	Vni *int `json:"vni,omitempty"`
@@ -3243,14 +4416,14 @@ func NewLayer2Stretch() *Layer2Stretch {
 	p := new(Layer2Stretch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2Stretch"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Layer2Stretch"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2Stretch"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/layer2-stretches/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/layer2-stretches/{extId} Get operation
 */
 type Layer2StretchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3258,7 +4431,7 @@ type Layer2StretchApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -3272,7 +4445,7 @@ func NewLayer2StretchApiResponse() *Layer2StretchApiResponse {
 	p := new(Layer2StretchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Layer2StretchApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3299,8 +4472,8 @@ func (p *Layer2StretchApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/layer2-stretches Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/layer2-stretches Get operation
 */
 type Layer2StretchListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3308,7 +4481,7 @@ type Layer2StretchListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -3322,7 +4495,7 @@ func NewLayer2StretchListApiResponse() *Layer2StretchListApiResponse {
 	p := new(Layer2StretchListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Layer2StretchListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3349,7 +4522,7 @@ func (p *Layer2StretchListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 Layer2 stretch-related entities retrieved from the specified Prism Central cluster.
 */
 type Layer2StretchRelatedEntities struct {
@@ -3370,14 +4543,14 @@ func NewLayer2StretchRelatedEntities() *Layer2StretchRelatedEntities {
 	p := new(Layer2StretchRelatedEntities)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchRelatedEntities"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Layer2StretchRelatedEntities"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchRelatedEntities"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/layer2-stretches/related-entities/{pcClusterExtId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/clusters/{extId}/layer2-stretches/related-entities Get operation
 */
 type Layer2StretchRelatedEntitiesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3385,7 +4558,7 @@ type Layer2StretchRelatedEntitiesApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -3399,7 +4572,7 @@ func NewLayer2StretchRelatedEntitiesApiResponse() *Layer2StretchRelatedEntitiesA
 	p := new(Layer2StretchRelatedEntitiesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchRelatedEntitiesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Layer2StretchRelatedEntitiesApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchRelatedEntitiesApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3426,7 +4599,7 @@ func (p *Layer2StretchRelatedEntitiesApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 Information about a subnet from the specified Prism Central cluster.
 */
 type Layer2StretchSubnetInfo struct {
@@ -3443,7 +4616,7 @@ type Layer2StretchSubnetInfo struct {
 	IpSubnet *IPSubnet `json:"ipSubnet,omitempty"`
 
 	SubnetReference *import1.EntityReference `json:"subnetReference,omitempty"`
-	/**
+	/*
 	  VLAN Id (if this subnet is vlan-backed).
 	*/
 	VlanId *int `json:"vlanId,omitempty"`
@@ -3455,13 +4628,13 @@ func NewLayer2StretchSubnetInfo() *Layer2StretchSubnetInfo {
 	p := new(Layer2StretchSubnetInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchSubnetInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Layer2StretchSubnetInfo"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchSubnetInfo"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Information about a VPN connection from the specified Prism Central cluster.
 */
 type Layer2StretchVpnConnectionInfo struct {
@@ -3486,13 +4659,13 @@ func NewLayer2StretchVpnConnectionInfo() *Layer2StretchVpnConnectionInfo {
 	p := new(Layer2StretchVpnConnectionInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchVpnConnectionInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Layer2StretchVpnConnectionInfo"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchVpnConnectionInfo"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Information about a VTEP gateway.
 */
 type Layer2StretchVtepGatewayInfo struct {
@@ -3503,23 +4676,23 @@ type Layer2StretchVtepGatewayInfo struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	ClusterReference *import1.EntityReference `json:"clusterReference,omitempty"`
-	/**
+	/*
+	  VTEP gateway name.
+	*/
+	GatewayName *string `json:"gatewayName,omitempty"`
+	/*
+	  VTEP gateway Id.
+	*/
+	GatewayReference *string `json:"gatewayReference,omitempty"`
+	/*
 	  If the value is set to true, VTEP gateway is local. If set to false, VTEP gateway is remote.
 	*/
 	IsLocal *bool `json:"isLocal,omitempty"`
-	/**
-	  VTEP gateway name.
-	*/
-	NetworkGatewayName *string `json:"networkGatewayName,omitempty"`
-	/**
-	  VTEP gateway Id.
-	*/
-	NetworkGatewayReference *string `json:"networkGatewayReference,omitempty"`
 
 	VpcReference *import1.EntityReference `json:"vpcReference,omitempty"`
 
 	Vteps []Vtep `json:"vteps,omitempty"`
-	/**
+	/*
 	  VXLAN port
 	*/
 	VxlanPort *int `json:"vxlanPort,omitempty"`
@@ -3529,42 +4702,98 @@ func NewLayer2StretchVtepGatewayInfo() *Layer2StretchVtepGatewayInfo {
 	p := new(Layer2StretchVtepGatewayInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchVtepGatewayInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Layer2StretchVtepGatewayInfo"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchVtepGatewayInfo"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-Information pertaining to a learned IP address on a subnet.
+/*
+L4 TCP/UDP protocol parameters to be matched in routing policy.
 */
-type LearnedAddressInfo struct {
+type LayerFourProtocolObject struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  Last time when the learned address is observed.
-	*/
-	LastSeen *string `json:"lastSeen,omitempty"`
 
-	MacAddress *MacAddress `json:"macAddress,omitempty"`
+	DestinationPortRanges []PortRange `json:"destinationPortRanges,omitempty"`
 
-	VmReference *import1.EntityReference `json:"vmReference,omitempty"`
+	SourcePortRanges []PortRange `json:"sourcePortRanges,omitempty"`
 }
 
-func NewLearnedAddressInfo() *LearnedAddressInfo {
-	p := new(LearnedAddressInfo)
+func NewLayerFourProtocolObject() *LayerFourProtocolObject {
+	p := new(LayerFourProtocolObject)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.LearnedAddressInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.LearnedAddressInfo"}
+	*p.ObjectType_ = "networking.v4.config.LayerFourProtocolObject"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LayerFourProtocolObject"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
+Information pertaining to a learned IP address on a subnet.
+*/
+type LearnedAddress struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Last time when the learned address is observed.
+	*/
+	LastSeen *string `json:"lastSeen,omitempty"`
+
+	MacAddress *string `json:"macAddress,omitempty"`
+
+	VmReference *import1.EntityReference `json:"vmReference,omitempty"`
+}
+
+func NewLearnedAddress() *LearnedAddress {
+	p := new(LearnedAddress)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.LearnedAddress"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LearnedAddress"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Local BGP gateway info needed for flow gateway scale out model.
+*/
+type LocalBgpGateway struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  ASN number of the BGP gateway.
+	*/
+	Asn *int `json:"asn,omitempty"`
+	/*
+	  Prefix length of the VNIC IP addresses of the local BGP gateways.
+	*/
+	VnicIpPrefixLength *int `json:"vnicIpPrefixLength,omitempty"`
+
+	VnicList []GatewayNic `json:"vnicList,omitempty"`
+}
+
+func NewLocalBgpGateway() *LocalBgpGateway {
+	p := new(LocalBgpGateway)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.LocalBgpGateway"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalBgpGateway"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 BGP service hosted on this local gateway.
 */
 type LocalBgpService struct {
@@ -3573,19 +4802,11 @@ type LocalBgpService struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Autonomous system number. 0 and 4294967295 are reserved.
 	*/
 	Asn *int64 `json:"asn"`
-	/**
-	  If true, routes are exchanged between BGP and VPN services.
-	*/
-	ExchangeRoutesWithVpn *bool `json:"exchangeRoutesWithVpn,omitempty"`
-	/**
-	  BGP graceful restart timeout seconds.
-	*/
-	GracefulRestartTimeoutSeconds *int `json:"gracefulRestartTimeoutSeconds,omitempty"`
-	/**
+	/*
 	  Reference to the VPC that this network gateway serves as its BGP speaker.
 	*/
 	VpcReference *string `json:"vpcReference,omitempty"`
@@ -3606,16 +4827,13 @@ func NewLocalBgpService() *LocalBgpService {
 	p := new(LocalBgpService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalBgpService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.LocalBgpService"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalBgpService"}
 	p.UnknownFields_ = map[string]interface{}{}
-
-	p.ExchangeRoutesWithVpn = new(bool)
-	*p.ExchangeRoutesWithVpn = false
 
 	return p
 }
 
-/**
+/*
 Services of this local gateway
 */
 type LocalNetworkServices struct {
@@ -3631,20 +4849,20 @@ type LocalNetworkServices struct {
 
 	LocalVtepService *LocalVtepService `json:"localVtepService,omitempty"`
 
-	PublicIpAddress *import1.IPAddress `json:"publicIpAddress,omitempty"`
+	ServiceAddress *import1.IPAddress `json:"serviceAddress,omitempty"`
 }
 
 func NewLocalNetworkServices() *LocalNetworkServices {
 	p := new(LocalNetworkServices)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalNetworkServices"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.LocalNetworkServices"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalNetworkServices"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 VPN service hosted on this local gateway
 */
 type LocalVpnService struct {
@@ -3663,13 +4881,13 @@ func NewLocalVpnService() *LocalVpnService {
 	p := new(LocalVpnService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalVpnService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.LocalVpnService"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalVpnService"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 VTEP service hosted on this local gateway
 */
 type LocalVtepService struct {
@@ -3678,7 +4896,7 @@ type LocalVtepService struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  VXLAN port
 	*/
 	VxlanPort *int `json:"vxlanPort"`
@@ -3699,44 +4917,89 @@ func NewLocalVtepService() *LocalVtepService {
 	p := new(LocalVtepService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalVtepService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.LocalVtepService"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalVtepService"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-MAC Address.
+/*
+Migration state of the subnet. This field is read-only.
 */
-type MacAddress struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
+type MigrationState int
 
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+const (
+	MIGRATIONSTATE_UNKNOWN     MigrationState = 0
+	MIGRATIONSTATE_REDACTED    MigrationState = 1
+	MIGRATIONSTATE_IN_PROGRESS MigrationState = 2
+	MIGRATIONSTATE_FAILED      MigrationState = 3
+)
 
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	Address *string `json:"address"`
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *MigrationState) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"IN_PROGRESS",
+		"FAILED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
 }
 
-func (p *MacAddress) MarshalJSON() ([]byte, error) {
-	type MacAddressProxy MacAddress
-	return json.Marshal(struct {
-		*MacAddressProxy
-		Address *string `json:"address,omitempty"`
-	}{
-		MacAddressProxy: (*MacAddressProxy)(p),
-		Address:         p.Address,
-	})
+// Returns the name of the enum
+func (e MigrationState) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"IN_PROGRESS",
+		"FAILED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
 }
 
-func NewMacAddress() *MacAddress {
-	p := new(MacAddress)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.MacAddress"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.MacAddress"}
-	p.UnknownFields_ = map[string]interface{}{}
+// Returns the enum type given a string value
+func (e *MigrationState) index(name string) MigrationState {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"IN_PROGRESS",
+		"FAILED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return MigrationState(idx)
+		}
+	}
+	return MIGRATIONSTATE_UNKNOWN
+}
 
-	return p
+func (e *MigrationState) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for MigrationState:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *MigrationState) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e MigrationState) Ref() *MigrationState {
+	return &e
 }
 
 type NetworkCloudConfig struct {
@@ -3747,17 +5010,17 @@ type NetworkCloudConfig struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	AzureConfig *AzureConfig `json:"azureConfig"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -3778,14 +5041,14 @@ func NewNetworkCloudConfig() *NetworkCloudConfig {
 	p := new(NetworkCloudConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkCloudConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkCloudConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkCloudConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/network-cloud-configs/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/network-clouds/{extId} Get operation
 */
 type NetworkCloudConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3793,7 +5056,7 @@ type NetworkCloudConfigApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -3807,7 +5070,7 @@ func NewNetworkCloudConfigApiResponse() *NetworkCloudConfigApiResponse {
 	p := new(NetworkCloudConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkCloudConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkCloudConfigApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkCloudConfigApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3834,8 +5097,8 @@ func (p *NetworkCloudConfigApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/network-cloud-configs Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/network-clouds Get operation
 */
 type NetworkCloudConfigListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3843,7 +5106,7 @@ type NetworkCloudConfigListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -3857,7 +5120,7 @@ func NewNetworkCloudConfigListApiResponse() *NetworkCloudConfigListApiResponse {
 	p := new(NetworkCloudConfigListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkCloudConfigListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkCloudConfigListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkCloudConfigListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3894,29 +5157,31 @@ type NetworkController struct {
 	CloudSubstrate *CloudSubstrate `json:"cloudSubstrate,omitempty"`
 
 	ControllerStatus *ControllerStatus `json:"controllerStatus,omitempty"`
-	/**
+	/*
 	  Network controller software version.
 	*/
 	ControllerVersion *string `json:"controllerVersion,omitempty"`
-	/**
+
+	DefaultVlanStack *DefaultVlanStack `json:"defaultVlanStack,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  Minimum AHV version that this network controller supports.
 	*/
 	MinimumAHVVersion *string `json:"minimumAHVVersion,omitempty"`
-	/**
+	/*
 	  Minimum NOS version that this network controller supports.
 	*/
 	MinimumNOSVersion *string `json:"minimumNOSVersion,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -3926,14 +5191,14 @@ func NewNetworkController() *NetworkController {
 	p := new(NetworkController)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkController"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkController"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkController"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/controllers/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/controllers/{extId} Get operation
 */
 type NetworkControllerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3941,7 +5206,7 @@ type NetworkControllerApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -3955,7 +5220,7 @@ func NewNetworkControllerApiResponse() *NetworkControllerApiResponse {
 	p := new(NetworkControllerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkControllerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkControllerApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkControllerApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3982,8 +5247,8 @@ func (p *NetworkControllerApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/controllers Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/controllers Get operation
 */
 type NetworkControllerListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3991,7 +5256,7 @@ type NetworkControllerListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -4005,7 +5270,7 @@ func NewNetworkControllerListApiResponse() *NetworkControllerListApiResponse {
 	p := new(NetworkControllerListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkControllerListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkControllerListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkControllerListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4032,253 +5297,8 @@ func (p *NetworkControllerListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-Network gateway
-*/
-type NetworkGateway struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  Cloud network on which network gateway is deployed
-	*/
-	CloudNetworkReference *string `json:"cloudNetworkReference,omitempty"`
-
-	Deployment *NetworkGatewayDeployment `json:"deployment,omitempty"`
-	/**
-	  Description of the gateway
-	*/
-	Description *string `json:"description,omitempty"`
-	/**
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/**
-	  Third-party gateway vendor
-	*/
-	GatewayDeviceVendor *string `json:"gatewayDeviceVendor,omitempty"`
-	/**
-	  Software version installed on the gateway appliance
-	*/
-	InstalledSoftwareVersion *string `json:"installedSoftwareVersion,omitempty"`
-	/**
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
-
-	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
-	  Name of the gateway
-	*/
-	Name *string `json:"name,omitempty"`
-	/**
-
-	 */
-	ServicesItemDiscriminator_ *string `json:"$servicesItemDiscriminator,omitempty"`
-
-	Services *OneOfNetworkGatewayServices `json:"services,omitempty"`
-
-	Status *Status `json:"status,omitempty"`
-	/**
-	  Supported gateway appliance version
-	*/
-	SupportedSoftwareVersion *string `json:"supportedSoftwareVersion,omitempty"`
-	/**
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-	/**
-	  Reference to a dedicated VM on which a local gateway is deployed
-	*/
-	VmReference *string `json:"vmReference,omitempty"`
-	/**
-	  VPC
-	*/
-	VpcReference *string `json:"vpcReference,omitempty"`
-}
-
-func NewNetworkGateway() *NetworkGateway {
-	p := new(NetworkGateway)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NetworkGateway"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkGateway"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/network-gateways/{extId} Get operation
-*/
-type NetworkGatewayApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfNetworkGatewayApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewNetworkGatewayApiResponse() *NetworkGatewayApiResponse {
-	p := new(NetworkGatewayApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NetworkGatewayApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkGatewayApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *NetworkGatewayApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *NetworkGatewayApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfNetworkGatewayApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/**
-Network gateway deployment configuration
-*/
-type NetworkGatewayDeployment struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  Cluster reference required to identify which on-prem cluster to deploy the gateway VM on
-	*/
-	ClusterReference *string `json:"clusterReference,omitempty"`
-
-	ManagementInterface *NetworkGatewayManagementInterface `json:"managementInterface,omitempty"`
-	/**
-	  vCenter datastore to which the gateway disks and images will be uploaded during deployment
-	*/
-	VcenterDatastoreName *string `json:"vcenterDatastoreName,omitempty"`
-}
-
-func NewNetworkGatewayDeployment() *NetworkGatewayDeployment {
-	p := new(NetworkGatewayDeployment)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NetworkGatewayDeployment"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkGatewayDeployment"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/network-gateways Get operation
-*/
-type NetworkGatewayListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfNetworkGatewayListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewNetworkGatewayListApiResponse() *NetworkGatewayListApiResponse {
-	p := new(NetworkGatewayListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NetworkGatewayListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkGatewayListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *NetworkGatewayListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *NetworkGatewayListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfNetworkGatewayListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/**
-Network interface used to deliver network services and for managing the gateway. If a VPC reference is supplied then the gateway will be deployed on a dedicated subnet within the VPC. If a VPC reference is not supplied, then this interface defines the subnet on which the gateway will be deployed, and the address it will be assigned. When a VPC reference is not present, either a subnet reference or a VLAN id must be supplied, along with the address and default gateway of the subnet. A VLAN network without IPAM may be used.
-*/
-type NetworkGatewayManagementInterface struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	Address *import1.IPAddress `json:"address,omitempty"`
-
-	DefaultGateway *import1.IPAddress `json:"defaultGateway,omitempty"`
-	/**
-	  MTU of management interface
-	*/
-	Mtu *int `json:"mtu,omitempty"`
-	/**
-	  The on-prem vlan subnet to deploy the network gateway VM on
-	*/
-	SubnetReference *string `json:"subnetReference,omitempty"`
-	/**
-	  The on-prem VLAN to deploy the gateway on
-	*/
-	VlanId *int `json:"vlanId,omitempty"`
-}
-
-func NewNetworkGatewayManagementInterface() *NetworkGatewayManagementInterface {
-	p := new(NetworkGatewayManagementInterface)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NetworkGatewayManagementInterface"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkGatewayManagementInterface"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
-Networking resource base model with metadata support
+/*
+Networking common base object
 */
 type NetworkingBaseModel struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4286,17 +5306,17 @@ type NetworkingBaseModel struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -4306,13 +5326,13 @@ func NewNetworkingBaseModel() *NetworkingBaseModel {
 	p := new(NetworkingBaseModel)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkingBaseModel"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NetworkingBaseModel"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkingBaseModel"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Next hop type.
 */
 type NexthopType int
@@ -4327,7 +5347,9 @@ const (
 	NEXTHOPTYPE_VPN_CONNECTION     NexthopType = 6
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *NexthopType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -4344,7 +5366,25 @@ func (e *NexthopType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e NexthopType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"IP_ADDRESS",
+		"DIRECT_CONNECT_VIF",
+		"INTERNAL_SUBNET",
+		"EXTERNAL_SUBNET",
+		"VPN_CONNECTION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *NexthopType) index(name string) NexthopType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -4383,8 +5423,8 @@ func (e NexthopType) Ref() *NexthopType {
 	return &e
 }
 
-/**
-Array of node UUIDs and boolean pairs, indicating whether the nodes are storage-only
+/*
+Array of node UUIDs and boolean pairs, indicating whether the nodes are storage-only. Requires Prism Central >= pc.2022.9.
 */
 type NodeSchedulableStatus struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4392,26 +5432,24 @@ type NodeSchedulableStatus struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  DocRef(ExtIdProp)
 	*/
 	ExtId *string `json:"extId"`
-	/**
+	/*
 	  The boolean value to indicate whether or not node is a storage only node
 	*/
-	NeverSchedulable *bool `json:"neverSchedulable"`
+	IsNeverSchedulable *bool `json:"isNeverSchedulable,omitempty"`
 }
 
 func (p *NodeSchedulableStatus) MarshalJSON() ([]byte, error) {
 	type NodeSchedulableStatusProxy NodeSchedulableStatus
 	return json.Marshal(struct {
 		*NodeSchedulableStatusProxy
-		ExtId            *string `json:"extId,omitempty"`
-		NeverSchedulable *bool   `json:"neverSchedulable,omitempty"`
+		ExtId *string `json:"extId,omitempty"`
 	}{
 		NodeSchedulableStatusProxy: (*NodeSchedulableStatusProxy)(p),
 		ExtId:                      p.ExtId,
-		NeverSchedulable:           p.NeverSchedulable,
 	})
 }
 
@@ -4419,14 +5457,14 @@ func NewNodeSchedulableStatus() *NodeSchedulableStatus {
 	p := new(NodeSchedulableStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NodeSchedulableStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NodeSchedulableStatus"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NodeSchedulableStatus"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/node-schedulable-status Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/node-schedulable-status Get operation
 */
 type NodeSchedulableStatusApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4434,7 +5472,7 @@ type NodeSchedulableStatusApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -4448,7 +5486,7 @@ func NewNodeSchedulableStatusApiResponse() *NodeSchedulableStatusApiResponse {
 	p := new(NodeSchedulableStatusApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NodeSchedulableStatusApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.NodeSchedulableStatusApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NodeSchedulableStatusApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4475,7 +5513,44 @@ func (p *NodeSchedulableStatusApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+type NodeSchedulableStatusProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  DocRef(ExtIdProp)
+	*/
+	ExtId *string `json:"extId"`
+	/*
+	  The boolean value to indicate whether or not node is a storage only node
+	*/
+	IsNeverSchedulable *bool `json:"isNeverSchedulable,omitempty"`
+}
+
+func (p *NodeSchedulableStatusProjection) MarshalJSON() ([]byte, error) {
+	type NodeSchedulableStatusProjectionProxy NodeSchedulableStatusProjection
+	return json.Marshal(struct {
+		*NodeSchedulableStatusProjectionProxy
+		ExtId *string `json:"extId,omitempty"`
+	}{
+		NodeSchedulableStatusProjectionProxy: (*NodeSchedulableStatusProjectionProxy)(p),
+		ExtId:                                p.ExtId,
+	})
+}
+
+func NewNodeSchedulableStatusProjection() *NodeSchedulableStatusProjection {
+	p := new(NodeSchedulableStatusProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.NodeSchedulableStatusProjection"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NodeSchedulableStatusProjection"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 OSPF configuration for route peering with internal routers.
 */
 type OspfConfig struct {
@@ -4484,13 +5559,13 @@ type OspfConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  OSPF area id of this gateway.
 	*/
 	AreaId *string `json:"areaId,omitempty"`
 
 	AuthenticationType *AuthenticationType `json:"authenticationType,omitempty"`
-	/**
+	/*
 	  Password for authentication.
 	*/
 	Password *string `json:"password,omitempty"`
@@ -4500,13 +5575,13 @@ func NewOspfConfig() *OspfConfig {
 	p := new(OspfConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.OspfConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.OspfConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.OspfConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Range of TCP/UDP ports.
 */
 type PortRange struct {
@@ -4538,13 +5613,13 @@ func NewPortRange() *PortRange {
 	p := new(PortRange)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.PortRange"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.PortRange"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.PortRange"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Private IP and VPC to which the floating IP is associated.
 */
 type PrivateIpAssociation struct {
@@ -4555,7 +5630,7 @@ type PrivateIpAssociation struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	PrivateIp *import1.IPAddress `json:"privateIp"`
-	/**
+	/*
 	  VPC in which the private IP exists.
 	*/
 	VpcReference *string `json:"vpcReference"`
@@ -4578,7 +5653,7 @@ func NewPrivateIpAssociation() *PrivateIpAssociation {
 	p := new(PrivateIpAssociation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.PrivateIpAssociation"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.PrivateIpAssociation"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.PrivateIpAssociation"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4609,13 +5684,13 @@ func NewProtocolNumberObject() *ProtocolNumberObject {
 	p := new(ProtocolNumberObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ProtocolNumberObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.ProtocolNumberObject"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ProtocolNumberObject"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Routing Policy IP protocol type.
 */
 type ProtocolType int
@@ -4630,7 +5705,9 @@ const (
 	PROTOCOLTYPE_PROTOCOL_NUMBER ProtocolType = 6
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *ProtocolType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -4647,7 +5724,25 @@ func (e *ProtocolType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e ProtocolType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ANY",
+		"ICMP",
+		"TCP",
+		"UDP",
+		"PROTOCOL_NUMBER",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *ProtocolType) index(name string) ProtocolType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -4715,13 +5810,13 @@ func NewPublicIpMapping() *PublicIpMapping {
 	p := new(PublicIpMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.PublicIpMapping"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.PublicIpMapping"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.PublicIpMapping"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Quality of Service configuration for the VPN IPSec tunnel
 */
 type QosConfig struct {
@@ -4730,11 +5825,11 @@ type QosConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Egress traffic limit (Mbps)
 	*/
 	EgressLimitMbps *int64 `json:"egressLimitMbps,omitempty"`
-	/**
+	/*
 	  Ingress traffic limit (Mbps)
 	*/
 	IngressLimitMbps *int64 `json:"ingressLimitMbps,omitempty"`
@@ -4744,13 +5839,40 @@ func NewQosConfig() *QosConfig {
 	p := new(QosConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.QosConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.QosConfig"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.QosConfig"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
+Remote BGP gateway info needed for flow gateway scale out model.
+*/
+type RemoteBgpGateway struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  ASN number of the BGP gateway.
+	*/
+	Asn *int `json:"asn,omitempty"`
+
+	IpAddress *import1.IPAddress `json:"ipAddress,omitempty"`
+}
+
+func NewRemoteBgpGateway() *RemoteBgpGateway {
+	p := new(RemoteBgpGateway)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.RemoteBgpGateway"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteBgpGateway"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 BGP service hosted on this remote gateway.
 */
 type RemoteBgpService struct {
@@ -4761,7 +5883,7 @@ type RemoteBgpService struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	Address *import1.IPAddress `json:"address"`
-	/**
+	/*
 	  Autonomous system number. 0 and 4294967295 are reserved.
 	*/
 	Asn *int64 `json:"asn"`
@@ -4784,13 +5906,13 @@ func NewRemoteBgpService() *RemoteBgpService {
 	p := new(RemoteBgpService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteBgpService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RemoteBgpService"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteBgpService"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Services of this remote gateway
 */
 type RemoteNetworkServices struct {
@@ -4811,13 +5933,13 @@ func NewRemoteNetworkServices() *RemoteNetworkServices {
 	p := new(RemoteNetworkServices)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteNetworkServices"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RemoteNetworkServices"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteNetworkServices"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 VPN service hosted on this remote gateway
 */
 type RemoteVpnService struct {
@@ -4828,30 +5950,30 @@ type RemoteVpnService struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	EbgpConfig *BgpConfig `json:"ebgpConfig,omitempty"`
-	/**
-	  Boolean flag indicating user opt-in for installing Xi LB route in on-prem Prism Central and Prism Element CVMs provided on-prem Prism Central, Prism Element and VPN VM are in the same subnet.
-	*/
-	InstallXiRoute *bool `json:"installXiRoute,omitempty"`
 
 	PeerIgpConfig *InternalRoutingConfig `json:"peerIgpConfig,omitempty"`
 
-	PublicIpAddress *import1.IPAddress `json:"publicIpAddress,omitempty"`
+	ServiceAddress *import1.IPAddress `json:"serviceAddress,omitempty"`
+	/*
+	  Boolean flag indicating user opt-in for installing Xi LB route in on-prem Prism Central and Prism Element CVMs provided on-prem Prism Central, Prism Element and VPN VM are in the same subnet.
+	*/
+	ShouldInstallXiRoute *bool `json:"shouldInstallXiRoute,omitempty"`
 }
 
 func NewRemoteVpnService() *RemoteVpnService {
 	p := new(RemoteVpnService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVpnService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RemoteVpnService"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteVpnService"}
 	p.UnknownFields_ = map[string]interface{}{}
 
-	p.InstallXiRoute = new(bool)
-	*p.InstallXiRoute = false
+	p.ShouldInstallXiRoute = new(bool)
+	*p.ShouldInstallXiRoute = false
 
 	return p
 }
 
-/**
+/*
 VTEP service hosted on this remote gateway
 */
 type RemoteVtepService struct {
@@ -4860,11 +5982,11 @@ type RemoteVtepService struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Remote VXLAN Tunnel Endpoints configuration
 	*/
 	Vteps []Vtep `json:"vteps,omitempty"`
-	/**
+	/*
 	  VXLAN port
 	*/
 	VxlanPort *int `json:"vxlanPort,omitempty"`
@@ -4874,7 +5996,7 @@ func NewRemoteVtepService() *RemoteVtepService {
 	p := new(RemoteVtepService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVtepService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RemoteVtepService"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteVtepService"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.VxlanPort = new(int)
@@ -4883,7 +6005,7 @@ func NewRemoteVtepService() *RemoteVtepService {
 	return p
 }
 
-/**
+/*
 Status of each VTEP. Applicable only when connectionType is VXLAN.
 */
 type RemoteVtepStretchStatus struct {
@@ -4895,7 +6017,7 @@ type RemoteVtepStretchStatus struct {
 
 	Address *import1.IPAddress `json:"address,omitempty"`
 
-	LearnedMacAddresses []MacAddress `json:"learnedMacAddresses,omitempty"`
+	LearnedMacAddresses []string `json:"learnedMacAddresses,omitempty"`
 
 	Status *StretchStatus `json:"status,omitempty"`
 }
@@ -4904,13 +6026,13 @@ func NewRemoteVtepStretchStatus() *RemoteVtepStretchStatus {
 	p := new(RemoteVtepStretchStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVtepStretchStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RemoteVtepStretchStatus"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteVtepStretchStatus"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Type of fallback action in reroute case when service VM is down.
 */
 type RerouteFallbackAction int
@@ -4921,9 +6043,12 @@ const (
 	REROUTEFALLBACKACTION_ALLOW       RerouteFallbackAction = 2
 	REROUTEFALLBACKACTION_DROP        RerouteFallbackAction = 3
 	REROUTEFALLBACKACTION_PASSTHROUGH RerouteFallbackAction = 4
+	REROUTEFALLBACKACTION_NO_ACTION   RerouteFallbackAction = 5
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *RerouteFallbackAction) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -4931,6 +6056,7 @@ func (e *RerouteFallbackAction) name(index int) string {
 		"ALLOW",
 		"DROP",
 		"PASSTHROUGH",
+		"NO_ACTION",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -4938,7 +6064,24 @@ func (e *RerouteFallbackAction) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e RerouteFallbackAction) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ALLOW",
+		"DROP",
+		"PASSTHROUGH",
+		"NO_ACTION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *RerouteFallbackAction) index(name string) RerouteFallbackAction {
 	names := [...]string{
 		"$UNKNOWN",
@@ -4946,6 +6089,7 @@ func (e *RerouteFallbackAction) index(name string) RerouteFallbackAction {
 		"ALLOW",
 		"DROP",
 		"PASSTHROUGH",
+		"NO_ACTION",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -4975,7 +6119,7 @@ func (e RerouteFallbackAction) Ref() *RerouteFallbackAction {
 	return &e
 }
 
-/**
+/*
 Parameters for the reroute action which includes the reroute service IP and the fallback action when the service IP is down.
 */
 type RerouteParam struct {
@@ -5005,13 +6149,13 @@ func NewRerouteParam() *RerouteParam {
 	p := new(RerouteParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RerouteParam"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RerouteParam"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RerouteParam"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Type of IP Address reservation.
 */
 type ReserveType int
@@ -5024,7 +6168,9 @@ const (
 	RESERVETYPE_IP_ADDRESS_LIST  ReserveType = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *ReserveType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -5039,7 +6185,23 @@ func (e *ReserveType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e ReserveType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"IP_ADDRESS_COUNT",
+		"IP_ADDRESS_RANGE",
+		"IP_ADDRESS_LIST",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *ReserveType) index(name string) ReserveType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -5076,118 +6238,32 @@ func (e ReserveType) Ref() *ReserveType {
 	return &e
 }
 
-/**
+/*
 Information pertaining to a reserved IP address on a subnet.
 */
-type ReservedAddressInfo struct {
+type ReservedAddress struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Optional context a client wishes to associate with a reservation of IP addresses.
 	*/
 	ClientContext *string `json:"clientContext,omitempty"`
 }
 
-func NewReservedAddressInfo() *ReservedAddressInfo {
-	p := new(ReservedAddressInfo)
+func NewReservedAddress() *ReservedAddress {
+	p := new(ReservedAddress)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.ReservedAddressInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.ReservedAddressInfo"}
+	*p.ObjectType_ = "networking.v4.config.ReservedAddress"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ReservedAddress"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-Boolean value to indicate whether or not there is a hypervisor rolling restart occurring
-*/
-type RollingRestartStatus struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  The boolean value indicating whether or not rolling restart is in progress on the cluster
-	*/
-	IsRollingRestartRunning *bool `json:"isRollingRestartRunning"`
-}
-
-func (p *RollingRestartStatus) MarshalJSON() ([]byte, error) {
-	type RollingRestartStatusProxy RollingRestartStatus
-	return json.Marshal(struct {
-		*RollingRestartStatusProxy
-		IsRollingRestartRunning *bool `json:"isRollingRestartRunning,omitempty"`
-	}{
-		RollingRestartStatusProxy: (*RollingRestartStatusProxy)(p),
-		IsRollingRestartRunning:   p.IsRollingRestartRunning,
-	})
-}
-
-func NewRollingRestartStatus() *RollingRestartStatus {
-	p := new(RollingRestartStatus)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.RollingRestartStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RollingRestartStatus"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/rolling-restart-status Get operation
-*/
-type RollingRestartStatusApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfRollingRestartStatusApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewRollingRestartStatusApiResponse() *RollingRestartStatusApiResponse {
-	p := new(RollingRestartStatusApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.RollingRestartStatusApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RollingRestartStatusApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *RollingRestartStatusApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *RollingRestartStatusApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfRollingRestartStatusApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/**
+/*
 Route.
 */
 type Route struct {
@@ -5196,29 +6272,29 @@ type Route struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  Indicates whether the route is active or inactive.
-	*/
-	Active *bool `json:"active,omitempty"`
 
 	Destination *IPSubnet `json:"destination"`
+	/*
+	  Indicates whether the route is active or inactive.
+	*/
+	IsActive *bool `json:"isActive,omitempty"`
 
 	NexthopIpAddress *import1.IPAddress `json:"nexthopIpAddress,omitempty"`
-	/**
+	/*
 	  Name of the next hop, where the next hop is either a VPN connection, direct connect virtual interface, or a subnet.
 	*/
 	NexthopName *string `json:"nexthopName,omitempty"`
-	/**
+	/*
 	  The reference to a link, such as a VPN connection or a subnet.
 	*/
 	NexthopReference *string `json:"nexthopReference,omitempty"`
 
 	NexthopType *NexthopType `json:"nexthopType"`
-	/**
+	/*
 	  Route priority. A higher value implies greater preference is assigned to the route.
 	*/
 	Priority *int `json:"priority,omitempty"`
-	/**
+	/*
 	  The source of a dynamic route is either a VPN connection, direct connect virtual interface, or a BGP session.
 	*/
 	Source *string `json:"source,omitempty"`
@@ -5241,13 +6317,13 @@ func NewRoute() *Route {
 	p := new(Route)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Route"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Route"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Route"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Route table
 */
 type RouteTable struct {
@@ -5256,37 +6332,37 @@ type RouteTable struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Dynamic routes
 	*/
 	DynamicRoutes []Route `json:"dynamicRoutes,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
-	  The external routing domain UUID
+	/*
+	  External routing domain associated with this route table
 	*/
 	ExternalRoutingDomainReference *string `json:"externalRoutingDomainReference,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
-	/**
+	/*
 	  Routes to local subnets
 	*/
 	LocalRoutes []Route `json:"localRoutes,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  Static routes
 	*/
 	StaticRoutes []Route `json:"staticRoutes,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
-	/**
+	/*
 	  VPC
 	*/
 	VpcReference *string `json:"vpcReference,omitempty"`
@@ -5296,14 +6372,14 @@ func NewRouteTable() *RouteTable {
 	p := new(RouteTable)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RouteTable"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RouteTable"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RouteTable"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/route-tables/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/route-tables/{extId} Get operation
 */
 type RouteTableApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5311,7 +6387,7 @@ type RouteTableApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -5325,7 +6401,7 @@ func NewRouteTableApiResponse() *RouteTableApiResponse {
 	p := new(RouteTableApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RouteTableApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RouteTableApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RouteTableApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5352,8 +6428,8 @@ func (p *RouteTableApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/route-tables Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/route-tables Get operation
 */
 type RouteTableListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5361,7 +6437,7 @@ type RouteTableListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -5375,7 +6451,7 @@ func NewRouteTableListApiResponse() *RouteTableListApiResponse {
 	p := new(RouteTableListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RouteTableListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RouteTableListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RouteTableListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5402,7 +6478,7 @@ func (p *RouteTableListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 Schema to configure a routing policy.
 */
 type RoutingPolicy struct {
@@ -5411,35 +6487,35 @@ type RoutingPolicy struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  A description of the routing policy.
 	*/
 	Description *string `json:"description,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  Name of the routing policy.
 	*/
 	Name *string `json:"name"`
 
 	Policies []RoutingPolicyRule `json:"policies"`
-	/**
+	/*
 	  Priority of the routing policy.
 	*/
 	Priority *int `json:"priority"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
-	/**
+	/*
 	  ExtId of the VPC extId to which the routing policy belongs.
 	*/
 	VpcExtId *string `json:"vpcExtId"`
@@ -5466,13 +6542,13 @@ func NewRoutingPolicy() *RoutingPolicy {
 	p := new(RoutingPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicy"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RoutingPolicy"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicy"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 The action to be taken on the traffic matching the routing policy.
 */
 type RoutingPolicyAction struct {
@@ -5502,14 +6578,14 @@ func NewRoutingPolicyAction() *RoutingPolicyAction {
 	p := new(RoutingPolicyAction)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyAction"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RoutingPolicyAction"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyAction"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-routing policy action type.
+/*
+Routing policy action type.
 */
 type RoutingPolicyActionType int
 
@@ -5521,7 +6597,9 @@ const (
 	ROUTINGPOLICYACTIONTYPE_REROUTE  RoutingPolicyActionType = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *RoutingPolicyActionType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -5536,7 +6614,23 @@ func (e *RoutingPolicyActionType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e RoutingPolicyActionType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PERMIT",
+		"DENY",
+		"REROUTE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *RoutingPolicyActionType) index(name string) RoutingPolicyActionType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -5573,8 +6667,8 @@ func (e RoutingPolicyActionType) Ref() *RoutingPolicyActionType {
 	return &e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/routing-policies/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/routing-policies/{extId} Get operation
 */
 type RoutingPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5582,7 +6676,7 @@ type RoutingPolicyApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -5596,7 +6690,7 @@ func NewRoutingPolicyApiResponse() *RoutingPolicyApiResponse {
 	p := new(RoutingPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RoutingPolicyApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5623,8 +6717,8 @@ func (p *RoutingPolicyApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/routing-policies Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/routing-policies Get operation
 */
 type RoutingPolicyListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5632,7 +6726,7 @@ type RoutingPolicyListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -5646,7 +6740,7 @@ func NewRoutingPolicyListApiResponse() *RoutingPolicyListApiResponse {
 	p := new(RoutingPolicyListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RoutingPolicyListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5673,7 +6767,7 @@ func (p *RoutingPolicyListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 Match condition for the traffic that is entering the VPC.
 */
 type RoutingPolicyMatchCondition struct {
@@ -5682,15 +6776,9 @@ type RoutingPolicyMatchCondition struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
 
-	 */
-	DestinationItemDiscriminator_ *string `json:"$destinationItemDiscriminator,omitempty"`
-	/**
-	  Destination of the traffic that is exiting/leaving the VPC.
-	*/
-	Destination *OneOfRoutingPolicyMatchConditionDestination `json:"destination"`
-	/**
+	Destination *AddressTypeObject `json:"destination"`
+	/*
 
 	 */
 	ProtocolParametersItemDiscriminator_ *string `json:"$protocolParametersItemDiscriminator,omitempty"`
@@ -5698,23 +6786,17 @@ type RoutingPolicyMatchCondition struct {
 	ProtocolParameters *OneOfRoutingPolicyMatchConditionProtocolParameters `json:"protocolParameters,omitempty"`
 
 	ProtocolType *ProtocolType `json:"protocolType"`
-	/**
 
-	 */
-	SourceItemDiscriminator_ *string `json:"$sourceItemDiscriminator,omitempty"`
-	/**
-	  Source of the traffic that is entering the VPC.
-	*/
-	Source *OneOfRoutingPolicyMatchConditionSource `json:"source"`
+	Source *AddressTypeObject `json:"source"`
 }
 
 func (p *RoutingPolicyMatchCondition) MarshalJSON() ([]byte, error) {
 	type RoutingPolicyMatchConditionProxy RoutingPolicyMatchCondition
 	return json.Marshal(struct {
 		*RoutingPolicyMatchConditionProxy
-		Destination  *OneOfRoutingPolicyMatchConditionDestination `json:"destination,omitempty"`
-		ProtocolType *ProtocolType                                `json:"protocolType,omitempty"`
-		Source       *OneOfRoutingPolicyMatchConditionSource      `json:"source,omitempty"`
+		Destination  *AddressTypeObject `json:"destination,omitempty"`
+		ProtocolType *ProtocolType      `json:"protocolType,omitempty"`
+		Source       *AddressTypeObject `json:"source,omitempty"`
 	}{
 		RoutingPolicyMatchConditionProxy: (*RoutingPolicyMatchConditionProxy)(p),
 		Destination:                      p.Destination,
@@ -5727,7 +6809,7 @@ func NewRoutingPolicyMatchCondition() *RoutingPolicyMatchCondition {
 	p := new(RoutingPolicyMatchCondition)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyMatchCondition"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RoutingPolicyMatchCondition"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyMatchCondition"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5754,7 +6836,7 @@ func (p *RoutingPolicyMatchCondition) SetProtocolParameters(v interface{}) error
 	return e
 }
 
-/**
+/*
 Policy indicating the match rule and the action.
 */
 type RoutingPolicyRule struct {
@@ -5763,10 +6845,10 @@ type RoutingPolicyRule struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  If True, policies in the reverse direction will be installed with the same action but source and destination will be swapped.
 	*/
-	Bidirectional *bool `json:"bidirectional,omitempty"`
+	IsBidirectional *bool `json:"isBidirectional,omitempty"`
 
 	PolicyAction *RoutingPolicyAction `json:"policyAction"`
 
@@ -5790,16 +6872,16 @@ func NewRoutingPolicyRule() *RoutingPolicyRule {
 	p := new(RoutingPolicyRule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyRule"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.RoutingPolicyRule"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyRule"}
 	p.UnknownFields_ = map[string]interface{}{}
 
-	p.Bidirectional = new(bool)
-	*p.Bidirectional = false
+	p.IsBidirectional = new(bool)
+	*p.IsBidirectional = false
 
 	return p
 }
 
-/**
+/*
 Scope type:the permissible values are PC or PE.
 */
 type ScopeType int
@@ -5811,7 +6893,9 @@ const (
 	SCOPETYPE_PE       ScopeType = 3
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *ScopeType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -5825,7 +6909,22 @@ func (e *ScopeType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e ScopeType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PC",
+		"PE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *ScopeType) index(name string) ScopeType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -5861,7 +6960,7 @@ func (e ScopeType) Ref() *ScopeType {
 	return &e
 }
 
-/**
+/*
 Site-specific stretch configuration parameters.
 */
 type SiteParams struct {
@@ -5870,34 +6969,22 @@ type SiteParams struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  The VPN connection or network gateway with VTEP service used for this Layer2 stretch.
 	*/
 	ConnectionReference *string `json:"connectionReference,omitempty"`
 
 	DefaultGatewayIPAddress *import1.IPAddress `json:"defaultGatewayIPAddress,omitempty"`
-	/**
-	  Prism Central cluster reference. This parameter is deprecated, use pcClusterReference instead.
-	*/
-	PcClusterId *string `json:"pcClusterId,omitempty"`
-	/**
+	/*
 	  Prism Central cluster reference.
 	*/
 	PcClusterReference *string `json:"pcClusterReference,omitempty"`
 
 	StretchInterfaceIpAddress *import1.IPAddress `json:"stretchInterfaceIpAddress,omitempty"`
-	/**
-	  Subnet reference. This parameter is deprecated, use stretchSubnetReference instead.
-	*/
-	StretchSubnetId *string `json:"stretchSubnetId,omitempty"`
-	/**
+	/*
 	  Subnet reference.
 	*/
 	StretchSubnetReference *string `json:"stretchSubnetReference,omitempty"`
-	/**
-	  VPN Connection reference. This is a deprecated parameter which will not be available in the upcoming release, please use Layer2StretchConnection instead.
-	*/
-	VpnConnectionId *string `json:"vpnConnectionId,omitempty"`
 
 	VpnInterfaceIPAddress *import1.IPAddress `json:"vpnInterfaceIPAddress,omitempty"`
 }
@@ -5906,7 +6993,7 @@ func NewSiteParams() *SiteParams {
 	p := new(SiteParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SiteParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.SiteParams"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SiteParams"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5921,7 +7008,9 @@ const (
 	STATE_DOWN     State = 3
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *State) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -5935,7 +7024,22 @@ func (e *State) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e State) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"UP",
+		"DOWN",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *State) index(name string) State {
 	names := [...]string{
 		"$UNKNOWN",
@@ -5971,7 +7075,7 @@ func (e State) Ref() *State {
 	return &e
 }
 
-/**
+/*
 Up/Down status of component and message.
 */
 type Status struct {
@@ -5990,13 +7094,13 @@ func NewStatus() *Status {
 	p := new(Status)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Status"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Status"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Status"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
+/*
 Type of the connection used for stretching the subnet. The default is VPN.
 */
 type StretchConnectionType int
@@ -6008,7 +7112,9 @@ const (
 	STRETCHCONNECTIONTYPE_VXLAN    StretchConnectionType = 3
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *StretchConnectionType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -6022,7 +7128,22 @@ func (e *StretchConnectionType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e StretchConnectionType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"VPN",
+		"VXLAN",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *StretchConnectionType) index(name string) StretchConnectionType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -6058,69 +7179,7 @@ func (e StretchConnectionType) Ref() *StretchConnectionType {
 	return &e
 }
 
-/**
-Enum describing the runtime status of this stretch configuration. This is a deprecated parameter which will not be available in the upcoming release, please use Layer2StretchTunnelState and Layer2StretchInterfaceState instead.
-*/
-type StretchState int
-
-const (
-	STRETCHSTATE_UNKNOWN  StretchState = 0
-	STRETCHSTATE_REDACTED StretchState = 1
-	STRETCHSTATE_UP       StretchState = 2
-	STRETCHSTATE_DOWN     StretchState = 3
-)
-
-// returns the name of the enum given an ordinal number
-func (e *StretchState) name(index int) string {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"UP",
-		"DOWN",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// returns the enum type given a string value
-func (e *StretchState) index(name string) StretchState {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"UP",
-		"DOWN",
-	}
-	for idx := range names {
-		if names[idx] == name {
-			return StretchState(idx)
-		}
-	}
-	return STRETCHSTATE_UNKNOWN
-}
-
-func (e *StretchState) UnmarshalJSON(b []byte) error {
-	var enumStr string
-	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for StretchState:%s", err))
-	}
-	*e = e.index(enumStr)
-	return nil
-}
-
-func (e *StretchState) MarshalJSON() ([]byte, error) {
-	b := bytes.NewBufferString(`"`)
-	b.WriteString(e.name(int(*e)))
-	b.WriteString(`"`)
-	return b.Bytes(), nil
-}
-
-func (e StretchState) Ref() *StretchState {
-	return &e
-}
-
-/**
+/*
 Current status of the Layer2 extension among subnets.
 */
 type StretchStatus struct {
@@ -6129,18 +7188,16 @@ type StretchStatus struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  Detailed text describing the runtime status of this stretch configuration.
 	*/
 	Detail *string `json:"detail,omitempty"`
 
 	InterfaceState *State `json:"interfaceState,omitempty"`
-	/**
+	/*
 	  The round-trip time, in milliseconds, between subnets in this stretch configuration.
 	*/
-	RoundTripTimeMilliseconds *float32 `json:"roundTripTimeMilliseconds,omitempty"`
-
-	State *StretchState `json:"state,omitempty"`
+	RoundTripTimeMillis *float32 `json:"roundTripTimeMillis,omitempty"`
 
 	TunnelState *State `json:"tunnelState,omitempty"`
 }
@@ -6149,7 +7206,7 @@ func NewStretchStatus() *StretchStatus {
 	p := new(StretchStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.StretchStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.StretchStatus"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.StretchStatus"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6161,77 +7218,97 @@ type Subnet struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  Indicates whether the subnet is used for advanced networking.
-	*/
-	AdvancedNetworking *bool `json:"advancedNetworking,omitempty"`
-	/**
+	/*
 	  Name of the bridge on the host for the subnet.
 	*/
 	BridgeName *string `json:"bridgeName,omitempty"`
-	/**
+	/*
+	  Cluster Name
+	*/
+	ClusterName *string `json:"clusterName,omitempty"`
+	/*
 	  UUID of the cluster this subnet belongs to.
 	*/
 	ClusterReference *string `json:"clusterReference,omitempty"`
-	/**
+	/*
 	  Description of the subnet.
 	*/
 	Description *string `json:"description,omitempty"`
 
 	DhcpOptions *DhcpOptions `json:"dhcpOptions,omitempty"`
-	/**
+	/*
 	  List of IPs, which are a subset from the reserved IP address list, that must be advertised to the SDN gateway.
 	*/
 	DynamicIpAddresses []import1.IPAddress `json:"dynamicIpAddresses,omitempty"`
-	/**
-	  Indicates whether NAT must be enabled for VPCs attached to the subnet. This is supported only for external subnets. NAT is enabled by default on external subnets.
-	*/
-	EnableNat *bool `json:"enableNat,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
+	  Hypervisor Type
+	*/
+	HypervisorType *string `json:"hypervisorType,omitempty"`
+	/*
 	  IP configuration for the subnet.
 	*/
 	IpConfig []IPConfig `json:"ipConfig,omitempty"`
-	/**
+	/*
+	  IP Prefix in CIDR format.
+	*/
+	IpPrefix *string `json:"ipPrefix,omitempty"`
+
+	IpUsage *IPUsage `json:"ipUsage,omitempty"`
+	/*
+	  Indicates whether the subnet is used for advanced networking.
+	*/
+	IsAdvancedNetworking *bool `json:"isAdvancedNetworking,omitempty"`
+	/*
 	  Indicates whether the subnet is used for external connectivity.
 	*/
 	IsExternal *bool `json:"isExternal,omitempty"`
-	/**
+	/*
+	  Indicates whether NAT must be enabled for VPCs attached to the subnet. This is supported only for external subnets. NAT is enabled by default on external subnets.
+	*/
+	IsNatEnabled *bool `json:"isNatEnabled,omitempty"`
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+
+	MigrationState *MigrationState `json:"migrationState,omitempty"`
+	/*
 	  Name of the subnet.
 	*/
 	Name *string `json:"name"`
-	/**
+	/*
 	  UUID of the Network function chain entity that this subnet belongs to (type VLAN only).
 	*/
 	NetworkFunctionChainReference *string `json:"networkFunctionChainReference,omitempty"`
-	/**
+	/*
 	  For VLAN subnet, this field represents VLAN Id, valid range is from 0 to 4095; For overlay subnet, this field represents 24-bit VNI, this field is read-only.
 	*/
 	NetworkId *int `json:"networkId,omitempty"`
-	/**
+	/*
 	  List of IPs that are excluded while allocating IP addresses to VM ports.
 	*/
 	ReservedIpAddresses []import1.IPAddress `json:"reservedIpAddresses,omitempty"`
 
 	SubnetType *SubnetType `json:"subnetType"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
-	/**
+
+	VirtualSwitch *VirtualSwitch `json:"virtualSwitch,omitempty"`
+	/*
 	  UUID of the virtual switch this subnet belongs to (type VLAN only).
 	*/
 	VirtualSwitchReference *string `json:"virtualSwitchReference,omitempty"`
-	/**
+
+	Vpc *Vpc `json:"vpc,omitempty"`
+	/*
 	  UUID of Virtual Private Cloud this subnet belongs to (type Overlay only).
 	*/
 	VpcReference *string `json:"vpcReference,omitempty"`
@@ -6254,64 +7331,14 @@ func NewSubnet() *Subnet {
 	p := new(Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Subnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Subnet"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Subnet"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/subnets/{subnetExtId}/addresses Get operation
-*/
-type SubnetAddressAssignmentListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfSubnetAddressAssignmentListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewSubnetAddressAssignmentListApiResponse() *SubnetAddressAssignmentListApiResponse {
-	p := new(SubnetAddressAssignmentListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.SubnetAddressAssignmentListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.SubnetAddressAssignmentListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *SubnetAddressAssignmentListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *SubnetAddressAssignmentListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfSubnetAddressAssignmentListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/subnets/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/subnets/{extId} Get operation
 */
 type SubnetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6319,7 +7346,7 @@ type SubnetApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -6333,7 +7360,7 @@ func NewSubnetApiResponse() *SubnetApiResponse {
 	p := new(SubnetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SubnetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.SubnetApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SubnetApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6360,8 +7387,41 @@ func (p *SubnetApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/subnets Get operation
+type SubnetInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  UUID of the subnet to be migrated.
+	*/
+	SubnetUuid *string `json:"subnetUuid"`
+}
+
+func (p *SubnetInfo) MarshalJSON() ([]byte, error) {
+	type SubnetInfoProxy SubnetInfo
+	return json.Marshal(struct {
+		*SubnetInfoProxy
+		SubnetUuid *string `json:"subnetUuid,omitempty"`
+	}{
+		SubnetInfoProxy: (*SubnetInfoProxy)(p),
+		SubnetUuid:      p.SubnetUuid,
+	})
+}
+
+func NewSubnetInfo() *SubnetInfo {
+	p := new(SubnetInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.SubnetInfo"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SubnetInfo"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/subnets Get operation
 */
 type SubnetListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6369,7 +7429,7 @@ type SubnetListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -6383,7 +7443,7 @@ func NewSubnetListApiResponse() *SubnetListApiResponse {
 	p := new(SubnetListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SubnetListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.SubnetListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SubnetListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6410,84 +7470,136 @@ func (p *SubnetListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-Schema for subnet migration.
-*/
-type SubnetMigration struct {
+type SubnetProjection struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  Input for subnet migration.
+	/*
+	  Name of the bridge on the host for the subnet.
 	*/
-	SubnetMigrationInput []SubnetMigrationItem `json:"subnetMigrationInput"`
+	BridgeName *string `json:"bridgeName,omitempty"`
+	/*
+	  Cluster Name
+	*/
+	ClusterName *string `json:"clusterName,omitempty"`
+	/*
+	  UUID of the cluster this subnet belongs to.
+	*/
+	ClusterReference *string `json:"clusterReference,omitempty"`
+	/*
+	  Description of the subnet.
+	*/
+	Description *string `json:"description,omitempty"`
+
+	DhcpOptions *DhcpOptions `json:"dhcpOptions,omitempty"`
+	/*
+	  List of IPs, which are a subset from the reserved IP address list, that must be advertised to the SDN gateway.
+	*/
+	DynamicIpAddresses []import1.IPAddress `json:"dynamicIpAddresses,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Hypervisor Type
+	*/
+	HypervisorType *string `json:"hypervisorType,omitempty"`
+	/*
+	  IP configuration for the subnet.
+	*/
+	IpConfig []IPConfig `json:"ipConfig,omitempty"`
+	/*
+	  IP Prefix in CIDR format.
+	*/
+	IpPrefix *string `json:"ipPrefix,omitempty"`
+
+	IpUsage *IPUsage `json:"ipUsage,omitempty"`
+	/*
+	  Indicates whether the subnet is used for advanced networking.
+	*/
+	IsAdvancedNetworking *bool `json:"isAdvancedNetworking,omitempty"`
+	/*
+	  Indicates whether the subnet is used for external connectivity.
+	*/
+	IsExternal *bool `json:"isExternal,omitempty"`
+	/*
+	  Indicates whether NAT must be enabled for VPCs attached to the subnet. This is supported only for external subnets. NAT is enabled by default on external subnets.
+	*/
+	IsNatEnabled *bool `json:"isNatEnabled,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+
+	MigrationState *MigrationState `json:"migrationState,omitempty"`
+	/*
+	  Name of the subnet.
+	*/
+	Name *string `json:"name"`
+	/*
+	  UUID of the Network function chain entity that this subnet belongs to (type VLAN only).
+	*/
+	NetworkFunctionChainReference *string `json:"networkFunctionChainReference,omitempty"`
+	/*
+	  For VLAN subnet, this field represents VLAN Id, valid range is from 0 to 4095; For overlay subnet, this field represents 24-bit VNI, this field is read-only.
+	*/
+	NetworkId *int `json:"networkId,omitempty"`
+	/*
+	  List of IPs that are excluded while allocating IP addresses to VM ports.
+	*/
+	ReservedIpAddresses []import1.IPAddress `json:"reservedIpAddresses,omitempty"`
+
+	SubnetType *SubnetType `json:"subnetType"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	VirtualSwitch *VirtualSwitch `json:"virtualSwitch,omitempty"`
+
+	VirtualSwitchProjection *VirtualSwitchProjection `json:"virtualSwitchProjection,omitempty"`
+	/*
+	  UUID of the virtual switch this subnet belongs to (type VLAN only).
+	*/
+	VirtualSwitchReference *string `json:"virtualSwitchReference,omitempty"`
+
+	Vpc *Vpc `json:"vpc,omitempty"`
+
+	VpcProjection *VpcProjection `json:"vpcProjection,omitempty"`
+	/*
+	  UUID of Virtual Private Cloud this subnet belongs to (type Overlay only).
+	*/
+	VpcReference *string `json:"vpcReference,omitempty"`
 }
 
-func (p *SubnetMigration) MarshalJSON() ([]byte, error) {
-	type SubnetMigrationProxy SubnetMigration
+func (p *SubnetProjection) MarshalJSON() ([]byte, error) {
+	type SubnetProjectionProxy SubnetProjection
 	return json.Marshal(struct {
-		*SubnetMigrationProxy
-		SubnetMigrationInput []SubnetMigrationItem `json:"subnetMigrationInput,omitempty"`
+		*SubnetProjectionProxy
+		Name       *string     `json:"name,omitempty"`
+		SubnetType *SubnetType `json:"subnetType,omitempty"`
 	}{
-		SubnetMigrationProxy: (*SubnetMigrationProxy)(p),
-		SubnetMigrationInput: p.SubnetMigrationInput,
+		SubnetProjectionProxy: (*SubnetProjectionProxy)(p),
+		Name:                  p.Name,
+		SubnetType:            p.SubnetType,
 	})
 }
 
-func NewSubnetMigration() *SubnetMigration {
-	p := new(SubnetMigration)
+func NewSubnetProjection() *SubnetProjection {
+	p := new(SubnetProjection)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.SubnetMigration"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.SubnetMigration"}
+	*p.ObjectType_ = "networking.v4.config.SubnetProjection"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SubnetProjection"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-type SubnetMigrationItem struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  NIC network UUID for the destination subnet.
-	*/
-	NetworkUuid *string `json:"networkUuid"`
-	/**
-	  UUID of NIC to be migrated.
-	*/
-	NicUuid *string `json:"nicUuid"`
-
-	RequestedIpAddresses []import1.IPAddress `json:"requestedIpAddresses,omitempty"`
-}
-
-func (p *SubnetMigrationItem) MarshalJSON() ([]byte, error) {
-	type SubnetMigrationItemProxy SubnetMigrationItem
-	return json.Marshal(struct {
-		*SubnetMigrationItemProxy
-		NetworkUuid *string `json:"networkUuid,omitempty"`
-		NicUuid     *string `json:"nicUuid,omitempty"`
-	}{
-		SubnetMigrationItemProxy: (*SubnetMigrationItemProxy)(p),
-		NetworkUuid:              p.NetworkUuid,
-		NicUuid:                  p.NicUuid,
-	})
-}
-
-func NewSubnetMigrationItem() *SubnetMigrationItem {
-	p := new(SubnetMigrationItem)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.SubnetMigrationItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.SubnetMigrationItem"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
+/*
 Type of subnet.
 */
 type SubnetType int
@@ -6499,7 +7611,9 @@ const (
 	SUBNETTYPE_VLAN     SubnetType = 3
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *SubnetType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -6513,7 +7627,22 @@ func (e *SubnetType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e SubnetType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"OVERLAY",
+		"VLAN",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *SubnetType) index(name string) SubnetType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -6549,92 +7678,8 @@ func (e SubnetType) Ref() *SubnetType {
 	return &e
 }
 
-/**
-TCP parameters to be matched in routing policy.
-*/
-type TCP struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	DestinationPortRanges []PortRange `json:"destinationPortRanges,omitempty"`
-
-	SourcePortRanges []PortRange `json:"sourcePortRanges,omitempty"`
-}
-
-func NewTCP() *TCP {
-	p := new(TCP)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.TCP"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.TCP"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
-TCP parameters to be matched in routing policy.
-*/
-type TCPObject struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	Tcp *TCP `json:"tcp"`
-}
-
-func (p *TCPObject) MarshalJSON() ([]byte, error) {
-	type TCPObjectProxy TCPObject
-	return json.Marshal(struct {
-		*TCPObjectProxy
-		Tcp *TCP `json:"tcp,omitempty"`
-	}{
-		TCPObjectProxy: (*TCPObjectProxy)(p),
-		Tcp:            p.Tcp,
-	})
-}
-
-func NewTCPObject() *TCPObject {
-	p := new(TCPObject)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.TCPObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.TCPObject"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
-Object encapsulating Task Id Return Value.
-*/
-type Task struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  The external identifier that can be used to retrieve the task using its URL.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-}
-
-func NewTask() *Task {
-	p := new(Task)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.Task"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Task"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/vpn-connections/{extId} Delete operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections/{extId} Delete operation
 */
 type TaskReferenceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6642,7 +7687,7 @@ type TaskReferenceApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -6656,7 +7701,7 @@ func NewTaskReferenceApiResponse() *TaskReferenceApiResponse {
 	p := new(TaskReferenceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.TaskReferenceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.TaskReferenceApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TaskReferenceApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6683,66 +7728,433 @@ func (p *TaskReferenceApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-UDP parameters to be matched in routing policy.
+/*
+Mirror network traffic from a set of source ports, to a set of destination ports.
 */
-type UDP struct {
+type TrafficMirror struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of cluster UUIDs that are configured for this session. Currently, only 1 cluster is allowed to participate in a session.
+	*/
+	ClusterReferenceList []string `json:"clusterReferenceList,omitempty"`
+	/*
+	  Description of the session.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  List of destination ports of the session. Maximum of 2 destination ports are allowed per session. Each session should have at least 1 destination port.
+	*/
+	DestinationList []TrafficMirrorPort `json:"destinationList,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  List of host UUIDs that are configured for this session. Currently, only 1 host is allowed to participate in a session.
+	*/
+	HostReferenceList []string `json:"hostReferenceList,omitempty"`
+	/*
+	  Indicates whether the port mirroring session is enabled or not.
+	*/
+	IsEnabled *bool `json:"isEnabled,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
 
-	DestinationPortRanges []PortRange `json:"destinationPortRanges,omitempty"`
-
-	SourcePortRanges []PortRange `json:"sourcePortRanges,omitempty"`
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  Name of the session.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  List of source ports of the session. Maximum of 4 source ports are allowed per session. Each session should have at least 1 source port.
+	*/
+	SourceList []TrafficMirrorSourcePort `json:"sourceList,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
 }
 
-func NewUDP() *UDP {
-	p := new(UDP)
+func NewTrafficMirror() *TrafficMirror {
+	p := new(TrafficMirror)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.UDP"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.UDP"}
+	*p.ObjectType_ = "networking.v4.config.TrafficMirror"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirror"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.IsEnabled = new(bool)
+	*p.IsEnabled = true
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/traffic-mirrors/{extId} Get operation
+*/
+type TrafficMirrorApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfTrafficMirrorApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewTrafficMirrorApiResponse() *TrafficMirrorApiResponse {
+	p := new(TrafficMirrorApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.TrafficMirrorApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirrorApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-UDP parameters to be matched in routing policy.
+func (p *TrafficMirrorApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *TrafficMirrorApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfTrafficMirrorApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/traffic-mirrors Get operation
 */
-type UDPObject struct {
+type TrafficMirrorListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
 
-	Udp *UDP `json:"udp"`
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfTrafficMirrorListApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func (p *UDPObject) MarshalJSON() ([]byte, error) {
-	type UDPObjectProxy UDPObject
+func NewTrafficMirrorListApiResponse() *TrafficMirrorListApiResponse {
+	p := new(TrafficMirrorListApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.TrafficMirrorListApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirrorListApiResponse"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *TrafficMirrorListApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *TrafficMirrorListApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfTrafficMirrorListApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Traffic mirror session port description.
+*/
+type TrafficMirrorPort struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Indicates whether the port is up.
+	*/
+	IsUp *bool `json:"isUp,omitempty"`
+
+	NicType *TrafficMirrorPortNicType `json:"nicType"`
+	/*
+	  UUID of the NIC that this port belongs to.
+	*/
+	NicUuid *string `json:"nicUuid"`
+}
+
+func (p *TrafficMirrorPort) MarshalJSON() ([]byte, error) {
+	type TrafficMirrorPortProxy TrafficMirrorPort
 	return json.Marshal(struct {
-		*UDPObjectProxy
-		Udp *UDP `json:"udp,omitempty"`
+		*TrafficMirrorPortProxy
+		NicType *TrafficMirrorPortNicType `json:"nicType,omitempty"`
+		NicUuid *string                   `json:"nicUuid,omitempty"`
 	}{
-		UDPObjectProxy: (*UDPObjectProxy)(p),
-		Udp:            p.Udp,
+		TrafficMirrorPortProxy: (*TrafficMirrorPortProxy)(p),
+		NicType:                p.NicType,
+		NicUuid:                p.NicUuid,
 	})
 }
 
-func NewUDPObject() *UDPObject {
-	p := new(UDPObject)
+func NewTrafficMirrorPort() *TrafficMirrorPort {
+	p := new(TrafficMirrorPort)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.UDPObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.UDPObject"}
+	*p.ObjectType_ = "networking.v4.config.TrafficMirrorPort"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirrorPort"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	p.IsUp = new(bool)
+	*p.IsUp = true
 
 	return p
 }
 
-/**
+/*
+Port NIC type for the Traffic mirror session. Allowed values are HOST_NIC and VIRTUAL_NIC.
+*/
+type TrafficMirrorPortNicType int
+
+const (
+	TRAFFICMIRRORPORTNICTYPE_UNKNOWN     TrafficMirrorPortNicType = 0
+	TRAFFICMIRRORPORTNICTYPE_REDACTED    TrafficMirrorPortNicType = 1
+	TRAFFICMIRRORPORTNICTYPE_HOST_NIC    TrafficMirrorPortNicType = 2
+	TRAFFICMIRRORPORTNICTYPE_VIRTUAL_NIC TrafficMirrorPortNicType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *TrafficMirrorPortNicType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HOST_NIC",
+		"VIRTUAL_NIC",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e TrafficMirrorPortNicType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HOST_NIC",
+		"VIRTUAL_NIC",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *TrafficMirrorPortNicType) index(name string) TrafficMirrorPortNicType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HOST_NIC",
+		"VIRTUAL_NIC",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return TrafficMirrorPortNicType(idx)
+		}
+	}
+	return TRAFFICMIRRORPORTNICTYPE_UNKNOWN
+}
+
+func (e *TrafficMirrorPortNicType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for TrafficMirrorPortNicType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *TrafficMirrorPortNicType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e TrafficMirrorPortNicType) Ref() *TrafficMirrorPortNicType {
+	return &e
+}
+
+/*
+Traffic mirror session source port to mirror traffic from.
+*/
+type TrafficMirrorSourcePort struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Direction *TrafficMirrorSourcePortDirection `json:"direction"`
+	/*
+	  Indicates whether the port is up.
+	*/
+	IsUp *bool `json:"isUp,omitempty"`
+
+	NicType *TrafficMirrorPortNicType `json:"nicType"`
+	/*
+	  UUID of the NIC that this port belongs to.
+	*/
+	NicUuid *string `json:"nicUuid"`
+}
+
+func (p *TrafficMirrorSourcePort) MarshalJSON() ([]byte, error) {
+	type TrafficMirrorSourcePortProxy TrafficMirrorSourcePort
+	return json.Marshal(struct {
+		*TrafficMirrorSourcePortProxy
+		Direction *TrafficMirrorSourcePortDirection `json:"direction,omitempty"`
+		NicType   *TrafficMirrorPortNicType         `json:"nicType,omitempty"`
+		NicUuid   *string                           `json:"nicUuid,omitempty"`
+	}{
+		TrafficMirrorSourcePortProxy: (*TrafficMirrorSourcePortProxy)(p),
+		Direction:                    p.Direction,
+		NicType:                      p.NicType,
+		NicUuid:                      p.NicUuid,
+	})
+}
+
+func NewTrafficMirrorSourcePort() *TrafficMirrorSourcePort {
+	p := new(TrafficMirrorSourcePort)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.TrafficMirrorSourcePort"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirrorSourcePort"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.IsUp = new(bool)
+	*p.IsUp = true
+
+	return p
+}
+
+/*
+Indicates the direction of traffic that the session will mirror. Allowed values are INGRESS, EGRESS and BIDIRECTIONAL.
+*/
+type TrafficMirrorSourcePortDirection int
+
+const (
+	TRAFFICMIRRORSOURCEPORTDIRECTION_UNKNOWN       TrafficMirrorSourcePortDirection = 0
+	TRAFFICMIRRORSOURCEPORTDIRECTION_REDACTED      TrafficMirrorSourcePortDirection = 1
+	TRAFFICMIRRORSOURCEPORTDIRECTION_INGRESS       TrafficMirrorSourcePortDirection = 2
+	TRAFFICMIRRORSOURCEPORTDIRECTION_EGRESS        TrafficMirrorSourcePortDirection = 3
+	TRAFFICMIRRORSOURCEPORTDIRECTION_BIDIRECTIONAL TrafficMirrorSourcePortDirection = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *TrafficMirrorSourcePortDirection) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"INGRESS",
+		"EGRESS",
+		"BIDIRECTIONAL",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e TrafficMirrorSourcePortDirection) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"INGRESS",
+		"EGRESS",
+		"BIDIRECTIONAL",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *TrafficMirrorSourcePortDirection) index(name string) TrafficMirrorSourcePortDirection {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"INGRESS",
+		"EGRESS",
+		"BIDIRECTIONAL",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return TrafficMirrorSourcePortDirection(idx)
+		}
+	}
+	return TRAFFICMIRRORSOURCEPORTDIRECTION_UNKNOWN
+}
+
+func (e *TrafficMirrorSourcePortDirection) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for TrafficMirrorSourcePortDirection:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *TrafficMirrorSourcePortDirection) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e TrafficMirrorSourcePortDirection) Ref() *TrafficMirrorSourcePortDirection {
+	return &e
+}
+
+/*
 Type of IP Address unreservation.
 */
 type UnreserveType int
@@ -6755,7 +8167,9 @@ const (
 	UNRESERVETYPE_CONTEXT          UnreserveType = 4
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *UnreserveType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -6770,7 +8184,23 @@ func (e *UnreserveType) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e UnreserveType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"IP_ADDRESS_LIST",
+		"IP_ADDRESS_RANGE",
+		"CONTEXT",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *UnreserveType) index(name string) UnreserveType {
 	names := [...]string{
 		"$UNKNOWN",
@@ -6807,7 +8237,359 @@ func (e UnreserveType) Ref() *UnreserveType {
 	return &e
 }
 
-/**
+/*
+Group host-NICs to function as a singular entity
+*/
+type UplinkBond struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  UUID of Prism Element cluster that the host belongs to
+	*/
+	ClusterReference *string `json:"clusterReference,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  List of host-NIC UUIDs in this bond
+	*/
+	HostNicReferences []string `json:"hostNicReferences,omitempty"`
+	/*
+	  Host UUID for the bond
+	*/
+	HostReference *string `json:"hostReference,omitempty"`
+
+	LacpStatus *UplinkBondLacpStatus `json:"lacpStatus,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  Name of the bond
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *UplinkBondType `json:"type,omitempty"`
+
+	VirtualSwitchInfo *UplinkBondVirtualSwitchInfo `json:"virtualSwitchInfo,omitempty"`
+}
+
+func NewUplinkBond() *UplinkBond {
+	p := new(UplinkBond)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.UplinkBond"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.UplinkBond"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/uplink-bonds/{extId} Get operation
+*/
+type UplinkBondApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUplinkBondApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewUplinkBondApiResponse() *UplinkBondApiResponse {
+	p := new(UplinkBondApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.UplinkBondApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.UplinkBondApiResponse"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UplinkBondApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UplinkBondApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUplinkBondApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+LACP status of the bond (configured, negotiated, or off)
+*/
+type UplinkBondLacpStatus int
+
+const (
+	UPLINKBONDLACPSTATUS_UNKNOWN    UplinkBondLacpStatus = 0
+	UPLINKBONDLACPSTATUS_REDACTED   UplinkBondLacpStatus = 1
+	UPLINKBONDLACPSTATUS_CONFIGURED UplinkBondLacpStatus = 2
+	UPLINKBONDLACPSTATUS_NEGOTIATED UplinkBondLacpStatus = 3
+	UPLINKBONDLACPSTATUS_NIL        UplinkBondLacpStatus = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *UplinkBondLacpStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CONFIGURED",
+		"NEGOTIATED",
+		"NIL",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e UplinkBondLacpStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CONFIGURED",
+		"NEGOTIATED",
+		"NIL",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *UplinkBondLacpStatus) index(name string) UplinkBondLacpStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CONFIGURED",
+		"NEGOTIATED",
+		"NIL",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return UplinkBondLacpStatus(idx)
+		}
+	}
+	return UPLINKBONDLACPSTATUS_UNKNOWN
+}
+
+func (e *UplinkBondLacpStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for UplinkBondLacpStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *UplinkBondLacpStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e UplinkBondLacpStatus) Ref() *UplinkBondLacpStatus {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/uplink-bonds Get operation
+*/
+type UplinkBondListApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUplinkBondListApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewUplinkBondListApiResponse() *UplinkBondListApiResponse {
+	p := new(UplinkBondListApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.UplinkBondListApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.UplinkBondListApiResponse"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UplinkBondListApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UplinkBondListApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUplinkBondListApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Type of the bond (active-backup, balance-slb, or balance-tcp)
+*/
+type UplinkBondType int
+
+const (
+	UPLINKBONDTYPE_UNKNOWN       UplinkBondType = 0
+	UPLINKBONDTYPE_REDACTED      UplinkBondType = 1
+	UPLINKBONDTYPE_ACTIVE_BACKUP UplinkBondType = 2
+	UPLINKBONDTYPE_BALANCE_SLB   UplinkBondType = 3
+	UPLINKBONDTYPE_BALANCE_TCP   UplinkBondType = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *UplinkBondType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ACTIVE_BACKUP",
+		"BALANCE_SLB",
+		"BALANCE_TCP",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e UplinkBondType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ACTIVE_BACKUP",
+		"BALANCE_SLB",
+		"BALANCE_TCP",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *UplinkBondType) index(name string) UplinkBondType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ACTIVE_BACKUP",
+		"BALANCE_SLB",
+		"BALANCE_TCP",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return UplinkBondType(idx)
+		}
+	}
+	return UPLINKBONDTYPE_UNKNOWN
+}
+
+func (e *UplinkBondType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for UplinkBondType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *UplinkBondType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e UplinkBondType) Ref() *UplinkBondType {
+	return &e
+}
+
+/*
+Virtual Switch info associated with bond (if any)
+*/
+type UplinkBondVirtualSwitchInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of the Virtual Switch that this bond is a part of
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  UUID of the Virtual Switch this bond is a part of
+	*/
+	Reference *string `json:"reference,omitempty"`
+}
+
+func NewUplinkBondVirtualSwitchInfo() *UplinkBondVirtualSwitchInfo {
+	p := new(UplinkBondVirtualSwitchInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.UplinkBondVirtualSwitchInfo"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.UplinkBondVirtualSwitchInfo"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Schema to configure a virtual switch
 */
 type VirtualSwitch struct {
@@ -6818,43 +8600,45 @@ type VirtualSwitch struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	BondMode *BondModeType `json:"bondMode"`
-	/**
+	/*
 	  Cluster configuration list
 	*/
 	Clusters []Cluster `json:"clusters"`
-	/**
-	  When true, virtual switch configuration is not deployed on every node.
-	*/
-	DeploymentError *bool `json:"deploymentError,omitempty"`
-	/**
+	/*
 	  Input body to configure a Virtual Switch
 	*/
 	Description *string `json:"description,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
+	  When true, virtual switch configuration is not deployed on every node.
+	*/
+	HasDeploymentError *bool `json:"hasDeploymentError,omitempty"`
+	/*
 	  Indicates whether it is a default Virtual Switch which cannot be deleted
 	*/
 	IsDefault *bool `json:"isDefault,omitempty"`
-	/**
+	/*
+	  When true, the node is not put in maintenance mode during the create/update operation.
+	*/
+	IsQuickMode *bool `json:"isQuickMode,omitempty"`
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
-	/**
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
 	  MTU
 	*/
 	Mtu *int64 `json:"mtu,omitempty"`
-	/**
+	/*
 	  User-visible Virtual Switch name
 	*/
 	Name *string `json:"name"`
-	/**
-	  When true, the node is not put in maintenance mode during the create/update operation.
-	*/
-	QuickMode *bool `json:"quickMode,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -6879,19 +8663,19 @@ func NewVirtualSwitch() *VirtualSwitch {
 	p := new(VirtualSwitch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VirtualSwitch"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VirtualSwitch"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VirtualSwitch"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsDefault = new(bool)
 	*p.IsDefault = false
-	p.QuickMode = new(bool)
-	*p.QuickMode = false
+	p.IsQuickMode = new(bool)
+	*p.IsQuickMode = false
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/virtual-switches/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/virtual-switches/{extId} Get operation
 */
 type VirtualSwitchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6899,7 +8683,7 @@ type VirtualSwitchApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -6913,7 +8697,7 @@ func NewVirtualSwitchApiResponse() *VirtualSwitchApiResponse {
 	p := new(VirtualSwitchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VirtualSwitchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VirtualSwitchApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VirtualSwitchApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6940,8 +8724,8 @@ func (p *VirtualSwitchApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/virtual-switches Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/virtual-switches Get operation
 */
 type VirtualSwitchListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6949,7 +8733,7 @@ type VirtualSwitchListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -6963,7 +8747,7 @@ func NewVirtualSwitchListApiResponse() *VirtualSwitchListApiResponse {
 	p := new(VirtualSwitchListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VirtualSwitchListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VirtualSwitchListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VirtualSwitchListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6998,43 +8782,45 @@ type VirtualSwitchProjection struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	BondMode *BondModeType `json:"bondMode"`
-	/**
+	/*
 	  Cluster configuration list
 	*/
 	Clusters []Cluster `json:"clusters"`
-	/**
-	  When true, virtual switch configuration is not deployed on every node.
-	*/
-	DeploymentError *bool `json:"deploymentError,omitempty"`
-	/**
+	/*
 	  Input body to configure a Virtual Switch
 	*/
 	Description *string `json:"description,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
+	/*
+	  When true, virtual switch configuration is not deployed on every node.
+	*/
+	HasDeploymentError *bool `json:"hasDeploymentError,omitempty"`
+	/*
 	  Indicates whether it is a default Virtual Switch which cannot be deleted
 	*/
 	IsDefault *bool `json:"isDefault,omitempty"`
-	/**
+	/*
+	  When true, the node is not put in maintenance mode during the create/update operation.
+	*/
+	IsQuickMode *bool `json:"isQuickMode,omitempty"`
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
-	/**
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
 	  MTU
 	*/
 	Mtu *int64 `json:"mtu,omitempty"`
-	/**
+	/*
 	  User-visible Virtual Switch name
 	*/
 	Name *string `json:"name"`
-	/**
-	  When true, the node is not put in maintenance mode during the create/update operation.
-	*/
-	QuickMode *bool `json:"quickMode,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -7059,18 +8845,104 @@ func NewVirtualSwitchProjection() *VirtualSwitchProjection {
 	p := new(VirtualSwitchProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VirtualSwitchProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VirtualSwitchProjection"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VirtualSwitchProjection"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsDefault = new(bool)
 	*p.IsDefault = false
-	p.QuickMode = new(bool)
-	*p.QuickMode = false
+	p.IsQuickMode = new(bool)
+	*p.IsQuickMode = false
 
 	return p
 }
 
-/**
+/*
+Schema for VLAN subnet migration.
+*/
+type VlanSubnetMigrationSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Information on the VLAN Subnet that need to be migrated.
+	*/
+	Subnets []SubnetInfo `json:"subnets"`
+}
+
+func (p *VlanSubnetMigrationSpec) MarshalJSON() ([]byte, error) {
+	type VlanSubnetMigrationSpecProxy VlanSubnetMigrationSpec
+	return json.Marshal(struct {
+		*VlanSubnetMigrationSpecProxy
+		Subnets []SubnetInfo `json:"subnets,omitempty"`
+	}{
+		VlanSubnetMigrationSpecProxy: (*VlanSubnetMigrationSpecProxy)(p),
+		Subnets:                      p.Subnets,
+	})
+}
+
+func NewVlanSubnetMigrationSpec() *VlanSubnetMigrationSpec {
+	p := new(VlanSubnetMigrationSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VlanSubnetMigrationSpec"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VlanSubnetMigrationSpec"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Virtual Machine properties
+*/
+type Vm struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Virtual Machine name
+	*/
+	Name *string `json:"name,omitempty"`
+}
+
+func NewVm() *Vm {
+	p := new(Vm)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.Vm"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Vm"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Virtal NIC for projections
+*/
+type VmNic struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Private IP value in string
+	*/
+	PrivateIp *string `json:"privateIp,omitempty"`
+}
+
+func NewVmNic() *VmNic {
+	p := new(VmNic)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VmNic"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VmNic"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 VM NIC and VPC to which the VM NIC subnet belongs.
 */
 type VmNicAssociation struct {
@@ -7079,11 +8951,11 @@ type VmNicAssociation struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  VM NIC reference.
 	*/
 	VmNicReference *string `json:"vmNicReference"`
-	/**
+	/*
 	  VPC reference to which the VM NIC subnet belongs.
 	*/
 	VpcReference *string `json:"vpcReference,omitempty"`
@@ -7104,7 +8976,128 @@ func NewVmNicAssociation() *VmNicAssociation {
 	p := new(VmNicAssociation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VmNicAssociation"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VmNicAssociation"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VmNicAssociation"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type VmNicProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Private IP value in string
+	*/
+	PrivateIp *string `json:"privateIp,omitempty"`
+}
+
+func NewVmNicProjection() *VmNicProjection {
+	p := new(VmNicProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VmNicProjection"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VmNicProjection"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type VmProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Virtual Machine name
+	*/
+	Name *string `json:"name,omitempty"`
+}
+
+func NewVmProjection() *VmProjection {
+	p := new(VmProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VmProjection"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VmProjection"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type VnicMigrationItem struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  NIC network UUID for the destination subnet.
+	*/
+	NetworkUuid *string `json:"networkUuid"`
+	/*
+	  UUID of NIC to be migrated.
+	*/
+	NicUuid *string `json:"nicUuid"`
+
+	RequestedIpAddresses []import1.IPAddress `json:"requestedIpAddresses,omitempty"`
+}
+
+func (p *VnicMigrationItem) MarshalJSON() ([]byte, error) {
+	type VnicMigrationItemProxy VnicMigrationItem
+	return json.Marshal(struct {
+		*VnicMigrationItemProxy
+		NetworkUuid *string `json:"networkUuid,omitempty"`
+		NicUuid     *string `json:"nicUuid,omitempty"`
+	}{
+		VnicMigrationItemProxy: (*VnicMigrationItemProxy)(p),
+		NetworkUuid:            p.NetworkUuid,
+		NicUuid:                p.NicUuid,
+	})
+}
+
+func NewVnicMigrationItem() *VnicMigrationItem {
+	p := new(VnicMigrationItem)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VnicMigrationItem"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VnicMigrationItem"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Schema for subnet migration.
+*/
+type VnicMigrationSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Input for subnet migration.
+	*/
+	VnicMigrationInput []VnicMigrationItem `json:"vnicMigrationInput"`
+}
+
+func (p *VnicMigrationSpec) MarshalJSON() ([]byte, error) {
+	type VnicMigrationSpecProxy VnicMigrationSpec
+	return json.Marshal(struct {
+		*VnicMigrationSpecProxy
+		VnicMigrationInput []VnicMigrationItem `json:"vnicMigrationInput,omitempty"`
+	}{
+		VnicMigrationSpecProxy: (*VnicMigrationSpecProxy)(p),
+		VnicMigrationInput:     p.VnicMigrationInput,
+	})
+}
+
+func NewVnicMigrationSpec() *VnicMigrationSpec {
+	p := new(VnicMigrationSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VnicMigrationSpec"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VnicMigrationSpec"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7118,41 +9111,41 @@ type Vpc struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	CommonDhcpOptions *VpcDhcpOptions `json:"commonDhcpOptions,omitempty"`
-	/**
+	/*
 	  Description of the VPC.
 	*/
 	Description *string `json:"description,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-	/**
-	  The external routing domain UUID
+	/*
+	  External routing domain associated with this route table
 	*/
 	ExternalRoutingDomainReference *string `json:"externalRoutingDomainReference,omitempty"`
-	/**
+	/*
 	  List of external subnets that the VPC is attached to.
 	*/
 	ExternalSubnets []ExternalSubnet `json:"externalSubnets,omitempty"`
-	/**
+	/*
 	  CIDR blocks from the VPC which can talk externally without performing NAT. This is applicable when connecting to external subnets which have disabled NAT.
 	*/
 	ExternallyRoutablePrefixes []IPSubnet `json:"externallyRoutablePrefixes,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  Name of the VPC.
 	*/
 	Name *string `json:"name"`
-	/**
+	/*
 	  List of IP Addresses used for SNAT.
 	*/
 	SnatIps []import1.IPAddress `json:"snatIps,omitempty"`
-	/**
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -7173,14 +9166,14 @@ func NewVpc() *Vpc {
 	p := new(Vpc)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Vpc"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Vpc"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Vpc"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/vpcs/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpcs/{extId} Get operation
 */
 type VpcApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7188,7 +9181,7 @@ type VpcApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -7202,7 +9195,7 @@ func NewVpcApiResponse() *VpcApiResponse {
 	p := new(VpcApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VpcApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7229,7 +9222,7 @@ func (p *VpcApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 List of DHCP options to be configured.
 */
 type VpcDhcpOptions struct {
@@ -7238,7 +9231,7 @@ type VpcDhcpOptions struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  List of Domain Name Server addresses (option 6).
 	*/
 	DomainNameServers []import1.IPAddress `json:"domainNameServers,omitempty"`
@@ -7248,14 +9241,14 @@ func NewVpcDhcpOptions() *VpcDhcpOptions {
 	p := new(VpcDhcpOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcDhcpOptions"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VpcDhcpOptions"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcDhcpOptions"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/vpcs Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpcs Get operation
 */
 type VpcListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7263,7 +9256,7 @@ type VpcListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -7277,7 +9270,7 @@ func NewVpcListApiResponse() *VpcListApiResponse {
 	p := new(VpcListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VpcListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7304,7 +9297,213 @@ func (p *VpcListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+type VpcProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	CommonDhcpOptions *VpcDhcpOptions `json:"commonDhcpOptions,omitempty"`
+	/*
+	  Description of the VPC.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  External routing domain associated with this route table
+	*/
+	ExternalRoutingDomainReference *string `json:"externalRoutingDomainReference,omitempty"`
+	/*
+	  List of external subnets that the VPC is attached to.
+	*/
+	ExternalSubnets []ExternalSubnet `json:"externalSubnets,omitempty"`
+	/*
+	  CIDR blocks from the VPC which can talk externally without performing NAT. This is applicable when connecting to external subnets which have disabled NAT.
+	*/
+	ExternallyRoutablePrefixes []IPSubnet `json:"externallyRoutablePrefixes,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  Name of the VPC.
+	*/
+	Name *string `json:"name"`
+	/*
+	  List of IP Addresses used for SNAT.
+	*/
+	SnatIps []import1.IPAddress `json:"snatIps,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *VpcProjection) MarshalJSON() ([]byte, error) {
+	type VpcProjectionProxy VpcProjection
+	return json.Marshal(struct {
+		*VpcProjectionProxy
+		Name *string `json:"name,omitempty"`
+	}{
+		VpcProjectionProxy: (*VpcProjectionProxy)(p),
+		Name:               p.Name,
+	})
+}
+
+func NewVpcProjection() *VpcProjection {
+	p := new(VpcProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VpcProjection"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcProjection"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type VpcVirtualSwitchMapping struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  UUID of the cluster.
+	*/
+	ClusterUuid *string `json:"clusterUuid,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Whether to permit all traffic through virtual switch or only the ICMP and statistics collection requests.
+	*/
+	IsAllTrafficPermitted *bool `json:"isAllTrafficPermitted,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  UUID of the virtual switch.
+	*/
+	VirtualSwitchUuid *string `json:"virtualSwitchUuid,omitempty"`
+}
+
+func NewVpcVirtualSwitchMapping() *VpcVirtualSwitchMapping {
+	p := new(VpcVirtualSwitchMapping)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VpcVirtualSwitchMapping"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcVirtualSwitchMapping"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpc-virtual-switch-mappings Get operation
+*/
+type VpcVirtualSwitchMappingsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfVpcVirtualSwitchMappingsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewVpcVirtualSwitchMappingsApiResponse() *VpcVirtualSwitchMappingsApiResponse {
+	p := new(VpcVirtualSwitchMappingsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VpcVirtualSwitchMappingsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcVirtualSwitchMappingsApiResponse"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VpcVirtualSwitchMappingsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *VpcVirtualSwitchMappingsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfVpcVirtualSwitchMappingsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Third-party VPN appliance.
+*/
+type VpnAppliance struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  VPN appliance name.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  VPN appliance version.
+	*/
+	Version *string `json:"version,omitempty"`
+}
+
+func NewVpnAppliance() *VpnAppliance {
+	p := new(VpnAppliance)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VpnAppliance"
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnAppliance"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 VPN connection
 */
 type VpnConnection struct {
@@ -7313,23 +9512,23 @@ type VpnConnection struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 	  IP prefixes advertised to the remote gateway over BGP.
 	*/
 	AdvertisedPrefixes []IPSubnet `json:"advertisedPrefixes,omitempty"`
-	/**
+	/*
 	  VPN connection description
 	*/
 	Description *string `json:"description,omitempty"`
 
 	DpdConfig *DpdConfig `json:"dpdConfig,omitempty"`
-	/**
+	/*
 	  Priority assigned to routes received on this connection over eBGP. A higher priority value indicates that the routes are more preferred
 	*/
 	DynamicRoutePriority *int `json:"dynamicRoutePriority,omitempty"`
 
 	EbgpStatus *Status `json:"ebgpStatus,omitempty"`
-	/**
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
@@ -7337,33 +9536,33 @@ type VpnConnection struct {
 	IpsecConfig *IpsecConfig `json:"ipsecConfig"`
 
 	IpsecTunnelStatus *Status `json:"ipsecTunnelStatus,omitempty"`
-	/**
+	/*
 	  IP prefixes learned from the remote gateway over BGP.
 	*/
 	LearnedPrefixes []IPSubnet `json:"learnedPrefixes,omitempty"`
-	/**
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
-
-	LocalGatewayRole *GatewayRole `json:"localGatewayRole"`
-	/**
+	/*
 	  The local VPN gateway reference
 	*/
-	LocalNetworkGatewayReference *string `json:"localNetworkGatewayReference"`
+	LocalGatewayReference *string `json:"localGatewayReference"`
+
+	LocalGatewayRole *GatewayRole `json:"localGatewayRole"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
-	/**
+	/*
 	  VPN connection name
 	*/
 	Name *string `json:"name,omitempty"`
 
 	QosConfig *QosConfig `json:"qosConfig,omitempty"`
-	/**
+	/*
 	  The remote VPN gateway reference
 	*/
-	RemoteNetworkGatewayReference *string `json:"remoteNetworkGatewayReference"`
-	/**
+	RemoteGatewayReference *string `json:"remoteGatewayReference"`
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -7373,16 +9572,16 @@ func (p *VpnConnection) MarshalJSON() ([]byte, error) {
 	type VpnConnectionProxy VpnConnection
 	return json.Marshal(struct {
 		*VpnConnectionProxy
-		IpsecConfig                   *IpsecConfig `json:"ipsecConfig,omitempty"`
-		LocalGatewayRole              *GatewayRole `json:"localGatewayRole,omitempty"`
-		LocalNetworkGatewayReference  *string      `json:"localNetworkGatewayReference,omitempty"`
-		RemoteNetworkGatewayReference *string      `json:"remoteNetworkGatewayReference,omitempty"`
+		IpsecConfig            *IpsecConfig `json:"ipsecConfig,omitempty"`
+		LocalGatewayReference  *string      `json:"localGatewayReference,omitempty"`
+		LocalGatewayRole       *GatewayRole `json:"localGatewayRole,omitempty"`
+		RemoteGatewayReference *string      `json:"remoteGatewayReference,omitempty"`
 	}{
-		VpnConnectionProxy:            (*VpnConnectionProxy)(p),
-		IpsecConfig:                   p.IpsecConfig,
-		LocalGatewayRole:              p.LocalGatewayRole,
-		LocalNetworkGatewayReference:  p.LocalNetworkGatewayReference,
-		RemoteNetworkGatewayReference: p.RemoteNetworkGatewayReference,
+		VpnConnectionProxy:     (*VpnConnectionProxy)(p),
+		IpsecConfig:            p.IpsecConfig,
+		LocalGatewayReference:  p.LocalGatewayReference,
+		LocalGatewayRole:       p.LocalGatewayRole,
+		RemoteGatewayReference: p.RemoteGatewayReference,
 	})
 }
 
@@ -7390,14 +9589,14 @@ func NewVpnConnection() *VpnConnection {
 	p := new(VpnConnection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpnConnection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VpnConnection"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnConnection"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/vpn-connections/{extId} Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections/{extId} Get operation
 */
 type VpnConnectionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7405,7 +9604,7 @@ type VpnConnectionApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -7419,7 +9618,7 @@ func NewVpnConnectionApiResponse() *VpnConnectionApiResponse {
 	p := new(VpnConnectionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpnConnectionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VpnConnectionApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnConnectionApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7446,8 +9645,8 @@ func (p *VpnConnectionApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/vpn-connections Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections Get operation
 */
 type VpnConnectionListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7455,7 +9654,7 @@ type VpnConnectionListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -7469,7 +9668,7 @@ func NewVpnConnectionListApiResponse() *VpnConnectionListApiResponse {
 	p := new(VpnConnectionListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpnConnectionListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VpnConnectionListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnConnectionListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7496,37 +9695,8 @@ func (p *VpnConnectionListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
-VPN device vendor name and device version.
-*/
-type VpnVendor struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
-	  List of VPN device versions.
-	*/
-	DeviceVersions []string `json:"deviceVersions,omitempty"`
-	/**
-	  VPN vendor name.
-	*/
-	Name *string `json:"name,omitempty"`
-}
-
-func NewVpnVendor() *VpnVendor {
-	p := new(VpnVendor)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.VpnVendor"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VpnVendor"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/**
-REST response for all response codes in api path /networking/v4.0.a1/config/vpn-vendor-configs/{vpnConnectionId}/available Get operation
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections/{extId}/vpn-vendor-configs Get operation
 */
 type VpnVendorListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7534,7 +9704,7 @@ type VpnVendorListApiResponse struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/**
+	/*
 
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
@@ -7548,7 +9718,7 @@ func NewVpnVendorListApiResponse() *VpnVendorListApiResponse {
 	p := new(VpnVendorListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpnVendorListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.VpnVendorListApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnVendorListApiResponse"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7575,7 +9745,7 @@ func (p *VpnVendorListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-/**
+/*
 VXLAN Tunnel Endpoint
 */
 type Vtep struct {
@@ -7592,10 +9762,227 @@ func NewVtep() *Vtep {
 	p := new(Vtep)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Vtep"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.a1.config.Vtep"}
+	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Vtep"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+type OneOfVpcVirtualSwitchMappingsApiResponseData struct {
+	Discriminator *string                   `json:"-"`
+	ObjectType_   *string                   `json:"-"`
+	oneOfType0    []VpcVirtualSwitchMapping `json:"-"`
+	oneOfType400  *import3.ErrorResponse    `json:"-"`
+}
+
+func NewOneOfVpcVirtualSwitchMappingsApiResponseData() *OneOfVpcVirtualSwitchMappingsApiResponseData {
+	p := new(OneOfVpcVirtualSwitchMappingsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVpcVirtualSwitchMappingsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []VpcVirtualSwitchMapping:
+		p.oneOfType0 = v.([]VpcVirtualSwitchMapping)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.VpcVirtualSwitchMapping>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]VpcVirtualSwitchMapping)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "networking.v4.config.VpcVirtualSwitchMapping" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpcVirtualSwitchMappingsApiResponseData"))
+}
+
+func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.VpcVirtualSwitchMapping>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfVpcVirtualSwitchMappingsApiResponseData")
+}
+
+type OneOfGatewayServices struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType1    *RemoteNetworkServices `json:"-"`
+	oneOfType0    *LocalNetworkServices  `json:"-"`
+}
+
+func NewOneOfGatewayServices() *OneOfGatewayServices {
+	p := new(OneOfGatewayServices)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGatewayServices) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGatewayServices is nil"))
+	}
+	switch v.(type) {
+	case RemoteNetworkServices:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(RemoteNetworkServices)
+		}
+		*p.oneOfType1 = v.(RemoteNetworkServices)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	case LocalNetworkServices:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(LocalNetworkServices)
+		}
+		*p.oneOfType0 = v.(LocalNetworkServices)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGatewayServices) GetValue() interface{} {
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGatewayServices) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(RemoteNetworkServices)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if "networking.v4.config.RemoteNetworkServices" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(RemoteNetworkServices)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(LocalNetworkServices)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.LocalNetworkServices" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(LocalNetworkServices)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGatewayServices"))
+}
+
+func (p *OneOfGatewayServices) MarshalJSON() ([]byte, error) {
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGatewayServices")
 }
 
 type OneOfFloatingIpAssociation struct {
@@ -7815,6 +10202,117 @@ func (p *OneOfFlowGatewayListApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfFlowGatewayListApiResponseData")
 }
 
+type OneOfUplinkBondApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *UplinkBond            `json:"-"`
+}
+
+func NewOneOfUplinkBondApiResponseData() *OneOfUplinkBondApiResponseData {
+	p := new(OneOfUplinkBondApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUplinkBondApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUplinkBondApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case UplinkBond:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(UplinkBond)
+		}
+		*p.oneOfType0 = v.(UplinkBond)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUplinkBondApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfUplinkBondApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(UplinkBond)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.UplinkBond" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(UplinkBond)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUplinkBondApiResponseData"))
+}
+
+func (p *OneOfUplinkBondApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfUplinkBondApiResponseData")
+}
+
 type OneOfNetworkCloudConfigListApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -7921,23 +10419,23 @@ func (p *OneOfNetworkCloudConfigListApiResponseData) MarshalJSON() ([]byte, erro
 	return nil, errors.New("No value to marshal for OneOfNetworkCloudConfigListApiResponseData")
 }
 
-type OneOfBgpSessionListApiResponseData struct {
+type OneOfTrafficMirrorListApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []BgpSession           `json:"-"`
+	oneOfType0    []TrafficMirror        `json:"-"`
 }
 
-func NewOneOfBgpSessionListApiResponseData() *OneOfBgpSessionListApiResponseData {
-	p := new(OneOfBgpSessionListApiResponseData)
+func NewOneOfTrafficMirrorListApiResponseData() *OneOfTrafficMirrorListApiResponseData {
+	p := new(OneOfTrafficMirrorListApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfBgpSessionListApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfTrafficMirrorListApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfBgpSessionListApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfTrafficMirrorListApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import3.ErrorResponse:
@@ -7953,33 +10451,33 @@ func (p *OneOfBgpSessionListApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []BgpSession:
-		p.oneOfType0 = v.([]BgpSession)
+	case []TrafficMirror:
+		p.oneOfType0 = v.([]TrafficMirror)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<networking.v4.config.BgpSession>"
+		*p.Discriminator = "List<networking.v4.config.TrafficMirror>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<networking.v4.config.BgpSession>"
+		*p.ObjectType_ = "List<networking.v4.config.TrafficMirror>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfBgpSessionListApiResponseData) GetValue() interface{} {
+func (p *OneOfTrafficMirrorListApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<networking.v4.config.BgpSession>" == *p.Discriminator {
+	if "List<networking.v4.config.TrafficMirror>" == *p.Discriminator {
 		return p.oneOfType0
 	}
 	return nil
 }
 
-func (p *OneOfBgpSessionListApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfTrafficMirrorListApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -7998,64 +10496,54 @@ func (p *OneOfBgpSessionListApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType0 := new([]BgpSession)
+	vOneOfType0 := new([]TrafficMirror)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.BgpSession" == *((*vOneOfType0)[0].ObjectType_) {
+		if len(*vOneOfType0) == 0 || "networking.v4.config.TrafficMirror" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<networking.v4.config.BgpSession>"
+			*p.Discriminator = "List<networking.v4.config.TrafficMirror>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<networking.v4.config.BgpSession>"
+			*p.ObjectType_ = "List<networking.v4.config.TrafficMirror>"
 			return nil
 
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfBgpSessionListApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfTrafficMirrorListApiResponseData"))
 }
 
-func (p *OneOfBgpSessionListApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfTrafficMirrorListApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<networking.v4.config.BgpSession>" == *p.Discriminator {
+	if "List<networking.v4.config.TrafficMirror>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfBgpSessionListApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfTrafficMirrorListApiResponseData")
 }
 
-type OneOfSubnetListApiResponseData struct {
+type OneOfTrafficMirrorApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Subnet               `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *TrafficMirror         `json:"-"`
 }
 
-func NewOneOfSubnetListApiResponseData() *OneOfSubnetListApiResponseData {
-	p := new(OneOfSubnetListApiResponseData)
+func NewOneOfTrafficMirrorApiResponseData() *OneOfTrafficMirrorApiResponseData {
+	p := new(OneOfTrafficMirrorApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfSubnetListApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfTrafficMirrorApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfSubnetListApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfTrafficMirrorApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []Subnet:
-		p.oneOfType0 = v.([]Subnet)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.Subnet>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.Subnet>"
 	case import3.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import3.ErrorResponse)
@@ -8069,39 +10557,36 @@ func (p *OneOfSubnetListApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case TrafficMirror:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(TrafficMirror)
+		}
+		*p.oneOfType0 = v.(TrafficMirror)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfSubnetListApiResponseData) GetValue() interface{} {
-	if "List<networking.v4.config.Subnet>" == *p.Discriminator {
-		return p.oneOfType0
-	}
+func (p *OneOfTrafficMirrorApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	return nil
 }
 
-func (p *OneOfSubnetListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Subnet)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.Subnet" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.Subnet>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.Subnet>"
-			return nil
-
-		}
-	}
+func (p *OneOfTrafficMirrorApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -8120,17 +10605,141 @@ func (p *OneOfSubnetListApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSubnetListApiResponseData"))
+	vOneOfType0 := new(TrafficMirror)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.TrafficMirror" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(TrafficMirror)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfTrafficMirrorApiResponseData"))
 }
 
-func (p *OneOfSubnetListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<networking.v4.config.Subnet>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
+func (p *OneOfTrafficMirrorApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfSubnetListApiResponseData")
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfTrafficMirrorApiResponseData")
+}
+
+type OneOfUplinkBondListApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []UplinkBond           `json:"-"`
+}
+
+func NewOneOfUplinkBondListApiResponseData() *OneOfUplinkBondListApiResponseData {
+	p := new(OneOfUplinkBondListApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUplinkBondListApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUplinkBondListApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []UplinkBond:
+		p.oneOfType0 = v.([]UplinkBond)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.UplinkBond>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.UplinkBond>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUplinkBondListApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.UplinkBond>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfUplinkBondListApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]UplinkBond)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "networking.v4.config.UplinkBond" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.UplinkBond>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.UplinkBond>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUplinkBondListApiResponseData"))
+}
+
+func (p *OneOfUplinkBondListApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.UplinkBond>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfUplinkBondListApiResponseData")
 }
 
 type OneOfNetworkControllerListApiResponseData struct {
@@ -8678,6 +11287,145 @@ func (p *OneOfSubnetApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfSubnetApiResponseData")
 }
 
+type OneOfFloatingIpListApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []FloatingIp           `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType401  []FloatingIpProjection `json:"-"`
+}
+
+func NewOneOfFloatingIpListApiResponseData() *OneOfFloatingIpListApiResponseData {
+	p := new(OneOfFloatingIpListApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfFloatingIpListApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfFloatingIpListApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []FloatingIp:
+		p.oneOfType0 = v.([]FloatingIp)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.FloatingIp>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.FloatingIp>"
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []FloatingIpProjection:
+		p.oneOfType401 = v.([]FloatingIpProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.FloatingIpProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.FloatingIpProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfFloatingIpListApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.FloatingIp>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.FloatingIpProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfFloatingIpListApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]FloatingIp)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "networking.v4.config.FloatingIp" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.FloatingIp>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.FloatingIp>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]FloatingIpProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "networking.v4.config.FloatingIpProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.FloatingIpProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.FloatingIpProjection>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFloatingIpListApiResponseData"))
+}
+
+func (p *OneOfFloatingIpListApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.FloatingIp>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.FloatingIpProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfFloatingIpListApiResponseData")
+}
+
 type OneOfClusterFlowStatusApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -8789,122 +11537,12 @@ func (p *OneOfClusterFlowStatusApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfClusterFlowStatusApiResponseData")
 }
 
-type OneOfRoutingPolicyMatchConditionDestination struct {
-	Discriminator *string            `json:"-"`
-	ObjectType_   *string            `json:"-"`
-	oneOfType1    *IPSubnetObject    `json:"-"`
-	oneOfType0    *AddressTypeObject `json:"-"`
-}
-
-func NewOneOfRoutingPolicyMatchConditionDestination() *OneOfRoutingPolicyMatchConditionDestination {
-	p := new(OneOfRoutingPolicyMatchConditionDestination)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRoutingPolicyMatchConditionDestination) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRoutingPolicyMatchConditionDestination is nil"))
-	}
-	switch v.(type) {
-	case IPSubnetObject:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(IPSubnetObject)
-		}
-		*p.oneOfType1 = v.(IPSubnetObject)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	case AddressTypeObject:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(AddressTypeObject)
-		}
-		*p.oneOfType0 = v.(AddressTypeObject)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRoutingPolicyMatchConditionDestination) GetValue() interface{} {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfRoutingPolicyMatchConditionDestination) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(IPSubnetObject)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "networking.v4.config.IPSubnetObject" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(IPSubnetObject)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(AddressTypeObject)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.AddressTypeObject" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(AddressTypeObject)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRoutingPolicyMatchConditionDestination"))
-}
-
-func (p *OneOfRoutingPolicyMatchConditionDestination) MarshalJSON() ([]byte, error) {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfRoutingPolicyMatchConditionDestination")
-}
-
 type OneOfVpcListApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
 	oneOfType0    []Vpc                  `json:"-"`
+	oneOfType401  []VpcProjection        `json:"-"`
 }
 
 func NewOneOfVpcListApiResponseData() *OneOfVpcListApiResponseData {
@@ -8942,6 +11580,16 @@ func (p *OneOfVpcListApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = "List<networking.v4.config.Vpc>"
+	case []VpcProjection:
+		p.oneOfType401 = v.([]VpcProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.VpcProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.VpcProjection>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -8954,6 +11602,9 @@ func (p *OneOfVpcListApiResponseData) GetValue() interface{} {
 	}
 	if "List<networking.v4.config.Vpc>" == *p.Discriminator {
 		return p.oneOfType0
+	}
+	if "List<networking.v4.config.VpcProjection>" == *p.Discriminator {
+		return p.oneOfType401
 	}
 	return nil
 }
@@ -8993,6 +11644,22 @@ func (p *OneOfVpcListApiResponseData) UnmarshalJSON(b []byte) error {
 
 		}
 	}
+	vOneOfType401 := new([]VpcProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "networking.v4.config.VpcProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.VpcProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.VpcProjection>"
+			return nil
+
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpcListApiResponseData"))
 }
 
@@ -9002,6 +11669,9 @@ func (p *OneOfVpcListApiResponseData) MarshalJSON() ([]byte, error) {
 	}
 	if "List<networking.v4.config.Vpc>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
+	}
+	if "List<networking.v4.config.VpcProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
 	}
 	return nil, errors.New("No value to marshal for OneOfVpcListApiResponseData")
 }
@@ -9115,112 +11785,6 @@ func (p *OneOfLayer2StretchApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfLayer2StretchApiResponseData")
-}
-
-type OneOfNetworkGatewayListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []NetworkGateway       `json:"-"`
-}
-
-func NewOneOfNetworkGatewayListApiResponseData() *OneOfNetworkGatewayListApiResponseData {
-	p := new(OneOfNetworkGatewayListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfNetworkGatewayListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNetworkGatewayListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []NetworkGateway:
-		p.oneOfType0 = v.([]NetworkGateway)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.NetworkGateway>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.NetworkGateway>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfNetworkGatewayListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.NetworkGateway>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfNetworkGatewayListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]NetworkGateway)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.NetworkGateway" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.NetworkGateway>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.NetworkGateway>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNetworkGatewayListApiResponseData"))
-}
-
-func (p *OneOfNetworkGatewayListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.NetworkGateway>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfNetworkGatewayListApiResponseData")
 }
 
 type OneOfCloudNetworkListApiResponseData struct {
@@ -9546,112 +12110,6 @@ func (p *OneOfNetworkControllerApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfNetworkControllerApiResponseData")
 }
 
-type OneOfVpnVendorListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []VpnVendor            `json:"-"`
-}
-
-func NewOneOfVpnVendorListApiResponseData() *OneOfVpnVendorListApiResponseData {
-	p := new(OneOfVpnVendorListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfVpnVendorListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVpnVendorListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []VpnVendor:
-		p.oneOfType0 = v.([]VpnVendor)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.VpnVendor>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.VpnVendor>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfVpnVendorListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.VpnVendor>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfVpnVendorListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]VpnVendor)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.VpnVendor" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.VpnVendor>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.VpnVendor>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpnVendorListApiResponseData"))
-}
-
-func (p *OneOfVpnVendorListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.VpnVendor>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfVpnVendorListApiResponseData")
-}
-
 type OneOfIPFIXExporterApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -9874,134 +12332,23 @@ func (p *OneOfRoutingPolicyApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfRoutingPolicyApiResponseData")
 }
 
-type OneOfNetworkGatewayApiResponseData struct {
+type OneOfVpnVendorListApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *NetworkGateway        `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []VpnAppliance         `json:"-"`
 }
 
-func NewOneOfNetworkGatewayApiResponseData() *OneOfNetworkGatewayApiResponseData {
-	p := new(OneOfNetworkGatewayApiResponseData)
+func NewOneOfVpnVendorListApiResponseData() *OneOfVpnVendorListApiResponseData {
+	p := new(OneOfVpnVendorListApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfNetworkGatewayApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfVpnVendorListApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNetworkGatewayApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case NetworkGateway:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(NetworkGateway)
-		}
-		*p.oneOfType0 = v.(NetworkGateway)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfNetworkGatewayApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfNetworkGatewayApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(NetworkGateway)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.NetworkGateway" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(NetworkGateway)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNetworkGatewayApiResponseData"))
-}
-
-func (p *OneOfNetworkGatewayApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfNetworkGatewayApiResponseData")
-}
-
-type OneOfNodeSchedulableStatusApiResponseData struct {
-	Discriminator *string                 `json:"-"`
-	ObjectType_   *string                 `json:"-"`
-	oneOfType400  *import3.ErrorResponse  `json:"-"`
-	oneOfType0    []NodeSchedulableStatus `json:"-"`
-}
-
-func NewOneOfNodeSchedulableStatusApiResponseData() *OneOfNodeSchedulableStatusApiResponseData {
-	p := new(OneOfNodeSchedulableStatusApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfNodeSchedulableStatusApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNodeSchedulableStatusApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfVpnVendorListApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import3.ErrorResponse:
@@ -10017,33 +12364,33 @@ func (p *OneOfNodeSchedulableStatusApiResponseData) SetValue(v interface{}) erro
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []NodeSchedulableStatus:
-		p.oneOfType0 = v.([]NodeSchedulableStatus)
+	case []VpnAppliance:
+		p.oneOfType0 = v.([]VpnAppliance)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatus>"
+		*p.Discriminator = "List<networking.v4.config.VpnAppliance>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatus>"
+		*p.ObjectType_ = "List<networking.v4.config.VpnAppliance>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfNodeSchedulableStatusApiResponseData) GetValue() interface{} {
+func (p *OneOfVpnVendorListApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<networking.v4.config.NodeSchedulableStatus>" == *p.Discriminator {
+	if "List<networking.v4.config.VpnAppliance>" == *p.Discriminator {
 		return p.oneOfType0
 	}
 	return nil
 }
 
-func (p *OneOfNodeSchedulableStatusApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfVpnVendorListApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -10062,33 +12409,33 @@ func (p *OneOfNodeSchedulableStatusApiResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
-	vOneOfType0 := new([]NodeSchedulableStatus)
+	vOneOfType0 := new([]VpnAppliance)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.NodeSchedulableStatus" == *((*vOneOfType0)[0].ObjectType_) {
+		if len(*vOneOfType0) == 0 || "networking.v4.config.VpnAppliance" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatus>"
+			*p.Discriminator = "List<networking.v4.config.VpnAppliance>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatus>"
+			*p.ObjectType_ = "List<networking.v4.config.VpnAppliance>"
 			return nil
 
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNodeSchedulableStatusApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpnVendorListApiResponseData"))
 }
 
-func (p *OneOfNodeSchedulableStatusApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfVpnVendorListApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<networking.v4.config.NodeSchedulableStatus>" == *p.Discriminator {
+	if "List<networking.v4.config.VpnAppliance>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfNodeSchedulableStatusApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfVpnVendorListApiResponseData")
 }
 
 type OneOfFlowGatewayApiResponseData struct {
@@ -10202,35 +12549,26 @@ func (p *OneOfFlowGatewayApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfFlowGatewayApiResponseData")
 }
 
-type OneOfFloatingIpListApiResponseData struct {
+type OneOfBgpSessionListApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    []FloatingIp           `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType401  []BgpSessionProjection `json:"-"`
+	oneOfType0    []BgpSession           `json:"-"`
 }
 
-func NewOneOfFloatingIpListApiResponseData() *OneOfFloatingIpListApiResponseData {
-	p := new(OneOfFloatingIpListApiResponseData)
+func NewOneOfBgpSessionListApiResponseData() *OneOfBgpSessionListApiResponseData {
+	p := new(OneOfBgpSessionListApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfFloatingIpListApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfBgpSessionListApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfFloatingIpListApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfBgpSessionListApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []FloatingIp:
-		p.oneOfType0 = v.([]FloatingIp)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.FloatingIp>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.FloatingIp>"
 	case import3.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import3.ErrorResponse)
@@ -10244,39 +12582,46 @@ func (p *OneOfFloatingIpListApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []BgpSessionProjection:
+		p.oneOfType401 = v.([]BgpSessionProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.BgpSessionProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.BgpSessionProjection>"
+	case []BgpSession:
+		p.oneOfType0 = v.([]BgpSession)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.BgpSession>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.BgpSession>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfFloatingIpListApiResponseData) GetValue() interface{} {
-	if "List<networking.v4.config.FloatingIp>" == *p.Discriminator {
-		return p.oneOfType0
-	}
+func (p *OneOfBgpSessionListApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.BgpSessionProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if "List<networking.v4.config.BgpSession>" == *p.Discriminator {
+		return p.oneOfType0
 	}
 	return nil
 }
 
-func (p *OneOfFloatingIpListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]FloatingIp)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.FloatingIp" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.FloatingIp>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.FloatingIp>"
-			return nil
-
-		}
-	}
+func (p *OneOfBgpSessionListApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -10295,17 +12640,52 @@ func (p *OneOfFloatingIpListApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFloatingIpListApiResponseData"))
+	vOneOfType401 := new([]BgpSessionProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "networking.v4.config.BgpSessionProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.BgpSessionProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.BgpSessionProjection>"
+			return nil
+
+		}
+	}
+	vOneOfType0 := new([]BgpSession)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "networking.v4.config.BgpSession" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.BgpSession>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.BgpSession>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfBgpSessionListApiResponseData"))
 }
 
-func (p *OneOfFloatingIpListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<networking.v4.config.FloatingIp>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
+func (p *OneOfBgpSessionListApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfFloatingIpListApiResponseData")
+	if "List<networking.v4.config.BgpSessionProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if "List<networking.v4.config.BgpSession>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfBgpSessionListApiResponseData")
 }
 
 type OneOfLayer2StretchListApiResponseData struct {
@@ -10635,7 +13015,7 @@ type OneOfAncConfigApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *AncConfig             `json:"-"`
+	oneOfType0    *Anc                   `json:"-"`
 }
 
 func NewOneOfAncConfigApiResponseData() *OneOfAncConfigApiResponseData {
@@ -10663,11 +13043,11 @@ func (p *OneOfAncConfigApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case AncConfig:
+	case Anc:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(AncConfig)
+			p.oneOfType0 = new(Anc)
 		}
-		*p.oneOfType0 = v.(AncConfig)
+		*p.oneOfType0 = v.(Anc)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -10711,11 +13091,11 @@ func (p *OneOfAncConfigApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType0 := new(AncConfig)
+	vOneOfType0 := new(Anc)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.AncConfig" == *vOneOfType0.ObjectType_ {
+		if "networking.v4.config.Anc" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(AncConfig)
+				p.oneOfType0 = new(Anc)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -10742,58 +13122,43 @@ func (p *OneOfAncConfigApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfAncConfigApiResponseData")
 }
 
-type OneOfRoutingPolicyMatchConditionProtocolParameters struct {
-	Discriminator *string               `json:"-"`
-	ObjectType_   *string               `json:"-"`
-	oneOfType3    *ProtocolNumberObject `json:"-"`
-	oneOfType1    *UDPObject            `json:"-"`
-	oneOfType0    *TCPObject            `json:"-"`
-	oneOfType2    *ICMPObject           `json:"-"`
+type OneOfGatewayApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *Gateway               `json:"-"`
 }
 
-func NewOneOfRoutingPolicyMatchConditionProtocolParameters() *OneOfRoutingPolicyMatchConditionProtocolParameters {
-	p := new(OneOfRoutingPolicyMatchConditionProtocolParameters)
+func NewOneOfGatewayApiResponseData() *OneOfGatewayApiResponseData {
+	p := new(OneOfGatewayApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) SetValue(v interface{}) error {
+func (p *OneOfGatewayApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRoutingPolicyMatchConditionProtocolParameters is nil"))
+		return errors.New(fmt.Sprintf("OneOfGatewayApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case ProtocolNumberObject:
-		if nil == p.oneOfType3 {
-			p.oneOfType3 = new(ProtocolNumberObject)
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
 		}
-		*p.oneOfType3 = v.(ProtocolNumberObject)
+		*p.oneOfType400 = v.(import3.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType3.ObjectType_
+		*p.Discriminator = *p.oneOfType400.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType3.ObjectType_
-	case UDPObject:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(UDPObject)
-		}
-		*p.oneOfType1 = v.(UDPObject)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	case TCPObject:
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Gateway:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(TCPObject)
+			p.oneOfType0 = new(Gateway)
 		}
-		*p.oneOfType0 = v.(TCPObject)
+		*p.oneOfType0 = v.(Gateway)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -10802,83 +13167,46 @@ func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) SetValue(v interfac
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case ICMPObject:
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(ICMPObject)
-		}
-		*p.oneOfType2 = v.(ICMPObject)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) GetValue() interface{} {
-	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType3
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
+func (p *OneOfGatewayApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2
-	}
 	return nil
 }
 
-func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) UnmarshalJSON(b []byte) error {
-	vOneOfType3 := new(ProtocolNumberObject)
-	if err := json.Unmarshal(b, vOneOfType3); err == nil {
-		if "networking.v4.config.ProtocolNumberObject" == *vOneOfType3.ObjectType_ {
-			if nil == p.oneOfType3 {
-				p.oneOfType3 = new(ProtocolNumberObject)
+func (p *OneOfGatewayApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
 			}
-			*p.oneOfType3 = *vOneOfType3
+			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType3.ObjectType_
+			*p.Discriminator = *p.oneOfType400.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType3.ObjectType_
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType1 := new(UDPObject)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "networking.v4.config.UDPObject" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(UDPObject)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(TCPObject)
+	vOneOfType0 := new(Gateway)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.TCPObject" == *vOneOfType0.ObjectType_ {
+		if "networking.v4.config.Gateway" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(TCPObject)
+				p.oneOfType0 = new(Gateway)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -10892,41 +13220,17 @@ func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) UnmarshalJSON(b []b
 			return nil
 		}
 	}
-	vOneOfType2 := new(ICMPObject)
-	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "networking.v4.config.ICMPObject" == *vOneOfType2.ObjectType_ {
-			if nil == p.oneOfType2 {
-				p.oneOfType2 = new(ICMPObject)
-			}
-			*p.oneOfType2 = *vOneOfType2
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRoutingPolicyMatchConditionProtocolParameters"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGatewayApiResponseData"))
 }
 
-func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) MarshalJSON() ([]byte, error) {
-	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType3)
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
+func (p *OneOfGatewayApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2)
-	}
-	return nil, errors.New("No value to marshal for OneOfRoutingPolicyMatchConditionProtocolParameters")
+	return nil, errors.New("No value to marshal for OneOfGatewayApiResponseData")
 }
 
 type OneOfRouteTableApiResponseData struct {
@@ -11038,223 +13342,6 @@ func (p *OneOfRouteTableApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfRouteTableApiResponseData")
-}
-
-type OneOfRollingRestartStatusApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *RollingRestartStatus  `json:"-"`
-}
-
-func NewOneOfRollingRestartStatusApiResponseData() *OneOfRollingRestartStatusApiResponseData {
-	p := new(OneOfRollingRestartStatusApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRollingRestartStatusApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRollingRestartStatusApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case RollingRestartStatus:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(RollingRestartStatus)
-		}
-		*p.oneOfType0 = v.(RollingRestartStatus)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRollingRestartStatusApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfRollingRestartStatusApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(RollingRestartStatus)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.RollingRestartStatus" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(RollingRestartStatus)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRollingRestartStatusApiResponseData"))
-}
-
-func (p *OneOfRollingRestartStatusApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfRollingRestartStatusApiResponseData")
-}
-
-type OneOfSubnetAddressAssignmentListApiResponseData struct {
-	Discriminator *string                 `json:"-"`
-	ObjectType_   *string                 `json:"-"`
-	oneOfType400  *import3.ErrorResponse  `json:"-"`
-	oneOfType0    []AddressAssignmentInfo `json:"-"`
-}
-
-func NewOneOfSubnetAddressAssignmentListApiResponseData() *OneOfSubnetAddressAssignmentListApiResponseData {
-	p := new(OneOfSubnetAddressAssignmentListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfSubnetAddressAssignmentListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfSubnetAddressAssignmentListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []AddressAssignmentInfo:
-		p.oneOfType0 = v.([]AddressAssignmentInfo)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.AddressAssignmentInfo>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.AddressAssignmentInfo>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfSubnetAddressAssignmentListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.AddressAssignmentInfo>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfSubnetAddressAssignmentListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]AddressAssignmentInfo)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.AddressAssignmentInfo" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.AddressAssignmentInfo>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.AddressAssignmentInfo>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSubnetAddressAssignmentListApiResponseData"))
-}
-
-func (p *OneOfSubnetAddressAssignmentListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.AddressAssignmentInfo>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfSubnetAddressAssignmentListApiResponseData")
 }
 
 type OneOfVirtualSwitchListApiResponseData struct {
@@ -11396,23 +13483,134 @@ func (p *OneOfVirtualSwitchListApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfVirtualSwitchListApiResponseData")
 }
 
-type OneOfFlowGatewayKeepAliveResponseApiResponseData struct {
-	Discriminator *string                       `json:"-"`
-	ObjectType_   *string                       `json:"-"`
-	oneOfType400  *import3.ErrorResponse        `json:"-"`
-	oneOfType0    *FlowGatewayKeepAliveResponse `json:"-"`
+type OneOfFloatingIpProjectionAssociation struct {
+	Discriminator *string               `json:"-"`
+	ObjectType_   *string               `json:"-"`
+	oneOfType1    *PrivateIpAssociation `json:"-"`
+	oneOfType0    *VmNicAssociation     `json:"-"`
 }
 
-func NewOneOfFlowGatewayKeepAliveResponseApiResponseData() *OneOfFlowGatewayKeepAliveResponseApiResponseData {
-	p := new(OneOfFlowGatewayKeepAliveResponseApiResponseData)
+func NewOneOfFloatingIpProjectionAssociation() *OneOfFloatingIpProjectionAssociation {
+	p := new(OneOfFloatingIpProjectionAssociation)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfFlowGatewayKeepAliveResponseApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfFloatingIpProjectionAssociation) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfFlowGatewayKeepAliveResponseApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfFloatingIpProjectionAssociation is nil"))
+	}
+	switch v.(type) {
+	case PrivateIpAssociation:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(PrivateIpAssociation)
+		}
+		*p.oneOfType1 = v.(PrivateIpAssociation)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	case VmNicAssociation:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(VmNicAssociation)
+		}
+		*p.oneOfType0 = v.(VmNicAssociation)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfFloatingIpProjectionAssociation) GetValue() interface{} {
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfFloatingIpProjectionAssociation) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(PrivateIpAssociation)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if "networking.v4.config.PrivateIpAssociation" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(PrivateIpAssociation)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(VmNicAssociation)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.VmNicAssociation" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(VmNicAssociation)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFloatingIpProjectionAssociation"))
+}
+
+func (p *OneOfFloatingIpProjectionAssociation) MarshalJSON() ([]byte, error) {
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfFloatingIpProjectionAssociation")
+}
+
+type OneOfFlowGatewayKeepAliveApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *FlowGatewayKeepAlive  `json:"-"`
+}
+
+func NewOneOfFlowGatewayKeepAliveApiResponseData() *OneOfFlowGatewayKeepAliveApiResponseData {
+	p := new(OneOfFlowGatewayKeepAliveApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfFlowGatewayKeepAliveApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfFlowGatewayKeepAliveApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import3.ErrorResponse:
@@ -11428,11 +13626,11 @@ func (p *OneOfFlowGatewayKeepAliveResponseApiResponseData) SetValue(v interface{
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case FlowGatewayKeepAliveResponse:
+	case FlowGatewayKeepAlive:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(FlowGatewayKeepAliveResponse)
+			p.oneOfType0 = new(FlowGatewayKeepAlive)
 		}
-		*p.oneOfType0 = v.(FlowGatewayKeepAliveResponse)
+		*p.oneOfType0 = v.(FlowGatewayKeepAlive)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -11447,7 +13645,7 @@ func (p *OneOfFlowGatewayKeepAliveResponseApiResponseData) SetValue(v interface{
 	return nil
 }
 
-func (p *OneOfFlowGatewayKeepAliveResponseApiResponseData) GetValue() interface{} {
+func (p *OneOfFlowGatewayKeepAliveApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -11457,7 +13655,7 @@ func (p *OneOfFlowGatewayKeepAliveResponseApiResponseData) GetValue() interface{
 	return nil
 }
 
-func (p *OneOfFlowGatewayKeepAliveResponseApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfFlowGatewayKeepAliveApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -11476,11 +13674,11 @@ func (p *OneOfFlowGatewayKeepAliveResponseApiResponseData) UnmarshalJSON(b []byt
 			return nil
 		}
 	}
-	vOneOfType0 := new(FlowGatewayKeepAliveResponse)
+	vOneOfType0 := new(FlowGatewayKeepAlive)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.FlowGatewayKeepAliveResponse" == *vOneOfType0.ObjectType_ {
+		if "networking.v4.config.FlowGatewayKeepAlive" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(FlowGatewayKeepAliveResponse)
+				p.oneOfType0 = new(FlowGatewayKeepAlive)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -11494,17 +13692,17 @@ func (p *OneOfFlowGatewayKeepAliveResponseApiResponseData) UnmarshalJSON(b []byt
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFlowGatewayKeepAliveResponseApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFlowGatewayKeepAliveApiResponseData"))
 }
 
-func (p *OneOfFlowGatewayKeepAliveResponseApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfFlowGatewayKeepAliveApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfFlowGatewayKeepAliveResponseApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfFlowGatewayKeepAliveApiResponseData")
 }
 
 type OneOfVpnConnectionApiResponseData struct {
@@ -12057,115 +14255,143 @@ func (p *OneOfLayer2StretchRelatedEntitiesApiResponseData) MarshalJSON() ([]byte
 	return nil, errors.New("No value to marshal for OneOfLayer2StretchRelatedEntitiesApiResponseData")
 }
 
-type OneOfRoutingPolicyMatchConditionSource struct {
-	Discriminator *string            `json:"-"`
-	ObjectType_   *string            `json:"-"`
-	oneOfType1    *IPSubnetObject    `json:"-"`
-	oneOfType0    *AddressTypeObject `json:"-"`
+type OneOfSubnetListApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []Subnet               `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType401  []SubnetProjection     `json:"-"`
 }
 
-func NewOneOfRoutingPolicyMatchConditionSource() *OneOfRoutingPolicyMatchConditionSource {
-	p := new(OneOfRoutingPolicyMatchConditionSource)
+func NewOneOfSubnetListApiResponseData() *OneOfSubnetListApiResponseData {
+	p := new(OneOfSubnetListApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfRoutingPolicyMatchConditionSource) SetValue(v interface{}) error {
+func (p *OneOfSubnetListApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRoutingPolicyMatchConditionSource is nil"))
+		return errors.New(fmt.Sprintf("OneOfSubnetListApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case IPSubnetObject:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(IPSubnetObject)
-		}
-		*p.oneOfType1 = v.(IPSubnetObject)
+	case []Subnet:
+		p.oneOfType0 = v.([]Subnet)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
+		*p.Discriminator = "List<networking.v4.config.Subnet>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	case AddressTypeObject:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(AddressTypeObject)
+		*p.ObjectType_ = "List<networking.v4.config.Subnet>"
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
 		}
-		*p.oneOfType0 = v.(AddressTypeObject)
+		*p.oneOfType400 = v.(import3.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = *p.oneOfType400.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []SubnetProjection:
+		p.oneOfType401 = v.([]SubnetProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.SubnetProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.SubnetProjection>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfRoutingPolicyMatchConditionSource) GetValue() interface{} {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
+func (p *OneOfSubnetListApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.Subnet>" == *p.Discriminator {
+		return p.oneOfType0
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.SubnetProjection>" == *p.Discriminator {
+		return p.oneOfType401
 	}
 	return nil
 }
 
-func (p *OneOfRoutingPolicyMatchConditionSource) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(IPSubnetObject)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "networking.v4.config.IPSubnetObject" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(IPSubnetObject)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(AddressTypeObject)
+func (p *OneOfSubnetListApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]Subnet)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.AddressTypeObject" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(AddressTypeObject)
-			}
-			*p.oneOfType0 = *vOneOfType0
+		if len(*vOneOfType0) == 0 || "networking.v4.config.Subnet" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = "List<networking.v4.config.Subnet>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = "List<networking.v4.config.Subnet>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRoutingPolicyMatchConditionSource"))
+	vOneOfType401 := new([]SubnetProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "networking.v4.config.SubnetProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.SubnetProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.SubnetProjection>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSubnetListApiResponseData"))
 }
 
-func (p *OneOfRoutingPolicyMatchConditionSource) MarshalJSON() ([]byte, error) {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+func (p *OneOfSubnetListApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.Subnet>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfRoutingPolicyMatchConditionSource")
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.SubnetProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfSubnetListApiResponseData")
 }
 
 type OneOfBgpSessionApiResponseData struct {
@@ -12279,23 +14505,23 @@ func (p *OneOfBgpSessionApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfBgpSessionApiResponseData")
 }
 
-type OneOfNetworkGatewayServices struct {
+type OneOfGatewayProjectionServices struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType1    *RemoteNetworkServices `json:"-"`
 	oneOfType0    *LocalNetworkServices  `json:"-"`
 }
 
-func NewOneOfNetworkGatewayServices() *OneOfNetworkGatewayServices {
-	p := new(OneOfNetworkGatewayServices)
+func NewOneOfGatewayProjectionServices() *OneOfGatewayProjectionServices {
+	p := new(OneOfGatewayProjectionServices)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfNetworkGatewayServices) SetValue(v interface{}) error {
+func (p *OneOfGatewayProjectionServices) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNetworkGatewayServices is nil"))
+		return errors.New(fmt.Sprintf("OneOfGatewayProjectionServices is nil"))
 	}
 	switch v.(type) {
 	case RemoteNetworkServices:
@@ -12330,7 +14556,7 @@ func (p *OneOfNetworkGatewayServices) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfNetworkGatewayServices) GetValue() interface{} {
+func (p *OneOfGatewayProjectionServices) GetValue() interface{} {
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
 	}
@@ -12340,7 +14566,7 @@ func (p *OneOfNetworkGatewayServices) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfNetworkGatewayServices) UnmarshalJSON(b []byte) error {
+func (p *OneOfGatewayProjectionServices) UnmarshalJSON(b []byte) error {
 	vOneOfType1 := new(RemoteNetworkServices)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
 		if "networking.v4.config.RemoteNetworkServices" == *vOneOfType1.ObjectType_ {
@@ -12377,17 +14603,123 @@ func (p *OneOfNetworkGatewayServices) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNetworkGatewayServices"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGatewayProjectionServices"))
 }
 
-func (p *OneOfNetworkGatewayServices) MarshalJSON() ([]byte, error) {
+func (p *OneOfGatewayProjectionServices) MarshalJSON() ([]byte, error) {
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfNetworkGatewayServices")
+	return nil, errors.New("No value to marshal for OneOfGatewayProjectionServices")
+}
+
+type OneOfClusterCapabilityApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []ClusterCapability    `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+}
+
+func NewOneOfClusterCapabilityApiResponseData() *OneOfClusterCapabilityApiResponseData {
+	p := new(OneOfClusterCapabilityApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfClusterCapabilityApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfClusterCapabilityApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []ClusterCapability:
+		p.oneOfType0 = v.([]ClusterCapability)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.ClusterCapability>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.ClusterCapability>"
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfClusterCapabilityApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.ClusterCapability>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfClusterCapabilityApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]ClusterCapability)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "networking.v4.config.ClusterCapability" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.ClusterCapability>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.ClusterCapability>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterCapabilityApiResponseData"))
+}
+
+func (p *OneOfClusterCapabilityApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.ClusterCapability>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfClusterCapabilityApiResponseData")
 }
 
 type OneOfTaskReferenceApiResponseData struct {
@@ -12499,4 +14831,431 @@ func (p *OneOfTaskReferenceApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfTaskReferenceApiResponseData")
+}
+
+type OneOfGatewayListApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []Gateway              `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType401  []GatewayProjection    `json:"-"`
+}
+
+func NewOneOfGatewayListApiResponseData() *OneOfGatewayListApiResponseData {
+	p := new(OneOfGatewayListApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGatewayListApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGatewayListApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Gateway:
+		p.oneOfType0 = v.([]Gateway)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.Gateway>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.Gateway>"
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []GatewayProjection:
+		p.oneOfType401 = v.([]GatewayProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.GatewayProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.GatewayProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGatewayListApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.Gateway>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.GatewayProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfGatewayListApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]Gateway)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "networking.v4.config.Gateway" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.Gateway>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.Gateway>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]GatewayProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "networking.v4.config.GatewayProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.GatewayProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.GatewayProjection>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGatewayListApiResponseData"))
+}
+
+func (p *OneOfGatewayListApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.Gateway>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.GatewayProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfGatewayListApiResponseData")
+}
+
+type OneOfNodeSchedulableStatusApiResponseData struct {
+	Discriminator *string                           `json:"-"`
+	ObjectType_   *string                           `json:"-"`
+	oneOfType400  *import3.ErrorResponse            `json:"-"`
+	oneOfType401  []NodeSchedulableStatusProjection `json:"-"`
+	oneOfType0    []NodeSchedulableStatus           `json:"-"`
+}
+
+func NewOneOfNodeSchedulableStatusApiResponseData() *OneOfNodeSchedulableStatusApiResponseData {
+	p := new(OneOfNodeSchedulableStatusApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfNodeSchedulableStatusApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfNodeSchedulableStatusApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []NodeSchedulableStatusProjection:
+		p.oneOfType401 = v.([]NodeSchedulableStatusProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatusProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatusProjection>"
+	case []NodeSchedulableStatus:
+		p.oneOfType0 = v.([]NodeSchedulableStatus)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatus>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatus>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfNodeSchedulableStatusApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.NodeSchedulableStatusProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if "List<networking.v4.config.NodeSchedulableStatus>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfNodeSchedulableStatusApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]NodeSchedulableStatusProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "networking.v4.config.NodeSchedulableStatusProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatusProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatusProjection>"
+			return nil
+
+		}
+	}
+	vOneOfType0 := new([]NodeSchedulableStatus)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "networking.v4.config.NodeSchedulableStatus" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatus>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatus>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNodeSchedulableStatusApiResponseData"))
+}
+
+func (p *OneOfNodeSchedulableStatusApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.NodeSchedulableStatusProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if "List<networking.v4.config.NodeSchedulableStatus>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfNodeSchedulableStatusApiResponseData")
+}
+
+type OneOfRoutingPolicyMatchConditionProtocolParameters struct {
+	Discriminator *string                  `json:"-"`
+	ObjectType_   *string                  `json:"-"`
+	oneOfType1    *ICMPObject              `json:"-"`
+	oneOfType0    *LayerFourProtocolObject `json:"-"`
+	oneOfType2    *ProtocolNumberObject    `json:"-"`
+}
+
+func NewOneOfRoutingPolicyMatchConditionProtocolParameters() *OneOfRoutingPolicyMatchConditionProtocolParameters {
+	p := new(OneOfRoutingPolicyMatchConditionProtocolParameters)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRoutingPolicyMatchConditionProtocolParameters is nil"))
+	}
+	switch v.(type) {
+	case ICMPObject:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(ICMPObject)
+		}
+		*p.oneOfType1 = v.(ICMPObject)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	case LayerFourProtocolObject:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(LayerFourProtocolObject)
+		}
+		*p.oneOfType0 = v.(LayerFourProtocolObject)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case ProtocolNumberObject:
+		if nil == p.oneOfType2 {
+			p.oneOfType2 = new(ProtocolNumberObject)
+		}
+		*p.oneOfType2 = v.(ProtocolNumberObject)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) GetValue() interface{} {
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2
+	}
+	return nil
+}
+
+func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(ICMPObject)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if "networking.v4.config.ICMPObject" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(ICMPObject)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(LayerFourProtocolObject)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.LayerFourProtocolObject" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(LayerFourProtocolObject)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2 := new(ProtocolNumberObject)
+	if err := json.Unmarshal(b, vOneOfType2); err == nil {
+		if "networking.v4.config.ProtocolNumberObject" == *vOneOfType2.ObjectType_ {
+			if nil == p.oneOfType2 {
+				p.oneOfType2 = new(ProtocolNumberObject)
+			}
+			*p.oneOfType2 = *vOneOfType2
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRoutingPolicyMatchConditionProtocolParameters"))
+}
+
+func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) MarshalJSON() ([]byte, error) {
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2)
+	}
+	return nil, errors.New("No value to marshal for OneOfRoutingPolicyMatchConditionProtocolParameters")
 }

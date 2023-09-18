@@ -10,17 +10,17 @@ import (
 	"strings"
 )
 
-type RouteTableApi struct {
+type TrafficMirrorApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewRouteTableApi(apiClient *client.ApiClient) *RouteTableApi {
+func NewTrafficMirrorApi(apiClient *client.ApiClient) *TrafficMirrorApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &RouteTableApi{
+	a := &TrafficMirrorApi{
 		ApiClient: apiClient,
 	}
 
@@ -33,14 +33,110 @@ func NewRouteTableApi(apiClient *client.ApiClient) *RouteTableApi {
 	return a
 }
 
-// Get the route table for the specified extId. Requires Prism Central >= pc.2022.9.
-func (api *RouteTableApi) GetRouteTable(extId *string, args ...map[string]interface{}) (*import1.RouteTableApiResponse, error) {
+// Create Traffic mirror session. Requires Prism Central >= pc.2023.3.
+func (api *TrafficMirrorApi) CreateTrafficMirror(body *import1.TrafficMirror, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/route-tables/{extId}"
+	uri := "/api/networking/v4.0.b1/config/traffic-mirrors"
+
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+	unmarshalledResp := new(import1.TaskReferenceApiResponse)
+	json.Unmarshal(responseBody, &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Delete Traffic mirror session request body.
+func (api *TrafficMirrorApi) DeleteTrafficMirror(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.0.b1/config/traffic-mirrors/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+	unmarshalledResp := new(import1.TaskReferenceApiResponse)
+	json.Unmarshal(responseBody, &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Get Traffic mirror session. Requires Prism Central >= pc.2023.3.
+func (api *TrafficMirrorApi) GetTrafficMirror(extId *string, args ...map[string]interface{}) (*import1.TrafficMirrorApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.0.b1/config/traffic-mirrors/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -77,19 +173,19 @@ func (api *RouteTableApi) GetRouteTable(extId *string, args ...map[string]interf
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.RouteTableApiResponse)
+	unmarshalledResp := new(import1.TrafficMirrorApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List route tables. Requires Prism Central >= pc.2022.9.
-func (api *RouteTableApi) ListRouteTables(page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import1.RouteTableListApiResponse, error) {
+// List Traffic mirror sessions. Requires Prism Central >= pc.2023.3.
+func (api *TrafficMirrorApi) ListTrafficMirrors(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.TrafficMirrorListApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/route-tables"
+	uri := "/api/networking/v4.0.b1/config/traffic-mirrors"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -114,6 +210,10 @@ func (api *RouteTableApi) ListRouteTables(page_ *int, limit_ *int, filter_ *stri
 
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
+	if orderby_ != nil {
+
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -132,19 +232,19 @@ func (api *RouteTableApi) ListRouteTables(page_ *int, limit_ *int, filter_ *stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.RouteTableListApiResponse)
+	unmarshalledResp := new(import1.TrafficMirrorListApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update route table. Requires Prism Central >= pc.2022.9.
-func (api *RouteTableApi) UpdateRouteTable(extId *string, body *import1.RouteTable, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Update Traffic mirror session. Requires Prism Central >= pc.2023.3.
+func (api *TrafficMirrorApi) UpdateTrafficMirror(extId *string, body *import1.TrafficMirror, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/route-tables/{extId}"
+	uri := "/api/networking/v4.0.b1/config/traffic-mirrors/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

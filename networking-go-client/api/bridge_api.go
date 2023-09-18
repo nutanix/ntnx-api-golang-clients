@@ -4,23 +4,23 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/stats"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type RoutingPolicyStatsApi struct {
+type BridgeApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewRoutingPolicyStatsApi(apiClient *client.ApiClient) *RoutingPolicyStatsApi {
+func NewBridgeApi(apiClient *client.ApiClient) *BridgeApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &RoutingPolicyStatsApi{
+	a := &BridgeApi{
 		ApiClient: apiClient,
 	}
 
@@ -33,14 +33,14 @@ func NewRoutingPolicyStatsApi(apiClient *client.ApiClient) *RoutingPolicyStatsAp
 	return a
 }
 
-// Clear the value in packet and byte counters of all Routing Policies in the chosen VPC or a particular routing policy in the chosen VPC. Requires Prism Central >= pc.2022.9.
-func (api *RoutingPolicyStatsApi) ClearRoutingPolicyCounters(body *import3.RoutingPolicyClearCountersSpec, args ...map[string]interface{}) (*import3.TaskReferenceApiResponse, error) {
+// Create a Virtual Switch from an existing bridge
+func (api *BridgeApi) MigrateBridgeToVirtualSwitches(body *import1.Bridge, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/stats/routing-policies/$actions/clear"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches/$actions/migrate"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -57,6 +57,9 @@ func (api *RoutingPolicyStatsApi) ClearRoutingPolicyCounters(body *import3.Routi
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -75,7 +78,7 @@ func (api *RoutingPolicyStatsApi) ClearRoutingPolicyCounters(body *import3.Routi
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import3.TaskReferenceApiResponse)
+	unmarshalledResp := new(import1.TaskReferenceApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }

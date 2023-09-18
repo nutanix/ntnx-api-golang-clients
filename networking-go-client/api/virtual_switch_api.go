@@ -11,7 +11,8 @@ import (
 )
 
 type VirtualSwitchApi struct {
-	ApiClient *client.ApiClient
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
 }
 
 func NewVirtualSwitchApi(apiClient *client.ApiClient) *VirtualSwitchApi {
@@ -22,35 +23,28 @@ func NewVirtualSwitchApi(apiClient *client.ApiClient) *VirtualSwitchApi {
 	a := &VirtualSwitchApi{
 		ApiClient: apiClient,
 	}
+
+	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
-/**
-  Create a Virtual Switch
-  Create a Virtual Switch
-
-  parameters:-
-  -> body (networking.v4.config.VirtualSwitch) (required) : Schema to configure a virtual switch
-  -> xClusterId (string) (required) : Prism Element Cluster UUID
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.config.TaskReferenceApiResponse, error)
-*/
+// Create a Virtual Switch. Requires Prism Central >= pc.2022.9.
 func (api *VirtualSwitchApi) CreateVirtualSwitch(body *import1.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/config/virtual-switches"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
 		return nil, client.ReportError("body is required and must be specified")
-	}
-	// verify the required parameter 'xClusterId' is set
-	if nil == xClusterId {
-		return nil, client.ReportError("xClusterId is required and must be specified")
 	}
 
 	headerParams := make(map[string]string)
@@ -63,14 +57,20 @@ func (api *VirtualSwitchApi) CreateVirtualSwitch(body *import1.VirtualSwitch, xC
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 
 	authNames := []string{"basicAuthScheme"}
 
@@ -83,29 +83,15 @@ func (api *VirtualSwitchApi) CreateVirtualSwitch(body *import1.VirtualSwitch, xC
 	return unmarshalledResp, err
 }
 
-/**
-  Delete a Virtual Switch
-  Delete a Virtual Switch
-
-  parameters:-
-  -> xClusterId (string) (required) : Prism Element Cluster UUID
-  -> extId (string) (required) : UUID of Virtual Switch
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.config.TaskReferenceApiResponse, error)
-*/
-func (api *VirtualSwitchApi) DeleteVirtualSwitch(xClusterId *string, extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Delete a Virtual Switch. Requires Prism Central >= pc.2022.9.
+func (api *VirtualSwitchApi) DeleteVirtualSwitch(extId *string, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches/{extId}"
 
-	// verify the required parameter 'xClusterId' is set
-	if nil == xClusterId {
-		return nil, client.ReportError("xClusterId is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
@@ -123,14 +109,20 @@ func (api *VirtualSwitchApi) DeleteVirtualSwitch(xClusterId *string, extId *stri
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 
 	authNames := []string{"basicAuthScheme"}
 
@@ -143,29 +135,15 @@ func (api *VirtualSwitchApi) DeleteVirtualSwitch(xClusterId *string, extId *stri
 	return unmarshalledResp, err
 }
 
-/**
-  Get single Virtual Switch given its UUID
-  Get single Virtual Switch given its UUID
-
-  parameters:-
-  -> xClusterId (string) (required) : Prism Element Cluster UUID
-  -> extId (string) (required) : UUID of Virtual Switch
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.config.VirtualSwitchApiResponse, error)
-*/
-func (api *VirtualSwitchApi) GetVirtualSwitch(xClusterId *string, extId *string, args ...map[string]interface{}) (*import1.VirtualSwitchApiResponse, error) {
+// Get single Virtual Switch given its UUID. Requires Prism Central >= pc.2022.9.
+func (api *VirtualSwitchApi) GetVirtualSwitch(extId *string, xClusterId *string, args ...map[string]interface{}) (*import1.VirtualSwitchApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches/{extId}"
 
-	// verify the required parameter 'xClusterId' is set
-	if nil == xClusterId {
-		return nil, client.ReportError("xClusterId is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
@@ -183,14 +161,20 @@ func (api *VirtualSwitchApi) GetVirtualSwitch(xClusterId *string, extId *string,
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 
 	authNames := []string{"basicAuthScheme"}
 
@@ -203,28 +187,14 @@ func (api *VirtualSwitchApi) GetVirtualSwitch(xClusterId *string, extId *string,
 	return unmarshalledResp, err
 }
 
-/**
-  Get list of Virtual Switches
-  Get list of Virtual Switches
-
-  parameters:-
-  -> xClusterId (string) (required) : Prism Element Cluster UUID
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.config.VirtualSwitchListApiResponse, error)
-*/
+// Get list of Virtual Switches. Requires Prism Central >= pc.2022.9.
 func (api *VirtualSwitchApi) ListVirtualSwitches(xClusterId *string, args ...map[string]interface{}) (*import1.VirtualSwitchListApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/config/virtual-switches"
-
-	// verify the required parameter 'xClusterId' is set
-	if nil == xClusterId {
-		return nil, client.ReportError("xClusterId is required and must be specified")
-	}
+	uri := "/api/networking/v4.0.b1/config/virtual-switches"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -236,14 +206,20 @@ func (api *VirtualSwitchApi) ListVirtualSwitches(xClusterId *string, args ...map
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 
 	authNames := []string{"basicAuthScheme"}
 
@@ -256,37 +232,22 @@ func (api *VirtualSwitchApi) ListVirtualSwitches(xClusterId *string, args ...map
 	return unmarshalledResp, err
 }
 
-/**
-  Update a Virtual Switch
-  Update a Virtual Switch
-
-  parameters:-
-  -> body (networking.v4.config.VirtualSwitch) (required) : Schema to configure a virtual switch
-  -> xClusterId (string) (required) : Prism Element Cluster UUID
-  -> extId (string) (required) : UUID of Virtual Switch
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.config.TaskReferenceApiResponse, error)
-*/
-func (api *VirtualSwitchApi) UpdateVirtualSwitch(body *import1.VirtualSwitch, xClusterId *string, extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Update a Virtual Switch. Requires Prism Central >= pc.2022.9.
+func (api *VirtualSwitchApi) UpdateVirtualSwitch(extId *string, body *import1.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches/{extId}"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-	// verify the required parameter 'xClusterId' is set
-	if nil == xClusterId {
-		return nil, client.ReportError("xClusterId is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -301,14 +262,20 @@ func (api *VirtualSwitchApi) UpdateVirtualSwitch(body *import1.VirtualSwitch, xC
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 
 	authNames := []string{"basicAuthScheme"}
 

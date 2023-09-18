@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/stats/stats_model.go.
  *
- * Product version: 4.0.1-alpha-1
+ * Product version: 4.0.1-beta-1
  *
  * Part of the Nutanix Networking Versioned APIs
  *
@@ -21,7 +21,7 @@ import (
 	"fmt"
 )
 
-/**
+/*
 The operator to use while performing down-sampling on stats data. Allowed values are SUM, MIN, MAX, AVG, COUNT and LAST.
 */
 type DownSamplingOperator int
@@ -37,7 +37,9 @@ const (
 	DOWNSAMPLINGOPERATOR_LAST     DownSamplingOperator = 7
 )
 
-// returns the name of the enum given an ordinal number
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
 func (e *DownSamplingOperator) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
@@ -55,7 +57,26 @@ func (e *DownSamplingOperator) name(index int) string {
 	return names[index]
 }
 
-// returns the enum type given a string value
+// Returns the name of the enum
+func (e DownSamplingOperator) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SUM",
+		"MIN",
+		"MAX",
+		"AVG",
+		"COUNT",
+		"LAST",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
 func (e *DownSamplingOperator) index(name string) DownSamplingOperator {
 	names := [...]string{
 		"$UNKNOWN",

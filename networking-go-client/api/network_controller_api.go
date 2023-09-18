@@ -11,7 +11,8 @@ import (
 )
 
 type NetworkControllerApi struct {
-	ApiClient *client.ApiClient
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
 }
 
 func NewNetworkControllerApi(apiClient *client.ApiClient) *NetworkControllerApi {
@@ -22,26 +23,24 @@ func NewNetworkControllerApi(apiClient *client.ApiClient) *NetworkControllerApi 
 	a := &NetworkControllerApi{
 		ApiClient: apiClient,
 	}
+
+	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
-/**
-  Create a network controller
-  Create a network controller
-
-  parameters:-
-  -> body (networking.v4.config.NetworkController) (required) : Network controller to create
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.config.TaskReferenceApiResponse, error)
-*/
+// Create a network controller. For large Prism Centrals, an additional 3GB of memory and 3 vCPUs are required, for each Prism Central node. For small Prism Centrals, an additional 1GB of memory and 1 vCPU is required, for each Prism Central node. Requires Prism Central >= pc.2022.9.
 func (api *NetworkControllerApi) CreateNetworkController(body *import1.NetworkController, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/config/controllers"
+	uri := "/api/networking/v4.0.b1/config/controllers"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -58,13 +57,18 @@ func (api *NetworkControllerApi) CreateNetworkController(body *import1.NetworkCo
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -76,23 +80,14 @@ func (api *NetworkControllerApi) CreateNetworkController(body *import1.NetworkCo
 	return unmarshalledResp, err
 }
 
-/**
-  Delete a network controller
-  Delete a network controller
-
-  parameters:-
-  -> extId (string) (required) : The UUID of the network controller
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.config.TaskReferenceApiResponse, error)
-*/
+// Delete a network controller. Requires Prism Central >= pc.2022.9.
 func (api *NetworkControllerApi) DeleteNetworkController(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/config/controllers/{extId}"
+	uri := "/api/networking/v4.0.b1/config/controllers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -111,13 +106,18 @@ func (api *NetworkControllerApi) DeleteNetworkController(extId *string, args ...
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -129,23 +129,14 @@ func (api *NetworkControllerApi) DeleteNetworkController(extId *string, args ...
 	return unmarshalledResp, err
 }
 
-/**
-  Get the network controller with the specified UUID
-  Get the network controller with the specified UUID
-
-  parameters:-
-  -> extId (string) (required) : The UUID of the network controller
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.config.NetworkControllerApiResponse, error)
-*/
+// Get the network controller with the specified UUID. Requires Prism Central >= pc.2022.9.
 func (api *NetworkControllerApi) GetNetworkController(extId *string, args ...map[string]interface{}) (*import1.NetworkControllerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/config/controllers/{extId}"
+	uri := "/api/networking/v4.0.b1/config/controllers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -164,13 +155,18 @@ func (api *NetworkControllerApi) GetNetworkController(extId *string, args ...map
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -182,24 +178,14 @@ func (api *NetworkControllerApi) GetNetworkController(extId *string, args ...map
 	return unmarshalledResp, err
 }
 
-/**
-  Gets the list of existing network controllers
-  Gets the list of existing network controllers
-
-  parameters:-
-  -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.
-  -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*networking.v4.config.NetworkControllerListApiResponse, error)
-*/
+// Gets the list of existing network controllers. Requires Prism Central >= pc.2022.9.
 func (api *NetworkControllerApi) ListNetworkControllers(page_ *int, limit_ *int, args ...map[string]interface{}) (*import1.NetworkControllerListApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.a1/config/controllers"
+	uri := "/api/networking/v4.0.b1/config/controllers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -213,19 +199,25 @@ func (api *NetworkControllerApi) ListNetworkControllers(page_ *int, limit_ *int,
 
 	// Query Params
 	if page_ != nil {
+
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
+
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
@@ -233,6 +225,59 @@ func (api *NetworkControllerApi) ListNetworkControllers(page_ *int, limit_ *int,
 		return nil, err
 	}
 	unmarshalledResp := new(import1.NetworkControllerListApiResponse)
+	json.Unmarshal(responseBody, &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Update a network controller. Requires Prism Central >= pc.2022.9.
+func (api *NetworkControllerApi) UpdateNetworkController(extId *string, body *import1.NetworkController, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.0.b1/config/controllers/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+	unmarshalledResp := new(import1.TaskReferenceApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }

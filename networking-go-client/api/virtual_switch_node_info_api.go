@@ -4,23 +4,23 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/stats"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type RoutingPolicyStatsApi struct {
+type VirtualSwitchNodeInfoApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewRoutingPolicyStatsApi(apiClient *client.ApiClient) *RoutingPolicyStatsApi {
+func NewVirtualSwitchNodeInfoApi(apiClient *client.ApiClient) *VirtualSwitchNodeInfoApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &RoutingPolicyStatsApi{
+	a := &VirtualSwitchNodeInfoApi{
 		ApiClient: apiClient,
 	}
 
@@ -33,30 +33,28 @@ func NewRoutingPolicyStatsApi(apiClient *client.ApiClient) *RoutingPolicyStatsAp
 	return a
 }
 
-// Clear the value in packet and byte counters of all Routing Policies in the chosen VPC or a particular routing policy in the chosen VPC. Requires Prism Central >= pc.2022.9.
-func (api *RoutingPolicyStatsApi) ClearRoutingPolicyCounters(body *import3.RoutingPolicyClearCountersSpec, args ...map[string]interface{}) (*import3.TaskReferenceApiResponse, error) {
+// Check to see whether a node in a cluster is a storage-only node or not
+func (api *VirtualSwitchNodeInfoApi) GetNodeSchedulableStatus(xClusterId *string, args ...map[string]interface{}) (*import1.NodeSchedulableStatusApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/stats/routing-policies/$actions/clear"
-
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
+	uri := "/api/networking/v4.0.b1/config/node-schedulable-status"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
+	contentTypes := []string{}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -71,11 +69,11 @@ func (api *RoutingPolicyStatsApi) ClearRoutingPolicyCounters(body *import3.Routi
 
 	authNames := []string{"basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import3.TaskReferenceApiResponse)
+	unmarshalledResp := new(import1.NodeSchedulableStatusApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }

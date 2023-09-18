@@ -9,8 +9,8 @@ The Go client for Nutanix Networking Versioned APIs is designed for Go client ap
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.a1
-- Package version: v4.0.1-alpha.1
+- API version: v4.0.b1
+- Package version: v4.0.1-beta.1
 
 ## Requirements.
 Go 1.11 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/...@v4.0.1-alpha.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/...@v4.0.1-beta.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4 v4.0.1-alpha.1
+	github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4 v4.0.1-beta.1
 )
 ```
 
@@ -283,9 +283,10 @@ page := 0
 limit := 50
 filter := "string_sample_data"
 orderby := "string_sample_data"
+expand := "string_sample_data"
 
 // 
-response, err := BgpSessionApiInstance.ListBgpSessions(&page, &limit, &filter, &orderby)
+response, err := BgpSessionApiInstance.ListBgpSessions(&page, &limit, &filter, &orderby, &expand)
 if err != nil {
     ....
 }
@@ -296,7 +297,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=networking&version=v4.0.a1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=networking&version=v4.0.b1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).
