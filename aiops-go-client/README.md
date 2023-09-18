@@ -9,8 +9,8 @@ The Go client for Nutanix Aiops Versioned APIs is designed for Go client applica
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.a1
-- Package version: v4.0.2-alpha.1
+- API version: v4.0.a2
+- Package version: v4.0.3-alpha.2
 
 ## Requirements.
 Go 1.11 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/...@v4.0.2-alpha.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/...@v4.0.3-alpha.2
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4 v4.0.2-alpha.1
+	github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4 v4.0.3-alpha.2
 )
 ```
 
@@ -270,7 +270,7 @@ import (
 )
 var (
 	ApiClientInstance *client.ApiClient
-	ClusterApiInstance *api.ClusterApi
+	StatsApiInstance *api.StatsApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -278,14 +278,20 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ClusterApiInstance = api.NewClusterApi(ApiClientInstance)
+StatsApiInstance = api.NewStatsApi(ApiClientInstance)
+sourceExtId := "f2c8f145-9D53-ADfc-9b74-1c4151D5c6ee"
+extId := "bA6FEDea-0bb1-C7c9-beBA-f7Ac0Bd6EEa5"
 page := 0
 limit := 50
+startTime := "string_sample_data"
+endTime := "string_sample_data"
+samplingInterval := 1
+statType := SOME_RAW_DATA
 filter := "string_sample_data"
 orderby := "string_sample_data"
 
 // 
-response, err := ClusterApiInstance.ListResourcesForAllClusters(&page, &limit, &filter, &orderby)
+response, err := StatsApiInstance.GetEntityMetricsV4(&sourceExtId, &extId, &page, &limit, &startTime, &endTime, &samplingInterval, &statType, &filter, &orderby)
 if err != nil {
     ....
 }
@@ -296,7 +302,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=aiops&version=v4.0.a1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=aiops&version=v4.0.a2&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).
