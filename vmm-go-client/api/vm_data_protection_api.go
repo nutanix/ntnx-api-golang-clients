@@ -4,14 +4,15 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type VmDataProtectionApi struct {
-	ApiClient *client.ApiClient
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
 }
 
 func NewVmDataProtectionApi(apiClient *client.ApiClient) *VmDataProtectionApi {
@@ -22,21 +23,18 @@ func NewVmDataProtectionApi(apiClient *client.ApiClient) *VmDataProtectionApi {
 	a := &VmDataProtectionApi{
 		ApiClient: apiClient,
 	}
+
+	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
-/**
-  Revert VM identified by {extId}. This does an in-place VM restore from a specified VM Recovery Point.
-  Revert VM identified by {extId}. This does an in-place VM restore from a specified VM Recovery Point.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.VmRevert) (required) : Specify the VM Recovery Point Id to which the VM would be reverted.
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.RevertVmResponse, error)
-*/
-func (api *VmDataProtectionApi) RevertVm(body *import2.VmRevert, extId *string, args ...map[string]interface{}) (*import2.RevertVmResponse, error) {
+// Revert VM identified by {extId}. This does an in-place VM restore from a specified VM Recovery Point.
+func (api *VmDataProtectionApi) RevertVm(extId *string, body *import3.VmRevertParams, args ...map[string]interface{}) (*import3.RevertVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -44,13 +42,13 @@ func (api *VmDataProtectionApi) RevertVm(body *import2.VmRevert, extId *string, 
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/revert"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -65,20 +63,25 @@ func (api *VmDataProtectionApi) RevertVm(body *import2.VmRevert, extId *string, 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.RevertVmResponse)
+	unmarshalledResp := new(import3.RevertVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }

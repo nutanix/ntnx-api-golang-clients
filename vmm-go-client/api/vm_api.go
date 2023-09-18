@@ -4,14 +4,15 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type VmApi struct {
-	ApiClient *client.ApiClient
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
 }
 
 func NewVmApi(apiClient *client.ApiClient) *VmApi {
@@ -22,22 +23,18 @@ func NewVmApi(apiClient *client.ApiClient) *VmApi {
 	a := &VmApi{
 		ApiClient: apiClient,
 	}
+
+	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
-/**
-  IP address assignment to a VM NIC.
-  IP address assignment to a VM NIC.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.AssignIp) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM NIC. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.AssignIpResponse, error)
-*/
-func (api *VmApi) AssignIp(body *import2.AssignIp, vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.AssignIpResponse, error) {
+// Assigns a specific IP address to a network device attached to a managed network.
+func (api *VmApi) AssignIp(vmExtId *string, extId *string, body *import3.AssignIpParams, args ...map[string]interface{}) (*import3.AssignIpResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -45,10 +42,6 @@ func (api *VmApi) AssignIp(body *import2.AssignIp, vmExtId *string, extId *strin
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/assign-ip"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
@@ -56,6 +49,10 @@ func (api *VmApi) AssignIp(body *import2.AssignIp, vmExtId *string, extId *strin
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -71,50 +68,45 @@ func (api *VmApi) AssignIp(body *import2.AssignIp, vmExtId *string, extId *strin
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.AssignIpResponse)
+	unmarshalledResp := new(import3.AssignIpResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Attach a category for the VM.
-  Attach a category for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.CategoryReference) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.AttachVmCategoryResponse, error)
-*/
-func (api *VmApi) AttachVmCategory(body *import2.CategoryReference, extId *string, args ...map[string]interface{}) (*import2.AttachVmCategoryResponse, error) {
+// Assign the owner of a Virtual Machine.
+func (api *VmApi) AssignVmOwner(extId *string, body *import3.OwnershipInfo, args ...map[string]interface{}) (*import3.AssignVmOwnerResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/categories/$actions/attach"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/assign-owner"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -129,36 +121,84 @@ func (api *VmApi) AttachVmCategory(body *import2.CategoryReference, extId *strin
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.AttachVmCategoryResponse)
+	unmarshalledResp := new(import3.AssignVmOwnerResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Clone a VM
-  Clone a VM
+// Associate categories to a Virtual Machine.
+func (api *VmApi) AssociateVmCategories(extId *string, body *import3.AssociateVmCategoriesParams, args ...map[string]interface{}) (*import3.AssociateVmCategoriesResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
 
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> body (vmm.v4.ahv.config.CloneOverride) (optional)
-  -> args (map[string]interface{}) (optional) : Additional Arguments
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/associate-categories"
 
-  returns: (*vmm.v4.ahv.config.CloneVmResponse, error)
-*/
-func (api *VmApi) CloneVm(extId *string, body *import2.CloneOverride, args ...map[string]interface{}) (*import2.CloneVmResponse, error) {
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+	unmarshalledResp := new(import3.AssociateVmCategoriesResponse)
+	json.Unmarshal(responseBody, &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Clones an existing Virtual Machine. This operation also includes updating the existing configuration during the clone operation.
+func (api *VmApi) CloneVm(extId *string, body *import3.CloneOverrideParams, args ...map[string]interface{}) (*import3.CloneVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -183,50 +223,45 @@ func (api *VmApi) CloneVm(extId *string, body *import2.CloneOverride, args ...ma
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.CloneVmResponse)
+	unmarshalledResp := new(import3.CloneVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Create a CD-ROM for the VM.
-  Create a CD-ROM for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.Cdrom) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.CreateCdromResponse, error)
-*/
-func (api *VmApi) CreateCdrom(body *import2.Cdrom, vmExtId *string, args ...map[string]interface{}) (*import2.CreateCdromResponse, error) {
+// Creates and attaches a CD-ROM device to a Virtual Machine.
+func (api *VmApi) CreateCdRom(vmExtId *string, body *import3.CdRom, args ...map[string]interface{}) (*import3.CreateCdRomResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cdroms"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cd-roms"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -241,36 +276,31 @@ func (api *VmApi) CreateCdrom(body *import2.Cdrom, vmExtId *string, args ...map[
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.CreateCdromResponse)
+	unmarshalledResp := new(import3.CreateCdRomResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Create a Disk for the VM.
-  Create a Disk for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.Disk) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.CreateDiskResponse, error)
-*/
-func (api *VmApi) CreateDisk(body *import2.Disk, vmExtId *string, args ...map[string]interface{}) (*import2.CreateDiskResponse, error) {
+// Creates and attaches a disk device to a Virtual Machine.
+func (api *VmApi) CreateDisk(vmExtId *string, body *import3.Disk, args ...map[string]interface{}) (*import3.CreateDiskResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -278,13 +308,13 @@ func (api *VmApi) CreateDisk(body *import2.Disk, vmExtId *string, args ...map[st
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/disks"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -299,36 +329,31 @@ func (api *VmApi) CreateDisk(body *import2.Disk, vmExtId *string, args ...map[st
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.CreateDiskResponse)
+	unmarshalledResp := new(import3.CreateDiskResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Create a GPU for the VM.
-  Create a GPU for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.Gpu) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.CreateGpuResponse, error)
-*/
-func (api *VmApi) CreateGpu(body *import2.Gpu, vmExtId *string, args ...map[string]interface{}) (*import2.CreateGpuResponse, error) {
+// Attaches a GPU device to a Virtual Machine.
+func (api *VmApi) CreateGpu(vmExtId *string, body *import3.Gpu, args ...map[string]interface{}) (*import3.CreateGpuResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -336,13 +361,13 @@ func (api *VmApi) CreateGpu(body *import2.Gpu, vmExtId *string, args ...map[stri
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/gpus"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -357,36 +382,31 @@ func (api *VmApi) CreateGpu(body *import2.Gpu, vmExtId *string, args ...map[stri
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.CreateGpuResponse)
+	unmarshalledResp := new(import3.CreateGpuResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Create a NIC for the VM.
-  Create a NIC for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.Nic) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.CreateNicResponse, error)
-*/
-func (api *VmApi) CreateNic(body *import2.Nic, vmExtId *string, args ...map[string]interface{}) (*import2.CreateNicResponse, error) {
+// Creates and attaches a network device to a Virtual Machine.
+func (api *VmApi) CreateNic(vmExtId *string, body *import3.Nic, args ...map[string]interface{}) (*import3.CreateNicResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -394,13 +414,13 @@ func (api *VmApi) CreateNic(body *import2.Nic, vmExtId *string, args ...map[stri
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/nics"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -415,36 +435,31 @@ func (api *VmApi) CreateNic(body *import2.Nic, vmExtId *string, args ...map[stri
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.CreateNicResponse)
+	unmarshalledResp := new(import3.CreateNicResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Create a SerialPort for the VM.
-  Create a SerialPort for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.SerialPort) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.CreateSerialPortResponse, error)
-*/
-func (api *VmApi) CreateSerialPort(body *import2.SerialPort, vmExtId *string, args ...map[string]interface{}) (*import2.CreateSerialPortResponse, error) {
+// Creates and attaches a serial port device to a Virtual Machine.
+func (api *VmApi) CreateSerialPort(vmExtId *string, body *import3.SerialPort, args ...map[string]interface{}) (*import3.CreateSerialPortResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -452,13 +467,13 @@ func (api *VmApi) CreateSerialPort(body *import2.SerialPort, vmExtId *string, ar
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/serial-ports"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -473,35 +488,31 @@ func (api *VmApi) CreateSerialPort(body *import2.SerialPort, vmExtId *string, ar
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.CreateSerialPortResponse)
+	unmarshalledResp := new(import3.CreateSerialPortResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Create a VM.
-  Create a VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.Vm) (required)
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.CreateVmResponse, error)
-*/
-func (api *VmApi) CreateVm(body *import2.Vm, args ...map[string]interface{}) (*import2.CreateVmResponse, error) {
+// Creates a Virtual Machine with the provided configuration.
+func (api *VmApi) CreateVm(body *import3.Vm, args ...map[string]interface{}) (*import3.CreateVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -524,36 +535,84 @@ func (api *VmApi) CreateVm(body *import2.Vm, args ...map[string]interface{}) (*i
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.CreateVmResponse)
+	unmarshalledResp := new(import3.CreateVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Customize a guest VM.
-  Customize a guest VM.
+// Migrates a VM (including its storage) from the current cluster to a new target cluster.
+func (api *VmApi) CrossClusterMigrateVm(extId *string, body *import3.VmCrossClusterMigrateParams, args ...map[string]interface{}) (*import3.CrossClusterMigrateVmResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
 
-  parameters:-
-  -> body (vmm.v4.ahv.config.GuestCustomization) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/migrate"
 
-  returns: (*vmm.v4.ahv.config.CustomizeGuestVmResponse, error)
-*/
-func (api *VmApi) CustomizeGuestVm(body *import2.GuestCustomization, extId *string, args ...map[string]interface{}) (*import2.CustomizeGuestVmResponse, error) {
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+	unmarshalledResp := new(import3.CrossClusterMigrateVmResponse)
+	json.Unmarshal(responseBody, &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Stage a Sysprep or cloud-init configuration file to be used by the guest for the next boot. Note that the Sysprep command must be used to generalize the Windows VMs before triggering this API call.
+func (api *VmApi) CustomizeGuest(extId *string, body *import3.GuestCustomizationParams, args ...map[string]interface{}) (*import3.CustomizeGuestVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -561,13 +620,13 @@ func (api *VmApi) CustomizeGuestVm(body *import2.GuestCustomization, extId *stri
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/customize-guest"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -582,42 +641,37 @@ func (api *VmApi) CustomizeGuestVm(body *import2.GuestCustomization, extId *stri
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.CustomizeGuestVmResponse)
+	unmarshalledResp := new(import3.CustomizeGuestVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Delete CD-ROM for the VM.
-  Delete CD-ROM for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a CD-ROM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.DeleteCdromResponse, error)
-*/
-func (api *VmApi) DeleteCdrom(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.DeleteCdromResponse, error) {
+// Removes the specified CD-ROM device from a Virtual Machine.
+func (api *VmApi) DeleteCdRom(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteCdRomResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cdroms/{extId}"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -641,36 +695,31 @@ func (api *VmApi) DeleteCdrom(vmExtId *string, extId *string, args ...map[string
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.DeleteCdromResponse)
+	unmarshalledResp := new(import3.DeleteCdRomResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Delete Disk for the VM.
-  Delete Disk for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM disk. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.DeleteDiskResponse, error)
-*/
-func (api *VmApi) DeleteDisk(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.DeleteDiskResponse, error) {
+// Removes the specified disk device from a Virtual Machine.
+func (api *VmApi) DeleteDisk(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteDiskResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -700,36 +749,31 @@ func (api *VmApi) DeleteDisk(vmExtId *string, extId *string, args ...map[string]
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.DeleteDiskResponse)
+	unmarshalledResp := new(import3.DeleteDiskResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Delete GPU for the VM.
-  Delete GPU for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM GPU. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.DeleteGpuResponse, error)
-*/
-func (api *VmApi) DeleteGpu(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.DeleteGpuResponse, error) {
+// Removes the specified GPU device from a Virtual Machine.
+func (api *VmApi) DeleteGpu(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteGpuResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -759,36 +803,31 @@ func (api *VmApi) DeleteGpu(vmExtId *string, extId *string, args ...map[string]i
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.DeleteGpuResponse)
+	unmarshalledResp := new(import3.DeleteGpuResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Delete NIC for the VM.
-  Delete NIC for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM NIC. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.DeleteNicResponse, error)
-*/
-func (api *VmApi) DeleteNic(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.DeleteNicResponse, error) {
+// Removes the specified network device from a Virtual Machine.
+func (api *VmApi) DeleteNic(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteNicResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -818,36 +857,31 @@ func (api *VmApi) DeleteNic(vmExtId *string, extId *string, args ...map[string]i
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.DeleteNicResponse)
+	unmarshalledResp := new(import3.DeleteNicResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Delete SerialPort for the VM.
-  Delete SerialPort for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a serial port. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.DeleteSerialPortResponse, error)
-*/
-func (api *VmApi) DeleteSerialPort(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.DeleteSerialPortResponse, error) {
+// Removes the specified serial port from a Virtual Machine.
+func (api *VmApi) DeleteSerialPort(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteSerialPortResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -877,35 +911,31 @@ func (api *VmApi) DeleteSerialPort(vmExtId *string, extId *string, args ...map[s
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.DeleteSerialPortResponse)
+	unmarshalledResp := new(import3.DeleteSerialPortResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Delete a VM.
-  Delete a VM.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.DeleteVmResponse, error)
-*/
-func (api *VmApi) DeleteVm(extId *string, args ...map[string]interface{}) (*import2.DeleteVmResponse, error) {
+// Delete the specified Virtual Machine.
+func (api *VmApi) DeleteVm(extId *string, args ...map[string]interface{}) (*import3.DeleteVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -930,50 +960,45 @@ func (api *VmApi) DeleteVm(extId *string, args ...map[string]interface{}) (*impo
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.DeleteVmResponse)
+	unmarshalledResp := new(import3.DeleteVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Detach a category from the VM.
-  Detach a category from the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.CategoryReference) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.DetachVmCategoryResponse, error)
-*/
-func (api *VmApi) DetachVmCategory(body *import2.CategoryReference, extId *string, args ...map[string]interface{}) (*import2.DetachVmCategoryResponse, error) {
+// Disassociate categories from a Virtual Machine.
+func (api *VmApi) DisassociateVmCategories(extId *string, body *import3.DisassociateVmCategoriesParams, args ...map[string]interface{}) (*import3.DisassociateVmCategoriesResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/categories/$actions/detach"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/disassociate-categories"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -988,42 +1013,37 @@ func (api *VmApi) DetachVmCategory(body *import2.CategoryReference, extId *strin
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.DetachVmCategoryResponse)
+	unmarshalledResp := new(import3.DisassociateVmCategoriesResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Update CD-ROM for the VM.
-  Update CD-ROM for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a CD-ROM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.EjectCdromResponse, error)
-*/
-func (api *VmApi) EjectCdrom(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.EjectCdromResponse, error) {
+// Ejects the ISO currently inserted into a CD-ROM device on a Virtual Machine.
+func (api *VmApi) EjectCdRom(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.EjectCdRomResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cdroms/{extId}/$actions/eject"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/eject"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1047,42 +1067,37 @@ func (api *VmApi) EjectCdrom(vmExtId *string, extId *string, args ...map[string]
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.EjectCdromResponse)
+	unmarshalledResp := new(import3.EjectCdRomResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Get CD-ROM for the VM.
-  Get CD-ROM for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a CD-ROM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.GetCdromResponse, error)
-*/
-func (api *VmApi) GetCdromByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.GetCdromResponse, error) {
+// Retrieves configuration details for the provided CD-ROM device attached to a Virtual Machine.
+func (api *VmApi) GetCdRomByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetCdRomResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cdroms/{extId}"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1106,36 +1121,31 @@ func (api *VmApi) GetCdromByExtId(vmExtId *string, extId *string, args ...map[st
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.GetCdromResponse)
+	unmarshalledResp := new(import3.GetCdRomResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Get Disk for the VM.
-  Get Disk for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM disk. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.GetDiskResponse, error)
-*/
-func (api *VmApi) GetDiskByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.GetDiskResponse, error) {
+// Retrieves configuration details for the provided disk device attached to a Virtual Machine.
+func (api *VmApi) GetDiskByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetDiskResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1165,36 +1175,31 @@ func (api *VmApi) GetDiskByExtId(vmExtId *string, extId *string, args ...map[str
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.GetDiskResponse)
+	unmarshalledResp := new(import3.GetDiskResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Get GPU for the VM.
-  Get GPU for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM GPU. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.GetGpuResponse, error)
-*/
-func (api *VmApi) GetGpuByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.GetGpuResponse, error) {
+// Retrieves configuration details for the provided GPU device attached to a Virtual Machine.
+func (api *VmApi) GetGpuByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetGpuResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1224,89 +1229,31 @@ func (api *VmApi) GetGpuByExtId(vmExtId *string, extId *string, args ...map[stri
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.GetGpuResponse)
+	unmarshalledResp := new(import3.GetGpuResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Get Nutanix Guest Tools information for a VM.
-  Get Nutanix Guest Tools information for a VM.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.GetGuestToolsResponse, error)
-*/
-func (api *VmApi) GetGuestTools(extId *string, args ...map[string]interface{}) (*import2.GetGuestToolsResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/guest-tools-config"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import2.GetGuestToolsResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-/**
-  Get NIC for the VM identified by the VM external Id.
-  Get NIC for the VM identified by the VM external Id.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM NIC. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.GetNicResponse, error)
-*/
-func (api *VmApi) GetNicByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.GetNicResponse, error) {
+// Retrieves configuration details for the provided network device attached to a Virtual Machine.
+func (api *VmApi) GetNicByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetNicResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1336,36 +1283,31 @@ func (api *VmApi) GetNicByExtId(vmExtId *string, extId *string, args ...map[stri
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.GetNicResponse)
+	unmarshalledResp := new(import3.GetNicResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Get SerialPort for the VM.
-  Get SerialPort for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a serial port. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.GetSerialPortResponse, error)
-*/
-func (api *VmApi) GetSerialPortByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.GetSerialPortResponse, error) {
+// Retrieves configuration details for the provided serial port attached to a Virtual Machine.
+func (api *VmApi) GetSerialPortByExtId(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetSerialPortResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1395,35 +1337,31 @@ func (api *VmApi) GetSerialPortByExtId(vmExtId *string, extId *string, args ...m
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.GetSerialPortResponse)
+	unmarshalledResp := new(import3.GetSerialPortResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Get VM of the provided VM external Id.
-  Get VM of the provided VM external Id.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.GetVmResponse, error)
-*/
-func (api *VmApi) GetVmByExtId(extId *string, args ...map[string]interface{}) (*import2.GetVmResponse, error) {
+// Retrieves configuration details for a Virtual Machine.
+func (api *VmApi) GetVmByExtId(extId *string, args ...map[string]interface{}) (*import3.GetVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1448,41 +1386,37 @@ func (api *VmApi) GetVmByExtId(extId *string, args ...map[string]interface{}) (*
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.GetVmResponse)
+	unmarshalledResp := new(import3.GetVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Get categories for the VM.
-  Get categories for the VM.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.GetVmCategoriesResponse, error)
-*/
-func (api *VmApi) GetVmCategories(extId *string, args ...map[string]interface{}) (*import2.GetVmCategoriesResponse, error) {
+// Retrieves the Nutanix Guest Tools configuration for a Virtual Machine.
+func (api *VmApi) GetVmGuestTools(extId *string, args ...map[string]interface{}) (*import3.GetGuestToolsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/categories"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/guest-tools"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1501,89 +1435,31 @@ func (api *VmApi) GetVmCategories(extId *string, args ...map[string]interface{})
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.GetVmCategoriesResponse)
+	unmarshalledResp := new(import3.GetGuestToolsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Get ownership information for the VM identified by the VM external Id.
-  Get ownership information for the VM identified by the VM external Id.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.GetVmOwnershipInfoResponse, error)
-*/
-func (api *VmApi) GetVmOwnershipInfo(extId *string, args ...map[string]interface{}) (*import2.GetVmOwnershipInfoResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/ownership-info"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import2.GetVmOwnershipInfoResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-/**
-  Restart the VM using Nutanix Guest Tools.
-  Restart the VM using Nutanix Guest Tools.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.GuestPowerOptions) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.RebootVmResponse, error)
-*/
-func (api *VmApi) GuestRebootVm(body *import2.GuestPowerOptions, extId *string, args ...map[string]interface{}) (*import2.RebootVmResponse, error) {
+// Collaborative reboot of a Virtual Machine, requesting Nutanix Guest Tools to trigger a reboot from within the VM.
+func (api *VmApi) GuestRebootVm(extId *string, body *import3.GuestPowerOptions, args ...map[string]interface{}) (*import3.RebootVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1591,13 +1467,13 @@ func (api *VmApi) GuestRebootVm(body *import2.GuestPowerOptions, extId *string, 
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/guest-reboot"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -1612,36 +1488,31 @@ func (api *VmApi) GuestRebootVm(body *import2.GuestPowerOptions, extId *string, 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.RebootVmResponse)
+	unmarshalledResp := new(import3.RebootVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Shutdown the VM using Nutanix Guest Tools.
-  Shutdown the VM using Nutanix Guest Tools.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.GuestPowerOptions) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ShutdownVmResponse, error)
-*/
-func (api *VmApi) GuestShutdownVm(body *import2.GuestPowerOptions, extId *string, args ...map[string]interface{}) (*import2.ShutdownVmResponse, error) {
+// Collaborative shutdown of a Virtual Machine, requesting Nutanix Guest Tools to trigger a shutdown from within the VM.
+func (api *VmApi) GuestShutdownVm(extId *string, body *import3.GuestPowerOptions, args ...map[string]interface{}) (*import3.ShutdownVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1649,13 +1520,13 @@ func (api *VmApi) GuestShutdownVm(body *import2.GuestPowerOptions, extId *string
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/guest-shutdown"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -1670,48 +1541,38 @@ func (api *VmApi) GuestShutdownVm(body *import2.GuestPowerOptions, extId *string
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ShutdownVmResponse)
+	unmarshalledResp := new(import3.ShutdownVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Insert an ISO image or VM disk to a CD-ROM for the VM.
-  Insert an ISO image or VM disk to a CD-ROM for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.CdromInsert) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a CD-ROM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.InsertCdromResponse, error)
-*/
-func (api *VmApi) InsertCdrom(body *import2.CdromInsert, vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.InsertCdromResponse, error) {
+// Inserts the defined ISO into a CD-ROM device attached to a Virtual Machine.
+func (api *VmApi) InsertCdRom(vmExtId *string, extId *string, body *import3.CdRomInsertParams, args ...map[string]interface{}) (*import3.InsertCdRomResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cdroms/{extId}/$actions/insert"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/insert"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
@@ -1719,6 +1580,10 @@ func (api *VmApi) InsertCdrom(body *import2.CdromInsert, vmExtId *string, extId 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -1734,36 +1599,31 @@ func (api *VmApi) InsertCdrom(body *import2.CdromInsert, vmExtId *string, extId 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.InsertCdromResponse)
+	unmarshalledResp := new(import3.InsertCdRomResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Insert Nutanix Guest Tools ISO into an available slot.
-  Insert Nutanix Guest Tools ISO into an available slot.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.GuestToolsInsertConfig) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.InsertVmGuestToolsResponse, error)
-*/
-func (api *VmApi) InsertVmGuestTools(body *import2.GuestToolsInsertConfig, extId *string, args ...map[string]interface{}) (*import2.InsertVmGuestToolsResponse, error) {
+// Inserts the Nutanix Guest Tools installation and configuration ISO into a virtual machine.
+func (api *VmApi) InsertVmGuestTools(extId *string, body *import3.GuestToolsInsertConfig, args ...map[string]interface{}) (*import3.InsertVmGuestToolsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1771,13 +1631,13 @@ func (api *VmApi) InsertVmGuestTools(body *import2.GuestToolsInsertConfig, extId
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/guest-tools/$actions/insert-iso"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -1792,36 +1652,31 @@ func (api *VmApi) InsertVmGuestTools(body *import2.GuestToolsInsertConfig, extId
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.InsertVmGuestToolsResponse)
+	unmarshalledResp := new(import3.InsertVmGuestToolsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Install Nutanix Guest Tools.
-  Install Nutanix Guest Tools.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.GuestToolsInstallConfig) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.InstallVmGuestToolsResponse, error)
-*/
-func (api *VmApi) InstallVmGuestTools(body *import2.GuestToolsInstallConfig, extId *string, args ...map[string]interface{}) (*import2.InstallVmGuestToolsResponse, error) {
+// Installs Nutanix Guest Tools in a Virtual Machine by using the provided credentials.
+func (api *VmApi) InstallVmGuestTools(extId *string, body *import3.GuestToolsInstallConfig, args ...map[string]interface{}) (*import3.InstallVmGuestToolsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1829,13 +1684,13 @@ func (api *VmApi) InstallVmGuestTools(body *import2.GuestToolsInstallConfig, ext
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/guest-tools/$actions/install"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -1850,43 +1705,37 @@ func (api *VmApi) InstallVmGuestTools(body *import2.GuestToolsInstallConfig, ext
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.InstallVmGuestToolsResponse)
+	unmarshalledResp := new(import3.InstallVmGuestToolsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  List CD-ROMs for the VM.
-  List CD-ROMs for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.
-  -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ListCdromsResponse, error)
-*/
-func (api *VmApi) ListCdroms(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import2.ListCdromsResponse, error) {
+// Lists the CD-ROM devices attached to a Virtual Machine.
+func (api *VmApi) ListCdRoms(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import3.ListCdRomsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cdroms"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cd-roms"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1907,43 +1756,38 @@ func (api *VmApi) ListCdroms(vmExtId *string, page_ *int, limit_ *int, args ...m
 
 	// Query Params
 	if page_ != nil {
+
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
+
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ListCdromsResponse)
+	unmarshalledResp := new(import3.ListCdRomsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  List Disks for the VM.
-  List Disks for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.
-  -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ListDisksResponse, error)
-*/
-func (api *VmApi) ListDisks(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import2.ListDisksResponse, error) {
+// Lists the disk devices attached to a Virtual Machine.
+func (api *VmApi) ListDisks(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import3.ListDisksResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -1970,43 +1814,38 @@ func (api *VmApi) ListDisks(vmExtId *string, page_ *int, limit_ *int, args ...ma
 
 	// Query Params
 	if page_ != nil {
+
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
+
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ListDisksResponse)
+	unmarshalledResp := new(import3.ListDisksResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  List GPUs for the VM.
-  List GPUs for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.
-  -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ListGpusResponse, error)
-*/
-func (api *VmApi) ListGpus(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import2.ListGpusResponse, error) {
+// Lists the GPU devices attached to a Virtual Machine.
+func (api *VmApi) ListGpus(vmExtId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import3.ListGpusResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2033,43 +1872,42 @@ func (api *VmApi) ListGpus(vmExtId *string, page_ *int, limit_ *int, args ...map
 
 	// Query Params
 	if page_ != nil {
+
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
+
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
+	if filter_ != nil {
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ListGpusResponse)
+	unmarshalledResp := new(import3.ListGpusResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  List NICs for the VM.
-  List NICs for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.
-  -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ListNicsResponse, error)
-*/
-func (api *VmApi) ListNics(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import2.ListNicsResponse, error) {
+// Lists the network devices attached to a Virtual Machine.
+func (api *VmApi) ListNics(vmExtId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import3.ListNicsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2096,43 +1934,42 @@ func (api *VmApi) ListNics(vmExtId *string, page_ *int, limit_ *int, args ...map
 
 	// Query Params
 	if page_ != nil {
+
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
+
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
+	if filter_ != nil {
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ListNicsResponse)
+	unmarshalledResp := new(import3.ListNicsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  List SerialPort for the VM.
-  List SerialPort for the VM.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.
-  -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ListSerialPortsResponse, error)
-*/
-func (api *VmApi) ListSerialPorts(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import2.ListSerialPortsResponse, error) {
+// Lists the serial ports attached to a Virtual Machine.
+func (api *VmApi) ListSerialPorts(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import3.ListSerialPortsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2159,44 +1996,38 @@ func (api *VmApi) ListSerialPorts(vmExtId *string, page_ *int, limit_ *int, args
 
 	// Query Params
 	if page_ != nil {
+
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
+
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ListSerialPortsResponse)
+	unmarshalledResp := new(import3.ListSerialPortsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  List VMs.
-  List VMs.
-
-  parameters:-
-  -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.
-  -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set.
-  -> filter_ (string) (optional) : A URL query parameter that allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the OData V4.01 URL conventions. The filter can be applied on the following fields: - cluster/extId - cpuPassthroughEnabled - gpuConsoleEnabled - hardwareClockTimezone - host/extId - isAgentVm - liveMigrateCapable - machineType - memoryOvercommitEnabled - memorySizeBytes - name - numCoresPerSocket - numSockets - numThreadsPerCore - numVnumaNodes - powerState - vgaConsoleEnabled
-  -> orderby_ (string) (optional) : A URL query parameter that allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified the resources will be sorted in ascending order by default. For example, 'orderby=templateName desc' would get all templates sorted by templateName in desc order. The orderby can be applied to the following fields: - memorySizeBytes - name - numCoresPerSocket - numSockets - numThreadsPerCore - numVnumaNodes
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ListVmsResponse, error)
-*/
-func (api *VmApi) ListVms(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListVmsResponse, error) {
+// Lists the Virtual Machines defined on the system. List of Virtual Machines can be further filtered out using various filtering options.
+func (api *VmApi) ListVms(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import3.ListVmsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2216,49 +2047,46 @@ func (api *VmApi) ListVms(page_ *int, limit_ *int, filter_ *string, orderby_ *st
 
 	// Query Params
 	if page_ != nil {
+
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
+
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
+
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
+
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ListVmsResponse)
+	unmarshalledResp := new(import3.ListVmsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Migrate a VM NIC.
-  Migrate a VM NIC.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.MigrateNicConfig) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM NIC. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.MigrateNicResponse, error)
-*/
-func (api *VmApi) MigrateNic(body *import2.MigrateNicConfig, vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.MigrateNicResponse, error) {
+// Migrates a network device attached to a Virtual Machine to another subnet. This can be used to move network devices between VLAN and VPC subnets.
+func (api *VmApi) MigrateNic(vmExtId *string, extId *string, body *import3.MigrateNicConfig, args ...map[string]interface{}) (*import3.MigrateNicResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2266,10 +2094,6 @@ func (api *VmApi) MigrateNic(body *import2.MigrateNicConfig, vmExtId *string, ex
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/migrate"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
@@ -2277,6 +2101,10 @@ func (api *VmApi) MigrateNic(body *import2.MigrateNicConfig, vmExtId *string, ex
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -2292,35 +2120,31 @@ func (api *VmApi) MigrateNic(body *import2.MigrateNicConfig, vmExtId *string, ex
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.MigrateNicResponse)
+	unmarshalledResp := new(import3.MigrateNicResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Restart the VM.
-  Restart the VM.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.PowerCycleVmResponse, error)
-*/
-func (api *VmApi) PowerCycleVm(extId *string, args ...map[string]interface{}) (*import2.PowerCycleVmResponse, error) {
+// Force a power-cycle for a Virtual Machine. This operation is equivalent to requesting a VM power-off followed by the VM power-on. Power cycling a VM is slower than resetting it, but it will be creating a fresh instance of the Virtual Machine. When resetting, the same instance is restarted within the context of the running VM instance.
+func (api *VmApi) PowerCycleVm(extId *string, args ...map[string]interface{}) (*import3.PowerCycleVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2345,35 +2169,31 @@ func (api *VmApi) PowerCycleVm(extId *string, args ...map[string]interface{}) (*
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.PowerCycleVmResponse)
+	unmarshalledResp := new(import3.PowerCycleVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Turn off the VM.
-  Turn off the VM.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.PowerOffVmResponse, error)
-*/
-func (api *VmApi) PowerOffVm(extId *string, args ...map[string]interface{}) (*import2.PowerOffVmResponse, error) {
+// Force shutdown of a Virtual Machine. Equivalent to removing the power cable. Note: If any write operations are being made to any disk when this API is called, it might result in some data loss.
+func (api *VmApi) PowerOffVm(extId *string, args ...map[string]interface{}) (*import3.PowerOffVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2398,35 +2218,31 @@ func (api *VmApi) PowerOffVm(extId *string, args ...map[string]interface{}) (*im
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.PowerOffVmResponse)
+	unmarshalledResp := new(import3.PowerOffVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Turn on the VM.
-  Turn on the VM.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.PowerOnVmResponse, error)
-*/
-func (api *VmApi) PowerOnVm(extId *string, args ...map[string]interface{}) (*import2.PowerOnVmResponse, error) {
+// Turns a Virtual Machine on.
+func (api *VmApi) PowerOnVm(extId *string, args ...map[string]interface{}) (*import3.PowerOnVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2451,36 +2267,31 @@ func (api *VmApi) PowerOnVm(extId *string, args ...map[string]interface{}) (*imp
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.PowerOnVmResponse)
+	unmarshalledResp := new(import3.PowerOnVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Restart the VM using ACPI.
-  Restart the VM using ACPI.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.ACPIPowerOptions) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.RebootVmResponse, error)
-*/
-func (api *VmApi) RebootVm(body *import2.ACPIPowerOptions, extId *string, args ...map[string]interface{}) (*import2.RebootVmResponse, error) {
+// Collaborative reboot of a Virtual Machine through the ACPI support in the operating system.
+func (api *VmApi) RebootVm(extId *string, args ...map[string]interface{}) (*import3.RebootVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2488,10 +2299,6 @@ func (api *VmApi) RebootVm(body *import2.ACPIPowerOptions, extId *string, args .
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/reboot"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
@@ -2504,41 +2311,36 @@ func (api *VmApi) RebootVm(body *import2.ACPIPowerOptions, extId *string, args .
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
+	contentTypes := []string{}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.RebootVmResponse)
+	unmarshalledResp := new(import3.RebootVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Release an IP address from a VM NIC.
-  Release an IP address from a VM NIC.
-
-  parameters:-
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM NIC. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ReleaseIpResponse, error)
-*/
-func (api *VmApi) ReleaseIp(vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.ReleaseIpResponse, error) {
+// Releases the IP address assignment from a network device attached to a managed network.
+func (api *VmApi) ReleaseIp(vmExtId *string, extId *string, args ...map[string]interface{}) (*import3.ReleaseIpResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2568,35 +2370,31 @@ func (api *VmApi) ReleaseIp(vmExtId *string, extId *string, args ...map[string]i
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ReleaseIpResponse)
+	unmarshalledResp := new(import3.ReleaseIpResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Reset the VM immediately without waiting for the guest VM to shutdown itself.
-  Reset the VM immediately without waiting for the guest VM to shutdown itself.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ResetVmResponse, error)
-*/
-func (api *VmApi) ResetVm(extId *string, args ...map[string]interface{}) (*import2.ResetVmResponse, error) {
+// Force reset of a Virtual Machine, without waiting for the guest VM to shutdown itself. Resetting a VM is faster than power-cycle as the reset occurs within the context of the running virtual machine instance rather than creating a fresh instance.
+func (api *VmApi) ResetVm(extId *string, args ...map[string]interface{}) (*import3.ResetVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2621,36 +2419,31 @@ func (api *VmApi) ResetVm(extId *string, args ...map[string]interface{}) (*impor
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ResetVmResponse)
+	unmarshalledResp := new(import3.ResetVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Shutdown the VM using ACPI.
-  Shutdown the VM using ACPI.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.ACPIPowerOptions) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.ShutdownVmResponse, error)
-*/
-func (api *VmApi) ShutdownVm(body *import2.ACPIPowerOptions, extId *string, args ...map[string]interface{}) (*import2.ShutdownVmResponse, error) {
+// Collaborative shutdown of a Virtual Machine through the ACPI support in the operating system.
+func (api *VmApi) ShutdownVm(extId *string, args ...map[string]interface{}) (*import3.ShutdownVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2658,10 +2451,6 @@ func (api *VmApi) ShutdownVm(body *import2.ACPIPowerOptions, extId *string, args
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/$actions/shutdown"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
@@ -2674,40 +2463,36 @@ func (api *VmApi) ShutdownVm(body *import2.ACPIPowerOptions, extId *string, args
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
+	contentTypes := []string{}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ShutdownVmResponse)
+	unmarshalledResp := new(import3.ShutdownVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Uninstall Nutanix Guest Tools.
-  Uninstall Nutanix Guest Tools.
-
-  parameters:-
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UninstallVmGuestToolsResponse, error)
-*/
-func (api *VmApi) UninstallVmGuestTools(extId *string, args ...map[string]interface{}) (*import2.UninstallVmGuestToolsResponse, error) {
+// Trigger an in-guest uninstallation of Nutanix Guest Tools.
+func (api *VmApi) UninstallVmGuestTools(extId *string, args ...map[string]interface{}) (*import3.UninstallVmGuestToolsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2732,101 +2517,31 @@ func (api *VmApi) UninstallVmGuestTools(extId *string, args ...map[string]interf
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.UninstallVmGuestToolsResponse)
+	unmarshalledResp := new(import3.UninstallVmGuestToolsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Update CD-ROM for the VM.
-  Update CD-ROM for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.Cdrom) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a CD-ROM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UpdateCdromResponse, error)
-*/
-func (api *VmApi) UpdateCdrom(body *import2.Cdrom, vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.UpdateCdromResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/cdroms/{extId}"
-
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-	// verify the required parameter 'vmExtId' is set
-	if nil == vmExtId {
-		return nil, client.ReportError("vmExtId is required and must be specified")
-	}
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*vmExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import2.UpdateCdromResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-/**
-  Update Disk for the VM.
-  Update Disk for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.Disk) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM disk. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UpdateDiskResponse, error)
-*/
-func (api *VmApi) UpdateDisk(body *import2.Disk, vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.UpdateDiskResponse, error) {
+// Updates the configuration details for the provided disk device.
+func (api *VmApi) UpdateDisk(vmExtId *string, extId *string, body *import3.Disk, args ...map[string]interface{}) (*import3.UpdateDiskResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2834,10 +2549,6 @@ func (api *VmApi) UpdateDisk(body *import2.Disk, vmExtId *string, extId *string,
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/disks/{extId}"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
@@ -2845,6 +2556,10 @@ func (api *VmApi) UpdateDisk(body *import2.Disk, vmExtId *string, extId *string,
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -2860,95 +2575,31 @@ func (api *VmApi) UpdateDisk(body *import2.Disk, vmExtId *string, extId *string,
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.UpdateDiskResponse)
+	unmarshalledResp := new(import3.UpdateDiskResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Update Nutanix Guest Tools information for a VM.
-  Update Nutanix Guest Tools information for a VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.GuestTools) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UpdateGuestToolsResponse, error)
-*/
-func (api *VmApi) UpdateGuestTools(body *import2.GuestTools, extId *string, args ...map[string]interface{}) (*import2.UpdateGuestToolsResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/guest-tools-config"
-
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import2.UpdateGuestToolsResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-/**
-  Update NIC for the VM.
-  Update NIC for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.Nic) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a VM NIC. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UpdateNicResponse, error)
-*/
-func (api *VmApi) UpdateNic(body *import2.Nic, vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.UpdateNicResponse, error) {
+// Updates the configuration details for the provided network device.
+func (api *VmApi) UpdateNic(vmExtId *string, extId *string, body *import3.Nic, args ...map[string]interface{}) (*import3.UpdateNicResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -2956,10 +2607,6 @@ func (api *VmApi) UpdateNic(body *import2.Nic, vmExtId *string, extId *string, a
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/nics/{extId}"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
@@ -2967,6 +2614,10 @@ func (api *VmApi) UpdateNic(body *import2.Nic, vmExtId *string, extId *string, a
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -2982,37 +2633,31 @@ func (api *VmApi) UpdateNic(body *import2.Nic, vmExtId *string, extId *string, a
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.UpdateNicResponse)
+	unmarshalledResp := new(import3.UpdateNicResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Update SerialPort for the VM.
-  Update SerialPort for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.SerialPort) (required)
-  -> vmExtId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> extId (string) (required) : Globally unique identifier of a serial port. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UpdateSerialPortResponse, error)
-*/
-func (api *VmApi) UpdateSerialPort(body *import2.SerialPort, vmExtId *string, extId *string, args ...map[string]interface{}) (*import2.UpdateSerialPortResponse, error) {
+// Updates the configuration details for the provided serial port.
+func (api *VmApi) UpdateSerialPort(vmExtId *string, extId *string, body *import3.SerialPort, args ...map[string]interface{}) (*import3.UpdateSerialPortResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -3020,10 +2665,6 @@ func (api *VmApi) UpdateSerialPort(body *import2.SerialPort, vmExtId *string, ex
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
@@ -3031,6 +2672,10 @@ func (api *VmApi) UpdateSerialPort(body *import2.SerialPort, vmExtId *string, ex
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -3046,36 +2691,31 @@ func (api *VmApi) UpdateSerialPort(body *import2.SerialPort, vmExtId *string, ex
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.UpdateSerialPortResponse)
+	unmarshalledResp := new(import3.UpdateSerialPortResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Update VM.
-  Update VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.Vm) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UpdateVmResponse, error)
-*/
-func (api *VmApi) UpdateVm(body *import2.Vm, extId *string, args ...map[string]interface{}) (*import2.UpdateVmResponse, error) {
+// Updates configuration details for a Virtual Machine.
+func (api *VmApi) UpdateVm(extId *string, body *import3.Vm, args ...map[string]interface{}) (*import3.UpdateVmResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -3083,13 +2723,13 @@ func (api *VmApi) UpdateVm(body *import2.Vm, extId *string, args ...map[string]i
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -3104,50 +2744,45 @@ func (api *VmApi) UpdateVm(body *import2.Vm, extId *string, args ...map[string]i
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.UpdateVmResponse)
+	unmarshalledResp := new(import3.UpdateVmResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Update categories for the VM.
-  Update categories for the VM.
-
-  parameters:-
-  -> body ([]vmm.v4.ahv.config.CategoryReference) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UpdateVmCategoriesResponse, error)
-*/
-func (api *VmApi) UpdateVmCategories(body *[]import2.CategoryReference, extId *string, args ...map[string]interface{}) (*import2.UpdateVmCategoriesResponse, error) {
+// Updates the Nutanix Guest Tools configuration for a Virtual Machine.
+func (api *VmApi) UpdateVmGuestTools(extId *string, body *import3.GuestTools, args ...map[string]interface{}) (*import3.UpdateGuestToolsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/categories"
+	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/guest-tools"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -3162,94 +2797,31 @@ func (api *VmApi) UpdateVmCategories(body *[]import2.CategoryReference, extId *s
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.UpdateVmCategoriesResponse)
+	unmarshalledResp := new(import3.UpdateGuestToolsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Update ownership information for the VM.
-  Update ownership information for the VM.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.OwnershipInfo) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UpdateVmOwnershipInfoResponse, error)
-*/
-func (api *VmApi) UpdateVmOwnershipInfo(body *import2.OwnershipInfo, extId *string, args ...map[string]interface{}) (*import2.UpdateVmOwnershipInfoResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/ownership-info"
-
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import2.UpdateVmOwnershipInfoResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-/**
-  Upgrade Nutanix Guest Tools.
-  Upgrade Nutanix Guest Tools.
-
-  parameters:-
-  -> body (vmm.v4.ahv.config.GuestToolsUpgradeConfig) (required)
-  -> extId (string) (required) : Globally unique identifier of a VM. It should be of type UUID.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.ahv.config.UpgradeVmGuestToolsResponse, error)
-*/
-func (api *VmApi) UpgradeVmGuestTools(body *import2.GuestToolsUpgradeConfig, extId *string, args ...map[string]interface{}) (*import2.UpgradeVmGuestToolsResponse, error) {
+// Trigger an in-guest upgrade of Nutanix Guest Tools.
+func (api *VmApi) UpgradeVmGuestTools(extId *string, body *import3.GuestToolsUpgradeConfig, args ...map[string]interface{}) (*import3.UpgradeVmGuestToolsResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -3257,13 +2829,13 @@ func (api *VmApi) UpgradeVmGuestTools(body *import2.GuestToolsUpgradeConfig, ext
 
 	uri := "/api/vmm/v4.0.a1/ahv/config/vms/{extId}/guest-tools/$actions/upgrade"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -3278,20 +2850,25 @@ func (api *VmApi) UpgradeVmGuestTools(body *import2.GuestToolsUpgradeConfig, ext
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.UpgradeVmGuestToolsResponse)
+	unmarshalledResp := new(import3.UpgradeVmGuestToolsResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }

@@ -10,7 +10,7 @@ The Go client for Nutanix Vmm Versioned APIs is designed for Go client applicati
 
 ## Version
 - API version: v4.0.a1
-- Package version: v4.0.2-alpha.1
+- Package version: v4.0.3-alpha.1
 
 ## Requirements.
 Go 1.11 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/...@v4.0.2-alpha.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/...@v4.0.3-alpha.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4 v4.0.2-alpha.1
+	github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4 v4.0.3-alpha.1
 )
 ```
 
@@ -170,7 +170,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	VmApiInstance *api.VmApi
+	PlacementPoliciesApiInstance *api.PlacementPoliciesApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -178,12 +178,11 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-VmApiInstance = api.NewVmApi(ApiClientInstance)
-vmExtId := "DcC82C76-aaA6-eDa8-0E5e-0aaF80FefBdA"
-extId := "BdBdD0fE-eB8C-67ab-8bE2-CcC1DC7fCBB6"
+PlacementPoliciesApiInstance = api.NewPlacementPoliciesApi(ApiClientInstance)
+extId := "fE22A652-4Df7-CA9C-Fb44-7A23dC8BC3AD"
 
 // 
-getResponse, err := VmApiInstance.GetCdromByExtId(&vmExtId, &extId)
+getResponse, err := PlacementPoliciesApiInstance.GetPlacementPolicyByExtId(&extId)
 if err != nil {
 ....
 }
@@ -219,7 +218,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	VmApiInstance *api.VmApi
+	PlacementPoliciesApiInstance *api.PlacementPoliciesApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -227,12 +226,11 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-VmApiInstance = api.NewVmApi(ApiClientInstance)
-vmExtId := "DcC82C76-aaA6-eDa8-0E5e-0aaF80FefBdA"
-extId := "BdBdD0fE-eB8C-67ab-8bE2-CcC1DC7fCBB6"
+PlacementPoliciesApiInstance = api.NewPlacementPoliciesApi(ApiClientInstance)
+extId := "fE22A652-4Df7-CA9C-Fb44-7A23dC8BC3AD"
 
 // 
-getResponse, err := VmApiInstance.GetCdromByExtId(&vmExtId, &extId)
+getResponse, err := PlacementPoliciesApiInstance.GetPlacementPolicyByExtId(&extId)
 if err != nil {
     ....
 }
@@ -246,10 +244,10 @@ args["If-Match"] = etagValue
 // Perform update call with received E-Tag reference
 // initialize/change parameters for update
 // ...
-cdrom := getResponse.GetData().(import1.Cdrom)
+placementPolicy := getResponse.GetData().(import1.PlacementPolicy)
 
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := VmApiInstance.UpdateCdrom(&cdrom, &vmExtId, &extId, args)
+response, err := PlacementPoliciesApiInstance.UpdatePlacementPolicyByExtId(&placementPolicy&extId, , args)
 if err != nil {
 ....
 }
@@ -274,7 +272,7 @@ import (
 )
 var (
 	ApiClientInstance *client.ApiClient
-	VmApiInstance *api.VmApi
+	PlacementPoliciesApiInstance *api.PlacementPoliciesApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -282,14 +280,14 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-VmApiInstance = api.NewVmApi(ApiClientInstance)
+PlacementPoliciesApiInstance = api.NewPlacementPoliciesApi(ApiClientInstance)
 page := 0
 limit := 50
 filter := "string_sample_data"
 orderby := "string_sample_data"
 
 // 
-response, err := VmApiInstance.ListVms(&page, &limit, &filter, &orderby)
+response, err := PlacementPoliciesApiInstance.GetPlacementPoliciesList(&page, &limit, &filter, &orderby)
 if err != nil {
     ....
 }

@@ -4,14 +4,15 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/images"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/images"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type PlacementPoliciesApi struct {
-	ApiClient *client.ApiClient
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
 }
 
 func NewPlacementPoliciesApi(apiClient *client.ApiClient) *PlacementPoliciesApi {
@@ -22,20 +23,18 @@ func NewPlacementPoliciesApi(apiClient *client.ApiClient) *PlacementPoliciesApi 
 	a := &PlacementPoliciesApi{
 		ApiClient: apiClient,
 	}
+
+	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
-/**
-  Create an image placement policy.
-  Create an image placement policy.
-
-  parameters:-
-  -> body (vmm.v4.images.PlacementPolicy) (required) : Image placement policy to create.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.images.ImagesTaskApiResponse, error)
-*/
-func (api *PlacementPoliciesApi) CreatePlacementPolicy(body *import1.PlacementPolicy, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+// Create an image placement policy.
+func (api *PlacementPoliciesApi) CreatePlacementPolicy(body *import2.PlacementPolicy, args ...map[string]interface{}) (*import2.ImagesTaskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -58,35 +57,31 @@ func (api *PlacementPoliciesApi) CreatePlacementPolicy(body *import1.PlacementPo
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ImagesTaskApiResponse)
+	unmarshalledResp := new(import2.ImagesTaskApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Delete an image placement policy.
-  Delete the image placement policy with the given extId.
-
-  parameters:-
-  -> extId (string) (required)
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.images.ImagesTaskApiResponse, error)
-*/
-func (api *PlacementPoliciesApi) DeletePlacementPolicyByExtId(extId *string, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+// Delete the image placement policy with the given extId.
+func (api *PlacementPoliciesApi) DeletePlacementPolicyByExtId(extId *string, args ...map[string]interface{}) (*import2.ImagesTaskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -111,38 +106,31 @@ func (api *PlacementPoliciesApi) DeletePlacementPolicyByExtId(extId *string, arg
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ImagesTaskApiResponse)
+	unmarshalledResp := new(import2.ImagesTaskApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  List image placement policies.
-  List of image placement policies.
-
-  parameters:-
-  -> page_ (int) (optional) : A URL query parameter that specifies the page number of the result set.  Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.
-  -> limit_ (int) (optional) : A URL query parameter that specifies the total number of records returned in the result set.  Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set.
-  -> filter_ (string) (optional) : A URL query parameter that allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the OData V4.01 URL conventions. The filter can be applied on the following fields: - description - name
-  -> orderby_ (string) (optional) : A URL query parameter that allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified the resources will be sorted in ascending order by default. For example, 'orderby=templateName desc' would get all templates sorted by templateName in desc order. The orderby can be applied to the following fields: - description - name
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.images.PlacementPolicyListApiResponse, error)
-*/
-func (api *PlacementPoliciesApi) GetPlacementPoliciesList(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.PlacementPolicyListApiResponse, error) {
+// List of image placement policies.
+func (api *PlacementPoliciesApi) GetPlacementPoliciesList(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.PlacementPolicyListApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -162,47 +150,46 @@ func (api *PlacementPoliciesApi) GetPlacementPoliciesList(page_ *int, limit_ *in
 
 	// Query Params
 	if page_ != nil {
+
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
+
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
+
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
+
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
-	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.PlacementPolicyListApiResponse)
+	unmarshalledResp := new(import2.PlacementPolicyListApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Get an image placement policy.
-  Get the image placement policy with the given extId.
-
-  parameters:-
-  -> extId (string) (required)
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.images.PlacementPolicyApiResponse, error)
-*/
-func (api *PlacementPoliciesApi) GetPlacementPolicyByExtId(extId *string, args ...map[string]interface{}) (*import1.PlacementPolicyApiResponse, error) {
+// Get the image placement policy with the given extId.
+func (api *PlacementPoliciesApi) GetPlacementPolicyByExtId(extId *string, args ...map[string]interface{}) (*import2.PlacementPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -227,35 +214,31 @@ func (api *PlacementPoliciesApi) GetPlacementPolicyByExtId(extId *string, args .
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.PlacementPolicyApiResponse)
+	unmarshalledResp := new(import2.PlacementPolicyApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Resume an image placement policy.
-  Resume a suspended image placement policy to be considered for enforcement.
-
-  parameters:-
-  -> extId (string) (required) : Image placement policy extId.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.images.ImagesTaskApiResponse, error)
-*/
-func (api *PlacementPoliciesApi) ResumePlacementPolicyExtId(extId *string, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+// Resume a suspended image placement policy to be considered for enforcement.
+func (api *PlacementPoliciesApi) ResumePlacementPolicyExtId(extId *string, args ...map[string]interface{}) (*import2.ImagesTaskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -280,36 +263,31 @@ func (api *PlacementPoliciesApi) ResumePlacementPolicyExtId(extId *string, args 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ImagesTaskApiResponse)
+	unmarshalledResp := new(import2.ImagesTaskApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Suspend an image placement policy.
-  Suspend an active image placement policy, active policy is one that is being considered for enforcement.
-
-  parameters:-
-  -> body (vmm.v4.images.CancelPlacementTasks) (required) : Indicates whether the tasks running to enforce policy should be canceled. These would be checkout and uncheckout tasks to placement remove images from the cluster(s).
-  -> extId (string) (required) : Image placement policy extId.
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.images.ImagesTaskApiResponse, error)
-*/
-func (api *PlacementPoliciesApi) SuspendPlacementPolicyExtId(body *import1.CancelPlacementTasks, extId *string, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+// Suspend an active image placement policy, active policy is one that is being considered for enforcement.
+func (api *PlacementPoliciesApi) SuspendPlacementPolicyExtId(extId *string, body *import2.CancelPlacementTasks, args ...map[string]interface{}) (*import2.ImagesTaskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -317,13 +295,13 @@ func (api *PlacementPoliciesApi) SuspendPlacementPolicyExtId(body *import1.Cance
 
 	uri := "/api/vmm/v4.0.a1/images/placement-policies/{extId}/$actions/suspend"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -338,36 +316,31 @@ func (api *PlacementPoliciesApi) SuspendPlacementPolicyExtId(body *import1.Cance
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ImagesTaskApiResponse)
+	unmarshalledResp := new(import2.ImagesTaskApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-  Update an image placement policy.
-  Update the image placement policy with the given extId.
-
-  parameters:-
-  -> body (vmm.v4.images.PlacementPolicy) (required) : Updated image placement policy.
-  -> extId (string) (required)
-  -> args (map[string]interface{}) (optional) : Additional Arguments
-
-  returns: (*vmm.v4.images.ImagesTaskApiResponse, error)
-*/
-func (api *PlacementPoliciesApi) UpdatePlacementPolicyByExtId(body *import1.PlacementPolicy, extId *string, args ...map[string]interface{}) (*import1.ImagesTaskApiResponse, error) {
+// Update the image placement policy with the given extId.
+func (api *PlacementPoliciesApi) UpdatePlacementPolicyByExtId(extId *string, body *import2.PlacementPolicy, args ...map[string]interface{}) (*import2.ImagesTaskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -375,13 +348,13 @@ func (api *PlacementPoliciesApi) UpdatePlacementPolicyByExtId(body *import1.Plac
 
 	uri := "/api/vmm/v4.0.a1/images/placement-policies/{extId}"
 
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -396,20 +369,25 @@ func (api *PlacementPoliciesApi) UpdatePlacementPolicyByExtId(body *import1.Plac
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Header Params
-	if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-		headerParams["If-Match"] = ifMatch
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
 	}
-	if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-		headerParams["If-None-Match"] = ifNoneMatch
-	}
+
 	authNames := []string{"basicAuthScheme"}
 
 	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ImagesTaskApiResponse)
+	unmarshalledResp := new(import2.ImagesTaskApiResponse)
 	json.Unmarshal(responseBody, &unmarshalledResp)
 	return unmarshalledResp, err
 }
