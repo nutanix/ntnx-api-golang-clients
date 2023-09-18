@@ -9,8 +9,8 @@ The Go client for Nutanix Clustermgmt Versioned APIs is designed for Go client a
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.a2
-- Package version: v4.0.2-alpha.2
+- API version: v4.0.b1
+- Package version: v4.0.1-beta.1
 
 ## Requirements.
 Go 1.11 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/...@v4.0.2-alpha.2
+$ go get github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/...@v4.0.1-beta.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4 v4.0.2-alpha.2
+	github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4 v4.0.1-beta.1
 )
 ```
 
@@ -179,10 +179,10 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ClusterApiInstance = api.NewClusterApi(ApiClientInstance)
-clusterExtId := "Fdc3b6bd-fe56-F2B2-22Bd-C5EEdB81BAFc"
+extId := "d8aEf1BD-dBa1-eeD2-f0D6-72f710D1cfAA"
 
 // 
-getResponse, err := ClusterApiInstance.GetCluster(&clusterExtId)
+getResponse, err := ClusterApiInstance.GetCluster(&extId)
 if err != nil {
 ....
 }
@@ -227,10 +227,10 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ClusterApiInstance = api.NewClusterApi(ApiClientInstance)
-clusterExtId := "Fdc3b6bd-fe56-F2B2-22Bd-C5EEdB81BAFc"
+extId := "d8aEf1BD-dBa1-eeD2-f0D6-72f710D1cfAA"
 
 // 
-getResponse, err := ClusterApiInstance.GetCluster(&clusterExtId)
+getResponse, err := ClusterApiInstance.GetCluster(&extId)
 if err != nil {
     ....
 }
@@ -244,10 +244,10 @@ args["If-Match"] = etagValue
 // Perform update call with received E-Tag reference
 // initialize/change parameters for update
 // ...
-clusterEntity := getResponse.GetData().(import1.ClusterEntity)
+cluster := getResponse.GetData().(import1.Cluster)
 
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := ClusterApiInstance.UpdateCluster(&clusterEntity, &clusterExtId, args)
+response, err := ClusterApiInstance.UpdateCluster(&cluster&extId, , args)
 if err != nil {
 ....
 }
@@ -285,9 +285,11 @@ page := 0
 limit := 50
 filter := "string_sample_data"
 orderby := "string_sample_data"
+apply := "string_sample_data"
+select := "string_sample_data"
 
 // 
-response, err := ClusterApiInstance.GetClusters(&page, &limit, &filter, &orderby)
+response, err := ClusterApiInstance.GetClusters(&page, &limit, &filter, &orderby, &apply, &select)
 if err != nil {
     ....
 }
@@ -298,7 +300,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=clustermgmt&version=v4.0.a2&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=clustermgmt&version=v4.0.b1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).
