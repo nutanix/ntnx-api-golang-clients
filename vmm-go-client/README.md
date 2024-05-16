@@ -179,7 +179,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ImagesApiInstance = api.NewImagesApi(ApiClientInstance)
-extId := "184AfDFF-f8FB-b675-cEAb-De277AA92c3f"
+extId := "F3ccBb3B-6c70-fCcb-dCb9-ed3Ff6F2d549"
 
 // 
 getResponse, err := ImagesApiInstance.GetImageById(&extId)
@@ -227,7 +227,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ImagesApiInstance = api.NewImagesApi(ApiClientInstance)
-extId := "184AfDFF-f8FB-b675-cEAb-De277AA92c3f"
+extId := "F3ccBb3B-6c70-fCcb-dCb9-ed3Ff6F2d549"
 
 // 
 getResponse, err := ImagesApiInstance.GetImageById(&extId)
