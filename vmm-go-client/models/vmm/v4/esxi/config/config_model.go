@@ -1,16 +1,16 @@
 /*
  * Generated file models/vmm/v4/esxi/config/config_model.go.
  *
- * Product version: 4.0.3-alpha-1
+ * Product version: 4.0.1-beta-1
  *
- * Part of the Nutanix Vmm Versioned APIs
+ * Part of the Nutanix VMM APIs
  *
- * (c) 2023 Nutanix Inc.  All rights reserved
+ * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module vmm.v4.esxi.config of Nutanix Vmm Versioned APIs
+  Module vmm.v4.esxi.config of Nutanix VMM APIs
 */
 package config
 
@@ -26,9 +26,9 @@ import (
 )
 
 /*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId}/$actions/assign-owner Post operation
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/$actions/assign-owner Post operation
 */
-type AssignVmOwnerResponse struct {
+type AssignVmOwnerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -39,31 +39,81 @@ type AssignVmOwnerResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfAssignVmOwnerResponseData `json:"data,omitempty"`
+	Data *OneOfAssignVmOwnerApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewAssignVmOwnerResponse() *AssignVmOwnerResponse {
-	p := new(AssignVmOwnerResponse)
+func NewAssignVmOwnerApiResponse() *AssignVmOwnerApiResponse {
+	p := new(AssignVmOwnerApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.AssignVmOwnerResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.AssignVmOwnerResponse"}
+	*p.ObjectType_ = "vmm.v4.esxi.config.AssignVmOwnerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *AssignVmOwnerResponse) GetData() interface{} {
+func (p *AssignVmOwnerApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *AssignVmOwnerResponse) SetData(v interface{}) error {
+func (p *AssignVmOwnerApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfAssignVmOwnerResponseData()
+		p.Data = NewOneOfAssignVmOwnerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/$actions/associate-categories Post operation
+*/
+type AssociateCategoriesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfAssociateCategoriesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewAssociateCategoriesApiResponse() *AssociateCategoriesApiResponse {
+	p := new(AssociateCategoriesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.esxi.config.AssociateCategoriesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *AssociateCategoriesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *AssociateCategoriesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfAssociateCategoriesApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -92,60 +142,10 @@ func NewAssociateVmCategoriesParams() *AssociateVmCategoriesParams {
 	p := new(AssociateVmCategoriesParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.AssociateVmCategoriesParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.AssociateVmCategoriesParams"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId}/$actions/associate-categories Post operation
-*/
-type AssociateVmCategoriesResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfAssociateVmCategoriesResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewAssociateVmCategoriesResponse() *AssociateVmCategoriesResponse {
-	p := new(AssociateVmCategoriesResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.AssociateVmCategoriesResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.AssociateVmCategoriesResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *AssociateVmCategoriesResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *AssociateVmCategoriesResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfAssociateVmCategoriesResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -158,7 +158,7 @@ type CategoryReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Globally unique identifier of an instance. It should be of type UUID.
+	  The globally unique identifier of an instance. It should be of type UUID.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 }
@@ -167,7 +167,7 @@ func NewCategoryReference() *CategoryReference {
 	p := new(CategoryReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.CategoryReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.CategoryReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -183,7 +183,7 @@ type ClusterReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Globally unique identifier of an instance. It should be of type UUID.
+	  The globally unique identifier of an instance. It should be of type UUID.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 }
@@ -192,10 +192,60 @@ func NewClusterReference() *ClusterReference {
 	p := new(ClusterReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.ClusterReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.ClusterReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/$actions/disassociate-categories Post operation
+*/
+type DisassociateCategoriesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDisassociateCategoriesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewDisassociateCategoriesApiResponse() *DisassociateCategoriesApiResponse {
+	p := new(DisassociateCategoriesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.esxi.config.DisassociateCategoriesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DisassociateCategoriesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DisassociateCategoriesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDisassociateCategoriesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
 }
 
 /*
@@ -215,16 +265,16 @@ func NewDisassociateVmCategoriesParams() *DisassociateVmCategoriesParams {
 	p := new(DisassociateVmCategoriesParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.DisassociateVmCategoriesParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.DisassociateVmCategoriesParams"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId}/$actions/disassociate-categories Post operation
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/nutanix-guest-tools Get operation
 */
-type DisassociateVmCategoriesResponse struct {
+type GetNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -235,31 +285,31 @@ type DisassociateVmCategoriesResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfDisassociateVmCategoriesResponseData `json:"data,omitempty"`
+	Data *OneOfGetNutanixGuestToolsApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewDisassociateVmCategoriesResponse() *DisassociateVmCategoriesResponse {
-	p := new(DisassociateVmCategoriesResponse)
+func NewGetNutanixGuestToolsApiResponse() *GetNutanixGuestToolsApiResponse {
+	p := new(GetNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.DisassociateVmCategoriesResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.DisassociateVmCategoriesResponse"}
+	*p.ObjectType_ = "vmm.v4.esxi.config.GetNutanixGuestToolsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *DisassociateVmCategoriesResponse) GetData() interface{} {
+func (p *GetNutanixGuestToolsApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *DisassociateVmCategoriesResponse) SetData(v interface{}) error {
+func (p *GetNutanixGuestToolsApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfDisassociateVmCategoriesResponseData()
+		p.Data = NewOneOfGetNutanixGuestToolsApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -272,9 +322,9 @@ func (p *DisassociateVmCategoriesResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId}/nutanix-guest-tools Get operation
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId} Get operation
 */
-type GetNutanixGuestToolsResponse struct {
+type GetVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -285,81 +335,31 @@ type GetNutanixGuestToolsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetNutanixGuestToolsResponseData `json:"data,omitempty"`
+	Data *OneOfGetVmApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetNutanixGuestToolsResponse() *GetNutanixGuestToolsResponse {
-	p := new(GetNutanixGuestToolsResponse)
+func NewGetVmApiResponse() *GetVmApiResponse {
+	p := new(GetVmApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.GetNutanixGuestToolsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.GetNutanixGuestToolsResponse"}
+	*p.ObjectType_ = "vmm.v4.esxi.config.GetVmApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetNutanixGuestToolsResponse) GetData() interface{} {
+func (p *GetVmApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetNutanixGuestToolsResponse) SetData(v interface{}) error {
+func (p *GetVmApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetNutanixGuestToolsResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId} Get operation
-*/
-type GetVmResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetVmResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetVmResponse() *GetVmResponse {
-	p := new(GetVmResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.GetVmResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.GetVmResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetVmResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetVmResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetVmResponseData()
+		p.Data = NewOneOfGetVmApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -381,7 +381,7 @@ type HostReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Globally unique identifier of a host. It should be of type UUID.
+	  The globally unique identifier of a host. It should be of type UUID.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 }
@@ -390,16 +390,16 @@ func NewHostReference() *HostReference {
 	p := new(HostReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.HostReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.HostReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/insert-iso Post operation
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/insert-iso Post operation
 */
-type InsertNutanixVmGuestToolsResponse struct {
+type InsertNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -410,31 +410,31 @@ type InsertNutanixVmGuestToolsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfInsertNutanixVmGuestToolsResponseData `json:"data,omitempty"`
+	Data *OneOfInsertNutanixGuestToolsApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewInsertNutanixVmGuestToolsResponse() *InsertNutanixVmGuestToolsResponse {
-	p := new(InsertNutanixVmGuestToolsResponse)
+func NewInsertNutanixGuestToolsApiResponse() *InsertNutanixGuestToolsApiResponse {
+	p := new(InsertNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.InsertNutanixVmGuestToolsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.InsertNutanixVmGuestToolsResponse"}
+	*p.ObjectType_ = "vmm.v4.esxi.config.InsertNutanixGuestToolsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *InsertNutanixVmGuestToolsResponse) GetData() interface{} {
+func (p *InsertNutanixGuestToolsApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *InsertNutanixVmGuestToolsResponse) SetData(v interface{}) error {
+func (p *InsertNutanixGuestToolsApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfInsertNutanixVmGuestToolsResponseData()
+		p.Data = NewOneOfInsertNutanixGuestToolsApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -447,9 +447,9 @@ func (p *InsertNutanixVmGuestToolsResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/install Post operation
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/install Post operation
 */
-type InstallNutanixVmGuestToolsResponse struct {
+type InstallNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -460,31 +460,31 @@ type InstallNutanixVmGuestToolsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfInstallNutanixVmGuestToolsResponseData `json:"data,omitempty"`
+	Data *OneOfInstallNutanixGuestToolsApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewInstallNutanixVmGuestToolsResponse() *InstallNutanixVmGuestToolsResponse {
-	p := new(InstallNutanixVmGuestToolsResponse)
+func NewInstallNutanixGuestToolsApiResponse() *InstallNutanixGuestToolsApiResponse {
+	p := new(InstallNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.InstallNutanixVmGuestToolsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.InstallNutanixVmGuestToolsResponse"}
+	*p.ObjectType_ = "vmm.v4.esxi.config.InstallNutanixGuestToolsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *InstallNutanixVmGuestToolsResponse) GetData() interface{} {
+func (p *InstallNutanixGuestToolsApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *InstallNutanixVmGuestToolsResponse) SetData(v interface{}) error {
+func (p *InstallNutanixGuestToolsApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfInstallNutanixVmGuestToolsResponseData()
+		p.Data = NewOneOfInstallNutanixGuestToolsApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -497,9 +497,9 @@ func (p *InstallNutanixVmGuestToolsResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms Get operation
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms Get operation
 */
-type ListVmsResponse struct {
+type ListVmsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -510,31 +510,31 @@ type ListVmsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfListVmsResponseData `json:"data,omitempty"`
+	Data *OneOfListVmsApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewListVmsResponse() *ListVmsResponse {
-	p := new(ListVmsResponse)
+func NewListVmsApiResponse() *ListVmsApiResponse {
+	p := new(ListVmsApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.ListVmsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.ListVmsResponse"}
+	*p.ObjectType_ = "vmm.v4.esxi.config.ListVmsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *ListVmsResponse) GetData() interface{} {
+func (p *ListVmsApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *ListVmsResponse) SetData(v interface{}) error {
+func (p *ListVmsApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfListVmsResponseData()
+		p.Data = NewOneOfListVmsApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -565,7 +565,7 @@ func NewNutanixCredential() *NutanixCredential {
 	p := new(NutanixCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixCredential"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.NutanixCredential"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -626,7 +626,7 @@ func NewNutanixGuestTools() *NutanixGuestTools {
 	p := new(NutanixGuestTools)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixGuestTools"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.NutanixGuestTools"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -730,7 +730,7 @@ func NewNutanixGuestToolsInsertConfig() *NutanixGuestToolsInsertConfig {
 	p := new(NutanixGuestToolsInsertConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixGuestToolsInsertConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.NutanixGuestToolsInsertConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -759,7 +759,7 @@ func NewNutanixGuestToolsInstallConfig() *NutanixGuestToolsInstallConfig {
 	p := new(NutanixGuestToolsInstallConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixGuestToolsInstallConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.NutanixGuestToolsInstallConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -782,7 +782,7 @@ func NewNutanixGuestToolsUpgradeConfig() *NutanixGuestToolsUpgradeConfig {
 	p := new(NutanixGuestToolsUpgradeConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixGuestToolsUpgradeConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.NutanixGuestToolsUpgradeConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -807,7 +807,7 @@ func NewNutanixRebootPreference() *NutanixRebootPreference {
 	p := new(NutanixRebootPreference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixRebootPreference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.NutanixRebootPreference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -832,7 +832,7 @@ func NewNutanixRebootPreferenceSchedule() *NutanixRebootPreferenceSchedule {
 	p := new(NutanixRebootPreferenceSchedule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixRebootPreferenceSchedule"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.NutanixRebootPreferenceSchedule"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -933,7 +933,7 @@ type OwnerReference struct {
 
 	EntityType *OwnerReferenceEntityType `json:"entityType,omitempty"`
 	/*
-	  Globally unique identifier of an instance. It should be of type UUID.
+	  The globally unique identifier of an instance. It should be of type UUID.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 }
@@ -942,7 +942,7 @@ func NewOwnerReference() *OwnerReference {
 	p := new(OwnerReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.OwnerReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.OwnerReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1037,16 +1037,139 @@ func NewOwnershipInfo() *OwnershipInfo {
 	p := new(OwnershipInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.OwnershipInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.OwnershipInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/uninstall Post operation
+The current power state of the VM.
 */
-type UninstallNutanixVmGuestToolsResponse struct {
+type PowerState int
+
+const (
+	POWERSTATE_UNKNOWN      PowerState = 0
+	POWERSTATE_REDACTED     PowerState = 1
+	POWERSTATE_ON           PowerState = 2
+	POWERSTATE_OFF          PowerState = 3
+	POWERSTATE_SUSPENDED    PowerState = 4
+	POWERSTATE_UNDETERMINED PowerState = 5
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *PowerState) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ON",
+		"OFF",
+		"SUSPENDED",
+		"UNDETERMINED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e PowerState) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ON",
+		"OFF",
+		"SUSPENDED",
+		"UNDETERMINED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *PowerState) index(name string) PowerState {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ON",
+		"OFF",
+		"SUSPENDED",
+		"UNDETERMINED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return PowerState(idx)
+		}
+	}
+	return POWERSTATE_UNKNOWN
+}
+
+func (e *PowerState) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for PowerState:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *PowerState) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e PowerState) Ref() *PowerState {
+	return &e
+}
+
+/*
+Input for the VM revert operation. Specify the VM Recovery Point ID to which the VM would be reverted.
+*/
+type RevertParams struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The external identifier of the VM Recovery Point.
+	*/
+	VmRecoveryPointExtId *string `json:"vmRecoveryPointExtId"`
+}
+
+func (p *RevertParams) MarshalJSON() ([]byte, error) {
+	type RevertParamsProxy RevertParams
+	return json.Marshal(struct {
+		*RevertParamsProxy
+		VmRecoveryPointExtId *string `json:"vmRecoveryPointExtId,omitempty"`
+	}{
+		RevertParamsProxy:    (*RevertParamsProxy)(p),
+		VmRecoveryPointExtId: p.VmRecoveryPointExtId,
+	})
+}
+
+func NewRevertParams() *RevertParams {
+	p := new(RevertParams)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.esxi.config.RevertParams"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/$actions/revert Post operation
+*/
+type RevertVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -1057,31 +1180,31 @@ type UninstallNutanixVmGuestToolsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfUninstallNutanixVmGuestToolsResponseData `json:"data,omitempty"`
+	Data *OneOfRevertVmApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewUninstallNutanixVmGuestToolsResponse() *UninstallNutanixVmGuestToolsResponse {
-	p := new(UninstallNutanixVmGuestToolsResponse)
+func NewRevertVmApiResponse() *RevertVmApiResponse {
+	p := new(RevertVmApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.UninstallNutanixVmGuestToolsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.UninstallNutanixVmGuestToolsResponse"}
+	*p.ObjectType_ = "vmm.v4.esxi.config.RevertVmApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *UninstallNutanixVmGuestToolsResponse) GetData() interface{} {
+func (p *RevertVmApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *UninstallNutanixVmGuestToolsResponse) SetData(v interface{}) error {
+func (p *RevertVmApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfUninstallNutanixVmGuestToolsResponseData()
+		p.Data = NewOneOfRevertVmApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1094,9 +1217,9 @@ func (p *UninstallNutanixVmGuestToolsResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId}/nutanix-guest-tools Put operation
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/uninstall Post operation
 */
-type UpdateNutanixGuestToolsResponse struct {
+type UninstallNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -1107,31 +1230,31 @@ type UpdateNutanixGuestToolsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfUpdateNutanixGuestToolsResponseData `json:"data,omitempty"`
+	Data *OneOfUninstallNutanixGuestToolsApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewUpdateNutanixGuestToolsResponse() *UpdateNutanixGuestToolsResponse {
-	p := new(UpdateNutanixGuestToolsResponse)
+func NewUninstallNutanixGuestToolsApiResponse() *UninstallNutanixGuestToolsApiResponse {
+	p := new(UninstallNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.UpdateNutanixGuestToolsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.UpdateNutanixGuestToolsResponse"}
+	*p.ObjectType_ = "vmm.v4.esxi.config.UninstallNutanixGuestToolsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *UpdateNutanixGuestToolsResponse) GetData() interface{} {
+func (p *UninstallNutanixGuestToolsApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *UpdateNutanixGuestToolsResponse) SetData(v interface{}) error {
+func (p *UninstallNutanixGuestToolsApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfUpdateNutanixGuestToolsResponseData()
+		p.Data = NewOneOfUninstallNutanixGuestToolsApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1144,9 +1267,9 @@ func (p *UpdateNutanixGuestToolsResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.0.a1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/upgrade Post operation
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/nutanix-guest-tools Put operation
 */
-type UpgradeNutanixVmGuestToolsResponse struct {
+type UpdateNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -1157,31 +1280,81 @@ type UpgradeNutanixVmGuestToolsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfUpgradeNutanixVmGuestToolsResponseData `json:"data,omitempty"`
+	Data *OneOfUpdateNutanixGuestToolsApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewUpgradeNutanixVmGuestToolsResponse() *UpgradeNutanixVmGuestToolsResponse {
-	p := new(UpgradeNutanixVmGuestToolsResponse)
+func NewUpdateNutanixGuestToolsApiResponse() *UpdateNutanixGuestToolsApiResponse {
+	p := new(UpdateNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "vmm.v4.esxi.config.UpgradeNutanixVmGuestToolsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.UpgradeNutanixVmGuestToolsResponse"}
+	*p.ObjectType_ = "vmm.v4.esxi.config.UpdateNutanixGuestToolsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *UpgradeNutanixVmGuestToolsResponse) GetData() interface{} {
+func (p *UpdateNutanixGuestToolsApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *UpgradeNutanixVmGuestToolsResponse) SetData(v interface{}) error {
+func (p *UpdateNutanixGuestToolsApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfUpgradeNutanixVmGuestToolsResponseData()
+		p.Data = NewOneOfUpdateNutanixGuestToolsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.0.b1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/upgrade Post operation
+*/
+type UpgradeNutanixGuestToolsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUpgradeNutanixGuestToolsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewUpgradeNutanixGuestToolsApiResponse() *UpgradeNutanixGuestToolsApiResponse {
+	p := new(UpgradeNutanixGuestToolsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.esxi.config.UpgradeNutanixGuestToolsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UpgradeNutanixGuestToolsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UpgradeNutanixGuestToolsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUpgradeNutanixGuestToolsApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1219,7 +1392,7 @@ type Vm struct {
 
 	Host *HostReference `json:"host,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
@@ -1230,8 +1403,10 @@ type Vm struct {
 	NutanixGuestTools *NutanixGuestTools `json:"nutanixGuestTools,omitempty"`
 
 	OwnershipInfo *OwnershipInfo `json:"ownershipInfo,omitempty"`
+
+	PowerState *PowerState `json:"powerState,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -1240,29 +1415,29 @@ func NewVm() *Vm {
 	p := new(Vm)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.Vm"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "vmm.v4.r0.a1.esxi.config.Vm"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-type OneOfDisassociateVmCategoriesResponseData struct {
+type OneOfAssignVmOwnerApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType2001 *import1.TaskReference `json:"-"`
 }
 
-func NewOneOfDisassociateVmCategoriesResponseData() *OneOfDisassociateVmCategoriesResponseData {
-	p := new(OneOfDisassociateVmCategoriesResponseData)
+func NewOneOfAssignVmOwnerApiResponseData() *OneOfAssignVmOwnerApiResponseData {
+	p := new(OneOfAssignVmOwnerApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDisassociateVmCategoriesResponseData) SetValue(v interface{}) error {
+func (p *OneOfAssignVmOwnerApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDisassociateVmCategoriesResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfAssignVmOwnerApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import2.ErrorResponse:
@@ -1297,7 +1472,7 @@ func (p *OneOfDisassociateVmCategoriesResponseData) SetValue(v interface{}) erro
 	return nil
 }
 
-func (p *OneOfDisassociateVmCategoriesResponseData) GetValue() interface{} {
+func (p *OneOfAssignVmOwnerApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -1307,7 +1482,7 @@ func (p *OneOfDisassociateVmCategoriesResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfDisassociateVmCategoriesResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfAssignVmOwnerApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -1344,36 +1519,36 @@ func (p *OneOfDisassociateVmCategoriesResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDisassociateVmCategoriesResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssignVmOwnerApiResponseData"))
 }
 
-func (p *OneOfDisassociateVmCategoriesResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfAssignVmOwnerApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	return nil, errors.New("No value to marshal for OneOfDisassociateVmCategoriesResponseData")
+	return nil, errors.New("No value to marshal for OneOfAssignVmOwnerApiResponseData")
 }
 
-type OneOfAssignVmOwnerResponseData struct {
+type OneOfUpdateNutanixGuestToolsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType2001 *import1.TaskReference `json:"-"`
 }
 
-func NewOneOfAssignVmOwnerResponseData() *OneOfAssignVmOwnerResponseData {
-	p := new(OneOfAssignVmOwnerResponseData)
+func NewOneOfUpdateNutanixGuestToolsApiResponseData() *OneOfUpdateNutanixGuestToolsApiResponseData {
+	p := new(OneOfUpdateNutanixGuestToolsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfAssignVmOwnerResponseData) SetValue(v interface{}) error {
+func (p *OneOfUpdateNutanixGuestToolsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAssignVmOwnerResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfUpdateNutanixGuestToolsApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import2.ErrorResponse:
@@ -1408,7 +1583,7 @@ func (p *OneOfAssignVmOwnerResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfAssignVmOwnerResponseData) GetValue() interface{} {
+func (p *OneOfUpdateNutanixGuestToolsApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -1418,7 +1593,7 @@ func (p *OneOfAssignVmOwnerResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfAssignVmOwnerResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfUpdateNutanixGuestToolsApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -1455,919 +1630,36 @@ func (p *OneOfAssignVmOwnerResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssignVmOwnerResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateNutanixGuestToolsApiResponseData"))
 }
 
-func (p *OneOfAssignVmOwnerResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfUpdateNutanixGuestToolsApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	return nil, errors.New("No value to marshal for OneOfAssignVmOwnerResponseData")
+	return nil, errors.New("No value to marshal for OneOfUpdateNutanixGuestToolsApiResponseData")
 }
 
-type OneOfInsertNutanixVmGuestToolsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-}
-
-func NewOneOfInsertNutanixVmGuestToolsResponseData() *OneOfInsertNutanixVmGuestToolsResponseData {
-	p := new(OneOfInsertNutanixVmGuestToolsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfInsertNutanixVmGuestToolsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfInsertNutanixVmGuestToolsResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfInsertNutanixVmGuestToolsResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfInsertNutanixVmGuestToolsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfInsertNutanixVmGuestToolsResponseData"))
-}
-
-func (p *OneOfInsertNutanixVmGuestToolsResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfInsertNutanixVmGuestToolsResponseData")
-}
-
-type OneOfUninstallNutanixVmGuestToolsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-}
-
-func NewOneOfUninstallNutanixVmGuestToolsResponseData() *OneOfUninstallNutanixVmGuestToolsResponseData {
-	p := new(OneOfUninstallNutanixVmGuestToolsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUninstallNutanixVmGuestToolsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUninstallNutanixVmGuestToolsResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUninstallNutanixVmGuestToolsResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfUninstallNutanixVmGuestToolsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUninstallNutanixVmGuestToolsResponseData"))
-}
-
-func (p *OneOfUninstallNutanixVmGuestToolsResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfUninstallNutanixVmGuestToolsResponseData")
-}
-
-type OneOfGetVmResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *Vm                    `json:"-"`
-}
-
-func NewOneOfGetVmResponseData() *OneOfGetVmResponseData {
-	p := new(OneOfGetVmResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetVmResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetVmResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Vm:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(Vm)
-		}
-		*p.oneOfType2001 = v.(Vm)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetVmResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfGetVmResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(Vm)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.esxi.config.Vm" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(Vm)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVmResponseData"))
-}
-
-func (p *OneOfGetVmResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetVmResponseData")
-}
-
-type OneOfAssociateVmCategoriesResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-}
-
-func NewOneOfAssociateVmCategoriesResponseData() *OneOfAssociateVmCategoriesResponseData {
-	p := new(OneOfAssociateVmCategoriesResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAssociateVmCategoriesResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAssociateVmCategoriesResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAssociateVmCategoriesResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfAssociateVmCategoriesResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssociateVmCategoriesResponseData"))
-}
-
-func (p *OneOfAssociateVmCategoriesResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfAssociateVmCategoriesResponseData")
-}
-
-type OneOfUpdateNutanixGuestToolsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-}
-
-func NewOneOfUpdateNutanixGuestToolsResponseData() *OneOfUpdateNutanixGuestToolsResponseData {
-	p := new(OneOfUpdateNutanixGuestToolsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateNutanixGuestToolsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateNutanixGuestToolsResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateNutanixGuestToolsResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfUpdateNutanixGuestToolsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateNutanixGuestToolsResponseData"))
-}
-
-func (p *OneOfUpdateNutanixGuestToolsResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateNutanixGuestToolsResponseData")
-}
-
-type OneOfInstallNutanixVmGuestToolsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-}
-
-func NewOneOfInstallNutanixVmGuestToolsResponseData() *OneOfInstallNutanixVmGuestToolsResponseData {
-	p := new(OneOfInstallNutanixVmGuestToolsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfInstallNutanixVmGuestToolsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfInstallNutanixVmGuestToolsResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfInstallNutanixVmGuestToolsResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfInstallNutanixVmGuestToolsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfInstallNutanixVmGuestToolsResponseData"))
-}
-
-func (p *OneOfInstallNutanixVmGuestToolsResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfInstallNutanixVmGuestToolsResponseData")
-}
-
-type OneOfListVmsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 []Vm                   `json:"-"`
-}
-
-func NewOneOfListVmsResponseData() *OneOfListVmsResponseData {
-	p := new(OneOfListVmsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListVmsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListVmsResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Vm:
-		p.oneOfType2001 = v.([]Vm)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<vmm.v4.esxi.config.Vm>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<vmm.v4.esxi.config.Vm>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListVmsResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<vmm.v4.esxi.config.Vm>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfListVmsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new([]Vm)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "vmm.v4.esxi.config.Vm" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<vmm.v4.esxi.config.Vm>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<vmm.v4.esxi.config.Vm>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVmsResponseData"))
-}
-
-func (p *OneOfListVmsResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<vmm.v4.esxi.config.Vm>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfListVmsResponseData")
-}
-
-type OneOfUpgradeNutanixVmGuestToolsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-}
-
-func NewOneOfUpgradeNutanixVmGuestToolsResponseData() *OneOfUpgradeNutanixVmGuestToolsResponseData {
-	p := new(OneOfUpgradeNutanixVmGuestToolsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpgradeNutanixVmGuestToolsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpgradeNutanixVmGuestToolsResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpgradeNutanixVmGuestToolsResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfUpgradeNutanixVmGuestToolsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpgradeNutanixVmGuestToolsResponseData"))
-}
-
-func (p *OneOfUpgradeNutanixVmGuestToolsResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpgradeNutanixVmGuestToolsResponseData")
-}
-
-type OneOfGetNutanixGuestToolsResponseData struct {
+type OneOfGetNutanixGuestToolsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *NutanixGuestTools     `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfGetNutanixGuestToolsResponseData() *OneOfGetNutanixGuestToolsResponseData {
-	p := new(OneOfGetNutanixGuestToolsResponseData)
+func NewOneOfGetNutanixGuestToolsApiResponseData() *OneOfGetNutanixGuestToolsApiResponseData {
+	p := new(OneOfGetNutanixGuestToolsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetNutanixGuestToolsResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetNutanixGuestToolsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetNutanixGuestToolsResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetNutanixGuestToolsApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case NutanixGuestTools:
@@ -2402,7 +1694,7 @@ func (p *OneOfGetNutanixGuestToolsResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfGetNutanixGuestToolsResponseData) GetValue() interface{} {
+func (p *OneOfGetNutanixGuestToolsApiResponseData) GetValue() interface{} {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -2412,7 +1704,7 @@ func (p *OneOfGetNutanixGuestToolsResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfGetNutanixGuestToolsResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfGetNutanixGuestToolsApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType2001 := new(NutanixGuestTools)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
 		if "vmm.v4.esxi.config.NutanixGuestTools" == *vOneOfType2001.ObjectType_ {
@@ -2449,15 +1741,1023 @@ func (p *OneOfGetNutanixGuestToolsResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetNutanixGuestToolsResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetNutanixGuestToolsApiResponseData"))
 }
 
-func (p *OneOfGetNutanixGuestToolsResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetNutanixGuestToolsApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetNutanixGuestToolsResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetNutanixGuestToolsApiResponseData")
+}
+
+type OneOfAssociateCategoriesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+}
+
+func NewOneOfAssociateCategoriesApiResponseData() *OneOfAssociateCategoriesApiResponseData {
+	p := new(OneOfAssociateCategoriesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfAssociateCategoriesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfAssociateCategoriesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfAssociateCategoriesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfAssociateCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssociateCategoriesApiResponseData"))
+}
+
+func (p *OneOfAssociateCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfAssociateCategoriesApiResponseData")
+}
+
+type OneOfDisassociateCategoriesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+}
+
+func NewOneOfDisassociateCategoriesApiResponseData() *OneOfDisassociateCategoriesApiResponseData {
+	p := new(OneOfDisassociateCategoriesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDisassociateCategoriesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDisassociateCategoriesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDisassociateCategoriesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfDisassociateCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDisassociateCategoriesApiResponseData"))
+}
+
+func (p *OneOfDisassociateCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfDisassociateCategoriesApiResponseData")
+}
+
+type OneOfListVmsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 []Vm                   `json:"-"`
+}
+
+func NewOneOfListVmsApiResponseData() *OneOfListVmsApiResponseData {
+	p := new(OneOfListVmsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListVmsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListVmsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Vm:
+		p.oneOfType2001 = v.([]Vm)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<vmm.v4.esxi.config.Vm>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<vmm.v4.esxi.config.Vm>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListVmsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<vmm.v4.esxi.config.Vm>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListVmsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]Vm)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "vmm.v4.esxi.config.Vm" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<vmm.v4.esxi.config.Vm>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<vmm.v4.esxi.config.Vm>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVmsApiResponseData"))
+}
+
+func (p *OneOfListVmsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<vmm.v4.esxi.config.Vm>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVmsApiResponseData")
+}
+
+type OneOfInsertNutanixGuestToolsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+}
+
+func NewOneOfInsertNutanixGuestToolsApiResponseData() *OneOfInsertNutanixGuestToolsApiResponseData {
+	p := new(OneOfInsertNutanixGuestToolsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfInsertNutanixGuestToolsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfInsertNutanixGuestToolsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfInsertNutanixGuestToolsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfInsertNutanixGuestToolsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfInsertNutanixGuestToolsApiResponseData"))
+}
+
+func (p *OneOfInsertNutanixGuestToolsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfInsertNutanixGuestToolsApiResponseData")
+}
+
+type OneOfRevertVmApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+}
+
+func NewOneOfRevertVmApiResponseData() *OneOfRevertVmApiResponseData {
+	p := new(OneOfRevertVmApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRevertVmApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRevertVmApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRevertVmApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfRevertVmApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRevertVmApiResponseData"))
+}
+
+func (p *OneOfRevertVmApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfRevertVmApiResponseData")
+}
+
+type OneOfInstallNutanixGuestToolsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+}
+
+func NewOneOfInstallNutanixGuestToolsApiResponseData() *OneOfInstallNutanixGuestToolsApiResponseData {
+	p := new(OneOfInstallNutanixGuestToolsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfInstallNutanixGuestToolsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfInstallNutanixGuestToolsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfInstallNutanixGuestToolsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfInstallNutanixGuestToolsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfInstallNutanixGuestToolsApiResponseData"))
+}
+
+func (p *OneOfInstallNutanixGuestToolsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfInstallNutanixGuestToolsApiResponseData")
+}
+
+type OneOfUpgradeNutanixGuestToolsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+}
+
+func NewOneOfUpgradeNutanixGuestToolsApiResponseData() *OneOfUpgradeNutanixGuestToolsApiResponseData {
+	p := new(OneOfUpgradeNutanixGuestToolsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpgradeNutanixGuestToolsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpgradeNutanixGuestToolsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpgradeNutanixGuestToolsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfUpgradeNutanixGuestToolsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpgradeNutanixGuestToolsApiResponseData"))
+}
+
+func (p *OneOfUpgradeNutanixGuestToolsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpgradeNutanixGuestToolsApiResponseData")
+}
+
+type OneOfUninstallNutanixGuestToolsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+}
+
+func NewOneOfUninstallNutanixGuestToolsApiResponseData() *OneOfUninstallNutanixGuestToolsApiResponseData {
+	p := new(OneOfUninstallNutanixGuestToolsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUninstallNutanixGuestToolsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUninstallNutanixGuestToolsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUninstallNutanixGuestToolsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfUninstallNutanixGuestToolsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUninstallNutanixGuestToolsApiResponseData"))
+}
+
+func (p *OneOfUninstallNutanixGuestToolsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfUninstallNutanixGuestToolsApiResponseData")
+}
+
+type OneOfGetVmApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *Vm                    `json:"-"`
+}
+
+func NewOneOfGetVmApiResponseData() *OneOfGetVmApiResponseData {
+	p := new(OneOfGetVmApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetVmApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetVmApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Vm:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Vm)
+		}
+		*p.oneOfType2001 = v.(Vm)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetVmApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetVmApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(Vm)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.esxi.config.Vm" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Vm)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVmApiResponseData"))
+}
+
+func (p *OneOfGetVmApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetVmApiResponseData")
+}
+
+type FileDetail struct {
+	Path        *string `json:"-"`
+	ObjectType_ *string `json:"-"`
+}
+
+func NewFileDetail() *FileDetail {
+	p := new(FileDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "FileDetail"
+
+	return p
 }
