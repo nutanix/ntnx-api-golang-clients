@@ -9,8 +9,8 @@ The Go client for Nutanix Dataprotection Versioned APIs is designed for Go clien
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.a4
-- Package version: v4.0.1-alpha.4
+- API version: v4.0.b1
+- Package version: v4.0.1-beta.1
 
 ## Requirements.
 Go 1.11 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/...@v4.0.1-alpha.4
+$ go get github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/...@v4.0.1-beta.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4 v4.0.1-alpha.4
+	github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4 v4.0.1-beta.1
 )
 ```
 
@@ -162,7 +162,7 @@ ApiClientInstance.RetryInterval = 5000 // Interval in ms to use during retry att
 
 ### Invoking an operation
 ```go
-
+// The following sample code is an example and does not reflect the real APIs provided by this client.
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/api"
@@ -170,7 +170,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	ConsistencyGroupApiInstance *api.ConsistencyGroupApi
+	SampleApiInstance *api.SampleApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -178,11 +178,11 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ConsistencyGroupApiInstance = api.NewConsistencyGroupApi(ApiClientInstance)
-extId := "aFfF33dC-a5E7-BbDD-CB58-dbFAbA0bbFac"
+SampleApiInstance = api.SampleApi(ApiClientInstance)
+var extId string = '8a17d0bb-3147-4f3a-bbbd-48ad2a4c19fc' // UUID.
 
-// 
-getResponse, err := ConsistencyGroupApiInstance.GetConsistencyGroup(&extId)
+// Get sample entity by ID
+response, err := SampleApiInstance.GetSampleEntityById(&extId)
 if err != nil {
 ....
 }
@@ -210,15 +210,16 @@ You can also modify the headers sent with each individual operation:
 #### Operation specific headers
 Nutanix APIs require that concurrent updates are protected using [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) headers. This would mean that the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header received in the response of a fetch (GET) operation should be used as an [If-Match](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match) header for the modification (PUT) operation.
 ```go
+
+// The following sample code is an example and does not reflect the real APIs provided by this client.
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/api"
-    // import request body DTO for put api
 )
 
 var (
 	ApiClientInstance *client.ApiClient
-	ConsistencyGroupApiInstance *api.ConsistencyGroupApi
+	SampleApiInstance *api.SampleApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -226,30 +227,27 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ConsistencyGroupApiInstance = api.NewConsistencyGroupApi(ApiClientInstance)
-extId := "aFfF33dC-a5E7-BbDD-CB58-dbFAbA0bbFac"
+SampleApiInstance = api.SampleApi(ApiClientInstance)
+var extId string = '8a17d0bb-3147-4f3a-bbbd-48ad2a4c19fc' // UUID.
 
-// 
-getResponse, err := ConsistencyGroupApiInstance.GetConsistencyGroup(&extId)
+// Get sample entity by ID
+response, err := SampleApiInstance.GetSampleEntityById(&extId)
 if err != nil {
-    ....
+....
 }
 
 // Extract E-Tag Header
-etagValue := ApiClientInstance.GetEtag(getResponse)
+etagValue := ApiClientInstance.GetEtag(response)
+    
+// The following sample code is an example and does not reflect the real APIs provided by this client.
 
+// Update sample entity by ID
 args := make(map[string] interface {})
 args["If-Match"] = etagValue
-// ...
-// Perform update call with received E-Tag reference
-// initialize/change parameters for update
-// ...
-consistencyGroup := getResponse.GetData().(import1.ConsistencyGroup)
-
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := ConsistencyGroupApiInstance.UpdateConsistencyGroup(&consistencyGroup&extId, , args)
+response, err := SampleApiInstance.UpdateSampleEntityById(&body, &extId, args)
 if err != nil {
-....
+    ....
 }
 ```
 
@@ -262,17 +260,18 @@ List Operations for Nutanix APIs support pagination, filtering, sorting and proj
 | _limit    | specifies the total number of records returned in the result set. Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set|
 | _filter   | allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the [OData V4.01 URL](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_SystemQueryOptionfilter) conventions. |
 | _orderby  | allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified the resources will be sorted in ascending order by default. For example, 'orderby=templateName desc' would get all templates sorted by templateName in desc order. |
-| _select   | allows clients to request a specific set of properties for each entity or complex type. Expression specified with the $select must conform to the OData V4.01 URL conventions. If a $select expression consists of a single select item that is an asterisk (i.e. *), then all properties on the matching resource will be returned. |
-| _expand   | allows clients to request related resources when a resource that satisfies a particular request is retrieved. Each expand item is evaluated relative to the entity containing the property being expanded. Other query options can be applied to an expanded property by appending a semicolon-separated list of query options, enclosed in parentheses, to the property name. Allowed system query options are $filter,$select, $orderby. |
+| _select   | allows clients to request a specific set of properties for each entity or complex type. Expression specified with the $select must conform to the OData V4.01 URL conventions. If a $select expression consists of a single select item that is an asterisk (i.e., *), then all properties on the matching resource will be returned. |
+| _expand   | allows clients to request related resources when a resource that satisfies a particular request is retrieved. Each expanded item is evaluated relative to the entity containing the property being expanded. Other query options can be applied to an expanded property by appending a semicolon-separated list of query options, enclosed in parentheses, to the property name. Permissible system query options are $filter,$select and $orderby. |
 
 ```go
+// The following sample code is an example and does not reflect the real APIs provided by this client.
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/api"
 )
 var (
 	ApiClientInstance *client.ApiClient
-	ConsistencyGroupApiInstance *api.ConsistencyGroupApi
+	SampleApiInstance *api.SampleApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -280,28 +279,27 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ConsistencyGroupApiInstance = api.NewConsistencyGroupApi(ApiClientInstance)
-vmList := []
-volumeGroupList := []
-page := 0
-limit := 50
-filter := "string_sample_data"
-orderby := "string_sample_data"
-select := "string_sample_data"
+SampleApiInstance = api.SampleApi(ApiClientInstance)
 
-// 
-response, err := ConsistencyGroupApiInstance.GetConsistencyGroups(&vmList, &volumeGroupList, &page, &limit, &filter, &orderby, &select)
+// Get sample entities list
+response, err := SampleApiInstance.GetSampleEntitiesList(
+			pageValue,    /*if page_ parameter is present*/
+			limitValue,   /*if limit_ parameter is present*/
+			filterValue,  /*if filter_ parameter is present*/
+			orderbyValue, /*if orderby_ parameter is present*/
+			selectValue,  /*if select_ parameter is present*/
+			expandValue   /*if expand_ parameter is present*/
+			)
 if err != nil {
-    ....
+....
 }
-
 
 ```
 The list of filterable and sortable fields with expansion keys can be found in the documentation [here](https://developers.nutanix.com/).
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=dataprotection&version=v4.0.a4&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=dataprotection&version=v4.0.b1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).

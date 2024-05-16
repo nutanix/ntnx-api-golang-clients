@@ -1,11 +1,11 @@
 /*
  * Generated file models/dataprotection/v4/common/common_model.go.
  *
- * Product version: 4.0.1-alpha-4
+ * Product version: 4.0.1-beta-1
  *
  * Part of the Nutanix Dataprotection Versioned APIs
  *
- * (c) 2023 Nutanix Inc.  All rights reserved
+ * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -45,7 +45,7 @@ type BaseRecoveryPoint struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
@@ -61,20 +61,16 @@ type BaseRecoveryPoint struct {
 
 	Status *RecoveryPointStatus `json:"status,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
-	/*
-	  List of additional metadata provided by the client at the time of Recovery point creation.
-	*/
-	VendorSpecificProperties []VendorSpecificProperty `json:"vendorSpecificProperties,omitempty"`
 }
 
 func NewBaseRecoveryPoint() *BaseRecoveryPoint {
 	p := new(BaseRecoveryPoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.common.BaseRecoveryPoint"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "dataprotection.v4.r0.a2.common.BaseRecoveryPoint"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -242,44 +238,15 @@ func (e RecoveryPointType) Ref() *RecoveryPointType {
 	return &e
 }
 
-/*
-Additional metadata provided by the client at the time of Recovery point creation.
-*/
-type VendorSpecificProperty struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The unique identifier of the vendor. It can be a magic number, UUID or vendor name.
-	*/
-	VendorId *string `json:"vendorId"`
-	/*
-	  This is an opaque data interpreted only by the respective vendor.
-	*/
-	VendorMetadata *string `json:"vendorMetadata"`
+type FileDetail struct {
+	Path        *string `json:"-"`
+	ObjectType_ *string `json:"-"`
 }
 
-func (p *VendorSpecificProperty) MarshalJSON() ([]byte, error) {
-	type VendorSpecificPropertyProxy VendorSpecificProperty
-	return json.Marshal(struct {
-		*VendorSpecificPropertyProxy
-		VendorId       *string `json:"vendorId,omitempty"`
-		VendorMetadata *string `json:"vendorMetadata,omitempty"`
-	}{
-		VendorSpecificPropertyProxy: (*VendorSpecificPropertyProxy)(p),
-		VendorId:                    p.VendorId,
-		VendorMetadata:              p.VendorMetadata,
-	})
-}
-
-func NewVendorSpecificProperty() *VendorSpecificProperty {
-	p := new(VendorSpecificProperty)
+func NewFileDetail() *FileDetail {
+	p := new(FileDetail)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.common.VendorSpecificProperty"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "dataprotection.v4.r0.a2.common.VendorSpecificProperty"}
-	p.UnknownFields_ = map[string]interface{}{}
+	*p.ObjectType_ = "FileDetail"
 
 	return p
 }
