@@ -1,11 +1,11 @@
 /*
  * Generated file models/clustermgmt/v4/error/error_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1-beta-2
  *
  * Part of the Nutanix Clustermgmt Versioned APIs
  *
- * (c) 2023 Nutanix Inc.  All rights reserved
+ * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -22,7 +22,7 @@ import (
 )
 
 /*
-This schema is generated from AppMessage.java
+Message with associated severity describing status of the current operation.
 */
 type AppMessage struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -30,17 +30,25 @@ type AppMessage struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  The map of argument name to value.
+	*/
 	ArgumentsMap map[string]string `json:"argumentsMap,omitempty"`
-
+	/*
+	  The code associated with this message.This string is typically prefixed by the namespace the endpoint belongs to. For example: VMM-40000
+	*/
 	Code *string `json:"code,omitempty"`
-
+	/*
+	  The error group associated with this message of severity ERROR.
+	*/
 	ErrorGroup *string `json:"errorGroup,omitempty"`
 	/*
-	  The locale for the message description.
+	  Locale for this message. The default locale would be 'en-US'.
 	*/
 	Locale *string `json:"locale,omitempty"`
-
+	/*
+	  The message string.
+	*/
 	Message *string `json:"message,omitempty"`
 
 	Severity *import1.MessageSeverity `json:"severity,omitempty"`
@@ -50,7 +58,7 @@ func NewAppMessage() *AppMessage {
 	p := new(AppMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.error.AppMessage"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.error.AppMessage"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Locale = new(string)
@@ -80,7 +88,7 @@ func NewErrorResponse() *ErrorResponse {
 	p := new(ErrorResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.error.ErrorResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.error.ErrorResponse"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -116,15 +124,25 @@ type SchemaValidationError struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  The generic error message for the response.
+	*/
 	Error *string `json:"error,omitempty"`
-
+	/*
+	  API path on which the request was made.
+	*/
 	Path *string `json:"path,omitempty"`
-
+	/*
+	  The HTTP status code of the response.
+	*/
 	StatusCode *int `json:"statusCode,omitempty"`
-
+	/*
+	  Timestamp of the response.
+	*/
 	Timestamp *string `json:"timestamp,omitempty"`
-
+	/*
+	  List of validation error messages
+	*/
 	ValidationErrorMessages []SchemaValidationErrorMessage `json:"validationErrorMessages,omitempty"`
 }
 
@@ -132,7 +150,7 @@ func NewSchemaValidationError() *SchemaValidationError {
 	p := new(SchemaValidationError)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.error.SchemaValidationError"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.error.SchemaValidationError"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -147,11 +165,17 @@ type SchemaValidationErrorMessage struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  The path of the attribute that failed validation in the schema.
+	*/
 	AttributePath *string `json:"attributePath,omitempty"`
-
+	/*
+	  The part of the request that failed validation. Validation can fail for path, query parameters, and request body.
+	*/
 	Location *string `json:"location,omitempty"`
-
+	/*
+	  The detailed message for the validation error.
+	*/
 	Message *string `json:"message,omitempty"`
 }
 
@@ -159,7 +183,7 @@ func NewSchemaValidationErrorMessage() *SchemaValidationErrorMessage {
 	p := new(SchemaValidationErrorMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.error.SchemaValidationErrorMessage"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.error.SchemaValidationErrorMessage"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -226,6 +250,7 @@ func (p *OneOfErrorResponseError) GetValue() interface{} {
 func (p *OneOfErrorResponseError) UnmarshalJSON(b []byte) error {
 	vOneOfType201 := new([]AppMessage)
 	if err := json.Unmarshal(b, vOneOfType201); err == nil {
+
 		if len(*vOneOfType201) == 0 || "clustermgmt.v4.error.AppMessage" == *((*vOneOfType201)[0].ObjectType_) {
 			p.oneOfType201 = *vOneOfType201
 			if nil == p.Discriminator {
@@ -269,4 +294,17 @@ func (p *OneOfErrorResponseError) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType202)
 	}
 	return nil, errors.New("No value to marshal for OneOfErrorResponseError")
+}
+
+type FileDetail struct {
+	Path        *string `json:"-"`
+	ObjectType_ *string `json:"-"`
+}
+
+func NewFileDetail() *FileDetail {
+	p := new(FileDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "FileDetail"
+
+	return p
 }

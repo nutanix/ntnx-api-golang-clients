@@ -1,11 +1,11 @@
 /*
  * Generated file models/common/v1/config/config_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1-beta-2
  *
  * Part of the Nutanix Clustermgmt Versioned APIs
  *
- * (c) 2023 Nutanix Inc.  All rights reserved
+ * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -22,7 +22,7 @@ import (
 )
 
 /*
-A fully qualified domain name specifying its exact location in the tree hierarchy of the Domain Name System.
+A fully qualified domain name that specifies its exact location in the tree hierarchy of the Domain Name System.
 */
 type FQDN struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -38,7 +38,7 @@ func NewFQDN() *FQDN {
 	p := new(FQDN)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.config.FQDN"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.FQDN"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -63,7 +63,7 @@ func NewFlag() *Flag {
 	p := new(Flag)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.config.Flag"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.Flag"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Value = new(bool)
@@ -91,7 +91,7 @@ func NewIPAddress() *IPAddress {
 	p := new(IPAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.config.IPAddress"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.IPAddress"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -129,7 +129,7 @@ func NewIPAddressOrFQDN() *IPAddressOrFQDN {
 	p := new(IPAddressOrFQDN)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.config.IPAddressOrFQDN"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.IPAddressOrFQDN"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -167,7 +167,7 @@ func NewIPv4Address() *IPv4Address {
 	p := new(IPv4Address)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.config.IPv4Address"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.IPv4Address"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.PrefixLength = new(int)
@@ -194,7 +194,7 @@ func NewIPv6Address() *IPv6Address {
 	p := new(IPv6Address)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.config.IPv6Address"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.IPv6Address"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.PrefixLength = new(int)
@@ -230,7 +230,7 @@ func NewKVPair() *KVPair {
 	p := new(KVPair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.config.KVPair"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.KVPair"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -283,7 +283,7 @@ func NewMessage() *Message {
 	p := new(Message)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.config.Message"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.Message"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Locale = new(string)
@@ -385,7 +385,7 @@ type TenantAwareModel struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -394,7 +394,7 @@ func NewTenantAwareModel() *TenantAwareModel {
 	p := new(TenantAwareModel)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.config.TenantAwareModel"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "common.v1.r0.a3.config.TenantAwareModel"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -601,4 +601,17 @@ func (p *OneOfKVPairValue) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType1006)
 	}
 	return nil, errors.New("No value to marshal for OneOfKVPairValue")
+}
+
+type FileDetail struct {
+	Path        *string `json:"-"`
+	ObjectType_ *string `json:"-"`
+}
+
+func NewFileDetail() *FileDetail {
+	p := new(FileDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "FileDetail"
+
+	return p
 }

@@ -1,11 +1,11 @@
 /*
  * Generated file models/clustermgmt/v4/config/config_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1-beta-2
  *
  * Part of the Nutanix Clustermgmt Versioned APIs
  *
- * (c) 2023 Nutanix Inc.  All rights reserved
+ * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -27,7 +27,7 @@ import (
 )
 
 /*
-Status of Acropolis connection to hypervisor
+Status of Acropolis connection to hypervisor.
 */
 type AcropolisConnectionState int
 
@@ -106,9 +106,9 @@ func (e AcropolisConnectionState) Ref() *AcropolisConnectionState {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/$actions/expand-cluster Post operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/$actions/add-transports Post operation
 */
-type AddNodeTaskResponse struct {
+type AddSnmpTransportsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -119,31 +119,31 @@ type AddNodeTaskResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfAddNodeTaskResponseData `json:"data,omitempty"`
+	Data *OneOfAddSnmpTransportsApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewAddNodeTaskResponse() *AddNodeTaskResponse {
-	p := new(AddNodeTaskResponse)
+func NewAddSnmpTransportsApiResponse() *AddSnmpTransportsApiResponse {
+	p := new(AddSnmpTransportsApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.AddNodeTaskResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.AddNodeTaskResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.AddSnmpTransportsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *AddNodeTaskResponse) GetData() interface{} {
+func (p *AddSnmpTransportsApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *AddNodeTaskResponse) SetData(v interface{}) error {
+func (p *AddSnmpTransportsApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfAddNodeTaskResponseData()
+		p.Data = NewOneOfAddSnmpTransportsApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -156,207 +156,7 @@ func (p *AddNodeTaskResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/rsyslog-servers Post operation
-*/
-type AddRsyslogServerTaskApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfAddRsyslogServerTaskApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewAddRsyslogServerTaskApiResponse() *AddRsyslogServerTaskApiResponse {
-	p := new(AddRsyslogServerTaskApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.AddRsyslogServerTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.AddRsyslogServerTaskApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *AddRsyslogServerTaskApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *AddRsyslogServerTaskApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfAddRsyslogServerTaskApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/snmp/$actions/add-transports Post operation
-*/
-type AddSnmpTransportsTaskApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfAddSnmpTransportsTaskApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewAddSnmpTransportsTaskApiResponse() *AddSnmpTransportsTaskApiResponse {
-	p := new(AddSnmpTransportsTaskApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.AddSnmpTransportsTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.AddSnmpTransportsTaskApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *AddSnmpTransportsTaskApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *AddSnmpTransportsTaskApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfAddSnmpTransportsTaskApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/snmp/traps Post operation
-*/
-type AddSnmpTrapTaskApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfAddSnmpTrapTaskApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewAddSnmpTrapTaskApiResponse() *AddSnmpTrapTaskApiResponse {
-	p := new(AddSnmpTrapTaskApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.AddSnmpTrapTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.AddSnmpTrapTaskApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *AddSnmpTrapTaskApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *AddSnmpTrapTaskApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfAddSnmpTrapTaskApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/snmp/users Post operation
-*/
-type AddSnmpUserTaskApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfAddSnmpUserTaskApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewAddSnmpUserTaskApiResponse() *AddSnmpUserTaskApiResponse {
-	p := new(AddSnmpUserTaskApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.AddSnmpUserTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.AddSnmpUserTaskApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *AddSnmpUserTaskApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *AddSnmpUserTaskApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfAddSnmpUserTaskApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-Indicates whether the address type is IPV4/IPV6
+Indicates whether the address type is IPV4/IPV6.
 */
 type AddressType int
 
@@ -435,7 +235,7 @@ func (e AddressType) Ref() *AddressType {
 }
 
 /*
-Attribute item information
+Attribute item information.
 */
 type AttributeItem struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -444,11 +244,11 @@ type AttributeItem struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Tolerance message attribute key
+	  Tolerance message attribute key.
 	*/
 	Attribute *string `json:"attribute,omitempty"`
 	/*
-	  Tolerance message attribute value
+	  Tolerance message attribute value.
 	*/
 	Value *string `json:"value,omitempty"`
 }
@@ -457,7 +257,7 @@ func NewAttributeItem() *AttributeItem {
 	p := new(AttributeItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.AttributeItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.AttributeItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -473,7 +273,7 @@ type BackplaneNetworkParams struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Flag to indicate if the backplane segmentation needs to be enabled or not
+	  Flag to indicate if the backplane segmentation needs to be enabled or not.
 	*/
 	IsSegmentationEnabled *bool `json:"isSegmentationEnabled,omitempty"`
 
@@ -490,14 +290,14 @@ func NewBackplaneNetworkParams() *BackplaneNetworkParams {
 	p := new(BackplaneNetworkParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BackplaneNetworkParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.BackplaneNetworkParams"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Block item containing block serial and rack name
+Block item containing block serial and rack name.
 */
 type BlockItem struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -506,11 +306,11 @@ type BlockItem struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Rackable unit serial name
+	  Rackable unit serial name.
 	*/
 	BlockId *string `json:"blockId,omitempty"`
 	/*
-	  Rack name
+	  Rack name.
 	*/
 	RackName *string `json:"rackName,omitempty"`
 }
@@ -519,14 +319,14 @@ func NewBlockItem() *BlockItem {
 	p := new(BlockItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BlockItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.BlockItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Build information details
+Build information details.
 */
 type BuildReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -535,23 +335,23 @@ type BuildReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Software build type
+	  Software build type.
 	*/
 	BuildType *string `json:"buildType,omitempty"`
 	/*
-	  Commit Id used for version
+	  Commit Id used for version.
 	*/
 	CommitId *string `json:"commitId,omitempty"`
 	/*
-	  Full name of software version
+	  Full name of software version.
 	*/
 	FullVersion *string `json:"fullVersion,omitempty"`
 	/*
-	  Short commit Id used for version
+	  Short commit Id used for version.
 	*/
 	ShortCommitId *string `json:"shortCommitId,omitempty"`
 	/*
-	  Software version
+	  Software version.
 	*/
 	Version *string `json:"version,omitempty"`
 }
@@ -560,14 +360,14 @@ func NewBuildReference() *BuildReference {
 	p := new(BuildReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BuildReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.BuildReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Hypervisor bundle information
+Hypervisor bundle information.
 */
 type BundleInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -576,7 +376,7 @@ type BundleInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Name of the hypervisor bundle
+	  Name of the hypervisor bundle.
 	*/
 	Name *string `json:"name,omitempty"`
 }
@@ -585,14 +385,14 @@ func NewBundleInfo() *BundleInfo {
 	p := new(BundleInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BundleInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.BundleInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-ISO attributes to validate compatibility
+ISO attributes to validate compatibility.
 */
 type BundleParam struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -603,7 +403,7 @@ type BundleParam struct {
 
 	BundleInfo *BundleInfo `json:"bundleInfo"`
 	/*
-	  List of node attributes for validating bundle compatibility
+	  List of node attributes for validating bundle compatibility.
 	*/
 	NodeList []NodeInfo `json:"nodeList"`
 }
@@ -625,10 +425,143 @@ func NewBundleParam() *BundleParam {
 	p := new(BundleParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BundleParam"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.BundleParam"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Indicates the current status of Cache Deduplication for the Container.
+*/
+type CacheDeduplication int
+
+const (
+	CACHEDEDUPLICATION_UNKNOWN  CacheDeduplication = 0
+	CACHEDEDUPLICATION_REDACTED CacheDeduplication = 1
+	CACHEDEDUPLICATION_NONE     CacheDeduplication = 2
+	CACHEDEDUPLICATION_OFF      CacheDeduplication = 3
+	CACHEDEDUPLICATION_ON       CacheDeduplication = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *CacheDeduplication) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"OFF",
+		"ON",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e CacheDeduplication) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"OFF",
+		"ON",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *CacheDeduplication) index(name string) CacheDeduplication {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"OFF",
+		"ON",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return CacheDeduplication(idx)
+		}
+	}
+	return CACHEDEDUPLICATION_UNKNOWN
+}
+
+func (e *CacheDeduplication) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for CacheDeduplication:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *CacheDeduplication) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e CacheDeduplication) Ref() *CacheDeduplication {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/check-hypervisor-requirements Post operation
+*/
+type CheckHypervisorRequirementsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfCheckHypervisorRequirementsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewCheckHypervisorRequirementsApiResponse() *CheckHypervisorRequirementsApiResponse {
+	p := new(CheckHypervisorRequirementsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.CheckHypervisorRequirementsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *CheckHypervisorRequirementsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *CheckHypervisorRequirementsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfCheckHypervisorRequirementsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
 }
 
 type Cluster struct {
@@ -640,7 +573,7 @@ type Cluster struct {
 
 	Config *ClusterConfigReference `json:"config,omitempty"`
 	/*
-	  The name of the default container created as part of cluster creation. This is part of payload for cluster create operation only
+	  The name of the default container created as part of cluster creation. This is part of payload for cluster create operation only.
 	*/
 	ContainerName *string `json:"containerName,omitempty"`
 	/*
@@ -648,11 +581,11 @@ type Cluster struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Number of inefficient VMs
+	  Number of inefficient VMs.
 	*/
 	InefficientVmCount *int64 `json:"inefficientVmCount,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
@@ -664,13 +597,17 @@ type Cluster struct {
 
 	Nodes *NodeReference `json:"nodes,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  Flag determines whether only prechecks must be run and create cluster operation be skipped.This is an optional param for cluster create operation only.
+	*/
+	RunPrechecksOnly *bool `json:"runPrechecksOnly,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	UpgradeStatus *UpgradeStatus `json:"upgradeStatus,omitempty"`
 	/*
-	  Number of VMs
+	  Number of VMs.
 	*/
 	VmCount *int64 `json:"vmCount,omitempty"`
 }
@@ -679,14 +616,14 @@ func NewCluster() *Cluster {
 	p := new(Cluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.Cluster"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.Cluster"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Cluster arch
+Cluster arch.
 */
 type ClusterArchReference int
 
@@ -765,7 +702,7 @@ func (e ClusterArchReference) Ref() *ClusterArchReference {
 }
 
 /*
-Cluster configuration details
+Cluster configuration details.
 */
 type ClusterConfigReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -786,23 +723,23 @@ type ClusterConfigReference struct {
 	*/
 	ClusterFunction []ClusterFunctionRef `json:"clusterFunction,omitempty"`
 	/*
-	  Cluster software version details
+	  Cluster software version details.
 	*/
 	ClusterSoftwareMap []SoftwareMapReference `json:"clusterSoftwareMap,omitempty"`
 
 	EncryptionInTransitStatus *EncryptionStatus `json:"encryptionInTransitStatus,omitempty"`
 	/*
-	  Encryption option
+	  Encryption option.
 	*/
 	EncryptionOption []EncryptionOptionInfo `json:"encryptionOption,omitempty"`
 	/*
-	  Encryption scope
+	  Encryption scope.
 	*/
 	EncryptionScope []EncryptionScopeInfo `json:"encryptionScope,omitempty"`
 
 	FaultToleranceState *FaultToleranceState `json:"faultToleranceState,omitempty"`
 	/*
-	  Hypervisor type
+	  Hypervisor type.
 	*/
 	HypervisorTypes []HypervisorType `json:"hypervisorTypes,omitempty"`
 	/*
@@ -810,13 +747,13 @@ type ClusterConfigReference struct {
 	*/
 	IncarnationId *int64 `json:"incarnationId,omitempty"`
 	/*
-	  Indicates whether the release is categorized as Long-term or not
+	  Indicates whether the release is categorized as Long-term or not.
 	*/
 	IsLts *bool `json:"isLts,omitempty"`
 
 	OperationMode *OperationMode `json:"operationMode,omitempty"`
 	/*
-	  Indicates whether the password ssh into the cluster is enabled or not
+	  Indicates whether the password ssh into the cluster is enabled or not.
 	*/
 	PasswordRemoteLoginEnabled *bool `json:"passwordRemoteLoginEnabled,omitempty"`
 	/*
@@ -824,11 +761,11 @@ type ClusterConfigReference struct {
 	*/
 	RedundancyFactor *int64 `json:"redundancyFactor,omitempty"`
 	/*
-	  Remote support status
+	  Remote support status.
 	*/
 	RemoteSupport *bool `json:"remoteSupport,omitempty"`
 	/*
-	  Time zone on a cluster
+	  Time zone on a cluster.
 	*/
 	Timezone *string `json:"timezone,omitempty"`
 }
@@ -837,110 +774,10 @@ func NewClusterConfigReference() *ClusterConfigReference {
 	p := new(ClusterConfigReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterConfigReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ClusterConfigReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters Post operation
-*/
-type ClusterCreateTaskResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfClusterCreateTaskResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewClusterCreateTaskResponse() *ClusterCreateTaskResponse {
-	p := new(ClusterCreateTaskResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.ClusterCreateTaskResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ClusterCreateTaskResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ClusterCreateTaskResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ClusterCreateTaskResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfClusterCreateTaskResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId} Delete operation
-*/
-type ClusterDestroyTaskResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfClusterDestroyTaskResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewClusterDestroyTaskResponse() *ClusterDestroyTaskResponse {
-	p := new(ClusterDestroyTaskResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.ClusterDestroyTaskResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ClusterDestroyTaskResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ClusterDestroyTaskResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ClusterDestroyTaskResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfClusterDestroyTaskResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -1043,7 +880,7 @@ func (e ClusterFunctionRef) Ref() *ClusterFunctionRef {
 }
 
 /*
-Network details of a cluster
+Network details of a cluster.
 */
 type ClusterNetworkReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1058,7 +895,7 @@ type ClusterNetworkReference struct {
 
 	ExternalDataServiceIp *import4.IPAddress `json:"externalDataServiceIp,omitempty"`
 	/*
-	  Cluster external subnet address
+	  Cluster external subnet address.
 	*/
 	ExternalSubnet *string `json:"externalSubnet,omitempty"`
 	/*
@@ -1066,7 +903,7 @@ type ClusterNetworkReference struct {
 	*/
 	Fqdn *string `json:"fqdn,omitempty"`
 	/*
-	  Cluster internal subnet address
+	  Cluster internal subnet address.
 	*/
 	InternalSubnet *string `json:"internalSubnet,omitempty"`
 
@@ -1076,7 +913,7 @@ type ClusterNetworkReference struct {
 
 	MasqueradingIp *import4.IPAddress `json:"masqueradingIp,omitempty"`
 	/*
-	  The port to connect to the cluster when using masquerading IP
+	  The port to connect to the cluster when using masquerading IP.
 	*/
 	MasqueradingPort *int `json:"masqueradingPort,omitempty"`
 	/*
@@ -1099,14 +936,14 @@ func NewClusterNetworkReference() *ClusterNetworkReference {
 	p := new(ClusterNetworkReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterNetworkReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ClusterNetworkReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Cluster reference for an entity
+Cluster reference for an entity.
 */
 type ClusterReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1119,7 +956,7 @@ type ClusterReference struct {
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  Cluster UUID
+	  Cluster UUID.
 	*/
 	Uuid *string `json:"uuid,omitempty"`
 }
@@ -1128,14 +965,14 @@ func NewClusterReference() *ClusterReference {
 	p := new(ClusterReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ClusterReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Fault tolerance information of a component
+Fault tolerance information of a component.
 */
 type ComponentFaultTolerance struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1146,17 +983,17 @@ type ComponentFaultTolerance struct {
 
 	DetailMessage *ToleranceMessage `json:"detailMessage,omitempty"`
 	/*
-	  Time of last update
+	  Time of last update.
 	*/
 	LastUpdatesSecs *time.Time `json:"lastUpdatesSecs,omitempty"`
 	/*
-	  Maximum fault tolerance
+	  Maximum fault tolerance.
 	*/
 	MaxFaultsTolerated *int `json:"maxFaultsTolerated,omitempty"`
 
 	Type *ComponentType `json:"type,omitempty"`
 	/*
-	  Indicates whether the tolerance computation is in progress or not
+	  Indicates whether the tolerance computation is in progress or not.
 	*/
 	UnderComputation *bool `json:"underComputation,omitempty"`
 }
@@ -1165,14 +1002,14 @@ func NewComponentFaultTolerance() *ComponentFaultTolerance {
 	p := new(ComponentFaultTolerance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ComponentFaultTolerance"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ComponentFaultTolerance"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Type of component
+Type of component.
 */
 type ComponentType int
 
@@ -1275,7 +1112,7 @@ func (e ComponentType) Ref() *ComponentType {
 }
 
 /*
-Compute node details
+Compute node details.
 */
 type ComputeNodeItem struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1284,15 +1121,15 @@ type ComputeNodeItem struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Rackable unit Id in which node resides
+	  Rackable unit Id in which node resides.
 	*/
 	BlockId *string `json:"blockId,omitempty"`
 	/*
-	  List of objects containing digital_certificate_base64 and key_management_server_uuid fields for key management server
+	  List of objects containing digital_certificate_base64 and key_management_server_uuid fields for key management server.
 	*/
 	DigitalCertificateMapList []DigitalCertificateMapReference `json:"digitalCertificateMapList,omitempty"`
 	/*
-	  Name of the host
+	  Name of the host.
 	*/
 	HypervisorHostname *string `json:"hypervisorHostname,omitempty"`
 
@@ -1300,15 +1137,15 @@ type ComputeNodeItem struct {
 
 	IpmiIp *import4.IPAddress `json:"ipmiIp,omitempty"`
 	/*
-	  Rackable unit model type
+	  Rackable unit model type.
 	*/
 	Model *string `json:"model,omitempty"`
 	/*
-	  Position of a node in a rackable unit
+	  Position of a node in a rackable unit.
 	*/
 	NodePosition *string `json:"nodePosition,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 }
@@ -1317,14 +1154,14 @@ func NewComputeNodeItem() *ComputeNodeItem {
 	p := new(ComputeNodeItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ComputeNodeItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ComputeNodeItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Config parameters
+Config parameters.
 */
 type ConfigParams struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1335,11 +1172,11 @@ type ConfigParams struct {
 
 	Hyperv *HypervCredentials `json:"hyperv,omitempty"`
 	/*
-	  Indicates whether the node is compute only or not
+	  Indicates whether the node is compute only or not.
 	*/
 	IsComputeOnly *bool `json:"isComputeOnly,omitempty"`
 	/*
-	  Indicates if node is compatible or not
+	  Indicates if node is compatible or not.
 	*/
 	IsNosCompatible *bool `json:"isNosCompatible,omitempty"`
 	/*
@@ -1347,19 +1184,19 @@ type ConfigParams struct {
 	*/
 	NeverScheduleable *bool `json:"neverScheduleable,omitempty"`
 	/*
-	  Indicates if node discovery need to be skipped or not
+	  Indicates if node discovery need to be skipped or not.
 	*/
 	SkipDiscovery *bool `json:"skipDiscovery,omitempty"`
 	/*
-	  Indicates if node imaging needs to be skipped or not
+	  Indicates if node imaging needs to be skipped or not.
 	*/
 	SkipImaging *bool `json:"skipImaging,omitempty"`
 	/*
-	  Target hypervisor
+	  Target hypervisor.
 	*/
 	TargetHypervisor *string `json:"targetHypervisor,omitempty"`
 	/*
-	  Indicates if rack awareness needs to be validated or not
+	  Indicates if rack awareness needs to be validated or not.
 	*/
 	ValidateRackAwareness *bool `json:"validateRackAwareness,omitempty"`
 }
@@ -1368,14 +1205,14 @@ func NewConfigParams() *ConfigParams {
 	p := new(ConfigParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ConfigParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ConfigParams"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Host entity with its attributes
+Host entity with its attributes.
 */
 type ControllerVmReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1388,27 +1225,27 @@ type ControllerVmReference struct {
 
 	ExternalAddress *import4.IPAddress `json:"externalAddress,omitempty"`
 	/*
-	  Controller VM Id
+	  Controller VM Id.
 	*/
 	Id *int64 `json:"id,omitempty"`
 
 	Ipmi *IpmiReference `json:"ipmi,omitempty"`
 	/*
-	  Maintenance mode status
+	  Maintenance mode status.
 	*/
 	MaintenanceMode *bool `json:"maintenanceMode,omitempty"`
 
 	NatIp *import4.IPAddress `json:"natIp,omitempty"`
 	/*
-	  NAT port
+	  NAT port.
 	*/
 	NatPort *int `json:"natPort,omitempty"`
 	/*
-	  Rackable unit UUID
+	  Rackable unit UUID.
 	*/
 	RackableUnitUuid *string `json:"rackableUnitUuid,omitempty"`
 	/*
-	  RDMA backplane address
+	  RDMA backplane address.
 	*/
 	RdmaBackplaneAddress []import4.IPAddress `json:"rdmaBackplaneAddress,omitempty"`
 }
@@ -1417,16 +1254,16 @@ func NewControllerVmReference() *ControllerVmReference {
 	p := new(ControllerVmReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ControllerVmReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ControllerVmReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters Post operation
 */
-type DeleteRsyslogServerTaskApiResponse struct {
+type CreateClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -1437,31 +1274,31 @@ type DeleteRsyslogServerTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfDeleteRsyslogServerTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfCreateClusterApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewDeleteRsyslogServerTaskApiResponse() *DeleteRsyslogServerTaskApiResponse {
-	p := new(DeleteRsyslogServerTaskApiResponse)
+func NewCreateClusterApiResponse() *CreateClusterApiResponse {
+	p := new(CreateClusterApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.DeleteRsyslogServerTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.DeleteRsyslogServerTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.CreateClusterApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *DeleteRsyslogServerTaskApiResponse) GetData() interface{} {
+func (p *CreateClusterApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *DeleteRsyslogServerTaskApiResponse) SetData(v interface{}) error {
+func (p *CreateClusterApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfDeleteRsyslogServerTaskApiResponseData()
+		p.Data = NewOneOfCreateClusterApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1474,9 +1311,9 @@ func (p *DeleteRsyslogServerTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/snmp/traps/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/rsyslog-servers Post operation
 */
-type DeleteSnmpTrapTaskApiResponse struct {
+type CreateRsyslogServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -1487,31 +1324,31 @@ type DeleteSnmpTrapTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfDeleteSnmpTrapTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfCreateRsyslogServerApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewDeleteSnmpTrapTaskApiResponse() *DeleteSnmpTrapTaskApiResponse {
-	p := new(DeleteSnmpTrapTaskApiResponse)
+func NewCreateRsyslogServerApiResponse() *CreateRsyslogServerApiResponse {
+	p := new(CreateRsyslogServerApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.DeleteSnmpTrapTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.DeleteSnmpTrapTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.CreateRsyslogServerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *DeleteSnmpTrapTaskApiResponse) GetData() interface{} {
+func (p *CreateRsyslogServerApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *DeleteSnmpTrapTaskApiResponse) SetData(v interface{}) error {
+func (p *CreateRsyslogServerApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfDeleteSnmpTrapTaskApiResponseData()
+		p.Data = NewOneOfCreateRsyslogServerApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1524,9 +1361,9 @@ func (p *DeleteSnmpTrapTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/snmp/users/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/traps Post operation
 */
-type DeleteSnmpUserTaskApiResponse struct {
+type CreateSnmpTrapApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -1537,31 +1374,31 @@ type DeleteSnmpUserTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfDeleteSnmpUserTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfCreateSnmpTrapApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewDeleteSnmpUserTaskApiResponse() *DeleteSnmpUserTaskApiResponse {
-	p := new(DeleteSnmpUserTaskApiResponse)
+func NewCreateSnmpTrapApiResponse() *CreateSnmpTrapApiResponse {
+	p := new(CreateSnmpTrapApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.DeleteSnmpUserTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.DeleteSnmpUserTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.CreateSnmpTrapApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *DeleteSnmpUserTaskApiResponse) GetData() interface{} {
+func (p *CreateSnmpTrapApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *DeleteSnmpUserTaskApiResponse) SetData(v interface{}) error {
+func (p *CreateSnmpTrapApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfDeleteSnmpUserTaskApiResponseData()
+		p.Data = NewOneOfCreateSnmpTrapApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1574,7 +1411,529 @@ func (p *DeleteSnmpUserTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Object containing digital_certificate_base64 and key_management_server_uuid fields for key management server
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/users Post operation
+*/
+type CreateSnmpUserApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfCreateSnmpUserApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewCreateSnmpUserApiResponse() *CreateSnmpUserApiResponse {
+	p := new(CreateSnmpUserApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.CreateSnmpUserApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *CreateSnmpUserApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *CreateSnmpUserApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfCreateSnmpUserApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/storage-containers Post operation
+*/
+type CreateStorageContainerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfCreateStorageContainerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewCreateStorageContainerApiResponse() *CreateStorageContainerApiResponse {
+	p := new(CreateStorageContainerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.CreateStorageContainerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *CreateStorageContainerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *CreateStorageContainerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfCreateStorageContainerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+type DataStore struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Maximum physical capacity of the Storage Container in bytes.
+	*/
+	CapacityBytes *int64 `json:"capacityBytes,omitempty"`
+	/*
+	  extId of the Storage Container.
+	*/
+	ContainerExtId *string `json:"containerExtId,omitempty"`
+	/*
+	  Name of the Storage Container. Note that the name of Storage Container should be unique per cluster.
+	*/
+	ContainerName *string `json:"containerName,omitempty"`
+	/*
+	  Name of the Data Store.
+	*/
+	DatastoreName *string `json:"datastoreName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  The free space in the Data Store.
+	*/
+	FreeSpaceBytes *int64 `json:"freeSpaceBytes,omitempty"`
+	/*
+	  ExtId of the host for Data Store.
+	*/
+	HostExtId *string `json:"hostExtId,omitempty"`
+	/*
+	  Host IP for Data Store.
+	*/
+	HostIpAddress *string `json:"hostIpAddress,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  List of VM names in the Data Store.
+	*/
+	VmNames []string `json:"vmNames,omitempty"`
+}
+
+func NewDataStore() *DataStore {
+	p := new(DataStore)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.DataStore"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type DataStoreMount struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of the Storage Container. Note that the name of Storage Container should be unique per cluster.
+	*/
+	ContainerName *string `json:"containerName"`
+	/*
+	  Name of the Data Store.
+	*/
+	DatastoreName *string `json:"datastoreName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  The UUIDs of the nodes where the NFS Data Store has to be created.
+	*/
+	NodeExtIds []string `json:"nodeExtIds,omitempty"`
+	/*
+	  Indicates if the host system has only read-only access to the NFS share.
+	*/
+	ReadOnly *bool `json:"readOnly,omitempty"`
+	/*
+	  The target path on which to mount the NFS Data Store.
+	*/
+	TargetPath *string `json:"targetPath,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *DataStoreMount) MarshalJSON() ([]byte, error) {
+	type DataStoreMountProxy DataStoreMount
+	return json.Marshal(struct {
+		*DataStoreMountProxy
+		ContainerName *string `json:"containerName,omitempty"`
+	}{
+		DataStoreMountProxy: (*DataStoreMountProxy)(p),
+		ContainerName:       p.ContainerName,
+	})
+}
+
+func NewDataStoreMount() *DataStoreMount {
+	p := new(DataStoreMount)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.DataStoreMount"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type DataStoreUnmount struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of the Data Store.
+	*/
+	DatastoreName *string `json:"datastoreName"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  The UUIDs of the nodes where the NFS Data Store has to be created.
+	*/
+	NodeExtIds []string `json:"nodeExtIds,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *DataStoreUnmount) MarshalJSON() ([]byte, error) {
+	type DataStoreUnmountProxy DataStoreUnmount
+	return json.Marshal(struct {
+		*DataStoreUnmountProxy
+		DatastoreName *string `json:"datastoreName,omitempty"`
+	}{
+		DataStoreUnmountProxy: (*DataStoreUnmountProxy)(p),
+		DatastoreName:         p.DatastoreName,
+	})
+}
+
+func NewDataStoreUnmount() *DataStoreUnmount {
+	p := new(DataStoreUnmount)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.DataStoreUnmount"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId} Delete operation
+*/
+type DeleteClusterApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDeleteClusterApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewDeleteClusterApiResponse() *DeleteClusterApiResponse {
+	p := new(DeleteClusterApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.DeleteClusterApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DeleteClusterApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DeleteClusterApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDeleteClusterApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Delete operation
+*/
+type DeleteRsyslogServerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDeleteRsyslogServerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewDeleteRsyslogServerApiResponse() *DeleteRsyslogServerApiResponse {
+	p := new(DeleteRsyslogServerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.DeleteRsyslogServerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DeleteRsyslogServerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DeleteRsyslogServerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDeleteRsyslogServerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/traps/{extId} Delete operation
+*/
+type DeleteSnmpTrapApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDeleteSnmpTrapApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewDeleteSnmpTrapApiResponse() *DeleteSnmpTrapApiResponse {
+	p := new(DeleteSnmpTrapApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.DeleteSnmpTrapApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DeleteSnmpTrapApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DeleteSnmpTrapApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDeleteSnmpTrapApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/users/{extId} Delete operation
+*/
+type DeleteSnmpUserApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDeleteSnmpUserApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewDeleteSnmpUserApiResponse() *DeleteSnmpUserApiResponse {
+	p := new(DeleteSnmpUserApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.DeleteSnmpUserApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DeleteSnmpUserApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DeleteSnmpUserApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDeleteSnmpUserApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/storage-containers/{extId} Delete operation
+*/
+type DeleteStorageContainerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDeleteStorageContainerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewDeleteStorageContainerApiResponse() *DeleteStorageContainerApiResponse {
+	p := new(DeleteStorageContainerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.DeleteStorageContainerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DeleteStorageContainerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DeleteStorageContainerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDeleteStorageContainerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Object containing digital_certificate_base64 and key_management_server_uuid fields for key management server.
 */
 type DigitalCertificateMapReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1583,11 +1942,11 @@ type DigitalCertificateMapReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Field containing digital_certificate_base64 and key_management_server_uuid for key management server
+	  Field containing digital_certificate_base64 and key_management_server_uuid for key management server.
 	*/
 	Key *string `json:"key,omitempty"`
 	/*
-	  Value for the fields digital_certificate_base64 and key_management_server_uuid for key management server
+	  Value for the fields digital_certificate_base64 and key_management_server_uuid for key management server.
 	*/
 	Value *string `json:"value,omitempty"`
 }
@@ -1596,16 +1955,16 @@ func NewDigitalCertificateMapReference() *DigitalCertificateMapReference {
 	p := new(DigitalCertificateMapReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DigitalCertificateMapReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.DigitalCertificateMapReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/$actions/discover-unconfigured-nodes Post operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/discover-unconfigured-nodes Post operation
 */
-type DiscoverNodeTaskApiResponse struct {
+type DiscoverUnconfiguredNodesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -1616,31 +1975,31 @@ type DiscoverNodeTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfDiscoverNodeTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfDiscoverUnconfiguredNodesApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewDiscoverNodeTaskApiResponse() *DiscoverNodeTaskApiResponse {
-	p := new(DiscoverNodeTaskApiResponse)
+func NewDiscoverUnconfiguredNodesApiResponse() *DiscoverUnconfiguredNodesApiResponse {
+	p := new(DiscoverUnconfiguredNodesApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.DiscoverNodeTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.DiscoverNodeTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.DiscoverUnconfiguredNodesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *DiscoverNodeTaskApiResponse) GetData() interface{} {
+func (p *DiscoverUnconfiguredNodesApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *DiscoverNodeTaskApiResponse) SetData(v interface{}) error {
+func (p *DiscoverUnconfiguredNodesApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfDiscoverNodeTaskApiResponseData()
+		p.Data = NewOneOfDiscoverUnconfiguredNodesApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1653,7 +2012,211 @@ func (p *DiscoverNodeTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Disk details attached to a host
+A model that represents Disk resources.
+*/
+type Disk struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The external identifier of the Disk Cluster.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  Cluster name of the Disk it belongs to.
+	*/
+	ClusterName *string `json:"clusterName,omitempty"`
+
+	CvmIpAddress *import4.IPAddress `json:"cvmIpAddress,omitempty"`
+
+	DiskAdvanceConfig *DiskAdvanceConfig `json:"diskAdvanceConfig,omitempty"`
+	/*
+	  Size of the Disk in bytes.
+	*/
+	DiskSizeBytes *int64 `json:"diskSizeBytes,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Represents the current firmware version.
+	*/
+	FirmwareVersion *string `json:"firmwareVersion,omitempty"`
+	/*
+	  Host name of the Disk it belongs to.
+	*/
+	HostName *string `json:"hostName,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  Indicates the location of Disk in a node.
+	*/
+	Location *int64 `json:"location,omitempty"`
+	/*
+	  Represents the Disk model.
+	*/
+	Model *string `json:"model,omitempty"`
+	/*
+	  Represents the mount path of the Disk.
+	*/
+	MountPath *string `json:"mountPath,omitempty"`
+	/*
+	  The external identifier of the node.
+	*/
+	NodeExtId *string `json:"nodeExtId,omitempty"`
+
+	NodeIpAddress *import4.IPAddress `json:"nodeIpAddress,omitempty"`
+	/*
+	  Indicates the PCIe path of NVMe devices.
+	*/
+	NvmePciePath *string `json:"nvmePciePath,omitempty"`
+	/*
+	  Physical capacity of the Disk in bytes.
+	*/
+	PhysicalCapacityBytes *int64 `json:"physicalCapacityBytes,omitempty"`
+	/*
+	  Represents the Disk serial number.
+	*/
+	SerialNumber *string `json:"serialNumber,omitempty"`
+	/*
+	  ServiceVMId of the node.
+	*/
+	ServiceVMId *string `json:"serviceVMId,omitempty"`
+
+	Status *DiskStatus `json:"status,omitempty"`
+	/*
+	  The external identifier of storage pool.
+	*/
+	StoragePoolExtId *string `json:"storagePoolExtId,omitempty"`
+
+	StorageTier *StorageTier `json:"storageTier,omitempty"`
+	/*
+	  Represents the target firmware version.
+	*/
+	TargetFirmwareVersion *string `json:"targetFirmwareVersion,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Represents the Disk vendor.
+	*/
+	Vendor *string `json:"vendor,omitempty"`
+}
+
+func NewDisk() *Disk {
+	p := new(Disk)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.Disk"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+A model that represents Disk advance config properties.
+*/
+type DiskAdvanceConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Indicates if the Disk is boot only and no Disk operation to be run on it.
+	*/
+	HasBootPartitionsOnly *bool `json:"hasBootPartitionsOnly,omitempty"`
+	/*
+	  Indicates if Disk is a boot Disk.
+	*/
+	IsBootDisk *bool `json:"isBootDisk,omitempty"`
+	/*
+	  Indicates if data migration is completed for the Disk.
+	*/
+	IsDataMigrated *bool `json:"isDataMigrated,omitempty"`
+	/*
+	  Indicates the Disk diagnostic info along with device related statics is present.
+	*/
+	IsDiagnosticInfoAvailable *bool `json:"isDiagnosticInfoAvailable,omitempty"`
+	/*
+	  Indicates Disk error is seen on the Disk in kernel logs or not.
+	*/
+	IsErrorFoundInLog *bool `json:"isErrorFoundInLog,omitempty"`
+	/*
+	  Indicates if the Disk is marked for removal.
+	*/
+	IsMarkedForRemoval *bool `json:"isMarkedForRemoval,omitempty"`
+	/*
+	  Indicates if the Disk is mounted.
+	*/
+	IsMounted *bool `json:"isMounted,omitempty"`
+	/*
+	  Indicates whether Disk is online or offline.
+	*/
+	IsOnline *bool `json:"isOnline,omitempty"`
+	/*
+	  Indicates if the Disk is password protected.
+	*/
+	IsPasswordProtected *bool `json:"isPasswordProtected,omitempty"`
+	/*
+	  Indicates if diagnostics are running on the Disk.
+	*/
+	IsPlannedOutage *bool `json:"isPlannedOutage,omitempty"`
+	/*
+	  Indicates whether the Disk has self encryption enabled.
+	*/
+	IsSelfEncryptingDrive *bool `json:"isSelfEncryptingDrive,omitempty"`
+	/*
+	  Indicates if the NVMe Disk is self managed and no host/CVM reboot is required.
+	*/
+	IsSelfManagedNvme *bool `json:"isSelfManagedNvme,omitempty"`
+	/*
+	  Indicates if NVMe device is managed by storage performance development kit(SPDK).
+	*/
+	IsSpdkManaged *bool `json:"isSpdkManaged,omitempty"`
+	/*
+	  Indicates if the Disk is suspected to be unhealthy.
+	*/
+	IsSuspectedUnhealthy *bool `json:"isSuspectedUnhealthy,omitempty"`
+	/*
+	  Indicates if the Disk is under diagnosis.
+	*/
+	IsUnderDiagnosis *bool `json:"isUnderDiagnosis,omitempty"`
+	/*
+	  Indicates if the Disk is unhealthy.
+	*/
+	IsUnhealthy *bool `json:"isUnhealthy,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewDiskAdvanceConfig() *DiskAdvanceConfig {
+	p := new(DiskAdvanceConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.DiskAdvanceConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Disk details attached to a host.
 */
 type DiskReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1662,21 +2225,21 @@ type DiskReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Disk mount path
+	  Disk mount path.
 	*/
 	MountPath *string `json:"mountPath,omitempty"`
 	/*
-	  Disk serial Id
+	  Disk serial Id.
 	*/
 	SerialId *string `json:"serialId,omitempty"`
 	/*
-	  Disk size
+	  Disk size.
 	*/
 	SizeInBytes *int64 `json:"sizeInBytes,omitempty"`
 
 	StorageTier *StorageTierReference `json:"storageTier,omitempty"`
 	/*
-	  Disk UUID
+	  Disk UUID.
 	*/
 	Uuid *string `json:"uuid,omitempty"`
 }
@@ -1685,10 +2248,97 @@ func NewDiskReference() *DiskReference {
 	p := new(DiskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DiskReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.DiskReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Indicates the status of the Disk.
+*/
+type DiskStatus int
+
+const (
+	DISKSTATUS_UNKNOWN                               DiskStatus = 0
+	DISKSTATUS_REDACTED                              DiskStatus = 1
+	DISKSTATUS_NORMAL                                DiskStatus = 2
+	DISKSTATUS_MARKED_FOR_REMOVAL_BUT_NOT_DETACHABLE DiskStatus = 3
+	DISKSTATUS_DETACHABLE                            DiskStatus = 4
+	DISKSTATUS_DATA_MIGRATION_INITIATED              DiskStatus = 5
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *DiskStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NORMAL",
+		"MARKED_FOR_REMOVAL_BUT_NOT_DETACHABLE",
+		"DETACHABLE",
+		"DATA_MIGRATION_INITIATED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e DiskStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NORMAL",
+		"MARKED_FOR_REMOVAL_BUT_NOT_DETACHABLE",
+		"DETACHABLE",
+		"DATA_MIGRATION_INITIATED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *DiskStatus) index(name string) DiskStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NORMAL",
+		"MARKED_FOR_REMOVAL_BUT_NOT_DETACHABLE",
+		"DETACHABLE",
+		"DATA_MIGRATION_INITIATED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return DiskStatus(idx)
+		}
+	}
+	return DISKSTATUS_UNKNOWN
+}
+
+func (e *DiskStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for DiskStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *DiskStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e DiskStatus) Ref() *DiskStatus {
+	return &e
 }
 
 /*
@@ -1779,7 +2429,7 @@ func (e DomainAwarenessLevel) Ref() *DomainAwarenessLevel {
 }
 
 /*
-Domain fault tolerance configuration
+Domain fault tolerance configuration.
 */
 type DomainFaultTolerance struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1788,7 +2438,7 @@ type DomainFaultTolerance struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of components in a domain
+	  List of components in a domain.
 	*/
 	ComponentStatus []ComponentFaultTolerance `json:"componentStatus,omitempty"`
 
@@ -1799,7 +2449,7 @@ func NewDomainFaultTolerance() *DomainFaultTolerance {
 	p := new(DomainFaultTolerance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DomainFaultTolerance"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.DomainFaultTolerance"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1901,7 +2551,7 @@ func (e DomainType) Ref() *DomainType {
 }
 
 /*
-Encryption option
+Encryption option.
 */
 type EncryptionOptionInfo int
 
@@ -1984,7 +2634,7 @@ func (e EncryptionOptionInfo) Ref() *EncryptionOptionInfo {
 }
 
 /*
-Encryption scope
+Encryption scope.
 */
 type EncryptionScopeInfo int
 
@@ -2063,7 +2713,7 @@ func (e EncryptionScopeInfo) Ref() *EncryptionScopeInfo {
 }
 
 /*
-Encryption in transit Status
+Encryption in transit Status.
 */
 type EncryptionStatus int
 
@@ -2142,7 +2792,140 @@ func (e EncryptionStatus) Ref() *EncryptionStatus {
 }
 
 /*
-Property of the node to be added
+Indicates the current status value for Erasure Coding for the Container.
+*/
+type ErasureCodeStatus int
+
+const (
+	ERASURECODESTATUS_UNKNOWN  ErasureCodeStatus = 0
+	ERASURECODESTATUS_REDACTED ErasureCodeStatus = 1
+	ERASURECODESTATUS_NONE     ErasureCodeStatus = 2
+	ERASURECODESTATUS_OFF      ErasureCodeStatus = 3
+	ERASURECODESTATUS_ON       ErasureCodeStatus = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ErasureCodeStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"OFF",
+		"ON",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ErasureCodeStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"OFF",
+		"ON",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ErasureCodeStatus) index(name string) ErasureCodeStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"OFF",
+		"ON",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ErasureCodeStatus(idx)
+		}
+	}
+	return ERASURECODESTATUS_UNKNOWN
+}
+
+func (e *ErasureCodeStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ErasureCodeStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ErasureCodeStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ErasureCodeStatus) Ref() *ErasureCodeStatus {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/expand-cluster Post operation
+*/
+type ExpandClusterApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfExpandClusterApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewExpandClusterApiResponse() *ExpandClusterApiResponse {
+	p := new(ExpandClusterApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ExpandClusterApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ExpandClusterApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ExpandClusterApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfExpandClusterApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Property of the node to be added.
 */
 type ExpandClusterParams struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2155,11 +2938,11 @@ type ExpandClusterParams struct {
 
 	NodeParams *NodeParam `json:"nodeParams"`
 	/*
-	  Indicates if node addition can be skipped
+	  Indicates if node addition can be skipped.
 	*/
 	SkipAddNode *bool `json:"skipAddNode,omitempty"`
 	/*
-	  Indicates if pre-expand checks can be skipped for node addition
+	  Indicates if pre-expand checks can be skipped for node addition.
 	*/
 	SkipPreExpandChecks *bool `json:"skipPreExpandChecks,omitempty"`
 }
@@ -2179,14 +2962,14 @@ func NewExpandClusterParams() *ExpandClusterParams {
 	p := new(ExpandClusterParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ExpandClusterParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ExpandClusterParams"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Fault tolerant state of cluster
+Fault tolerant state of cluster.
 */
 type FaultToleranceState struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2195,7 +2978,7 @@ type FaultToleranceState struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Maximum fault tolerance that is supported currently
+	  Maximum fault tolerance that is supported currently.
 	*/
 	CurrentMaxFaultTolerance *int `json:"currentMaxFaultTolerance,omitempty"`
 	/*
@@ -2210,16 +2993,16 @@ func NewFaultToleranceState() *FaultToleranceState {
 	p := new(FaultToleranceState)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.FaultToleranceState"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.FaultToleranceState"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/host-gpus Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/fetch-node-networking-details Post operation
 */
-type GetAllHostGpusResponse struct {
+type FetchNodeNetworkingDetailsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2230,31 +3013,31 @@ type GetAllHostGpusResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetAllHostGpusResponseData `json:"data,omitempty"`
+	Data *OneOfFetchNodeNetworkingDetailsApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetAllHostGpusResponse() *GetAllHostGpusResponse {
-	p := new(GetAllHostGpusResponse)
+func NewFetchNodeNetworkingDetailsApiResponse() *FetchNodeNetworkingDetailsApiResponse {
+	p := new(FetchNodeNetworkingDetailsApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetAllHostGpusResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetAllHostGpusResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.FetchNodeNetworkingDetailsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetAllHostGpusResponse) GetData() interface{} {
+func (p *FetchNodeNetworkingDetailsApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetAllHostGpusResponse) SetData(v interface{}) error {
+func (p *FetchNodeNetworkingDetailsApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetAllHostGpusResponseData()
+		p.Data = NewOneOfFetchNodeNetworkingDetailsApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2267,9 +3050,9 @@ func (p *GetAllHostGpusResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/hosts Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/tasks/{extId}/$actions/fetch-task-response Post operation
 */
-type GetAllHostsResponse struct {
+type FetchTaskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2280,31 +3063,31 @@ type GetAllHostsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetAllHostsResponseData `json:"data,omitempty"`
+	Data *OneOfFetchTaskApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetAllHostsResponse() *GetAllHostsResponse {
-	p := new(GetAllHostsResponse)
+func NewFetchTaskApiResponse() *FetchTaskApiResponse {
+	p := new(FetchTaskApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetAllHostsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetAllHostsResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.FetchTaskApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetAllHostsResponse) GetData() interface{} {
+func (p *FetchTaskApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetAllHostsResponse) SetData(v interface{}) error {
+func (p *FetchTaskApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetAllHostsResponseData()
+		p.Data = NewOneOfFetchTaskApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2317,9 +3100,9 @@ func (p *GetAllHostsResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/host-gpus Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId} Get operation
 */
-type GetClusterHostGpusResponse struct {
+type GetClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2330,31 +3113,31 @@ type GetClusterHostGpusResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetClusterHostGpusResponseData `json:"data,omitempty"`
+	Data *OneOfGetClusterApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetClusterHostGpusResponse() *GetClusterHostGpusResponse {
-	p := new(GetClusterHostGpusResponse)
+func NewGetClusterApiResponse() *GetClusterApiResponse {
+	p := new(GetClusterApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetClusterHostGpusResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetClusterHostGpusResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetClusterApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetClusterHostGpusResponse) GetData() interface{} {
+func (p *GetClusterApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetClusterHostGpusResponse) SetData(v interface{}) error {
+func (p *GetClusterApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetClusterHostGpusResponseData()
+		p.Data = NewOneOfGetClusterApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2367,9 +3150,9 @@ func (p *GetClusterHostGpusResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/disks/{extId} Get operation
 */
-type GetClusterResponse struct {
+type GetDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2380,31 +3163,31 @@ type GetClusterResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetClusterResponseData `json:"data,omitempty"`
+	Data *OneOfGetDiskApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetClusterResponse() *GetClusterResponse {
-	p := new(GetClusterResponse)
+func NewGetDiskApiResponse() *GetDiskApiResponse {
+	p := new(GetDiskApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetClusterResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetClusterResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetDiskApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetClusterResponse) GetData() interface{} {
+func (p *GetDiskApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetClusterResponse) SetData(v interface{}) error {
+func (p *GetDiskApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetClusterResponseData()
+		p.Data = NewOneOfGetDiskApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2417,9 +3200,9 @@ func (p *GetClusterResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/fault-tolerance-status Get operation
 */
-type GetClustersResponse struct {
+type GetFaultToleranceStatusByClusterIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2430,31 +3213,31 @@ type GetClustersResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetClustersResponseData `json:"data,omitempty"`
+	Data *OneOfGetFaultToleranceStatusByClusterIdApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetClustersResponse() *GetClustersResponse {
-	p := new(GetClustersResponse)
+func NewGetFaultToleranceStatusByClusterIdApiResponse() *GetFaultToleranceStatusByClusterIdApiResponse {
+	p := new(GetFaultToleranceStatusByClusterIdApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetClustersResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetClustersResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetFaultToleranceStatusByClusterIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetClustersResponse) GetData() interface{} {
+func (p *GetFaultToleranceStatusByClusterIdApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetClustersResponse) SetData(v interface{}) error {
+func (p *GetFaultToleranceStatusByClusterIdApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetClustersResponseData()
+		p.Data = NewOneOfGetFaultToleranceStatusByClusterIdApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2467,9 +3250,9 @@ func (p *GetClustersResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/fault-tolerance-status Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{extId} Get operation
 */
-type GetDomainFaultToleranceResponse struct {
+type GetHostApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2480,31 +3263,31 @@ type GetDomainFaultToleranceResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetDomainFaultToleranceResponseData `json:"data,omitempty"`
+	Data *OneOfGetHostApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetDomainFaultToleranceResponse() *GetDomainFaultToleranceResponse {
-	p := new(GetDomainFaultToleranceResponse)
+func NewGetHostApiResponse() *GetHostApiResponse {
+	p := new(GetHostApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetDomainFaultToleranceResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetDomainFaultToleranceResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetHostApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetDomainFaultToleranceResponse) GetData() interface{} {
+func (p *GetHostApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetDomainFaultToleranceResponse) SetData(v interface{}) error {
+func (p *GetHostApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetDomainFaultToleranceResponseData()
+		p.Data = NewOneOfGetHostApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2517,9 +3300,9 @@ func (p *GetDomainFaultToleranceResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/host-gpu-profiles Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId} Get operation
 */
-type GetGpuProfilesResponse struct {
+type GetHostNicApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2530,31 +3313,31 @@ type GetGpuProfilesResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetGpuProfilesResponseData `json:"data,omitempty"`
+	Data *OneOfGetHostNicApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetGpuProfilesResponse() *GetGpuProfilesResponse {
-	p := new(GetGpuProfilesResponse)
+func NewGetHostNicApiResponse() *GetHostNicApiResponse {
+	p := new(GetHostNicApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetGpuProfilesResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetGpuProfilesResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetHostNicApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetGpuProfilesResponse) GetData() interface{} {
+func (p *GetHostNicApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetGpuProfilesResponse) SetData(v interface{}) error {
+func (p *GetHostNicApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetGpuProfilesResponseData()
+		p.Data = NewOneOfGetHostNicApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2567,9 +3350,9 @@ func (p *GetGpuProfilesResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-gpus/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/rackable-units/{extId} Get operation
 */
-type GetHostGpuResponse struct {
+type GetRackableUnitApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2580,31 +3363,31 @@ type GetHostGpuResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetHostGpuResponseData `json:"data,omitempty"`
+	Data *OneOfGetRackableUnitApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetHostGpuResponse() *GetHostGpuResponse {
-	p := new(GetHostGpuResponse)
+func NewGetRackableUnitApiResponse() *GetRackableUnitApiResponse {
+	p := new(GetRackableUnitApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetHostGpuResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetHostGpuResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetRackableUnitApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetHostGpuResponse) GetData() interface{} {
+func (p *GetRackableUnitApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetHostGpuResponse) SetData(v interface{}) error {
+func (p *GetRackableUnitApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetHostGpuResponseData()
+		p.Data = NewOneOfGetRackableUnitApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2617,9 +3400,9 @@ func (p *GetHostGpuResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/hosts/{extId}/host-gpus Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Get operation
 */
-type GetHostGpusResponse struct {
+type GetRsyslogServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2630,31 +3413,31 @@ type GetHostGpusResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetHostGpusResponseData `json:"data,omitempty"`
+	Data *OneOfGetRsyslogServerApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetHostGpusResponse() *GetHostGpusResponse {
-	p := new(GetHostGpusResponse)
+func NewGetRsyslogServerApiResponse() *GetRsyslogServerApiResponse {
+	p := new(GetRsyslogServerApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetHostGpusResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetHostGpusResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetRsyslogServerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetHostGpusResponse) GetData() interface{} {
+func (p *GetRsyslogServerApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetHostGpusResponse) SetData(v interface{}) error {
+func (p *GetRsyslogServerApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetHostGpusResponseData()
+		p.Data = NewOneOfGetRsyslogServerApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2667,9 +3450,9 @@ func (p *GetHostGpusResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/snmp Get operation
 */
-type GetHostNicResponse struct {
+type GetSnmpConfigByClusterIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2680,31 +3463,31 @@ type GetHostNicResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetHostNicResponseData `json:"data,omitempty"`
+	Data *OneOfGetSnmpConfigByClusterIdApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetHostNicResponse() *GetHostNicResponse {
-	p := new(GetHostNicResponse)
+func NewGetSnmpConfigByClusterIdApiResponse() *GetSnmpConfigByClusterIdApiResponse {
+	p := new(GetSnmpConfigByClusterIdApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetHostNicResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetHostNicResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetSnmpConfigByClusterIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetHostNicResponse) GetData() interface{} {
+func (p *GetSnmpConfigByClusterIdApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetHostNicResponse) SetData(v interface{}) error {
+func (p *GetSnmpConfigByClusterIdApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetHostNicResponseData()
+		p.Data = NewOneOfGetSnmpConfigByClusterIdApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2717,9 +3500,9 @@ func (p *GetHostNicResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/hosts/{extId}/host-nics Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/traps/{extId} Get operation
 */
-type GetHostNicsResponse struct {
+type GetSnmpTrapApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2730,31 +3513,31 @@ type GetHostNicsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetHostNicsResponseData `json:"data,omitempty"`
+	Data *OneOfGetSnmpTrapApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetHostNicsResponse() *GetHostNicsResponse {
-	p := new(GetHostNicsResponse)
+func NewGetSnmpTrapApiResponse() *GetSnmpTrapApiResponse {
+	p := new(GetSnmpTrapApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetHostNicsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetHostNicsResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetSnmpTrapApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetHostNicsResponse) GetData() interface{} {
+func (p *GetSnmpTrapApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetHostNicsResponse) SetData(v interface{}) error {
+func (p *GetSnmpTrapApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetHostNicsResponseData()
+		p.Data = NewOneOfGetSnmpTrapApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2767,9 +3550,9 @@ func (p *GetHostNicsResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/hosts/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/users/{extId} Get operation
 */
-type GetHostResponse struct {
+type GetSnmpUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2780,31 +3563,31 @@ type GetHostResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetHostResponseData `json:"data,omitempty"`
+	Data *OneOfGetSnmpUserApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetHostResponse() *GetHostResponse {
-	p := new(GetHostResponse)
+func NewGetSnmpUserApiResponse() *GetSnmpUserApiResponse {
+	p := new(GetSnmpUserApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetHostResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetHostResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetSnmpUserApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetHostResponse) GetData() interface{} {
+func (p *GetSnmpUserApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetHostResponse) SetData(v interface{}) error {
+func (p *GetSnmpUserApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetHostResponseData()
+		p.Data = NewOneOfGetSnmpUserApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2817,9 +3600,9 @@ func (p *GetHostResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/hosts Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/storage-containers/{extId} Get operation
 */
-type GetHostsResponse struct {
+type GetStorageContainerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2830,31 +3613,31 @@ type GetHostsResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetHostsResponseData `json:"data,omitempty"`
+	Data *OneOfGetStorageContainerApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetHostsResponse() *GetHostsResponse {
-	p := new(GetHostsResponse)
+func NewGetStorageContainerApiResponse() *GetStorageContainerApiResponse {
+	p := new(GetStorageContainerApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetHostsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetHostsResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetStorageContainerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetHostsResponse) GetData() interface{} {
+func (p *GetStorageContainerApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetHostsResponse) SetData(v interface{}) error {
+func (p *GetStorageContainerApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetHostsResponseData()
+		p.Data = NewOneOfGetStorageContainerApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2867,9 +3650,9 @@ func (p *GetHostsResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/$actions/fetch-node-networking-details Post operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/vcenter-extensions/{extId} Get operation
 */
-type GetNodeNetworkingTaskApiResponse struct {
+type GetVcenterExtensionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2880,31 +3663,31 @@ type GetNodeNetworkingTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetNodeNetworkingTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfGetVcenterExtensionApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetNodeNetworkingTaskApiResponse() *GetNodeNetworkingTaskApiResponse {
-	p := new(GetNodeNetworkingTaskApiResponse)
+func NewGetVcenterExtensionApiResponse() *GetVcenterExtensionApiResponse {
+	p := new(GetVcenterExtensionApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetNodeNetworkingTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetNodeNetworkingTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetVcenterExtensionApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetNodeNetworkingTaskApiResponse) GetData() interface{} {
+func (p *GetVcenterExtensionApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetNodeNetworkingTaskApiResponse) SetData(v interface{}) error {
+func (p *GetVcenterExtensionApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetNodeNetworkingTaskApiResponseData()
+		p.Data = NewOneOfGetVcenterExtensionApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2917,9 +3700,9 @@ func (p *GetNodeNetworkingTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/rackable-units/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId} Get operation
 */
-type GetRackableUnitResponse struct {
+type GetVirtualNicApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2930,31 +3713,31 @@ type GetRackableUnitResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetRackableUnitResponseData `json:"data,omitempty"`
+	Data *OneOfGetVirtualNicApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetRackableUnitResponse() *GetRackableUnitResponse {
-	p := new(GetRackableUnitResponse)
+func NewGetVirtualNicApiResponse() *GetVirtualNicApiResponse {
+	p := new(GetVirtualNicApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetRackableUnitResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetRackableUnitResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.GetVirtualNicApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetRackableUnitResponse) GetData() interface{} {
+func (p *GetVirtualNicApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetRackableUnitResponse) SetData(v interface{}) error {
+func (p *GetVirtualNicApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetRackableUnitResponseData()
+		p.Data = NewOneOfGetVirtualNicApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2967,457 +3750,7 @@ func (p *GetRackableUnitResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/rackable-units Get operation
-*/
-type GetRackableUnitsResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetRackableUnitsResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetRackableUnitsResponse() *GetRackableUnitsResponse {
-	p := new(GetRackableUnitsResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetRackableUnitsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetRackableUnitsResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetRackableUnitsResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetRackableUnitsResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetRackableUnitsResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Get operation
-*/
-type GetRsyslogServerResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetRsyslogServerResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetRsyslogServerResponse() *GetRsyslogServerResponse {
-	p := new(GetRsyslogServerResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetRsyslogServerResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetRsyslogServerResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetRsyslogServerResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetRsyslogServerResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetRsyslogServerResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/rsyslog-servers Get operation
-*/
-type GetRsyslogServersResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetRsyslogServersResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetRsyslogServersResponse() *GetRsyslogServersResponse {
-	p := new(GetRsyslogServersResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetRsyslogServersResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetRsyslogServersResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetRsyslogServersResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetRsyslogServersResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetRsyslogServersResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/tasks/{extId}/$actions/fetch-task-response Post operation
-*/
-type GetSearchResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetSearchResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetSearchResponse() *GetSearchResponse {
-	p := new(GetSearchResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetSearchResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetSearchResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetSearchResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetSearchResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetSearchResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/snmp Get operation
-*/
-type GetSnmpResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetSnmpResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetSnmpResponse() *GetSnmpResponse {
-	p := new(GetSnmpResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetSnmpResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetSnmpResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetSnmpResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetSnmpResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetSnmpResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/snmp/traps/{extId} Get operation
-*/
-type GetSnmpTrapResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetSnmpTrapResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetSnmpTrapResponse() *GetSnmpTrapResponse {
-	p := new(GetSnmpTrapResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetSnmpTrapResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetSnmpTrapResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetSnmpTrapResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetSnmpTrapResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetSnmpTrapResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/snmp/users/{extId} Get operation
-*/
-type GetSnmpUserResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetSnmpUserResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetSnmpUserResponse() *GetSnmpUserResponse {
-	p := new(GetSnmpUserResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetSnmpUserResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetSnmpUserResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetSnmpUserResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetSnmpUserResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetSnmpUserResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId} Get operation
-*/
-type GetVirtualNicResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetVirtualNicResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetVirtualNicResponse() *GetVirtualNicResponse {
-	p := new(GetVirtualNicResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetVirtualNicResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetVirtualNicResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetVirtualNicResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetVirtualNicResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetVirtualNicResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/hosts/{extId}/virtual-nics Get operation
-*/
-type GetVirtualNicsResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetVirtualNicsResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetVirtualNicsResponse() *GetVirtualNicsResponse {
-	p := new(GetVirtualNicsResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.GetVirtualNicsResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GetVirtualNicsResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetVirtualNicsResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetVirtualNicsResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetVirtualNicsResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-GPU configuration details
+GPU configuration details.
 */
 type GpuConfig struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3426,59 +3759,59 @@ type GpuConfig struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  GPU assignable
+	  GPU assignable.
 	*/
 	Assignable *int64 `json:"assignable,omitempty"`
 	/*
-	  Device Id
+	  Device Id.
 	*/
 	DeviceId *string `json:"deviceId,omitempty"`
 	/*
-	  Device name
+	  Device name.
 	*/
 	DeviceName *string `json:"deviceName,omitempty"`
 	/*
-	  GPU fraction
+	  GPU fraction.
 	*/
 	Fraction *int64 `json:"fraction,omitempty"`
 	/*
-	  Frame buffer size in bytes
+	  Frame buffer size in bytes.
 	*/
 	FrameBufferSizeBytes *int64 `json:"frameBufferSizeBytes,omitempty"`
 	/*
-	  Guest driver version
+	  Guest driver version.
 	*/
 	GuestDriverVersion *string `json:"guestDriverVersion,omitempty"`
 	/*
-	  GPU in use
+	  GPU in use.
 	*/
 	InUse *bool `json:"inUse,omitempty"`
 	/*
-	  GPU license list
+	  GPU license list.
 	*/
 	LicenseList []string `json:"licenseList,omitempty"`
 	/*
-	  Maximum resolution per display heads
+	  Maximum resolution per display heads.
 	*/
 	MaxResolution *string `json:"maxResolution,omitempty"`
 
 	Mode *GpuMode `json:"mode,omitempty"`
 	/*
-	  NUMA node
+	  NUMA node.
 	*/
 	NumaNode *string `json:"numaNode,omitempty"`
 	/*
-	  Number of virtual display heads
+	  Number of virtual display heads.
 	*/
 	NumberOfVirtualDisplayHeads *int64 `json:"numberOfVirtualDisplayHeads,omitempty"`
 	/*
-	  SBDF address
+	  SBDF address.
 	*/
 	Sbdf *string `json:"sbdf,omitempty"`
 
 	Type *GpuType `json:"type,omitempty"`
 	/*
-	  Vendor name
+	  Vendor name.
 	*/
 	VendorName *string `json:"vendorName,omitempty"`
 }
@@ -3487,14 +3820,14 @@ func NewGpuConfig() *GpuConfig {
 	p := new(GpuConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GpuConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GpuConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-GPU mode
+GPU mode.
 */
 type GpuMode int
 
@@ -3577,7 +3910,7 @@ func (e GpuMode) Ref() *GpuMode {
 }
 
 /*
-GPU Profile
+GPU Profile.
 */
 type GpuProfile struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3586,11 +3919,11 @@ type GpuProfile struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of UUIDs of virtual machines with an allocated GPU belonging to this profile
+	  List of UUIDs of virtual machines with an allocated GPU belonging to this profile.
 	*/
 	AllocatedVmUuids []string `json:"allocatedVmUuids,omitempty"`
 	/*
-	  Device Id
+	  Device Id.
 	*/
 	DeviceId *string `json:"deviceId,omitempty"`
 
@@ -3601,14 +3934,14 @@ func NewGpuProfile() *GpuProfile {
 	p := new(GpuProfile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GpuProfile"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.GpuProfile"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-GPU type
+GPU type.
 */
 type GpuType int
 
@@ -3691,7 +4024,7 @@ func (e GpuType) Ref() *GpuType {
 }
 
 /*
-Host entity with its attributes
+Host entity with its attributes.
 */
 type Host struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3700,15 +4033,15 @@ type Host struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Rackable unit model name
+	  Rackable unit model name.
 	*/
 	BlockModel *string `json:"blockModel,omitempty"`
 	/*
-	  Rackable unit serial name
+	  Rackable unit serial name.
 	*/
 	BlockSerial *string `json:"blockSerial,omitempty"`
 	/*
-	  Boot time in secs
+	  Boot time in secs.
 	*/
 	BootTimeUsecs *int64 `json:"bootTimeUsecs,omitempty"`
 
@@ -3716,35 +4049,35 @@ type Host struct {
 
 	ControllerVm *ControllerVmReference `json:"controllerVm,omitempty"`
 	/*
-	  CPU capacity in Hz
+	  CPU capacity in Hz.
 	*/
 	CpuCapacityHz *int64 `json:"cpuCapacityHz,omitempty"`
 	/*
-	  CPU frequency in Hz
+	  CPU frequency in Hz.
 	*/
 	CpuFrequencyHz *int64 `json:"cpuFrequencyHz,omitempty"`
 	/*
-	  CPU model name
+	  CPU model name.
 	*/
 	CpuModel *string `json:"cpuModel,omitempty"`
 	/*
-	  Default VHD container UUID
+	  Default VHD container UUID.
 	*/
 	DefaultVhdContainerUuid *string `json:"defaultVhdContainerUuid,omitempty"`
 	/*
-	  Default VHD location
+	  Default VHD location.
 	*/
 	DefaultVhdLocation *string `json:"defaultVhdLocation,omitempty"`
 	/*
-	  Default VM container UUID
+	  Default VM container UUID.
 	*/
 	DefaultVmContainerUuid *string `json:"defaultVmContainerUuid,omitempty"`
 	/*
-	  Default VM location
+	  Default VM location.
 	*/
 	DefaultVmLocation *string `json:"defaultVmLocation,omitempty"`
 	/*
-	  Disks attached to host
+	  Disks attached to host.
 	*/
 	Disk []DiskReference `json:"disk,omitempty"`
 	/*
@@ -3752,27 +4085,27 @@ type Host struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Failover cluster FQDN
+	  Failover cluster FQDN.
 	*/
 	FailoverClusterFqdn *string `json:"failoverClusterFqdn,omitempty"`
 	/*
-	  Failover cluster node status
+	  Failover cluster node status.
 	*/
 	FailoverClusterNodeStatus *string `json:"failoverClusterNodeStatus,omitempty"`
 	/*
-	  GPU driver version
+	  GPU driver version.
 	*/
 	GpuDriverVersion *string `json:"gpuDriverVersion,omitempty"`
 	/*
-	  GPU attached list
+	  GPU attached list.
 	*/
 	GpuList []string `json:"gpuList,omitempty"`
 	/*
-	  Certificate signing request status
+	  Certificate signing request status.
 	*/
 	HasCsr *bool `json:"hasCsr,omitempty"`
 	/*
-	  Name of the host
+	  Name of the host.
 	*/
 	HostName *string `json:"hostName,omitempty"`
 
@@ -3780,53 +4113,53 @@ type Host struct {
 
 	Hypervisor *HypervisorReference `json:"hypervisor,omitempty"`
 	/*
-	  Node degraded status
+	  Node degraded status.
 	*/
 	IsDegraded *bool `json:"isDegraded,omitempty"`
 	/*
-	  Indicates whether the hardware is virtualized or not
+	  Indicates whether the hardware is virtualized or not.
 	*/
 	IsHardwareVirtualized *bool `json:"isHardwareVirtualized,omitempty"`
 	/*
-	  Secure boot status
+	  Secure boot status.
 	*/
 	IsSecureBooted *bool `json:"isSecureBooted,omitempty"`
 	/*
-	  Mapping of key management device to certificate status list
+	  Mapping of key management device to certificate status list.
 	*/
 	KeyManagementDeviceToCertStatus []KeyManagementDeviceToCertStatusInfo `json:"keyManagementDeviceToCertStatus,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  Host Maintenance State
+	  Host Maintenance State.
 	*/
 	MaintenanceState *string `json:"maintenanceState,omitempty"`
 	/*
-	  Memory size in bytes
+	  Memory size in bytes.
 	*/
 	MemorySizeBytes *int64 `json:"memorySizeBytes,omitempty"`
 
 	NodeStatus *NodeStatus `json:"nodeStatus,omitempty"`
 	/*
-	  Number of CPU cores
+	  Number of CPU cores.
 	*/
 	NumberOfCpuCores *int64 `json:"numberOfCpuCores,omitempty"`
 	/*
-	  Number of CPU sockets
+	  Number of CPU sockets.
 	*/
 	NumberOfCpuSockets *int64 `json:"numberOfCpuSockets,omitempty"`
 	/*
-	  Number of CPU threads
+	  Number of CPU threads.
 	*/
 	NumberOfCpuThreads *int64 `json:"numberOfCpuThreads,omitempty"`
 	/*
-	  Reboot pending status
+	  Reboot pending status.
 	*/
 	RebootPending *bool `json:"rebootPending,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -3835,14 +4168,14 @@ func NewHost() *Host {
 	p := new(Host)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.Host"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.Host"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Host GPU details
+Host GPU details.
 */
 type HostGpu struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3859,23 +4192,23 @@ type HostGpu struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  Controller VM Id
+	  Controller VM Id.
 	*/
 	NodeId *string `json:"nodeId,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 	/*
-	  Number of vGPUs allocated
+	  Number of vGPUs allocated.
 	*/
 	NumberOfVgpusAllocated *int64 `json:"numberOfVgpusAllocated,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -3884,14 +4217,14 @@ func NewHostGpu() *HostGpu {
 	p := new(HostGpu)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HostGpu"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HostGpu"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Host rename parameters
+Host rename parameters.
 */
 type HostNameParam struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3900,7 +4233,7 @@ type HostNameParam struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Name of the host
+	  Name of the host.
 	*/
 	Name *string `json:"name"`
 }
@@ -3920,14 +4253,14 @@ func NewHostNameParam() *HostNameParam {
 	p := new(HostNameParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HostNameParam"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HostNameParam"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Host NIC details
+Host NIC details.
 */
 type HostNic struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3936,15 +4269,15 @@ type HostNic struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of network switch interfaces attached to the host NIC
+	  List of network switch interfaces attached to the host NIC.
 	*/
 	AttachedSwitchInterfaceList []NetworkSwitchInterface `json:"attachedSwitchInterfaceList,omitempty"`
 	/*
-	  Status of DHCP protocol
+	  Status of DHCP protocol.
 	*/
 	DhcpEnabled *bool `json:"dhcpEnabled,omitempty"`
 	/*
-	  Network discovery protocol (either LLDP or None)
+	  Network discovery protocol (either LLDP or None).
 	*/
 	DiscoveryProtocol *string `json:"discoveryProtocol,omitempty"`
 	/*
@@ -3952,7 +4285,7 @@ type HostNic struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Host description
+	  Host description.
 	*/
 	HostDescription *string `json:"hostDescription,omitempty"`
 	/*
@@ -3960,43 +4293,43 @@ type HostNic struct {
 	*/
 	InterfaceStatus *string `json:"interfaceStatus,omitempty"`
 	/*
-	  List of IPv4 addresses associated with the NIC entity for the network connection
+	  List of IPv4 addresses associated with the NIC entity for the network connection.
 	*/
 	Ipv4Addresses []import4.IPAddress `json:"ipv4Addresses,omitempty"`
 	/*
-	  List of IPv6 addresses associated with the NIC entity for the network connection
+	  List of IPv6 addresses associated with the NIC entity for the network connection.
 	*/
 	Ipv6Addresses []import4.IPAddress `json:"ipv6Addresses,omitempty"`
 	/*
-	  Link speed in Kbps
+	  Link speed in Kbps.
 	*/
 	LinkSpeedInKbps *int64 `json:"linkSpeedInKbps,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  Host Mac address
+	  Host Mac address.
 	*/
 	MacAddress *string `json:"macAddress,omitempty"`
 	/*
-	  Maximum transmission unit in bytes
+	  Maximum transmission unit in bytes.
 	*/
 	MtuInBytes *int64 `json:"mtuInBytes,omitempty"`
 	/*
-	  Name of the host NIC
+	  Name of the host NIC.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 	/*
-	  Size of configured buffer (in bytes) to the port associated with NIC, storing the network packets received through the port
+	  Size of configured buffer (in bytes) to the port associated with NIC, storing the network packets received through the port.
 	*/
 	RxRingSizeInBytes *int64 `json:"rxRingSizeInBytes,omitempty"`
 	/*
-	  Switch device Id learned through the discovery protocol
+	  Switch device Id learned through the discovery protocol.
 	*/
 	SwitchDeviceId *string `json:"switchDeviceId,omitempty"`
 	/*
@@ -4006,23 +4339,23 @@ type HostNic struct {
 
 	SwitchManagementIp *import4.IPAddress `json:"switchManagementIp,omitempty"`
 	/*
-	  Switch port Id learned through the discovery protocol
+	  Switch port Id learned through the discovery protocol.
 	*/
 	SwitchPortId *string `json:"switchPortId,omitempty"`
 	/*
-	  Switch vendor information learned through the discovery protocol
+	  Switch vendor information learned through the discovery protocol.
 	*/
 	SwitchVendorInfo *string `json:"switchVendorInfo,omitempty"`
 	/*
-	  Switch VLAN Id learned through the discovery protocol
+	  Switch VLAN Id learned through the discovery protocol.
 	*/
 	SwitchVlanId *string `json:"switchVlanId,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  Size of configured buffer (in bytes) to the port associated with NIC, storing the network packets that would be transmitted through the port
+	  Size of configured buffer (in bytes) to the port associated with NIC, storing the network packets that would be transmitted through the port.
 	*/
 	TxRingSizeInBytes *int64 `json:"txRingSizeInBytes,omitempty"`
 }
@@ -4031,64 +4364,14 @@ func NewHostNic() *HostNic {
 	p := new(HostNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HostNic"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HostNic"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/hosts/{extId}/$actions/rename-host Post operation
-*/
-type HostRenameResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfHostRenameResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewHostRenameResponse() *HostRenameResponse {
-	p := new(HostRenameResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.HostRenameResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HostRenameResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *HostRenameResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *HostRenameResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfHostRenameResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-Type of the host
+Type of the host.
 */
 type HostTypeEnum int
 
@@ -4171,7 +4454,7 @@ func (e HostTypeEnum) Ref() *HostTypeEnum {
 }
 
 /*
-HyperV Credentials
+HyperV Credentials.
 */
 type HypervCredentials struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4189,14 +4472,14 @@ func NewHypervCredentials() *HypervCredentials {
 	p := new(HypervCredentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervCredentials"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HypervCredentials"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Map containing key as hypervisor type and value as md5sum of ISO
+Map containing key as hypervisor type and value as md5sum of ISO.
 */
 type HypervisorIsoMap struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4205,7 +4488,7 @@ type HypervisorIsoMap struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Md5sum of ISO
+	  Md5sum of ISO.
 	*/
 	Md5Sum *string `json:"md5Sum,omitempty"`
 
@@ -4216,14 +4499,14 @@ func NewHypervisorIsoMap() *HypervisorIsoMap {
 	p := new(HypervisorIsoMap)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorIsoMap"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HypervisorIsoMap"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Hypervisor details
+Hypervisor details.
 */
 type HypervisorReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4236,11 +4519,11 @@ type HypervisorReference struct {
 
 	ExternalAddress *import4.IPAddress `json:"externalAddress,omitempty"`
 	/*
-	  Hypervisor full name
+	  Hypervisor full name.
 	*/
 	FullName *string `json:"fullName,omitempty"`
 	/*
-	  Number of VMs
+	  Number of VMs.
 	*/
 	NumberOfVms *int64 `json:"numberOfVms,omitempty"`
 
@@ -4248,7 +4531,7 @@ type HypervisorReference struct {
 
 	Type *HypervisorType `json:"type,omitempty"`
 	/*
-	  Hypervisor user name
+	  Hypervisor user name.
 	*/
 	UserName *string `json:"userName,omitempty"`
 }
@@ -4257,14 +4540,14 @@ func NewHypervisorReference() *HypervisorReference {
 	p := new(HypervisorReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HypervisorReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Hypervisor state
+Hypervisor state.
 */
 type HypervisorState int
 
@@ -4375,7 +4658,7 @@ func (e HypervisorState) Ref() *HypervisorState {
 }
 
 /*
-Hypervisor type
+Hypervisor type.
 */
 type HypervisorType int
 
@@ -4462,7 +4745,7 @@ func (e HypervisorType) Ref() *HypervisorType {
 }
 
 /*
-Hypervisor upload required information
+Hypervisor upload required information.
 */
 type HypervisorUploadInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4471,11 +4754,11 @@ type HypervisorUploadInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Error message
+	  Error message.
 	*/
 	ErrorMessage *string `json:"errorMessage,omitempty"`
 	/*
-	  Node list containing upload information
+	  Node list containing upload information.
 	*/
 	UploadInfoNodeList []UploadInfoNodeItem `json:"uploadInfoNodeList,omitempty"`
 }
@@ -4484,14 +4767,14 @@ func NewHypervisorUploadInfo() *HypervisorUploadInfo {
 	p := new(HypervisorUploadInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorUploadInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HypervisorUploadInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Individual node item details for checking whether hypervisor ISO upload is required or not
+Individual node item details for checking whether hypervisor ISO upload is required or not.
 */
 type HypervisorUploadNodeListItem struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4500,37 +4783,37 @@ type HypervisorUploadNodeListItem struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Rackable unit Id in which node resides
+	  Rackable unit Id in which node resides.
 	*/
 	BlockId *string `json:"blockId,omitempty"`
 
 	HypervisorType *HypervisorType `json:"hypervisorType,omitempty"`
 	/*
-	  Host version of the node
+	  Host version of the node.
 	*/
 	HypervisorVersion *string `json:"hypervisorVersion,omitempty"`
 	/*
-	  Indicates whether the node is light compute or not
+	  Indicates whether the node is light compute or not.
 	*/
 	IsLightCompute *bool `json:"isLightCompute,omitempty"`
 	/*
-	  Indicates if node is minimum compute or not
+	  Indicates if node is minimum compute or not.
 	*/
 	MinimumComputeNode *bool `json:"minimumComputeNode,omitempty"`
 	/*
-	  Rackable unit model type
+	  Rackable unit model type.
 	*/
 	Model *string `json:"model,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 	/*
-	  NOS software version of a node
+	  NOS software version of a node.
 	*/
 	NosVersion *string `json:"nosVersion,omitempty"`
 	/*
-	  Indicates whether the hypervisor is robo mixed or not
+	  Indicates whether the hypervisor is robo mixed or not.
 	*/
 	RoboMixedHypervisor *bool `json:"roboMixedHypervisor,omitempty"`
 }
@@ -4539,14 +4822,14 @@ func NewHypervisorUploadNodeListItem() *HypervisorUploadNodeListItem {
 	p := new(HypervisorUploadNodeListItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorUploadNodeListItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HypervisorUploadNodeListItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Parameters to get information on whether hypervisor ISO upload is required or not
+Parameters to get information on whether hypervisor ISO upload is required or not.
 */
 type HypervisorUploadParam struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4555,7 +4838,7 @@ type HypervisorUploadParam struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of node details for checking whether hypervisor ISO upload is required or not
+	  List of node details for checking whether hypervisor ISO upload is required or not.
 	*/
 	NodeList []HypervisorUploadNodeListItem `json:"nodeList"`
 }
@@ -4575,64 +4858,14 @@ func NewHypervisorUploadParam() *HypervisorUploadParam {
 	p := new(HypervisorUploadParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorUploadParam"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HypervisorUploadParam"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/$actions/check-hypervisor-requirements Post operation
-*/
-type HypervisorUplpadRequiredTaskResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfHypervisorUplpadRequiredTaskResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewHypervisorUplpadRequiredTaskResponse() *HypervisorUplpadRequiredTaskResponse {
-	p := new(HypervisorUplpadRequiredTaskResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorUplpadRequiredTaskResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.HypervisorUplpadRequiredTaskResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *HypervisorUplpadRequiredTaskResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *HypervisorUplpadRequiredTaskResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfHypervisorUplpadRequiredTaskResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-IPMI reference
+IPMI reference.
 */
 type IpmiReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4643,7 +4876,7 @@ type IpmiReference struct {
 
 	Ip *import4.IPAddress `json:"ip,omitempty"`
 	/*
-	  IPMI username
+	  IPMI username.
 	*/
 	Username *string `json:"username,omitempty"`
 }
@@ -4652,14 +4885,14 @@ func NewIpmiReference() *IpmiReference {
 	p := new(IpmiReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.IpmiReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.IpmiReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Mapping of key management device to certificate status list
+Mapping of key management device to certificate status list.
 */
 type KeyManagementDeviceToCertStatusInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4668,11 +4901,11 @@ type KeyManagementDeviceToCertStatusInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Key management server name
+	  Key management server name.
 	*/
 	KeyManagementServerName *string `json:"keyManagementServerName,omitempty"`
 	/*
-	  Certificate status
+	  Certificate status.
 	*/
 	Status *bool `json:"status,omitempty"`
 }
@@ -4681,14 +4914,14 @@ func NewKeyManagementDeviceToCertStatusInfo() *KeyManagementDeviceToCertStatusIn
 	p := new(KeyManagementDeviceToCertStatusInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.KeyManagementDeviceToCertStatusInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.KeyManagementDeviceToCertStatusInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Management server type
+Management server type.
 */
 type KeyManagementServerType int
 
@@ -4771,7 +5004,557 @@ func (e KeyManagementServerType) Ref() *KeyManagementServerType {
 }
 
 /*
-Management server information
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters Get operation
+*/
+type ListClustersApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListClustersApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListClustersApiResponse() *ListClustersApiResponse {
+	p := new(ListClustersApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListClustersApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListClustersApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListClustersApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListClustersApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/storage-containers/datastores Get operation
+*/
+type ListDataStoresByClusterIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListDataStoresByClusterIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListDataStoresByClusterIdApiResponse() *ListDataStoresByClusterIdApiResponse {
+	p := new(ListDataStoresByClusterIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListDataStoresByClusterIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListDataStoresByClusterIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListDataStoresByClusterIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListDataStoresByClusterIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/disks Get operation
+*/
+type ListDisksApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListDisksApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListDisksApiResponse() *ListDisksApiResponse {
+	p := new(ListDisksApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListDisksApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListDisksApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListDisksApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListDisksApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{extId}/host-nics Get operation
+*/
+type ListHostNicsByHostIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListHostNicsByHostIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListHostNicsByHostIdApiResponse() *ListHostNicsByHostIdApiResponse {
+	p := new(ListHostNicsByHostIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListHostNicsByHostIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListHostNicsByHostIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListHostNicsByHostIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListHostNicsByHostIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/hosts Get operation
+*/
+type ListHostsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListHostsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListHostsApiResponse() *ListHostsApiResponse {
+	p := new(ListHostsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListHostsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListHostsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListHostsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListHostsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/hosts Get operation
+*/
+type ListHostsByClusterIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListHostsByClusterIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListHostsByClusterIdApiResponse() *ListHostsByClusterIdApiResponse {
+	p := new(ListHostsByClusterIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListHostsByClusterIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListHostsByClusterIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListHostsByClusterIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListHostsByClusterIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/rackable-units Get operation
+*/
+type ListRackableUnitsByClusterIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListRackableUnitsByClusterIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListRackableUnitsByClusterIdApiResponse() *ListRackableUnitsByClusterIdApiResponse {
+	p := new(ListRackableUnitsByClusterIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListRackableUnitsByClusterIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListRackableUnitsByClusterIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListRackableUnitsByClusterIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListRackableUnitsByClusterIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/rsyslog-servers Get operation
+*/
+type ListRsyslogServersByClusterIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListRsyslogServersByClusterIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListRsyslogServersByClusterIdApiResponse() *ListRsyslogServersByClusterIdApiResponse {
+	p := new(ListRsyslogServersByClusterIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListRsyslogServersByClusterIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListRsyslogServersByClusterIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListRsyslogServersByClusterIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListRsyslogServersByClusterIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/storage-containers Get operation
+*/
+type ListStorageContainersApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListStorageContainersApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListStorageContainersApiResponse() *ListStorageContainersApiResponse {
+	p := new(ListStorageContainersApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListStorageContainersApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListStorageContainersApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListStorageContainersApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListStorageContainersApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/vcenter-extensions Get operation
+*/
+type ListVcenterExtensionsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListVcenterExtensionsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListVcenterExtensionsApiResponse() *ListVcenterExtensionsApiResponse {
+	p := new(ListVcenterExtensionsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListVcenterExtensionsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListVcenterExtensionsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListVcenterExtensionsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListVcenterExtensionsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{extId}/virtual-nics Get operation
+*/
+type ListVirtualNicsByHostIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListVirtualNicsByHostIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListVirtualNicsByHostIdApiResponse() *ListVirtualNicsByHostIdApiResponse {
+	p := new(ListVirtualNicsByHostIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListVirtualNicsByHostIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListVirtualNicsByHostIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListVirtualNicsByHostIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListVirtualNicsByHostIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Management server information.
 */
 type ManagementServerRef struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4780,17 +5563,17 @@ type ManagementServerRef struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Indicates whether it is DRS enabled or not
+	  Indicates whether it is DRS enabled or not.
 	*/
 	DrsEnabled *bool `json:"drsEnabled,omitempty"`
 	/*
-	  Indicates whether the host is managed by an entity or not
+	  Indicates whether the host is managed by an entity or not.
 	*/
 	InUse *bool `json:"inUse,omitempty"`
 
 	Ip *import4.IPAddress `json:"ip,omitempty"`
 	/*
-	  Indicates whether it is registered or not
+	  Indicates whether it is registered or not.
 	*/
 	IsRegistered *bool `json:"isRegistered,omitempty"`
 
@@ -4801,14 +5584,14 @@ func NewManagementServerRef() *ManagementServerRef {
 	p := new(ManagementServerRef)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ManagementServerRef"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ManagementServerRef"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Management server type
+Management server type.
 */
 type ManagementServerType int
 
@@ -4883,7 +5666,57 @@ func (e ManagementServerType) Ref() *ManagementServerType {
 }
 
 /*
-Interface name and mac address
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/storage-containers/{extId}/$actions/mount Post operation
+*/
+type MountStorageContainerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfMountStorageContainerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewMountStorageContainerApiResponse() *MountStorageContainerApiResponse {
+	p := new(MountStorageContainerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.MountStorageContainerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *MountStorageContainerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *MountStorageContainerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfMountStorageContainerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Interface name and mac address.
 */
 type NameMacRef struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4892,11 +5725,11 @@ type NameMacRef struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Mac address
+	  Mac address.
 	*/
 	Mac *string `json:"mac,omitempty"`
 	/*
-	  Interface name
+	  Interface name.
 	*/
 	Name *string `json:"name,omitempty"`
 }
@@ -4905,14 +5738,14 @@ func NewNameMacRef() *NameMacRef {
 	p := new(NameMacRef)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NameMacRef"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NameMacRef"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Name and network information
+Name and network information.
 */
 type NameNetworkRef struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4923,11 +5756,11 @@ type NameNetworkRef struct {
 
 	HypervisorType *HypervisorType `json:"hypervisorType,omitempty"`
 	/*
-	  Interface name
+	  Interface name.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  List of networks for interface
+	  List of networks for interface.
 	*/
 	Networks []string `json:"networks,omitempty"`
 }
@@ -4936,14 +5769,14 @@ func NewNameNetworkRef() *NameNetworkRef {
 	p := new(NameNetworkRef)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NameNetworkRef"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NameNetworkRef"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Network information of HCI and SO nodes
+Network information of HCI and SO nodes.
 */
 type NetworkInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4952,11 +5785,11 @@ type NetworkInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Network information of HCI nodes
+	  Network information of HCI nodes.
 	*/
 	Hci []NameNetworkRef `json:"hci,omitempty"`
 	/*
-	  Network information of SO nodes
+	  Network information of SO nodes.
 	*/
 	So []NameNetworkRef `json:"so,omitempty"`
 }
@@ -4965,14 +5798,14 @@ func NewNetworkInfo() *NetworkInfo {
 	p := new(NetworkInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NetworkInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NetworkInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Network switch interface details
+Network switch interface details.
 */
 type NetworkSwitchInterface struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4981,11 +5814,11 @@ type NetworkSwitchInterface struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of host NIC UUIDs connected to this interface
+	  List of host NIC UUIDs connected to this interface.
 	*/
 	AttachedHostNicUuids []string `json:"attachedHostNicUuids,omitempty"`
 	/*
-	  UUID of the host connected to the interface
+	  UUID of the host connected to the interface.
 	*/
 	AttachedHostUuid *string `json:"attachedHostUuid,omitempty"`
 	/*
@@ -4993,53 +5826,53 @@ type NetworkSwitchInterface struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Network switch interface index
+	  Network switch interface index.
 	*/
 	Index *int64 `json:"index,omitempty"`
 	/*
-	  Timestamp when the interface state was last changed or modified
+	  Timestamp when the interface state was last changed or modified.
 	*/
 	LastChangeTime *time.Time `json:"lastChangeTime,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  Host Mac address
+	  Host Mac address.
 	*/
 	MacAddress *string `json:"macAddress,omitempty"`
 	/*
-	  Maximum transmission unit in bytes
+	  Maximum transmission unit in bytes.
 	*/
 	MtuInBytes *int64 `json:"mtuInBytes,omitempty"`
 	/*
-	  Network switch interface port number
+	  Network switch interface port number.
 	*/
 	Port *int64 `json:"port,omitempty"`
 	/*
-	  Network switch interface link speed in Kbps
+	  Network switch interface link speed in Kbps.
 	*/
 	SpeedInKbps *int64 `json:"speedInKbps,omitempty"`
 	/*
-	  Network switch interface description
+	  Network switch interface description.
 	*/
 	SwitchInterfaceDescription *string `json:"switchInterfaceDescription,omitempty"`
 	/*
-	  Network switch interface name
+	  Network switch interface name.
 	*/
 	SwitchInterfaceName *string `json:"switchInterfaceName,omitempty"`
 	/*
-	  Network switch interface type
+	  Network switch interface type.
 	*/
 	SwitchInterfaceType *string `json:"switchInterfaceType,omitempty"`
 
 	SwitchManagementAddress *import4.IPAddress `json:"switchManagementAddress,omitempty"`
 	/*
-	  UUID of the switch
+	  UUID of the switch.
 	*/
 	SwitchUuid *string `json:"switchUuid,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -5048,14 +5881,14 @@ func NewNetworkSwitchInterface() *NetworkSwitchInterface {
 	p := new(NetworkSwitchInterface)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NetworkSwitchInterface"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NetworkSwitchInterface"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Request type and networking details for nodes
+Request type and networking details for nodes.
 */
 type NodeDetails struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5064,11 +5897,11 @@ type NodeDetails struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Node specific details required to fetch node networking information
+	  Node specific details required to fetch node networking information.
 	*/
 	NodeList []NodeListNetworkingDetails `json:"nodeList"`
 	/*
-	  Type of request, either it can be expand_cluster or npe
+	  Type of request, either it can be expand_cluster or npe.
 	*/
 	RequestType *string `json:"requestType,omitempty"`
 }
@@ -5088,14 +5921,14 @@ func NewNodeDetails() *NodeDetails {
 	p := new(NodeDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeDetails"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeDetails"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Discover unconfigured node details
+Discover unconfigured node details.
 */
 type NodeDiscoveryParams struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5106,23 +5939,23 @@ type NodeDiscoveryParams struct {
 
 	AddressType *AddressType `json:"addressType,omitempty"`
 	/*
-	  Interface name that is used for packet broadcasting
+	  Interface name that is used for packet broadcasting.
 	*/
 	InterfaceFilterList []string `json:"interfaceFilterList,omitempty"`
 	/*
-	  IP addresses of the unconfigured nodes
+	  IP addresses of the unconfigured nodes.
 	*/
 	IpFilterList []import4.IPAddress `json:"ipFilterList,omitempty"`
 	/*
-	  Indicates if the discovery is manual or not
+	  Indicates if the discovery is manual or not.
 	*/
 	IsManualDiscovery *bool `json:"isManualDiscovery,omitempty"`
 	/*
-	  Timeout for discovering nodes in seconds
+	  Timeout for discovering nodes in seconds.
 	*/
 	Timeout *int64 `json:"timeout,omitempty"`
 	/*
-	  Unconfigured node UUIDs
+	  Unconfigured node UUIDs.
 	*/
 	UuidFilterList []string `json:"uuidFilterList,omitempty"`
 }
@@ -5131,14 +5964,14 @@ func NewNodeDiscoveryParams() *NodeDiscoveryParams {
 	p := new(NodeDiscoveryParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeDiscoveryParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeDiscoveryParams"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Node item containing attributes of node
+Node item containing attributes of node.
 */
 type NodeInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5147,21 +5980,21 @@ type NodeInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Rackable unit serial name
+	  Rackable unit serial name.
 	*/
 	BlockId *string `json:"blockId,omitempty"`
 	/*
-	  Current network interface of a node
+	  Current network interface of a node.
 	*/
 	CurrentNetworkInterface *string `json:"currentNetworkInterface,omitempty"`
 
 	CvmIp *import4.IPAddress `json:"cvmIp,omitempty"`
 	/*
-	  List of objects containing digital_certificate_base64 and key_management_server_uuid fields for key management server
+	  List of objects containing digital_certificate_base64 and key_management_server_uuid fields for key management server.
 	*/
 	DigitalCertificateMapList []DigitalCertificateMapReference `json:"digitalCertificateMapList,omitempty"`
 	/*
-	  Name of the host
+	  Name of the host.
 	*/
 	HypervisorHostname *string `json:"hypervisorHostname,omitempty"`
 
@@ -5169,33 +6002,33 @@ type NodeInfo struct {
 
 	HypervisorType *HypervisorType `json:"hypervisorType,omitempty"`
 	/*
-	  Host version of the node
+	  Host version of the node.
 	*/
 	HypervisorVersion *string `json:"hypervisorVersion,omitempty"`
 
 	IpmiIp *import4.IPAddress `json:"ipmiIp,omitempty"`
 	/*
-	  Indicates whether the node is light compute or not
+	  Indicates whether the node is light compute or not.
 	*/
 	IsLightCompute *bool `json:"isLightCompute,omitempty"`
 	/*
-	  Rackable unit model name
+	  Rackable unit model name.
 	*/
 	Model *string `json:"model,omitempty"`
 	/*
-	  Position of a node in a rackable unit
+	  Position of a node in a rackable unit.
 	*/
 	NodePosition *string `json:"nodePosition,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 	/*
-	  NOS software version of a node
+	  NOS software version of a node.
 	*/
 	NosVersion *string `json:"nosVersion,omitempty"`
 	/*
-	  Indicates whether the hypervisor is robo mixed or not
+	  Indicates whether the hypervisor is robo mixed or not.
 	*/
 	RoboMixedHypervisor *bool `json:"roboMixedHypervisor,omitempty"`
 }
@@ -5204,14 +6037,14 @@ func NewNodeInfo() *NodeInfo {
 	p := new(NodeInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Node item containing attributes of node
+Node item containing attributes of node.
 */
 type NodeItem struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5220,21 +6053,21 @@ type NodeItem struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Rackable unit serial name
+	  Rackable unit serial name.
 	*/
 	BlockId *string `json:"blockId,omitempty"`
 	/*
-	  Current network interface of a node
+	  Current network interface of a node.
 	*/
 	CurrentNetworkInterface *string `json:"currentNetworkInterface,omitempty"`
 
 	CvmIp *import4.IPAddress `json:"cvmIp,omitempty"`
 	/*
-	  List of objects containing digital_certificate_base64 and key_management_server_uuid fields for key management server
+	  List of objects containing digital_certificate_base64 and key_management_server_uuid fields for key management server.
 	*/
 	DigitalCertificateMapList []DigitalCertificateMapReference `json:"digitalCertificateMapList,omitempty"`
 	/*
-	  Name of the host
+	  Name of the host.
 	*/
 	HypervisorHostname *string `json:"hypervisorHostname,omitempty"`
 
@@ -5242,37 +6075,37 @@ type NodeItem struct {
 
 	HypervisorType *HypervisorType `json:"hypervisorType,omitempty"`
 	/*
-	  Host version of the node
+	  Host version of the node.
 	*/
 	HypervisorVersion *string `json:"hypervisorVersion,omitempty"`
 
 	IpmiIp *import4.IPAddress `json:"ipmiIp,omitempty"`
 	/*
-	  Indicates whether the node is light compute or not
+	  Indicates whether the node is light compute or not.
 	*/
 	IsLightCompute *bool `json:"isLightCompute,omitempty"`
 	/*
-	  Rackable unit model name
+	  Rackable unit model name.
 	*/
 	Model *string `json:"model,omitempty"`
 	/*
-	  Active and standby uplink information of the target nodes
+	  Active and standby uplink information of the target nodes.
 	*/
 	Networks []UplinkNetworkItem `json:"networks,omitempty"`
 	/*
-	  Position of a node in a rackable unit
+	  Position of a node in a rackable unit.
 	*/
 	NodePosition *string `json:"nodePosition,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 	/*
-	  NOS software version of a node
+	  NOS software version of a node.
 	*/
 	NosVersion *string `json:"nosVersion,omitempty"`
 	/*
-	  Indicates whether the hypervisor is robo mixed or not
+	  Indicates whether the hypervisor is robo mixed or not.
 	*/
 	RoboMixedHypervisor *bool `json:"roboMixedHypervisor,omitempty"`
 }
@@ -5281,14 +6114,14 @@ func NewNodeItem() *NodeItem {
 	p := new(NodeItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-List of nodes in a cluster
+List of nodes in a cluster.
 */
 type NodeListItemReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5301,7 +6134,7 @@ type NodeListItemReference struct {
 
 	HostIp *import4.IPAddress `json:"hostIp,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 }
@@ -5310,14 +6143,14 @@ func NewNodeListItemReference() *NodeListItemReference {
 	p := new(NodeListItemReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeListItemReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeListItemReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Node specific details required to fetch node networking information
+Node specific details required to fetch node networking information.
 */
 type NodeListNetworkingDetails struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5326,17 +6159,17 @@ type NodeListNetworkingDetails struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Rackable unit Id in which node resides
+	  Rackable unit Id in which node resides.
 	*/
 	BlockId *string `json:"blockId,omitempty"`
 	/*
-	  Current network interface of a node
+	  Current network interface of a node.
 	*/
 	CurrentNetworkInterface *string `json:"currentNetworkInterface,omitempty"`
 
 	CvmIp *import4.IPAddress `json:"cvmIp,omitempty"`
 	/*
-	  List of objects containing digital_certificate_base64 and key_management_server_uuid fields for key management server
+	  List of objects containing digital_certificate_base64 and key_management_server_uuid fields for key management server.
 	*/
 	DigitalCertificateMapList []DigitalCertificateMapReference `json:"digitalCertificateMapList,omitempty"`
 
@@ -5344,37 +6177,37 @@ type NodeListNetworkingDetails struct {
 
 	HypervisorType *HypervisorType `json:"hypervisorType,omitempty"`
 	/*
-	  Host version of the node
+	  Host version of the node.
 	*/
 	HypervisorVersion *string `json:"hypervisorVersion,omitempty"`
 
 	IpmiIp *import4.IPAddress `json:"ipmiIp,omitempty"`
 	/*
-	  Indicates whether the node is compute only or not
+	  Indicates whether the node is compute only or not.
 	*/
 	IsComputeOnly *bool `json:"isComputeOnly,omitempty"`
 	/*
-	  Indicates whether the node is light compute or not
+	  Indicates whether the node is light compute or not.
 	*/
 	IsLightCompute *bool `json:"isLightCompute,omitempty"`
 	/*
-	  Rackable unit model name
+	  Rackable unit model name.
 	*/
 	Model *string `json:"model,omitempty"`
 	/*
-	  Position of a node in a rackable unit
+	  Position of a node in a rackable unit.
 	*/
 	NodePosition *string `json:"nodePosition,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 	/*
-	  NOS software version of a node
+	  NOS software version of a node.
 	*/
 	NosVersion *string `json:"nosVersion,omitempty"`
 	/*
-	  Indicates whether the hypervisor is robo mixed or not
+	  Indicates whether the hypervisor is robo mixed or not.
 	*/
 	RoboMixedHypervisor *bool `json:"roboMixedHypervisor,omitempty"`
 }
@@ -5383,14 +6216,14 @@ func NewNodeListNetworkingDetails() *NodeListNetworkingDetails {
 	p := new(NodeListNetworkingDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeListNetworkingDetails"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeListNetworkingDetails"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Network details of nodes
+Network details of nodes.
 */
 type NodeNetworkingDetails struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5401,11 +6234,11 @@ type NodeNetworkingDetails struct {
 
 	NetworkInfo *NetworkInfo `json:"networkInfo,omitempty"`
 	/*
-	  List of uplinks information for each CVM IP
+	  List of uplinks information for each CVM IP.
 	*/
 	Uplinks []UplinkInfo `json:"uplinks,omitempty"`
 	/*
-	  List of warning messages
+	  List of warning messages.
 	*/
 	Warnings []string `json:"warnings,omitempty"`
 }
@@ -5414,14 +6247,14 @@ func NewNodeNetworkingDetails() *NodeNetworkingDetails {
 	p := new(NodeNetworkingDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeNetworkingDetails"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeNetworkingDetails"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Parameters of the node to be added
+Parameters of the node to be added.
 */
 type NodeParam struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5430,29 +6263,29 @@ type NodeParam struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Block list of a cluster
+	  Block list of a cluster.
 	*/
 	BlockList []BlockItem `json:"blockList,omitempty"`
 
 	BundleInfo *BundleInfo `json:"bundleInfo,omitempty"`
 	/*
-	  List of compute only nodes
+	  List of compute only nodes.
 	*/
 	ComputeNodeList []ComputeNodeItem `json:"computeNodeList,omitempty"`
 	/*
-	  Hyperv SKU
+	  Hyperv SKU.
 	*/
 	HypervSku *string `json:"hypervSku,omitempty"`
 	/*
-	  Hypervisor type to md5sum map
+	  Hypervisor type to md5sum map.
 	*/
 	HypervisorIsos []HypervisorIsoMap `json:"hypervisorIsos,omitempty"`
 	/*
-	  List of nodes in a cluster
+	  List of nodes in a cluster.
 	*/
 	NodeList []NodeItem `json:"nodeList,omitempty"`
 	/*
-	  Indicates if the host networking needs to be skipped or not
+	  Indicates if the host networking needs to be skipped or not.
 	*/
 	SkipHostNetworking *bool `json:"skipHostNetworking,omitempty"`
 }
@@ -5461,14 +6294,14 @@ func NewNodeParam() *NodeParam {
 	p := new(NodeParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeParam"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeParam"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Node reference for a cluster
+Node reference for a cluster.
 */
 type NodeReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5477,11 +6310,11 @@ type NodeReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of nodes in a cluster
+	  List of nodes in a cluster.
 	*/
 	NodeList []NodeListItemReference `json:"nodeList,omitempty"`
 	/*
-	  Number of nodes in a cluster
+	  Number of nodes in a cluster.
 	*/
 	NumberOfNodes *int `json:"numberOfNodes,omitempty"`
 }
@@ -5490,14 +6323,14 @@ func NewNodeReference() *NodeReference {
 	p := new(NodeReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Extra parameters for node addition
+Extra parameters for node addition.
 */
 type NodeRemovalExtraParam struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5506,15 +6339,15 @@ type NodeRemovalExtraParam struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Indicates if add node check need to be skip or not
+	  Indicates if add node check need to be skip or not.
 	*/
 	SkipAddCheck *bool `json:"skipAddCheck,omitempty"`
 	/*
-	  Indicates if space check needs to be skip or not
+	  Indicates if space check needs to be skip or not.
 	*/
 	SkipSpaceCheck *bool `json:"skipSpaceCheck,omitempty"`
 	/*
-	  Indicates if upgrade check needs to be skip or not
+	  Indicates if upgrade check needs to be skip or not.
 	*/
 	SkipUpgradeCheck *bool `json:"skipUpgradeCheck,omitempty"`
 }
@@ -5523,14 +6356,14 @@ func NewNodeRemovalExtraParam() *NodeRemovalExtraParam {
 	p := new(NodeRemovalExtraParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeRemovalExtraParam"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeRemovalExtraParam"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Parameters to remove nodes from cluster
+Parameters to remove nodes from cluster.
 */
 type NodeRemovalParams struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5541,15 +6374,15 @@ type NodeRemovalParams struct {
 
 	ExtraParams *NodeRemovalExtraParam `json:"extraParams,omitempty"`
 	/*
-	  List of node UUIDs to remove
+	  List of node UUIDs to remove.
 	*/
 	NodeUuids []string `json:"nodeUuids"`
 	/*
-	  Indicates if prechecks can be skipped for node removal
+	  Indicates if prechecks can be skipped for node removal.
 	*/
 	SkipPrechecks *bool `json:"skipPrechecks,omitempty"`
 	/*
-	  Indicates if node removal can be skipped
+	  Indicates if node removal can be skipped.
 	*/
 	SkipRemove *bool `json:"skipRemove,omitempty"`
 }
@@ -5569,14 +6402,14 @@ func NewNodeRemovalParams() *NodeRemovalParams {
 	p := new(NodeRemovalParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeRemovalParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.NodeRemovalParams"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Node status
+Node status.
 */
 type NodeStatus int
 
@@ -5667,6 +6500,89 @@ func (e *NodeStatus) MarshalJSON() ([]byte, error) {
 }
 
 func (e NodeStatus) Ref() *NodeStatus {
+	return &e
+}
+
+/*
+Indicates the current status of Disk Deduplication for the Container.
+*/
+type OnDiskDedup int
+
+const (
+	ONDISKDEDUP_UNKNOWN      OnDiskDedup = 0
+	ONDISKDEDUP_REDACTED     OnDiskDedup = 1
+	ONDISKDEDUP_NONE         OnDiskDedup = 2
+	ONDISKDEDUP_OFF          OnDiskDedup = 3
+	ONDISKDEDUP_POST_PROCESS OnDiskDedup = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *OnDiskDedup) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"OFF",
+		"POST_PROCESS",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e OnDiskDedup) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"OFF",
+		"POST_PROCESS",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *OnDiskDedup) index(name string) OnDiskDedup {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"OFF",
+		"POST_PROCESS",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return OnDiskDedup(idx)
+		}
+	}
+	return ONDISKDEDUP_UNKNOWN
+}
+
+func (e *OnDiskDedup) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for OnDiskDedup:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *OnDiskDedup) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e OnDiskDedup) Ref() *OnDiskDedup {
 	return &e
 }
 
@@ -5771,11 +6687,11 @@ type PublicKey struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Ssh key value
+	  Ssh key value.
 	*/
 	Key *string `json:"key"`
 	/*
-	  Ssh key name
+	  Ssh key name.
 	*/
 	Name *string `json:"name"`
 }
@@ -5797,14 +6713,14 @@ func NewPublicKey() *PublicKey {
 	p := new(PublicKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.PublicKey"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.PublicKey"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Rack reference for the block
+Rack reference for the block.
 */
 type RackReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5813,11 +6729,11 @@ type RackReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Rack Id
+	  Rack Id.
 	*/
 	Id *int64 `json:"id,omitempty"`
 	/*
-	  Rack UUID
+	  Rack UUID.
 	*/
 	Uuid *string `json:"uuid,omitempty"`
 }
@@ -5826,14 +6742,14 @@ func NewRackReference() *RackReference {
 	p := new(RackReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RackReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.RackReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Rackable Unit configuration
+Rackable Unit configuration.
 */
 type RackableUnit struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5846,31 +6762,31 @@ type RackableUnit struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Rackable unit Id
+	  Rackable unit Id.
 	*/
 	Id *int64 `json:"id,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 
 	Model *RackableUnitModel `json:"model,omitempty"`
 	/*
-	  Rackable unit model name
+	  Rackable unit model name.
 	*/
 	ModelName *string `json:"modelName,omitempty"`
 	/*
-	  List of node information registered to the block
+	  List of node information registered to the block.
 	*/
 	Nodes []RackableUnitNode `json:"nodes,omitempty"`
 
 	Rack *RackReference `json:"rack,omitempty"`
 	/*
-	  Rackable unit serial name
+	  Rackable unit serial name.
 	*/
 	Serial *string `json:"serial,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -5879,14 +6795,14 @@ func NewRackableUnit() *RackableUnit {
 	p := new(RackableUnit)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RackableUnit"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.RackableUnit"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Rackable unit model type
+Rackable unit model type.
 */
 type RackableUnitModel int
 
@@ -6021,7 +6937,7 @@ func (e RackableUnitModel) Ref() *RackableUnitModel {
 }
 
 /*
-Node information registered to this rackable unit
+Node information registered to this rackable unit.
 */
 type RackableUnitNode struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6030,15 +6946,15 @@ type RackableUnitNode struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Position of a node in a rackable unit
+	  Position of a node in a rackable unit.
 	*/
 	Position *int `json:"position,omitempty"`
 	/*
-	  Controller VM Id
+	  Controller VM Id.
 	*/
 	SvmId *int64 `json:"svmId,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	Uuid *string `json:"uuid,omitempty"`
 }
@@ -6047,16 +6963,16 @@ func NewRackableUnitNode() *RackableUnitNode {
 	p := new(RackableUnitNode)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RackableUnitNode"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.RackableUnitNode"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/$actions/remove-node Post operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/vcenter-extensions/{extId}/$actions/register Post operation
 */
-type RemoveNodeTaskResponse struct {
+type RegisterVcenterExtensionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -6067,31 +6983,31 @@ type RemoveNodeTaskResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfRemoveNodeTaskResponseData `json:"data,omitempty"`
+	Data *OneOfRegisterVcenterExtensionApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewRemoveNodeTaskResponse() *RemoveNodeTaskResponse {
-	p := new(RemoveNodeTaskResponse)
+func NewRegisterVcenterExtensionApiResponse() *RegisterVcenterExtensionApiResponse {
+	p := new(RegisterVcenterExtensionApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.RemoveNodeTaskResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.RemoveNodeTaskResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.RegisterVcenterExtensionApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *RemoveNodeTaskResponse) GetData() interface{} {
+func (p *RegisterVcenterExtensionApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *RemoveNodeTaskResponse) SetData(v interface{}) error {
+func (p *RegisterVcenterExtensionApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfRemoveNodeTaskResponseData()
+		p.Data = NewOneOfRegisterVcenterExtensionApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -6104,9 +7020,9 @@ func (p *RemoveNodeTaskResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/snmp/$actions/remove-transports Post operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/remove-node Post operation
 */
-type RemoveSnmpTransportsTaskApiResponse struct {
+type RemoveNodeApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -6117,31 +7033,31 @@ type RemoveSnmpTransportsTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfRemoveSnmpTransportsTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfRemoveNodeApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewRemoveSnmpTransportsTaskApiResponse() *RemoveSnmpTransportsTaskApiResponse {
-	p := new(RemoveSnmpTransportsTaskApiResponse)
+func NewRemoveNodeApiResponse() *RemoveNodeApiResponse {
+	p := new(RemoveNodeApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.RemoveSnmpTransportsTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.RemoveSnmpTransportsTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.RemoveNodeApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *RemoveSnmpTransportsTaskApiResponse) GetData() interface{} {
+func (p *RemoveNodeApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *RemoveSnmpTransportsTaskApiResponse) SetData(v interface{}) error {
+func (p *RemoveNodeApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfRemoveSnmpTransportsTaskApiResponseData()
+		p.Data = NewOneOfRemoveNodeApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -6154,7 +7070,107 @@ func (p *RemoveSnmpTransportsTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-RSYSLOG Module information
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/$actions/remove-transports Post operation
+*/
+type RemoveSnmpTransportsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfRemoveSnmpTransportsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewRemoveSnmpTransportsApiResponse() *RemoveSnmpTransportsApiResponse {
+	p := new(RemoveSnmpTransportsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.RemoveSnmpTransportsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *RemoveSnmpTransportsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *RemoveSnmpTransportsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfRemoveSnmpTransportsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{extId}/$actions/rename-host Post operation
+*/
+type RenameHostApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfRenameHostApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewRenameHostApiResponse() *RenameHostApiResponse {
+	p := new(RenameHostApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.RenameHostApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *RenameHostApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *RenameHostApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfRenameHostApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+RSYSLOG Module information.
 */
 type RsyslogModuleItem struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6165,7 +7181,7 @@ type RsyslogModuleItem struct {
 
 	LogSeverityLevel *RsyslogModuleLogSeverityLevel `json:"logSeverityLevel"`
 	/*
-	  Option to log, monitor/output files of a module
+	  Option to log, monitor/output files of a module.
 	*/
 	Monitor *bool `json:"monitor"`
 
@@ -6191,14 +7207,14 @@ func NewRsyslogModuleItem() *RsyslogModuleItem {
 	p := new(RsyslogModuleItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RsyslogModuleItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.RsyslogModuleItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-RSYSLOG module log severity level
+RSYSLOG module log severity level.
 */
 type RsyslogModuleLogSeverityLevel int
 
@@ -6301,7 +7317,7 @@ func (e RsyslogModuleLogSeverityLevel) Ref() *RsyslogModuleLogSeverityLevel {
 }
 
 /*
-RSYSLOG module name
+RSYSLOG module name.
 */
 type RsyslogModuleName int
 
@@ -6452,7 +7468,7 @@ func (e RsyslogModuleName) Ref() *RsyslogModuleName {
 }
 
 /*
-RSYSLOG server protocol type
+RSYSLOG server protocol type.
 */
 type RsyslogNetworkProtocol int
 
@@ -6547,25 +7563,25 @@ type RsyslogServer struct {
 
 	IpAddress *import4.IPAddress `json:"ipAddress"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  List of modules registered to RSYSLOG server
+	  List of modules registered to RSYSLOG server.
 	*/
 	Modules []RsyslogModuleItem `json:"modules,omitempty"`
 
 	NetworkProtocol *RsyslogNetworkProtocol `json:"networkProtocol"`
 	/*
-	  RSYSLOG server port
+	  RSYSLOG server port.
 	*/
 	Port *int `json:"port"`
 	/*
-	  RSYSLOG server name
+	  RSYSLOG server name.
 	*/
 	ServerName *string `json:"serverName"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -6591,14 +7607,14 @@ func NewRsyslogServer() *RsyslogServer {
 	p := new(RsyslogServer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RsyslogServer"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.RsyslogServer"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Search parameters
+Search parameters.
 */
 type SearchParams struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6625,14 +7641,14 @@ func NewSearchParams() *SearchParams {
 	p := new(SearchParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SearchParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SearchParams"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Task Response which is one of node-discovery, networking-details, hypervisor-upload information
+Task Response which is one of node-discovery, networking-details, hypervisor-upload information.
 */
 type SearchResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6654,7 +7670,7 @@ func NewSearchResponse() *SearchResponse {
 	p := new(SearchResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SearchResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SearchResponse"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6682,7 +7698,7 @@ func (p *SearchResponse) SetResponse(v interface{}) error {
 }
 
 /*
-Task Response search type
+Task Response search type.
 */
 type SearchType int
 
@@ -6769,7 +7785,7 @@ func (e SearchType) Ref() *SearchType {
 }
 
 /*
-SMTP network details
+SMTP network details.
 */
 type SmtpNetwork struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6780,15 +7796,15 @@ type SmtpNetwork struct {
 
 	IpAddress *import4.IPAddress `json:"ipAddress"`
 	/*
-	  SMTP server password
+	  SMTP server password.
 	*/
 	Password *string `json:"password,omitempty"`
 	/*
-	  SMTP port
+	  SMTP port.
 	*/
 	Port *int `json:"port,omitempty"`
 	/*
-	  SMTP server user name
+	  SMTP server user name.
 	*/
 	Username *string `json:"username,omitempty"`
 }
@@ -6808,7 +7824,7 @@ func NewSmtpNetwork() *SmtpNetwork {
 	p := new(SmtpNetwork)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SmtpNetwork"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SmtpNetwork"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6824,7 +7840,7 @@ type SmtpServerRef struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  SMTP email address
+	  SMTP email address.
 	*/
 	EmailAddress *string `json:"emailAddress"`
 
@@ -6850,14 +7866,14 @@ func NewSmtpServerRef() *SmtpServerRef {
 	p := new(SmtpServerRef)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SmtpServerRef"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SmtpServerRef"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Type of SMTP server
+Type of SMTP server.
 */
 type SmtpType int
 
@@ -6940,7 +7956,7 @@ func (e SmtpType) Ref() *SmtpType {
 }
 
 /*
-SNMP user authentication type
+SNMP user authentication type.
 */
 type SnmpAuthType int
 
@@ -7019,7 +8035,7 @@ func (e SnmpAuthType) Ref() *SnmpAuthType {
 }
 
 /*
-SNMP information
+SNMP information.
 */
 type SnmpConfig struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7028,19 +8044,19 @@ type SnmpConfig struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  SNMP status
+	  SNMP status.
 	*/
 	Status *bool `json:"status,omitempty"`
 	/*
-	  SNMP transport details
+	  SNMP transport details.
 	*/
 	Transports []SnmpTransport `json:"transports,omitempty"`
 	/*
-	  SNMP trap details
+	  SNMP trap details.
 	*/
 	Traps []SnmpTrap `json:"traps,omitempty"`
 	/*
-	  SNMP user information
+	  SNMP user information.
 	*/
 	Users []SnmpUser `json:"users,omitempty"`
 }
@@ -7049,14 +8065,14 @@ func NewSnmpConfig() *SnmpConfig {
 	p := new(SnmpConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SnmpConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-SNMP user encryption type
+SNMP user encryption type.
 */
 type SnmpPrivType int
 
@@ -7135,7 +8151,7 @@ func (e SnmpPrivType) Ref() *SnmpPrivType {
 }
 
 /*
-SNMP protocol type
+SNMP protocol type.
 */
 type SnmpProtocol int
 
@@ -7222,7 +8238,7 @@ func (e SnmpProtocol) Ref() *SnmpProtocol {
 }
 
 /*
-SNMP status
+SNMP status.
 */
 type SnmpStatusParam struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7231,7 +8247,7 @@ type SnmpStatusParam struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  SNMP user information
+	  SNMP user information.
 	*/
 	Status *bool `json:"status"`
 }
@@ -7251,14 +8267,14 @@ func NewSnmpStatusParam() *SnmpStatusParam {
 	p := new(SnmpStatusParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpStatusParam"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SnmpStatusParam"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-SNMP transport details
+SNMP transport details.
 */
 type SnmpTransport struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7267,7 +8283,7 @@ type SnmpTransport struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  SNMP port
+	  SNMP port.
 	*/
 	Port *int `json:"port"`
 
@@ -7291,7 +8307,7 @@ func NewSnmpTransport() *SnmpTransport {
 	p := new(SnmpTransport)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpTransport"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SnmpTransport"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7306,11 +8322,11 @@ type SnmpTrap struct {
 
 	Address *import4.IPAddress `json:"address"`
 	/*
-	  Community string(plaintext) for SNMP version 2.0
+	  Community string(plaintext) for SNMP version 2.0.
 	*/
 	CommunityString *string `json:"communityString,omitempty"`
 	/*
-	  SNMP engine Id
+	  SNMP engine Id.
 	*/
 	EngineId *string `json:"engineId,omitempty"`
 	/*
@@ -7318,29 +8334,29 @@ type SnmpTrap struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  SNMP information status
+	  SNMP information status.
 	*/
 	Inform *bool `json:"inform,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  SNMP port
+	  SNMP port.
 	*/
 	Port *int `json:"port,omitempty"`
 
 	Protocol *SnmpProtocol `json:"protocol,omitempty"`
 	/*
-	  SNMP receiver name
+	  SNMP receiver name.
 	*/
 	RecieverName *string `json:"recieverName,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  SNMP user name
+	  SNMP username. For SNMP trap v3 version, SNMP username is required parameter.
 	*/
 	Username *string `json:"username,omitempty"`
 
@@ -7364,14 +8380,14 @@ func NewSnmpTrap() *SnmpTrap {
 	p := new(SnmpTrap)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpTrap"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SnmpTrap"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-SNMP version
+SNMP version.
 */
 type SnmpTrapVersion int
 
@@ -7450,7 +8466,7 @@ func (e SnmpTrapVersion) Ref() *SnmpTrapVersion {
 }
 
 /*
-SNMP user information
+SNMP user information.
 */
 type SnmpUser struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7459,7 +8475,7 @@ type SnmpUser struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  SNMP user authentication key
+	  SNMP user authentication key.
 	*/
 	AuthKey *string `json:"authKey"`
 
@@ -7469,21 +8485,21 @@ type SnmpUser struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  SNMP user encryption key
+	  SNMP user encryption key.
 	*/
 	PrivKey *string `json:"privKey,omitempty"`
 
 	PrivType *SnmpPrivType `json:"privType,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  SNMP user name
+	  SNMP username. For SNMP trap v3 version, SNMP username is required parameter.
 	*/
 	Username *string `json:"username"`
 }
@@ -7507,14 +8523,14 @@ func NewSnmpUser() *SnmpUser {
 	p := new(SnmpUser)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpUser"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SnmpUser"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Cluster software version details
+Cluster software version details.
 */
 type SoftwareMapReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7525,7 +8541,7 @@ type SoftwareMapReference struct {
 
 	SoftwareType *SoftwareTypeRef `json:"softwareType,omitempty"`
 	/*
-	  Software version
+	  Software version.
 	*/
 	Version *string `json:"version,omitempty"`
 }
@@ -7534,14 +8550,14 @@ func NewSoftwareMapReference() *SoftwareMapReference {
 	p := new(SoftwareMapReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SoftwareMapReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.SoftwareMapReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Software type
+Software type.
 */
 type SoftwareTypeRef int
 
@@ -7623,8 +8639,238 @@ func (e SoftwareTypeRef) Ref() *SoftwareTypeRef {
 	return &e
 }
 
+type StorageContainer struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Affinity host extId for RF 1 Storage Container.
+	*/
+	AffinityHostExtId *string `json:"affinityHostExtId,omitempty"`
+
+	CacheDeduplication *CacheDeduplication `json:"cacheDeduplication,omitempty"`
+	/*
+	  extId of the Cluster owning the Storage Container.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  Corresponding name of the Cluster owning the Storage Container instance.
+	*/
+	ClusterName *string `json:"clusterName,omitempty"`
+	/*
+	  The compression delay in seconds.
+	*/
+	CompressionDelaySecs *int `json:"compressionDelaySecs,omitempty"`
+	/*
+	  extId of the Storage Container.
+	*/
+	ContainerExtId *string `json:"containerExtId,omitempty"`
+
+	ErasureCode *ErasureCodeStatus `json:"erasureCode,omitempty"`
+	/*
+	  Delay in performing ErasureCode for the current Container instance.
+	*/
+	ErasureCodeDelaySecs *int `json:"erasureCodeDelaySecs,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Indicates whether to prefer a higher Erasure Code fault domain.
+	*/
+	HasHigherEcFaultDomainPreference *bool `json:"hasHigherEcFaultDomainPreference,omitempty"`
+	/*
+	  Indicates whether the compression is enabled for the Container.
+	*/
+	IsCompressionEnabled *bool `json:"isCompressionEnabled,omitempty"`
+	/*
+	  Indicates whether the Container is encrypted or not.
+	*/
+	IsEncrypted *bool `json:"isEncrypted,omitempty"`
+	/*
+	  Indicates whether data written to this container should be inline erasure coded or not. This field is only considered when ErasureCoding is enabled.
+	*/
+	IsInlineEcEnabled *bool `json:"isInlineEcEnabled,omitempty"`
+	/*
+	  Indicates whether the Container is internal and is managed by Nutanix.
+	*/
+	IsInternal *bool `json:"isInternal,omitempty"`
+	/*
+	  Indicates if the Storage Container is marked for removal. This field is set when the Storage Container is about to be destroyed.
+	*/
+	IsMarkedForRemoval *bool `json:"isMarkedForRemoval,omitempty"`
+	/*
+	  Indicates whether the NFS whitelist is inherited from global config.
+	*/
+	IsNfsWhitelistInherited *bool `json:"isNfsWhitelistInherited,omitempty"`
+	/*
+	  Indicates whether the Container instance has software encryption enabled.
+	*/
+	IsSoftwareEncryptionEnabled *bool `json:"isSoftwareEncryptionEnabled,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  Max capacity of the Container as defined by the user.
+	*/
+	LogicalAdvertisedCapacityBytes *int64 `json:"logicalAdvertisedCapacityBytes,omitempty"`
+	/*
+	  Total reserved size (in bytes) of the container (set by Admin). This also accounts for the container's replication factor. The actual reserved capacity of the container will be the maximum of explicitReservedCapacity and implicitReservedCapacity.
+	*/
+	LogicalExplicitReservedCapacityBytes *int64 `json:"logicalExplicitReservedCapacityBytes,omitempty"`
+	/*
+	  This is the summation of reservations provisioned on all vdisks in the container. The actual reserved capacity of the container will be the maximum of explicitReservedCapacity and implicitReservedCapacity.
+	*/
+	LogicalImplicitReservedCapacityBytes *int64 `json:"logicalImplicitReservedCapacityBytes,omitempty"`
+	/*
+	  Maximum physical capacity of the Storage Container in bytes.
+	*/
+	MaxCapacityBytes *int64 `json:"maxCapacityBytes,omitempty"`
+	/*
+	  Name of the Storage Container. Note that the name of Storage Container should be unique per cluster.
+	*/
+	Name *string `json:"name"`
+	/*
+	  List of NFS addresses which need to be whitelisted.
+	*/
+	NfsWhitelistAddress []import4.IPAddressOrFQDN `json:"nfsWhitelistAddress,omitempty"`
+
+	OnDiskDedup *OnDiskDedup `json:"onDiskDedup,omitempty"`
+	/*
+	  extId of the owner.
+	*/
+	OwnerExtId *string `json:"ownerExtId,omitempty"`
+	/*
+	  Replication factor of the Storage Container.
+	*/
+	ReplicationFactor *int `json:"replicationFactor,omitempty"`
+	/*
+	  extId of the Storage Pool owning the Storage Container instance.
+	*/
+	StoragePoolExtId *string `json:"storagePoolExtId,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *StorageContainer) MarshalJSON() ([]byte, error) {
+	type StorageContainerProxy StorageContainer
+	return json.Marshal(struct {
+		*StorageContainerProxy
+		Name *string `json:"name,omitempty"`
+	}{
+		StorageContainerProxy: (*StorageContainerProxy)(p),
+		Name:                  p.Name,
+	})
+}
+
+func NewStorageContainer() *StorageContainer {
+	p := new(StorageContainer)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.StorageContainer"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
 /*
-Disk storage Tier type
+Represents the Disk storage tier.
+*/
+type StorageTier int
+
+const (
+	STORAGETIER_UNKNOWN      StorageTier = 0
+	STORAGETIER_REDACTED     StorageTier = 1
+	STORAGETIER_SSD_PCIE     StorageTier = 2
+	STORAGETIER_SSD_SATA     StorageTier = 3
+	STORAGETIER_DAS_SATA     StorageTier = 4
+	STORAGETIER_CLOUD        StorageTier = 5
+	STORAGETIER_SSD_MEM_NVME StorageTier = 6
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *StorageTier) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SSD_PCIE",
+		"SSD_SATA",
+		"DAS_SATA",
+		"CLOUD",
+		"SSD_MEM_NVME",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e StorageTier) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SSD_PCIE",
+		"SSD_SATA",
+		"DAS_SATA",
+		"CLOUD",
+		"SSD_MEM_NVME",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *StorageTier) index(name string) StorageTier {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SSD_PCIE",
+		"SSD_SATA",
+		"DAS_SATA",
+		"CLOUD",
+		"SSD_MEM_NVME",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return StorageTier(idx)
+		}
+	}
+	return STORAGETIER_UNKNOWN
+}
+
+func (e *StorageTier) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for StorageTier:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *StorageTier) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e StorageTier) Ref() *StorageTier {
+	return &e
+}
+
+/*
+Disk storage Tier type.
 */
 type StorageTierReference int
 
@@ -7707,7 +8953,7 @@ func (e StorageTierReference) Ref() *StorageTierReference {
 }
 
 /*
-Message contains the component domain fault tolerance text details
+Message contains the component domain fault tolerance text details.
 */
 type ToleranceMessage struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7716,11 +8962,11 @@ type ToleranceMessage struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of tolerance message attributes
+	  List of tolerance message attributes.
 	*/
 	AttributeList []AttributeItem `json:"attributeList,omitempty"`
 	/*
-	  Message Id
+	  Message Id.
 	*/
 	Id *string `json:"id,omitempty"`
 }
@@ -7729,14 +8975,14 @@ func NewToleranceMessage() *ToleranceMessage {
 	p := new(ToleranceMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ToleranceMessage"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ToleranceMessage"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-List of unconfigured nodes
+List of unconfigured nodes.
 */
 type UnconfigureNodeDetails struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7745,7 +8991,7 @@ type UnconfigureNodeDetails struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of unconfigured nodes
+	  List of unconfigured nodes.
 	*/
 	NodeList []UnconfiguredNodeListItem `json:"nodeList,omitempty"`
 }
@@ -7754,12 +9000,15 @@ func NewUnconfigureNodeDetails() *UnconfigureNodeDetails {
 	p := new(UnconfigureNodeDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UnconfigureNodeDetails"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UnconfigureNodeDetails"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
+/*
+Map providing additional node attributes for the unconfigured node.
+*/
 type UnconfiguredNodeAttributeMap struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -7767,23 +9016,23 @@ type UnconfiguredNodeAttributeMap struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Indicates if cvm interface can work with 1 GIG NIC or not
+	  Indicates if cvm interface can work with 1 GIG NIC or not.
 	*/
 	CanWorkWith1GNic *bool `json:"canWorkWith1GNic,omitempty"`
 	/*
-	  Default workload
+	  Default workload.
 	*/
 	DefaultWorkload *string `json:"defaultWorkload,omitempty"`
 	/*
-	  Indicates whether the model is supported or not
+	  Indicates whether the model is supported or not.
 	*/
 	IsModelSupported *bool `json:"isModelSupported,omitempty"`
 	/*
-	  LCM family name
+	  LCM family name.
 	*/
 	LcmFamily *string `json:"lcmFamily,omitempty"`
 	/*
-	  Indicates whether the hypervisor is robo mixed or not
+	  Indicates whether the hypervisor is robo mixed or not.
 	*/
 	RoboMixedHypervisor *bool `json:"roboMixedHypervisor,omitempty"`
 }
@@ -7792,14 +9041,14 @@ func NewUnconfiguredNodeAttributeMap() *UnconfiguredNodeAttributeMap {
 	p := new(UnconfiguredNodeAttributeMap)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UnconfiguredNodeAttributeMap"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UnconfiguredNodeAttributeMap"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Unconfigured node details
+Unconfigured node details.
 */
 type UnconfiguredNodeListItem struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7808,73 +9057,75 @@ type UnconfiguredNodeListItem struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Cluster arch
+	  Cluster arch.
 	*/
 	Arch *string `json:"arch,omitempty"`
 
 	Attributes *UnconfiguredNodeAttributeMap `json:"attributes,omitempty"`
 	/*
-	  Cluster ID
+	  Cluster ID.
 	*/
 	ClusterId *string `json:"clusterId,omitempty"`
 	/*
-	  CPU type
+	  CPU type.
 	*/
 	CpuType []string `json:"cpuType,omitempty"`
 	/*
-	  Current CVM VLAN tag
+	  Current CVM VLAN tag.
 	*/
 	CurrentCvmVlanTag *string `json:"currentCvmVlanTag,omitempty"`
 	/*
-	  Current network interface of a node
+	  Current network interface of a node.
 	*/
 	CurrentNetworkInterface *string `json:"currentNetworkInterface,omitempty"`
 
 	CvmIp *import4.IPAddress `json:"cvmIp,omitempty"`
 	/*
-	  Foundation version
+	  Foundation version.
 	*/
 	FoundationVersion *string `json:"foundationVersion,omitempty"`
+
+	HostType *HostTypeEnum `json:"hostType,omitempty"`
 
 	HypervisorIp *import4.IPAddress `json:"hypervisorIp,omitempty"`
 
 	HypervisorType *HypervisorType `json:"hypervisorType,omitempty"`
 	/*
-	  Host version of the node
+	  Host version of the node.
 	*/
 	HypervisorVersion *string `json:"hypervisorVersion,omitempty"`
 	/*
-	  Interface IPV6 address
+	  Interface IPV6 address.
 	*/
 	InterfaceIpv6 *string `json:"interfaceIpv6,omitempty"`
 
 	IpmiIp *import4.IPAddress `json:"ipmiIp,omitempty"`
 	/*
-	  Secure boot status
+	  Secure boot status.
 	*/
 	IsSecureBooted *bool `json:"isSecureBooted,omitempty"`
 	/*
-	  Position of a node in a rackable unit
+	  Position of a node in a rackable unit.
 	*/
 	NodePosition *string `json:"nodePosition,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 	/*
-	  NOS software version of a node
+	  NOS software version of a node.
 	*/
 	NosVersion *string `json:"nosVersion,omitempty"`
 	/*
-	  Maximum number of nodes in rackable-unit
+	  Maximum number of nodes in rackable-unit.
 	*/
 	RackableUnitMaxNodes *int64 `json:"rackableUnitMaxNodes,omitempty"`
 	/*
-	  Rackable unit model type
+	  Rackable unit model type.
 	*/
 	RackableUnitModel *string `json:"rackableUnitModel,omitempty"`
 	/*
-	  Rackable unit serial name
+	  Rackable unit serial name.
 	*/
 	RackableUnitSerial *string `json:"rackableUnitSerial,omitempty"`
 }
@@ -7883,16 +9134,16 @@ func NewUnconfiguredNodeListItem() *UnconfiguredNodeListItem {
 	p := new(UnconfiguredNodeListItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UnconfiguredNodeListItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UnconfiguredNodeListItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/storage-containers/{extId}/$actions/unmount Post operation
 */
-type UpdateClusterTaskApiResponse struct {
+type UnmountStorageContainerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -7903,31 +9154,31 @@ type UpdateClusterTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfUpdateClusterTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfUnmountStorageContainerApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewUpdateClusterTaskApiResponse() *UpdateClusterTaskApiResponse {
-	p := new(UpdateClusterTaskApiResponse)
+func NewUnmountStorageContainerApiResponse() *UnmountStorageContainerApiResponse {
+	p := new(UnmountStorageContainerApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.UpdateClusterTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UpdateClusterTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.UnmountStorageContainerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *UpdateClusterTaskApiResponse) GetData() interface{} {
+func (p *UnmountStorageContainerApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *UpdateClusterTaskApiResponse) SetData(v interface{}) error {
+func (p *UnmountStorageContainerApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfUpdateClusterTaskApiResponseData()
+		p.Data = NewOneOfUnmountStorageContainerApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -7940,9 +9191,9 @@ func (p *UpdateClusterTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/vcenter-extensions/{extId}/$actions/unregister Post operation
 */
-type UpdateRsyslogServerTaskApiResponse struct {
+type UnregisterVcenterExtensionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -7953,31 +9204,31 @@ type UpdateRsyslogServerTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfUpdateRsyslogServerTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfUnregisterVcenterExtensionApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewUpdateRsyslogServerTaskApiResponse() *UpdateRsyslogServerTaskApiResponse {
-	p := new(UpdateRsyslogServerTaskApiResponse)
+func NewUnregisterVcenterExtensionApiResponse() *UnregisterVcenterExtensionApiResponse {
+	p := new(UnregisterVcenterExtensionApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.UpdateRsyslogServerTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UpdateRsyslogServerTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.UnregisterVcenterExtensionApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *UpdateRsyslogServerTaskApiResponse) GetData() interface{} {
+func (p *UnregisterVcenterExtensionApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *UpdateRsyslogServerTaskApiResponse) SetData(v interface{}) error {
+func (p *UnregisterVcenterExtensionApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfUpdateRsyslogServerTaskApiResponseData()
+		p.Data = NewOneOfUnregisterVcenterExtensionApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -7990,9 +9241,9 @@ func (p *UpdateRsyslogServerTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/snmp/$actions/update-status Post operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId} Put operation
 */
-type UpdateSnmpStatusTaskApiResponse struct {
+type UpdateClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -8003,31 +9254,31 @@ type UpdateSnmpStatusTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfUpdateSnmpStatusTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfUpdateClusterApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewUpdateSnmpStatusTaskApiResponse() *UpdateSnmpStatusTaskApiResponse {
-	p := new(UpdateSnmpStatusTaskApiResponse)
+func NewUpdateClusterApiResponse() *UpdateClusterApiResponse {
+	p := new(UpdateClusterApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSnmpStatusTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UpdateSnmpStatusTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.UpdateClusterApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *UpdateSnmpStatusTaskApiResponse) GetData() interface{} {
+func (p *UpdateClusterApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *UpdateSnmpStatusTaskApiResponse) SetData(v interface{}) error {
+func (p *UpdateClusterApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfUpdateSnmpStatusTaskApiResponseData()
+		p.Data = NewOneOfUpdateClusterApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -8040,9 +9291,9 @@ func (p *UpdateSnmpStatusTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/snmp/traps/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Put operation
 */
-type UpdateSnmpTrapTaskApiResponse struct {
+type UpdateRsyslogServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -8053,31 +9304,31 @@ type UpdateSnmpTrapTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfUpdateSnmpTrapTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfUpdateRsyslogServerApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewUpdateSnmpTrapTaskApiResponse() *UpdateSnmpTrapTaskApiResponse {
-	p := new(UpdateSnmpTrapTaskApiResponse)
+func NewUpdateRsyslogServerApiResponse() *UpdateRsyslogServerApiResponse {
+	p := new(UpdateRsyslogServerApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSnmpTrapTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UpdateSnmpTrapTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.UpdateRsyslogServerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *UpdateSnmpTrapTaskApiResponse) GetData() interface{} {
+func (p *UpdateRsyslogServerApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *UpdateSnmpTrapTaskApiResponse) SetData(v interface{}) error {
+func (p *UpdateRsyslogServerApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfUpdateSnmpTrapTaskApiResponseData()
+		p.Data = NewOneOfUpdateRsyslogServerApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -8090,9 +9341,9 @@ func (p *UpdateSnmpTrapTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{clusterExtId}/snmp/users/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/$actions/update-status Post operation
 */
-type UpdateSnmpUserTaskApiResponse struct {
+type UpdateSnmpStatusApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -8103,31 +9354,31 @@ type UpdateSnmpUserTaskApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfUpdateSnmpUserTaskApiResponseData `json:"data,omitempty"`
+	Data *OneOfUpdateSnmpStatusApiResponseData `json:"data,omitempty"`
 
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewUpdateSnmpUserTaskApiResponse() *UpdateSnmpUserTaskApiResponse {
-	p := new(UpdateSnmpUserTaskApiResponse)
+func NewUpdateSnmpStatusApiResponse() *UpdateSnmpStatusApiResponse {
+	p := new(UpdateSnmpStatusApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSnmpUserTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UpdateSnmpUserTaskApiResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSnmpStatusApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *UpdateSnmpUserTaskApiResponse) GetData() interface{} {
+func (p *UpdateSnmpStatusApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *UpdateSnmpUserTaskApiResponse) SetData(v interface{}) error {
+func (p *UpdateSnmpStatusApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfUpdateSnmpUserTaskApiResponseData()
+		p.Data = NewOneOfUpdateSnmpStatusApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -8140,7 +9391,157 @@ func (p *UpdateSnmpUserTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Upgrade status of a cluster
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/traps/{extId} Put operation
+*/
+type UpdateSnmpTrapApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUpdateSnmpTrapApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewUpdateSnmpTrapApiResponse() *UpdateSnmpTrapApiResponse {
+	p := new(UpdateSnmpTrapApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSnmpTrapApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UpdateSnmpTrapApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UpdateSnmpTrapApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUpdateSnmpTrapApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/users/{extId} Put operation
+*/
+type UpdateSnmpUserApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUpdateSnmpUserApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewUpdateSnmpUserApiResponse() *UpdateSnmpUserApiResponse {
+	p := new(UpdateSnmpUserApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSnmpUserApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UpdateSnmpUserApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UpdateSnmpUserApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUpdateSnmpUserApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/storage-containers/{extId} Put operation
+*/
+type UpdateStorageContainerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUpdateStorageContainerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewUpdateStorageContainerApiResponse() *UpdateStorageContainerApiResponse {
+	p := new(UpdateStorageContainerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.UpdateStorageContainerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UpdateStorageContainerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UpdateStorageContainerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUpdateStorageContainerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Upgrade status of a cluster.
 */
 type UpgradeStatus int
 
@@ -8247,7 +9648,7 @@ func (e UpgradeStatus) Ref() *UpgradeStatus {
 }
 
 /*
-Uplink information for controller VM
+Uplink information for controller VM.
 */
 type UplinkInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8258,7 +9659,7 @@ type UplinkInfo struct {
 
 	CvmIp *import4.IPAddress `json:"cvmIp,omitempty"`
 	/*
-	  Uplink details for a controller VM
+	  Uplink details for a controller VM.
 	*/
 	UplinkList []NameMacRef `json:"uplinkList,omitempty"`
 }
@@ -8267,14 +9668,14 @@ func NewUplinkInfo() *UplinkInfo {
 	p := new(UplinkInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UplinkInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UplinkInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Active and standby uplink information of the target nodes
+Active and standby uplink information of the target nodes.
 */
 type UplinkNetworkItem struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8283,11 +9684,11 @@ type UplinkNetworkItem struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Name of the uplink
+	  Name of the uplink.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  List of network types
+	  List of network types.
 	*/
 	Networks []string `json:"networks,omitempty"`
 
@@ -8298,14 +9699,14 @@ func NewUplinkNetworkItem() *UplinkNetworkItem {
 	p := new(UplinkNetworkItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UplinkNetworkItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UplinkNetworkItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Uplink information of the target nodes
+Uplink information of the target nodes.
 */
 type UplinkNode struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8318,7 +9719,7 @@ type UplinkNode struct {
 
 	HypervisorIp *import4.IPAddress `json:"hypervisorIp,omitempty"`
 	/*
-	  Active and standby uplink information of the target nodes
+	  Active and standby uplink information of the target nodes.
 	*/
 	Networks []UplinkNetworkItem `json:"networks"`
 }
@@ -8340,14 +9741,14 @@ func NewUplinkNode() *UplinkNode {
 	p := new(UplinkNode)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UplinkNode"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UplinkNode"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Active and standby uplink information of the target nodes
+Active and standby uplink information of the target nodes.
 */
 type Uplinks struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8356,11 +9757,11 @@ type Uplinks struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Active uplink information
+	  Active uplink information.
 	*/
 	Active []UplinksField `json:"active,omitempty"`
 	/*
-	  Standby uplink information
+	  Standby uplink information.
 	*/
 	Standby []UplinksField `json:"standby,omitempty"`
 }
@@ -8369,14 +9770,14 @@ func NewUplinks() *Uplinks {
 	p := new(Uplinks)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.Uplinks"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.Uplinks"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Properties of active and standby uplink
+Properties of active and standby uplink.
 */
 type UplinksField struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8385,15 +9786,15 @@ type UplinksField struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Mac address
+	  Mac address.
 	*/
 	Mac *string `json:"mac,omitempty"`
 	/*
-	  Interface name
+	  Interface name.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  Interface value
+	  Interface value.
 	*/
 	Value *string `json:"value,omitempty"`
 }
@@ -8402,14 +9803,14 @@ func NewUplinksField() *UplinksField {
 	p := new(UplinksField)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UplinksField"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UplinksField"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Upload information for a node
+Upload information for a node.
 */
 type UploadInfoNodeItem struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8418,11 +9819,11 @@ type UploadInfoNodeItem struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Error message if any, for available hypervisor ISO
+	  Error message if any, for available hypervisor ISO.
 	*/
 	AvailableHypervisorIsoError *string `json:"availableHypervisorIsoError,omitempty"`
 	/*
-	  Name of the hypervisor bundle
+	  Name of the hypervisor bundle.
 	*/
 	BundleName *string `json:"bundleName,omitempty"`
 	/*
@@ -8430,19 +9831,19 @@ type UploadInfoNodeItem struct {
 	*/
 	HypervisorUploadRequired *bool `json:"hypervisorUploadRequired,omitempty"`
 	/*
-	  Indicates if imaging is required or not
+	  Indicates if imaging is required or not.
 	*/
 	IsImagingMandatory *bool `json:"isImagingMandatory,omitempty"`
 	/*
-	  Indicates if node is compatible or not
+	  Indicates if node is compatible or not.
 	*/
 	IsNodeCompatible *bool `json:"isNodeCompatible,omitempty"`
 	/*
-	  Md5sum of ISO
+	  Md5sum of ISO.
 	*/
 	Md5Sum *string `json:"md5Sum,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 
@@ -8453,14 +9854,14 @@ func NewUploadInfoNodeItem() *UploadInfoNodeItem {
 	p := new(UploadInfoNodeItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UploadInfoNodeItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UploadInfoNodeItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-UserName and Password model
+UserName and Password model.
 */
 type UserInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8473,11 +9874,11 @@ type UserInfo struct {
 	*/
 	ClusterName *string `json:"clusterName,omitempty"`
 	/*
-	  Password
+	  Password.
 	*/
 	Password *string `json:"password,omitempty"`
 	/*
-	  Username
+	  Username.
 	*/
 	UserName *string `json:"userName,omitempty"`
 }
@@ -8486,14 +9887,14 @@ func NewUserInfo() *UserInfo {
 	p := new(UserInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UserInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.UserInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information of the bundle to verify
+Information of the bundle to verify.
 */
 type ValidateBundleInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8502,7 +9903,7 @@ type ValidateBundleInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Md5sum of ISO
+	  Md5sum of ISO.
 	*/
 	Md5Sum *string `json:"md5Sum,omitempty"`
 }
@@ -8511,14 +9912,64 @@ func NewValidateBundleInfo() *ValidateBundleInfo {
 	p := new(ValidateBundleInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ValidateBundleInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ValidateBundleInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Request body for node validation. It can be OneOf between hypervisor bundle and node uplinks
+REST response for all response codes in API path /clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/validate-node Post operation
+*/
+type ValidateNodeApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfValidateNodeApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewValidateNodeApiResponse() *ValidateNodeApiResponse {
+	p := new(ValidateNodeApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ValidateNodeApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ValidateNodeApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ValidateNodeApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfValidateNodeApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Request body for node validation. It can be OneOf between hypervisor bundle and node uplinks.
 */
 type ValidateNodeParam struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8549,7 +10000,7 @@ func NewValidateNodeParam() *ValidateNodeParam {
 	p := new(ValidateNodeParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ValidateNodeParam"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ValidateNodeParam"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8577,57 +10028,101 @@ func (p *ValidateNodeParam) SetSpec(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b1/config/clusters/{extId}/$actions/validate-node Post operation
+Credentials for registering/unregistering vCenter Server extension for Nutanix to manage VMs of the cluster.
 */
-type ValidateNodeTaskResponse struct {
+type VcenterCredentials struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfValidateNodeTaskResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+	  Password for vCenter Server extension registration/unregistration.
+	*/
+	Password *string `json:"password"`
+	/*
+	  vCenter port to connect for registering/unregistering extension.
+	*/
+	Port *int `json:"port,omitempty"`
+	/*
+	  Username for vCenter Server extension registration/unregistration.
+	*/
+	Username *string `json:"username"`
 }
 
-func NewValidateNodeTaskResponse() *ValidateNodeTaskResponse {
-	p := new(ValidateNodeTaskResponse)
+func (p *VcenterCredentials) MarshalJSON() ([]byte, error) {
+	type VcenterCredentialsProxy VcenterCredentials
+	return json.Marshal(struct {
+		*VcenterCredentialsProxy
+		Password *string `json:"password,omitempty"`
+		Username *string `json:"username,omitempty"`
+	}{
+		VcenterCredentialsProxy: (*VcenterCredentialsProxy)(p),
+		Password:                p.Password,
+		Username:                p.Username,
+	})
+}
+
+func NewVcenterCredentials() *VcenterCredentials {
+	p := new(VcenterCredentials)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "clustermgmt.v4.config.ValidateNodeTaskResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.ValidateNodeTaskResponse"}
+	*p.ObjectType_ = "clustermgmt.v4.config.VcenterCredentials"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.Port = new(int)
+	*p.Port = 443
+
+	return p
+}
+
+/*
+vCenter Server extension information of the cluster. Nutanix Prism requires registering vCenter Server extension keys to be able to perform VM Management and other operations.
+*/
+type VcenterExtension struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The globally unique identifier of cluster instance. It should be of type UUID.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  IP Address of vCenter.
+	*/
+	IpAddress *string `json:"ipAddress,omitempty"`
+	/*
+	  Indicates whether the vCenter Server extension is registered for the cluster.
+	*/
+	IsRegistered *bool `json:"isRegistered,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewVcenterExtension() *VcenterExtension {
+	p := new(VcenterExtension)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.VcenterExtension"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *ValidateNodeTaskResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ValidateNodeTaskResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfValidateNodeTaskResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
 /*
-Virtual NIC details
+Virtual NIC details.
 */
 type VirtualNic struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8636,7 +10131,7 @@ type VirtualNic struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Status of DHCP protocol
+	  Status of DHCP protocol.
 	*/
 	DhcpEnabled *bool `json:"dhcpEnabled,omitempty"`
 	/*
@@ -8644,11 +10139,11 @@ type VirtualNic struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Host description
+	  Host description.
 	*/
 	HostDescription *string `json:"hostDescription,omitempty"`
 	/*
-	  List of host NIC UUID associated with the host virtual NIC
+	  List of host NIC UUID associated with the host virtual NIC.
 	*/
 	HostNicsUuids []string `json:"hostNicsUuids,omitempty"`
 	/*
@@ -8656,43 +10151,43 @@ type VirtualNic struct {
 	*/
 	InterfaceStatus *string `json:"interfaceStatus,omitempty"`
 	/*
-	  List of IPv4 addresses associated with the NIC entity for the network connection
+	  List of IPv4 addresses associated with the NIC entity for the network connection.
 	*/
 	Ipv4Addresses []import4.IPAddress `json:"ipv4Addresses,omitempty"`
 	/*
-	  List of IPv6 addresses associated with the NIC entity for the network connection
+	  List of IPv6 addresses associated with the NIC entity for the network connection.
 	*/
 	Ipv6Addresses []import4.IPAddress `json:"ipv6Addresses,omitempty"`
 	/*
-	  Link speed in Kbps
+	  Link speed in Kbps.
 	*/
 	LinkSpeedInKbps *int64 `json:"linkSpeedInKbps,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  Host Mac address
+	  Host Mac address.
 	*/
 	MacAddress *string `json:"macAddress,omitempty"`
 	/*
-	  Maximum transmission unit in bytes
+	  Maximum transmission unit in bytes.
 	*/
 	MtuInBytes *int64 `json:"mtuInBytes,omitempty"`
 	/*
-	  Virtual NIC name
+	  Virtual NIC name.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  UUID of the host
+	  UUID of the host.
 	*/
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  VLAN Id
+	  VLAN Id.
 	*/
 	VlanId *int64 `json:"vlanId,omitempty"`
 }
@@ -8701,36 +10196,36 @@ func NewVirtualNic() *VirtualNic {
 	p := new(VirtualNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.VirtualNic"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "clustermgmt.v4.r0.b1.config.VirtualNic"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-type OneOfGetHostGpuResponseData struct {
+type OneOfGetDiskApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *HostGpu               `json:"-"`
+	oneOfType0    *Disk                  `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfGetHostGpuResponseData() *OneOfGetHostGpuResponseData {
-	p := new(OneOfGetHostGpuResponseData)
+func NewOneOfGetDiskApiResponseData() *OneOfGetDiskApiResponseData {
+	p := new(OneOfGetDiskApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetHostGpuResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetDiskApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetHostGpuResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetDiskApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case HostGpu:
+	case Disk:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(HostGpu)
+			p.oneOfType0 = new(Disk)
 		}
-		*p.oneOfType0 = v.(HostGpu)
+		*p.oneOfType0 = v.(Disk)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -8758,7 +10253,7 @@ func (p *OneOfGetHostGpuResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfGetHostGpuResponseData) GetValue() interface{} {
+func (p *OneOfGetDiskApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -8768,12 +10263,12 @@ func (p *OneOfGetHostGpuResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfGetHostGpuResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(HostGpu)
+func (p *OneOfGetDiskApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(Disk)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.HostGpu" == *vOneOfType0.ObjectType_ {
+		if "clustermgmt.v4.config.Disk" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(HostGpu)
+				p.oneOfType0 = new(Disk)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -8805,263 +10300,51 @@ func (p *OneOfGetHostGpuResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetHostGpuResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDiskApiResponseData"))
 }
 
-func (p *OneOfGetHostGpuResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetDiskApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetHostGpuResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetDiskApiResponseData")
 }
 
-type OneOfGetClusterHostGpusResponseData struct {
+type OneOfDiscoverUnconfiguredNodesApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    []HostGpu              `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfGetClusterHostGpusResponseData() *OneOfGetClusterHostGpusResponseData {
-	p := new(OneOfGetClusterHostGpusResponseData)
+func NewOneOfDiscoverUnconfiguredNodesApiResponseData() *OneOfDiscoverUnconfiguredNodesApiResponseData {
+	p := new(OneOfDiscoverUnconfiguredNodesApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetClusterHostGpusResponseData) SetValue(v interface{}) error {
+func (p *OneOfDiscoverUnconfiguredNodesApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetClusterHostGpusResponseData is nil"))
-	}
-	switch v.(type) {
-	case []HostGpu:
-		p.oneOfType0 = v.([]HostGpu)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.HostGpu>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.HostGpu>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetClusterHostGpusResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.HostGpu>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetClusterHostGpusResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]HostGpu)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.HostGpu" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.HostGpu>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.HostGpu>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetClusterHostGpusResponseData"))
-}
-
-func (p *OneOfGetClusterHostGpusResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.HostGpu>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetClusterHostGpusResponseData")
-}
-
-type OneOfGetDomainFaultToleranceResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []DomainFaultTolerance `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetDomainFaultToleranceResponseData() *OneOfGetDomainFaultToleranceResponseData {
-	p := new(OneOfGetDomainFaultToleranceResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetDomainFaultToleranceResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetDomainFaultToleranceResponseData is nil"))
-	}
-	switch v.(type) {
-	case []DomainFaultTolerance:
-		p.oneOfType0 = v.([]DomainFaultTolerance)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.DomainFaultTolerance>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.DomainFaultTolerance>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetDomainFaultToleranceResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.DomainFaultTolerance>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetDomainFaultToleranceResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]DomainFaultTolerance)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.DomainFaultTolerance" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.DomainFaultTolerance>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.DomainFaultTolerance>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDomainFaultToleranceResponseData"))
-}
-
-func (p *OneOfGetDomainFaultToleranceResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.DomainFaultTolerance>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetDomainFaultToleranceResponseData")
-}
-
-type OneOfClusterDestroyTaskResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfClusterDestroyTaskResponseData() *OneOfClusterDestroyTaskResponseData {
-	p := new(OneOfClusterDestroyTaskResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfClusterDestroyTaskResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfClusterDestroyTaskResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfDiscoverUnconfiguredNodesApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
 		}
-		*p.oneOfType0 = v.(import1.TaskReference)
+		*p.oneOfType2001 = v.(import1.TaskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import2.ErrorResponse)
@@ -9081,9 +10364,9 @@ func (p *OneOfClusterDestroyTaskResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfClusterDestroyTaskResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+func (p *OneOfDiscoverUnconfiguredNodesApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -9091,22 +10374,22 @@ func (p *OneOfClusterDestroyTaskResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfClusterDestroyTaskResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
+func (p *OneOfDiscoverUnconfiguredNodesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
 			}
-			*p.oneOfType0 = *vOneOfType0
+			*p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 			return nil
 		}
 	}
@@ -9128,157 +10411,51 @@ func (p *OneOfClusterDestroyTaskResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterDestroyTaskResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDiscoverUnconfiguredNodesApiResponseData"))
 }
 
-func (p *OneOfClusterDestroyTaskResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+func (p *OneOfDiscoverUnconfiguredNodesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfClusterDestroyTaskResponseData")
+	return nil, errors.New("No value to marshal for OneOfDiscoverUnconfiguredNodesApiResponseData")
 }
 
-type OneOfGetHostNicsResponseData struct {
+type OneOfMountStorageContainerApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    []HostNic              `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfGetHostNicsResponseData() *OneOfGetHostNicsResponseData {
-	p := new(OneOfGetHostNicsResponseData)
+func NewOneOfMountStorageContainerApiResponseData() *OneOfMountStorageContainerApiResponseData {
+	p := new(OneOfMountStorageContainerApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetHostNicsResponseData) SetValue(v interface{}) error {
+func (p *OneOfMountStorageContainerApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetHostNicsResponseData is nil"))
-	}
-	switch v.(type) {
-	case []HostNic:
-		p.oneOfType0 = v.([]HostNic)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.HostNic>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.HostNic>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetHostNicsResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.HostNic>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetHostNicsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]HostNic)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.HostNic" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.HostNic>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.HostNic>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetHostNicsResponseData"))
-}
-
-func (p *OneOfGetHostNicsResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.HostNic>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetHostNicsResponseData")
-}
-
-type OneOfUpdateSnmpUserTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateSnmpUserTaskApiResponseData() *OneOfUpdateSnmpUserTaskApiResponseData {
-	p := new(OneOfUpdateSnmpUserTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateSnmpUserTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateSnmpUserTaskApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfMountStorageContainerApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
 		}
-		*p.oneOfType0 = v.(import1.TaskReference)
+		*p.oneOfType2001 = v.(import1.TaskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import2.ErrorResponse)
@@ -9298,9 +10475,9 @@ func (p *OneOfUpdateSnmpUserTaskApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfUpdateSnmpUserTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+func (p *OneOfMountStorageContainerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -9308,22 +10485,22 @@ func (p *OneOfUpdateSnmpUserTaskApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfUpdateSnmpUserTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
+func (p *OneOfMountStorageContainerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
 			}
-			*p.oneOfType0 = *vOneOfType0
+			*p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 			return nil
 		}
 	}
@@ -9345,2993 +10522,26 @@ func (p *OneOfUpdateSnmpUserTaskApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSnmpUserTaskApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMountStorageContainerApiResponseData"))
 }
 
-func (p *OneOfUpdateSnmpUserTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+func (p *OneOfMountStorageContainerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateSnmpUserTaskApiResponseData")
-}
-
-type OneOfAddNodeTaskResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfAddNodeTaskResponseData() *OneOfAddNodeTaskResponseData {
-	p := new(OneOfAddNodeTaskResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAddNodeTaskResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAddNodeTaskResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAddNodeTaskResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfAddNodeTaskResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddNodeTaskResponseData"))
-}
-
-func (p *OneOfAddNodeTaskResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfAddNodeTaskResponseData")
-}
-
-type OneOfGetHostGpusResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []HostGpu              `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetHostGpusResponseData() *OneOfGetHostGpusResponseData {
-	p := new(OneOfGetHostGpusResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetHostGpusResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetHostGpusResponseData is nil"))
-	}
-	switch v.(type) {
-	case []HostGpu:
-		p.oneOfType0 = v.([]HostGpu)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.HostGpu>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.HostGpu>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetHostGpusResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.HostGpu>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetHostGpusResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]HostGpu)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.HostGpu" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.HostGpu>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.HostGpu>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetHostGpusResponseData"))
-}
-
-func (p *OneOfGetHostGpusResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.HostGpu>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetHostGpusResponseData")
-}
-
-type OneOfGetRackableUnitsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []RackableUnit         `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetRackableUnitsResponseData() *OneOfGetRackableUnitsResponseData {
-	p := new(OneOfGetRackableUnitsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetRackableUnitsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetRackableUnitsResponseData is nil"))
-	}
-	switch v.(type) {
-	case []RackableUnit:
-		p.oneOfType0 = v.([]RackableUnit)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.RackableUnit>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.RackableUnit>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetRackableUnitsResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.RackableUnit>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetRackableUnitsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]RackableUnit)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.RackableUnit" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.RackableUnit>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.RackableUnit>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRackableUnitsResponseData"))
-}
-
-func (p *OneOfGetRackableUnitsResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.RackableUnit>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetRackableUnitsResponseData")
-}
-
-type OneOfValidateNodeParamSpec struct {
-	Discriminator *string      `json:"-"`
-	ObjectType_   *string      `json:"-"`
-	oneOfType1    []UplinkNode `json:"-"`
-	oneOfType0    *BundleParam `json:"-"`
-}
-
-func NewOneOfValidateNodeParamSpec() *OneOfValidateNodeParamSpec {
-	p := new(OneOfValidateNodeParamSpec)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfValidateNodeParamSpec) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfValidateNodeParamSpec is nil"))
-	}
-	switch v.(type) {
-	case []UplinkNode:
-		p.oneOfType1 = v.([]UplinkNode)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.UplinkNode>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.UplinkNode>"
-	case BundleParam:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(BundleParam)
-		}
-		*p.oneOfType0 = v.(BundleParam)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfValidateNodeParamSpec) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.UplinkNode>" == *p.Discriminator {
-		return p.oneOfType1
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfValidateNodeParamSpec) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new([]UplinkNode)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if len(*vOneOfType1) == 0 || "clustermgmt.v4.config.UplinkNode" == *((*vOneOfType1)[0].ObjectType_) {
-			p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.UplinkNode>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.UplinkNode>"
-			return nil
-
-		}
-	}
-	vOneOfType0 := new(BundleParam)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.BundleParam" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(BundleParam)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfValidateNodeParamSpec"))
-}
-
-func (p *OneOfValidateNodeParamSpec) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.UplinkNode>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfValidateNodeParamSpec")
-}
-
-type OneOfDiscoverNodeTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDiscoverNodeTaskApiResponseData() *OneOfDiscoverNodeTaskApiResponseData {
-	p := new(OneOfDiscoverNodeTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDiscoverNodeTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDiscoverNodeTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDiscoverNodeTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDiscoverNodeTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDiscoverNodeTaskApiResponseData"))
-}
-
-func (p *OneOfDiscoverNodeTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDiscoverNodeTaskApiResponseData")
-}
-
-type OneOfGetSearchResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *SearchResponse        `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetSearchResponseData() *OneOfGetSearchResponseData {
-	p := new(OneOfGetSearchResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetSearchResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetSearchResponseData is nil"))
-	}
-	switch v.(type) {
-	case SearchResponse:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(SearchResponse)
-		}
-		*p.oneOfType0 = v.(SearchResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetSearchResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetSearchResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(SearchResponse)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.SearchResponse" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(SearchResponse)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSearchResponseData"))
-}
-
-func (p *OneOfGetSearchResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetSearchResponseData")
-}
-
-type OneOfHostRenameResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfHostRenameResponseData() *OneOfHostRenameResponseData {
-	p := new(OneOfHostRenameResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfHostRenameResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfHostRenameResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfHostRenameResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfHostRenameResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfHostRenameResponseData"))
-}
-
-func (p *OneOfHostRenameResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfHostRenameResponseData")
-}
-
-type OneOfRemoveNodeTaskResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfRemoveNodeTaskResponseData() *OneOfRemoveNodeTaskResponseData {
-	p := new(OneOfRemoveNodeTaskResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRemoveNodeTaskResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRemoveNodeTaskResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRemoveNodeTaskResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfRemoveNodeTaskResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRemoveNodeTaskResponseData"))
-}
-
-func (p *OneOfRemoveNodeTaskResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfRemoveNodeTaskResponseData")
-}
-
-type OneOfDeleteRsyslogServerTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteRsyslogServerTaskApiResponseData() *OneOfDeleteRsyslogServerTaskApiResponseData {
-	p := new(OneOfDeleteRsyslogServerTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteRsyslogServerTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteRsyslogServerTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteRsyslogServerTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteRsyslogServerTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteRsyslogServerTaskApiResponseData"))
-}
-
-func (p *OneOfDeleteRsyslogServerTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteRsyslogServerTaskApiResponseData")
-}
-
-type OneOfGetHostNicResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *HostNic               `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetHostNicResponseData() *OneOfGetHostNicResponseData {
-	p := new(OneOfGetHostNicResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetHostNicResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetHostNicResponseData is nil"))
-	}
-	switch v.(type) {
-	case HostNic:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(HostNic)
-		}
-		*p.oneOfType0 = v.(HostNic)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetHostNicResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetHostNicResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(HostNic)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.HostNic" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(HostNic)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetHostNicResponseData"))
-}
-
-func (p *OneOfGetHostNicResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetHostNicResponseData")
-}
-
-type OneOfAddSnmpTransportsTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfAddSnmpTransportsTaskApiResponseData() *OneOfAddSnmpTransportsTaskApiResponseData {
-	p := new(OneOfAddSnmpTransportsTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAddSnmpTransportsTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAddSnmpTransportsTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAddSnmpTransportsTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfAddSnmpTransportsTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddSnmpTransportsTaskApiResponseData"))
-}
-
-func (p *OneOfAddSnmpTransportsTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfAddSnmpTransportsTaskApiResponseData")
-}
-
-type OneOfGetRsyslogServerResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *RsyslogServer         `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetRsyslogServerResponseData() *OneOfGetRsyslogServerResponseData {
-	p := new(OneOfGetRsyslogServerResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetRsyslogServerResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetRsyslogServerResponseData is nil"))
-	}
-	switch v.(type) {
-	case RsyslogServer:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(RsyslogServer)
-		}
-		*p.oneOfType0 = v.(RsyslogServer)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetRsyslogServerResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetRsyslogServerResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(RsyslogServer)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.RsyslogServer" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(RsyslogServer)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRsyslogServerResponseData"))
-}
-
-func (p *OneOfGetRsyslogServerResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetRsyslogServerResponseData")
-}
-
-type OneOfGetGpuProfilesResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []GpuProfile           `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetGpuProfilesResponseData() *OneOfGetGpuProfilesResponseData {
-	p := new(OneOfGetGpuProfilesResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetGpuProfilesResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetGpuProfilesResponseData is nil"))
-	}
-	switch v.(type) {
-	case []GpuProfile:
-		p.oneOfType0 = v.([]GpuProfile)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.GpuProfile>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.GpuProfile>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetGpuProfilesResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.GpuProfile>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetGpuProfilesResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]GpuProfile)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.GpuProfile" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.GpuProfile>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.GpuProfile>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetGpuProfilesResponseData"))
-}
-
-func (p *OneOfGetGpuProfilesResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.GpuProfile>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetGpuProfilesResponseData")
-}
-
-type OneOfAddRsyslogServerTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfAddRsyslogServerTaskApiResponseData() *OneOfAddRsyslogServerTaskApiResponseData {
-	p := new(OneOfAddRsyslogServerTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAddRsyslogServerTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAddRsyslogServerTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAddRsyslogServerTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfAddRsyslogServerTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddRsyslogServerTaskApiResponseData"))
-}
-
-func (p *OneOfAddRsyslogServerTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfAddRsyslogServerTaskApiResponseData")
-}
-
-type OneOfAddSnmpUserTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfAddSnmpUserTaskApiResponseData() *OneOfAddSnmpUserTaskApiResponseData {
-	p := new(OneOfAddSnmpUserTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAddSnmpUserTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAddSnmpUserTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAddSnmpUserTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfAddSnmpUserTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddSnmpUserTaskApiResponseData"))
-}
-
-func (p *OneOfAddSnmpUserTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfAddSnmpUserTaskApiResponseData")
-}
-
-type OneOfUpdateClusterTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateClusterTaskApiResponseData() *OneOfUpdateClusterTaskApiResponseData {
-	p := new(OneOfUpdateClusterTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateClusterTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateClusterTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateClusterTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateClusterTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateClusterTaskApiResponseData"))
-}
-
-func (p *OneOfUpdateClusterTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateClusterTaskApiResponseData")
-}
-
-type OneOfValidateNodeTaskResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfValidateNodeTaskResponseData() *OneOfValidateNodeTaskResponseData {
-	p := new(OneOfValidateNodeTaskResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfValidateNodeTaskResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfValidateNodeTaskResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfValidateNodeTaskResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfValidateNodeTaskResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfValidateNodeTaskResponseData"))
-}
-
-func (p *OneOfValidateNodeTaskResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfValidateNodeTaskResponseData")
-}
-
-type OneOfGetVirtualNicResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *VirtualNic            `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetVirtualNicResponseData() *OneOfGetVirtualNicResponseData {
-	p := new(OneOfGetVirtualNicResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetVirtualNicResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetVirtualNicResponseData is nil"))
-	}
-	switch v.(type) {
-	case VirtualNic:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(VirtualNic)
-		}
-		*p.oneOfType0 = v.(VirtualNic)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetVirtualNicResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetVirtualNicResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(VirtualNic)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.VirtualNic" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(VirtualNic)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVirtualNicResponseData"))
-}
-
-func (p *OneOfGetVirtualNicResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetVirtualNicResponseData")
-}
-
-type OneOfUpdateSnmpTrapTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateSnmpTrapTaskApiResponseData() *OneOfUpdateSnmpTrapTaskApiResponseData {
-	p := new(OneOfUpdateSnmpTrapTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateSnmpTrapTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateSnmpTrapTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateSnmpTrapTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateSnmpTrapTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSnmpTrapTaskApiResponseData"))
-}
-
-func (p *OneOfUpdateSnmpTrapTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateSnmpTrapTaskApiResponseData")
-}
-
-type OneOfClusterCreateTaskResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfClusterCreateTaskResponseData() *OneOfClusterCreateTaskResponseData {
-	p := new(OneOfClusterCreateTaskResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfClusterCreateTaskResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfClusterCreateTaskResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfClusterCreateTaskResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfClusterCreateTaskResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterCreateTaskResponseData"))
-}
-
-func (p *OneOfClusterCreateTaskResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfClusterCreateTaskResponseData")
-}
-
-type OneOfGetHostsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Host                 `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetHostsResponseData() *OneOfGetHostsResponseData {
-	p := new(OneOfGetHostsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetHostsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetHostsResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Host:
-		p.oneOfType0 = v.([]Host)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.Host>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.Host>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetHostsResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.Host>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetHostsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Host)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.Host" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.Host>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.Host>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetHostsResponseData"))
-}
-
-func (p *OneOfGetHostsResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.Host>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetHostsResponseData")
-}
-
-type OneOfRemoveSnmpTransportsTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfRemoveSnmpTransportsTaskApiResponseData() *OneOfRemoveSnmpTransportsTaskApiResponseData {
-	p := new(OneOfRemoveSnmpTransportsTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRemoveSnmpTransportsTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRemoveSnmpTransportsTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRemoveSnmpTransportsTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfRemoveSnmpTransportsTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRemoveSnmpTransportsTaskApiResponseData"))
-}
-
-func (p *OneOfRemoveSnmpTransportsTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfRemoveSnmpTransportsTaskApiResponseData")
-}
-
-type OneOfUpdateRsyslogServerTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateRsyslogServerTaskApiResponseData() *OneOfUpdateRsyslogServerTaskApiResponseData {
-	p := new(OneOfUpdateRsyslogServerTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateRsyslogServerTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateRsyslogServerTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateRsyslogServerTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateRsyslogServerTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateRsyslogServerTaskApiResponseData"))
-}
-
-func (p *OneOfUpdateRsyslogServerTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateRsyslogServerTaskApiResponseData")
-}
-
-type OneOfDeleteSnmpTrapTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteSnmpTrapTaskApiResponseData() *OneOfDeleteSnmpTrapTaskApiResponseData {
-	p := new(OneOfDeleteSnmpTrapTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteSnmpTrapTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteSnmpTrapTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteSnmpTrapTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteSnmpTrapTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteSnmpTrapTaskApiResponseData"))
-}
-
-func (p *OneOfDeleteSnmpTrapTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteSnmpTrapTaskApiResponseData")
-}
-
-type OneOfDeleteSnmpUserTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteSnmpUserTaskApiResponseData() *OneOfDeleteSnmpUserTaskApiResponseData {
-	p := new(OneOfDeleteSnmpUserTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteSnmpUserTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteSnmpUserTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteSnmpUserTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteSnmpUserTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteSnmpUserTaskApiResponseData"))
-}
-
-func (p *OneOfDeleteSnmpUserTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteSnmpUserTaskApiResponseData")
-}
-
-type OneOfGetAllHostsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Host                 `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetAllHostsResponseData() *OneOfGetAllHostsResponseData {
-	p := new(OneOfGetAllHostsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetAllHostsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetAllHostsResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Host:
-		p.oneOfType0 = v.([]Host)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.Host>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.Host>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetAllHostsResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.Host>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetAllHostsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Host)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.Host" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.Host>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.Host>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetAllHostsResponseData"))
-}
-
-func (p *OneOfGetAllHostsResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.Host>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetAllHostsResponseData")
-}
-
-type OneOfAddSnmpTrapTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfAddSnmpTrapTaskApiResponseData() *OneOfAddSnmpTrapTaskApiResponseData {
-	p := new(OneOfAddSnmpTrapTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAddSnmpTrapTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAddSnmpTrapTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAddSnmpTrapTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfAddSnmpTrapTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddSnmpTrapTaskApiResponseData"))
-}
-
-func (p *OneOfAddSnmpTrapTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfAddSnmpTrapTaskApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfMountStorageContainerApiResponseData")
 }
 
 type OneOfSearchResponseResponse struct {
 	Discriminator *string                 `json:"-"`
 	ObjectType_   *string                 `json:"-"`
-	oneOfType0    *UnconfigureNodeDetails `json:"-"`
-	oneOfType3    *ValidateBundleInfo     `json:"-"`
-	oneOfType1    *NodeNetworkingDetails  `json:"-"`
-	oneOfType2    *HypervisorUploadInfo   `json:"-"`
+	oneOfType2002 *NodeNetworkingDetails  `json:"-"`
+	oneOfType2004 *ValidateBundleInfo     `json:"-"`
+	oneOfType2003 *HypervisorUploadInfo   `json:"-"`
+	oneOfType2001 *UnconfigureNodeDetails `json:"-"`
 }
 
 func NewOneOfSearchResponseResponse() *OneOfSearchResponseResponse {
@@ -12346,58 +10556,58 @@ func (p *OneOfSearchResponseResponse) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfSearchResponseResponse is nil"))
 	}
 	switch v.(type) {
-	case UnconfigureNodeDetails:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(UnconfigureNodeDetails)
-		}
-		*p.oneOfType0 = v.(UnconfigureNodeDetails)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case ValidateBundleInfo:
-		if nil == p.oneOfType3 {
-			p.oneOfType3 = new(ValidateBundleInfo)
-		}
-		*p.oneOfType3 = v.(ValidateBundleInfo)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType3.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType3.ObjectType_
 	case NodeNetworkingDetails:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(NodeNetworkingDetails)
+		if nil == p.oneOfType2002 {
+			p.oneOfType2002 = new(NodeNetworkingDetails)
 		}
-		*p.oneOfType1 = v.(NodeNetworkingDetails)
+		*p.oneOfType2002 = v.(NodeNetworkingDetails)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
+		*p.Discriminator = *p.oneOfType2002.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+	case ValidateBundleInfo:
+		if nil == p.oneOfType2004 {
+			p.oneOfType2004 = new(ValidateBundleInfo)
+		}
+		*p.oneOfType2004 = v.(ValidateBundleInfo)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2004.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2004.ObjectType_
 	case HypervisorUploadInfo:
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(HypervisorUploadInfo)
+		if nil == p.oneOfType2003 {
+			p.oneOfType2003 = new(HypervisorUploadInfo)
 		}
-		*p.oneOfType2 = v.(HypervisorUploadInfo)
+		*p.oneOfType2003 = v.(HypervisorUploadInfo)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType2.ObjectType_
+		*p.Discriminator = *p.oneOfType2003.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType2.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2003.ObjectType_
+	case UnconfigureNodeDetails:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(UnconfigureNodeDetails)
+		}
+		*p.oneOfType2001 = v.(UnconfigureNodeDetails)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -12405,91 +10615,91 @@ func (p *OneOfSearchResponseResponse) SetValue(v interface{}) error {
 }
 
 func (p *OneOfSearchResponseResponse) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2002
 	}
-	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType3
+	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2004
 	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2003
 	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
 	}
 	return nil
 }
 
 func (p *OneOfSearchResponseResponse) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(UnconfigureNodeDetails)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.UnconfigureNodeDetails" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(UnconfigureNodeDetails)
+	vOneOfType2002 := new(NodeNetworkingDetails)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if "clustermgmt.v4.config.NodeNetworkingDetails" == *vOneOfType2002.ObjectType_ {
+			if nil == p.oneOfType2002 {
+				p.oneOfType2002 = new(NodeNetworkingDetails)
 			}
-			*p.oneOfType0 = *vOneOfType0
+			*p.oneOfType2002 = *vOneOfType2002
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = *p.oneOfType2002.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType3 := new(ValidateBundleInfo)
-	if err := json.Unmarshal(b, vOneOfType3); err == nil {
-		if "clustermgmt.v4.config.ValidateBundleInfo" == *vOneOfType3.ObjectType_ {
-			if nil == p.oneOfType3 {
-				p.oneOfType3 = new(ValidateBundleInfo)
+	vOneOfType2004 := new(ValidateBundleInfo)
+	if err := json.Unmarshal(b, vOneOfType2004); err == nil {
+		if "clustermgmt.v4.config.ValidateBundleInfo" == *vOneOfType2004.ObjectType_ {
+			if nil == p.oneOfType2004 {
+				p.oneOfType2004 = new(ValidateBundleInfo)
 			}
-			*p.oneOfType3 = *vOneOfType3
+			*p.oneOfType2004 = *vOneOfType2004
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType3.ObjectType_
+			*p.Discriminator = *p.oneOfType2004.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType3.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2004.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType1 := new(NodeNetworkingDetails)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "clustermgmt.v4.config.NodeNetworkingDetails" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(NodeNetworkingDetails)
+	vOneOfType2003 := new(HypervisorUploadInfo)
+	if err := json.Unmarshal(b, vOneOfType2003); err == nil {
+		if "clustermgmt.v4.config.HypervisorUploadInfo" == *vOneOfType2003.ObjectType_ {
+			if nil == p.oneOfType2003 {
+				p.oneOfType2003 = new(HypervisorUploadInfo)
 			}
-			*p.oneOfType1 = *vOneOfType1
+			*p.oneOfType2003 = *vOneOfType2003
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
+			*p.Discriminator = *p.oneOfType2003.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2003.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType2 := new(HypervisorUploadInfo)
-	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "clustermgmt.v4.config.HypervisorUploadInfo" == *vOneOfType2.ObjectType_ {
-			if nil == p.oneOfType2 {
-				p.oneOfType2 = new(HypervisorUploadInfo)
+	vOneOfType2001 := new(UnconfigureNodeDetails)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.UnconfigureNodeDetails" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(UnconfigureNodeDetails)
 			}
-			*p.oneOfType2 = *vOneOfType2
+			*p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType2.ObjectType_
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType2.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 			return nil
 		}
 	}
@@ -12497,1359 +10707,42 @@ func (p *OneOfSearchResponseResponse) UnmarshalJSON(b []byte) error {
 }
 
 func (p *OneOfSearchResponseResponse) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
 	}
-	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType3)
+	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2004)
 	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2003)
 	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2)
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
 	}
 	return nil, errors.New("No value to marshal for OneOfSearchResponseResponse")
 }
 
-type OneOfGetSnmpUserResponseData struct {
+type OneOfListClustersApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *SnmpUser              `json:"-"`
+	oneOfType2001 []Cluster              `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfGetSnmpUserResponseData() *OneOfGetSnmpUserResponseData {
-	p := new(OneOfGetSnmpUserResponseData)
+func NewOneOfListClustersApiResponseData() *OneOfListClustersApiResponseData {
+	p := new(OneOfListClustersApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetSnmpUserResponseData) SetValue(v interface{}) error {
+func (p *OneOfListClustersApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetSnmpUserResponseData is nil"))
-	}
-	switch v.(type) {
-	case SnmpUser:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(SnmpUser)
-		}
-		*p.oneOfType0 = v.(SnmpUser)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetSnmpUserResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetSnmpUserResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(SnmpUser)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.SnmpUser" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(SnmpUser)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSnmpUserResponseData"))
-}
-
-func (p *OneOfGetSnmpUserResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetSnmpUserResponseData")
-}
-
-type OneOfHypervisorUplpadRequiredTaskResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfHypervisorUplpadRequiredTaskResponseData() *OneOfHypervisorUplpadRequiredTaskResponseData {
-	p := new(OneOfHypervisorUplpadRequiredTaskResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfHypervisorUplpadRequiredTaskResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfHypervisorUplpadRequiredTaskResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfHypervisorUplpadRequiredTaskResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfHypervisorUplpadRequiredTaskResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfHypervisorUplpadRequiredTaskResponseData"))
-}
-
-func (p *OneOfHypervisorUplpadRequiredTaskResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfHypervisorUplpadRequiredTaskResponseData")
-}
-
-type OneOfUpdateSnmpStatusTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateSnmpStatusTaskApiResponseData() *OneOfUpdateSnmpStatusTaskApiResponseData {
-	p := new(OneOfUpdateSnmpStatusTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateSnmpStatusTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateSnmpStatusTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateSnmpStatusTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateSnmpStatusTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSnmpStatusTaskApiResponseData"))
-}
-
-func (p *OneOfUpdateSnmpStatusTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateSnmpStatusTaskApiResponseData")
-}
-
-type OneOfGetSnmpTrapResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *SnmpTrap              `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetSnmpTrapResponseData() *OneOfGetSnmpTrapResponseData {
-	p := new(OneOfGetSnmpTrapResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetSnmpTrapResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetSnmpTrapResponseData is nil"))
-	}
-	switch v.(type) {
-	case SnmpTrap:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(SnmpTrap)
-		}
-		*p.oneOfType0 = v.(SnmpTrap)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetSnmpTrapResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetSnmpTrapResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(SnmpTrap)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.SnmpTrap" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(SnmpTrap)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSnmpTrapResponseData"))
-}
-
-func (p *OneOfGetSnmpTrapResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetSnmpTrapResponseData")
-}
-
-type OneOfGetClusterResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *Cluster               `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetClusterResponseData() *OneOfGetClusterResponseData {
-	p := new(OneOfGetClusterResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetClusterResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetClusterResponseData is nil"))
-	}
-	switch v.(type) {
-	case Cluster:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Cluster)
-		}
-		*p.oneOfType0 = v.(Cluster)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetClusterResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetClusterResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(Cluster)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.Cluster" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Cluster)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetClusterResponseData"))
-}
-
-func (p *OneOfGetClusterResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetClusterResponseData")
-}
-
-type OneOfGetRsyslogServersResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []RsyslogServer        `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetRsyslogServersResponseData() *OneOfGetRsyslogServersResponseData {
-	p := new(OneOfGetRsyslogServersResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetRsyslogServersResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetRsyslogServersResponseData is nil"))
-	}
-	switch v.(type) {
-	case []RsyslogServer:
-		p.oneOfType0 = v.([]RsyslogServer)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.RsyslogServer>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.RsyslogServer>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetRsyslogServersResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.RsyslogServer>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetRsyslogServersResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]RsyslogServer)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.RsyslogServer" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.RsyslogServer>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.RsyslogServer>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRsyslogServersResponseData"))
-}
-
-func (p *OneOfGetRsyslogServersResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.RsyslogServer>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetRsyslogServersResponseData")
-}
-
-type OneOfGetAllHostGpusResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []HostGpu              `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetAllHostGpusResponseData() *OneOfGetAllHostGpusResponseData {
-	p := new(OneOfGetAllHostGpusResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetAllHostGpusResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetAllHostGpusResponseData is nil"))
-	}
-	switch v.(type) {
-	case []HostGpu:
-		p.oneOfType0 = v.([]HostGpu)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.HostGpu>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.HostGpu>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetAllHostGpusResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.HostGpu>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetAllHostGpusResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]HostGpu)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.HostGpu" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.HostGpu>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.HostGpu>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetAllHostGpusResponseData"))
-}
-
-func (p *OneOfGetAllHostGpusResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.HostGpu>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetAllHostGpusResponseData")
-}
-
-type OneOfGetVirtualNicsResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []VirtualNic           `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetVirtualNicsResponseData() *OneOfGetVirtualNicsResponseData {
-	p := new(OneOfGetVirtualNicsResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetVirtualNicsResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetVirtualNicsResponseData is nil"))
-	}
-	switch v.(type) {
-	case []VirtualNic:
-		p.oneOfType0 = v.([]VirtualNic)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<clustermgmt.v4.config.VirtualNic>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<clustermgmt.v4.config.VirtualNic>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetVirtualNicsResponseData) GetValue() interface{} {
-	if "List<clustermgmt.v4.config.VirtualNic>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetVirtualNicsResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]VirtualNic)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.VirtualNic" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<clustermgmt.v4.config.VirtualNic>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<clustermgmt.v4.config.VirtualNic>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVirtualNicsResponseData"))
-}
-
-func (p *OneOfGetVirtualNicsResponseData) MarshalJSON() ([]byte, error) {
-	if "List<clustermgmt.v4.config.VirtualNic>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetVirtualNicsResponseData")
-}
-
-type OneOfGetSnmpResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *SnmpConfig            `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetSnmpResponseData() *OneOfGetSnmpResponseData {
-	p := new(OneOfGetSnmpResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetSnmpResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetSnmpResponseData is nil"))
-	}
-	switch v.(type) {
-	case SnmpConfig:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(SnmpConfig)
-		}
-		*p.oneOfType0 = v.(SnmpConfig)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetSnmpResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetSnmpResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(SnmpConfig)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.SnmpConfig" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(SnmpConfig)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSnmpResponseData"))
-}
-
-func (p *OneOfGetSnmpResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetSnmpResponseData")
-}
-
-type OneOfGetHostResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *Host                  `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetHostResponseData() *OneOfGetHostResponseData {
-	p := new(OneOfGetHostResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetHostResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetHostResponseData is nil"))
-	}
-	switch v.(type) {
-	case Host:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Host)
-		}
-		*p.oneOfType0 = v.(Host)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetHostResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetHostResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(Host)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.Host" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Host)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetHostResponseData"))
-}
-
-func (p *OneOfGetHostResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetHostResponseData")
-}
-
-type OneOfGetNodeNetworkingTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetNodeNetworkingTaskApiResponseData() *OneOfGetNodeNetworkingTaskApiResponseData {
-	p := new(OneOfGetNodeNetworkingTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetNodeNetworkingTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetNodeNetworkingTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetNodeNetworkingTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetNodeNetworkingTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetNodeNetworkingTaskApiResponseData"))
-}
-
-func (p *OneOfGetNodeNetworkingTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetNodeNetworkingTaskApiResponseData")
-}
-
-type OneOfGetRackableUnitResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *RackableUnit          `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetRackableUnitResponseData() *OneOfGetRackableUnitResponseData {
-	p := new(OneOfGetRackableUnitResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetRackableUnitResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetRackableUnitResponseData is nil"))
-	}
-	switch v.(type) {
-	case RackableUnit:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(RackableUnit)
-		}
-		*p.oneOfType0 = v.(RackableUnit)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetRackableUnitResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetRackableUnitResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(RackableUnit)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "clustermgmt.v4.config.RackableUnit" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(RackableUnit)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRackableUnitResponseData"))
-}
-
-func (p *OneOfGetRackableUnitResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetRackableUnitResponseData")
-}
-
-type OneOfGetClustersResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Cluster              `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetClustersResponseData() *OneOfGetClustersResponseData {
-	p := new(OneOfGetClustersResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetClustersResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetClustersResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListClustersApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case []Cluster:
-		p.oneOfType0 = v.([]Cluster)
+		p.oneOfType2001 = v.([]Cluster)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -13877,9 +10770,9 @@ func (p *OneOfGetClustersResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfGetClustersResponseData) GetValue() interface{} {
+func (p *OneOfListClustersApiResponseData) GetValue() interface{} {
 	if "List<clustermgmt.v4.config.Cluster>" == *p.Discriminator {
-		return p.oneOfType0
+		return p.oneOfType2001
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -13887,11 +10780,12 @@ func (p *OneOfGetClustersResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfGetClustersResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Cluster)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.Cluster" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
+func (p *OneOfListClustersApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]Cluster)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.Cluster" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
@@ -13922,15 +10816,5641 @@ func (p *OneOfGetClustersResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetClustersResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListClustersApiResponseData"))
 }
 
-func (p *OneOfGetClustersResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListClustersApiResponseData) MarshalJSON() ([]byte, error) {
 	if "List<clustermgmt.v4.config.Cluster>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListClustersApiResponseData")
+}
+
+type OneOfListVcenterExtensionsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []VcenterExtension     `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListVcenterExtensionsApiResponseData() *OneOfListVcenterExtensionsApiResponseData {
+	p := new(OneOfListVcenterExtensionsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListVcenterExtensionsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListVcenterExtensionsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []VcenterExtension:
+		p.oneOfType2001 = v.([]VcenterExtension)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.VcenterExtension>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.VcenterExtension>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListVcenterExtensionsApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.VcenterExtension>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListVcenterExtensionsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]VcenterExtension)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.VcenterExtension" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.VcenterExtension>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.VcenterExtension>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVcenterExtensionsApiResponseData"))
+}
+
+func (p *OneOfListVcenterExtensionsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.VcenterExtension>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVcenterExtensionsApiResponseData")
+}
+
+type OneOfCreateClusterApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateClusterApiResponseData() *OneOfCreateClusterApiResponseData {
+	p := new(OneOfCreateClusterApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateClusterApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateClusterApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateClusterApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateClusterApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateClusterApiResponseData"))
+}
+
+func (p *OneOfCreateClusterApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateClusterApiResponseData")
+}
+
+type OneOfUpdateSnmpTrapApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateSnmpTrapApiResponseData() *OneOfUpdateSnmpTrapApiResponseData {
+	p := new(OneOfUpdateSnmpTrapApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateSnmpTrapApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateSnmpTrapApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSnmpTrapApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSnmpTrapApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSnmpTrapApiResponseData"))
+}
+
+func (p *OneOfUpdateSnmpTrapApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateSnmpTrapApiResponseData")
+}
+
+type OneOfListHostsByClusterIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []Host                 `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListHostsByClusterIdApiResponseData() *OneOfListHostsByClusterIdApiResponseData {
+	p := new(OneOfListHostsByClusterIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListHostsByClusterIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListHostsByClusterIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Host:
+		p.oneOfType2001 = v.([]Host)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.Host>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.Host>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListHostsByClusterIdApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.Host>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListHostsByClusterIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]Host)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.Host" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.Host>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.Host>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListHostsByClusterIdApiResponseData"))
+}
+
+func (p *OneOfListHostsByClusterIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.Host>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListHostsByClusterIdApiResponseData")
+}
+
+type OneOfUpdateSnmpUserApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateSnmpUserApiResponseData() *OneOfUpdateSnmpUserApiResponseData {
+	p := new(OneOfUpdateSnmpUserApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateSnmpUserApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateSnmpUserApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSnmpUserApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSnmpUserApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSnmpUserApiResponseData"))
+}
+
+func (p *OneOfUpdateSnmpUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateSnmpUserApiResponseData")
+}
+
+type OneOfUpdateRsyslogServerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateRsyslogServerApiResponseData() *OneOfUpdateRsyslogServerApiResponseData {
+	p := new(OneOfUpdateRsyslogServerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateRsyslogServerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateRsyslogServerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateRsyslogServerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateRsyslogServerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateRsyslogServerApiResponseData"))
+}
+
+func (p *OneOfUpdateRsyslogServerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateRsyslogServerApiResponseData")
+}
+
+type OneOfListRsyslogServersByClusterIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []RsyslogServer        `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListRsyslogServersByClusterIdApiResponseData() *OneOfListRsyslogServersByClusterIdApiResponseData {
+	p := new(OneOfListRsyslogServersByClusterIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListRsyslogServersByClusterIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListRsyslogServersByClusterIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []RsyslogServer:
+		p.oneOfType2001 = v.([]RsyslogServer)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.RsyslogServer>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.RsyslogServer>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListRsyslogServersByClusterIdApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.RsyslogServer>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListRsyslogServersByClusterIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]RsyslogServer)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.RsyslogServer" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.RsyslogServer>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.RsyslogServer>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRsyslogServersByClusterIdApiResponseData"))
+}
+
+func (p *OneOfListRsyslogServersByClusterIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.RsyslogServer>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListRsyslogServersByClusterIdApiResponseData")
+}
+
+type OneOfGetSnmpConfigByClusterIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *SnmpConfig            `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetSnmpConfigByClusterIdApiResponseData() *OneOfGetSnmpConfigByClusterIdApiResponseData {
+	p := new(OneOfGetSnmpConfigByClusterIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetSnmpConfigByClusterIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetSnmpConfigByClusterIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case SnmpConfig:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(SnmpConfig)
+		}
+		*p.oneOfType2001 = v.(SnmpConfig)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetSnmpConfigByClusterIdApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetSnmpConfigByClusterIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(SnmpConfig)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.SnmpConfig" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(SnmpConfig)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSnmpConfigByClusterIdApiResponseData"))
+}
+
+func (p *OneOfGetSnmpConfigByClusterIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetSnmpConfigByClusterIdApiResponseData")
+}
+
+type OneOfDeleteClusterApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteClusterApiResponseData() *OneOfDeleteClusterApiResponseData {
+	p := new(OneOfDeleteClusterApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteClusterApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteClusterApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteClusterApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteClusterApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteClusterApiResponseData"))
+}
+
+func (p *OneOfDeleteClusterApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteClusterApiResponseData")
+}
+
+type OneOfAddSnmpTransportsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfAddSnmpTransportsApiResponseData() *OneOfAddSnmpTransportsApiResponseData {
+	p := new(OneOfAddSnmpTransportsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfAddSnmpTransportsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfAddSnmpTransportsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfAddSnmpTransportsApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfAddSnmpTransportsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddSnmpTransportsApiResponseData"))
+}
+
+func (p *OneOfAddSnmpTransportsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfAddSnmpTransportsApiResponseData")
+}
+
+type OneOfCreateSnmpUserApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateSnmpUserApiResponseData() *OneOfCreateSnmpUserApiResponseData {
+	p := new(OneOfCreateSnmpUserApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateSnmpUserApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateSnmpUserApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateSnmpUserApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateSnmpUserApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateSnmpUserApiResponseData"))
+}
+
+func (p *OneOfCreateSnmpUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateSnmpUserApiResponseData")
+}
+
+type OneOfFetchTaskApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *SearchResponse        `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfFetchTaskApiResponseData() *OneOfFetchTaskApiResponseData {
+	p := new(OneOfFetchTaskApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfFetchTaskApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfFetchTaskApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case SearchResponse:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(SearchResponse)
+		}
+		*p.oneOfType2001 = v.(SearchResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfFetchTaskApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfFetchTaskApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(SearchResponse)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.SearchResponse" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(SearchResponse)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFetchTaskApiResponseData"))
+}
+
+func (p *OneOfFetchTaskApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfFetchTaskApiResponseData")
+}
+
+type OneOfValidateNodeApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfValidateNodeApiResponseData() *OneOfValidateNodeApiResponseData {
+	p := new(OneOfValidateNodeApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfValidateNodeApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfValidateNodeApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfValidateNodeApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfValidateNodeApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfValidateNodeApiResponseData"))
+}
+
+func (p *OneOfValidateNodeApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfValidateNodeApiResponseData")
+}
+
+type OneOfCreateSnmpTrapApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateSnmpTrapApiResponseData() *OneOfCreateSnmpTrapApiResponseData {
+	p := new(OneOfCreateSnmpTrapApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateSnmpTrapApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateSnmpTrapApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateSnmpTrapApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateSnmpTrapApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateSnmpTrapApiResponseData"))
+}
+
+func (p *OneOfCreateSnmpTrapApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateSnmpTrapApiResponseData")
+}
+
+type OneOfUpdateSnmpStatusApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateSnmpStatusApiResponseData() *OneOfUpdateSnmpStatusApiResponseData {
+	p := new(OneOfUpdateSnmpStatusApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateSnmpStatusApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateSnmpStatusApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSnmpStatusApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSnmpStatusApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSnmpStatusApiResponseData"))
+}
+
+func (p *OneOfUpdateSnmpStatusApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateSnmpStatusApiResponseData")
+}
+
+type OneOfCreateRsyslogServerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateRsyslogServerApiResponseData() *OneOfCreateRsyslogServerApiResponseData {
+	p := new(OneOfCreateRsyslogServerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateRsyslogServerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateRsyslogServerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateRsyslogServerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateRsyslogServerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateRsyslogServerApiResponseData"))
+}
+
+func (p *OneOfCreateRsyslogServerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateRsyslogServerApiResponseData")
+}
+
+type OneOfGetFaultToleranceStatusByClusterIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []DomainFaultTolerance `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetFaultToleranceStatusByClusterIdApiResponseData() *OneOfGetFaultToleranceStatusByClusterIdApiResponseData {
+	p := new(OneOfGetFaultToleranceStatusByClusterIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetFaultToleranceStatusByClusterIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetFaultToleranceStatusByClusterIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []DomainFaultTolerance:
+		p.oneOfType2001 = v.([]DomainFaultTolerance)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.DomainFaultTolerance>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.DomainFaultTolerance>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetFaultToleranceStatusByClusterIdApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.DomainFaultTolerance>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetFaultToleranceStatusByClusterIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]DomainFaultTolerance)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.DomainFaultTolerance" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.DomainFaultTolerance>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.DomainFaultTolerance>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetFaultToleranceStatusByClusterIdApiResponseData"))
+}
+
+func (p *OneOfGetFaultToleranceStatusByClusterIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.DomainFaultTolerance>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetFaultToleranceStatusByClusterIdApiResponseData")
+}
+
+type OneOfDeleteSnmpUserApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteSnmpUserApiResponseData() *OneOfDeleteSnmpUserApiResponseData {
+	p := new(OneOfDeleteSnmpUserApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteSnmpUserApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteSnmpUserApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteSnmpUserApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteSnmpUserApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteSnmpUserApiResponseData"))
+}
+
+func (p *OneOfDeleteSnmpUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteSnmpUserApiResponseData")
+}
+
+type OneOfGetVcenterExtensionApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *VcenterExtension      `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetVcenterExtensionApiResponseData() *OneOfGetVcenterExtensionApiResponseData {
+	p := new(OneOfGetVcenterExtensionApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetVcenterExtensionApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetVcenterExtensionApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case VcenterExtension:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(VcenterExtension)
+		}
+		*p.oneOfType2001 = v.(VcenterExtension)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetVcenterExtensionApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetVcenterExtensionApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(VcenterExtension)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.VcenterExtension" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(VcenterExtension)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVcenterExtensionApiResponseData"))
+}
+
+func (p *OneOfGetVcenterExtensionApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetVcenterExtensionApiResponseData")
+}
+
+type OneOfGetRackableUnitApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *RackableUnit          `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetRackableUnitApiResponseData() *OneOfGetRackableUnitApiResponseData {
+	p := new(OneOfGetRackableUnitApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetRackableUnitApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetRackableUnitApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case RackableUnit:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(RackableUnit)
+		}
+		*p.oneOfType2001 = v.(RackableUnit)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetRackableUnitApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetRackableUnitApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(RackableUnit)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.RackableUnit" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(RackableUnit)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRackableUnitApiResponseData"))
+}
+
+func (p *OneOfGetRackableUnitApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetRackableUnitApiResponseData")
+}
+
+type OneOfRenameHostApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfRenameHostApiResponseData() *OneOfRenameHostApiResponseData {
+	p := new(OneOfRenameHostApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRenameHostApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRenameHostApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRenameHostApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfRenameHostApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRenameHostApiResponseData"))
+}
+
+func (p *OneOfRenameHostApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfRenameHostApiResponseData")
+}
+
+type OneOfUpdateStorageContainerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateStorageContainerApiResponseData() *OneOfUpdateStorageContainerApiResponseData {
+	p := new(OneOfUpdateStorageContainerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateStorageContainerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateStorageContainerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateStorageContainerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateStorageContainerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateStorageContainerApiResponseData"))
+}
+
+func (p *OneOfUpdateStorageContainerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateStorageContainerApiResponseData")
+}
+
+type OneOfCreateStorageContainerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateStorageContainerApiResponseData() *OneOfCreateStorageContainerApiResponseData {
+	p := new(OneOfCreateStorageContainerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateStorageContainerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateStorageContainerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateStorageContainerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateStorageContainerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateStorageContainerApiResponseData"))
+}
+
+func (p *OneOfCreateStorageContainerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateStorageContainerApiResponseData")
+}
+
+type OneOfGetHostApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *Host                  `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetHostApiResponseData() *OneOfGetHostApiResponseData {
+	p := new(OneOfGetHostApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetHostApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetHostApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case Host:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Host)
+		}
+		*p.oneOfType2001 = v.(Host)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetHostApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetHostApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(Host)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.Host" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Host)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetHostApiResponseData"))
+}
+
+func (p *OneOfGetHostApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetHostApiResponseData")
+}
+
+type OneOfListDisksApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []Disk                 `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListDisksApiResponseData() *OneOfListDisksApiResponseData {
+	p := new(OneOfListDisksApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListDisksApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListDisksApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Disk:
+		p.oneOfType0 = v.([]Disk)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.Disk>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.Disk>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListDisksApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.Disk>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListDisksApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]Disk)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "clustermgmt.v4.config.Disk" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.Disk>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.Disk>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListDisksApiResponseData"))
+}
+
+func (p *OneOfListDisksApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.Disk>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetClustersResponseData")
+	return nil, errors.New("No value to marshal for OneOfListDisksApiResponseData")
+}
+
+type OneOfGetSnmpTrapApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *SnmpTrap              `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetSnmpTrapApiResponseData() *OneOfGetSnmpTrapApiResponseData {
+	p := new(OneOfGetSnmpTrapApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetSnmpTrapApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetSnmpTrapApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case SnmpTrap:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(SnmpTrap)
+		}
+		*p.oneOfType2001 = v.(SnmpTrap)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetSnmpTrapApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetSnmpTrapApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(SnmpTrap)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.SnmpTrap" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(SnmpTrap)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSnmpTrapApiResponseData"))
+}
+
+func (p *OneOfGetSnmpTrapApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetSnmpTrapApiResponseData")
+}
+
+type OneOfFetchNodeNetworkingDetailsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfFetchNodeNetworkingDetailsApiResponseData() *OneOfFetchNodeNetworkingDetailsApiResponseData {
+	p := new(OneOfFetchNodeNetworkingDetailsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfFetchNodeNetworkingDetailsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfFetchNodeNetworkingDetailsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfFetchNodeNetworkingDetailsApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfFetchNodeNetworkingDetailsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFetchNodeNetworkingDetailsApiResponseData"))
+}
+
+func (p *OneOfFetchNodeNetworkingDetailsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfFetchNodeNetworkingDetailsApiResponseData")
+}
+
+type OneOfGetSnmpUserApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *SnmpUser              `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetSnmpUserApiResponseData() *OneOfGetSnmpUserApiResponseData {
+	p := new(OneOfGetSnmpUserApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetSnmpUserApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetSnmpUserApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case SnmpUser:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(SnmpUser)
+		}
+		*p.oneOfType2001 = v.(SnmpUser)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetSnmpUserApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetSnmpUserApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(SnmpUser)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.SnmpUser" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(SnmpUser)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSnmpUserApiResponseData"))
+}
+
+func (p *OneOfGetSnmpUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetSnmpUserApiResponseData")
+}
+
+type OneOfListRackableUnitsByClusterIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []RackableUnit         `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListRackableUnitsByClusterIdApiResponseData() *OneOfListRackableUnitsByClusterIdApiResponseData {
+	p := new(OneOfListRackableUnitsByClusterIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListRackableUnitsByClusterIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListRackableUnitsByClusterIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []RackableUnit:
+		p.oneOfType2001 = v.([]RackableUnit)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.RackableUnit>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.RackableUnit>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListRackableUnitsByClusterIdApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.RackableUnit>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListRackableUnitsByClusterIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]RackableUnit)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.RackableUnit" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.RackableUnit>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.RackableUnit>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRackableUnitsByClusterIdApiResponseData"))
+}
+
+func (p *OneOfListRackableUnitsByClusterIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.RackableUnit>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListRackableUnitsByClusterIdApiResponseData")
+}
+
+type OneOfGetClusterApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *Cluster               `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetClusterApiResponseData() *OneOfGetClusterApiResponseData {
+	p := new(OneOfGetClusterApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetClusterApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetClusterApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case Cluster:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Cluster)
+		}
+		*p.oneOfType2001 = v.(Cluster)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetClusterApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetClusterApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(Cluster)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.Cluster" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Cluster)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetClusterApiResponseData"))
+}
+
+func (p *OneOfGetClusterApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetClusterApiResponseData")
+}
+
+type OneOfDeleteStorageContainerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteStorageContainerApiResponseData() *OneOfDeleteStorageContainerApiResponseData {
+	p := new(OneOfDeleteStorageContainerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteStorageContainerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteStorageContainerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteStorageContainerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteStorageContainerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteStorageContainerApiResponseData"))
+}
+
+func (p *OneOfDeleteStorageContainerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteStorageContainerApiResponseData")
+}
+
+type OneOfListDataStoresByClusterIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []DataStore            `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListDataStoresByClusterIdApiResponseData() *OneOfListDataStoresByClusterIdApiResponseData {
+	p := new(OneOfListDataStoresByClusterIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListDataStoresByClusterIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListDataStoresByClusterIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []DataStore:
+		p.oneOfType2001 = v.([]DataStore)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.DataStore>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.DataStore>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListDataStoresByClusterIdApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.DataStore>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListDataStoresByClusterIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]DataStore)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.DataStore" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.DataStore>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.DataStore>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListDataStoresByClusterIdApiResponseData"))
+}
+
+func (p *OneOfListDataStoresByClusterIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.DataStore>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListDataStoresByClusterIdApiResponseData")
+}
+
+type OneOfListStorageContainersApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []StorageContainer     `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListStorageContainersApiResponseData() *OneOfListStorageContainersApiResponseData {
+	p := new(OneOfListStorageContainersApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListStorageContainersApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListStorageContainersApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []StorageContainer:
+		p.oneOfType2001 = v.([]StorageContainer)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.StorageContainer>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.StorageContainer>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListStorageContainersApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.StorageContainer>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListStorageContainersApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]StorageContainer)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.StorageContainer" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.StorageContainer>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.StorageContainer>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListStorageContainersApiResponseData"))
+}
+
+func (p *OneOfListStorageContainersApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.StorageContainer>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListStorageContainersApiResponseData")
+}
+
+type OneOfUnregisterVcenterExtensionApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUnregisterVcenterExtensionApiResponseData() *OneOfUnregisterVcenterExtensionApiResponseData {
+	p := new(OneOfUnregisterVcenterExtensionApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUnregisterVcenterExtensionApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUnregisterVcenterExtensionApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUnregisterVcenterExtensionApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUnregisterVcenterExtensionApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUnregisterVcenterExtensionApiResponseData"))
+}
+
+func (p *OneOfUnregisterVcenterExtensionApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUnregisterVcenterExtensionApiResponseData")
+}
+
+type OneOfGetRsyslogServerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *RsyslogServer         `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetRsyslogServerApiResponseData() *OneOfGetRsyslogServerApiResponseData {
+	p := new(OneOfGetRsyslogServerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetRsyslogServerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetRsyslogServerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case RsyslogServer:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(RsyslogServer)
+		}
+		*p.oneOfType2001 = v.(RsyslogServer)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetRsyslogServerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetRsyslogServerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(RsyslogServer)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.RsyslogServer" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(RsyslogServer)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRsyslogServerApiResponseData"))
+}
+
+func (p *OneOfGetRsyslogServerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetRsyslogServerApiResponseData")
+}
+
+type OneOfDeleteRsyslogServerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteRsyslogServerApiResponseData() *OneOfDeleteRsyslogServerApiResponseData {
+	p := new(OneOfDeleteRsyslogServerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteRsyslogServerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteRsyslogServerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteRsyslogServerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteRsyslogServerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteRsyslogServerApiResponseData"))
+}
+
+func (p *OneOfDeleteRsyslogServerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteRsyslogServerApiResponseData")
+}
+
+type OneOfRemoveSnmpTransportsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfRemoveSnmpTransportsApiResponseData() *OneOfRemoveSnmpTransportsApiResponseData {
+	p := new(OneOfRemoveSnmpTransportsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRemoveSnmpTransportsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRemoveSnmpTransportsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRemoveSnmpTransportsApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfRemoveSnmpTransportsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRemoveSnmpTransportsApiResponseData"))
+}
+
+func (p *OneOfRemoveSnmpTransportsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfRemoveSnmpTransportsApiResponseData")
+}
+
+type OneOfRemoveNodeApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfRemoveNodeApiResponseData() *OneOfRemoveNodeApiResponseData {
+	p := new(OneOfRemoveNodeApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRemoveNodeApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRemoveNodeApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRemoveNodeApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfRemoveNodeApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRemoveNodeApiResponseData"))
+}
+
+func (p *OneOfRemoveNodeApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfRemoveNodeApiResponseData")
+}
+
+type OneOfRegisterVcenterExtensionApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfRegisterVcenterExtensionApiResponseData() *OneOfRegisterVcenterExtensionApiResponseData {
+	p := new(OneOfRegisterVcenterExtensionApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRegisterVcenterExtensionApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRegisterVcenterExtensionApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRegisterVcenterExtensionApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfRegisterVcenterExtensionApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRegisterVcenterExtensionApiResponseData"))
+}
+
+func (p *OneOfRegisterVcenterExtensionApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfRegisterVcenterExtensionApiResponseData")
+}
+
+type OneOfCheckHypervisorRequirementsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCheckHypervisorRequirementsApiResponseData() *OneOfCheckHypervisorRequirementsApiResponseData {
+	p := new(OneOfCheckHypervisorRequirementsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCheckHypervisorRequirementsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCheckHypervisorRequirementsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCheckHypervisorRequirementsApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCheckHypervisorRequirementsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCheckHypervisorRequirementsApiResponseData"))
+}
+
+func (p *OneOfCheckHypervisorRequirementsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCheckHypervisorRequirementsApiResponseData")
+}
+
+type OneOfGetStorageContainerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *StorageContainer      `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetStorageContainerApiResponseData() *OneOfGetStorageContainerApiResponseData {
+	p := new(OneOfGetStorageContainerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetStorageContainerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetStorageContainerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case StorageContainer:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(StorageContainer)
+		}
+		*p.oneOfType2001 = v.(StorageContainer)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetStorageContainerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetStorageContainerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(StorageContainer)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.StorageContainer" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(StorageContainer)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetStorageContainerApiResponseData"))
+}
+
+func (p *OneOfGetStorageContainerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetStorageContainerApiResponseData")
+}
+
+type OneOfDeleteSnmpTrapApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteSnmpTrapApiResponseData() *OneOfDeleteSnmpTrapApiResponseData {
+	p := new(OneOfDeleteSnmpTrapApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteSnmpTrapApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteSnmpTrapApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteSnmpTrapApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteSnmpTrapApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteSnmpTrapApiResponseData"))
+}
+
+func (p *OneOfDeleteSnmpTrapApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteSnmpTrapApiResponseData")
+}
+
+type OneOfListHostNicsByHostIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []HostNic              `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListHostNicsByHostIdApiResponseData() *OneOfListHostNicsByHostIdApiResponseData {
+	p := new(OneOfListHostNicsByHostIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListHostNicsByHostIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListHostNicsByHostIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []HostNic:
+		p.oneOfType2001 = v.([]HostNic)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.HostNic>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.HostNic>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListHostNicsByHostIdApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.HostNic>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListHostNicsByHostIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]HostNic)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.HostNic" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.HostNic>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.HostNic>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListHostNicsByHostIdApiResponseData"))
+}
+
+func (p *OneOfListHostNicsByHostIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.HostNic>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListHostNicsByHostIdApiResponseData")
+}
+
+type OneOfUnmountStorageContainerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUnmountStorageContainerApiResponseData() *OneOfUnmountStorageContainerApiResponseData {
+	p := new(OneOfUnmountStorageContainerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUnmountStorageContainerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUnmountStorageContainerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUnmountStorageContainerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUnmountStorageContainerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUnmountStorageContainerApiResponseData"))
+}
+
+func (p *OneOfUnmountStorageContainerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUnmountStorageContainerApiResponseData")
+}
+
+type OneOfListHostsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []Host                 `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListHostsApiResponseData() *OneOfListHostsApiResponseData {
+	p := new(OneOfListHostsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListHostsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListHostsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Host:
+		p.oneOfType2001 = v.([]Host)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.Host>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.Host>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListHostsApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.Host>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListHostsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]Host)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.Host" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.Host>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.Host>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListHostsApiResponseData"))
+}
+
+func (p *OneOfListHostsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.Host>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListHostsApiResponseData")
+}
+
+type OneOfGetVirtualNicApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *VirtualNic            `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetVirtualNicApiResponseData() *OneOfGetVirtualNicApiResponseData {
+	p := new(OneOfGetVirtualNicApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetVirtualNicApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetVirtualNicApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case VirtualNic:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(VirtualNic)
+		}
+		*p.oneOfType2001 = v.(VirtualNic)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetVirtualNicApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetVirtualNicApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(VirtualNic)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.VirtualNic" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(VirtualNic)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVirtualNicApiResponseData"))
+}
+
+func (p *OneOfGetVirtualNicApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetVirtualNicApiResponseData")
+}
+
+type OneOfUpdateClusterApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateClusterApiResponseData() *OneOfUpdateClusterApiResponseData {
+	p := new(OneOfUpdateClusterApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateClusterApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateClusterApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateClusterApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateClusterApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateClusterApiResponseData"))
+}
+
+func (p *OneOfUpdateClusterApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateClusterApiResponseData")
+}
+
+type OneOfExpandClusterApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfExpandClusterApiResponseData() *OneOfExpandClusterApiResponseData {
+	p := new(OneOfExpandClusterApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfExpandClusterApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfExpandClusterApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfExpandClusterApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfExpandClusterApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfExpandClusterApiResponseData"))
+}
+
+func (p *OneOfExpandClusterApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfExpandClusterApiResponseData")
+}
+
+type OneOfListVirtualNicsByHostIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []VirtualNic           `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListVirtualNicsByHostIdApiResponseData() *OneOfListVirtualNicsByHostIdApiResponseData {
+	p := new(OneOfListVirtualNicsByHostIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListVirtualNicsByHostIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListVirtualNicsByHostIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []VirtualNic:
+		p.oneOfType2001 = v.([]VirtualNic)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.VirtualNic>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.VirtualNic>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListVirtualNicsByHostIdApiResponseData) GetValue() interface{} {
+	if "List<clustermgmt.v4.config.VirtualNic>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListVirtualNicsByHostIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]VirtualNic)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.VirtualNic" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.VirtualNic>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.VirtualNic>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVirtualNicsByHostIdApiResponseData"))
+}
+
+func (p *OneOfListVirtualNicsByHostIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<clustermgmt.v4.config.VirtualNic>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVirtualNicsByHostIdApiResponseData")
+}
+
+type OneOfValidateNodeParamSpec struct {
+	Discriminator *string      `json:"-"`
+	ObjectType_   *string      `json:"-"`
+	oneOfType2001 *BundleParam `json:"-"`
+	oneOfType2002 []UplinkNode `json:"-"`
+}
+
+func NewOneOfValidateNodeParamSpec() *OneOfValidateNodeParamSpec {
+	p := new(OneOfValidateNodeParamSpec)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfValidateNodeParamSpec) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfValidateNodeParamSpec is nil"))
+	}
+	switch v.(type) {
+	case BundleParam:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(BundleParam)
+		}
+		*p.oneOfType2001 = v.(BundleParam)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case []UplinkNode:
+		p.oneOfType2002 = v.([]UplinkNode)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.UplinkNode>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.UplinkNode>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfValidateNodeParamSpec) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if "List<clustermgmt.v4.config.UplinkNode>" == *p.Discriminator {
+		return p.oneOfType2002
+	}
+	return nil
+}
+
+func (p *OneOfValidateNodeParamSpec) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(BundleParam)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.BundleParam" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(BundleParam)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2002 := new([]UplinkNode)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+
+		if len(*vOneOfType2002) == 0 || "clustermgmt.v4.config.UplinkNode" == *((*vOneOfType2002)[0].ObjectType_) {
+			p.oneOfType2002 = *vOneOfType2002
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.UplinkNode>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.UplinkNode>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfValidateNodeParamSpec"))
+}
+
+func (p *OneOfValidateNodeParamSpec) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if "List<clustermgmt.v4.config.UplinkNode>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
+	}
+	return nil, errors.New("No value to marshal for OneOfValidateNodeParamSpec")
+}
+
+type OneOfGetHostNicApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *HostNic               `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetHostNicApiResponseData() *OneOfGetHostNicApiResponseData {
+	p := new(OneOfGetHostNicApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetHostNicApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetHostNicApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case HostNic:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(HostNic)
+		}
+		*p.oneOfType2001 = v.(HostNic)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetHostNicApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetHostNicApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(HostNic)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.HostNic" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(HostNic)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetHostNicApiResponseData"))
+}
+
+func (p *OneOfGetHostNicApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetHostNicApiResponseData")
+}
+
+type FileDetail struct {
+	Path        *string `json:"-"`
+	ObjectType_ *string `json:"-"`
+}
+
+func NewFileDetail() *FileDetail {
+	p := new(FileDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "FileDetail"
+
+	return p
 }
