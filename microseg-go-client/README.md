@@ -9,8 +9,8 @@ The Go client for Nutanix Microseg Versioned APIs is designed for Go client appl
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.a1
-- Package version: v4.0.1-alpha.1
+- API version: v4.0.b1
+- Package version: v4.0.1-beta.1
 
 ## Requirements.
 Go 1.11 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/microseg-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/microseg-go-client/v4/...@v4.0.1-alpha.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/microseg-go-client/v4/...@v4.0.1-beta.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/microseg-go-client/v4 v4.0.1-alpha.1
+	github.com/nutanix/ntnx-api-golang-clients/microseg-go-client/v4 v4.0.1-beta.1
 )
 ```
 
@@ -182,7 +182,7 @@ AddressGroupsApiInstance = api.NewAddressGroupsApi(ApiClientInstance)
 extId := "string_sample_data"
 
 // 
-getResponse, err := AddressGroupsApiInstance.GetAddressGroupByExtId(&extId)
+getResponse, err := AddressGroupsApiInstance.GetAddressGroupById(&extId)
 if err != nil {
 ....
 }
@@ -230,7 +230,7 @@ AddressGroupsApiInstance = api.NewAddressGroupsApi(ApiClientInstance)
 extId := "string_sample_data"
 
 // 
-getResponse, err := AddressGroupsApiInstance.GetAddressGroupByExtId(&extId)
+getResponse, err := AddressGroupsApiInstance.GetAddressGroupById(&extId)
 if err != nil {
     ....
 }
@@ -247,7 +247,7 @@ args["If-Match"] = etagValue
 addressGroup := getResponse.GetData().(import1.AddressGroup)
 
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := AddressGroupsApiInstance.UpdateAddressGroupByExtId(&addressGroup&extId, , args)
+response, err := AddressGroupsApiInstance.UpdateAddressGroupById(&addressGroup&extId, , args)
 if err != nil {
 ....
 }
@@ -262,8 +262,8 @@ List Operations for Nutanix APIs support pagination, filtering, sorting and proj
 | _limit    | specifies the total number of records returned in the result set. Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set|
 | _filter   | allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the [OData V4.01 URL](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_SystemQueryOptionfilter) conventions. |
 | _orderby  | allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified the resources will be sorted in ascending order by default. For example, 'orderby=templateName desc' would get all templates sorted by templateName in desc order. |
-| _select   | allows clients to request a specific set of properties for each entity or complex type. Expression specified with the $select must conform to the OData V4.01 URL conventions. If a $select expression consists of a single select item that is an asterisk (i.e. *), then all properties on the matching resource will be returned. |
-| _expand   | allows clients to request related resources when a resource that satisfies a particular request is retrieved. Each expand item is evaluated relative to the entity containing the property being expanded. Other query options can be applied to an expanded property by appending a semicolon-separated list of query options, enclosed in parentheses, to the property name. Allowed system query options are $filter,$select, $orderby. |
+| _select   | allows clients to request a specific set of properties for each entity or complex type. Expression specified with the $select must conform to the OData V4.01 URL conventions. If a $select expression consists of a single select item that is an asterisk (i.e., *), then all properties on the matching resource will be returned. |
+| _expand   | allows clients to request related resources when a resource that satisfies a particular request is retrieved. Each expanded item is evaluated relative to the entity containing the property being expanded. Other query options can be applied to an expanded property by appending a semicolon-separated list of query options, enclosed in parentheses, to the property name. Permissible system query options are $filter,$select and $orderby. |
 
 ```go
 import (
@@ -281,13 +281,14 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 AddressGroupsApiInstance = api.NewAddressGroupsApi(ApiClientInstance)
-page := 0
-limit := 50
-filter := "string_sample_data"
-orderby := "string_sample_data"
+page_ := 0
+limit_ := 50
+filter_ := "string_sample_data"
+orderby_ := "string_sample_data"
+select_ := "string_sample_data"
 
 // 
-response, err := AddressGroupsApiInstance.ListAddressGroups(&page, &limit, &filter, &orderby)
+response, err := AddressGroupsApiInstance.ListAddressGroups(&page_, &limit_, &filter_, &orderby_, &select_)
 if err != nil {
     ....
 }
@@ -298,7 +299,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=microseg&version=v4.0.a1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=microseg&version=v4.0.b1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).

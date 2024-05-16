@@ -24,7 +24,7 @@ func NewAddressGroupsApi(apiClient *client.ApiClient) *AddressGroupsApi {
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewAddressGroupsApi(apiClient *client.ApiClient) *AddressGroupsApi {
 	return a
 }
 
-// Creates a address group.
-func (api *AddressGroupsApi) CreateAddressGroup(body *import1.AddressGroup, args ...map[string]interface{}) (*import1.AddressGroupTaskResponse, error) {
+// Creates an Address Group.
+func (api *AddressGroupsApi) CreateAddressGroup(body *import1.AddressGroup, args ...map[string]interface{}) (*import1.CreateAddressGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/address-groups"
+	uri := "/api/microseg/v4.0.b1/config/address-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,20 @@ func (api *AddressGroupsApi) CreateAddressGroup(body *import1.AddressGroup, args
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.AddressGroupTaskResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.CreateAddressGroupApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Deletes a address group by UUID.
-func (api *AddressGroupsApi) DeleteAddressGroupByExtId(extId *string, args ...map[string]interface{}) (*import1.AddressGroupTaskResponse, error) {
+// Deletes the Address Group with the provided ExtID.
+func (api *AddressGroupsApi) DeleteAddressGroupById(extId *string, args ...map[string]interface{}) (*import1.DeleteAddressGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/address-groups/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/address-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -95,6 +96,7 @@ func (api *AddressGroupsApi) DeleteAddressGroupByExtId(extId *string, args ...ma
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -124,19 +126,20 @@ func (api *AddressGroupsApi) DeleteAddressGroupByExtId(extId *string, args ...ma
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.AddressGroupTaskResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.DeleteAddressGroupApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a address group by UUID.
-func (api *AddressGroupsApi) GetAddressGroupByExtId(extId *string, args ...map[string]interface{}) (*import1.AddressGroupGetResponse, error) {
+// Gets the Address Group with the provided ExtID.
+func (api *AddressGroupsApi) GetAddressGroupById(extId *string, args ...map[string]interface{}) (*import1.GetAddressGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/address-groups/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/address-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -144,6 +147,7 @@ func (api *AddressGroupsApi) GetAddressGroupByExtId(extId *string, args ...map[s
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -173,19 +177,20 @@ func (api *AddressGroupsApi) GetAddressGroupByExtId(extId *string, args ...map[s
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.AddressGroupGetResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetAddressGroupApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Gets a list of address groups.
-func (api *AddressGroupsApi) ListAddressGroups(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.AddressGroupListResponse, error) {
+// Gets a list of Address Groups.
+func (api *AddressGroupsApi) ListAddressGroups(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListAddressGroupsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/address-groups"
+	uri := "/api/microseg/v4.0.b1/config/address-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -214,6 +219,10 @@ func (api *AddressGroupsApi) ListAddressGroups(page_ *int, limit_ *int, filter_ 
 
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	if select_ != nil {
+
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -232,19 +241,20 @@ func (api *AddressGroupsApi) ListAddressGroups(page_ *int, limit_ *int, filter_ 
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.AddressGroupListResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListAddressGroupsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Updates a address group by UUID.
-func (api *AddressGroupsApi) UpdateAddressGroupByExtId(extId *string, body *import1.AddressGroup, args ...map[string]interface{}) (*import1.AddressGroupTaskResponse, error) {
+// Updates the Address Group with the provided ExtID.
+func (api *AddressGroupsApi) UpdateAddressGroupById(extId *string, body *import1.AddressGroup, args ...map[string]interface{}) (*import1.UpdateAddressGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/address-groups/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/address-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -256,6 +266,7 @@ func (api *AddressGroupsApi) UpdateAddressGroupByExtId(extId *string, body *impo
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -285,7 +296,8 @@ func (api *AddressGroupsApi) UpdateAddressGroupByExtId(extId *string, body *impo
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.AddressGroupTaskResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.UpdateAddressGroupApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

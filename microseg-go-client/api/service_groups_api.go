@@ -24,7 +24,7 @@ func NewServiceGroupsApi(apiClient *client.ApiClient) *ServiceGroupsApi {
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewServiceGroupsApi(apiClient *client.ApiClient) *ServiceGroupsApi {
 	return a
 }
 
-// Creates a service group.
-func (api *ServiceGroupsApi) CreateServiceGroup(body *import1.ServiceGroup, args ...map[string]interface{}) (*import1.ServiceGroupTaskResponse, error) {
+// Creates a Service Group.
+func (api *ServiceGroupsApi) CreateServiceGroup(body *import1.ServiceGroup, args ...map[string]interface{}) (*import1.CreateServiceGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/service-groups"
+	uri := "/api/microseg/v4.0.b1/config/service-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,20 @@ func (api *ServiceGroupsApi) CreateServiceGroup(body *import1.ServiceGroup, args
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ServiceGroupTaskResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.CreateServiceGroupApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Deletes a service group by UUID.
-func (api *ServiceGroupsApi) DeleteServiceGroupByExtId(extId *string, args ...map[string]interface{}) (*import1.ServiceGroupTaskResponse, error) {
+// Deletes the Service Group with the provided ExtID.
+func (api *ServiceGroupsApi) DeleteServiceGroupById(extId *string, args ...map[string]interface{}) (*import1.DeleteServiceGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -95,6 +96,7 @@ func (api *ServiceGroupsApi) DeleteServiceGroupByExtId(extId *string, args ...ma
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -124,19 +126,20 @@ func (api *ServiceGroupsApi) DeleteServiceGroupByExtId(extId *string, args ...ma
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ServiceGroupTaskResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.DeleteServiceGroupApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a service group by UUID.
-func (api *ServiceGroupsApi) GetServiceGroupByExtId(extId *string, args ...map[string]interface{}) (*import1.ServiceGroupGetResponse, error) {
+// Gets the Service Group with the provided ExtID.
+func (api *ServiceGroupsApi) GetServiceGroupById(extId *string, args ...map[string]interface{}) (*import1.GetServiceGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -144,6 +147,7 @@ func (api *ServiceGroupsApi) GetServiceGroupByExtId(extId *string, args ...map[s
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -173,19 +177,20 @@ func (api *ServiceGroupsApi) GetServiceGroupByExtId(extId *string, args ...map[s
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ServiceGroupGetResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetServiceGroupApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Gets a list of service groups
-func (api *ServiceGroupsApi) ListServiceGroups(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ServiceGroupListResponse, error) {
+// Gets a list of Service Groups.
+func (api *ServiceGroupsApi) ListServiceGroups(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListServiceGroupsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/service-groups"
+	uri := "/api/microseg/v4.0.b1/config/service-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -214,6 +219,10 @@ func (api *ServiceGroupsApi) ListServiceGroups(page_ *int, limit_ *int, filter_ 
 
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	if select_ != nil {
+
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -232,19 +241,20 @@ func (api *ServiceGroupsApi) ListServiceGroups(page_ *int, limit_ *int, filter_ 
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ServiceGroupListResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListServiceGroupsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Updates a service group by UUID.
-func (api *ServiceGroupsApi) UpdateServiceGroupByExtId(extId *string, body *import1.ServiceGroup, args ...map[string]interface{}) (*import1.ServiceGroupTaskResponse, error) {
+// Updates the Service Group with the provided ExtID.
+func (api *ServiceGroupsApi) UpdateServiceGroupById(extId *string, body *import1.ServiceGroup, args ...map[string]interface{}) (*import1.UpdateServiceGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -256,6 +266,7 @@ func (api *ServiceGroupsApi) UpdateServiceGroupByExtId(extId *string, body *impo
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -285,7 +296,8 @@ func (api *ServiceGroupsApi) UpdateServiceGroupByExtId(extId *string, body *impo
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ServiceGroupTaskResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.UpdateServiceGroupApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

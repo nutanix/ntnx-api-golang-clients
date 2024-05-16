@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type DirectoryServerApi struct {
+type DirectoryServerConfigsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewDirectoryServerApi(apiClient *client.ApiClient) *DirectoryServerApi {
+func NewDirectoryServerConfigsApi(apiClient *client.ApiClient) *DirectoryServerConfigsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &DirectoryServerApi{
+	a := &DirectoryServerConfigsApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewDirectoryServerApi(apiClient *client.ApiClient) *DirectoryServerApi {
 	return a
 }
 
-// Create a mapping between a group in AD and a category/value.
-func (api *DirectoryServerApi) CreateCategoryMapping(body *import1.CategoryMapping, args ...map[string]interface{}) (*import1.DsCategoryMappingCreateResponse, error) {
+// Creates the mapping between a group in Active Directory and the Category.
+func (api *DirectoryServerConfigsApi) CreateCategoryMapping(body *import1.CategoryMapping, args ...map[string]interface{}) (*import1.CreateDsCategoryMappingApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/category-mappings"
+	uri := "/api/microseg/v4.0.b1/config/category-mappings"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,20 @@ func (api *DirectoryServerApi) CreateCategoryMapping(body *import1.CategoryMappi
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DsCategoryMappingCreateResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.CreateDsCategoryMappingApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Allows for configuring various aspects of identity categorization.
-func (api *DirectoryServerApi) CreateDirectoryServer(body *import1.DirectoryServer, args ...map[string]interface{}) (*import1.DirectoryServerCreateResponse, error) {
+// Configures various aspects of identity categorization.
+func (api *DirectoryServerConfigsApi) CreateDirectoryServerConfig(body *import1.DirectoryServerConfig, args ...map[string]interface{}) (*import1.CreateDirectoryServerConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/directory-servers"
+	uri := "/api/microseg/v4.0.b1/config/directory-server-configs"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -122,19 +123,20 @@ func (api *DirectoryServerApi) CreateDirectoryServer(body *import1.DirectoryServ
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DirectoryServerCreateResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.CreateDirectoryServerConfigApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Deletedirectory server by UUID.
-func (api *DirectoryServerApi) DeleteDirectoryServer(extId *string, args ...map[string]interface{}) (*import1.DirectoryServerDeleteResponse, error) {
+// Deletes the Directory Server with the provided ExtID.
+func (api *DirectoryServerConfigsApi) DeleteDirectoryServerConfigById(extId *string, args ...map[string]interface{}) (*import1.DeleteDirectoryServerConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/directory-servers/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -142,6 +144,7 @@ func (api *DirectoryServerApi) DeleteDirectoryServer(extId *string, args ...map[
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -171,19 +174,20 @@ func (api *DirectoryServerApi) DeleteDirectoryServer(extId *string, args ...map[
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DirectoryServerDeleteResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.DeleteDirectoryServerConfigApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete a directory configuration by UUID.
-func (api *DirectoryServerApi) DeleteDsCategoryMappingByExtId(extId *string, args ...map[string]interface{}) (*import1.DsCategoryMappingDeleteResponse, error) {
+// Deletes the directory configuration with the provided ExtID.
+func (api *DirectoryServerConfigsApi) DeleteDsCategoryMappingById(extId *string, args ...map[string]interface{}) (*import1.DeleteDsCategoryMappingApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -191,6 +195,7 @@ func (api *DirectoryServerApi) DeleteDsCategoryMappingByExtId(extId *string, arg
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -220,19 +225,20 @@ func (api *DirectoryServerApi) DeleteDsCategoryMappingByExtId(extId *string, arg
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DsCategoryMappingDeleteResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.DeleteDsCategoryMappingApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Gets directory server configuration.
-func (api *DirectoryServerApi) GetDirectoryServer(extId *string, args ...map[string]interface{}) (*import1.DirectoryServerGetResponse, error) {
+// Gets the list of Directory Server configurations.
+func (api *DirectoryServerConfigsApi) GetDirectoryServerConfigById(extId *string, args ...map[string]interface{}) (*import1.GetDirectoryServerConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/directory-servers/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -240,6 +246,7 @@ func (api *DirectoryServerApi) GetDirectoryServer(extId *string, args ...map[str
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -269,19 +276,20 @@ func (api *DirectoryServerApi) GetDirectoryServer(extId *string, args ...map[str
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DirectoryServerGetResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetDirectoryServerConfigApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Gets a category to directory configuration information by UUID.
-func (api *DirectoryServerApi) GetDsCategoryMappingByExtId(extId *string, args ...map[string]interface{}) (*import1.DsCategoryMappingGetResponse, error) {
+// Gets the category to directory configuration information with the provided ExtID.
+func (api *DirectoryServerConfigsApi) GetDsCategoryMappingById(extId *string, args ...map[string]interface{}) (*import1.GetDsCategoryMappingApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -289,6 +297,7 @@ func (api *DirectoryServerApi) GetDsCategoryMappingByExtId(extId *string, args .
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -318,19 +327,20 @@ func (api *DirectoryServerApi) GetDsCategoryMappingByExtId(extId *string, args .
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DsCategoryMappingGetResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetDsCategoryMappingApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List the Identity Catgorization Category Mappings.
-func (api *DirectoryServerApi) ListCategoryMappings(page_ *int, limit_ *int, args ...map[string]interface{}) (*import1.DsCategoryMappingsGetListResponse, error) {
+// Gets the list of Directory Server Category Mappings.
+func (api *DirectoryServerConfigsApi) ListCategoryMappings(page_ *int, limit_ *int, select_ *string, args ...map[string]interface{}) (*import1.ListDsCategoryMappingsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/category-mappings"
+	uri := "/api/microseg/v4.0.b1/config/category-mappings"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -351,6 +361,10 @@ func (api *DirectoryServerApi) ListCategoryMappings(page_ *int, limit_ *int, arg
 
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
+	if select_ != nil {
+
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -369,19 +383,20 @@ func (api *DirectoryServerApi) ListCategoryMappings(page_ *int, limit_ *int, arg
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DsCategoryMappingsGetListResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListDsCategoryMappingsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Lists directory servers.
-func (api *DirectoryServerApi) ListDirectoryServer(args ...map[string]interface{}) (*import1.DirectoryServerListResponse, error) {
+// Gets the list of Directory Servers.
+func (api *DirectoryServerConfigsApi) ListDirectoryServerConfigs(select_ *string, args ...map[string]interface{}) (*import1.ListDirectoryServerConfigsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/directory-servers"
+	uri := "/api/microseg/v4.0.b1/config/directory-server-configs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -393,6 +408,11 @@ func (api *DirectoryServerApi) ListDirectoryServer(args ...map[string]interface{
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if select_ != nil {
+
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -411,19 +431,20 @@ func (api *DirectoryServerApi) ListDirectoryServer(args ...map[string]interface{
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DirectoryServerListResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListDirectoryServerConfigsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update directory server by UUID.
-func (api *DirectoryServerApi) UpdateDirectoryServer(extId *string, body *import1.DirectoryServer, args ...map[string]interface{}) (*import1.DirectoryServerUpdateResponse, error) {
+// Updates the Directory Server Config with the provided ExtID.
+func (api *DirectoryServerConfigsApi) UpdateDirectoryServerConfigById(extId *string, body *import1.DirectoryServerConfig, args ...map[string]interface{}) (*import1.UpdateDirectoryServerConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/directory-servers/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -435,6 +456,7 @@ func (api *DirectoryServerApi) UpdateDirectoryServer(extId *string, body *import
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -464,19 +486,20 @@ func (api *DirectoryServerApi) UpdateDirectoryServer(extId *string, body *import
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DirectoryServerUpdateResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.UpdateDirectoryServerConfigApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update a category to directory configuration mapping information by UUID.
-func (api *DirectoryServerApi) UpdateDsCategoryMappingByExtId(extId *string, body *import1.CategoryMapping, args ...map[string]interface{}) (*import1.DsCategoryMappingUpdateResponse, error) {
+// Updates the category to directory configuration mapping information with the provided ExtID.
+func (api *DirectoryServerConfigsApi) UpdateDsCategoryMappingById(extId *string, body *import1.CategoryMapping, args ...map[string]interface{}) (*import1.UpdateDsCategoryMappingApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.a1/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.0.b1/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -488,6 +511,7 @@ func (api *DirectoryServerApi) UpdateDsCategoryMappingByExtId(extId *string, bod
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -517,7 +541,8 @@ func (api *DirectoryServerApi) UpdateDsCategoryMappingByExtId(extId *string, bod
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.DsCategoryMappingUpdateResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.UpdateDsCategoryMappingApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
