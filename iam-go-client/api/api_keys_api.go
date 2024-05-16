@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type ApiKeyApi struct {
+type ApiKeysApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewApiKeyApi(apiClient *client.ApiClient) *ApiKeyApi {
+func NewApiKeysApi(apiClient *client.ApiClient) *ApiKeysApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ApiKeyApi{
+	a := &ApiKeysApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewApiKeyApi(apiClient *client.ApiClient) *ApiKeyApi {
 	return a
 }
 
-// Validate API key
-func (api *ApiKeyApi) ValidateApiKey(body *import1.ApiKeyValidateRequest, args ...map[string]interface{}) (*import1.ValidateApiKeyApiResponse, error) {
+// Validate API key.
+func (api *ApiKeysApi) ValidateApiKey(body *import1.ApiKeyValidateRequest, args ...map[string]interface{}) (*import1.ValidateApiKeyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/api-keys/$actions/validate"
+	uri := "/api/iam/v4.0.b2/authn/api-keys/$actions/validate"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -70,7 +70,8 @@ func (api *ApiKeyApi) ValidateApiKey(body *import1.ApiKeyValidateRequest, args .
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.ValidateApiKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

@@ -19,6 +19,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"path/filepath"
 	"reflect"
 	"regexp"
 	"strconv"
@@ -33,11 +34,12 @@ const (
 )
 
 var (
-	jsonCheck       = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
-	xmlCheck        = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
-	uriCheck        = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
-	retryStatusList = []int{408, 503, 504}
-	userAgent       = "Nutanix-iam/v4.0.1-beta.1"
+	jsonCheck               = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
+	xmlCheck                = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
+	uriCheck                = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
+	contentDispositionCheck = regexp.MustCompile("attachment;\\s*filename=\"(.*)\"")
+	retryStatusList         = []int{408, 503, 504}
+	userAgent               = "Nutanix-iam/v4.0.2-beta.1"
 )
 
 /*
@@ -54,32 +56,36 @@ var (
     ReadTimeout (optional) : Read timeout for all operations in milliseconds
     ConnectTimeout (optional) : Connection timeout for all operations in milliseconds
     RetryInterval (optional) : Interval between successive retry attempts (default: 3 sec)
+    DownloadDirectory (optional) : Directory location on local for files to download (default: Current Directory)
+    DownloadChunkSize (optional) : Chunk size in bytes for files to download (default: 8*1024 bytes)
     LoggerFile (optional) : Log file to write activity logs
 */
 type ApiClient struct {
-	Scheme           string `json:"scheme,omitempty"`
-	Host             string `json:"host,omitempty"`
-	Port             int    `json:"port,omitempty"`
-	Username         string `json:"username,omitempty"`
-	Password         string `json:"password,omitempty"`
-	Debug            bool   `json:"debug,omitempty"`
-	VerifySSL        bool
-	Proxy            *Proxy
-	MaxRetryAttempts int           `json:"maxRetryAttempts,omitempty"`
-	ReadTimeout      time.Duration `json:"readTimeout,omitempty"`
-	ConnectTimeout   time.Duration `json:"connectTimeout,omitempty"`
-	RetryInterval    time.Duration `json:"retryInterval,omitempty"`
-	LoggerFile       string        `json:"loggerFile,omitempty"`
-	defaultHeaders   map[string]string
-	retryClient      *retryablehttp.Client
-	httpClient       *http.Client
-	dialer           *net.Dialer
-	authentication   map[string]interface{}
-	cookie           string
-	refreshCookie    bool
-	previousAuth     string
-	basicAuth        *BasicAuth
-	logger           *logrus.Logger
+	Scheme            string `json:"scheme,omitempty"`
+	Host              string `json:"host,omitempty"`
+	Port              int    `json:"port,omitempty"`
+	Username          string `json:"username,omitempty"`
+	Password          string `json:"password,omitempty"`
+	Debug             bool   `json:"debug,omitempty"`
+	VerifySSL         bool
+	Proxy             *Proxy
+	MaxRetryAttempts  int           `json:"maxRetryAttempts,omitempty"`
+	ReadTimeout       time.Duration `json:"readTimeout,omitempty"`
+	ConnectTimeout    time.Duration `json:"connectTimeout,omitempty"`
+	RetryInterval     time.Duration `json:"retryInterval,omitempty"`
+	DownloadDirectory string        `json:"downloadDirectory,omitempty"`
+	DownloadChunkSize int           `json:"downloadChunkSize,omitempty"`
+	LoggerFile        string        `json:"loggerFile,omitempty"`
+	defaultHeaders    map[string]string
+	retryClient       *retryablehttp.Client
+	httpClient        *http.Client
+	dialer            *net.Dialer
+	authentication    map[string]interface{}
+	cookie            string
+	refreshCookie     bool
+	previousAuth      string
+	basicAuth         *BasicAuth
+	logger            *logrus.Logger
 
 	// maxIdleConns controls the maximum number of idle (keep-alive)
 	// connections across all hosts. Zero means no limit.
@@ -111,11 +117,12 @@ func NewApiClient() *ApiClient {
 	basicAuth := new(BasicAuth)
 	authentication := make(map[string]interface{})
 	authentication["basicAuthScheme"] = basicAuth
-	authentication["iam.v4.r0.b1.authn.bearerAuth"] = map[string]interface{}{
+	authentication["iam.v4.r0.b2.authn.bearerAuth"] = map[string]interface{}{
 		"apiKey": new(APIKey),
 		"in":     "header",
 		"name":   "Authorization",
 	}
+	currentDirectory, _ := os.Getwd()
 
 	a := &ApiClient{
 		Scheme:              "https",
@@ -127,6 +134,8 @@ func NewApiClient() *ApiClient {
 		ReadTimeout:         30 * time.Second,
 		ConnectTimeout:      30 * time.Second,
 		RetryInterval:       3 * time.Second,
+		DownloadDirectory:   currentDirectory,
+		DownloadChunkSize:   8 * 1024,
 		maxIdleConns:        10,
 		maxIdleConnsPerHost: 10,
 		maxConnsPerHost:     100,
@@ -154,7 +163,7 @@ func (a *ApiClient) AddDefaultHeader(headerName string, headerValue string) {
 // Makes the HTTP request with given options and returns response body as byte array.
 func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	queryParams url.Values, headerParams map[string]string, formParams url.Values,
-	accepts []string, contentType []string, authNames []string) ([]byte, error) {
+	accepts []string, contentType []string, authNames []string) (interface{}, error) {
 	path := a.Scheme + "://" + a.Host + ":" + strconv.Itoa(a.Port) + *uri
 
 	if headerParams["Authorization"] != "" {
@@ -166,14 +175,20 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	}
 
 	// set Content-Type header
-	httpContentType := a.selectHeaderContentType(contentType)
-	if httpContentType != "" {
-		headerParams["Content-Type"] = httpContentType
+	if headerParams["Content-Type"] == "" {
+		httpContentType := a.selectHeaderContentType(contentType)
+		if httpContentType != "" {
+			headerParams["Content-Type"] = httpContentType
+		}
 	}
 
 	// set Accept header
-	httpHeaderAccept := a.selectHeaderAccept(accepts)
-	if httpHeaderAccept != "" {
+	if headerParams["Accept"] == "" {
+		httpHeaderAccept := a.selectHeaderAccept(accepts)
+		if httpHeaderAccept == "" {
+			httpHeaderAccept = "application/json"
+		}
+
 		headerParams["Accept"] = httpHeaderAccept
 	}
 
@@ -198,7 +213,11 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	a.setupClient()
 
 	if a.Debug {
-		dump, err := httputil.DumpRequestOut(request, true)
+		printBody := true
+		if headerParams["Content-Type"] == "application/octet-stream" {
+			printBody = false
+		}
+		dump, err := httputil.DumpRequestOut(request, printBody)
 		if err != nil {
 			a.logger.Debugf("Error while logging request details: %s", err.Error())
 			return nil, err
@@ -231,7 +250,12 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	}
 
 	if a.Debug {
-		dump, err := httputil.DumpResponse(response, true)
+		printBody := true
+		if response.Header.Get("Content-Type") == "application/octet-stream" {
+			printBody = false
+		}
+
+		dump, err := httputil.DumpResponse(response, printBody)
 		if err != nil {
 			a.logger.Debugf("Error while logging response details: %s", err.Error())
 			return nil, err
@@ -253,6 +277,10 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 		return nil, nil
 	}
 
+	if response.Header.Get("Content-Type") == "application/octet-stream" {
+		return a.downloadFile(response)
+	}
+
 	responseBody, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		a.logger.Error(err.Error())
@@ -270,6 +298,48 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 		responseBody := addEtagReferenceToResponse(response.Header, responseBody)
 		return responseBody, nil
 	}
+}
+
+func (a *ApiClient) downloadFile(response *http.Response) (*string, error) {
+	var filePath string
+	if len(response.Header.Get("Content-Disposition")) != 0 {
+		filename := contentDispositionCheck.FindStringSubmatch(response.Header.Get("Content-Disposition"))
+		if len(filename) == 2 {
+			filePath = filepath.Join(a.DownloadDirectory, filename[1])
+		}
+	} else {
+		file, err := ioutil.TempFile(a.DownloadDirectory, "")
+		if err != nil {
+			a.logger.Errorf("Could not create a file on local for downloading: %s", err)
+			return nil, err
+		}
+		filePath = file.Name()
+		file.Close()
+	}
+
+	ext := filepath.Ext(filePath)
+	ts := time.Now().UTC().Format("2006-01-02T15:04:05.000")
+	filePath = fmt.Sprintf("%s_%s%s", filePath[:len(filePath)-len(ext)], ts, ext)
+
+	a.logger.Infof("Writing response content to file at %s", filePath)
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0755)
+	defer file.Close()
+	if err != nil {
+		a.logger.Errorf("Could not create a file on local for downloading: %s", filePath)
+		return nil, err
+	}
+
+	buf := make([]byte, a.DownloadChunkSize)
+	written, err := io.CopyBuffer(file, response.Body, buf)
+
+	if err != nil {
+		a.logger.Errorf("Something went wrong while downloading the file at path %s: %s", filePath, err)
+		return nil, err
+	}
+
+	a.logger.Infof("%d bytes written to file at %s", written, filePath)
+
+	return &filePath, nil
 }
 
 // Get all authentications (key: authentication name, value: authentication)
@@ -511,10 +581,6 @@ func (a *ApiClient) selectHeaderAccept(accepts []string) string {
 		return ""
 	}
 
-	if contains(accepts, "application/json") {
-		return "application/json"
-	}
-
 	return strings.Join(accepts, ",")
 }
 
@@ -537,9 +603,12 @@ func (a *ApiClient) prepareRequest(
 			contentType = detectContentType(postBody)
 			headerParams["Content-Type"] = contentType
 		}
-		body, err = setBody(postBody, contentType)
-		if err != nil {
-			return nil, err
+
+		if headerParams["Content-Type"] != "application/octet-stream" {
+			body, err = setBody(postBody, contentType)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -571,11 +640,15 @@ func (a *ApiClient) prepareRequest(
 	url.RawQuery = query.Encode()
 
 	// Generate a new request
-	if body != nil {
+	if postBodyValue.IsValid() && !postBodyValue.IsNil() && headerParams["Content-Type"] == "application/octet-stream" {
+		fileTypeBody, _ := postBody.(*os.File)
+		localVarRequest, err = http.NewRequest(method, url.String(), fileTypeBody)
+	} else if body != nil {
 		localVarRequest, err = http.NewRequest(method, url.String(), body)
 	} else {
 		localVarRequest, err = http.NewRequest(method, url.String(), nil)
 	}
+
 	if err != nil {
 		return nil, err
 	}
@@ -636,6 +709,12 @@ func (a *ApiClient) prepareRequest(
 	if len(a.cookie) > 0 {
 		localVarRequest.Header["Cookie"] = []string{a.cookie}
 		delete(localVarRequest.Header, "Authorization")
+	}
+
+	// Add content length to request
+	if localVarRequest.Header.Get("Content-Length") != "" {
+		contentLengthInt64, _ := strconv.ParseInt(localVarRequest.Header.Get("Content-Length"), 10, 64)
+		localVarRequest.ContentLength = contentLengthInt64
 	}
 
 	return localVarRequest, nil

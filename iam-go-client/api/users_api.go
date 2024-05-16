@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type UserApi struct {
+type UsersApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewUserApi(apiClient *client.ApiClient) *UserApi {
+func NewUsersApi(apiClient *client.ApiClient) *UsersApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &UserApi{
+	a := &UsersApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewUserApi(apiClient *client.ApiClient) *UserApi {
 	return a
 }
 
-// Change Password for a user
-func (api *UserApi) ChangeUserPassword(body *import1.PasswordChangeRequest, args ...map[string]interface{}) (*import1.ChangeUserPasswordApiResponse, error) {
+// Change Password for a User.
+func (api *UsersApi) ChangeUserPassword(body *import1.PasswordChangeRequest, args ...map[string]interface{}) (*import1.ChangeUserPasswordApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/users/$actions/change-password"
+	uri := "/api/iam/v4.0.b2/authn/users/$actions/change-password"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,66 +75,20 @@ func (api *UserApi) ChangeUserPassword(body *import1.PasswordChangeRequest, args
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.ChangeUserPasswordApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Create a user
-func (api *UserApi) CreateUser(body *import1.User, args ...map[string]interface{}) (*import1.CreateUserApiResponse, error) {
+// Create Access key Identifier and Secret Access key to call Nutanix Buckets service.
+func (api *UsersApi) CreateBucketAccessKey(extId *string, body *import1.BucketsAccessKey, args ...map[string]interface{}) (*import1.CreateUserKeyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/users"
-
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import1.CreateUserApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Create access key Id and secret access key to call Nutanix Buckets service.
-func (api *UserApi) CreateUserBucketKey(extId *string, body *import1.BucketsAccessKey, args ...map[string]interface{}) (*import1.CreateUserKeyApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/iam/v4.0.b1/authn/users/{extId}/buckets-access-keys"
+	uri := "/api/iam/v4.0.b2/authn/users/{extId}/buckets-access-keys"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -146,6 +100,7 @@ func (api *UserApi) CreateUserBucketKey(extId *string, body *import1.BucketsAcce
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -175,19 +130,125 @@ func (api *UserApi) CreateUserBucketKey(extId *string, body *import1.BucketsAcce
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.CreateUserKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List all Bucket Access Key(s) for the user
-func (api *UserApi) GetUserBucketKeys(extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListUserKeyApiResponse, error) {
+// Create a User.
+func (api *UsersApi) CreateUser(body *import1.User, args ...map[string]interface{}) (*import1.CreateUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/users/{extId}/buckets-access-keys"
+	uri := "/api/iam/v4.0.b2/authn/users"
+
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.CreateUserApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Delete a Bucket Access Key for the User.
+func (api *UsersApi) DeleteUserBucketKeyById(userExtId *string, extId *string, args ...map[string]interface{}) (*import1.DeleteUserKeyApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b2/authn/users/{userExtId}/buckets-access-keys/{extId}"
+
+	// verify the required parameter 'userExtId' is set
+	if nil == userExtId {
+		return nil, client.ReportError("userExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
+	uri = strings.Replace(uri, "{"+"userExtId"+"}", url.PathEscape(client.ParameterToString(*userExtId, "")), -1)
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.DeleteUserKeyApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// View a User.
+func (api *UsersApi) GetUserById(extId *string, args ...map[string]interface{}) (*import1.GetUserApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b2/authn/users/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -195,6 +256,58 @@ func (api *UserApi) GetUserBucketKeys(extId *string, page_ *int, limit_ *int, fi
 	}
 
 	// Path Params
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.GetUserApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// List all Bucket Access Key(s) for the User.
+func (api *UsersApi) ListUserBucketKeys(extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListUserBucketKeysApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b2/authn/users/{extId}/buckets-access-keys"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -241,68 +354,20 @@ func (api *UserApi) GetUserBucketKeys(extId *string, page_ *int, limit_ *int, fi
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ListUserKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListUserBucketKeysApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// View a user
-func (api *UserApi) GetUserById(extId *string, args ...map[string]interface{}) (*import1.GetUserApiResponse, error) {
+// List all User(s).
+func (api *UsersApi) ListUsers(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListUsersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/users/{extId}"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import1.GetUserApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// List all user(s)
-func (api *UserApi) GetUserList(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListUserApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/iam/v4.0.b1/authn/users"
+	uri := "/api/iam/v4.0.b2/authn/users"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -353,19 +418,20 @@ func (api *UserApi) GetUserList(page_ *int, limit_ *int, filter_ *string, orderb
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ListUserApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListUsersApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Reset Password for a user
-func (api *UserApi) ResetUserPassword(extId *string, body *import1.PasswordResetRequest, args ...map[string]interface{}) (*import1.ResetUserPasswordApiResponse, error) {
+// Reset Password for a User.
+func (api *UsersApi) ResetUserPassword(extId *string, body *import1.PasswordResetRequest, args ...map[string]interface{}) (*import1.ResetUserPasswordApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/users/{extId}/$actions/reset-password"
+	uri := "/api/iam/v4.0.b2/authn/users/{extId}/$actions/reset-password"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -377,6 +443,7 @@ func (api *UserApi) ResetUserPassword(extId *string, body *import1.PasswordReset
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -406,19 +473,20 @@ func (api *UserApi) ResetUserPassword(extId *string, body *import1.PasswordReset
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.ResetUserPasswordApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update a user
-func (api *UserApi) UpdateUser(extId *string, body *import1.User, args ...map[string]interface{}) (*import1.UpdateUserApiResponse, error) {
+// Update a User.
+func (api *UsersApi) UpdateUserById(extId *string, body *import1.User, args ...map[string]interface{}) (*import1.UpdateUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/users/{extId}"
+	uri := "/api/iam/v4.0.b2/authn/users/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -430,6 +498,7 @@ func (api *UserApi) UpdateUser(extId *string, body *import1.User, args ...map[st
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -459,19 +528,20 @@ func (api *UserApi) UpdateUser(extId *string, body *import1.User, args ...map[st
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.UpdateUserApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update active state of a user
-func (api *UserApi) UpdateUserState(extId *string, body *import1.UserStateUpdate, args ...map[string]interface{}) (*import1.ActivateUserApiResponse, error) {
+// Update active state of a User.
+func (api *UsersApi) UpdateUserState(extId *string, body *import1.UserStateUpdate, args ...map[string]interface{}) (*import1.ActivateUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/users/{extId}/$actions/change-state"
+	uri := "/api/iam/v4.0.b2/authn/users/{extId}/$actions/change-state"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -483,6 +553,7 @@ func (api *UserApi) UpdateUserState(extId *string, body *import1.UserStateUpdate
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -512,7 +583,8 @@ func (api *UserApi) UpdateUserState(extId *string, body *import1.UserStateUpdate
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.ActivateUserApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

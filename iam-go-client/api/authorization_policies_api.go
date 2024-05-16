@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type RoleApi struct {
+type AuthorizationPoliciesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewRoleApi(apiClient *client.ApiClient) *RoleApi {
+func NewAuthorizationPoliciesApi(apiClient *client.ApiClient) *AuthorizationPoliciesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &RoleApi{
+	a := &AuthorizationPoliciesApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewRoleApi(apiClient *client.ApiClient) *RoleApi {
 	return a
 }
 
-// Create a role
-func (api *RoleApi) CreateRoleAPI(body *import2.Role, args ...map[string]interface{}) (*import2.CreateRoleApiResponse, error) {
+// Create an Authorization Policy.
+func (api *AuthorizationPoliciesApi) CreateAuthorizationPolicy(body *import2.AuthorizationPolicy, args ...map[string]interface{}) (*import2.CreateAuthorizationPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authz/roles"
+	uri := "/api/iam/v4.0.b2/authz/authorization-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,20 @@ func (api *RoleApi) CreateRoleAPI(body *import2.Role, args ...map[string]interfa
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.CreateRoleApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import2.CreateAuthorizationPolicyApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete a role
-func (api *RoleApi) DeleteRoleAPI(extId *string, args ...map[string]interface{}) (*import2.DeleteRoleApiResponse, error) {
+// Delete an Authorization Policy.
+func (api *AuthorizationPoliciesApi) DeleteAuthorizationPolicyById(extId *string, args ...map[string]interface{}) (*import2.DeleteAuthorizationPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authz/roles/{extId}"
+	uri := "/api/iam/v4.0.b2/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -95,6 +96,7 @@ func (api *RoleApi) DeleteRoleAPI(extId *string, args ...map[string]interface{})
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -124,19 +126,71 @@ func (api *RoleApi) DeleteRoleAPI(extId *string, args ...map[string]interface{})
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.DeleteRoleApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import2.DeleteAuthorizationPolicyApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List all the role(s)
-func (api *RoleApi) ListRoleAPI(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListRoleApiResponse, error) {
+// View an Authorization Policy.
+func (api *AuthorizationPoliciesApi) GetAuthorizationPolicyById(extId *string, args ...map[string]interface{}) (*import2.GetAuthorizationPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authz/roles"
+	uri := "/api/iam/v4.0.b2/authz/authorization-policies/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.GetAuthorizationPolicyApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// List all the Authorization Polic(ies).
+func (api *AuthorizationPoliciesApi) ListAuthorizationPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListAuthorizationPoliciesApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b2/authz/authorization-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -165,6 +219,10 @@ func (api *RoleApi) ListRoleAPI(page_ *int, limit_ *int, filter_ *string, orderb
 
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	if expand_ != nil {
+
+		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	}
 	if select_ != nil {
 
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
@@ -187,19 +245,20 @@ func (api *RoleApi) ListRoleAPI(page_ *int, limit_ *int, filter_ *string, orderb
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.ListRoleApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import2.ListAuthorizationPoliciesApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update a role
-func (api *RoleApi) UpdateRoleAPI(extId *string, body *import2.Role, args ...map[string]interface{}) (*import2.UpdateRoleApiResponse, error) {
+// Update an Authorization Policy.
+func (api *AuthorizationPoliciesApi) UpdateAuthorizationPolicyById(extId *string, body *import2.AuthorizationPolicy, args ...map[string]interface{}) (*import2.UpdateAuthorizationPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authz/roles/{extId}"
+	uri := "/api/iam/v4.0.b2/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -211,6 +270,7 @@ func (api *RoleApi) UpdateRoleAPI(extId *string, body *import2.Role, args ...map
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -240,56 +300,8 @@ func (api *RoleApi) UpdateRoleAPI(extId *string, body *import2.Role, args ...map
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import2.UpdateRoleApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
 
-// View a role
-func (api *RoleApi) ViewRoleAPI(extId *string, args ...map[string]interface{}) (*import2.ViewRoleApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/iam/v4.0.b1/authz/roles/{extId}"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import2.ViewRoleApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	unmarshalledResp := new(import2.UpdateAuthorizationPolicyApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

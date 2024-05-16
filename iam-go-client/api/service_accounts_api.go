@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type ServiceAccountApi struct {
+type ServiceAccountsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewServiceAccountApi(apiClient *client.ApiClient) *ServiceAccountApi {
+func NewServiceAccountsApi(apiClient *client.ApiClient) *ServiceAccountsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ServiceAccountApi{
+	a := &ServiceAccountsApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,16 @@ func NewServiceAccountApi(apiClient *client.ApiClient) *ServiceAccountApi {
 	return a
 }
 
-// Create API key
-func (api *ServiceAccountApi) CreateApiKey(extId *string, body *import1.ApiKey, args ...map[string]interface{}) (*import1.CreateApiKeyApiResponse, error) {
+// Create API key.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) CreateApiKey(extId *string, body *import1.ApiKey, args ...map[string]interface{}) (*import1.CreateApiKeyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/service-accounts/{extId}/api-keys"
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{extId}/api-keys"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -52,6 +54,7 @@ func (api *ServiceAccountApi) CreateApiKey(extId *string, body *import1.ApiKey, 
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -81,19 +84,22 @@ func (api *ServiceAccountApi) CreateApiKey(extId *string, body *import1.ApiKey, 
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.CreateApiKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Create service account
-func (api *ServiceAccountApi) CreateServiceAccount(body *import1.ServiceAccount, args ...map[string]interface{}) (*import1.CreateServiceAccountApiResponse, error) {
+// Create Service Account.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) CreateServiceAccount(body *import1.ServiceAccount, args ...map[string]interface{}) (*import1.CreateServiceAccountApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/service-accounts"
+	uri := "/api/iam/v4.0.b2/authn/service-accounts"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -128,19 +134,22 @@ func (api *ServiceAccountApi) CreateServiceAccount(body *import1.ServiceAccount,
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.CreateServiceAccountApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Create service account cert/key
-func (api *ServiceAccountApi) CreateServiceAccountKey(extId *string, body *import1.ServiceAccountKey, args ...map[string]interface{}) (*import1.CreateServiceAccountKeyApiResponse, error) {
+// Create Service Account cert/key.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) CreateServiceAccountKey(extId *string, body *import1.ServiceAccountKey, args ...map[string]interface{}) (*import1.CreateServiceAccountKeyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/service-accounts/{extId}/access-keys"
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{extId}/access-keys"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -148,6 +157,7 @@ func (api *ServiceAccountApi) CreateServiceAccountKey(extId *string, body *impor
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -177,19 +187,22 @@ func (api *ServiceAccountApi) CreateServiceAccountKey(extId *string, body *impor
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.CreateServiceAccountKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// View API key
-func (api *ServiceAccountApi) GetApiKeyById(svcAccExtId *string, extId *string, args ...map[string]interface{}) (*import1.GetApiKeyApiResponse, error) {
+// Delete API key.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) DeleteApiKeyById(svcAccExtId *string, extId *string, args ...map[string]interface{}) (*import1.DeleteApiKeyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/service-accounts/{svcAccExtId}/api-keys/{extId}"
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/api-keys/{extId}"
 
 	// verify the required parameter 'svcAccExtId' is set
 	if nil == svcAccExtId {
@@ -201,7 +214,180 @@ func (api *ServiceAccountApi) GetApiKeyById(svcAccExtId *string, extId *string, 
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"svcAccExtId"+"}", url.PathEscape(client.ParameterToString(*svcAccExtId, "")), -1)
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.DeleteApiKeyApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Delete Service Account.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) DeleteServiceAccountById(extId *string, args ...map[string]interface{}) (*import1.DeleteServiceAccountApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.DeleteServiceAccountApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Delete Service Account cert/key.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) DeleteServiceAccountKeyById(svcAccExtId *string, extId *string, args ...map[string]interface{}) (*import1.DeleteServiceAccountKeyApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/access-keys/{extId}"
+
+	// verify the required parameter 'svcAccExtId' is set
+	if nil == svcAccExtId {
+		return nil, client.ReportError("svcAccExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
+	uri = strings.Replace(uri, "{"+"svcAccExtId"+"}", url.PathEscape(client.ParameterToString(*svcAccExtId, "")), -1)
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.DeleteServiceAccountKeyApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// View API key.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) GetApiKeyById(svcAccExtId *string, extId *string, args ...map[string]interface{}) (*import1.GetApiKeyApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/api-keys/{extId}"
+
+	// verify the required parameter 'svcAccExtId' is set
+	if nil == svcAccExtId {
+		return nil, client.ReportError("svcAccExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
+	uri = strings.Replace(uri, "{"+"svcAccExtId"+"}", url.PathEscape(client.ParameterToString(*svcAccExtId, "")), -1)
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -231,19 +417,22 @@ func (api *ServiceAccountApi) GetApiKeyById(svcAccExtId *string, extId *string, 
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.GetApiKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List API keys
-func (api *ServiceAccountApi) GetApiKeyList(extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListApiKeyApiResponse, error) {
+// View Service Account.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) GetServiceAccountById(extId *string, args ...map[string]interface{}) (*import1.GetServiceAccountApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/service-accounts/{extId}/api-keys"
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -251,76 +440,7 @@ func (api *ServiceAccountApi) GetApiKeyList(extId *string, page_ *int, limit_ *i
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
 
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Query Params
-	if page_ != nil {
-
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
-	}
-	if limit_ != nil {
-
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
-	}
-	if filter_ != nil {
-
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
-	}
-	if orderby_ != nil {
-
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
-	}
-	if select_ != nil {
-
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
-	}
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import1.ListApiKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// View service account
-func (api *ServiceAccountApi) GetServiceAccountById(extId *string, args ...map[string]interface{}) (*import1.GetServiceAccountApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/iam/v4.0.b1/authn/service-accounts/{extId}"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -350,19 +470,22 @@ func (api *ServiceAccountApi) GetServiceAccountById(extId *string, args ...map[s
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.GetServiceAccountApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// View service account cert/key
-func (api *ServiceAccountApi) GetServiceAccountKeyById(svcAccExtId *string, extId *string, args ...map[string]interface{}) (*import1.GetServiceAccountKeyApiResponse, error) {
+// View Service Account cert/key.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) GetServiceAccountKeyById(svcAccExtId *string, extId *string, args ...map[string]interface{}) (*import1.GetServiceAccountKeyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/service-accounts/{svcAccExtId}/access-keys/{extId}"
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/access-keys/{extId}"
 
 	// verify the required parameter 'svcAccExtId' is set
 	if nil == svcAccExtId {
@@ -374,7 +497,9 @@ func (api *ServiceAccountApi) GetServiceAccountKeyById(svcAccExtId *string, extI
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"svcAccExtId"+"}", url.PathEscape(client.ParameterToString(*svcAccExtId, "")), -1)
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -404,19 +529,22 @@ func (api *ServiceAccountApi) GetServiceAccountKeyById(svcAccExtId *string, extI
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.GetServiceAccountKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List service account certs/keys
-func (api *ServiceAccountApi) GetServiceAccountKeyList(extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListServiceAccountKeyApiResponse, error) {
+// List API keys.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) ListApiKeys(extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListApiKeysApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/service-accounts/{extId}/access-keys"
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{extId}/api-keys"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -424,6 +552,7 @@ func (api *ServiceAccountApi) GetServiceAccountKeyList(extId *string, page_ *int
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -474,19 +603,96 @@ func (api *ServiceAccountApi) GetServiceAccountKeyList(extId *string, page_ *int
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ListServiceAccountKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListApiKeysApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List all service accounts
-func (api *ServiceAccountApi) GetServiceAccountList(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListServiceAccountApiResponse, error) {
+// List Service Account certs/keys.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) ListServiceAccountKeys(extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListServiceAccountKeysApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/service-accounts"
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{extId}/access-keys"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	if select_ != nil {
+
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ListServiceAccountKeysApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// List all Service Accounts.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) ListServiceAccounts(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListServiceAccountsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b2/authn/service-accounts"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -537,19 +743,22 @@ func (api *ServiceAccountApi) GetServiceAccountList(page_ *int, limit_ *int, fil
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ListServiceAccountApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListServiceAccountsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Revoke API key
-func (api *ServiceAccountApi) RevokeApiKey(svcAccExtId *string, extId *string, args ...map[string]interface{}) (*import1.RevokeApiKeyApiResponse, error) {
+// Revoke API key.
+//
+// Deprecated: This API has been deprecated.
+func (api *ServiceAccountsApi) RevokeApiKey(svcAccExtId *string, extId *string, args ...map[string]interface{}) (*import1.RevokeApiKeyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/service-accounts/{svcAccExtId}/api-keys/{extId}/$actions/revoke"
+	uri := "/api/iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/api-keys/{extId}/$actions/revoke"
 
 	// verify the required parameter 'svcAccExtId' is set
 	if nil == svcAccExtId {
@@ -561,7 +770,9 @@ func (api *ServiceAccountApi) RevokeApiKey(svcAccExtId *string, extId *string, a
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"svcAccExtId"+"}", url.PathEscape(client.ParameterToString(*svcAccExtId, "")), -1)
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -591,7 +802,8 @@ func (api *ServiceAccountApi) RevokeApiKey(svcAccExtId *string, extId *string, a
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.RevokeApiKeyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

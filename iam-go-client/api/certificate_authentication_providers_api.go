@@ -12,21 +12,21 @@ import (
 	"time"
 )
 
-type CertAuthProviderApi struct {
+type CertificateAuthenticationProvidersApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewCertAuthProviderApi(apiClient *client.ApiClient) *CertAuthProviderApi {
+func NewCertificateAuthenticationProvidersApi(apiClient *client.ApiClient) *CertificateAuthenticationProvidersApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &CertAuthProviderApi{
+	a := &CertificateAuthenticationProvidersApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -35,14 +35,14 @@ func NewCertAuthProviderApi(apiClient *client.ApiClient) *CertAuthProviderApi {
 	return a
 }
 
-// Create a certificate based authentication provider
-func (api *CertAuthProviderApi) HandleCreateCertAuthProvider(clientCaChain *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, dirSvcExtID *string, certRevocationInfo *import1.CertRevocationInfo, createdBy *string, tenantId *string, createdTime *time.Time, links *[]import3.ApiLink, lastUpdatedTime *time.Time, extId *string, args ...map[string]interface{}) (*import1.CreateCertAuthProviderApiResponse, error) {
+// Create a Certificate based Authentication provider.
+func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientCaChain *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, dirSvcExtID *string, certRevocationInfo *import1.CertRevocationInfo, createdBy *string, tenantId *string, createdTime *time.Time, links *[]import3.ApiLink, lastUpdatedTime *time.Time, extId *string, args ...map[string]interface{}) (*import1.CreateCertAuthProviderApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/cert-auth-providers"
+	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers"
 
 	// verify the required parameter 'clientCaChain' is set
 	if nil == clientCaChain {
@@ -124,19 +124,20 @@ func (api *CertAuthProviderApi) HandleCreateCertAuthProvider(clientCaChain *stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.CreateCertAuthProviderApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a certificate based authentication provider by its UUID
-func (api *CertAuthProviderApi) HandleGetCertAuthProvider(extId *string, args ...map[string]interface{}) (*import1.GetCertAuthProviderApiResponse, error) {
+// Delete a Certificate based Authentication provider configuration by its UUID.
+func (api *CertificateAuthenticationProvidersApi) DeleteCertAuthProviderById(extId *string, args ...map[string]interface{}) (*import1.DeleteCertAuthProviderApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -144,6 +145,58 @@ func (api *CertAuthProviderApi) HandleGetCertAuthProvider(extId *string, args ..
 	}
 
 	// Path Params
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.DeleteCertAuthProviderApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Get a Certificate based Authentication provider by its UUID.
+func (api *CertificateAuthenticationProvidersApi) GetCertAuthProviderById(extId *string, args ...map[string]interface{}) (*import1.GetCertAuthProviderApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -173,19 +226,20 @@ func (api *CertAuthProviderApi) HandleGetCertAuthProvider(extId *string, args ..
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.GetCertAuthProviderApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a list of all configured certificate based authentication providers
-func (api *CertAuthProviderApi) HandleListCertAuthProviders(filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListCertAuthProviderApiResponse, error) {
+// List all Configured Certificate based Authentication providers.
+func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListCertAuthProvidersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/cert-auth-providers"
+	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -228,19 +282,20 @@ func (api *CertAuthProviderApi) HandleListCertAuthProviders(filter_ *string, ord
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.ListCertAuthProviderApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListCertAuthProvidersApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update a certificate based authentication provider configuration
-func (api *CertAuthProviderApi) HandleUpdateCertAuthProvider(extId *string, clientCaChain *string, dirSvcExtID *string, certRevocationInfo *import1.CertRevocationInfo, caCertFileName *string, isCertAuthEnabled *bool, createdBy *string, tenantId *string, name *string, createdTime *time.Time, links *[]import3.ApiLink, isCacEnabled *bool, lastUpdatedTime *time.Time, extId2 *string, args ...map[string]interface{}) (*import1.UpdateCertAuthProviderApiResponse, error) {
+// Update a Certificate based Authentication provider configuration.
+func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(extId *string, clientCaChain *string, dirSvcExtID *string, certRevocationInfo *import1.CertRevocationInfo, caCertFileName *string, isCertAuthEnabled *bool, createdBy *string, tenantId *string, name *string, createdTime *time.Time, links *[]import3.ApiLink, isCacEnabled *bool, lastUpdatedTime *time.Time, extId2 *string, args ...map[string]interface{}) (*import1.UpdateCertAuthProviderApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b1/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -248,6 +303,7 @@ func (api *CertAuthProviderApi) HandleUpdateCertAuthProvider(extId *string, clie
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -318,7 +374,8 @@ func (api *CertAuthProviderApi) HandleUpdateCertAuthProvider(extId *string, clie
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.UpdateCertAuthProviderApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
