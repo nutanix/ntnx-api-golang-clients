@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type TrafficMirrorApi struct {
+type VpcsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewTrafficMirrorApi(apiClient *client.ApiClient) *TrafficMirrorApi {
+func NewVpcsApi(apiClient *client.ApiClient) *VpcsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &TrafficMirrorApi{
+	a := &VpcsApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewTrafficMirrorApi(apiClient *client.ApiClient) *TrafficMirrorApi {
 	return a
 }
 
-// Create Traffic mirror session. Requires Prism Central >= pc.2023.3.
-func (api *TrafficMirrorApi) CreateTrafficMirror(body *import1.TrafficMirror, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Create a VPC.
+func (api *VpcsApi) CreateVpc(body *import1.Vpc, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/traffic-mirrors"
+	uri := "/api/networking/v4.0.b1/config/vpcs"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,20 @@ func (api *TrafficMirrorApi) CreateTrafficMirror(body *import1.TrafficMirror, ar
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete Traffic mirror session request body.
-func (api *TrafficMirrorApi) DeleteTrafficMirror(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Delete the specified VPC.
+func (api *VpcsApi) DeleteVpcById(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/traffic-mirrors/{extId}"
+	uri := "/api/networking/v4.0.b1/config/vpcs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -95,6 +96,7 @@ func (api *TrafficMirrorApi) DeleteTrafficMirror(extId *string, args ...map[stri
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -124,19 +126,20 @@ func (api *TrafficMirrorApi) DeleteTrafficMirror(extId *string, args ...map[stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get Traffic mirror session. Requires Prism Central >= pc.2023.3.
-func (api *TrafficMirrorApi) GetTrafficMirror(extId *string, args ...map[string]interface{}) (*import1.TrafficMirrorApiResponse, error) {
+// Get the VPC for the specified UUID.
+func (api *VpcsApi) GetVpcById(extId *string, args ...map[string]interface{}) (*import1.GetVpcApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/traffic-mirrors/{extId}"
+	uri := "/api/networking/v4.0.b1/config/vpcs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -144,6 +147,7 @@ func (api *TrafficMirrorApi) GetTrafficMirror(extId *string, args ...map[string]
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -173,19 +177,20 @@ func (api *TrafficMirrorApi) GetTrafficMirror(extId *string, args ...map[string]
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.TrafficMirrorApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetVpcApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List Traffic mirror sessions. Requires Prism Central >= pc.2023.3.
-func (api *TrafficMirrorApi) ListTrafficMirrors(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.TrafficMirrorListApiResponse, error) {
+// Get the list of existing VPCs.
+func (api *VpcsApi) ListVpcs(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListVpcsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/traffic-mirrors"
+	uri := "/api/networking/v4.0.b1/config/vpcs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -214,6 +219,10 @@ func (api *TrafficMirrorApi) ListTrafficMirrors(page_ *int, limit_ *int, filter_
 
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	if select_ != nil {
+
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -232,19 +241,20 @@ func (api *TrafficMirrorApi) ListTrafficMirrors(page_ *int, limit_ *int, filter_
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.TrafficMirrorListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListVpcsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update Traffic mirror session. Requires Prism Central >= pc.2023.3.
-func (api *TrafficMirrorApi) UpdateTrafficMirror(extId *string, body *import1.TrafficMirror, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Update the specified VPC.
+func (api *VpcsApi) UpdateVpcById(extId *string, body *import1.Vpc, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/traffic-mirrors/{extId}"
+	uri := "/api/networking/v4.0.b1/config/vpcs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -256,6 +266,7 @@ func (api *TrafficMirrorApi) UpdateTrafficMirror(extId *string, body *import1.Tr
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -285,7 +296,8 @@ func (api *TrafficMirrorApi) UpdateTrafficMirror(extId *string, body *import1.Tr
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

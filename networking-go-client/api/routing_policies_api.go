@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type Layer2StretchApi struct {
+type RoutingPoliciesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewLayer2StretchApi(apiClient *client.ApiClient) *Layer2StretchApi {
+func NewRoutingPoliciesApi(apiClient *client.ApiClient) *RoutingPoliciesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &Layer2StretchApi{
+	a := &RoutingPoliciesApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewLayer2StretchApi(apiClient *client.ApiClient) *Layer2StretchApi {
 	return a
 }
 
-// Create a Layer2Stretch configuration. Requires Prism Central >= pc.2022.9.
-func (api *Layer2StretchApi) CreateLayer2Stretch(body *import1.Layer2Stretch, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Create a routing policy.
+func (api *RoutingPoliciesApi) CreateRoutingPolicy(body *import1.RoutingPolicy, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/layer2-stretches"
+	uri := "/api/networking/v4.0.b1/config/routing-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,20 @@ func (api *Layer2StretchApi) CreateLayer2Stretch(body *import1.Layer2Stretch, ar
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete the specified Layer2Stretch configuration. Requires Prism Central >= pc.2022.9.
-func (api *Layer2StretchApi) DeleteLayer2Stretch(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Delete the routing policy corresponding to the extId.
+func (api *RoutingPoliciesApi) DeleteRoutingPolicyById(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/routing-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -95,6 +96,7 @@ func (api *Layer2StretchApi) DeleteLayer2Stretch(extId *string, args ...map[stri
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -124,19 +126,20 @@ func (api *Layer2StretchApi) DeleteLayer2Stretch(extId *string, args ...map[stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get the Layer2Stretch configuration with the specified UUID. Requires Prism Central >= pc.2022.9.
-func (api *Layer2StretchApi) GetLayer2Stretch(extId *string, args ...map[string]interface{}) (*import1.Layer2StretchApiResponse, error) {
+// Get a single routing policy corresponding to the extId.
+func (api *RoutingPoliciesApi) GetRoutingPolicyById(extId *string, args ...map[string]interface{}) (*import1.GetRoutingPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/routing-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -144,6 +147,7 @@ func (api *Layer2StretchApi) GetLayer2Stretch(extId *string, args ...map[string]
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -173,68 +177,20 @@ func (api *Layer2StretchApi) GetLayer2Stretch(extId *string, args ...map[string]
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.Layer2StretchApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetRoutingPolicyApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get the stretch-related entities from the specified Prism Central cluster. Requires Prism Central >= pc.2022.9.
-func (api *Layer2StretchApi) GetLayer2StretchRelatedEntities(extId *string, args ...map[string]interface{}) (*import1.Layer2StretchRelatedEntitiesApiResponse, error) {
+// Get a list of routing policies.
+func (api *RoutingPoliciesApi) ListRoutingPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListRoutingPoliciesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/clusters/{extId}/layer2-stretches/related-entities"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-	unmarshalledResp := new(import1.Layer2StretchRelatedEntitiesApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Get the list of existing Layer2Stretch configurations. Requires Prism Central >= pc.2022.9.
-func (api *Layer2StretchApi) ListLayer2Stretches(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.Layer2StretchListApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/networking/v4.0.b1/config/layer2-stretches"
+	uri := "/api/networking/v4.0.b1/config/routing-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -263,6 +219,14 @@ func (api *Layer2StretchApi) ListLayer2Stretches(page_ *int, limit_ *int, filter
 
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	if expand_ != nil {
+
+		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	}
+	if select_ != nil {
+
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -281,19 +245,20 @@ func (api *Layer2StretchApi) ListLayer2Stretches(page_ *int, limit_ *int, filter
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.Layer2StretchListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListRoutingPoliciesApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update the specified Layer2Stretch configuration. Requires Prism Central >= pc.2022.9.
-func (api *Layer2StretchApi) UpdateLayer2Stretch(extId *string, body *import1.Layer2Stretch, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Update the Routing Policy corresponding to the extId.
+func (api *RoutingPoliciesApi) UpdateRoutingPolicyById(extId *string, body *import1.RoutingPolicy, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/routing-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -305,6 +270,7 @@ func (api *Layer2StretchApi) UpdateLayer2Stretch(extId *string, body *import1.La
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -334,7 +300,8 @@ func (api *Layer2StretchApi) UpdateLayer2Stretch(extId *string, body *import1.La
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

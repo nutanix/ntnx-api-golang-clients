@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type VirtualSwitchApi struct {
+type SubnetsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewVirtualSwitchApi(apiClient *client.ApiClient) *VirtualSwitchApi {
+func NewSubnetsApi(apiClient *client.ApiClient) *SubnetsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &VirtualSwitchApi{
+	a := &SubnetsApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewVirtualSwitchApi(apiClient *client.ApiClient) *VirtualSwitchApi {
 	return a
 }
 
-// Create a Virtual Switch. Requires Prism Central >= pc.2022.9.
-func (api *VirtualSwitchApi) CreateVirtualSwitch(body *import1.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Create a subnet.
+func (api *SubnetsApi) CreateSubnet(body *import1.Subnet, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/virtual-switches"
+	uri := "/api/networking/v4.0.b1/config/subnets"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -57,9 +57,6 @@ func (api *VirtualSwitchApi) CreateVirtualSwitch(body *import1.VirtualSwitch, xC
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -78,19 +75,20 @@ func (api *VirtualSwitchApi) CreateVirtualSwitch(body *import1.VirtualSwitch, xC
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete a Virtual Switch. Requires Prism Central >= pc.2022.9.
-func (api *VirtualSwitchApi) DeleteVirtualSwitch(extId *string, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Delete the specified subnet.
+func (api *SubnetsApi) DeleteSubnetById(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/subnets/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -98,6 +96,7 @@ func (api *VirtualSwitchApi) DeleteVirtualSwitch(extId *string, xClusterId *stri
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -109,9 +108,6 @@ func (api *VirtualSwitchApi) DeleteVirtualSwitch(extId *string, xClusterId *stri
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -130,19 +126,20 @@ func (api *VirtualSwitchApi) DeleteVirtualSwitch(extId *string, xClusterId *stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get single Virtual Switch given its UUID. Requires Prism Central >= pc.2022.9.
-func (api *VirtualSwitchApi) GetVirtualSwitch(extId *string, xClusterId *string, args ...map[string]interface{}) (*import1.VirtualSwitchApiResponse, error) {
+// Get a subnet with the specified UUID.
+func (api *SubnetsApi) GetSubnetById(extId *string, args ...map[string]interface{}) (*import1.GetSubnetApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/subnets/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -150,6 +147,7 @@ func (api *VirtualSwitchApi) GetVirtualSwitch(extId *string, xClusterId *string,
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -161,9 +159,6 @@ func (api *VirtualSwitchApi) GetVirtualSwitch(extId *string, xClusterId *string,
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -182,19 +177,20 @@ func (api *VirtualSwitchApi) GetVirtualSwitch(extId *string, xClusterId *string,
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.VirtualSwitchApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetSubnetApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get list of Virtual Switches. Requires Prism Central >= pc.2022.9.
-func (api *VirtualSwitchApi) ListVirtualSwitches(xClusterId *string, args ...map[string]interface{}) (*import1.VirtualSwitchListApiResponse, error) {
+// Get the list of existing subnets. With filtering, the following rules apply:   VLAN     (subnet_type==[no_val] OR subnet_type==VLAN) AND     (is_external==[no_val] OR is_external==false)   OVERLAY     (subnet_type==OVERLAY) AND     (is_external==[no_val] OR is_external==false)   External     is_external==true
+func (api *SubnetsApi) ListSubnets(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListSubnetsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/virtual-switches"
+	uri := "/api/networking/v4.0.b1/config/subnets"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -206,8 +202,30 @@ func (api *VirtualSwitchApi) ListVirtualSwitches(xClusterId *string, args ...map
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	// Query Params
+	if page_ != nil {
+
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	if expand_ != nil {
+
+		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	}
+	if select_ != nil {
+
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -227,19 +245,20 @@ func (api *VirtualSwitchApi) ListVirtualSwitches(xClusterId *string, args ...map
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.VirtualSwitchListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListSubnetsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update a Virtual Switch. Requires Prism Central >= pc.2022.9.
-func (api *VirtualSwitchApi) UpdateVirtualSwitch(extId *string, body *import1.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Update the specified subnet.
+func (api *SubnetsApi) UpdateSubnetById(extId *string, body *import1.Subnet, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.0.b1/config/subnets/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -251,6 +270,7 @@ func (api *VirtualSwitchApi) UpdateVirtualSwitch(extId *string, body *import1.Vi
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -262,9 +282,6 @@ func (api *VirtualSwitchApi) UpdateVirtualSwitch(extId *string, body *import1.Vi
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -283,7 +300,8 @@ func (api *VirtualSwitchApi) UpdateVirtualSwitch(extId *string, body *import1.Vi
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

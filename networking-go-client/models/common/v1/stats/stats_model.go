@@ -1,11 +1,11 @@
 /*
  * Generated file models/common/v1/stats/stats_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.2-beta-1
  *
  * Part of the Nutanix Networking Versioned APIs
  *
- * (c) 2023 Nutanix Inc.  All rights reserved
+ * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -114,4 +114,17 @@ func (e *DownSamplingOperator) MarshalJSON() ([]byte, error) {
 
 func (e DownSamplingOperator) Ref() *DownSamplingOperator {
 	return &e
+}
+
+type FileDetail struct {
+	Path        *string `json:"-"`
+	ObjectType_ *string `json:"-"`
+}
+
+func NewFileDetail() *FileDetail {
+	p := new(FileDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "FileDetail"
+
+	return p
 }

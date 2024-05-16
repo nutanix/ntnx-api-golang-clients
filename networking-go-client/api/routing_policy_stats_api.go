@@ -24,7 +24,7 @@ func NewRoutingPolicyStatsApi(apiClient *client.ApiClient) *RoutingPolicyStatsAp
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,7 +33,7 @@ func NewRoutingPolicyStatsApi(apiClient *client.ApiClient) *RoutingPolicyStatsAp
 	return a
 }
 
-// Clear the value in packet and byte counters of all Routing Policies in the chosen VPC or a particular routing policy in the chosen VPC. Requires Prism Central >= pc.2022.9.
+// Clear the value in packet and byte counters of all Routing Policies in the chosen VPC or a particular routing policy in the chosen VPC.
 func (api *RoutingPolicyStatsApi) ClearRoutingPolicyCounters(body *import3.RoutingPolicyClearCountersSpec, args ...map[string]interface{}) (*import3.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
@@ -75,7 +75,8 @@ func (api *RoutingPolicyStatsApi) ClearRoutingPolicyCounters(body *import3.Routi
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import3.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

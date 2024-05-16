@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type BridgeApi struct {
+type VirtualSwitchNodesInfoApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewBridgeApi(apiClient *client.ApiClient) *BridgeApi {
+func NewVirtualSwitchNodesInfoApi(apiClient *client.ApiClient) *VirtualSwitchNodesInfoApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &BridgeApi{
+	a := &VirtualSwitchNodesInfoApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,26 +33,21 @@ func NewBridgeApi(apiClient *client.ApiClient) *BridgeApi {
 	return a
 }
 
-// Create a Virtual Switch from an existing bridge
-func (api *BridgeApi) MigrateBridgeToVirtualSwitches(body *import1.Bridge, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Check to see whether a node in a cluster is a storage-only node or not
+func (api *VirtualSwitchNodesInfoApi) ListNodeSchedulableStatus(xClusterId *string, args ...map[string]interface{}) (*import1.ListNodeSchedulableStatusesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/virtual-switches/$actions/migrate"
-
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
+	uri := "/api/networking/v4.0.b1/config/node-schedulable-status"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
+	contentTypes := []string{}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
@@ -74,11 +69,12 @@ func (api *BridgeApi) MigrateBridgeToVirtualSwitches(body *import1.Bridge, xClus
 
 	authNames := []string{"basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListNodeSchedulableStatusesApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

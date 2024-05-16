@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type VirtualSwitchNodeInfoApi struct {
+type ClusterCapabilitiesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewVirtualSwitchNodeInfoApi(apiClient *client.ApiClient) *VirtualSwitchNodeInfoApi {
+func NewClusterCapabilitiesApi(apiClient *client.ApiClient) *ClusterCapabilitiesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &VirtualSwitchNodeInfoApi{
+	a := &ClusterCapabilitiesApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewVirtualSwitchNodeInfoApi(apiClient *client.ApiClient) *VirtualSwitchNode
 	return a
 }
 
-// Check to see whether a node in a cluster is a storage-only node or not
-func (api *VirtualSwitchNodeInfoApi) GetNodeSchedulableStatus(xClusterId *string, args ...map[string]interface{}) (*import1.NodeSchedulableStatusApiResponse, error) {
+// List the capabilities for one or more cluster UUIDs.
+func (api *ClusterCapabilitiesApi) ListClusterCapabilities(page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import1.ListClusterCapabilitiesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/node-schedulable-status"
+	uri := "/api/networking/v4.0.b1/config/capabilities"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -52,8 +52,18 @@ func (api *VirtualSwitchNodeInfoApi) GetNodeSchedulableStatus(xClusterId *string
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	// Query Params
+	if page_ != nil {
+
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -73,7 +83,8 @@ func (api *VirtualSwitchNodeInfoApi) GetNodeSchedulableStatus(xClusterId *string
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.NodeSchedulableStatusApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListClusterCapabilitiesApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

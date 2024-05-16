@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type IPFIXExporterApi struct {
+type FloatingIpsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewIPFIXExporterApi(apiClient *client.ApiClient) *IPFIXExporterApi {
+func NewFloatingIpsApi(apiClient *client.ApiClient) *FloatingIpsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &IPFIXExporterApi{
+	a := &FloatingIpsApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewIPFIXExporterApi(apiClient *client.ApiClient) *IPFIXExporterApi {
 	return a
 }
 
-// Create an IPFIX Exporter. Requires Prism Central >= pc.2022.9.
-func (api *IPFIXExporterApi) CreateIpfixExporter(body *import1.IPFIXExporter, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Configure a floating IP.
+func (api *FloatingIpsApi) CreateFloatingIp(body *import1.FloatingIp, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/ipfix-exporters"
+	uri := "/api/networking/v4.0.b1/config/floating-ips"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,20 @@ func (api *IPFIXExporterApi) CreateIpfixExporter(body *import1.IPFIXExporter, ar
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete the specified IPFIX exporter. Requires Prism Central >= pc.2022.9.
-func (api *IPFIXExporterApi) DeleteIpfixExporter(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Delete the floating IP corresponding to the extId.
+func (api *FloatingIpsApi) DeleteFloatingIpById(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/ipfix-exporters/{extId}"
+	uri := "/api/networking/v4.0.b1/config/floating-ips/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -95,6 +96,7 @@ func (api *IPFIXExporterApi) DeleteIpfixExporter(extId *string, args ...map[stri
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -124,19 +126,20 @@ func (api *IPFIXExporterApi) DeleteIpfixExporter(extId *string, args ...map[stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get the IPFIX exporter for the given extId. Requires Prism Central >= pc.2022.9.
-func (api *IPFIXExporterApi) GetIpfixExporter(extId *string, args ...map[string]interface{}) (*import1.IPFIXExporterApiResponse, error) {
+// Get the floating IP for the specific extId.
+func (api *FloatingIpsApi) GetFloatingIpById(extId *string, args ...map[string]interface{}) (*import1.GetFloatingIpApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/ipfix-exporters/{extId}"
+	uri := "/api/networking/v4.0.b1/config/floating-ips/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -144,6 +147,7 @@ func (api *IPFIXExporterApi) GetIpfixExporter(extId *string, args ...map[string]
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -173,19 +177,20 @@ func (api *IPFIXExporterApi) GetIpfixExporter(extId *string, args ...map[string]
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.IPFIXExporterApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetFloatingIpApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get the list of existing IPFIX exporters. Requires Prism Central >= pc.2022.9.
-func (api *IPFIXExporterApi) ListIpfixExporters(args ...map[string]interface{}) (*import1.IPFIXExporterListApiResponse, error) {
+// Get a list of floating IPs.
+func (api *FloatingIpsApi) ListFloatingIps(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, args ...map[string]interface{}) (*import1.ListFloatingIpsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/ipfix-exporters"
+	uri := "/api/networking/v4.0.b1/config/floating-ips"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -197,6 +202,27 @@ func (api *IPFIXExporterApi) ListIpfixExporters(args ...map[string]interface{}) 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if page_ != nil {
+
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	if expand_ != nil {
+
+		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -215,19 +241,20 @@ func (api *IPFIXExporterApi) ListIpfixExporters(args ...map[string]interface{}) 
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.IPFIXExporterListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListFloatingIpsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update the specified IPFIX exporter. Requires Prism Central >= pc.2022.9.
-func (api *IPFIXExporterApi) UpdateIpfixExporter(extId *string, body *import1.IPFIXExporter, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Update the floating IP for this extId.
+func (api *FloatingIpsApi) UpdateFloatingIpById(extId *string, body *import1.FloatingIp, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/ipfix-exporters/{extId}"
+	uri := "/api/networking/v4.0.b1/config/floating-ips/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -239,6 +266,7 @@ func (api *IPFIXExporterApi) UpdateIpfixExporter(extId *string, body *import1.IP
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -268,7 +296,8 @@ func (api *IPFIXExporterApi) UpdateIpfixExporter(extId *string, body *import1.IP
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

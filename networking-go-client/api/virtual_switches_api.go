@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type BgpSessionApi struct {
+type VirtualSwitchesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewBgpSessionApi(apiClient *client.ApiClient) *BgpSessionApi {
+func NewVirtualSwitchesApi(apiClient *client.ApiClient) *VirtualSwitchesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &BgpSessionApi{
+	a := &VirtualSwitchesApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewBgpSessionApi(apiClient *client.ApiClient) *BgpSessionApi {
 	return a
 }
 
-// Create BGP session. Requires Prism Central >= pc.2022.9.
-func (api *BgpSessionApi) CreateBgpSession(body *import1.BgpSession, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Create a Virtual Switch.
+func (api *VirtualSwitchesApi) CreateVirtualSwitch(body *import1.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/bgp-sessions"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -57,6 +57,9 @@ func (api *BgpSessionApi) CreateBgpSession(body *import1.BgpSession, args ...map
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -75,19 +78,20 @@ func (api *BgpSessionApi) CreateBgpSession(body *import1.BgpSession, args ...map
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete BGP session for the specified {extId}. Requires Prism Central >= pc.2022.9.
-func (api *BgpSessionApi) DeleteBgpSession(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Delete a Virtual Switch.
+func (api *VirtualSwitchesApi) DeleteVirtualSwitchById(extId *string, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -95,6 +99,7 @@ func (api *BgpSessionApi) DeleteBgpSession(extId *string, args ...map[string]int
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -106,6 +111,9 @@ func (api *BgpSessionApi) DeleteBgpSession(extId *string, args ...map[string]int
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -124,19 +132,20 @@ func (api *BgpSessionApi) DeleteBgpSession(extId *string, args ...map[string]int
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get BGP session for the specified {extId}. Requires Prism Central >= pc.2022.9.
-func (api *BgpSessionApi) GetBgpSession(extId *string, args ...map[string]interface{}) (*import1.BgpSessionApiResponse, error) {
+// Get single Virtual Switch given its UUID.
+func (api *VirtualSwitchesApi) GetVirtualSwitchById(extId *string, xClusterId *string, args ...map[string]interface{}) (*import1.GetVirtualSwitchApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -144,6 +153,7 @@ func (api *BgpSessionApi) GetBgpSession(extId *string, args ...map[string]interf
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -155,6 +165,9 @@ func (api *BgpSessionApi) GetBgpSession(extId *string, args ...map[string]interf
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -173,19 +186,20 @@ func (api *BgpSessionApi) GetBgpSession(extId *string, args ...map[string]interf
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.BgpSessionApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetVirtualSwitchApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List BGP sessions request. Requires Prism Central >= pc.2022.9.
-func (api *BgpSessionApi) ListBgpSessions(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, args ...map[string]interface{}) (*import1.BgpSessionListApiResponse, error) {
+// Get list of Virtual Switches.
+func (api *VirtualSwitchesApi) ListVirtualSwitches(xClusterId *string, args ...map[string]interface{}) (*import1.ListVirtualSwitchesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/bgp-sessions"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -197,26 +211,8 @@ func (api *BgpSessionApi) ListBgpSessions(page_ *int, limit_ *int, filter_ *stri
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Query Params
-	if page_ != nil {
-
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
-	}
-	if limit_ != nil {
-
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
-	}
-	if filter_ != nil {
-
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
-	}
-	if orderby_ != nil {
-
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
-	}
-	if expand_ != nil {
-
-		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -236,19 +232,20 @@ func (api *BgpSessionApi) ListBgpSessions(page_ *int, limit_ *int, filter_ *stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.BgpSessionListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListVirtualSwitchesApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update BGP session for the specified {extId}. Requires Prism Central >= pc.2022.9.
-func (api *BgpSessionApi) UpdateBgpSession(extId *string, body *import1.BgpSession, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Update a Virtual Switch.
+func (api *VirtualSwitchesApi) UpdateVirtualSwitchById(extId *string, body *import1.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.0.b1/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -260,6 +257,7 @@ func (api *BgpSessionApi) UpdateBgpSession(extId *string, body *import1.BgpSessi
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -271,6 +269,9 @@ func (api *BgpSessionApi) UpdateBgpSession(extId *string, body *import1.BgpSessi
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -289,7 +290,8 @@ func (api *BgpSessionApi) UpdateBgpSession(extId *string, body *import1.BgpSessi
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

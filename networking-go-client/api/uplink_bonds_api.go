@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type UplinkBondApi struct {
+type UplinkBondsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewUplinkBondApi(apiClient *client.ApiClient) *UplinkBondApi {
+func NewUplinkBondsApi(apiClient *client.ApiClient) *UplinkBondsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &UplinkBondApi{
+	a := &UplinkBondsApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,8 +33,8 @@ func NewUplinkBondApi(apiClient *client.ApiClient) *UplinkBondApi {
 	return a
 }
 
-// Get the uplink bond for the given extId. Requires Prism Central >= pc.2023.3.
-func (api *UplinkBondApi) GetUplinkBond(extId *string, args ...map[string]interface{}) (*import1.UplinkBondApiResponse, error) {
+// Get the uplink bond for the given extId.
+func (api *UplinkBondsApi) GetUplinkBondById(extId *string, args ...map[string]interface{}) (*import1.GetUplinkBondApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -48,6 +48,7 @@ func (api *UplinkBondApi) GetUplinkBond(extId *string, args ...map[string]interf
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -77,13 +78,14 @@ func (api *UplinkBondApi) GetUplinkBond(extId *string, args ...map[string]interf
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.UplinkBondApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetUplinkBondApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List uplink bonds. Requires Prism Central >= pc.2023.3.
-func (api *UplinkBondApi) ListUplinkBonds(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.UplinkBondListApiResponse, error) {
+// List uplink bonds.
+func (api *UplinkBondsApi) ListUplinkBonds(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListUplinkBondsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -136,7 +138,8 @@ func (api *UplinkBondApi) ListUplinkBonds(page_ *int, limit_ *int, filter_ *stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.UplinkBondListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListUplinkBondsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

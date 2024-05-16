@@ -1,11 +1,11 @@
 /*
  * Generated file models/networking/v4/config/config_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.2-beta-1
  *
  * Part of the Nutanix Networking Versioned APIs
  *
- * (c) 2023 Nutanix Inc.  All rights reserved
+ * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -52,7 +52,7 @@ func NewAddress() *Address {
 	p := new(Address)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Address"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Address"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -171,7 +171,7 @@ func NewAddressTypeObject() *AddressTypeObject {
 	p := new(AddressTypeObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AddressTypeObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AddressTypeObject"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -208,7 +208,7 @@ type Anc struct {
 	*/
 	IsAtlasNetworkingEnabled *bool `json:"isAtlasNetworkingEnabled,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -218,7 +218,7 @@ type Anc struct {
 	*/
 	OvnRemoteAddress *string `json:"ovnRemoteAddress,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -227,60 +227,10 @@ func NewAnc() *Anc {
 	p := new(Anc)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Anc"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Anc"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/anc Get operation
-*/
-type AncConfigApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfAncConfigApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewAncConfigApiResponse() *AncConfigApiResponse {
-	p := new(AncConfigApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.AncConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AncConfigApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *AncConfigApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *AncConfigApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfAncConfigApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -302,7 +252,7 @@ func NewAssignedAddress() *AssignedAddress {
 	p := new(AssignedAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AssignedAddress"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AssignedAddress"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -526,7 +476,139 @@ func NewAuthorizationData() *AuthorizationData {
 	p := new(AuthorizationData)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AuthorizationData"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AuthorizationData"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+AWS configuration.
+*/
+type AwsConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The external subnet configuration list for the AWS cloud.
+	*/
+	ExternalSubnetConfigList []AwsExternalSubnetConfig `json:"externalSubnetConfigList"`
+}
+
+func (p *AwsConfig) MarshalJSON() ([]byte, error) {
+	type AwsConfigProxy AwsConfig
+	return json.Marshal(struct {
+		*AwsConfigProxy
+		ExternalSubnetConfigList []AwsExternalSubnetConfig `json:"externalSubnetConfigList,omitempty"`
+	}{
+		AwsConfigProxy:           (*AwsConfigProxy)(p),
+		ExternalSubnetConfigList: p.ExternalSubnetConfigList,
+	})
+}
+
+func NewAwsConfig() *AwsConfig {
+	p := new(AwsConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.AwsConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The external subnet configuration for the AWS cloud.
+*/
+type AwsExternalSubnetConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	AwsSubnetConfig *AwsSubnetConfig `json:"awsSubnetConfig"`
+	/*
+	  Cluster
+	*/
+	ClusterReference *string `json:"clusterReference,omitempty"`
+}
+
+func (p *AwsExternalSubnetConfig) MarshalJSON() ([]byte, error) {
+	type AwsExternalSubnetConfigProxy AwsExternalSubnetConfig
+	return json.Marshal(struct {
+		*AwsExternalSubnetConfigProxy
+		AwsSubnetConfig *AwsSubnetConfig `json:"awsSubnetConfig,omitempty"`
+	}{
+		AwsExternalSubnetConfigProxy: (*AwsExternalSubnetConfigProxy)(p),
+		AwsSubnetConfig:              p.AwsSubnetConfig,
+	})
+}
+
+func NewAwsExternalSubnetConfig() *AwsExternalSubnetConfig {
+	p := new(AwsExternalSubnetConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.AwsExternalSubnetConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The AWS subnet configuration.
+*/
+type AwsSubnetConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  AWS subnet CIDR.
+	*/
+	Cidr *string `json:"cidr"`
+
+	GatewayIpAddress *import1.IPAddress `json:"gatewayIpAddress"`
+	/*
+	  The security group ID list.
+	*/
+	SecurityGroupReferenceList []string `json:"securityGroupReferenceList"`
+	/*
+	  AWS subnet Id.
+	*/
+	SubnetReference *string `json:"subnetReference"`
+	/*
+	  VPC
+	*/
+	VpcReference *string `json:"vpcReference"`
+}
+
+func (p *AwsSubnetConfig) MarshalJSON() ([]byte, error) {
+	type AwsSubnetConfigProxy AwsSubnetConfig
+	return json.Marshal(struct {
+		*AwsSubnetConfigProxy
+		Cidr                       *string            `json:"cidr,omitempty"`
+		GatewayIpAddress           *import1.IPAddress `json:"gatewayIpAddress,omitempty"`
+		SecurityGroupReferenceList []string           `json:"securityGroupReferenceList,omitempty"`
+		SubnetReference            *string            `json:"subnetReference,omitempty"`
+		VpcReference               *string            `json:"vpcReference,omitempty"`
+	}{
+		AwsSubnetConfigProxy:       (*AwsSubnetConfigProxy)(p),
+		Cidr:                       p.Cidr,
+		GatewayIpAddress:           p.GatewayIpAddress,
+		SecurityGroupReferenceList: p.SecurityGroupReferenceList,
+		SubnetReference:            p.SubnetReference,
+		VpcReference:               p.VpcReference,
+	})
+}
+
+func NewAwsSubnetConfig() *AwsSubnetConfig {
+	p := new(AwsSubnetConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.AwsSubnetConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -574,7 +656,7 @@ func NewAzureConfig() *AzureConfig {
 	p := new(AzureConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AzureConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AzureConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsScaleOut = new(bool)
@@ -629,7 +711,7 @@ func NewAzureExternalSubnetBinding() *AzureExternalSubnetBinding {
 	p := new(AzureExternalSubnetBinding)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AzureExternalSubnetBinding"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AzureExternalSubnetBinding"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -671,7 +753,7 @@ func NewAzureExternalSubnetConfig() *AzureExternalSubnetConfig {
 	p := new(AzureExternalSubnetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AzureExternalSubnetConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.AzureExternalSubnetConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -704,7 +786,7 @@ func NewBgpConfig() *BgpConfig {
 	p := new(BgpConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldRedistributeRoutes = new(bool)
@@ -723,16 +805,29 @@ type BgpInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	LocalBgpGatewayList []LocalBgpGateway `json:"localBgpGatewayList,omitempty"`
+	LocalBgpGatewayList []LocalBgpGateway `json:"localBgpGatewayList"`
 
-	RemoteBgpGatewayList []RemoteBgpGateway `json:"remoteBgpGatewayList,omitempty"`
+	RemoteBgpGatewayList []RemoteBgpGateway `json:"remoteBgpGatewayList"`
+}
+
+func (p *BgpInfo) MarshalJSON() ([]byte, error) {
+	type BgpInfoProxy BgpInfo
+	return json.Marshal(struct {
+		*BgpInfoProxy
+		LocalBgpGatewayList  []LocalBgpGateway  `json:"localBgpGatewayList,omitempty"`
+		RemoteBgpGatewayList []RemoteBgpGateway `json:"remoteBgpGatewayList,omitempty"`
+	}{
+		BgpInfoProxy:         (*BgpInfoProxy)(p),
+		LocalBgpGatewayList:  p.LocalBgpGatewayList,
+		RemoteBgpGatewayList: p.RemoteBgpGatewayList,
+	})
 }
 
 func NewBgpInfo() *BgpInfo {
 	p := new(BgpInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -768,11 +863,13 @@ type BgpSession struct {
 	*/
 	IgnoredRoutes []Route `json:"ignoredRoutes,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	LocalGateway *Gateway `json:"localGateway,omitempty"`
+
+	LocalGatewayInterfaceIpAddress *import1.IPAddress `json:"localGatewayInterfaceIpAddress,omitempty"`
 	/*
 	  The local BGP gateway reference.
 	*/
@@ -800,7 +897,7 @@ type BgpSession struct {
 
 	Status *Status `json:"status,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -824,110 +921,10 @@ func NewBgpSession() *BgpSession {
 	p := new(BgpSession)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpSession"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpSession"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/bgp-sessions/{extId} Get operation
-*/
-type BgpSessionApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfBgpSessionApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewBgpSessionApiResponse() *BgpSessionApiResponse {
-	p := new(BgpSessionApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.BgpSessionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpSessionApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *BgpSessionApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *BgpSessionApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfBgpSessionApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/bgp-sessions Get operation
-*/
-type BgpSessionListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfBgpSessionListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewBgpSessionListApiResponse() *BgpSessionListApiResponse {
-	p := new(BgpSessionListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.BgpSessionListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpSessionListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *BgpSessionListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *BgpSessionListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfBgpSessionListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 type BgpSessionProjection struct {
@@ -959,11 +956,13 @@ type BgpSessionProjection struct {
 	*/
 	IgnoredRoutes []Route `json:"ignoredRoutes,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	LocalGateway *Gateway `json:"localGateway,omitempty"`
+
+	LocalGatewayInterfaceIpAddress *import1.IPAddress `json:"localGatewayInterfaceIpAddress,omitempty"`
 	/*
 	  The local BGP gateway reference.
 	*/
@@ -991,7 +990,7 @@ type BgpSessionProjection struct {
 
 	Status *Status `json:"status,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -1015,7 +1014,7 @@ func NewBgpSessionProjection() *BgpSessionProjection {
 	p := new(BgpSessionProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpSessionProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BgpSessionProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1118,6 +1117,10 @@ type Bridge struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
+	  Prism Element cluster reference. This header can be optionally supplied for Virtual Switch list requests, but is deprecated for all other Virtual Switch fetch/create/update/delete requests.
+	*/
+	ClusterReference *string `json:"clusterReference,omitempty"`
+	/*
 	  Input body to migrate to a Virtual Switch
 	*/
 	Description *string `json:"description,omitempty"`
@@ -1130,15 +1133,17 @@ type Bridge struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
 	/*
 	  Virtual Switch name to migrate to
 	*/
 	Name *string `json:"name"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -1160,7 +1165,7 @@ func NewBridge() *Bridge {
 	p := new(Bridge)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Bridge"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Bridge"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1172,6 +1177,10 @@ type BridgeProjection struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Prism Element cluster reference. This header can be optionally supplied for Virtual Switch list requests, but is deprecated for all other Virtual Switch fetch/create/update/delete requests.
+	*/
+	ClusterReference *string `json:"clusterReference,omitempty"`
 	/*
 	  Input body to migrate to a Virtual Switch
 	*/
@@ -1185,15 +1194,17 @@ type BridgeProjection struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
 	/*
 	  Virtual Switch name to migrate to
 	*/
 	Name *string `json:"name"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -1215,7 +1226,7 @@ func NewBridgeProjection() *BridgeProjection {
 	p := new(BridgeProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BridgeProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.BridgeProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1257,7 +1268,7 @@ func NewCapability() *Capability {
 	p := new(Capability)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Capability"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Capability"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1285,13 +1296,13 @@ type CloudNetwork struct {
 	*/
 	ExternalRoutingDomainReference *string `json:"externalRoutingDomainReference,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -1300,110 +1311,10 @@ func NewCloudNetwork() *CloudNetwork {
 	p := new(CloudNetwork)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.CloudNetwork"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.CloudNetwork"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/cloud-networks/{extId} Get operation
-*/
-type CloudNetworkApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfCloudNetworkApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewCloudNetworkApiResponse() *CloudNetworkApiResponse {
-	p := new(CloudNetworkApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.CloudNetworkApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.CloudNetworkApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *CloudNetworkApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *CloudNetworkApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfCloudNetworkApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/cloud-networks Get operation
-*/
-type CloudNetworkListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfCloudNetworkListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewCloudNetworkListApiResponse() *CloudNetworkListApiResponse {
-	p := new(CloudNetworkListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.CloudNetworkListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.CloudNetworkListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *CloudNetworkListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *CloudNetworkListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfCloudNetworkListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -1415,6 +1326,7 @@ const (
 	CLOUDSUBSTRATE_UNKNOWN  CloudSubstrate = 0
 	CLOUDSUBSTRATE_REDACTED CloudSubstrate = 1
 	CLOUDSUBSTRATE_AZURE    CloudSubstrate = 2
+	CLOUDSUBSTRATE_AWS      CloudSubstrate = 3
 )
 
 // Returns the name of the enum given an ordinal number
@@ -1425,6 +1337,7 @@ func (e *CloudSubstrate) name(index int) string {
 		"$UNKNOWN",
 		"$REDACTED",
 		"AZURE",
+		"AWS",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1439,6 +1352,7 @@ func (e CloudSubstrate) GetName() string {
 		"$UNKNOWN",
 		"$REDACTED",
 		"AZURE",
+		"AWS",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1452,6 +1366,7 @@ func (e *CloudSubstrate) index(name string) CloudSubstrate {
 		"$UNKNOWN",
 		"$REDACTED",
 		"AZURE",
+		"AWS",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -1519,7 +1434,7 @@ func NewCluster() *Cluster {
 	p := new(Cluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Cluster"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Cluster"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1544,13 +1459,13 @@ type ClusterCapability struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -1572,60 +1487,10 @@ func NewClusterCapability() *ClusterCapability {
 	p := new(ClusterCapability)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterCapability"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterCapability"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/capabilities Get operation
-*/
-type ClusterCapabilityApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfClusterCapabilityApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewClusterCapabilityApiResponse() *ClusterCapabilityApiResponse {
-	p := new(ClusterCapabilityApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.ClusterCapabilityApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterCapabilityApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ClusterCapabilityApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ClusterCapabilityApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfClusterCapabilityApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -1647,60 +1512,10 @@ func NewClusterFlowStatus() *ClusterFlowStatus {
 	p := new(ClusterFlowStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterFlowStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterFlowStatus"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/cluster-flow-status Get operation
-*/
-type ClusterFlowStatusApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfClusterFlowStatusApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewClusterFlowStatusApiResponse() *ClusterFlowStatusApiResponse {
-	p := new(ClusterFlowStatusApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.ClusterFlowStatusApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterFlowStatusApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ClusterFlowStatusApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ClusterFlowStatusApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfClusterFlowStatusApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -1715,18 +1530,31 @@ type ClusterStatus struct {
 	/*
 	  UUID of respective cluster.
 	*/
-	ClusterReference *string `json:"clusterReference,omitempty"`
+	ClusterReference *string `json:"clusterReference"`
 	/*
 	  Indicates the flow status on the cluster. It is set to True if the cluster has at least one vNIC that is part of an Atlas subnet
 	*/
-	HasFlowStatus *bool `json:"hasFlowStatus,omitempty"`
+	HasFlowStatus *bool `json:"hasFlowStatus"`
+}
+
+func (p *ClusterStatus) MarshalJSON() ([]byte, error) {
+	type ClusterStatusProxy ClusterStatus
+	return json.Marshal(struct {
+		*ClusterStatusProxy
+		ClusterReference *string `json:"clusterReference,omitempty"`
+		HasFlowStatus    *bool   `json:"hasFlowStatus,omitempty"`
+	}{
+		ClusterStatusProxy: (*ClusterStatusProxy)(p),
+		ClusterReference:   p.ClusterReference,
+		HasFlowStatus:      p.HasFlowStatus,
+	})
 }
 
 func NewClusterStatus() *ClusterStatus {
 	p := new(ClusterStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ClusterStatus"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1933,7 +1761,7 @@ func NewDhcpOptions() *DhcpOptions {
 	p := new(DhcpOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.DhcpOptions"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.DhcpOptions"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1964,7 +1792,7 @@ func NewDpdConfig() *DpdConfig {
 	p := new(DpdConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.DpdConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.DpdConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2059,11 +1887,12 @@ Encryption algorithm.
 type EncryptionAlgorithm int
 
 const (
-	ENCRYPTIONALGORITHM_UNKNOWN    EncryptionAlgorithm = 0
-	ENCRYPTIONALGORITHM_REDACTED   EncryptionAlgorithm = 1
-	ENCRYPTIONALGORITHM_AES128     EncryptionAlgorithm = 2
-	ENCRYPTIONALGORITHM_AES256     EncryptionAlgorithm = 3
-	ENCRYPTIONALGORITHM_TRIPLE_DES EncryptionAlgorithm = 4
+	ENCRYPTIONALGORITHM_UNKNOWN      EncryptionAlgorithm = 0
+	ENCRYPTIONALGORITHM_REDACTED     EncryptionAlgorithm = 1
+	ENCRYPTIONALGORITHM_AES128       EncryptionAlgorithm = 2
+	ENCRYPTIONALGORITHM_AES256       EncryptionAlgorithm = 3
+	ENCRYPTIONALGORITHM_TRIPLE_DES   EncryptionAlgorithm = 4
+	ENCRYPTIONALGORITHM_AES256GCM128 EncryptionAlgorithm = 5
 )
 
 // Returns the name of the enum given an ordinal number
@@ -2076,6 +1905,7 @@ func (e *EncryptionAlgorithm) name(index int) string {
 		"AES128",
 		"AES256",
 		"TRIPLE_DES",
+		"AES256GCM128",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2092,6 +1922,7 @@ func (e EncryptionAlgorithm) GetName() string {
 		"AES128",
 		"AES256",
 		"TRIPLE_DES",
+		"AES256GCM128",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2107,6 +1938,7 @@ func (e *EncryptionAlgorithm) index(name string) EncryptionAlgorithm {
 		"AES128",
 		"AES256",
 		"TRIPLE_DES",
+		"AES256GCM128",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -2155,7 +1987,7 @@ func NewExportScope() *ExportScope {
 	p := new(ExportScope)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ExportScope"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ExportScope"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2249,8 +2081,16 @@ type ExternalSubnet struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Maximum number of active gateway nodes for the VPC external subnet association.
+	*/
+	ActiveGatewayCount *int `json:"activeGatewayCount,omitempty"`
 
 	ActiveGatewayNode *GatewayNodeReference `json:"activeGatewayNode,omitempty"`
+	/*
+	  Currently active gateways node that are used for external connectivity. The singleton activeGateway attribute will be deprecated.
+	*/
+	ActiveGatewayNodes []GatewayNodeReference `json:"activeGatewayNodes,omitempty"`
 	/*
 	  List of IP Addresses used for SNAT, if NAT is enabled on the external subnet. If NAT is not enabled, this specifies the IP address of the VPC port connected to the external gateway.
 	*/
@@ -2280,7 +2120,7 @@ func NewExternalSubnet() *ExternalSubnet {
 	p := new(ExternalSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ExternalSubnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ExternalSubnet"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2305,7 +2145,7 @@ func NewFloatingIPAddress() *FloatingIPAddress {
 	p := new(FloatingIPAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIPAddress"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIPAddress"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2340,7 +2180,7 @@ func NewFloatingIPv4Address() *FloatingIPv4Address {
 	p := new(FloatingIPv4Address)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIPv4Address"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIPv4Address"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.PrefixLength = new(int)
@@ -2367,7 +2207,7 @@ func NewFloatingIPv6Address() *FloatingIPv6Address {
 	p := new(FloatingIPv6Address)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIPv6Address"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIPv6Address"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.PrefixLength = new(int)
@@ -2418,7 +2258,7 @@ type FloatingIp struct {
 	*/
 	FloatingIpValue *string `json:"floatingIpValue,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -2426,13 +2266,13 @@ type FloatingIp struct {
 	/*
 	  Name of the floating IP.
 	*/
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name"`
 	/*
 	  Private IP value in string
 	*/
 	PrivateIp *string `json:"privateIp,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -2449,112 +2289,44 @@ type FloatingIp struct {
 	VpcReference *string `json:"vpcReference,omitempty"`
 }
 
+func (p *FloatingIp) MarshalJSON() ([]byte, error) {
+	type FloatingIpProxy FloatingIp
+	return json.Marshal(struct {
+		*FloatingIpProxy
+		Name *string `json:"name,omitempty"`
+	}{
+		FloatingIpProxy: (*FloatingIpProxy)(p),
+		Name:            p.Name,
+	})
+}
+
 func NewFloatingIp() *FloatingIp {
 	p := new(FloatingIp)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIp"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIp"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/floating-ips/{extId} Get operation
-*/
-type FloatingIpApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfFloatingIpApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewFloatingIpApiResponse() *FloatingIpApiResponse {
-	p := new(FloatingIpApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.FloatingIpApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIpApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *FloatingIpApiResponse) GetData() interface{} {
-	if nil == p.Data {
+func (p *FloatingIp) GetAssociation() interface{} {
+	if nil == p.Association {
 		return nil
 	}
-	return p.Data.GetValue()
+	return p.Association.GetValue()
 }
 
-func (p *FloatingIpApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfFloatingIpApiResponseData()
+func (p *FloatingIp) SetAssociation(v interface{}) error {
+	if nil == p.Association {
+		p.Association = NewOneOfFloatingIpAssociation()
 	}
-	e := p.Data.SetValue(v)
+	e := p.Association.SetValue(v)
 	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
+		if nil == p.AssociationItemDiscriminator_ {
+			p.AssociationItemDiscriminator_ = new(string)
 		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/floating-ips Get operation
-*/
-type FloatingIpListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfFloatingIpListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewFloatingIpListApiResponse() *FloatingIpListApiResponse {
-	p := new(FloatingIpListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.FloatingIpListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIpListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *FloatingIpListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *FloatingIpListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfFloatingIpListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+		*p.AssociationItemDiscriminator_ = *p.Association.Discriminator
 	}
 	return e
 }
@@ -2596,7 +2368,7 @@ type FloatingIpProjection struct {
 	*/
 	FloatingIpValue *string `json:"floatingIpValue,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -2604,7 +2376,7 @@ type FloatingIpProjection struct {
 	/*
 	  Name of the floating IP.
 	*/
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name"`
 	/*
 	  Private IP value in string
 	*/
@@ -2612,7 +2384,7 @@ type FloatingIpProjection struct {
 
 	SubnetProjection *SubnetProjection `json:"subnetProjection,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -2633,11 +2405,22 @@ type FloatingIpProjection struct {
 	VpcReference *string `json:"vpcReference,omitempty"`
 }
 
+func (p *FloatingIpProjection) MarshalJSON() ([]byte, error) {
+	type FloatingIpProjectionProxy FloatingIpProjection
+	return json.Marshal(struct {
+		*FloatingIpProjectionProxy
+		Name *string `json:"name,omitempty"`
+	}{
+		FloatingIpProjectionProxy: (*FloatingIpProjectionProxy)(p),
+		Name:                      p.Name,
+	})
+}
+
 func NewFloatingIpProjection() *FloatingIpProjection {
 	p := new(FloatingIpProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIpProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FloatingIpProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2664,7 +2447,7 @@ type FlowGateway struct {
 
 	GatewayStatus *FlowGatewayStatus `json:"gatewayStatus,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -2674,7 +2457,7 @@ type FlowGateway struct {
 	*/
 	OvnControllerVersion *string `json:"ovnControllerVersion,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -2696,60 +2479,10 @@ func NewFlowGateway() *FlowGateway {
 	p := new(FlowGateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGateway"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGateway"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/flow-gateways/{extId} Get operation
-*/
-type FlowGatewayApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfFlowGatewayApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewFlowGatewayApiResponse() *FlowGatewayApiResponse {
-	p := new(FlowGatewayApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.FlowGatewayApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *FlowGatewayApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *FlowGatewayApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfFlowGatewayApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -2775,60 +2508,10 @@ func NewFlowGatewayKeepAlive() *FlowGatewayKeepAlive {
 	p := new(FlowGatewayKeepAlive)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAlive"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayKeepAlive"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/flow-gateways/$actions/keep-alive Post operation
-*/
-type FlowGatewayKeepAliveApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfFlowGatewayKeepAliveApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewFlowGatewayKeepAliveApiResponse() *FlowGatewayKeepAliveApiResponse {
-	p := new(FlowGatewayKeepAliveApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAliveApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayKeepAliveApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *FlowGatewayKeepAliveApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *FlowGatewayKeepAliveApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfFlowGatewayKeepAliveApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -2871,60 +2554,10 @@ func NewFlowGatewayKeepAliveRequestSpec() *FlowGatewayKeepAliveRequestSpec {
 	p := new(FlowGatewayKeepAliveRequestSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAliveRequestSpec"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayKeepAliveRequestSpec"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/flow-gateways Get operation
-*/
-type FlowGatewayListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfFlowGatewayListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewFlowGatewayListApiResponse() *FlowGatewayListApiResponse {
-	p := new(FlowGatewayListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.FlowGatewayListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *FlowGatewayListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *FlowGatewayListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfFlowGatewayListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -3035,7 +2668,7 @@ func NewFlowGatewayStatus() *FlowGatewayStatus {
 	p := new(FlowGatewayStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGatewayStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.FlowGatewayStatus"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3073,7 +2706,7 @@ type Gateway struct {
 	*/
 	InstalledSoftwareVersion *string `json:"installedSoftwareVersion,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -3095,7 +2728,7 @@ type Gateway struct {
 	*/
 	SupportedSoftwareVersion *string `json:"supportedSoftwareVersion,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -3116,58 +2749,29 @@ func NewGateway() *Gateway {
 	p := new(Gateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Gateway"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Gateway"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/gateways/{extId} Get operation
-*/
-type GatewayApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGatewayApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGatewayApiResponse() *GatewayApiResponse {
-	p := new(GatewayApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.GatewayApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GatewayApiResponse) GetData() interface{} {
-	if nil == p.Data {
+func (p *Gateway) GetServices() interface{} {
+	if nil == p.Services {
 		return nil
 	}
-	return p.Data.GetValue()
+	return p.Services.GetValue()
 }
 
-func (p *GatewayApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGatewayApiResponseData()
+func (p *Gateway) SetServices(v interface{}) error {
+	if nil == p.Services {
+		p.Services = NewOneOfGatewayServices()
 	}
-	e := p.Data.SetValue(v)
+	e := p.Services.SetValue(v)
 	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
+		if nil == p.ServicesItemDiscriminator_ {
+			p.ServicesItemDiscriminator_ = new(string)
 		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+		*p.ServicesItemDiscriminator_ = *p.Services.Discriminator
 	}
 	return e
 }
@@ -3185,6 +2789,10 @@ type GatewayDeployment struct {
 	  Cluster reference required to identify which on-prem cluster to deploy the gateway VM on
 	*/
 	ClusterReference *string `json:"clusterReference,omitempty"`
+	/*
+	  List of network interfaces for this gateway
+	*/
+	Interfaces []GatewayInterface `json:"interfaces,omitempty"`
 
 	ManagementInterface *GatewayManagementInterface `json:"managementInterface,omitempty"`
 	/*
@@ -3197,60 +2805,47 @@ func NewGatewayDeployment() *GatewayDeployment {
 	p := new(GatewayDeployment)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayDeployment"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayDeployment"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /networking/v4.0.b1/config/gateways Get operation
+Network interface used to deliver network services. If the client  supplies a VPC reference, but does not specify a VPC subnet, the gateway will be deployed on an auto-configured dedicated subnet  within the VPC. If the client specifies a VPC subnet, the gateway  will be deployed on that subnet. If the gateway is deployed on a VLAN subnet, with or without IPAM, then statically-allocated IP addresses on that subnet must be provided for each interface.
 */
-type GatewayListApiResponse struct {
+type GatewayInterface struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	DefaultGatewayAddress *import1.IPAddress `json:"defaultGatewayAddress,omitempty"`
+
+	IpAddress *import1.IPAddress `json:"ipAddress,omitempty"`
 	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGatewayListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	  MAC address of this gateway interface
+	*/
+	MacAddress *string `json:"macAddress,omitempty"`
+	/*
+	  MTU of this gateway interface
+	*/
+	Mtu *int `json:"mtu,omitempty"`
+	/*
+	  The VLAN subnet to deploy this network gateway VM on
+	*/
+	SubnetReference *string `json:"subnetReference,omitempty"`
 }
 
-func NewGatewayListApiResponse() *GatewayListApiResponse {
-	p := new(GatewayListApiResponse)
+func NewGatewayInterface() *GatewayInterface {
+	p := new(GatewayInterface)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.GatewayListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayListApiResponse"}
+	*p.ObjectType_ = "networking.v4.config.GatewayInterface"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-func (p *GatewayListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GatewayListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGatewayListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -3284,7 +2879,7 @@ func NewGatewayManagementInterface() *GatewayManagementInterface {
 	p := new(GatewayManagementInterface)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayManagementInterface"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayManagementInterface"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3302,20 +2897,35 @@ type GatewayNic struct {
 	/*
 	  Index of the NIC.
 	*/
-	Index *int `json:"index,omitempty"`
+	Index *int `json:"index"`
 
-	IpAddress *import1.IPAddress `json:"ipAddress,omitempty"`
+	IpAddress *import1.IPAddress `json:"ipAddress"`
 	/*
 	  MAC address of the NIC.
 	*/
-	MacAddress *string `json:"macAddress,omitempty"`
+	MacAddress *string `json:"macAddress"`
+}
+
+func (p *GatewayNic) MarshalJSON() ([]byte, error) {
+	type GatewayNicProxy GatewayNic
+	return json.Marshal(struct {
+		*GatewayNicProxy
+		Index      *int               `json:"index,omitempty"`
+		IpAddress  *import1.IPAddress `json:"ipAddress,omitempty"`
+		MacAddress *string            `json:"macAddress,omitempty"`
+	}{
+		GatewayNicProxy: (*GatewayNicProxy)(p),
+		Index:           p.Index,
+		IpAddress:       p.IpAddress,
+		MacAddress:      p.MacAddress,
+	})
 }
 
 func NewGatewayNic() *GatewayNic {
 	p := new(GatewayNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayNic"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayNic"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3340,7 +2950,7 @@ func NewGatewayNodeReference() *GatewayNodeReference {
 	p := new(GatewayNodeReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayNodeReference"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayNodeReference"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3375,7 +2985,7 @@ type GatewayProjection struct {
 	*/
 	InstalledSoftwareVersion *string `json:"installedSoftwareVersion,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -3395,7 +3005,7 @@ type GatewayProjection struct {
 	*/
 	SupportedSoftwareVersion *string `json:"supportedSoftwareVersion,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -3420,7 +3030,7 @@ func NewGatewayProjection() *GatewayProjection {
 	p := new(GatewayProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.GatewayProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3506,6 +3116,706 @@ func (e GatewayRole) Ref() *GatewayRole {
 }
 
 /*
+REST response for all response codes in API path /networking/v4.0.b1/config/bgp-sessions/{extId} Get operation
+*/
+type GetBgpSessionApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetBgpSessionApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetBgpSessionApiResponse() *GetBgpSessionApiResponse {
+	p := new(GetBgpSessionApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetBgpSessionApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetBgpSessionApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetBgpSessionApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetBgpSessionApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/floating-ips/{extId} Get operation
+*/
+type GetFloatingIpApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetFloatingIpApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetFloatingIpApiResponse() *GetFloatingIpApiResponse {
+	p := new(GetFloatingIpApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetFloatingIpApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetFloatingIpApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetFloatingIpApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetFloatingIpApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/gateways/{extId} Get operation
+*/
+type GetGatewayApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetGatewayApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetGatewayApiResponse() *GetGatewayApiResponse {
+	p := new(GetGatewayApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetGatewayApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetGatewayApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetGatewayApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetGatewayApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/ipfix-exporters/{extId} Get operation
+*/
+type GetIPFIXExporterApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetIPFIXExporterApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetIPFIXExporterApiResponse() *GetIPFIXExporterApiResponse {
+	p := new(GetIPFIXExporterApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetIPFIXExporterApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetIPFIXExporterApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetIPFIXExporterApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetIPFIXExporterApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/layer2-stretches/{extId} Get operation
+*/
+type GetLayer2StretchApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetLayer2StretchApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetLayer2StretchApiResponse() *GetLayer2StretchApiResponse {
+	p := new(GetLayer2StretchApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetLayer2StretchApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetLayer2StretchApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetLayer2StretchApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetLayer2StretchApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/controllers/{extId} Get operation
+*/
+type GetNetworkControllerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetNetworkControllerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetNetworkControllerApiResponse() *GetNetworkControllerApiResponse {
+	p := new(GetNetworkControllerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetNetworkControllerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetNetworkControllerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetNetworkControllerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetNetworkControllerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/route-tables/{extId} Get operation
+*/
+type GetRouteTableApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetRouteTableApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetRouteTableApiResponse() *GetRouteTableApiResponse {
+	p := new(GetRouteTableApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetRouteTableApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetRouteTableApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetRouteTableApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetRouteTableApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/routing-policies/{extId} Get operation
+*/
+type GetRoutingPolicyApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetRoutingPolicyApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetRoutingPolicyApiResponse() *GetRoutingPolicyApiResponse {
+	p := new(GetRoutingPolicyApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetRoutingPolicyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetRoutingPolicyApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetRoutingPolicyApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetRoutingPolicyApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/subnets/{extId} Get operation
+*/
+type GetSubnetApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetSubnetApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetSubnetApiResponse() *GetSubnetApiResponse {
+	p := new(GetSubnetApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetSubnetApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetSubnetApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetSubnetApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetSubnetApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/traffic-mirrors/{extId} Get operation
+*/
+type GetTrafficMirrorApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetTrafficMirrorApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetTrafficMirrorApiResponse() *GetTrafficMirrorApiResponse {
+	p := new(GetTrafficMirrorApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetTrafficMirrorApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetTrafficMirrorApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetTrafficMirrorApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetTrafficMirrorApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/uplink-bonds/{extId} Get operation
+*/
+type GetUplinkBondApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetUplinkBondApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetUplinkBondApiResponse() *GetUplinkBondApiResponse {
+	p := new(GetUplinkBondApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetUplinkBondApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetUplinkBondApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetUplinkBondApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetUplinkBondApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/virtual-switches/{extId} Get operation
+*/
+type GetVirtualSwitchApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetVirtualSwitchApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetVirtualSwitchApiResponse() *GetVirtualSwitchApiResponse {
+	p := new(GetVirtualSwitchApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetVirtualSwitchApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetVirtualSwitchApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetVirtualSwitchApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetVirtualSwitchApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpcs/{extId} Get operation
+*/
+type GetVpcApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetVpcApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetVpcApiResponse() *GetVpcApiResponse {
+	p := new(GetVpcApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetVpcApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetVpcApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetVpcApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetVpcApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections/{extId} Get operation
+*/
+type GetVpnConnectionApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetVpnConnectionApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetVpnConnectionApiResponse() *GetVpnConnectionApiResponse {
+	p := new(GetVpnConnectionApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.GetVpnConnectionApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetVpnConnectionApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetVpnConnectionApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetVpnConnectionApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
 Input body to configure hosts
 */
 type Host struct {
@@ -3551,7 +3861,7 @@ func NewHost() *Host {
 	p := new(Host)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Host"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Host"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3576,7 +3886,7 @@ func NewICMPObject() *ICMPObject {
 	p := new(ICMPObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ICMPObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ICMPObject"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3601,7 +3911,7 @@ func NewIPConfig() *IPConfig {
 	p := new(IPConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3649,7 +3959,7 @@ type IPFIXExporter struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -3661,7 +3971,7 @@ type IPFIXExporter struct {
 
 	Protocol *ExporterProtocol `json:"protocol"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -3689,110 +3999,10 @@ func NewIPFIXExporter() *IPFIXExporter {
 	p := new(IPFIXExporter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPFIXExporter"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPFIXExporter"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/ipfix-exporters/{extId} Get operation
-*/
-type IPFIXExporterApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfIPFIXExporterApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewIPFIXExporterApiResponse() *IPFIXExporterApiResponse {
-	p := new(IPFIXExporterApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.IPFIXExporterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPFIXExporterApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *IPFIXExporterApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *IPFIXExporterApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfIPFIXExporterApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/ipfix-exporters Get operation
-*/
-type IPFIXExporterListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfIPFIXExporterListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewIPFIXExporterListApiResponse() *IPFIXExporterListApiResponse {
-	p := new(IPFIXExporterListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.IPFIXExporterListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPFIXExporterListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *IPFIXExporterListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *IPFIXExporterListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfIPFIXExporterListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -3820,7 +4030,7 @@ func NewIPPoolUsage() *IPPoolUsage {
 	p := new(IPPoolUsage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPPoolUsage"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPPoolUsage"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3842,7 +4052,7 @@ func NewIPSubnet() *IPSubnet {
 	p := new(IPSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPSubnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPSubnet"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3888,7 +4098,7 @@ func NewIPUsage() *IPUsage {
 	p := new(IPUsage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPUsage"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPUsage"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3930,7 +4140,7 @@ func NewIPv4Config() *IPv4Config {
 	p := new(IPv4Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Config"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv4Config"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3968,7 +4178,7 @@ func NewIPv4Pool() *IPv4Pool {
 	p := new(IPv4Pool)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Pool"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv4Pool"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4003,7 +4213,7 @@ func NewIPv4Subnet() *IPv4Subnet {
 	p := new(IPv4Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Subnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv4Subnet"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4045,7 +4255,7 @@ func NewIPv6Config() *IPv6Config {
 	p := new(IPv6Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv6Config"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv6Config"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4083,7 +4293,7 @@ func NewIPv6Pool() *IPv6Pool {
 	p := new(IPv6Pool)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv6Pool"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv6Pool"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4118,7 +4328,7 @@ func NewIPv6Subnet() *IPv6Subnet {
 	p := new(IPv6Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv6Subnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IPv6Subnet"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4153,7 +4363,7 @@ func NewIbgpConfig() *IbgpConfig {
 	p := new(IbgpConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IbgpConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IbgpConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldRedistributeRoutes = new(bool)
@@ -4187,7 +4397,7 @@ func NewInternalRoutingConfig() *InternalRoutingConfig {
 	p := new(InternalRoutingConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.InternalRoutingConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.InternalRoutingConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4233,7 +4443,7 @@ func NewIpReserveSpec() *IpReserveSpec {
 	p := new(IpReserveSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IpReserveSpec"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IpReserveSpec"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4279,7 +4489,7 @@ func NewIpUnreserveSpec() *IpUnreserveSpec {
 	p := new(IpUnreserveSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IpUnreserveSpec"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IpUnreserveSpec"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4347,7 +4557,7 @@ func NewIpsecConfig() *IpsecConfig {
 	p := new(IpsecConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IpsecConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.IpsecConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4370,7 +4580,7 @@ type Layer2Stretch struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -4392,7 +4602,7 @@ type Layer2Stretch struct {
 
 	StretchStatus *StretchStatus `json:"stretchStatus,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -4416,110 +4626,10 @@ func NewLayer2Stretch() *Layer2Stretch {
 	p := new(Layer2Stretch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2Stretch"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2Stretch"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/layer2-stretches/{extId} Get operation
-*/
-type Layer2StretchApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfLayer2StretchApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewLayer2StretchApiResponse() *Layer2StretchApiResponse {
-	p := new(Layer2StretchApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.Layer2StretchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *Layer2StretchApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *Layer2StretchApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfLayer2StretchApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/layer2-stretches Get operation
-*/
-type Layer2StretchListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfLayer2StretchListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewLayer2StretchListApiResponse() *Layer2StretchListApiResponse {
-	p := new(Layer2StretchListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.Layer2StretchListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *Layer2StretchListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *Layer2StretchListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfLayer2StretchListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -4543,60 +4653,10 @@ func NewLayer2StretchRelatedEntities() *Layer2StretchRelatedEntities {
 	p := new(Layer2StretchRelatedEntities)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchRelatedEntities"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchRelatedEntities"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/clusters/{extId}/layer2-stretches/related-entities Get operation
-*/
-type Layer2StretchRelatedEntitiesApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfLayer2StretchRelatedEntitiesApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewLayer2StretchRelatedEntitiesApiResponse() *Layer2StretchRelatedEntitiesApiResponse {
-	p := new(Layer2StretchRelatedEntitiesApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.Layer2StretchRelatedEntitiesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchRelatedEntitiesApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *Layer2StretchRelatedEntitiesApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *Layer2StretchRelatedEntitiesApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfLayer2StretchRelatedEntitiesApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -4628,7 +4688,7 @@ func NewLayer2StretchSubnetInfo() *Layer2StretchSubnetInfo {
 	p := new(Layer2StretchSubnetInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchSubnetInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchSubnetInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4659,7 +4719,7 @@ func NewLayer2StretchVpnConnectionInfo() *Layer2StretchVpnConnectionInfo {
 	p := new(Layer2StretchVpnConnectionInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchVpnConnectionInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchVpnConnectionInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4702,7 +4762,7 @@ func NewLayer2StretchVtepGatewayInfo() *Layer2StretchVtepGatewayInfo {
 	p := new(Layer2StretchVtepGatewayInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchVtepGatewayInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Layer2StretchVtepGatewayInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4727,7 +4787,7 @@ func NewLayerFourProtocolObject() *LayerFourProtocolObject {
 	p := new(LayerFourProtocolObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LayerFourProtocolObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LayerFourProtocolObject"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4756,10 +4816,960 @@ func NewLearnedAddress() *LearnedAddress {
 	p := new(LearnedAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LearnedAddress"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LearnedAddress"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/bgp-sessions Get operation
+*/
+type ListBgpSessionsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListBgpSessionsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListBgpSessionsApiResponse() *ListBgpSessionsApiResponse {
+	p := new(ListBgpSessionsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListBgpSessionsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListBgpSessionsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListBgpSessionsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListBgpSessionsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/capabilities Get operation
+*/
+type ListClusterCapabilitiesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListClusterCapabilitiesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListClusterCapabilitiesApiResponse() *ListClusterCapabilitiesApiResponse {
+	p := new(ListClusterCapabilitiesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListClusterCapabilitiesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListClusterCapabilitiesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListClusterCapabilitiesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListClusterCapabilitiesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/floating-ips Get operation
+*/
+type ListFloatingIpsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListFloatingIpsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListFloatingIpsApiResponse() *ListFloatingIpsApiResponse {
+	p := new(ListFloatingIpsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListFloatingIpsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListFloatingIpsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListFloatingIpsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListFloatingIpsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/gateways Get operation
+*/
+type ListGatewaysApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListGatewaysApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListGatewaysApiResponse() *ListGatewaysApiResponse {
+	p := new(ListGatewaysApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListGatewaysApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListGatewaysApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListGatewaysApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListGatewaysApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/ipfix-exporters Get operation
+*/
+type ListIPFIXExportersApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListIPFIXExportersApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListIPFIXExportersApiResponse() *ListIPFIXExportersApiResponse {
+	p := new(ListIPFIXExportersApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListIPFIXExportersApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListIPFIXExportersApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListIPFIXExportersApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListIPFIXExportersApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/clusters/{extId}/layer2-stretches/related-entities Get operation
+*/
+type ListLayer2StretchRelatedEntitiesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListLayer2StretchRelatedEntitiesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListLayer2StretchRelatedEntitiesApiResponse() *ListLayer2StretchRelatedEntitiesApiResponse {
+	p := new(ListLayer2StretchRelatedEntitiesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListLayer2StretchRelatedEntitiesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListLayer2StretchRelatedEntitiesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListLayer2StretchRelatedEntitiesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListLayer2StretchRelatedEntitiesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/layer2-stretches Get operation
+*/
+type ListLayer2StretchesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListLayer2StretchesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListLayer2StretchesApiResponse() *ListLayer2StretchesApiResponse {
+	p := new(ListLayer2StretchesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListLayer2StretchesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListLayer2StretchesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListLayer2StretchesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListLayer2StretchesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/controllers Get operation
+*/
+type ListNetworkControllersApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListNetworkControllersApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListNetworkControllersApiResponse() *ListNetworkControllersApiResponse {
+	p := new(ListNetworkControllersApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListNetworkControllersApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListNetworkControllersApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListNetworkControllersApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListNetworkControllersApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/node-schedulable-status Get operation
+*/
+type ListNodeSchedulableStatusesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListNodeSchedulableStatusesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListNodeSchedulableStatusesApiResponse() *ListNodeSchedulableStatusesApiResponse {
+	p := new(ListNodeSchedulableStatusesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListNodeSchedulableStatusesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListNodeSchedulableStatusesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListNodeSchedulableStatusesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListNodeSchedulableStatusesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/route-tables Get operation
+*/
+type ListRouteTablesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListRouteTablesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListRouteTablesApiResponse() *ListRouteTablesApiResponse {
+	p := new(ListRouteTablesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListRouteTablesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListRouteTablesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListRouteTablesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListRouteTablesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/routing-policies Get operation
+*/
+type ListRoutingPoliciesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListRoutingPoliciesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListRoutingPoliciesApiResponse() *ListRoutingPoliciesApiResponse {
+	p := new(ListRoutingPoliciesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListRoutingPoliciesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListRoutingPoliciesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListRoutingPoliciesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListRoutingPoliciesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/subnets Get operation
+*/
+type ListSubnetsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListSubnetsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListSubnetsApiResponse() *ListSubnetsApiResponse {
+	p := new(ListSubnetsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListSubnetsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListSubnetsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListSubnetsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListSubnetsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/traffic-mirrors Get operation
+*/
+type ListTrafficMirrorsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListTrafficMirrorsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListTrafficMirrorsApiResponse() *ListTrafficMirrorsApiResponse {
+	p := new(ListTrafficMirrorsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListTrafficMirrorsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListTrafficMirrorsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListTrafficMirrorsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListTrafficMirrorsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/uplink-bonds Get operation
+*/
+type ListUplinkBondsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListUplinkBondsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListUplinkBondsApiResponse() *ListUplinkBondsApiResponse {
+	p := new(ListUplinkBondsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListUplinkBondsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListUplinkBondsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListUplinkBondsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListUplinkBondsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/virtual-switches Get operation
+*/
+type ListVirtualSwitchesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListVirtualSwitchesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListVirtualSwitchesApiResponse() *ListVirtualSwitchesApiResponse {
+	p := new(ListVirtualSwitchesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListVirtualSwitchesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListVirtualSwitchesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListVirtualSwitchesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListVirtualSwitchesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpc-virtual-switch-mappings Get operation
+*/
+type ListVpcVirtualSwitchMappingsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListVpcVirtualSwitchMappingsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListVpcVirtualSwitchMappingsApiResponse() *ListVpcVirtualSwitchMappingsApiResponse {
+	p := new(ListVpcVirtualSwitchMappingsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListVpcVirtualSwitchMappingsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListVpcVirtualSwitchMappingsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListVpcVirtualSwitchMappingsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListVpcVirtualSwitchMappingsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpcs Get operation
+*/
+type ListVpcsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListVpcsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListVpcsApiResponse() *ListVpcsApiResponse {
+	p := new(ListVpcsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListVpcsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListVpcsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListVpcsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListVpcsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections Get operation
+*/
+type ListVpnConnectionsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListVpnConnectionsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListVpnConnectionsApiResponse() *ListVpnConnectionsApiResponse {
+	p := new(ListVpnConnectionsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListVpnConnectionsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListVpnConnectionsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListVpnConnectionsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListVpnConnectionsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections/{extId}/vpn-vendor-configs Get operation
+*/
+type ListVpnVendorConfigsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListVpnVendorConfigsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListVpnVendorConfigsApiResponse() *ListVpnVendorConfigsApiResponse {
+	p := new(ListVpnVendorConfigsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ListVpnVendorConfigsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListVpnVendorConfigsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListVpnVendorConfigsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListVpnVendorConfigsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
 }
 
 /*
@@ -4774,20 +5784,35 @@ type LocalBgpGateway struct {
 	/*
 	  ASN number of the BGP gateway.
 	*/
-	Asn *int `json:"asn,omitempty"`
+	Asn *int `json:"asn"`
 	/*
 	  Prefix length of the VNIC IP addresses of the local BGP gateways.
 	*/
-	VnicIpPrefixLength *int `json:"vnicIpPrefixLength,omitempty"`
+	VnicIpPrefixLength *int `json:"vnicIpPrefixLength"`
 
-	VnicList []GatewayNic `json:"vnicList,omitempty"`
+	VnicList []GatewayNic `json:"vnicList"`
+}
+
+func (p *LocalBgpGateway) MarshalJSON() ([]byte, error) {
+	type LocalBgpGatewayProxy LocalBgpGateway
+	return json.Marshal(struct {
+		*LocalBgpGatewayProxy
+		Asn                *int         `json:"asn,omitempty"`
+		VnicIpPrefixLength *int         `json:"vnicIpPrefixLength,omitempty"`
+		VnicList           []GatewayNic `json:"vnicList,omitempty"`
+	}{
+		LocalBgpGatewayProxy: (*LocalBgpGatewayProxy)(p),
+		Asn:                  p.Asn,
+		VnicIpPrefixLength:   p.VnicIpPrefixLength,
+		VnicList:             p.VnicList,
+	})
 }
 
 func NewLocalBgpGateway() *LocalBgpGateway {
 	p := new(LocalBgpGateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalBgpGateway"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalBgpGateway"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4807,7 +5832,7 @@ type LocalBgpService struct {
 	*/
 	Asn *int64 `json:"asn"`
 	/*
-	  Reference to the VPC that this network gateway serves as its BGP speaker.
+	  Reference to the VPC that this network gateway serves as its BGP speaker. Note that this BGP gateway will not service a regular VPC sitting behind a Transit VPC.
 	*/
 	VpcReference *string `json:"vpcReference,omitempty"`
 }
@@ -4827,7 +5852,7 @@ func NewLocalBgpService() *LocalBgpService {
 	p := new(LocalBgpService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalBgpService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalBgpService"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4850,13 +5875,17 @@ type LocalNetworkServices struct {
 	LocalVtepService *LocalVtepService `json:"localVtepService,omitempty"`
 
 	ServiceAddress *import1.IPAddress `json:"serviceAddress,omitempty"`
+	/*
+	  List of floating IP addresses associated with this local gateway
+	*/
+	ServiceAddresses []import1.IPAddress `json:"serviceAddresses,omitempty"`
 }
 
 func NewLocalNetworkServices() *LocalNetworkServices {
 	p := new(LocalNetworkServices)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalNetworkServices"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalNetworkServices"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4881,7 +5910,7 @@ func NewLocalVpnService() *LocalVpnService {
 	p := new(LocalVpnService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalVpnService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalVpnService"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4917,7 +5946,7 @@ func NewLocalVtepService() *LocalVtepService {
 	p := new(LocalVtepService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalVtepService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.LocalVtepService"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5009,142 +6038,33 @@ type NetworkCloudConfig struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	AzureConfig *AzureConfig `json:"azureConfig"`
+	AwsConfig *AwsConfig `json:"awsConfig,omitempty"`
+
+	AzureConfig *AzureConfig `json:"azureConfig,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func (p *NetworkCloudConfig) MarshalJSON() ([]byte, error) {
-	type NetworkCloudConfigProxy NetworkCloudConfig
-	return json.Marshal(struct {
-		*NetworkCloudConfigProxy
-		AzureConfig *AzureConfig `json:"azureConfig,omitempty"`
-	}{
-		NetworkCloudConfigProxy: (*NetworkCloudConfigProxy)(p),
-		AzureConfig:             p.AzureConfig,
-	})
 }
 
 func NewNetworkCloudConfig() *NetworkCloudConfig {
 	p := new(NetworkCloudConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkCloudConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkCloudConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/network-clouds/{extId} Get operation
-*/
-type NetworkCloudConfigApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfNetworkCloudConfigApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewNetworkCloudConfigApiResponse() *NetworkCloudConfigApiResponse {
-	p := new(NetworkCloudConfigApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NetworkCloudConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkCloudConfigApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *NetworkCloudConfigApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *NetworkCloudConfigApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfNetworkCloudConfigApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/network-clouds Get operation
-*/
-type NetworkCloudConfigListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfNetworkCloudConfigListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewNetworkCloudConfigListApiResponse() *NetworkCloudConfigListApiResponse {
-	p := new(NetworkCloudConfigListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NetworkCloudConfigListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkCloudConfigListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *NetworkCloudConfigListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *NetworkCloudConfigListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfNetworkCloudConfigListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 type NetworkController struct {
@@ -5168,7 +6088,7 @@ type NetworkController struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -5182,7 +6102,7 @@ type NetworkController struct {
 	*/
 	MinimumNOSVersion *string `json:"minimumNOSVersion,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -5191,110 +6111,10 @@ func NewNetworkController() *NetworkController {
 	p := new(NetworkController)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkController"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkController"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/controllers/{extId} Get operation
-*/
-type NetworkControllerApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfNetworkControllerApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewNetworkControllerApiResponse() *NetworkControllerApiResponse {
-	p := new(NetworkControllerApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NetworkControllerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkControllerApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *NetworkControllerApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *NetworkControllerApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfNetworkControllerApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/controllers Get operation
-*/
-type NetworkControllerListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfNetworkControllerListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewNetworkControllerListApiResponse() *NetworkControllerListApiResponse {
-	p := new(NetworkControllerListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NetworkControllerListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkControllerListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *NetworkControllerListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *NetworkControllerListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfNetworkControllerListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -5311,13 +6131,13 @@ type NetworkingBaseModel struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -5326,7 +6146,7 @@ func NewNetworkingBaseModel() *NetworkingBaseModel {
 	p := new(NetworkingBaseModel)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkingBaseModel"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NetworkingBaseModel"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5424,7 +6244,7 @@ func (e NexthopType) Ref() *NexthopType {
 }
 
 /*
-Array of node UUIDs and boolean pairs, indicating whether the nodes are storage-only. Requires Prism Central >= pc.2022.9.
+Array of node UUIDs and boolean pairs, indicating whether the nodes are storage-only.
 */
 type NodeSchedulableStatus struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5457,60 +6277,10 @@ func NewNodeSchedulableStatus() *NodeSchedulableStatus {
 	p := new(NodeSchedulableStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NodeSchedulableStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NodeSchedulableStatus"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/node-schedulable-status Get operation
-*/
-type NodeSchedulableStatusApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfNodeSchedulableStatusApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewNodeSchedulableStatusApiResponse() *NodeSchedulableStatusApiResponse {
-	p := new(NodeSchedulableStatusApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.NodeSchedulableStatusApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NodeSchedulableStatusApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *NodeSchedulableStatusApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *NodeSchedulableStatusApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfNodeSchedulableStatusApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 type NodeSchedulableStatusProjection struct {
@@ -5544,7 +6314,7 @@ func NewNodeSchedulableStatusProjection() *NodeSchedulableStatusProjection {
 	p := new(NodeSchedulableStatusProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NodeSchedulableStatusProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.NodeSchedulableStatusProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5575,7 +6345,7 @@ func NewOspfConfig() *OspfConfig {
 	p := new(OspfConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.OspfConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.OspfConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5613,7 +6383,7 @@ func NewPortRange() *PortRange {
 	p := new(PortRange)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.PortRange"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.PortRange"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5653,7 +6423,7 @@ func NewPrivateIpAssociation() *PrivateIpAssociation {
 	p := new(PrivateIpAssociation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.PrivateIpAssociation"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.PrivateIpAssociation"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5684,7 +6454,7 @@ func NewProtocolNumberObject() *ProtocolNumberObject {
 	p := new(ProtocolNumberObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ProtocolNumberObject"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ProtocolNumberObject"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5810,7 +6580,7 @@ func NewPublicIpMapping() *PublicIpMapping {
 	p := new(PublicIpMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.PublicIpMapping"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.PublicIpMapping"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5839,7 +6609,7 @@ func NewQosConfig() *QosConfig {
 	p := new(QosConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.QosConfig"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.QosConfig"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5857,16 +6627,29 @@ type RemoteBgpGateway struct {
 	/*
 	  ASN number of the BGP gateway.
 	*/
-	Asn *int `json:"asn,omitempty"`
+	Asn *int `json:"asn"`
 
-	IpAddress *import1.IPAddress `json:"ipAddress,omitempty"`
+	IpAddress *import1.IPAddress `json:"ipAddress"`
+}
+
+func (p *RemoteBgpGateway) MarshalJSON() ([]byte, error) {
+	type RemoteBgpGatewayProxy RemoteBgpGateway
+	return json.Marshal(struct {
+		*RemoteBgpGatewayProxy
+		Asn       *int               `json:"asn,omitempty"`
+		IpAddress *import1.IPAddress `json:"ipAddress,omitempty"`
+	}{
+		RemoteBgpGatewayProxy: (*RemoteBgpGatewayProxy)(p),
+		Asn:                   p.Asn,
+		IpAddress:             p.IpAddress,
+	})
 }
 
 func NewRemoteBgpGateway() *RemoteBgpGateway {
 	p := new(RemoteBgpGateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteBgpGateway"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteBgpGateway"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5906,7 +6689,7 @@ func NewRemoteBgpService() *RemoteBgpService {
 	p := new(RemoteBgpService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteBgpService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteBgpService"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5933,7 +6716,7 @@ func NewRemoteNetworkServices() *RemoteNetworkServices {
 	p := new(RemoteNetworkServices)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteNetworkServices"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteNetworkServices"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5964,7 +6747,7 @@ func NewRemoteVpnService() *RemoteVpnService {
 	p := new(RemoteVpnService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVpnService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteVpnService"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldInstallXiRoute = new(bool)
@@ -5996,7 +6779,7 @@ func NewRemoteVtepService() *RemoteVtepService {
 	p := new(RemoteVtepService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVtepService"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteVtepService"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.VxlanPort = new(int)
@@ -6026,7 +6809,7 @@ func NewRemoteVtepStretchStatus() *RemoteVtepStretchStatus {
 	p := new(RemoteVtepStretchStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVtepStretchStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RemoteVtepStretchStatus"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6129,27 +6912,20 @@ type RerouteParam struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
+	EgressServiceIp *import1.IPAddress `json:"egressServiceIp,omitempty"`
+
+	IngressServiceIp *import1.IPAddress `json:"ingressServiceIp,omitempty"`
+
 	RerouteFallbackAction *RerouteFallbackAction `json:"rerouteFallbackAction,omitempty"`
 
-	ServiceIp *import1.IPAddress `json:"serviceIp"`
-}
-
-func (p *RerouteParam) MarshalJSON() ([]byte, error) {
-	type RerouteParamProxy RerouteParam
-	return json.Marshal(struct {
-		*RerouteParamProxy
-		ServiceIp *import1.IPAddress `json:"serviceIp,omitempty"`
-	}{
-		RerouteParamProxy: (*RerouteParamProxy)(p),
-		ServiceIp:         p.ServiceIp,
-	})
+	ServiceIp *import1.IPAddress `json:"serviceIp,omitempty"`
 }
 
 func NewRerouteParam() *RerouteParam {
 	p := new(RerouteParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RerouteParam"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RerouteParam"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6257,7 +7033,7 @@ func NewReservedAddress() *ReservedAddress {
 	p := new(ReservedAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ReservedAddress"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.ReservedAddress"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6317,7 +7093,7 @@ func NewRoute() *Route {
 	p := new(Route)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Route"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Route"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6345,7 +7121,7 @@ type RouteTable struct {
 	*/
 	ExternalRoutingDomainReference *string `json:"externalRoutingDomainReference,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
@@ -6359,7 +7135,7 @@ type RouteTable struct {
 	*/
 	StaticRoutes []Route `json:"staticRoutes,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -6372,110 +7148,10 @@ func NewRouteTable() *RouteTable {
 	p := new(RouteTable)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RouteTable"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RouteTable"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/route-tables/{extId} Get operation
-*/
-type RouteTableApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfRouteTableApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewRouteTableApiResponse() *RouteTableApiResponse {
-	p := new(RouteTableApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.RouteTableApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RouteTableApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *RouteTableApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *RouteTableApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfRouteTableApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/route-tables Get operation
-*/
-type RouteTableListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfRouteTableListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewRouteTableListApiResponse() *RouteTableListApiResponse {
-	p := new(RouteTableListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.RouteTableListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RouteTableListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *RouteTableListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *RouteTableListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfRouteTableListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -6496,7 +7172,7 @@ type RoutingPolicy struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -6512,9 +7188,11 @@ type RoutingPolicy struct {
 	*/
 	Priority *int `json:"priority"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+
+	Vpc *VpcName `json:"vpc,omitempty"`
 	/*
 	  ExtId of the VPC extId to which the routing policy belongs.
 	*/
@@ -6542,7 +7220,7 @@ func NewRoutingPolicy() *RoutingPolicy {
 	p := new(RoutingPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicy"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicy"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6559,6 +7237,8 @@ type RoutingPolicyAction struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	ActionType *RoutingPolicyActionType `json:"actionType"`
+
+	NexthopIpAddress *import1.IPAddress `json:"nexthopIpAddress,omitempty"`
 
 	RerouteParams []RerouteParam `json:"rerouteParams,omitempty"`
 }
@@ -6578,7 +7258,7 @@ func NewRoutingPolicyAction() *RoutingPolicyAction {
 	p := new(RoutingPolicyAction)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyAction"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyAction"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6595,6 +7275,7 @@ const (
 	ROUTINGPOLICYACTIONTYPE_PERMIT   RoutingPolicyActionType = 2
 	ROUTINGPOLICYACTIONTYPE_DENY     RoutingPolicyActionType = 3
 	ROUTINGPOLICYACTIONTYPE_REROUTE  RoutingPolicyActionType = 4
+	ROUTINGPOLICYACTIONTYPE_FORWARD  RoutingPolicyActionType = 5
 )
 
 // Returns the name of the enum given an ordinal number
@@ -6607,6 +7288,7 @@ func (e *RoutingPolicyActionType) name(index int) string {
 		"PERMIT",
 		"DENY",
 		"REROUTE",
+		"FORWARD",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -6623,6 +7305,7 @@ func (e RoutingPolicyActionType) GetName() string {
 		"PERMIT",
 		"DENY",
 		"REROUTE",
+		"FORWARD",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -6638,6 +7321,7 @@ func (e *RoutingPolicyActionType) index(name string) RoutingPolicyActionType {
 		"PERMIT",
 		"DENY",
 		"REROUTE",
+		"FORWARD",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -6665,106 +7349,6 @@ func (e *RoutingPolicyActionType) MarshalJSON() ([]byte, error) {
 
 func (e RoutingPolicyActionType) Ref() *RoutingPolicyActionType {
 	return &e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/routing-policies/{extId} Get operation
-*/
-type RoutingPolicyApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfRoutingPolicyApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewRoutingPolicyApiResponse() *RoutingPolicyApiResponse {
-	p := new(RoutingPolicyApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.RoutingPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *RoutingPolicyApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *RoutingPolicyApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfRoutingPolicyApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/routing-policies Get operation
-*/
-type RoutingPolicyListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfRoutingPolicyListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewRoutingPolicyListApiResponse() *RoutingPolicyListApiResponse {
-	p := new(RoutingPolicyListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.RoutingPolicyListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *RoutingPolicyListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *RoutingPolicyListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfRoutingPolicyListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -6809,7 +7393,7 @@ func NewRoutingPolicyMatchCondition() *RoutingPolicyMatchCondition {
 	p := new(RoutingPolicyMatchCondition)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyMatchCondition"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyMatchCondition"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6834,6 +7418,77 @@ func (p *RoutingPolicyMatchCondition) SetProtocolParameters(v interface{}) error
 		*p.ProtocolParametersItemDiscriminator_ = *p.ProtocolParameters.Discriminator
 	}
 	return e
+}
+
+type RoutingPolicyProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A description of the routing policy.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  Name of the routing policy.
+	*/
+	Name *string `json:"name"`
+
+	Policies []RoutingPolicyRule `json:"policies"`
+	/*
+	  Priority of the routing policy.
+	*/
+	Priority *int `json:"priority"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Vpc *VpcName `json:"vpc,omitempty"`
+	/*
+	  ExtId of the VPC extId to which the routing policy belongs.
+	*/
+	VpcExtId *string `json:"vpcExtId"`
+
+	VpcNameProjection *VpcNameProjection `json:"vpcNameProjection,omitempty"`
+}
+
+func (p *RoutingPolicyProjection) MarshalJSON() ([]byte, error) {
+	type RoutingPolicyProjectionProxy RoutingPolicyProjection
+	return json.Marshal(struct {
+		*RoutingPolicyProjectionProxy
+		Name     *string             `json:"name,omitempty"`
+		Policies []RoutingPolicyRule `json:"policies,omitempty"`
+		Priority *int                `json:"priority,omitempty"`
+		VpcExtId *string             `json:"vpcExtId,omitempty"`
+	}{
+		RoutingPolicyProjectionProxy: (*RoutingPolicyProjectionProxy)(p),
+		Name:                         p.Name,
+		Policies:                     p.Policies,
+		Priority:                     p.Priority,
+		VpcExtId:                     p.VpcExtId,
+	})
+}
+
+func NewRoutingPolicyProjection() *RoutingPolicyProjection {
+	p := new(RoutingPolicyProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.RoutingPolicyProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -6872,7 +7527,7 @@ func NewRoutingPolicyRule() *RoutingPolicyRule {
 	p := new(RoutingPolicyRule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyRule"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.RoutingPolicyRule"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsBidirectional = new(bool)
@@ -6993,7 +7648,7 @@ func NewSiteParams() *SiteParams {
 	p := new(SiteParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SiteParams"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SiteParams"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7094,7 +7749,7 @@ func NewStatus() *Status {
 	p := new(Status)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Status"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Status"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7206,7 +7861,7 @@ func NewStretchStatus() *StretchStatus {
 	p := new(StretchStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.StretchStatus"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.StretchStatus"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7271,7 +7926,7 @@ type Subnet struct {
 	*/
 	IsNatEnabled *bool `json:"isNatEnabled,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -7297,7 +7952,7 @@ type Subnet struct {
 
 	SubnetType *SubnetType `json:"subnetType"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -7331,60 +7986,10 @@ func NewSubnet() *Subnet {
 	p := new(Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Subnet"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Subnet"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/subnets/{extId} Get operation
-*/
-type SubnetApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfSubnetApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewSubnetApiResponse() *SubnetApiResponse {
-	p := new(SubnetApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.SubnetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SubnetApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *SubnetApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *SubnetApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfSubnetApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 type SubnetInfo struct {
@@ -7414,60 +8019,10 @@ func NewSubnetInfo() *SubnetInfo {
 	p := new(SubnetInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SubnetInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SubnetInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/subnets Get operation
-*/
-type SubnetListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfSubnetListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewSubnetListApiResponse() *SubnetListApiResponse {
-	p := new(SubnetListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.SubnetListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SubnetListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *SubnetListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *SubnetListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfSubnetListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 type SubnetProjection struct {
@@ -7529,7 +8084,7 @@ type SubnetProjection struct {
 	*/
 	IsNatEnabled *bool `json:"isNatEnabled,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -7555,7 +8110,7 @@ type SubnetProjection struct {
 
 	SubnetType *SubnetType `json:"subnetType"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -7593,7 +8148,7 @@ func NewSubnetProjection() *SubnetProjection {
 	p := new(SubnetProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SubnetProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.SubnetProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7701,7 +8256,7 @@ func NewTaskReferenceApiResponse() *TaskReferenceApiResponse {
 	p := new(TaskReferenceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.TaskReferenceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TaskReferenceApiResponse"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7762,7 +8317,7 @@ type TrafficMirror struct {
 	*/
 	IsEnabled *bool `json:"isEnabled,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -7776,122 +8331,26 @@ type TrafficMirror struct {
 	*/
 	SourceList []TrafficMirrorSourcePort `json:"sourceList,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Traffic mirror virtual switch reference to use for Remote SPAN.
+	*/
+	VirtualSwitchReference *string `json:"virtualSwitchReference,omitempty"`
 }
 
 func NewTrafficMirror() *TrafficMirror {
 	p := new(TrafficMirror)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.TrafficMirror"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirror"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsEnabled = new(bool)
 	*p.IsEnabled = true
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/traffic-mirrors/{extId} Get operation
-*/
-type TrafficMirrorApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfTrafficMirrorApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewTrafficMirrorApiResponse() *TrafficMirrorApiResponse {
-	p := new(TrafficMirrorApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.TrafficMirrorApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirrorApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *TrafficMirrorApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *TrafficMirrorApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfTrafficMirrorApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/traffic-mirrors Get operation
-*/
-type TrafficMirrorListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfTrafficMirrorListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewTrafficMirrorListApiResponse() *TrafficMirrorListApiResponse {
-	p := new(TrafficMirrorListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.TrafficMirrorListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirrorListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *TrafficMirrorListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *TrafficMirrorListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfTrafficMirrorListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -7932,11 +8391,8 @@ func NewTrafficMirrorPort() *TrafficMirrorPort {
 	p := new(TrafficMirrorPort)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.TrafficMirrorPort"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirrorPort"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
-
-	p.IsUp = new(bool)
-	*p.IsUp = true
 
 	return p
 }
@@ -8062,11 +8518,8 @@ func NewTrafficMirrorSourcePort() *TrafficMirrorSourcePort {
 	p := new(TrafficMirrorSourcePort)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.TrafficMirrorSourcePort"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.TrafficMirrorSourcePort"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
-
-	p.IsUp = new(bool)
-	*p.IsUp = true
 
 	return p
 }
@@ -8265,7 +8718,7 @@ type UplinkBond struct {
 
 	LacpStatus *UplinkBondLacpStatus `json:"lacpStatus,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -8275,7 +8728,7 @@ type UplinkBond struct {
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -8288,60 +8741,10 @@ func NewUplinkBond() *UplinkBond {
 	p := new(UplinkBond)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.UplinkBond"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.UplinkBond"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/uplink-bonds/{extId} Get operation
-*/
-type UplinkBondApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUplinkBondApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUplinkBondApiResponse() *UplinkBondApiResponse {
-	p := new(UplinkBondApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.UplinkBondApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.UplinkBondApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UplinkBondApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UplinkBondApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUplinkBondApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -8425,56 +8828,6 @@ func (e *UplinkBondLacpStatus) MarshalJSON() ([]byte, error) {
 
 func (e UplinkBondLacpStatus) Ref() *UplinkBondLacpStatus {
 	return &e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/uplink-bonds Get operation
-*/
-type UplinkBondListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUplinkBondListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUplinkBondListApiResponse() *UplinkBondListApiResponse {
-	p := new(UplinkBondListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.UplinkBondListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.UplinkBondListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UplinkBondListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UplinkBondListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUplinkBondListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -8583,7 +8936,7 @@ func NewUplinkBondVirtualSwitchInfo() *UplinkBondVirtualSwitchInfo {
 	p := new(UplinkBondVirtualSwitchInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.UplinkBondVirtualSwitchInfo"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.UplinkBondVirtualSwitchInfo"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8625,7 +8978,7 @@ type VirtualSwitch struct {
 	*/
 	IsQuickMode *bool `json:"isQuickMode,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -8639,7 +8992,7 @@ type VirtualSwitch struct {
 	*/
 	Name *string `json:"name"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -8663,7 +9016,7 @@ func NewVirtualSwitch() *VirtualSwitch {
 	p := new(VirtualSwitch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VirtualSwitch"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VirtualSwitch"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsDefault = new(bool)
@@ -8672,106 +9025,6 @@ func NewVirtualSwitch() *VirtualSwitch {
 	*p.IsQuickMode = false
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/virtual-switches/{extId} Get operation
-*/
-type VirtualSwitchApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfVirtualSwitchApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewVirtualSwitchApiResponse() *VirtualSwitchApiResponse {
-	p := new(VirtualSwitchApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.VirtualSwitchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VirtualSwitchApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *VirtualSwitchApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *VirtualSwitchApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfVirtualSwitchApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/virtual-switches Get operation
-*/
-type VirtualSwitchListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfVirtualSwitchListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewVirtualSwitchListApiResponse() *VirtualSwitchListApiResponse {
-	p := new(VirtualSwitchListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.VirtualSwitchListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VirtualSwitchListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *VirtualSwitchListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *VirtualSwitchListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfVirtualSwitchListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 type VirtualSwitchProjection struct {
@@ -8807,7 +9060,7 @@ type VirtualSwitchProjection struct {
 	*/
 	IsQuickMode *bool `json:"isQuickMode,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -8821,7 +9074,7 @@ type VirtualSwitchProjection struct {
 	*/
 	Name *string `json:"name"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -8845,7 +9098,7 @@ func NewVirtualSwitchProjection() *VirtualSwitchProjection {
 	p := new(VirtualSwitchProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VirtualSwitchProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VirtualSwitchProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsDefault = new(bool)
@@ -8866,7 +9119,7 @@ type VlanSubnetMigrationSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Information on the VLAN Subnet that need to be migrated.
+	  VLAN subnet details that need to be migrated.
 	*/
 	Subnets []SubnetInfo `json:"subnets"`
 }
@@ -8886,7 +9139,7 @@ func NewVlanSubnetMigrationSpec() *VlanSubnetMigrationSpec {
 	p := new(VlanSubnetMigrationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VlanSubnetMigrationSpec"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VlanSubnetMigrationSpec"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8911,7 +9164,7 @@ func NewVm() *Vm {
 	p := new(Vm)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Vm"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Vm"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8936,7 +9189,7 @@ func NewVmNic() *VmNic {
 	p := new(VmNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VmNic"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VmNic"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8976,7 +9229,7 @@ func NewVmNicAssociation() *VmNicAssociation {
 	p := new(VmNicAssociation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VmNicAssociation"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VmNicAssociation"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8998,7 +9251,7 @@ func NewVmNicProjection() *VmNicProjection {
 	p := new(VmNicProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VmNicProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VmNicProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9020,7 +9273,7 @@ func NewVmProjection() *VmProjection {
 	p := new(VmProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VmProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VmProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9061,7 +9314,45 @@ func NewVnicMigrationItem() *VnicMigrationItem {
 	p := new(VnicMigrationItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VnicMigrationItem"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VnicMigrationItem"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type VnicMigrationItemSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Metadata *import1.Metadata `json:"metadata,omitempty"`
+	/*
+	  NIC network UUID for the destination subnet.
+	*/
+	NetworkUuid *string `json:"networkUuid,omitempty"`
+
+	RequestedIpAddresses []import1.IPAddress `json:"requestedIpAddresses,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewVnicMigrationItemSpec() *VnicMigrationItemSpec {
+	p := new(VnicMigrationItemSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VnicMigrationItemSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9097,7 +9388,7 @@ func NewVnicMigrationSpec() *VnicMigrationSpec {
 	p := new(VnicMigrationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VnicMigrationSpec"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VnicMigrationSpec"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9132,7 +9423,7 @@ type Vpc struct {
 	*/
 	ExternallyRoutablePrefixes []IPSubnet `json:"externallyRoutablePrefixes,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -9146,9 +9437,11 @@ type Vpc struct {
 	*/
 	SnatIps []import1.IPAddress `json:"snatIps,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+
+	VpcType *VpcType `json:"vpcType,omitempty"`
 }
 
 func (p *Vpc) MarshalJSON() ([]byte, error) {
@@ -9166,60 +9459,10 @@ func NewVpc() *Vpc {
 	p := new(Vpc)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Vpc"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Vpc"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/vpcs/{extId} Get operation
-*/
-type VpcApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfVpcApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewVpcApiResponse() *VpcApiResponse {
-	p := new(VpcApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.VpcApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *VpcApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *VpcApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfVpcApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -9241,60 +9484,57 @@ func NewVpcDhcpOptions() *VpcDhcpOptions {
 	p := new(VpcDhcpOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcDhcpOptions"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcDhcpOptions"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /networking/v4.0.b1/config/vpcs Get operation
+VPC name for projections
 */
-type VpcListApiResponse struct {
+type VpcName struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfVpcListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	  VPC name
+	*/
+	Name *string `json:"name,omitempty"`
 }
 
-func NewVpcListApiResponse() *VpcListApiResponse {
-	p := new(VpcListApiResponse)
+func NewVpcName() *VpcName {
+	p := new(VpcName)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.VpcListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcListApiResponse"}
+	*p.ObjectType_ = "networking.v4.config.VpcName"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *VpcListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
+type VpcNameProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  VPC name
+	*/
+	Name *string `json:"name,omitempty"`
 }
 
-func (p *VpcListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfVpcListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
+func NewVpcNameProjection() *VpcNameProjection {
+	p := new(VpcNameProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.VpcNameProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 type VpcProjection struct {
@@ -9326,7 +9566,7 @@ type VpcProjection struct {
 	*/
 	ExternallyRoutablePrefixes []IPSubnet `json:"externallyRoutablePrefixes,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -9340,9 +9580,11 @@ type VpcProjection struct {
 	*/
 	SnatIps []import1.IPAddress `json:"snatIps,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+
+	VpcType *VpcType `json:"vpcType,omitempty"`
 }
 
 func (p *VpcProjection) MarshalJSON() ([]byte, error) {
@@ -9360,10 +9602,89 @@ func NewVpcProjection() *VpcProjection {
 	p := new(VpcProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcProjection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcProjection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Type of VPC.
+*/
+type VpcType int
+
+const (
+	VPCTYPE_UNKNOWN  VpcType = 0
+	VPCTYPE_REDACTED VpcType = 1
+	VPCTYPE_REGULAR  VpcType = 2
+	VPCTYPE_TRANSIT  VpcType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *VpcType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"REGULAR",
+		"TRANSIT",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e VpcType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"REGULAR",
+		"TRANSIT",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *VpcType) index(name string) VpcType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"REGULAR",
+		"TRANSIT",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return VpcType(idx)
+		}
+	}
+	return VPCTYPE_UNKNOWN
+}
+
+func (e *VpcType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for VpcType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *VpcType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e VpcType) Ref() *VpcType {
+	return &e
 }
 
 type VpcVirtualSwitchMapping struct {
@@ -9375,7 +9696,7 @@ type VpcVirtualSwitchMapping struct {
 	/*
 	  UUID of the cluster.
 	*/
-	ClusterUuid *string `json:"clusterUuid,omitempty"`
+	ClusterUuid *string `json:"clusterUuid"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
@@ -9385,79 +9706,42 @@ type VpcVirtualSwitchMapping struct {
 	*/
 	IsAllTrafficPermitted *bool `json:"isAllTrafficPermitted,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	Metadata *import1.Metadata `json:"metadata,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
 	  UUID of the virtual switch.
 	*/
-	VirtualSwitchUuid *string `json:"virtualSwitchUuid,omitempty"`
+	VirtualSwitchUuid *string `json:"virtualSwitchUuid"`
+}
+
+func (p *VpcVirtualSwitchMapping) MarshalJSON() ([]byte, error) {
+	type VpcVirtualSwitchMappingProxy VpcVirtualSwitchMapping
+	return json.Marshal(struct {
+		*VpcVirtualSwitchMappingProxy
+		ClusterUuid       *string `json:"clusterUuid,omitempty"`
+		VirtualSwitchUuid *string `json:"virtualSwitchUuid,omitempty"`
+	}{
+		VpcVirtualSwitchMappingProxy: (*VpcVirtualSwitchMappingProxy)(p),
+		ClusterUuid:                  p.ClusterUuid,
+		VirtualSwitchUuid:            p.VirtualSwitchUuid,
+	})
 }
 
 func NewVpcVirtualSwitchMapping() *VpcVirtualSwitchMapping {
 	p := new(VpcVirtualSwitchMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcVirtualSwitchMapping"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcVirtualSwitchMapping"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/vpc-virtual-switch-mappings Get operation
-*/
-type VpcVirtualSwitchMappingsApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfVpcVirtualSwitchMappingsApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewVpcVirtualSwitchMappingsApiResponse() *VpcVirtualSwitchMappingsApiResponse {
-	p := new(VpcVirtualSwitchMappingsApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.VpcVirtualSwitchMappingsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpcVirtualSwitchMappingsApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *VpcVirtualSwitchMappingsApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *VpcVirtualSwitchMappingsApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfVpcVirtualSwitchMappingsApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -9474,7 +9758,7 @@ type VpnAppliance struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 
@@ -9484,7 +9768,7 @@ type VpnAppliance struct {
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -9497,7 +9781,7 @@ func NewVpnAppliance() *VpnAppliance {
 	p := new(VpnAppliance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpnAppliance"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnAppliance"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9541,7 +9825,7 @@ type VpnConnection struct {
 	*/
 	LearnedPrefixes []IPSubnet `json:"learnedPrefixes,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user friendly name identifying the link and an address for retrieving the particular resource.
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
@@ -9555,7 +9839,7 @@ type VpnConnection struct {
 	/*
 	  VPN connection name
 	*/
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name"`
 
 	QosConfig *QosConfig `json:"qosConfig,omitempty"`
 	/*
@@ -9563,7 +9847,7 @@ type VpnConnection struct {
 	*/
 	RemoteGatewayReference *string `json:"remoteGatewayReference"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity.  It is automatically assigned by the system and is immutable from an API consumer perspective (some use cases may cause this Id to change - for instance a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 }
@@ -9575,12 +9859,14 @@ func (p *VpnConnection) MarshalJSON() ([]byte, error) {
 		IpsecConfig            *IpsecConfig `json:"ipsecConfig,omitempty"`
 		LocalGatewayReference  *string      `json:"localGatewayReference,omitempty"`
 		LocalGatewayRole       *GatewayRole `json:"localGatewayRole,omitempty"`
+		Name                   *string      `json:"name,omitempty"`
 		RemoteGatewayReference *string      `json:"remoteGatewayReference,omitempty"`
 	}{
 		VpnConnectionProxy:     (*VpnConnectionProxy)(p),
 		IpsecConfig:            p.IpsecConfig,
 		LocalGatewayReference:  p.LocalGatewayReference,
 		LocalGatewayRole:       p.LocalGatewayRole,
+		Name:                   p.Name,
 		RemoteGatewayReference: p.RemoteGatewayReference,
 	})
 }
@@ -9589,160 +9875,10 @@ func NewVpnConnection() *VpnConnection {
 	p := new(VpnConnection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpnConnection"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnConnection"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections/{extId} Get operation
-*/
-type VpnConnectionApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfVpnConnectionApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewVpnConnectionApiResponse() *VpnConnectionApiResponse {
-	p := new(VpnConnectionApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.VpnConnectionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnConnectionApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *VpnConnectionApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *VpnConnectionApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfVpnConnectionApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections Get operation
-*/
-type VpnConnectionListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfVpnConnectionListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewVpnConnectionListApiResponse() *VpnConnectionListApiResponse {
-	p := new(VpnConnectionListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.VpnConnectionListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnConnectionListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *VpnConnectionListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *VpnConnectionListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfVpnConnectionListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /networking/v4.0.b1/config/vpn-connections/{extId}/vpn-vendor-configs Get operation
-*/
-type VpnVendorListApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfVpnVendorListApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewVpnVendorListApiResponse() *VpnVendorListApiResponse {
-	p := new(VpnVendorListApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "networking.v4.config.VpnVendorListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.VpnVendorListApiResponse"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *VpnVendorListApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *VpnVendorListApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfVpnVendorListApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -9762,41 +9898,41 @@ func NewVtep() *Vtep {
 	p := new(Vtep)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Vtep"
-	p.Reserved_ = map[string]interface{}{"$fqObjectType": "networking.v4.r0.b1.config.Vtep"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-type OneOfVpcVirtualSwitchMappingsApiResponseData struct {
-	Discriminator *string                   `json:"-"`
-	ObjectType_   *string                   `json:"-"`
-	oneOfType0    []VpcVirtualSwitchMapping `json:"-"`
-	oneOfType400  *import3.ErrorResponse    `json:"-"`
+type OneOfListNetworkControllersApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []NetworkController    `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
 }
 
-func NewOneOfVpcVirtualSwitchMappingsApiResponseData() *OneOfVpcVirtualSwitchMappingsApiResponseData {
-	p := new(OneOfVpcVirtualSwitchMappingsApiResponseData)
+func NewOneOfListNetworkControllersApiResponseData() *OneOfListNetworkControllersApiResponseData {
+	p := new(OneOfListNetworkControllersApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListNetworkControllersApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVpcVirtualSwitchMappingsApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListNetworkControllersApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []VpcVirtualSwitchMapping:
-		p.oneOfType0 = v.([]VpcVirtualSwitchMapping)
+	case []NetworkController:
+		p.oneOfType0 = v.([]NetworkController)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+		*p.Discriminator = "List<networking.v4.config.NetworkController>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+		*p.ObjectType_ = "List<networking.v4.config.NetworkController>"
 	case import3.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import3.ErrorResponse)
@@ -9816,8 +9952,8 @@ func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) SetValue(v interface{}) e
 	return nil
 }
 
-func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) GetValue() interface{} {
-	if "List<networking.v4.config.VpcVirtualSwitchMapping>" == *p.Discriminator {
+func (p *OneOfListNetworkControllersApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.NetworkController>" == *p.Discriminator {
 		return p.oneOfType0
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
@@ -9826,19 +9962,20 @@ func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]VpcVirtualSwitchMapping)
+func (p *OneOfListNetworkControllersApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]NetworkController)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.VpcVirtualSwitchMapping" == *((*vOneOfType0)[0].ObjectType_) {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.NetworkController" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+			*p.Discriminator = "List<networking.v4.config.NetworkController>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+			*p.ObjectType_ = "List<networking.v4.config.NetworkController>"
 			return nil
 
 		}
@@ -9861,17 +9998,17 @@ func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) UnmarshalJSON(b []byte) e
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpcVirtualSwitchMappingsApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListNetworkControllersApiResponseData"))
 }
 
-func (p *OneOfVpcVirtualSwitchMappingsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<networking.v4.config.VpcVirtualSwitchMapping>" == *p.Discriminator {
+func (p *OneOfListNetworkControllersApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.NetworkController>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfVpcVirtualSwitchMappingsApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListNetworkControllersApiResponseData")
 }
 
 type OneOfGatewayServices struct {
@@ -10096,346 +10233,23 @@ func (p *OneOfFloatingIpAssociation) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfFloatingIpAssociation")
 }
 
-type OneOfFlowGatewayListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []FlowGateway          `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfFlowGatewayListApiResponseData() *OneOfFlowGatewayListApiResponseData {
-	p := new(OneOfFlowGatewayListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfFlowGatewayListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfFlowGatewayListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []FlowGateway:
-		p.oneOfType0 = v.([]FlowGateway)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.FlowGateway>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.FlowGateway>"
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfFlowGatewayListApiResponseData) GetValue() interface{} {
-	if "List<networking.v4.config.FlowGateway>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfFlowGatewayListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]FlowGateway)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.FlowGateway" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.FlowGateway>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.FlowGateway>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFlowGatewayListApiResponseData"))
-}
-
-func (p *OneOfFlowGatewayListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<networking.v4.config.FlowGateway>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfFlowGatewayListApiResponseData")
-}
-
-type OneOfUplinkBondApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *UplinkBond            `json:"-"`
-}
-
-func NewOneOfUplinkBondApiResponseData() *OneOfUplinkBondApiResponseData {
-	p := new(OneOfUplinkBondApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUplinkBondApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUplinkBondApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case UplinkBond:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(UplinkBond)
-		}
-		*p.oneOfType0 = v.(UplinkBond)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUplinkBondApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUplinkBondApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(UplinkBond)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.UplinkBond" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(UplinkBond)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUplinkBondApiResponseData"))
-}
-
-func (p *OneOfUplinkBondApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfUplinkBondApiResponseData")
-}
-
-type OneOfNetworkCloudConfigListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []NetworkCloudConfig   `json:"-"`
-}
-
-func NewOneOfNetworkCloudConfigListApiResponseData() *OneOfNetworkCloudConfigListApiResponseData {
-	p := new(OneOfNetworkCloudConfigListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfNetworkCloudConfigListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNetworkCloudConfigListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []NetworkCloudConfig:
-		p.oneOfType0 = v.([]NetworkCloudConfig)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.NetworkCloudConfig>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.NetworkCloudConfig>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfNetworkCloudConfigListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.NetworkCloudConfig>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfNetworkCloudConfigListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]NetworkCloudConfig)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.NetworkCloudConfig" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.NetworkCloudConfig>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.NetworkCloudConfig>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNetworkCloudConfigListApiResponseData"))
-}
-
-func (p *OneOfNetworkCloudConfigListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.NetworkCloudConfig>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfNetworkCloudConfigListApiResponseData")
-}
-
-type OneOfTrafficMirrorListApiResponseData struct {
+type OneOfListTrafficMirrorsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
 	oneOfType0    []TrafficMirror        `json:"-"`
 }
 
-func NewOneOfTrafficMirrorListApiResponseData() *OneOfTrafficMirrorListApiResponseData {
-	p := new(OneOfTrafficMirrorListApiResponseData)
+func NewOneOfListTrafficMirrorsApiResponseData() *OneOfListTrafficMirrorsApiResponseData {
+	p := new(OneOfListTrafficMirrorsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfTrafficMirrorListApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListTrafficMirrorsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfTrafficMirrorListApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListTrafficMirrorsApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import3.ErrorResponse:
@@ -10467,7 +10281,7 @@ func (p *OneOfTrafficMirrorListApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfTrafficMirrorListApiResponseData) GetValue() interface{} {
+func (p *OneOfListTrafficMirrorsApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -10477,7 +10291,7 @@ func (p *OneOfTrafficMirrorListApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfTrafficMirrorListApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListTrafficMirrorsApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -10498,6 +10312,7 @@ func (p *OneOfTrafficMirrorListApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new([]TrafficMirror)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
 		if len(*vOneOfType0) == 0 || "networking.v4.config.TrafficMirror" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -10512,2839 +10327,20 @@ func (p *OneOfTrafficMirrorListApiResponseData) UnmarshalJSON(b []byte) error {
 
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfTrafficMirrorListApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListTrafficMirrorsApiResponseData"))
 }
 
-func (p *OneOfTrafficMirrorListApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListTrafficMirrorsApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if "List<networking.v4.config.TrafficMirror>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfTrafficMirrorListApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListTrafficMirrorsApiResponseData")
 }
 
-type OneOfTrafficMirrorApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *TrafficMirror         `json:"-"`
-}
-
-func NewOneOfTrafficMirrorApiResponseData() *OneOfTrafficMirrorApiResponseData {
-	p := new(OneOfTrafficMirrorApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfTrafficMirrorApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfTrafficMirrorApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case TrafficMirror:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(TrafficMirror)
-		}
-		*p.oneOfType0 = v.(TrafficMirror)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfTrafficMirrorApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfTrafficMirrorApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(TrafficMirror)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.TrafficMirror" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(TrafficMirror)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfTrafficMirrorApiResponseData"))
-}
-
-func (p *OneOfTrafficMirrorApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfTrafficMirrorApiResponseData")
-}
-
-type OneOfUplinkBondListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []UplinkBond           `json:"-"`
-}
-
-func NewOneOfUplinkBondListApiResponseData() *OneOfUplinkBondListApiResponseData {
-	p := new(OneOfUplinkBondListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUplinkBondListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUplinkBondListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []UplinkBond:
-		p.oneOfType0 = v.([]UplinkBond)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.UplinkBond>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.UplinkBond>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUplinkBondListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.UplinkBond>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUplinkBondListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]UplinkBond)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.UplinkBond" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.UplinkBond>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.UplinkBond>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUplinkBondListApiResponseData"))
-}
-
-func (p *OneOfUplinkBondListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.UplinkBond>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfUplinkBondListApiResponseData")
-}
-
-type OneOfNetworkControllerListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []NetworkController    `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfNetworkControllerListApiResponseData() *OneOfNetworkControllerListApiResponseData {
-	p := new(OneOfNetworkControllerListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfNetworkControllerListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNetworkControllerListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []NetworkController:
-		p.oneOfType0 = v.([]NetworkController)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.NetworkController>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.NetworkController>"
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfNetworkControllerListApiResponseData) GetValue() interface{} {
-	if "List<networking.v4.config.NetworkController>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfNetworkControllerListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]NetworkController)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.NetworkController" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.NetworkController>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.NetworkController>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNetworkControllerListApiResponseData"))
-}
-
-func (p *OneOfNetworkControllerListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<networking.v4.config.NetworkController>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfNetworkControllerListApiResponseData")
-}
-
-type OneOfVpcApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *Vpc                   `json:"-"`
-}
-
-func NewOneOfVpcApiResponseData() *OneOfVpcApiResponseData {
-	p := new(OneOfVpcApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfVpcApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVpcApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Vpc:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Vpc)
-		}
-		*p.oneOfType0 = v.(Vpc)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfVpcApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfVpcApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(Vpc)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.Vpc" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Vpc)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpcApiResponseData"))
-}
-
-func (p *OneOfVpcApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfVpcApiResponseData")
-}
-
-type OneOfFloatingIpApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *FloatingIp            `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfFloatingIpApiResponseData() *OneOfFloatingIpApiResponseData {
-	p := new(OneOfFloatingIpApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfFloatingIpApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfFloatingIpApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case FloatingIp:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(FloatingIp)
-		}
-		*p.oneOfType0 = v.(FloatingIp)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfFloatingIpApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfFloatingIpApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(FloatingIp)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.FloatingIp" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(FloatingIp)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFloatingIpApiResponseData"))
-}
-
-func (p *OneOfFloatingIpApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfFloatingIpApiResponseData")
-}
-
-type OneOfIPFIXExporterListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []IPFIXExporter        `json:"-"`
-}
-
-func NewOneOfIPFIXExporterListApiResponseData() *OneOfIPFIXExporterListApiResponseData {
-	p := new(OneOfIPFIXExporterListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfIPFIXExporterListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfIPFIXExporterListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []IPFIXExporter:
-		p.oneOfType0 = v.([]IPFIXExporter)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.IPFIXExporter>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.IPFIXExporter>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfIPFIXExporterListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.IPFIXExporter>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfIPFIXExporterListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]IPFIXExporter)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.IPFIXExporter" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.IPFIXExporter>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.IPFIXExporter>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfIPFIXExporterListApiResponseData"))
-}
-
-func (p *OneOfIPFIXExporterListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.IPFIXExporter>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfIPFIXExporterListApiResponseData")
-}
-
-type OneOfSubnetApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *Subnet                `json:"-"`
-}
-
-func NewOneOfSubnetApiResponseData() *OneOfSubnetApiResponseData {
-	p := new(OneOfSubnetApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfSubnetApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfSubnetApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Subnet:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Subnet)
-		}
-		*p.oneOfType0 = v.(Subnet)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfSubnetApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfSubnetApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(Subnet)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.Subnet" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Subnet)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSubnetApiResponseData"))
-}
-
-func (p *OneOfSubnetApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfSubnetApiResponseData")
-}
-
-type OneOfFloatingIpListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []FloatingIp           `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType401  []FloatingIpProjection `json:"-"`
-}
-
-func NewOneOfFloatingIpListApiResponseData() *OneOfFloatingIpListApiResponseData {
-	p := new(OneOfFloatingIpListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfFloatingIpListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfFloatingIpListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []FloatingIp:
-		p.oneOfType0 = v.([]FloatingIp)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.FloatingIp>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.FloatingIp>"
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []FloatingIpProjection:
-		p.oneOfType401 = v.([]FloatingIpProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.FloatingIpProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.FloatingIpProjection>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfFloatingIpListApiResponseData) GetValue() interface{} {
-	if "List<networking.v4.config.FloatingIp>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.FloatingIpProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	return nil
-}
-
-func (p *OneOfFloatingIpListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]FloatingIp)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.FloatingIp" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.FloatingIp>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.FloatingIp>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType401 := new([]FloatingIpProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "networking.v4.config.FloatingIpProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.FloatingIpProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.FloatingIpProjection>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFloatingIpListApiResponseData"))
-}
-
-func (p *OneOfFloatingIpListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<networking.v4.config.FloatingIp>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.FloatingIpProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	return nil, errors.New("No value to marshal for OneOfFloatingIpListApiResponseData")
-}
-
-type OneOfClusterFlowStatusApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *ClusterFlowStatus     `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfClusterFlowStatusApiResponseData() *OneOfClusterFlowStatusApiResponseData {
-	p := new(OneOfClusterFlowStatusApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfClusterFlowStatusApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfClusterFlowStatusApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case ClusterFlowStatus:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ClusterFlowStatus)
-		}
-		*p.oneOfType0 = v.(ClusterFlowStatus)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfClusterFlowStatusApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfClusterFlowStatusApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(ClusterFlowStatus)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.ClusterFlowStatus" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ClusterFlowStatus)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterFlowStatusApiResponseData"))
-}
-
-func (p *OneOfClusterFlowStatusApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfClusterFlowStatusApiResponseData")
-}
-
-type OneOfVpcListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []Vpc                  `json:"-"`
-	oneOfType401  []VpcProjection        `json:"-"`
-}
-
-func NewOneOfVpcListApiResponseData() *OneOfVpcListApiResponseData {
-	p := new(OneOfVpcListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfVpcListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVpcListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Vpc:
-		p.oneOfType0 = v.([]Vpc)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.Vpc>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.Vpc>"
-	case []VpcProjection:
-		p.oneOfType401 = v.([]VpcProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.VpcProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.VpcProjection>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfVpcListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.Vpc>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if "List<networking.v4.config.VpcProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	return nil
-}
-
-func (p *OneOfVpcListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]Vpc)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.Vpc" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.Vpc>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.Vpc>"
-			return nil
-
-		}
-	}
-	vOneOfType401 := new([]VpcProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "networking.v4.config.VpcProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.VpcProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.VpcProjection>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpcListApiResponseData"))
-}
-
-func (p *OneOfVpcListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.Vpc>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if "List<networking.v4.config.VpcProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	return nil, errors.New("No value to marshal for OneOfVpcListApiResponseData")
-}
-
-type OneOfLayer2StretchApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *Layer2Stretch         `json:"-"`
-}
-
-func NewOneOfLayer2StretchApiResponseData() *OneOfLayer2StretchApiResponseData {
-	p := new(OneOfLayer2StretchApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfLayer2StretchApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfLayer2StretchApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Layer2Stretch:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Layer2Stretch)
-		}
-		*p.oneOfType0 = v.(Layer2Stretch)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfLayer2StretchApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfLayer2StretchApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(Layer2Stretch)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.Layer2Stretch" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Layer2Stretch)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfLayer2StretchApiResponseData"))
-}
-
-func (p *OneOfLayer2StretchApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfLayer2StretchApiResponseData")
-}
-
-type OneOfCloudNetworkListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []CloudNetwork         `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfCloudNetworkListApiResponseData() *OneOfCloudNetworkListApiResponseData {
-	p := new(OneOfCloudNetworkListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCloudNetworkListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCloudNetworkListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []CloudNetwork:
-		p.oneOfType0 = v.([]CloudNetwork)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.CloudNetwork>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.CloudNetwork>"
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCloudNetworkListApiResponseData) GetValue() interface{} {
-	if "List<networking.v4.config.CloudNetwork>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfCloudNetworkListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]CloudNetwork)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.CloudNetwork" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.CloudNetwork>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.CloudNetwork>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCloudNetworkListApiResponseData"))
-}
-
-func (p *OneOfCloudNetworkListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<networking.v4.config.CloudNetwork>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCloudNetworkListApiResponseData")
-}
-
-type OneOfRoutingPolicyListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []RoutingPolicy        `json:"-"`
-}
-
-func NewOneOfRoutingPolicyListApiResponseData() *OneOfRoutingPolicyListApiResponseData {
-	p := new(OneOfRoutingPolicyListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRoutingPolicyListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRoutingPolicyListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []RoutingPolicy:
-		p.oneOfType0 = v.([]RoutingPolicy)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.RoutingPolicy>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.RoutingPolicy>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRoutingPolicyListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.RoutingPolicy>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfRoutingPolicyListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]RoutingPolicy)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.RoutingPolicy" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.RoutingPolicy>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.RoutingPolicy>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRoutingPolicyListApiResponseData"))
-}
-
-func (p *OneOfRoutingPolicyListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.RoutingPolicy>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfRoutingPolicyListApiResponseData")
-}
-
-type OneOfNetworkControllerApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *NetworkController     `json:"-"`
-}
-
-func NewOneOfNetworkControllerApiResponseData() *OneOfNetworkControllerApiResponseData {
-	p := new(OneOfNetworkControllerApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfNetworkControllerApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNetworkControllerApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case NetworkController:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(NetworkController)
-		}
-		*p.oneOfType0 = v.(NetworkController)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfNetworkControllerApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfNetworkControllerApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(NetworkController)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.NetworkController" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(NetworkController)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNetworkControllerApiResponseData"))
-}
-
-func (p *OneOfNetworkControllerApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfNetworkControllerApiResponseData")
-}
-
-type OneOfIPFIXExporterApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *IPFIXExporter         `json:"-"`
-}
-
-func NewOneOfIPFIXExporterApiResponseData() *OneOfIPFIXExporterApiResponseData {
-	p := new(OneOfIPFIXExporterApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfIPFIXExporterApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfIPFIXExporterApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case IPFIXExporter:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(IPFIXExporter)
-		}
-		*p.oneOfType0 = v.(IPFIXExporter)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfIPFIXExporterApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfIPFIXExporterApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(IPFIXExporter)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.IPFIXExporter" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(IPFIXExporter)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfIPFIXExporterApiResponseData"))
-}
-
-func (p *OneOfIPFIXExporterApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfIPFIXExporterApiResponseData")
-}
-
-type OneOfRoutingPolicyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *RoutingPolicy         `json:"-"`
-}
-
-func NewOneOfRoutingPolicyApiResponseData() *OneOfRoutingPolicyApiResponseData {
-	p := new(OneOfRoutingPolicyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRoutingPolicyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRoutingPolicyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case RoutingPolicy:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(RoutingPolicy)
-		}
-		*p.oneOfType0 = v.(RoutingPolicy)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRoutingPolicyApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfRoutingPolicyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(RoutingPolicy)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.RoutingPolicy" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(RoutingPolicy)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRoutingPolicyApiResponseData"))
-}
-
-func (p *OneOfRoutingPolicyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfRoutingPolicyApiResponseData")
-}
-
-type OneOfVpnVendorListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []VpnAppliance         `json:"-"`
-}
-
-func NewOneOfVpnVendorListApiResponseData() *OneOfVpnVendorListApiResponseData {
-	p := new(OneOfVpnVendorListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfVpnVendorListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVpnVendorListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []VpnAppliance:
-		p.oneOfType0 = v.([]VpnAppliance)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.VpnAppliance>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.VpnAppliance>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfVpnVendorListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.VpnAppliance>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfVpnVendorListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]VpnAppliance)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.VpnAppliance" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.VpnAppliance>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.VpnAppliance>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpnVendorListApiResponseData"))
-}
-
-func (p *OneOfVpnVendorListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.VpnAppliance>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfVpnVendorListApiResponseData")
-}
-
-type OneOfFlowGatewayApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *FlowGateway           `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfFlowGatewayApiResponseData() *OneOfFlowGatewayApiResponseData {
-	p := new(OneOfFlowGatewayApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfFlowGatewayApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfFlowGatewayApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case FlowGateway:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(FlowGateway)
-		}
-		*p.oneOfType0 = v.(FlowGateway)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfFlowGatewayApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfFlowGatewayApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(FlowGateway)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.FlowGateway" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(FlowGateway)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFlowGatewayApiResponseData"))
-}
-
-func (p *OneOfFlowGatewayApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfFlowGatewayApiResponseData")
-}
-
-type OneOfBgpSessionListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType401  []BgpSessionProjection `json:"-"`
-	oneOfType0    []BgpSession           `json:"-"`
-}
-
-func NewOneOfBgpSessionListApiResponseData() *OneOfBgpSessionListApiResponseData {
-	p := new(OneOfBgpSessionListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfBgpSessionListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfBgpSessionListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []BgpSessionProjection:
-		p.oneOfType401 = v.([]BgpSessionProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.BgpSessionProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.BgpSessionProjection>"
-	case []BgpSession:
-		p.oneOfType0 = v.([]BgpSession)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.BgpSession>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.BgpSession>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfBgpSessionListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.BgpSessionProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	if "List<networking.v4.config.BgpSession>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfBgpSessionListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType401 := new([]BgpSessionProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "networking.v4.config.BgpSessionProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.BgpSessionProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.BgpSessionProjection>"
-			return nil
-
-		}
-	}
-	vOneOfType0 := new([]BgpSession)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.BgpSession" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.BgpSession>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.BgpSession>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfBgpSessionListApiResponseData"))
-}
-
-func (p *OneOfBgpSessionListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.BgpSessionProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	if "List<networking.v4.config.BgpSession>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfBgpSessionListApiResponseData")
-}
-
-type OneOfLayer2StretchListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []Layer2Stretch        `json:"-"`
-}
-
-func NewOneOfLayer2StretchListApiResponseData() *OneOfLayer2StretchListApiResponseData {
-	p := new(OneOfLayer2StretchListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfLayer2StretchListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfLayer2StretchListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Layer2Stretch:
-		p.oneOfType0 = v.([]Layer2Stretch)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.Layer2Stretch>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.Layer2Stretch>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfLayer2StretchListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.Layer2Stretch>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfLayer2StretchListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]Layer2Stretch)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.Layer2Stretch" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.Layer2Stretch>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.Layer2Stretch>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfLayer2StretchListApiResponseData"))
-}
-
-func (p *OneOfLayer2StretchListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.Layer2Stretch>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfLayer2StretchListApiResponseData")
-}
-
-type OneOfVirtualSwitchApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *VirtualSwitch         `json:"-"`
-}
-
-func NewOneOfVirtualSwitchApiResponseData() *OneOfVirtualSwitchApiResponseData {
-	p := new(OneOfVirtualSwitchApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfVirtualSwitchApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVirtualSwitchApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case VirtualSwitch:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(VirtualSwitch)
-		}
-		*p.oneOfType0 = v.(VirtualSwitch)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfVirtualSwitchApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfVirtualSwitchApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(VirtualSwitch)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.VirtualSwitch" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(VirtualSwitch)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVirtualSwitchApiResponseData"))
-}
-
-func (p *OneOfVirtualSwitchApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfVirtualSwitchApiResponseData")
-}
-
-type OneOfRouteTableListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []RouteTable           `json:"-"`
-}
-
-func NewOneOfRouteTableListApiResponseData() *OneOfRouteTableListApiResponseData {
-	p := new(OneOfRouteTableListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRouteTableListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRouteTableListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []RouteTable:
-		p.oneOfType0 = v.([]RouteTable)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.RouteTable>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.RouteTable>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRouteTableListApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.RouteTable>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfRouteTableListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]RouteTable)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.RouteTable" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.RouteTable>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.RouteTable>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRouteTableListApiResponseData"))
-}
-
-func (p *OneOfRouteTableListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.RouteTable>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfRouteTableListApiResponseData")
-}
-
-type OneOfAncConfigApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *Anc                   `json:"-"`
-}
-
-func NewOneOfAncConfigApiResponseData() *OneOfAncConfigApiResponseData {
-	p := new(OneOfAncConfigApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAncConfigApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAncConfigApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Anc:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Anc)
-		}
-		*p.oneOfType0 = v.(Anc)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAncConfigApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfAncConfigApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(Anc)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.Anc" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Anc)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAncConfigApiResponseData"))
-}
-
-func (p *OneOfAncConfigApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfAncConfigApiResponseData")
-}
-
-type OneOfGatewayApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *Gateway               `json:"-"`
-}
-
-func NewOneOfGatewayApiResponseData() *OneOfGatewayApiResponseData {
-	p := new(OneOfGatewayApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGatewayApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGatewayApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Gateway:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Gateway)
-		}
-		*p.oneOfType0 = v.(Gateway)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGatewayApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGatewayApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(Gateway)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.Gateway" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Gateway)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGatewayApiResponseData"))
-}
-
-func (p *OneOfGatewayApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGatewayApiResponseData")
-}
-
-type OneOfRouteTableApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *RouteTable            `json:"-"`
-}
-
-func NewOneOfRouteTableApiResponseData() *OneOfRouteTableApiResponseData {
-	p := new(OneOfRouteTableApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRouteTableApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRouteTableApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case RouteTable:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(RouteTable)
-		}
-		*p.oneOfType0 = v.(RouteTable)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRouteTableApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfRouteTableApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(RouteTable)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.RouteTable" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(RouteTable)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRouteTableApiResponseData"))
-}
-
-func (p *OneOfRouteTableApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfRouteTableApiResponseData")
-}
-
-type OneOfVirtualSwitchListApiResponseData struct {
+type OneOfListVirtualSwitchesApiResponseData struct {
 	Discriminator *string                   `json:"-"`
 	ObjectType_   *string                   `json:"-"`
 	oneOfType400  *import3.ErrorResponse    `json:"-"`
@@ -13352,16 +10348,16 @@ type OneOfVirtualSwitchListApiResponseData struct {
 	oneOfType0    []VirtualSwitch           `json:"-"`
 }
 
-func NewOneOfVirtualSwitchListApiResponseData() *OneOfVirtualSwitchListApiResponseData {
-	p := new(OneOfVirtualSwitchListApiResponseData)
+func NewOneOfListVirtualSwitchesApiResponseData() *OneOfListVirtualSwitchesApiResponseData {
+	p := new(OneOfListVirtualSwitchesApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfVirtualSwitchListApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListVirtualSwitchesApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVirtualSwitchListApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListVirtualSwitchesApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import3.ErrorResponse:
@@ -13403,7 +10399,7 @@ func (p *OneOfVirtualSwitchListApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfVirtualSwitchListApiResponseData) GetValue() interface{} {
+func (p *OneOfListVirtualSwitchesApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -13416,7 +10412,7 @@ func (p *OneOfVirtualSwitchListApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfVirtualSwitchListApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListVirtualSwitchesApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -13437,6 +10433,7 @@ func (p *OneOfVirtualSwitchListApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType401 := new([]VirtualSwitchProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+
 		if len(*vOneOfType401) == 0 || "networking.v4.config.VirtualSwitchProjection" == *((*vOneOfType401)[0].ObjectType_) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
@@ -13453,6 +10450,7 @@ func (p *OneOfVirtualSwitchListApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new([]VirtualSwitch)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
 		if len(*vOneOfType0) == 0 || "networking.v4.config.VirtualSwitch" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -13467,10 +10465,10 @@ func (p *OneOfVirtualSwitchListApiResponseData) UnmarshalJSON(b []byte) error {
 
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVirtualSwitchListApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVirtualSwitchesApiResponseData"))
 }
 
-func (p *OneOfVirtualSwitchListApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListVirtualSwitchesApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -13480,7 +10478,1998 @@ func (p *OneOfVirtualSwitchListApiResponseData) MarshalJSON() ([]byte, error) {
 	if "List<networking.v4.config.VirtualSwitch>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfVirtualSwitchListApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListVirtualSwitchesApiResponseData")
+}
+
+type OneOfListRoutingPoliciesApiResponseData struct {
+	Discriminator *string                   `json:"-"`
+	ObjectType_   *string                   `json:"-"`
+	oneOfType400  *import3.ErrorResponse    `json:"-"`
+	oneOfType0    []RoutingPolicy           `json:"-"`
+	oneOfType401  []RoutingPolicyProjection `json:"-"`
+}
+
+func NewOneOfListRoutingPoliciesApiResponseData() *OneOfListRoutingPoliciesApiResponseData {
+	p := new(OneOfListRoutingPoliciesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListRoutingPoliciesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListRoutingPoliciesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []RoutingPolicy:
+		p.oneOfType0 = v.([]RoutingPolicy)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.RoutingPolicy>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.RoutingPolicy>"
+	case []RoutingPolicyProjection:
+		p.oneOfType401 = v.([]RoutingPolicyProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.RoutingPolicyProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.RoutingPolicyProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListRoutingPoliciesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.RoutingPolicy>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if "List<networking.v4.config.RoutingPolicyProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfListRoutingPoliciesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]RoutingPolicy)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.RoutingPolicy" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.RoutingPolicy>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.RoutingPolicy>"
+			return nil
+
+		}
+	}
+	vOneOfType401 := new([]RoutingPolicyProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+
+		if len(*vOneOfType401) == 0 || "networking.v4.config.RoutingPolicyProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.RoutingPolicyProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.RoutingPolicyProjection>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRoutingPoliciesApiResponseData"))
+}
+
+func (p *OneOfListRoutingPoliciesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.RoutingPolicy>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if "List<networking.v4.config.RoutingPolicyProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfListRoutingPoliciesApiResponseData")
+}
+
+type OneOfListBgpSessionsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType401  []BgpSessionProjection `json:"-"`
+	oneOfType0    []BgpSession           `json:"-"`
+}
+
+func NewOneOfListBgpSessionsApiResponseData() *OneOfListBgpSessionsApiResponseData {
+	p := new(OneOfListBgpSessionsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListBgpSessionsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListBgpSessionsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []BgpSessionProjection:
+		p.oneOfType401 = v.([]BgpSessionProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.BgpSessionProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.BgpSessionProjection>"
+	case []BgpSession:
+		p.oneOfType0 = v.([]BgpSession)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.BgpSession>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.BgpSession>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListBgpSessionsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.BgpSessionProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if "List<networking.v4.config.BgpSession>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListBgpSessionsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]BgpSessionProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+
+		if len(*vOneOfType401) == 0 || "networking.v4.config.BgpSessionProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.BgpSessionProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.BgpSessionProjection>"
+			return nil
+
+		}
+	}
+	vOneOfType0 := new([]BgpSession)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.BgpSession" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.BgpSession>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.BgpSession>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListBgpSessionsApiResponseData"))
+}
+
+func (p *OneOfListBgpSessionsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.BgpSessionProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if "List<networking.v4.config.BgpSession>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListBgpSessionsApiResponseData")
+}
+
+type OneOfListVpcsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []Vpc                  `json:"-"`
+	oneOfType401  []VpcProjection        `json:"-"`
+}
+
+func NewOneOfListVpcsApiResponseData() *OneOfListVpcsApiResponseData {
+	p := new(OneOfListVpcsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListVpcsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListVpcsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Vpc:
+		p.oneOfType0 = v.([]Vpc)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.Vpc>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.Vpc>"
+	case []VpcProjection:
+		p.oneOfType401 = v.([]VpcProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.VpcProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.VpcProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListVpcsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.Vpc>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if "List<networking.v4.config.VpcProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfListVpcsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]Vpc)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.Vpc" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.Vpc>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.Vpc>"
+			return nil
+
+		}
+	}
+	vOneOfType401 := new([]VpcProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+
+		if len(*vOneOfType401) == 0 || "networking.v4.config.VpcProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.VpcProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.VpcProjection>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVpcsApiResponseData"))
+}
+
+func (p *OneOfListVpcsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.Vpc>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if "List<networking.v4.config.VpcProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVpcsApiResponseData")
+}
+
+type OneOfGetSubnetApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *Subnet                `json:"-"`
+}
+
+func NewOneOfGetSubnetApiResponseData() *OneOfGetSubnetApiResponseData {
+	p := new(OneOfGetSubnetApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetSubnetApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetSubnetApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Subnet:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Subnet)
+		}
+		*p.oneOfType0 = v.(Subnet)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetSubnetApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetSubnetApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(Subnet)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.Subnet" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Subnet)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSubnetApiResponseData"))
+}
+
+func (p *OneOfGetSubnetApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetSubnetApiResponseData")
+}
+
+type OneOfGetNetworkControllerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *NetworkController     `json:"-"`
+}
+
+func NewOneOfGetNetworkControllerApiResponseData() *OneOfGetNetworkControllerApiResponseData {
+	p := new(OneOfGetNetworkControllerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetNetworkControllerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetNetworkControllerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case NetworkController:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(NetworkController)
+		}
+		*p.oneOfType0 = v.(NetworkController)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetNetworkControllerApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetNetworkControllerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(NetworkController)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.NetworkController" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(NetworkController)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetNetworkControllerApiResponseData"))
+}
+
+func (p *OneOfGetNetworkControllerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetNetworkControllerApiResponseData")
+}
+
+type OneOfGetVpcApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *Vpc                   `json:"-"`
+}
+
+func NewOneOfGetVpcApiResponseData() *OneOfGetVpcApiResponseData {
+	p := new(OneOfGetVpcApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetVpcApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetVpcApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Vpc:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Vpc)
+		}
+		*p.oneOfType0 = v.(Vpc)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetVpcApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetVpcApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(Vpc)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.Vpc" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Vpc)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVpcApiResponseData"))
+}
+
+func (p *OneOfGetVpcApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetVpcApiResponseData")
+}
+
+type OneOfGetIPFIXExporterApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *IPFIXExporter         `json:"-"`
+}
+
+func NewOneOfGetIPFIXExporterApiResponseData() *OneOfGetIPFIXExporterApiResponseData {
+	p := new(OneOfGetIPFIXExporterApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetIPFIXExporterApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetIPFIXExporterApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case IPFIXExporter:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(IPFIXExporter)
+		}
+		*p.oneOfType0 = v.(IPFIXExporter)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetIPFIXExporterApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetIPFIXExporterApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(IPFIXExporter)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.IPFIXExporter" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(IPFIXExporter)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetIPFIXExporterApiResponseData"))
+}
+
+func (p *OneOfGetIPFIXExporterApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetIPFIXExporterApiResponseData")
+}
+
+type OneOfListVpnVendorConfigsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []VpnAppliance         `json:"-"`
+}
+
+func NewOneOfListVpnVendorConfigsApiResponseData() *OneOfListVpnVendorConfigsApiResponseData {
+	p := new(OneOfListVpnVendorConfigsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListVpnVendorConfigsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListVpnVendorConfigsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []VpnAppliance:
+		p.oneOfType0 = v.([]VpnAppliance)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.VpnAppliance>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.VpnAppliance>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListVpnVendorConfigsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.VpnAppliance>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListVpnVendorConfigsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]VpnAppliance)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.VpnAppliance" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.VpnAppliance>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.VpnAppliance>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVpnVendorConfigsApiResponseData"))
+}
+
+func (p *OneOfListVpnVendorConfigsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.VpnAppliance>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVpnVendorConfigsApiResponseData")
+}
+
+type OneOfListLayer2StretchesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []Layer2Stretch        `json:"-"`
+}
+
+func NewOneOfListLayer2StretchesApiResponseData() *OneOfListLayer2StretchesApiResponseData {
+	p := new(OneOfListLayer2StretchesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListLayer2StretchesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListLayer2StretchesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Layer2Stretch:
+		p.oneOfType0 = v.([]Layer2Stretch)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.Layer2Stretch>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.Layer2Stretch>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListLayer2StretchesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.Layer2Stretch>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListLayer2StretchesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]Layer2Stretch)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.Layer2Stretch" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.Layer2Stretch>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.Layer2Stretch>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLayer2StretchesApiResponseData"))
+}
+
+func (p *OneOfListLayer2StretchesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.Layer2Stretch>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListLayer2StretchesApiResponseData")
+}
+
+type OneOfGetRouteTableApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *RouteTable            `json:"-"`
+}
+
+func NewOneOfGetRouteTableApiResponseData() *OneOfGetRouteTableApiResponseData {
+	p := new(OneOfGetRouteTableApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetRouteTableApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetRouteTableApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case RouteTable:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(RouteTable)
+		}
+		*p.oneOfType0 = v.(RouteTable)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetRouteTableApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetRouteTableApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(RouteTable)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.RouteTable" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(RouteTable)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRouteTableApiResponseData"))
+}
+
+func (p *OneOfGetRouteTableApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetRouteTableApiResponseData")
+}
+
+type OneOfListLayer2StretchRelatedEntitiesApiResponseData struct {
+	Discriminator *string                       `json:"-"`
+	ObjectType_   *string                       `json:"-"`
+	oneOfType0    *Layer2StretchRelatedEntities `json:"-"`
+	oneOfType400  *import3.ErrorResponse        `json:"-"`
+}
+
+func NewOneOfListLayer2StretchRelatedEntitiesApiResponseData() *OneOfListLayer2StretchRelatedEntitiesApiResponseData {
+	p := new(OneOfListLayer2StretchRelatedEntitiesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListLayer2StretchRelatedEntitiesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListLayer2StretchRelatedEntitiesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case Layer2StretchRelatedEntities:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Layer2StretchRelatedEntities)
+		}
+		*p.oneOfType0 = v.(Layer2StretchRelatedEntities)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListLayer2StretchRelatedEntitiesApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListLayer2StretchRelatedEntitiesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(Layer2StretchRelatedEntities)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.Layer2StretchRelatedEntities" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Layer2StretchRelatedEntities)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLayer2StretchRelatedEntitiesApiResponseData"))
+}
+
+func (p *OneOfListLayer2StretchRelatedEntitiesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListLayer2StretchRelatedEntitiesApiResponseData")
+}
+
+type OneOfListNodeSchedulableStatusesApiResponseData struct {
+	Discriminator *string                           `json:"-"`
+	ObjectType_   *string                           `json:"-"`
+	oneOfType400  *import3.ErrorResponse            `json:"-"`
+	oneOfType401  []NodeSchedulableStatusProjection `json:"-"`
+	oneOfType0    []NodeSchedulableStatus           `json:"-"`
+}
+
+func NewOneOfListNodeSchedulableStatusesApiResponseData() *OneOfListNodeSchedulableStatusesApiResponseData {
+	p := new(OneOfListNodeSchedulableStatusesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListNodeSchedulableStatusesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListNodeSchedulableStatusesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []NodeSchedulableStatusProjection:
+		p.oneOfType401 = v.([]NodeSchedulableStatusProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatusProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatusProjection>"
+	case []NodeSchedulableStatus:
+		p.oneOfType0 = v.([]NodeSchedulableStatus)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatus>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatus>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListNodeSchedulableStatusesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.NodeSchedulableStatusProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if "List<networking.v4.config.NodeSchedulableStatus>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListNodeSchedulableStatusesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]NodeSchedulableStatusProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+
+		if len(*vOneOfType401) == 0 || "networking.v4.config.NodeSchedulableStatusProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatusProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatusProjection>"
+			return nil
+
+		}
+	}
+	vOneOfType0 := new([]NodeSchedulableStatus)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.NodeSchedulableStatus" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatus>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatus>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListNodeSchedulableStatusesApiResponseData"))
+}
+
+func (p *OneOfListNodeSchedulableStatusesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.NodeSchedulableStatusProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if "List<networking.v4.config.NodeSchedulableStatus>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListNodeSchedulableStatusesApiResponseData")
+}
+
+type OneOfGetUplinkBondApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *UplinkBond            `json:"-"`
+}
+
+func NewOneOfGetUplinkBondApiResponseData() *OneOfGetUplinkBondApiResponseData {
+	p := new(OneOfGetUplinkBondApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetUplinkBondApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetUplinkBondApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case UplinkBond:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(UplinkBond)
+		}
+		*p.oneOfType0 = v.(UplinkBond)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetUplinkBondApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetUplinkBondApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(UplinkBond)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.UplinkBond" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(UplinkBond)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetUplinkBondApiResponseData"))
+}
+
+func (p *OneOfGetUplinkBondApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetUplinkBondApiResponseData")
+}
+
+type OneOfGetGatewayApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *Gateway               `json:"-"`
+}
+
+func NewOneOfGetGatewayApiResponseData() *OneOfGetGatewayApiResponseData {
+	p := new(OneOfGetGatewayApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetGatewayApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetGatewayApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Gateway:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Gateway)
+		}
+		*p.oneOfType0 = v.(Gateway)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetGatewayApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetGatewayApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(Gateway)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.Gateway" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Gateway)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetGatewayApiResponseData"))
+}
+
+func (p *OneOfGetGatewayApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetGatewayApiResponseData")
+}
+
+type OneOfGetLayer2StretchApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *Layer2Stretch         `json:"-"`
+}
+
+func NewOneOfGetLayer2StretchApiResponseData() *OneOfGetLayer2StretchApiResponseData {
+	p := new(OneOfGetLayer2StretchApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetLayer2StretchApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetLayer2StretchApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Layer2Stretch:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Layer2Stretch)
+		}
+		*p.oneOfType0 = v.(Layer2Stretch)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetLayer2StretchApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetLayer2StretchApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(Layer2Stretch)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.Layer2Stretch" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Layer2Stretch)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetLayer2StretchApiResponseData"))
+}
+
+func (p *OneOfGetLayer2StretchApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetLayer2StretchApiResponseData")
+}
+
+type OneOfListIPFIXExportersApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []IPFIXExporter        `json:"-"`
+}
+
+func NewOneOfListIPFIXExportersApiResponseData() *OneOfListIPFIXExportersApiResponseData {
+	p := new(OneOfListIPFIXExportersApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListIPFIXExportersApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListIPFIXExportersApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []IPFIXExporter:
+		p.oneOfType0 = v.([]IPFIXExporter)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.IPFIXExporter>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.IPFIXExporter>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListIPFIXExportersApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.IPFIXExporter>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListIPFIXExportersApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]IPFIXExporter)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.IPFIXExporter" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.IPFIXExporter>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.IPFIXExporter>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListIPFIXExportersApiResponseData"))
+}
+
+func (p *OneOfListIPFIXExportersApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.IPFIXExporter>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListIPFIXExportersApiResponseData")
+}
+
+type OneOfListRouteTablesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []RouteTable           `json:"-"`
+}
+
+func NewOneOfListRouteTablesApiResponseData() *OneOfListRouteTablesApiResponseData {
+	p := new(OneOfListRouteTablesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListRouteTablesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListRouteTablesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []RouteTable:
+		p.oneOfType0 = v.([]RouteTable)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.RouteTable>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.RouteTable>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListRouteTablesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.RouteTable>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListRouteTablesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]RouteTable)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.RouteTable" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.RouteTable>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.RouteTable>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRouteTablesApiResponseData"))
+}
+
+func (p *OneOfListRouteTablesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.RouteTable>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListRouteTablesApiResponseData")
 }
 
 type OneOfFloatingIpProjectionAssociation struct {
@@ -13594,23 +12583,23 @@ func (p *OneOfFloatingIpProjectionAssociation) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfFloatingIpProjectionAssociation")
 }
 
-type OneOfFlowGatewayKeepAliveApiResponseData struct {
+type OneOfListVpnConnectionsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *FlowGatewayKeepAlive  `json:"-"`
+	oneOfType0    []VpnConnection        `json:"-"`
 }
 
-func NewOneOfFlowGatewayKeepAliveApiResponseData() *OneOfFlowGatewayKeepAliveApiResponseData {
-	p := new(OneOfFlowGatewayKeepAliveApiResponseData)
+func NewOneOfListVpnConnectionsApiResponseData() *OneOfListVpnConnectionsApiResponseData {
+	p := new(OneOfListVpnConnectionsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfFlowGatewayKeepAliveApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListVpnConnectionsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfFlowGatewayKeepAliveApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListVpnConnectionsApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import3.ErrorResponse:
@@ -13626,36 +12615,33 @@ func (p *OneOfFlowGatewayKeepAliveApiResponseData) SetValue(v interface{}) error
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case FlowGatewayKeepAlive:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(FlowGatewayKeepAlive)
-		}
-		*p.oneOfType0 = v.(FlowGatewayKeepAlive)
+	case []VpnConnection:
+		p.oneOfType0 = v.([]VpnConnection)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = "List<networking.v4.config.VpnConnection>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+		*p.ObjectType_ = "List<networking.v4.config.VpnConnection>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfFlowGatewayKeepAliveApiResponseData) GetValue() interface{} {
+func (p *OneOfListVpnConnectionsApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+	if "List<networking.v4.config.VpnConnection>" == *p.Discriminator {
+		return p.oneOfType0
 	}
 	return nil
 }
 
-func (p *OneOfFlowGatewayKeepAliveApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListVpnConnectionsApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -13674,11 +12660,210 @@ func (p *OneOfFlowGatewayKeepAliveApiResponseData) UnmarshalJSON(b []byte) error
 			return nil
 		}
 	}
-	vOneOfType0 := new(FlowGatewayKeepAlive)
+	vOneOfType0 := new([]VpnConnection)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.FlowGatewayKeepAlive" == *vOneOfType0.ObjectType_ {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.VpnConnection" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.VpnConnection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.VpnConnection>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVpnConnectionsApiResponseData"))
+}
+
+func (p *OneOfListVpnConnectionsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.VpnConnection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVpnConnectionsApiResponseData")
+}
+
+type OneOfListVpcVirtualSwitchMappingsApiResponseData struct {
+	Discriminator *string                   `json:"-"`
+	ObjectType_   *string                   `json:"-"`
+	oneOfType0    []VpcVirtualSwitchMapping `json:"-"`
+	oneOfType400  *import3.ErrorResponse    `json:"-"`
+}
+
+func NewOneOfListVpcVirtualSwitchMappingsApiResponseData() *OneOfListVpcVirtualSwitchMappingsApiResponseData {
+	p := new(OneOfListVpcVirtualSwitchMappingsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListVpcVirtualSwitchMappingsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListVpcVirtualSwitchMappingsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []VpcVirtualSwitchMapping:
+		p.oneOfType0 = v.([]VpcVirtualSwitchMapping)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListVpcVirtualSwitchMappingsApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.VpcVirtualSwitchMapping>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListVpcVirtualSwitchMappingsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]VpcVirtualSwitchMapping)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.VpcVirtualSwitchMapping" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.VpcVirtualSwitchMapping>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVpcVirtualSwitchMappingsApiResponseData"))
+}
+
+func (p *OneOfListVpcVirtualSwitchMappingsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.VpcVirtualSwitchMapping>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVpcVirtualSwitchMappingsApiResponseData")
+}
+
+type OneOfGetFloatingIpApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *FloatingIp            `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetFloatingIpApiResponseData() *OneOfGetFloatingIpApiResponseData {
+	p := new(OneOfGetFloatingIpApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetFloatingIpApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetFloatingIpApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case FloatingIp:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(FloatingIp)
+		}
+		*p.oneOfType0 = v.(FloatingIp)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetFloatingIpApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetFloatingIpApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(FloatingIp)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.FloatingIp" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(FlowGatewayKeepAlive)
+				p.oneOfType0 = new(FloatingIp)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -13692,36 +12877,54 @@ func (p *OneOfFlowGatewayKeepAliveApiResponseData) UnmarshalJSON(b []byte) error
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFlowGatewayKeepAliveApiResponseData"))
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetFloatingIpApiResponseData"))
 }
 
-func (p *OneOfFlowGatewayKeepAliveApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
+func (p *OneOfGetFloatingIpApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfFlowGatewayKeepAliveApiResponseData")
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetFloatingIpApiResponseData")
 }
 
-type OneOfVpnConnectionApiResponseData struct {
+type OneOfGetVpnConnectionApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
 	oneOfType0    *VpnConnection         `json:"-"`
 }
 
-func NewOneOfVpnConnectionApiResponseData() *OneOfVpnConnectionApiResponseData {
-	p := new(OneOfVpnConnectionApiResponseData)
+func NewOneOfGetVpnConnectionApiResponseData() *OneOfGetVpnConnectionApiResponseData {
+	p := new(OneOfGetVpnConnectionApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfVpnConnectionApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetVpnConnectionApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVpnConnectionApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetVpnConnectionApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import3.ErrorResponse:
@@ -13756,7 +12959,7 @@ func (p *OneOfVpnConnectionApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfVpnConnectionApiResponseData) GetValue() interface{} {
+func (p *OneOfGetVpnConnectionApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -13766,7 +12969,7 @@ func (p *OneOfVpnConnectionApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfVpnConnectionApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfGetVpnConnectionApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -13803,38 +13006,49 @@ func (p *OneOfVpnConnectionApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpnConnectionApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVpnConnectionApiResponseData"))
 }
 
-func (p *OneOfVpnConnectionApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetVpnConnectionApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfVpnConnectionApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetVpnConnectionApiResponseData")
 }
 
-type OneOfVpnConnectionListApiResponseData struct {
+type OneOfListFloatingIpsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
+	oneOfType0    []FloatingIp           `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    []VpnConnection        `json:"-"`
+	oneOfType401  []FloatingIpProjection `json:"-"`
 }
 
-func NewOneOfVpnConnectionListApiResponseData() *OneOfVpnConnectionListApiResponseData {
-	p := new(OneOfVpnConnectionListApiResponseData)
+func NewOneOfListFloatingIpsApiResponseData() *OneOfListFloatingIpsApiResponseData {
+	p := new(OneOfListFloatingIpsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfVpnConnectionListApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListFloatingIpsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVpnConnectionListApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListFloatingIpsApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case []FloatingIp:
+		p.oneOfType0 = v.([]FloatingIp)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.FloatingIp>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.FloatingIp>"
 	case import3.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import3.ErrorResponse)
@@ -13848,380 +13062,51 @@ func (p *OneOfVpnConnectionListApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []VpnConnection:
-		p.oneOfType0 = v.([]VpnConnection)
+	case []FloatingIpProjection:
+		p.oneOfType401 = v.([]FloatingIpProjection)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<networking.v4.config.VpnConnection>"
+		*p.Discriminator = "List<networking.v4.config.FloatingIpProjection>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<networking.v4.config.VpnConnection>"
+		*p.ObjectType_ = "List<networking.v4.config.FloatingIpProjection>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfVpnConnectionListApiResponseData) GetValue() interface{} {
+func (p *OneOfListFloatingIpsApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.FloatingIp>" == *p.Discriminator {
+		return p.oneOfType0
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<networking.v4.config.VpnConnection>" == *p.Discriminator {
-		return p.oneOfType0
+	if "List<networking.v4.config.FloatingIpProjection>" == *p.Discriminator {
+		return p.oneOfType401
 	}
 	return nil
 }
 
-func (p *OneOfVpnConnectionListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]VpnConnection)
+func (p *OneOfListFloatingIpsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]FloatingIp)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.VpnConnection" == *((*vOneOfType0)[0].ObjectType_) {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.FloatingIp" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<networking.v4.config.VpnConnection>"
+			*p.Discriminator = "List<networking.v4.config.FloatingIp>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<networking.v4.config.VpnConnection>"
+			*p.ObjectType_ = "List<networking.v4.config.FloatingIp>"
 			return nil
 
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVpnConnectionListApiResponseData"))
-}
-
-func (p *OneOfVpnConnectionListApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.VpnConnection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfVpnConnectionListApiResponseData")
-}
-
-type OneOfCloudNetworkApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *CloudNetwork          `json:"-"`
-}
-
-func NewOneOfCloudNetworkApiResponseData() *OneOfCloudNetworkApiResponseData {
-	p := new(OneOfCloudNetworkApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCloudNetworkApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCloudNetworkApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case CloudNetwork:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(CloudNetwork)
-		}
-		*p.oneOfType0 = v.(CloudNetwork)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCloudNetworkApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCloudNetworkApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(CloudNetwork)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.CloudNetwork" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(CloudNetwork)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCloudNetworkApiResponseData"))
-}
-
-func (p *OneOfCloudNetworkApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCloudNetworkApiResponseData")
-}
-
-type OneOfNetworkCloudConfigApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType0    *NetworkCloudConfig    `json:"-"`
-}
-
-func NewOneOfNetworkCloudConfigApiResponseData() *OneOfNetworkCloudConfigApiResponseData {
-	p := new(OneOfNetworkCloudConfigApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfNetworkCloudConfigApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNetworkCloudConfigApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case NetworkCloudConfig:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(NetworkCloudConfig)
-		}
-		*p.oneOfType0 = v.(NetworkCloudConfig)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfNetworkCloudConfigApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfNetworkCloudConfigApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(NetworkCloudConfig)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.NetworkCloudConfig" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(NetworkCloudConfig)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNetworkCloudConfigApiResponseData"))
-}
-
-func (p *OneOfNetworkCloudConfigApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfNetworkCloudConfigApiResponseData")
-}
-
-type OneOfLayer2StretchRelatedEntitiesApiResponseData struct {
-	Discriminator *string                       `json:"-"`
-	ObjectType_   *string                       `json:"-"`
-	oneOfType0    *Layer2StretchRelatedEntities `json:"-"`
-	oneOfType400  *import3.ErrorResponse        `json:"-"`
-}
-
-func NewOneOfLayer2StretchRelatedEntitiesApiResponseData() *OneOfLayer2StretchRelatedEntitiesApiResponseData {
-	p := new(OneOfLayer2StretchRelatedEntitiesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfLayer2StretchRelatedEntitiesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfLayer2StretchRelatedEntitiesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case Layer2StretchRelatedEntities:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Layer2StretchRelatedEntities)
-		}
-		*p.oneOfType0 = v.(Layer2StretchRelatedEntities)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfLayer2StretchRelatedEntitiesApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfLayer2StretchRelatedEntitiesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(Layer2StretchRelatedEntities)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "networking.v4.config.Layer2StretchRelatedEntities" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Layer2StretchRelatedEntities)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
 		}
 	}
 	vOneOfType400 := new(import3.ErrorResponse)
@@ -14242,20 +13127,40 @@ func (p *OneOfLayer2StretchRelatedEntitiesApiResponseData) UnmarshalJSON(b []byt
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfLayer2StretchRelatedEntitiesApiResponseData"))
+	vOneOfType401 := new([]FloatingIpProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+
+		if len(*vOneOfType401) == 0 || "networking.v4.config.FloatingIpProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.FloatingIpProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.FloatingIpProjection>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListFloatingIpsApiResponseData"))
 }
 
-func (p *OneOfLayer2StretchRelatedEntitiesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+func (p *OneOfListFloatingIpsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.FloatingIp>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfLayer2StretchRelatedEntitiesApiResponseData")
+	if "List<networking.v4.config.FloatingIpProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfListFloatingIpsApiResponseData")
 }
 
-type OneOfSubnetListApiResponseData struct {
+type OneOfListSubnetsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    []Subnet               `json:"-"`
@@ -14263,16 +13168,16 @@ type OneOfSubnetListApiResponseData struct {
 	oneOfType401  []SubnetProjection     `json:"-"`
 }
 
-func NewOneOfSubnetListApiResponseData() *OneOfSubnetListApiResponseData {
-	p := new(OneOfSubnetListApiResponseData)
+func NewOneOfListSubnetsApiResponseData() *OneOfListSubnetsApiResponseData {
+	p := new(OneOfListSubnetsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfSubnetListApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListSubnetsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfSubnetListApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListSubnetsApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case []Subnet:
@@ -14314,7 +13219,7 @@ func (p *OneOfSubnetListApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfSubnetListApiResponseData) GetValue() interface{} {
+func (p *OneOfListSubnetsApiResponseData) GetValue() interface{} {
 	if "List<networking.v4.config.Subnet>" == *p.Discriminator {
 		return p.oneOfType0
 	}
@@ -14327,9 +13232,10 @@ func (p *OneOfSubnetListApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfSubnetListApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListSubnetsApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new([]Subnet)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
 		if len(*vOneOfType0) == 0 || "networking.v4.config.Subnet" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -14364,6 +13270,7 @@ func (p *OneOfSubnetListApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType401 := new([]SubnetProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+
 		if len(*vOneOfType401) == 0 || "networking.v4.config.SubnetProjection" == *((*vOneOfType401)[0].ObjectType_) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
@@ -14378,10 +13285,10 @@ func (p *OneOfSubnetListApiResponseData) UnmarshalJSON(b []byte) error {
 
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSubnetListApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSubnetsApiResponseData"))
 }
 
-func (p *OneOfSubnetListApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListSubnetsApiResponseData) MarshalJSON() ([]byte, error) {
 	if "List<networking.v4.config.Subnet>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -14391,26 +13298,26 @@ func (p *OneOfSubnetListApiResponseData) MarshalJSON() ([]byte, error) {
 	if "List<networking.v4.config.SubnetProjection>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType401)
 	}
-	return nil, errors.New("No value to marshal for OneOfSubnetListApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListSubnetsApiResponseData")
 }
 
-type OneOfBgpSessionApiResponseData struct {
+type OneOfGetBgpSessionApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import3.ErrorResponse `json:"-"`
 	oneOfType0    *BgpSession            `json:"-"`
 }
 
-func NewOneOfBgpSessionApiResponseData() *OneOfBgpSessionApiResponseData {
-	p := new(OneOfBgpSessionApiResponseData)
+func NewOneOfGetBgpSessionApiResponseData() *OneOfGetBgpSessionApiResponseData {
+	p := new(OneOfGetBgpSessionApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfBgpSessionApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetBgpSessionApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfBgpSessionApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetBgpSessionApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import3.ErrorResponse:
@@ -14445,7 +13352,7 @@ func (p *OneOfBgpSessionApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfBgpSessionApiResponseData) GetValue() interface{} {
+func (p *OneOfGetBgpSessionApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -14455,7 +13362,7 @@ func (p *OneOfBgpSessionApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfBgpSessionApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfGetBgpSessionApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import3.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -14492,17 +13399,453 @@ func (p *OneOfBgpSessionApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfBgpSessionApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetBgpSessionApiResponseData"))
 }
 
-func (p *OneOfBgpSessionApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetBgpSessionApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfBgpSessionApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetBgpSessionApiResponseData")
+}
+
+type OneOfGetRoutingPolicyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *RoutingPolicy         `json:"-"`
+}
+
+func NewOneOfGetRoutingPolicyApiResponseData() *OneOfGetRoutingPolicyApiResponseData {
+	p := new(OneOfGetRoutingPolicyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetRoutingPolicyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetRoutingPolicyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case RoutingPolicy:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(RoutingPolicy)
+		}
+		*p.oneOfType0 = v.(RoutingPolicy)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetRoutingPolicyApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetRoutingPolicyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(RoutingPolicy)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.RoutingPolicy" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(RoutingPolicy)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRoutingPolicyApiResponseData"))
+}
+
+func (p *OneOfGetRoutingPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetRoutingPolicyApiResponseData")
+}
+
+type OneOfGetVirtualSwitchApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *VirtualSwitch         `json:"-"`
+}
+
+func NewOneOfGetVirtualSwitchApiResponseData() *OneOfGetVirtualSwitchApiResponseData {
+	p := new(OneOfGetVirtualSwitchApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetVirtualSwitchApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetVirtualSwitchApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case VirtualSwitch:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(VirtualSwitch)
+		}
+		*p.oneOfType0 = v.(VirtualSwitch)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetVirtualSwitchApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetVirtualSwitchApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(VirtualSwitch)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.VirtualSwitch" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(VirtualSwitch)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVirtualSwitchApiResponseData"))
+}
+
+func (p *OneOfGetVirtualSwitchApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetVirtualSwitchApiResponseData")
+}
+
+type OneOfListClusterCapabilitiesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []ClusterCapability    `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListClusterCapabilitiesApiResponseData() *OneOfListClusterCapabilitiesApiResponseData {
+	p := new(OneOfListClusterCapabilitiesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListClusterCapabilitiesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListClusterCapabilitiesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []ClusterCapability:
+		p.oneOfType0 = v.([]ClusterCapability)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.ClusterCapability>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.ClusterCapability>"
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListClusterCapabilitiesApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.ClusterCapability>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListClusterCapabilitiesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]ClusterCapability)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.ClusterCapability" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.ClusterCapability>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.ClusterCapability>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListClusterCapabilitiesApiResponseData"))
+}
+
+func (p *OneOfListClusterCapabilitiesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.ClusterCapability>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListClusterCapabilitiesApiResponseData")
+}
+
+type OneOfListUplinkBondsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []UplinkBond           `json:"-"`
+}
+
+func NewOneOfListUplinkBondsApiResponseData() *OneOfListUplinkBondsApiResponseData {
+	p := new(OneOfListUplinkBondsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListUplinkBondsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListUplinkBondsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []UplinkBond:
+		p.oneOfType0 = v.([]UplinkBond)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.UplinkBond>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.UplinkBond>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListUplinkBondsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.UplinkBond>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListUplinkBondsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]UplinkBond)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.UplinkBond" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.UplinkBond>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.UplinkBond>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListUplinkBondsApiResponseData"))
+}
+
+func (p *OneOfListUplinkBondsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.UplinkBond>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListUplinkBondsApiResponseData")
 }
 
 type OneOfGatewayProjectionServices struct {
@@ -14616,112 +13959,6 @@ func (p *OneOfGatewayProjectionServices) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGatewayProjectionServices")
 }
 
-type OneOfClusterCapabilityApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []ClusterCapability    `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfClusterCapabilityApiResponseData() *OneOfClusterCapabilityApiResponseData {
-	p := new(OneOfClusterCapabilityApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfClusterCapabilityApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfClusterCapabilityApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []ClusterCapability:
-		p.oneOfType0 = v.([]ClusterCapability)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.ClusterCapability>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.ClusterCapability>"
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfClusterCapabilityApiResponseData) GetValue() interface{} {
-	if "List<networking.v4.config.ClusterCapability>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfClusterCapabilityApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]ClusterCapability)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.ClusterCapability" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.ClusterCapability>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.ClusterCapability>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterCapabilityApiResponseData"))
-}
-
-func (p *OneOfClusterCapabilityApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<networking.v4.config.ClusterCapability>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfClusterCapabilityApiResponseData")
-}
-
 type OneOfTaskReferenceApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -14831,284 +14068,6 @@ func (p *OneOfTaskReferenceApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfTaskReferenceApiResponseData")
-}
-
-type OneOfGatewayListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Gateway              `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-	oneOfType401  []GatewayProjection    `json:"-"`
-}
-
-func NewOneOfGatewayListApiResponseData() *OneOfGatewayListApiResponseData {
-	p := new(OneOfGatewayListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGatewayListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGatewayListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Gateway:
-		p.oneOfType0 = v.([]Gateway)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.Gateway>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.Gateway>"
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []GatewayProjection:
-		p.oneOfType401 = v.([]GatewayProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.GatewayProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.GatewayProjection>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGatewayListApiResponseData) GetValue() interface{} {
-	if "List<networking.v4.config.Gateway>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.GatewayProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	return nil
-}
-
-func (p *OneOfGatewayListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Gateway)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.Gateway" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.Gateway>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.Gateway>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType401 := new([]GatewayProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "networking.v4.config.GatewayProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.GatewayProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.GatewayProjection>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGatewayListApiResponseData"))
-}
-
-func (p *OneOfGatewayListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<networking.v4.config.Gateway>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.GatewayProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	return nil, errors.New("No value to marshal for OneOfGatewayListApiResponseData")
-}
-
-type OneOfNodeSchedulableStatusApiResponseData struct {
-	Discriminator *string                           `json:"-"`
-	ObjectType_   *string                           `json:"-"`
-	oneOfType400  *import3.ErrorResponse            `json:"-"`
-	oneOfType401  []NodeSchedulableStatusProjection `json:"-"`
-	oneOfType0    []NodeSchedulableStatus           `json:"-"`
-}
-
-func NewOneOfNodeSchedulableStatusApiResponseData() *OneOfNodeSchedulableStatusApiResponseData {
-	p := new(OneOfNodeSchedulableStatusApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfNodeSchedulableStatusApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNodeSchedulableStatusApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []NodeSchedulableStatusProjection:
-		p.oneOfType401 = v.([]NodeSchedulableStatusProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatusProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatusProjection>"
-	case []NodeSchedulableStatus:
-		p.oneOfType0 = v.([]NodeSchedulableStatus)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatus>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatus>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfNodeSchedulableStatusApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<networking.v4.config.NodeSchedulableStatusProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	if "List<networking.v4.config.NodeSchedulableStatus>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfNodeSchedulableStatusApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType401 := new([]NodeSchedulableStatusProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "networking.v4.config.NodeSchedulableStatusProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatusProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatusProjection>"
-			return nil
-
-		}
-	}
-	vOneOfType0 := new([]NodeSchedulableStatus)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "networking.v4.config.NodeSchedulableStatus" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<networking.v4.config.NodeSchedulableStatus>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<networking.v4.config.NodeSchedulableStatus>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNodeSchedulableStatusApiResponseData"))
-}
-
-func (p *OneOfNodeSchedulableStatusApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<networking.v4.config.NodeSchedulableStatusProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	if "List<networking.v4.config.NodeSchedulableStatus>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfNodeSchedulableStatusApiResponseData")
 }
 
 type OneOfRoutingPolicyMatchConditionProtocolParameters struct {
@@ -15258,4 +14217,269 @@ func (p *OneOfRoutingPolicyMatchConditionProtocolParameters) MarshalJSON() ([]by
 		return json.Marshal(p.oneOfType2)
 	}
 	return nil, errors.New("No value to marshal for OneOfRoutingPolicyMatchConditionProtocolParameters")
+}
+
+type OneOfListGatewaysApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []Gateway              `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType401  []GatewayProjection    `json:"-"`
+}
+
+func NewOneOfListGatewaysApiResponseData() *OneOfListGatewaysApiResponseData {
+	p := new(OneOfListGatewaysApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListGatewaysApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListGatewaysApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Gateway:
+		p.oneOfType0 = v.([]Gateway)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.Gateway>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.Gateway>"
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []GatewayProjection:
+		p.oneOfType401 = v.([]GatewayProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<networking.v4.config.GatewayProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<networking.v4.config.GatewayProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListGatewaysApiResponseData) GetValue() interface{} {
+	if "List<networking.v4.config.Gateway>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<networking.v4.config.GatewayProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfListGatewaysApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]Gateway)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+
+		if len(*vOneOfType0) == 0 || "networking.v4.config.Gateway" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.Gateway>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.Gateway>"
+			return nil
+
+		}
+	}
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]GatewayProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+
+		if len(*vOneOfType401) == 0 || "networking.v4.config.GatewayProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<networking.v4.config.GatewayProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<networking.v4.config.GatewayProjection>"
+			return nil
+
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListGatewaysApiResponseData"))
+}
+
+func (p *OneOfListGatewaysApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<networking.v4.config.Gateway>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<networking.v4.config.GatewayProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfListGatewaysApiResponseData")
+}
+
+type OneOfGetTrafficMirrorApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *TrafficMirror         `json:"-"`
+}
+
+func NewOneOfGetTrafficMirrorApiResponseData() *OneOfGetTrafficMirrorApiResponseData {
+	p := new(OneOfGetTrafficMirrorApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetTrafficMirrorApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetTrafficMirrorApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import3.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import3.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case TrafficMirror:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(TrafficMirror)
+		}
+		*p.oneOfType0 = v.(TrafficMirror)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetTrafficMirrorApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetTrafficMirrorApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import3.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "networking.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import3.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(TrafficMirror)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "networking.v4.config.TrafficMirror" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(TrafficMirror)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetTrafficMirrorApiResponseData"))
+}
+
+func (p *OneOfGetTrafficMirrorApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetTrafficMirrorApiResponseData")
+}
+
+type FileDetail struct {
+	Path        *string `json:"-"`
+	ObjectType_ *string `json:"-"`
+}
+
+func NewFileDetail() *FileDetail {
+	p := new(FileDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "FileDetail"
+
+	return p
 }

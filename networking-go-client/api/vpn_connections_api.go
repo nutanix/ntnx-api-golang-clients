@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-type RoutingPolicyApi struct {
+type VpnConnectionsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewRoutingPolicyApi(apiClient *client.ApiClient) *RoutingPolicyApi {
+func NewVpnConnectionsApi(apiClient *client.ApiClient) *VpnConnectionsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &RoutingPolicyApi{
+	a := &VpnConnectionsApi{
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -33,14 +33,14 @@ func NewRoutingPolicyApi(apiClient *client.ApiClient) *RoutingPolicyApi {
 	return a
 }
 
-// Create a routing policy. Requires Prism Central >= pc.2022.9.
-func (api *RoutingPolicyApi) CreateRoutingPolicy(body *import1.RoutingPolicy, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Create VPN connection.
+func (api *VpnConnectionsApi) CreateVpnConnection(body *import1.VpnConnection, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/routing-policies"
+	uri := "/api/networking/v4.0.b1/config/vpn-connections"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,20 @@ func (api *RoutingPolicyApi) CreateRoutingPolicy(body *import1.RoutingPolicy, ar
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete the routing policy corresponding to the extId. Requires Prism Central >= pc.2022.9.
-func (api *RoutingPolicyApi) DeleteRoutingPolicy(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Delete VPN connection request body
+func (api *VpnConnectionsApi) DeleteVpnConnectionById(extId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/routing-policies/{extId}"
+	uri := "/api/networking/v4.0.b1/config/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -95,6 +96,7 @@ func (api *RoutingPolicyApi) DeleteRoutingPolicy(extId *string, args ...map[stri
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -124,19 +126,77 @@ func (api *RoutingPolicyApi) DeleteRoutingPolicy(extId *string, args ...map[stri
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a single routing policy corresponding to the extId. Requires Prism Central >= pc.2022.9.
-func (api *RoutingPolicyApi) GetRoutingPolicy(extId *string, args ...map[string]interface{}) (*import1.RoutingPolicyApiResponse, error) {
+// Get third-party VPN appliance configuration.
+func (api *VpnConnectionsApi) GetVpnApplianceForVpnConnectionById(vpnConnectionExtId *string, extId *string, args ...map[string]interface{}) (*string, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/routing-policies/{extId}"
+	uri := "/api/networking/v4.0.b1/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs/{extId}"
+
+	// verify the required parameter 'vpnConnectionExtId' is set
+	if nil == vpnConnectionExtId {
+		return nil, client.ReportError("vpnConnectionExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
+	uri = strings.Replace(uri, "{"+"vpnConnectionExtId"+"}", url.PathEscape(client.ParameterToString(*vpnConnectionExtId, "")), -1)
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"text/plain", "application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(string)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Get VPN connection for a specified ExtId.
+func (api *VpnConnectionsApi) GetVpnConnectionById(extId *string, args ...map[string]interface{}) (*import1.GetVpnConnectionApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.0.b1/config/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -144,6 +204,7 @@ func (api *RoutingPolicyApi) GetRoutingPolicy(extId *string, args ...map[string]
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -173,19 +234,80 @@ func (api *RoutingPolicyApi) GetRoutingPolicy(extId *string, args ...map[string]
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.RoutingPolicyApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.GetVpnConnectionApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a list of routing policies. Requires Prism Central >= pc.2022.9.
-func (api *RoutingPolicyApi) ListRoutingPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.RoutingPolicyListApiResponse, error) {
+// List third-party VPN appliances for which configurations are available to download.
+func (api *VpnConnectionsApi) ListVpnAppliancesByVpnConnectionId(extId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import1.ListVpnVendorConfigsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/routing-policies"
+	uri := "/api/networking/v4.0.b1/config/vpn-connections/{extId}/vpn-vendor-configs"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(string); headerValueOk {
+					headerParams[headerKey] = headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == responseBody {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ListVpnVendorConfigsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// List the VPN connections.
+func (api *VpnConnectionsApi) ListVpnConnections(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListVpnConnectionsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.0.b1/config/vpn-connections"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -232,19 +354,20 @@ func (api *RoutingPolicyApi) ListRoutingPolicies(page_ *int, limit_ *int, filter
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.RoutingPolicyListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import1.ListVpnConnectionsApiResponse)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update the Routing Policy corresponding to the extId. Requires Prism Central >= pc.2022.9.
-func (api *RoutingPolicyApi) PutRoutingPolicy(extId *string, body *import1.RoutingPolicy, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+// Update VPN connection.
+func (api *VpnConnectionsApi) UpdateVpnConnectionById(extId *string, body *import1.VpnConnection, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/routing-policies/{extId}"
+	uri := "/api/networking/v4.0.b1/config/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -256,6 +379,7 @@ func (api *RoutingPolicyApi) PutRoutingPolicy(extId *string, body *import1.Routi
 	}
 
 	// Path Params
+
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -285,7 +409,8 @@ func (api *RoutingPolicyApi) PutRoutingPolicy(extId *string, body *import1.Routi
 	if nil != err || nil == responseBody {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
