@@ -1,4 +1,3 @@
-//Api classes for microseg's golang SDK
 package api
 
 import (
@@ -40,7 +39,7 @@ func (api *ServiceGroupsApi) CreateServiceGroup(body *import1.ServiceGroup, args
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/service-groups"
+	uri := "/api/microseg/v4.0/config/service-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -62,22 +61,22 @@ func (api *ServiceGroupsApi) CreateServiceGroup(body *import1.ServiceGroup, args
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.CreateServiceGroupApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -88,7 +87,7 @@ func (api *ServiceGroupsApi) DeleteServiceGroupById(extId *string, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.0/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -96,7 +95,6 @@ func (api *ServiceGroupsApi) DeleteServiceGroupById(extId *string, args ...map[s
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -113,22 +111,22 @@ func (api *ServiceGroupsApi) DeleteServiceGroupById(extId *string, args ...map[s
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.DeleteServiceGroupApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -139,7 +137,7 @@ func (api *ServiceGroupsApi) GetServiceGroupById(extId *string, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.0/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -147,7 +145,6 @@ func (api *ServiceGroupsApi) GetServiceGroupById(extId *string, args ...map[stri
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -164,22 +161,22 @@ func (api *ServiceGroupsApi) GetServiceGroupById(extId *string, args ...map[stri
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetServiceGroupApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -190,7 +187,7 @@ func (api *ServiceGroupsApi) ListServiceGroups(page_ *int, limit_ *int, filter_ 
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/service-groups"
+	uri := "/api/microseg/v4.0/config/service-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -204,23 +201,18 @@ func (api *ServiceGroupsApi) ListServiceGroups(page_ *int, limit_ *int, filter_ 
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -228,22 +220,22 @@ func (api *ServiceGroupsApi) ListServiceGroups(page_ *int, limit_ *int, filter_ 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ListServiceGroupsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -254,7 +246,7 @@ func (api *ServiceGroupsApi) UpdateServiceGroupById(extId *string, body *import1
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.0/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -266,7 +258,6 @@ func (api *ServiceGroupsApi) UpdateServiceGroupById(extId *string, body *import1
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -283,21 +274,21 @@ func (api *ServiceGroupsApi) UpdateServiceGroupById(extId *string, body *import1
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UpdateServiceGroupApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

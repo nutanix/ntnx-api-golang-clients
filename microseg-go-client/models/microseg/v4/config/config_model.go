@@ -1,9 +1,9 @@
 /*
  * Generated file models/microseg/v4/config/config_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Microseg Versioned APIs
+ * Part of the Nutanix Flow Management APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
@@ -68,7 +68,7 @@ func NewAdInfo() *AdInfo {
 	p := new(AdInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.AdInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -163,7 +163,9 @@ type AddressGroup struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  The external identifier of the user who created the Address Group.
+	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
 	  A user defined annotation for an Address Group.
@@ -214,7 +216,43 @@ func NewAddressGroup() *AddressGroup {
 	p := new(AddressGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.AddressGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Denotes the isolation groups that will be used in All to All mutual isolation.
+*/
+type AllToAllIsolationGroup struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Denotes the list of secured groups that will be used in All to All mutual isolation.
+	*/
+	IsolationGroups []IsolationGroup `json:"isolationGroups"`
+}
+
+func (p *AllToAllIsolationGroup) MarshalJSON() ([]byte, error) {
+	type AllToAllIsolationGroupProxy AllToAllIsolationGroup
+	return json.Marshal(struct {
+		*AllToAllIsolationGroupProxy
+		IsolationGroups []IsolationGroup `json:"isolationGroups,omitempty"`
+	}{
+		AllToAllIsolationGroupProxy: (*AllToAllIsolationGroupProxy)(p),
+		IsolationGroups:             p.IsolationGroups,
+	})
+}
+
+func NewAllToAllIsolationGroup() *AllToAllIsolationGroup {
+	p := new(AllToAllIsolationGroup)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.AllToAllIsolationGroup"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -321,11 +359,11 @@ type ApplicationRuleSpec struct {
 
 	DestSubnet *import1.IPv4Address `json:"destSubnet,omitempty"`
 	/*
-	  Icmp Type Code List.
+	  ICMP Type Code List.
 	*/
 	IcmpServices []IcmpTypeCodeSpec `json:"icmpServices,omitempty"`
 	/*
-	  Denotes if rule allows traffic for all protocol.
+	  Denotes whether the rule allows traffic for all protocols. If set to true, the rule allows traffic for all protocols. If set to false or not specified, specifying at least one protocol service or service group is mandatory.
 	*/
 	IsAllProtocolAllowed *bool `json:"isAllProtocolAllowed,omitempty"`
 	/*
@@ -336,7 +374,9 @@ type ApplicationRuleSpec struct {
 	  A set of network endpoints which is protected by a Network Security Policy and defined as a list of categories.
 	*/
 	SecuredGroupCategoryReferences []string `json:"securedGroupCategoryReferences"`
-
+	/*
+	  A list of service group references.
+	*/
 	ServiceGroupReferences []string `json:"serviceGroupReferences,omitempty"`
 	/*
 	  A list of address group references.
@@ -371,7 +411,7 @@ func NewApplicationRuleSpec() *ApplicationRuleSpec {
 	p := new(ApplicationRuleSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ApplicationRuleSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -432,14 +472,14 @@ func NewCategoryMapping() *CategoryMapping {
 	p := new(CategoryMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CategoryMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/address-groups Post operation
+REST response for all response codes in API path /microseg/v4.0/config/address-groups Post operation
 */
 type CreateAddressGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -461,7 +501,7 @@ func NewCreateAddressGroupApiResponse() *CreateAddressGroupApiResponse {
 	p := new(CreateAddressGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateAddressGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -489,7 +529,7 @@ func (p *CreateAddressGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/directory-server-configs Post operation
+REST response for all response codes in API path /microseg/v4.0/config/directory-server-configs Post operation
 */
 type CreateDirectoryServerConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -511,7 +551,7 @@ func NewCreateDirectoryServerConfigApiResponse() *CreateDirectoryServerConfigApi
 	p := new(CreateDirectoryServerConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateDirectoryServerConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -539,7 +579,7 @@ func (p *CreateDirectoryServerConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/category-mappings Post operation
+REST response for all response codes in API path /microseg/v4.0/config/category-mappings Post operation
 */
 type CreateDsCategoryMappingApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -561,7 +601,7 @@ func NewCreateDsCategoryMappingApiResponse() *CreateDsCategoryMappingApiResponse
 	p := new(CreateDsCategoryMappingApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateDsCategoryMappingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -589,7 +629,7 @@ func (p *CreateDsCategoryMappingApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/policies Post operation
+REST response for all response codes in API path /microseg/v4.0/config/policies Post operation
 */
 type CreateNetworkSecurityPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -611,7 +651,7 @@ func NewCreateNetworkSecurityPolicyApiResponse() *CreateNetworkSecurityPolicyApi
 	p := new(CreateNetworkSecurityPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateNetworkSecurityPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -639,7 +679,7 @@ func (p *CreateNetworkSecurityPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/policies/$actions/prepare-export Post operation
+REST response for all response codes in API path /microseg/v4.0/config/policies/$actions/prepare-export Post operation
 */
 type CreateNetworkSecurityPolicyExportApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -661,7 +701,7 @@ func NewCreateNetworkSecurityPolicyExportApiResponse() *CreateNetworkSecurityPol
 	p := new(CreateNetworkSecurityPolicyExportApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateNetworkSecurityPolicyExportApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -689,7 +729,7 @@ func (p *CreateNetworkSecurityPolicyExportApiResponse) SetData(v interface{}) er
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/policies/$actions/import Post operation
+REST response for all response codes in API path /microseg/v4.0/config/policies/$actions/import Post operation
 */
 type CreateNetworkSecurityPolicyImportApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -711,7 +751,7 @@ func NewCreateNetworkSecurityPolicyImportApiResponse() *CreateNetworkSecurityPol
 	p := new(CreateNetworkSecurityPolicyImportApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateNetworkSecurityPolicyImportApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -739,7 +779,7 @@ func (p *CreateNetworkSecurityPolicyImportApiResponse) SetData(v interface{}) er
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/service-groups Post operation
+REST response for all response codes in API path /microseg/v4.0/config/service-groups Post operation
 */
 type CreateServiceGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -761,7 +801,7 @@ func NewCreateServiceGroupApiResponse() *CreateServiceGroupApiResponse {
 	p := new(CreateServiceGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateServiceGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -789,7 +829,7 @@ func (p *CreateServiceGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/address-groups/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.0/config/address-groups/{extId} Delete operation
 */
 type DeleteAddressGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -811,7 +851,7 @@ func NewDeleteAddressGroupApiResponse() *DeleteAddressGroupApiResponse {
 	p := new(DeleteAddressGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteAddressGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -839,7 +879,7 @@ func (p *DeleteAddressGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/directory-server-configs/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.0/config/directory-server-configs/{extId} Delete operation
 */
 type DeleteDirectoryServerConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -861,7 +901,7 @@ func NewDeleteDirectoryServerConfigApiResponse() *DeleteDirectoryServerConfigApi
 	p := new(DeleteDirectoryServerConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteDirectoryServerConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -889,7 +929,7 @@ func (p *DeleteDirectoryServerConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/category-mappings/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.0/config/category-mappings/{extId} Delete operation
 */
 type DeleteDsCategoryMappingApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -911,7 +951,7 @@ func NewDeleteDsCategoryMappingApiResponse() *DeleteDsCategoryMappingApiResponse
 	p := new(DeleteDsCategoryMappingApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteDsCategoryMappingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -939,7 +979,7 @@ func (p *DeleteDsCategoryMappingApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/policies/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.0/config/policies/{extId} Delete operation
 */
 type DeleteNetworkSecurityPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -961,7 +1001,7 @@ func NewDeleteNetworkSecurityPolicyApiResponse() *DeleteNetworkSecurityPolicyApi
 	p := new(DeleteNetworkSecurityPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteNetworkSecurityPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -989,7 +1029,7 @@ func (p *DeleteNetworkSecurityPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/service-groups/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.0/config/service-groups/{extId} Delete operation
 */
 type DeleteServiceGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1011,7 +1051,7 @@ func NewDeleteServiceGroupApiResponse() *DeleteServiceGroupApiResponse {
 	p := new(DeleteServiceGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteServiceGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1082,14 +1122,14 @@ func NewDirectoryServerConfig() *DirectoryServerConfig {
 	p := new(DirectoryServerConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DirectoryServerConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/address-groups/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.0/config/address-groups/{extId} Get operation
 */
 type GetAddressGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1111,7 +1151,7 @@ func NewGetAddressGroupApiResponse() *GetAddressGroupApiResponse {
 	p := new(GetAddressGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetAddressGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1139,7 +1179,7 @@ func (p *GetAddressGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/directory-server-configs/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.0/config/directory-server-configs/{extId} Get operation
 */
 type GetDirectoryServerConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1161,7 +1201,7 @@ func NewGetDirectoryServerConfigApiResponse() *GetDirectoryServerConfigApiRespon
 	p := new(GetDirectoryServerConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetDirectoryServerConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1189,7 +1229,7 @@ func (p *GetDirectoryServerConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/category-mappings/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.0/config/category-mappings/{extId} Get operation
 */
 type GetDsCategoryMappingApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1211,7 +1251,7 @@ func NewGetDsCategoryMappingApiResponse() *GetDsCategoryMappingApiResponse {
 	p := new(GetDsCategoryMappingApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetDsCategoryMappingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1239,7 +1279,7 @@ func (p *GetDsCategoryMappingApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/policies/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.0/config/policies/{extId} Get operation
 */
 type GetNetworkSecurityPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1261,7 +1301,7 @@ func NewGetNetworkSecurityPolicyApiResponse() *GetNetworkSecurityPolicyApiRespon
 	p := new(GetNetworkSecurityPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetNetworkSecurityPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1289,7 +1329,7 @@ func (p *GetNetworkSecurityPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/service-groups/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.0/config/service-groups/{extId} Get operation
 */
 type GetServiceGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1311,7 +1351,7 @@ func NewGetServiceGroupApiResponse() *GetServiceGroupApiResponse {
 	p := new(GetServiceGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetServiceGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1347,9 +1387,13 @@ type IPv4Range struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  End address of the IP range.
+	*/
 	EndIp *string `json:"endIp"`
-
+	/*
+	  Start address of the IP range.
+	*/
 	StartIp *string `json:"startIp"`
 }
 
@@ -1370,14 +1414,14 @@ func NewIPv4Range() *IPv4Range {
 	p := new(IPv4Range)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.IPv4Range"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Icmp Type Code Object. This object contains values for Icmp type and Icmp code.
+ICMP Type Code Object. This object contains values for Icmp type and Icmp code.
 */
 type IcmpTypeCodeSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1386,7 +1430,7 @@ type IcmpTypeCodeSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Icmp service Code. Ignore this field if Code has to be ANY.
+	  ICMP service Code. Ignore this field if Code has to be ANY.
 	*/
 	Code *int `json:"code,omitempty"`
 	/*
@@ -1394,7 +1438,7 @@ type IcmpTypeCodeSpec struct {
 	*/
 	IsAllAllowed *bool `json:"isAllAllowed,omitempty"`
 	/*
-	  Icmp service Type. Ignore this field if Type has to be ANY.
+	  ICMP service Type. Ignore this field if Type has to be ANY.
 	*/
 	Type *int `json:"type,omitempty"`
 }
@@ -1403,231 +1447,13 @@ func NewIcmpTypeCodeSpec() *IcmpTypeCodeSpec {
 	p := new(IcmpTypeCodeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.IcmpTypeCodeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsAllAllowed = new(bool)
 	*p.IsAllAllowed = false
 
 	return p
-}
-
-/*
-Network security rule import response data.
-*/
-type ImportEntity struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Name of the entity.
-	*/
-	Name *string `json:"name"`
-
-	Type *ImportEntityType `json:"type"`
-
-	UpdateType *ImportEntityUpdateType `json:"updateType"`
-}
-
-func (p *ImportEntity) MarshalJSON() ([]byte, error) {
-	type ImportEntityProxy ImportEntity
-	return json.Marshal(struct {
-		*ImportEntityProxy
-		Name       *string                 `json:"name,omitempty"`
-		Type       *ImportEntityType       `json:"type,omitempty"`
-		UpdateType *ImportEntityUpdateType `json:"updateType,omitempty"`
-	}{
-		ImportEntityProxy: (*ImportEntityProxy)(p),
-		Name:              p.Name,
-		Type:              p.Type,
-		UpdateType:        p.UpdateType,
-	})
-}
-
-func NewImportEntity() *ImportEntity {
-	p := new(ImportEntity)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "microseg.v4.config.ImportEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Type of the entity.
-*/
-type ImportEntityType int
-
-const (
-	IMPORTENTITYTYPE_UNKNOWN                ImportEntityType = 0
-	IMPORTENTITYTYPE_REDACTED               ImportEntityType = 1
-	IMPORTENTITYTYPE_CATEGORY               ImportEntityType = 2
-	IMPORTENTITYTYPE_NETWORK_FUNCTION_CHAIN ImportEntityType = 3
-	IMPORTENTITYTYPE_POLICY                 ImportEntityType = 4
-	IMPORTENTITYTYPE_ADDRESS_GROUP          ImportEntityType = 5
-	IMPORTENTITYTYPE_SERVICE_GROUP          ImportEntityType = 6
-)
-
-// Returns the name of the enum given an ordinal number
-//
-// Deprecated: Please use GetName instead of name
-func (e *ImportEntityType) name(index int) string {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"CATEGORY",
-		"NETWORK_FUNCTION_CHAIN",
-		"POLICY",
-		"ADDRESS_GROUP",
-		"SERVICE_GROUP",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the name of the enum
-func (e ImportEntityType) GetName() string {
-	index := int(e)
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"CATEGORY",
-		"NETWORK_FUNCTION_CHAIN",
-		"POLICY",
-		"ADDRESS_GROUP",
-		"SERVICE_GROUP",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the enum type given a string value
-func (e *ImportEntityType) index(name string) ImportEntityType {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"CATEGORY",
-		"NETWORK_FUNCTION_CHAIN",
-		"POLICY",
-		"ADDRESS_GROUP",
-		"SERVICE_GROUP",
-	}
-	for idx := range names {
-		if names[idx] == name {
-			return ImportEntityType(idx)
-		}
-	}
-	return IMPORTENTITYTYPE_UNKNOWN
-}
-
-func (e *ImportEntityType) UnmarshalJSON(b []byte) error {
-	var enumStr string
-	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ImportEntityType:%s", err))
-	}
-	*e = e.index(enumStr)
-	return nil
-}
-
-func (e *ImportEntityType) MarshalJSON() ([]byte, error) {
-	b := bytes.NewBufferString(`"`)
-	b.WriteString(e.name(int(*e)))
-	b.WriteString(`"`)
-	return b.Bytes(), nil
-}
-
-func (e ImportEntityType) Ref() *ImportEntityType {
-	return &e
-}
-
-/*
-Type of update of the entity.
-*/
-type ImportEntityUpdateType int
-
-const (
-	IMPORTENTITYUPDATETYPE_UNKNOWN  ImportEntityUpdateType = 0
-	IMPORTENTITYUPDATETYPE_REDACTED ImportEntityUpdateType = 1
-	IMPORTENTITYUPDATETYPE_ADD      ImportEntityUpdateType = 2
-	IMPORTENTITYUPDATETYPE_DELETE   ImportEntityUpdateType = 3
-	IMPORTENTITYUPDATETYPE_MODIFY   ImportEntityUpdateType = 4
-)
-
-// Returns the name of the enum given an ordinal number
-//
-// Deprecated: Please use GetName instead of name
-func (e *ImportEntityUpdateType) name(index int) string {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"ADD",
-		"DELETE",
-		"MODIFY",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the name of the enum
-func (e ImportEntityUpdateType) GetName() string {
-	index := int(e)
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"ADD",
-		"DELETE",
-		"MODIFY",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the enum type given a string value
-func (e *ImportEntityUpdateType) index(name string) ImportEntityUpdateType {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"ADD",
-		"DELETE",
-		"MODIFY",
-	}
-	for idx := range names {
-		if names[idx] == name {
-			return ImportEntityUpdateType(idx)
-		}
-	}
-	return IMPORTENTITYUPDATETYPE_UNKNOWN
-}
-
-func (e *ImportEntityUpdateType) UnmarshalJSON(b []byte) error {
-	var enumStr string
-	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ImportEntityUpdateType:%s", err))
-	}
-	*e = e.index(enumStr)
-	return nil
-}
-
-func (e *ImportEntityUpdateType) MarshalJSON() ([]byte, error) {
-	b := bytes.NewBufferString(`"`)
-	b.WriteString(e.name(int(*e)))
-	b.WriteString(`"`)
-	return b.Bytes(), nil
-}
-
-func (e ImportEntityUpdateType) Ref() *ImportEntityUpdateType {
-	return &e
 }
 
 /*
@@ -1720,7 +1546,9 @@ type IntraEntityGroupRuleSpec struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	SecuredGroupAction *IntraEntityGroupRuleAction `json:"securedGroupAction"`
-
+	/*
+	  A set of network endpoints which is protected by a Network Security Policy and defined as a list of categories.
+	*/
 	SecuredGroupCategoryReferences []string `json:"securedGroupCategoryReferences"`
 }
 
@@ -1741,14 +1569,50 @@ func NewIntraEntityGroupRuleSpec() *IntraEntityGroupRuleSpec {
 	p := new(IntraEntityGroupRuleSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.IntraEntityGroupRuleSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/address-groups Get operation
+A set of network endpoints which is protected by an Isolation policy and defined as a list of categories.
+*/
+type IsolationGroup struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  External identifiers of categories belonging to the isolation group.
+	*/
+	GroupCategoryReferences []string `json:"groupCategoryReferences"`
+}
+
+func (p *IsolationGroup) MarshalJSON() ([]byte, error) {
+	type IsolationGroupProxy IsolationGroup
+	return json.Marshal(struct {
+		*IsolationGroupProxy
+		GroupCategoryReferences []string `json:"groupCategoryReferences,omitempty"`
+	}{
+		IsolationGroupProxy:     (*IsolationGroupProxy)(p),
+		GroupCategoryReferences: p.GroupCategoryReferences,
+	})
+}
+
+func NewIsolationGroup() *IsolationGroup {
+	p := new(IsolationGroup)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.IsolationGroup"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /microseg/v4.0/config/address-groups Get operation
 */
 type ListAddressGroupsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1770,7 +1634,7 @@ func NewListAddressGroupsApiResponse() *ListAddressGroupsApiResponse {
 	p := new(ListAddressGroupsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListAddressGroupsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1798,7 +1662,7 @@ func (p *ListAddressGroupsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/directory-server-configs Get operation
+REST response for all response codes in API path /microseg/v4.0/config/directory-server-configs Get operation
 */
 type ListDirectoryServerConfigsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1820,7 +1684,7 @@ func NewListDirectoryServerConfigsApiResponse() *ListDirectoryServerConfigsApiRe
 	p := new(ListDirectoryServerConfigsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListDirectoryServerConfigsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1848,7 +1712,7 @@ func (p *ListDirectoryServerConfigsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/category-mappings Get operation
+REST response for all response codes in API path /microseg/v4.0/config/category-mappings Get operation
 */
 type ListDsCategoryMappingsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1870,7 +1734,7 @@ func NewListDsCategoryMappingsApiResponse() *ListDsCategoryMappingsApiResponse {
 	p := new(ListDsCategoryMappingsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListDsCategoryMappingsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1898,7 +1762,7 @@ func (p *ListDsCategoryMappingsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/policies Get operation
+REST response for all response codes in API path /microseg/v4.0/config/policies Get operation
 */
 type ListNetworkSecurityPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1920,7 +1784,7 @@ func NewListNetworkSecurityPoliciesApiResponse() *ListNetworkSecurityPoliciesApi
 	p := new(ListNetworkSecurityPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListNetworkSecurityPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1948,7 +1812,7 @@ func (p *ListNetworkSecurityPoliciesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/policies/{extId}/rules Get operation
+REST response for all response codes in API path /microseg/v4.0/config/policies/{policyExtId}/rules Get operation
 */
 type ListNetworkSecurityPolicyRulesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1970,7 +1834,7 @@ func NewListNetworkSecurityPolicyRulesApiResponse() *ListNetworkSecurityPolicyRu
 	p := new(ListNetworkSecurityPolicyRulesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListNetworkSecurityPolicyRulesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1998,7 +1862,7 @@ func (p *ListNetworkSecurityPolicyRulesApiResponse) SetData(v interface{}) error
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/service-groups Get operation
+REST response for all response codes in API path /microseg/v4.0/config/service-groups Get operation
 */
 type ListServiceGroupsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2020,7 +1884,7 @@ func NewListServiceGroupsApiResponse() *ListServiceGroupsApiResponse {
 	p := new(ListServiceGroupsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListServiceGroupsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2316,21 +2180,89 @@ func NewMatchingCriteria() *MatchingCriteria {
 	p := new(MatchingCriteria)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.MatchingCriteria"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
+/*
+A rule for specifying that multiple environments should be isolated from each other.
+*/
+type MultiEnvIsolationRuleSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	SpecItemDiscriminator_ *string `json:"$specItemDiscriminator,omitempty"`
+	/*
+	  Multi environment isolation rule spec.
+	*/
+	Spec *OneOfMultiEnvIsolationRuleSpecSpec `json:"spec"`
+}
+
+func (p *MultiEnvIsolationRuleSpec) MarshalJSON() ([]byte, error) {
+	type MultiEnvIsolationRuleSpecProxy MultiEnvIsolationRuleSpec
+	return json.Marshal(struct {
+		*MultiEnvIsolationRuleSpecProxy
+		Spec *OneOfMultiEnvIsolationRuleSpecSpec `json:"spec,omitempty"`
+	}{
+		MultiEnvIsolationRuleSpecProxy: (*MultiEnvIsolationRuleSpecProxy)(p),
+		Spec:                           p.Spec,
+	})
+}
+
+func NewMultiEnvIsolationRuleSpec() *MultiEnvIsolationRuleSpec {
+	p := new(MultiEnvIsolationRuleSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.MultiEnvIsolationRuleSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *MultiEnvIsolationRuleSpec) GetSpec() interface{} {
+	if nil == p.Spec {
+		return nil
+	}
+	return p.Spec.GetValue()
+}
+
+func (p *MultiEnvIsolationRuleSpec) SetSpec(v interface{}) error {
+	if nil == p.Spec {
+		p.Spec = NewOneOfMultiEnvIsolationRuleSpecSpec()
+	}
+	e := p.Spec.SetValue(v)
+	if nil == e {
+		if nil == p.SpecItemDiscriminator_ {
+			p.SpecItemDiscriminator_ = new(string)
+		}
+		*p.SpecItemDiscriminator_ = *p.Spec.Discriminator
+	}
+	return e
+}
+
+/*
+A policy that contains rules for specifying security posture.
+*/
 type NetworkSecurityPolicy struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  The extId of the user responsible for creating the Network Security Policy.
+	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
-
+	/*
+	  The timestamp when the Flow Network Security policy was created.
+	*/
 	CreationTime *time.Time `json:"creationTime,omitempty"`
 	/*
 	  A user defined annotation for a policy.
@@ -2348,9 +2280,13 @@ type NetworkSecurityPolicy struct {
 	  If Ipv6 Traffic is allowed.
 	*/
 	IsIpv6TrafficAllowed *bool `json:"isIpv6TrafficAllowed,omitempty"`
-
+	/*
+	  A flag indicating whether the Flow Network Security policy is system-defined or not.
+	*/
 	IsSystemDefined *bool `json:"isSystemDefined,omitempty"`
-
+	/*
+	  The timestamp when the Flow Network Security policy was last updated.
+	*/
 	LastUpdateTime *time.Time `json:"lastUpdateTime,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
@@ -2402,7 +2338,7 @@ func NewNetworkSecurityPolicy() *NetworkSecurityPolicy {
 	p := new(NetworkSecurityPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.NetworkSecurityPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2428,7 +2364,9 @@ type NetworkSecurityPolicyRule struct {
 	Links []import2.ApiLink `json:"links,omitempty"`
 
 	SpecItemDiscriminator_ *string `json:"$specItemDiscriminator,omitempty"`
-
+	/*
+	  The type of the Flow Network Security policy rule spec.
+	*/
 	Spec *OneOfNetworkSecurityPolicyRuleSpec `json:"spec"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
@@ -2455,7 +2393,7 @@ func NewNetworkSecurityPolicyRule() *NetworkSecurityPolicyRule {
 	p := new(NetworkSecurityPolicyRule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.NetworkSecurityPolicyRule"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2488,12 +2426,13 @@ The type for a rule - the value chosen here restricts which specification can be
 type RuleType int
 
 const (
-	RULETYPE_UNKNOWN           RuleType = 0
-	RULETYPE_REDACTED          RuleType = 1
-	RULETYPE_QUARANTINE        RuleType = 2
-	RULETYPE_TWO_ENV_ISOLATION RuleType = 3
-	RULETYPE_APPLICATION       RuleType = 4
-	RULETYPE_INTRA_GROUP       RuleType = 5
+	RULETYPE_UNKNOWN             RuleType = 0
+	RULETYPE_REDACTED            RuleType = 1
+	RULETYPE_QUARANTINE          RuleType = 2
+	RULETYPE_TWO_ENV_ISOLATION   RuleType = 3
+	RULETYPE_APPLICATION         RuleType = 4
+	RULETYPE_INTRA_GROUP         RuleType = 5
+	RULETYPE_MULTI_ENV_ISOLATION RuleType = 6
 )
 
 // Returns the name of the enum given an ordinal number
@@ -2507,6 +2446,7 @@ func (e *RuleType) name(index int) string {
 		"TWO_ENV_ISOLATION",
 		"APPLICATION",
 		"INTRA_GROUP",
+		"MULTI_ENV_ISOLATION",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2524,6 +2464,7 @@ func (e RuleType) GetName() string {
 		"TWO_ENV_ISOLATION",
 		"APPLICATION",
 		"INTRA_GROUP",
+		"MULTI_ENV_ISOLATION",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2540,6 +2481,7 @@ func (e *RuleType) index(name string) RuleType {
 		"TWO_ENV_ISOLATION",
 		"APPLICATION",
 		"INTRA_GROUP",
+		"MULTI_ENV_ISOLATION",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -2824,7 +2766,9 @@ type ServiceGroup struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  The external identifier of the user responsible for creating the Service Group.
+	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
 	  A user defined annotation for a Service Group.
@@ -2835,7 +2779,7 @@ type ServiceGroup struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Icmp Type Code List.
+	  ICMP Type Code List.
 	*/
 	IcmpServices []IcmpTypeCodeSpec `json:"icmpServices,omitempty"`
 	/*
@@ -2883,7 +2827,66 @@ func NewServiceGroup() *ServiceGroup {
 	p := new(ServiceGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ServiceGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type SyncPolicy struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  State of the Prism Central pair that determines its capability to synchronize security policies.
+	*/
+	HasSyncCompatibility *bool `json:"hasSyncCompatibility,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  List of security policies that are synchronized across a Prism Central pair.
+	*/
+	PolicyExtIds []string `json:"policyExtIds,omitempty"`
+	/*
+	  Prism Central from which security policies are being synchronized.
+	*/
+	SourceDomainManagerExtId *string `json:"sourceDomainManagerExtId"`
+	/*
+	  Prism Central to which security policies are synchronized.
+	*/
+	TargetDomainManagerExtId *string `json:"targetDomainManagerExtId"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *SyncPolicy) MarshalJSON() ([]byte, error) {
+	type SyncPolicyProxy SyncPolicy
+	return json.Marshal(struct {
+		*SyncPolicyProxy
+		SourceDomainManagerExtId *string `json:"sourceDomainManagerExtId,omitempty"`
+		TargetDomainManagerExtId *string `json:"targetDomainManagerExtId,omitempty"`
+	}{
+		SyncPolicyProxy:          (*SyncPolicyProxy)(p),
+		SourceDomainManagerExtId: p.SourceDomainManagerExtId,
+		TargetDomainManagerExtId: p.TargetDomainManagerExtId,
+	})
+}
+
+func NewSyncPolicy() *SyncPolicy {
+	p := new(SyncPolicy)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.SyncPolicy"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2898,9 +2901,13 @@ type TcpPortRangeSpec struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  The end of the port number of the TCP/UDP port range.
+	*/
 	EndPort *int `json:"endPort"`
-
+	/*
+	  The beginning of the port number of the TCP/UDP port range.
+	*/
 	StartPort *int `json:"startPort"`
 }
 
@@ -2921,7 +2928,7 @@ func NewTcpPortRangeSpec() *TcpPortRangeSpec {
 	p := new(TcpPortRangeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.TcpPortRangeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2963,7 +2970,7 @@ func NewTwoEnvIsolationRuleSpec() *TwoEnvIsolationRuleSpec {
 	p := new(TwoEnvIsolationRuleSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.TwoEnvIsolationRuleSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2978,9 +2985,13 @@ type UdpPortRangeSpec struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  The end of the port number of the TCP/UDP port range.
+	*/
 	EndPort *int `json:"endPort"`
-
+	/*
+	  The beginning of the port number of the TCP/UDP port range.
+	*/
 	StartPort *int `json:"startPort"`
 }
 
@@ -3001,14 +3012,14 @@ func NewUdpPortRangeSpec() *UdpPortRangeSpec {
 	p := new(UdpPortRangeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UdpPortRangeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/address-groups/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.0/config/address-groups/{extId} Put operation
 */
 type UpdateAddressGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3030,7 +3041,7 @@ func NewUpdateAddressGroupApiResponse() *UpdateAddressGroupApiResponse {
 	p := new(UpdateAddressGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateAddressGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3058,7 +3069,7 @@ func (p *UpdateAddressGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/directory-server-configs/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.0/config/directory-server-configs/{extId} Put operation
 */
 type UpdateDirectoryServerConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3080,7 +3091,7 @@ func NewUpdateDirectoryServerConfigApiResponse() *UpdateDirectoryServerConfigApi
 	p := new(UpdateDirectoryServerConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateDirectoryServerConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3108,7 +3119,7 @@ func (p *UpdateDirectoryServerConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/category-mappings/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.0/config/category-mappings/{extId} Put operation
 */
 type UpdateDsCategoryMappingApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3130,7 +3141,7 @@ func NewUpdateDsCategoryMappingApiResponse() *UpdateDsCategoryMappingApiResponse
 	p := new(UpdateDsCategoryMappingApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateDsCategoryMappingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3158,7 +3169,7 @@ func (p *UpdateDsCategoryMappingApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/policies/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.0/config/policies/{extId} Put operation
 */
 type UpdateNetworkSecurityPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3180,7 +3191,7 @@ func NewUpdateNetworkSecurityPolicyApiResponse() *UpdateNetworkSecurityPolicyApi
 	p := new(UpdateNetworkSecurityPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateNetworkSecurityPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3208,7 +3219,7 @@ func (p *UpdateNetworkSecurityPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.0.b1/config/service-groups/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.0/config/service-groups/{extId} Put operation
 */
 type UpdateServiceGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3230,7 +3241,7 @@ func NewUpdateServiceGroupApiResponse() *UpdateServiceGroupApiResponse {
 	p := new(UpdateServiceGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateServiceGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3257,38 +3268,25 @@ func (p *UpdateServiceGroupApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-type OneOfCreateServiceGroupApiResponseData struct {
+type OneOfCreateDsCategoryMappingApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
 }
 
-func NewOneOfCreateServiceGroupApiResponseData() *OneOfCreateServiceGroupApiResponseData {
-	p := new(OneOfCreateServiceGroupApiResponseData)
+func NewOneOfCreateDsCategoryMappingApiResponseData() *OneOfCreateDsCategoryMappingApiResponseData {
+	p := new(OneOfCreateDsCategoryMappingApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCreateServiceGroupApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfCreateDsCategoryMappingApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateServiceGroupApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfCreateDsCategoryMappingApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case import3.TaskReference:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(import3.TaskReference)
@@ -3302,41 +3300,36 @@ func (p *OneOfCreateServiceGroupApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfCreateServiceGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
+func (p *OneOfCreateDsCategoryMappingApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfCreateServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
+func (p *OneOfCreateDsCategoryMappingApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
@@ -3355,17 +3348,473 @@ func (p *OneOfCreateServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateServiceGroupApiResponseData"))
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDsCategoryMappingApiResponseData"))
 }
 
-func (p *OneOfCreateServiceGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
+func (p *OneOfCreateDsCategoryMappingApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfCreateServiceGroupApiResponseData")
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateDsCategoryMappingApiResponseData")
+}
+
+type OneOfCreateNetworkSecurityPolicyExportApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateNetworkSecurityPolicyExportApiResponseData() *OneOfCreateNetworkSecurityPolicyExportApiResponseData {
+	p := new(OneOfCreateNetworkSecurityPolicyExportApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyExportApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateNetworkSecurityPolicyExportApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyExportApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyExportApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateNetworkSecurityPolicyExportApiResponseData"))
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyExportApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateNetworkSecurityPolicyExportApiResponseData")
+}
+
+type OneOfListAddressGroupsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []AddressGroup         `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListAddressGroupsApiResponseData() *OneOfListAddressGroupsApiResponseData {
+	p := new(OneOfListAddressGroupsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListAddressGroupsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListAddressGroupsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []AddressGroup:
+		p.oneOfType0 = v.([]AddressGroup)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<microseg.v4.config.AddressGroup>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<microseg.v4.config.AddressGroup>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListAddressGroupsApiResponseData) GetValue() interface{} {
+	if "List<microseg.v4.config.AddressGroup>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListAddressGroupsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]AddressGroup)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "microseg.v4.config.AddressGroup" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<microseg.v4.config.AddressGroup>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<microseg.v4.config.AddressGroup>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListAddressGroupsApiResponseData"))
+}
+
+func (p *OneOfListAddressGroupsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<microseg.v4.config.AddressGroup>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListAddressGroupsApiResponseData")
+}
+
+type OneOfDeleteDsCategoryMappingApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteDsCategoryMappingApiResponseData() *OneOfDeleteDsCategoryMappingApiResponseData {
+	p := new(OneOfDeleteDsCategoryMappingApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteDsCategoryMappingApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteDsCategoryMappingApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteDsCategoryMappingApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteDsCategoryMappingApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteDsCategoryMappingApiResponseData"))
+}
+
+func (p *OneOfDeleteDsCategoryMappingApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteDsCategoryMappingApiResponseData")
+}
+
+type OneOfDeleteDirectoryServerConfigApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteDirectoryServerConfigApiResponseData() *OneOfDeleteDirectoryServerConfigApiResponseData {
+	p := new(OneOfDeleteDirectoryServerConfigApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteDirectoryServerConfigApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteDirectoryServerConfigApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteDirectoryServerConfigApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteDirectoryServerConfigApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteDirectoryServerConfigApiResponseData"))
+}
+
+func (p *OneOfDeleteDirectoryServerConfigApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteDirectoryServerConfigApiResponseData")
 }
 
 type OneOfGetNetworkSecurityPolicyApiResponseData struct {
@@ -3479,11 +3928,233 @@ func (p *OneOfGetNetworkSecurityPolicyApiResponseData) MarshalJSON() ([]byte, er
 	return nil, errors.New("No value to marshal for OneOfGetNetworkSecurityPolicyApiResponseData")
 }
 
+type OneOfUpdateServiceGroupApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateServiceGroupApiResponseData() *OneOfUpdateServiceGroupApiResponseData {
+	p := new(OneOfUpdateServiceGroupApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateServiceGroupApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateServiceGroupApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateServiceGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateServiceGroupApiResponseData"))
+}
+
+func (p *OneOfUpdateServiceGroupApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateServiceGroupApiResponseData")
+}
+
+type OneOfGetServiceGroupApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *ServiceGroup          `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetServiceGroupApiResponseData() *OneOfGetServiceGroupApiResponseData {
+	p := new(OneOfGetServiceGroupApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetServiceGroupApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetServiceGroupApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case ServiceGroup:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(ServiceGroup)
+		}
+		*p.oneOfType0 = v.(ServiceGroup)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetServiceGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(ServiceGroup)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "microseg.v4.config.ServiceGroup" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(ServiceGroup)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetServiceGroupApiResponseData"))
+}
+
+func (p *OneOfGetServiceGroupApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetServiceGroupApiResponseData")
+}
+
 type OneOfUpdateDirectoryServerConfigApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
 }
 
 func NewOneOfUpdateDirectoryServerConfigApiResponseData() *OneOfUpdateDirectoryServerConfigApiResponseData {
@@ -3498,19 +4169,6 @@ func (p *OneOfUpdateDirectoryServerConfigApiResponseData) SetValue(v interface{}
 		return errors.New(fmt.Sprintf("OneOfUpdateDirectoryServerConfigApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case import3.TaskReference:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(import3.TaskReference)
@@ -3524,6 +4182,19 @@ func (p *OneOfUpdateDirectoryServerConfigApiResponseData) SetValue(v interface{}
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -3531,34 +4202,16 @@ func (p *OneOfUpdateDirectoryServerConfigApiResponseData) SetValue(v interface{}
 }
 
 func (p *OneOfUpdateDirectoryServerConfigApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
 func (p *OneOfUpdateDirectoryServerConfigApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
@@ -3577,38 +4230,70 @@ func (p *OneOfUpdateDirectoryServerConfigApiResponseData) UnmarshalJSON(b []byte
 			return nil
 		}
 	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateDirectoryServerConfigApiResponseData"))
 }
 
 func (p *OneOfUpdateDirectoryServerConfigApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfUpdateDirectoryServerConfigApiResponseData")
 }
 
-type OneOfDeleteDsCategoryMappingApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
+type OneOfListNetworkSecurityPoliciesApiResponseData struct {
+	Discriminator *string                 `json:"-"`
+	ObjectType_   *string                 `json:"-"`
+	oneOfType1    *FileDetail             `json:"-"`
+	oneOfType400  *import4.ErrorResponse  `json:"-"`
+	oneOfType0    []NetworkSecurityPolicy `json:"-"`
 }
 
-func NewOneOfDeleteDsCategoryMappingApiResponseData() *OneOfDeleteDsCategoryMappingApiResponseData {
-	p := new(OneOfDeleteDsCategoryMappingApiResponseData)
+func NewOneOfListNetworkSecurityPoliciesApiResponseData() *OneOfListNetworkSecurityPoliciesApiResponseData {
+	p := new(OneOfListNetworkSecurityPoliciesApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDeleteDsCategoryMappingApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListNetworkSecurityPoliciesApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteDsCategoryMappingApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListNetworkSecurityPoliciesApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case FileDetail:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(FileDetail)
+		}
+		*p.oneOfType1 = v.(FileDetail)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "FileDetail"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "FileDetail"
 	case import4.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import4.ErrorResponse)
@@ -3622,36 +4307,52 @@ func (p *OneOfDeleteDsCategoryMappingApiResponseData) SetValue(v interface{}) er
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
+	case []NetworkSecurityPolicy:
+		p.oneOfType0 = v.([]NetworkSecurityPolicy)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = "List<microseg.v4.config.NetworkSecurityPolicy>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+		*p.ObjectType_ = "List<microseg.v4.config.NetworkSecurityPolicy>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfDeleteDsCategoryMappingApiResponseData) GetValue() interface{} {
+func (p *OneOfListNetworkSecurityPoliciesApiResponseData) GetValue() interface{} {
+	if p.oneOfType1 != nil && "FileDetail" == *p.Discriminator {
+		return *p.oneOfType1
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+	if "List<microseg.v4.config.NetworkSecurityPolicy>" == *p.Discriminator {
+		return p.oneOfType0
 	}
 	return nil
 }
 
-func (p *OneOfDeleteDsCategoryMappingApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListNetworkSecurityPoliciesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(FileDetail)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(FileDetail)
+		}
+		*p.oneOfType1 = *vOneOfType1
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "FileDetail"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "FileDetail"
+		return nil
+	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -3670,6 +4371,204 @@ func (p *OneOfDeleteDsCategoryMappingApiResponseData) UnmarshalJSON(b []byte) er
 			return nil
 		}
 	}
+	vOneOfType0 := new([]NetworkSecurityPolicy)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "microseg.v4.config.NetworkSecurityPolicy" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<microseg.v4.config.NetworkSecurityPolicy>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<microseg.v4.config.NetworkSecurityPolicy>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListNetworkSecurityPoliciesApiResponseData"))
+}
+
+func (p *OneOfListNetworkSecurityPoliciesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType1 != nil && "FileDetail" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<microseg.v4.config.NetworkSecurityPolicy>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListNetworkSecurityPoliciesApiResponseData")
+}
+
+type OneOfListServiceGroupsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []ServiceGroup         `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListServiceGroupsApiResponseData() *OneOfListServiceGroupsApiResponseData {
+	p := new(OneOfListServiceGroupsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListServiceGroupsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListServiceGroupsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []ServiceGroup:
+		p.oneOfType0 = v.([]ServiceGroup)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<microseg.v4.config.ServiceGroup>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<microseg.v4.config.ServiceGroup>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListServiceGroupsApiResponseData) GetValue() interface{} {
+	if "List<microseg.v4.config.ServiceGroup>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListServiceGroupsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]ServiceGroup)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "microseg.v4.config.ServiceGroup" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<microseg.v4.config.ServiceGroup>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<microseg.v4.config.ServiceGroup>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListServiceGroupsApiResponseData"))
+}
+
+func (p *OneOfListServiceGroupsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<microseg.v4.config.ServiceGroup>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListServiceGroupsApiResponseData")
+}
+
+type OneOfCreateServiceGroupApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateServiceGroupApiResponseData() *OneOfCreateServiceGroupApiResponseData {
+	p := new(OneOfCreateServiceGroupApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateServiceGroupApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateServiceGroupApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateServiceGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
@@ -3688,17 +4587,993 @@ func (p *OneOfDeleteDsCategoryMappingApiResponseData) UnmarshalJSON(b []byte) er
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteDsCategoryMappingApiResponseData"))
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateServiceGroupApiResponseData"))
 }
 
-func (p *OneOfDeleteDsCategoryMappingApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
+func (p *OneOfCreateServiceGroupApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfDeleteDsCategoryMappingApiResponseData")
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateServiceGroupApiResponseData")
+}
+
+type OneOfCreateNetworkSecurityPolicyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateNetworkSecurityPolicyApiResponseData() *OneOfCreateNetworkSecurityPolicyApiResponseData {
+	p := new(OneOfCreateNetworkSecurityPolicyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateNetworkSecurityPolicyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateNetworkSecurityPolicyApiResponseData"))
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateNetworkSecurityPolicyApiResponseData")
+}
+
+type OneOfCreateDirectoryServerConfigApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateDirectoryServerConfigApiResponseData() *OneOfCreateDirectoryServerConfigApiResponseData {
+	p := new(OneOfCreateDirectoryServerConfigApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateDirectoryServerConfigApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateDirectoryServerConfigApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateDirectoryServerConfigApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateDirectoryServerConfigApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDirectoryServerConfigApiResponseData"))
+}
+
+func (p *OneOfCreateDirectoryServerConfigApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateDirectoryServerConfigApiResponseData")
+}
+
+type OneOfDeleteAddressGroupApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteAddressGroupApiResponseData() *OneOfDeleteAddressGroupApiResponseData {
+	p := new(OneOfDeleteAddressGroupApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteAddressGroupApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteAddressGroupApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteAddressGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteAddressGroupApiResponseData"))
+}
+
+func (p *OneOfDeleteAddressGroupApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteAddressGroupApiResponseData")
+}
+
+type OneOfDeleteServiceGroupApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteServiceGroupApiResponseData() *OneOfDeleteServiceGroupApiResponseData {
+	p := new(OneOfDeleteServiceGroupApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteServiceGroupApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteServiceGroupApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteServiceGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteServiceGroupApiResponseData"))
+}
+
+func (p *OneOfDeleteServiceGroupApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteServiceGroupApiResponseData")
+}
+
+type OneOfCreateNetworkSecurityPolicyImportApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateNetworkSecurityPolicyImportApiResponseData() *OneOfCreateNetworkSecurityPolicyImportApiResponseData {
+	p := new(OneOfCreateNetworkSecurityPolicyImportApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyImportApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateNetworkSecurityPolicyImportApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyImportApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyImportApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateNetworkSecurityPolicyImportApiResponseData"))
+}
+
+func (p *OneOfCreateNetworkSecurityPolicyImportApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateNetworkSecurityPolicyImportApiResponseData")
+}
+
+type OneOfNetworkSecurityPolicyRuleSpec struct {
+	Discriminator *string                    `json:"-"`
+	ObjectType_   *string                    `json:"-"`
+	oneOfType0    *TwoEnvIsolationRuleSpec   `json:"-"`
+	oneOfType1    *ApplicationRuleSpec       `json:"-"`
+	oneOfType3    *MultiEnvIsolationRuleSpec `json:"-"`
+	oneOfType2    *IntraEntityGroupRuleSpec  `json:"-"`
+}
+
+func NewOneOfNetworkSecurityPolicyRuleSpec() *OneOfNetworkSecurityPolicyRuleSpec {
+	p := new(OneOfNetworkSecurityPolicyRuleSpec)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfNetworkSecurityPolicyRuleSpec) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfNetworkSecurityPolicyRuleSpec is nil"))
+	}
+	switch v.(type) {
+	case TwoEnvIsolationRuleSpec:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(TwoEnvIsolationRuleSpec)
+		}
+		*p.oneOfType0 = v.(TwoEnvIsolationRuleSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case ApplicationRuleSpec:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(ApplicationRuleSpec)
+		}
+		*p.oneOfType1 = v.(ApplicationRuleSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	case MultiEnvIsolationRuleSpec:
+		if nil == p.oneOfType3 {
+			p.oneOfType3 = new(MultiEnvIsolationRuleSpec)
+		}
+		*p.oneOfType3 = v.(MultiEnvIsolationRuleSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType3.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType3.ObjectType_
+	case IntraEntityGroupRuleSpec:
+		if nil == p.oneOfType2 {
+			p.oneOfType2 = new(IntraEntityGroupRuleSpec)
+		}
+		*p.oneOfType2 = v.(IntraEntityGroupRuleSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfNetworkSecurityPolicyRuleSpec) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType3
+	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2
+	}
+	return nil
+}
+
+func (p *OneOfNetworkSecurityPolicyRuleSpec) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(TwoEnvIsolationRuleSpec)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "microseg.v4.config.TwoEnvIsolationRuleSpec" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(TwoEnvIsolationRuleSpec)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType1 := new(ApplicationRuleSpec)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if "microseg.v4.config.ApplicationRuleSpec" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(ApplicationRuleSpec)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType3 := new(MultiEnvIsolationRuleSpec)
+	if err := json.Unmarshal(b, vOneOfType3); err == nil {
+		if "microseg.v4.config.MultiEnvIsolationRuleSpec" == *vOneOfType3.ObjectType_ {
+			if nil == p.oneOfType3 {
+				p.oneOfType3 = new(MultiEnvIsolationRuleSpec)
+			}
+			*p.oneOfType3 = *vOneOfType3
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType3.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType3.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2 := new(IntraEntityGroupRuleSpec)
+	if err := json.Unmarshal(b, vOneOfType2); err == nil {
+		if "microseg.v4.config.IntraEntityGroupRuleSpec" == *vOneOfType2.ObjectType_ {
+			if nil == p.oneOfType2 {
+				p.oneOfType2 = new(IntraEntityGroupRuleSpec)
+			}
+			*p.oneOfType2 = *vOneOfType2
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNetworkSecurityPolicyRuleSpec"))
+}
+
+func (p *OneOfNetworkSecurityPolicyRuleSpec) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType3)
+	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2)
+	}
+	return nil, errors.New("No value to marshal for OneOfNetworkSecurityPolicyRuleSpec")
+}
+
+type OneOfListDirectoryServerConfigsApiResponseData struct {
+	Discriminator *string                 `json:"-"`
+	ObjectType_   *string                 `json:"-"`
+	oneOfType0    []DirectoryServerConfig `json:"-"`
+	oneOfType400  *import4.ErrorResponse  `json:"-"`
+}
+
+func NewOneOfListDirectoryServerConfigsApiResponseData() *OneOfListDirectoryServerConfigsApiResponseData {
+	p := new(OneOfListDirectoryServerConfigsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListDirectoryServerConfigsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListDirectoryServerConfigsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []DirectoryServerConfig:
+		p.oneOfType0 = v.([]DirectoryServerConfig)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<microseg.v4.config.DirectoryServerConfig>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<microseg.v4.config.DirectoryServerConfig>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListDirectoryServerConfigsApiResponseData) GetValue() interface{} {
+	if "List<microseg.v4.config.DirectoryServerConfig>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListDirectoryServerConfigsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]DirectoryServerConfig)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "microseg.v4.config.DirectoryServerConfig" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<microseg.v4.config.DirectoryServerConfig>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<microseg.v4.config.DirectoryServerConfig>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListDirectoryServerConfigsApiResponseData"))
+}
+
+func (p *OneOfListDirectoryServerConfigsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<microseg.v4.config.DirectoryServerConfig>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListDirectoryServerConfigsApiResponseData")
+}
+
+type OneOfUpdateNetworkSecurityPolicyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateNetworkSecurityPolicyApiResponseData() *OneOfUpdateNetworkSecurityPolicyApiResponseData {
+	p := new(OneOfUpdateNetworkSecurityPolicyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateNetworkSecurityPolicyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateNetworkSecurityPolicyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateNetworkSecurityPolicyApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateNetworkSecurityPolicyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateNetworkSecurityPolicyApiResponseData"))
+}
+
+func (p *OneOfUpdateNetworkSecurityPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateNetworkSecurityPolicyApiResponseData")
 }
 
 type OneOfGetDsCategoryMappingApiResponseData struct {
@@ -3812,25 +5687,35 @@ func (p *OneOfGetDsCategoryMappingApiResponseData) MarshalJSON() ([]byte, error)
 	return nil, errors.New("No value to marshal for OneOfGetDsCategoryMappingApiResponseData")
 }
 
-type OneOfCreateNetworkSecurityPolicyExportApiResponseData struct {
+type OneOfListDsCategoryMappingsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
+	oneOfType0    []CategoryMapping      `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
 }
 
-func NewOneOfCreateNetworkSecurityPolicyExportApiResponseData() *OneOfCreateNetworkSecurityPolicyExportApiResponseData {
-	p := new(OneOfCreateNetworkSecurityPolicyExportApiResponseData)
+func NewOneOfListDsCategoryMappingsApiResponseData() *OneOfListDsCategoryMappingsApiResponseData {
+	p := new(OneOfListDsCategoryMappingsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCreateNetworkSecurityPolicyExportApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListDsCategoryMappingsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateNetworkSecurityPolicyExportApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListDsCategoryMappingsApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case []CategoryMapping:
+		p.oneOfType0 = v.([]CategoryMapping)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<microseg.v4.config.CategoryMapping>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<microseg.v4.config.CategoryMapping>"
 	case import4.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import4.ErrorResponse)
@@ -3844,523 +5729,356 @@ func (p *OneOfCreateNetworkSecurityPolicyExportApiResponseData) SetValue(v inter
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfCreateNetworkSecurityPolicyExportApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyExportApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateNetworkSecurityPolicyExportApiResponseData"))
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyExportApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateNetworkSecurityPolicyExportApiResponseData")
-}
-
-type OneOfUpdateServiceGroupApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfUpdateServiceGroupApiResponseData() *OneOfUpdateServiceGroupApiResponseData {
-	p := new(OneOfUpdateServiceGroupApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateServiceGroupApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateServiceGroupApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateServiceGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUpdateServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateServiceGroupApiResponseData"))
-}
-
-func (p *OneOfUpdateServiceGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateServiceGroupApiResponseData")
-}
-
-type OneOfUpdateDsCategoryMappingApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfUpdateDsCategoryMappingApiResponseData() *OneOfUpdateDsCategoryMappingApiResponseData {
-	p := new(OneOfUpdateDsCategoryMappingApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateDsCategoryMappingApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateDsCategoryMappingApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateDsCategoryMappingApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUpdateDsCategoryMappingApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateDsCategoryMappingApiResponseData"))
-}
-
-func (p *OneOfUpdateDsCategoryMappingApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateDsCategoryMappingApiResponseData")
-}
-
-type OneOfDeleteDirectoryServerConfigApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfDeleteDirectoryServerConfigApiResponseData() *OneOfDeleteDirectoryServerConfigApiResponseData {
-	p := new(OneOfDeleteDirectoryServerConfigApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteDirectoryServerConfigApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteDirectoryServerConfigApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteDirectoryServerConfigApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfDeleteDirectoryServerConfigApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteDirectoryServerConfigApiResponseData"))
-}
-
-func (p *OneOfDeleteDirectoryServerConfigApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteDirectoryServerConfigApiResponseData")
-}
-
-type OneOfListDirectoryServerConfigsApiResponseData struct {
-	Discriminator *string                 `json:"-"`
-	ObjectType_   *string                 `json:"-"`
-	oneOfType400  *import4.ErrorResponse  `json:"-"`
-	oneOfType0    []DirectoryServerConfig `json:"-"`
-}
-
-func NewOneOfListDirectoryServerConfigsApiResponseData() *OneOfListDirectoryServerConfigsApiResponseData {
-	p := new(OneOfListDirectoryServerConfigsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListDirectoryServerConfigsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListDirectoryServerConfigsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []DirectoryServerConfig:
-		p.oneOfType0 = v.([]DirectoryServerConfig)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<microseg.v4.config.DirectoryServerConfig>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<microseg.v4.config.DirectoryServerConfig>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListDirectoryServerConfigsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<microseg.v4.config.DirectoryServerConfig>" == *p.Discriminator {
+func (p *OneOfListDsCategoryMappingsApiResponseData) GetValue() interface{} {
+	if "List<microseg.v4.config.CategoryMapping>" == *p.Discriminator {
 		return p.oneOfType0
 	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
 	return nil
 }
 
-func (p *OneOfListDirectoryServerConfigsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]DirectoryServerConfig)
+func (p *OneOfListDsCategoryMappingsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]CategoryMapping)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "microseg.v4.config.DirectoryServerConfig" == *((*vOneOfType0)[0].ObjectType_) {
+		if len(*vOneOfType0) == 0 || "microseg.v4.config.CategoryMapping" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<microseg.v4.config.DirectoryServerConfig>"
+			*p.Discriminator = "List<microseg.v4.config.CategoryMapping>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<microseg.v4.config.DirectoryServerConfig>"
+			*p.ObjectType_ = "List<microseg.v4.config.CategoryMapping>"
 			return nil
-
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListDirectoryServerConfigsApiResponseData"))
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListDsCategoryMappingsApiResponseData"))
 }
 
-func (p *OneOfListDirectoryServerConfigsApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListDsCategoryMappingsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<microseg.v4.config.CategoryMapping>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<microseg.v4.config.DirectoryServerConfig>" == *p.Discriminator {
+	return nil, errors.New("No value to marshal for OneOfListDsCategoryMappingsApiResponseData")
+}
+
+type OneOfUpdateAddressGroupApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateAddressGroupApiResponseData() *OneOfUpdateAddressGroupApiResponseData {
+	p := new(OneOfUpdateAddressGroupApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateAddressGroupApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateAddressGroupApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateAddressGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateAddressGroupApiResponseData"))
+}
+
+func (p *OneOfUpdateAddressGroupApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfListDirectoryServerConfigsApiResponseData")
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateAddressGroupApiResponseData")
+}
+
+type OneOfListNetworkSecurityPolicyRulesApiResponseData struct {
+	Discriminator *string                     `json:"-"`
+	ObjectType_   *string                     `json:"-"`
+	oneOfType0    []NetworkSecurityPolicyRule `json:"-"`
+	oneOfType400  *import4.ErrorResponse      `json:"-"`
+}
+
+func NewOneOfListNetworkSecurityPolicyRulesApiResponseData() *OneOfListNetworkSecurityPolicyRulesApiResponseData {
+	p := new(OneOfListNetworkSecurityPolicyRulesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListNetworkSecurityPolicyRulesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListNetworkSecurityPolicyRulesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []NetworkSecurityPolicyRule:
+		p.oneOfType0 = v.([]NetworkSecurityPolicyRule)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<microseg.v4.config.NetworkSecurityPolicyRule>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<microseg.v4.config.NetworkSecurityPolicyRule>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListNetworkSecurityPolicyRulesApiResponseData) GetValue() interface{} {
+	if "List<microseg.v4.config.NetworkSecurityPolicyRule>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListNetworkSecurityPolicyRulesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]NetworkSecurityPolicyRule)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "microseg.v4.config.NetworkSecurityPolicyRule" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<microseg.v4.config.NetworkSecurityPolicyRule>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<microseg.v4.config.NetworkSecurityPolicyRule>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListNetworkSecurityPolicyRulesApiResponseData"))
+}
+
+func (p *OneOfListNetworkSecurityPolicyRulesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<microseg.v4.config.NetworkSecurityPolicyRule>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListNetworkSecurityPolicyRulesApiResponseData")
+}
+
+type OneOfMultiEnvIsolationRuleSpecSpec struct {
+	Discriminator *string                 `json:"-"`
+	ObjectType_   *string                 `json:"-"`
+	oneOfType0    *AllToAllIsolationGroup `json:"-"`
+}
+
+func NewOneOfMultiEnvIsolationRuleSpecSpec() *OneOfMultiEnvIsolationRuleSpecSpec {
+	p := new(OneOfMultiEnvIsolationRuleSpecSpec)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfMultiEnvIsolationRuleSpecSpec) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfMultiEnvIsolationRuleSpecSpec is nil"))
+	}
+	switch v.(type) {
+	case AllToAllIsolationGroup:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(AllToAllIsolationGroup)
+		}
+		*p.oneOfType0 = v.(AllToAllIsolationGroup)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfMultiEnvIsolationRuleSpecSpec) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfMultiEnvIsolationRuleSpecSpec) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(AllToAllIsolationGroup)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "microseg.v4.config.AllToAllIsolationGroup" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(AllToAllIsolationGroup)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMultiEnvIsolationRuleSpecSpec"))
+}
+
+func (p *OneOfMultiEnvIsolationRuleSpecSpec) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfMultiEnvIsolationRuleSpecSpec")
 }
 
 type OneOfGetDirectoryServerConfigApiResponseData struct {
@@ -4474,638 +6192,11 @@ func (p *OneOfGetDirectoryServerConfigApiResponseData) MarshalJSON() ([]byte, er
 	return nil, errors.New("No value to marshal for OneOfGetDirectoryServerConfigApiResponseData")
 }
 
-type OneOfDeleteNetworkSecurityPolicyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfDeleteNetworkSecurityPolicyApiResponseData() *OneOfDeleteNetworkSecurityPolicyApiResponseData {
-	p := new(OneOfDeleteNetworkSecurityPolicyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteNetworkSecurityPolicyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteNetworkSecurityPolicyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteNetworkSecurityPolicyApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfDeleteNetworkSecurityPolicyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteNetworkSecurityPolicyApiResponseData"))
-}
-
-func (p *OneOfDeleteNetworkSecurityPolicyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteNetworkSecurityPolicyApiResponseData")
-}
-
-type OneOfNetworkSecurityPolicyRuleSpec struct {
-	Discriminator *string                   `json:"-"`
-	ObjectType_   *string                   `json:"-"`
-	oneOfType0    *TwoEnvIsolationRuleSpec  `json:"-"`
-	oneOfType2    *IntraEntityGroupRuleSpec `json:"-"`
-	oneOfType1    *ApplicationRuleSpec      `json:"-"`
-}
-
-func NewOneOfNetworkSecurityPolicyRuleSpec() *OneOfNetworkSecurityPolicyRuleSpec {
-	p := new(OneOfNetworkSecurityPolicyRuleSpec)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfNetworkSecurityPolicyRuleSpec) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfNetworkSecurityPolicyRuleSpec is nil"))
-	}
-	switch v.(type) {
-	case TwoEnvIsolationRuleSpec:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(TwoEnvIsolationRuleSpec)
-		}
-		*p.oneOfType0 = v.(TwoEnvIsolationRuleSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case IntraEntityGroupRuleSpec:
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(IntraEntityGroupRuleSpec)
-		}
-		*p.oneOfType2 = v.(IntraEntityGroupRuleSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2.ObjectType_
-	case ApplicationRuleSpec:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(ApplicationRuleSpec)
-		}
-		*p.oneOfType1 = v.(ApplicationRuleSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfNetworkSecurityPolicyRuleSpec) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfNetworkSecurityPolicyRuleSpec) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(TwoEnvIsolationRuleSpec)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "microseg.v4.config.TwoEnvIsolationRuleSpec" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(TwoEnvIsolationRuleSpec)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2 := new(IntraEntityGroupRuleSpec)
-	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "microseg.v4.config.IntraEntityGroupRuleSpec" == *vOneOfType2.ObjectType_ {
-			if nil == p.oneOfType2 {
-				p.oneOfType2 = new(IntraEntityGroupRuleSpec)
-			}
-			*p.oneOfType2 = *vOneOfType2
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType1 := new(ApplicationRuleSpec)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "microseg.v4.config.ApplicationRuleSpec" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(ApplicationRuleSpec)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfNetworkSecurityPolicyRuleSpec"))
-}
-
-func (p *OneOfNetworkSecurityPolicyRuleSpec) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2)
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	return nil, errors.New("No value to marshal for OneOfNetworkSecurityPolicyRuleSpec")
-}
-
-type OneOfCreateNetworkSecurityPolicyImportApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType1    []ImportEntity         `json:"-"`
-}
-
-func NewOneOfCreateNetworkSecurityPolicyImportApiResponseData() *OneOfCreateNetworkSecurityPolicyImportApiResponseData {
-	p := new(OneOfCreateNetworkSecurityPolicyImportApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyImportApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateNetworkSecurityPolicyImportApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case []ImportEntity:
-		p.oneOfType1 = v.([]ImportEntity)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<microseg.v4.config.ImportEntity>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<microseg.v4.config.ImportEntity>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyImportApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if "List<microseg.v4.config.ImportEntity>" == *p.Discriminator {
-		return p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyImportApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType1 := new([]ImportEntity)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-
-		if len(*vOneOfType1) == 0 || "microseg.v4.config.ImportEntity" == *((*vOneOfType1)[0].ObjectType_) {
-			p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<microseg.v4.config.ImportEntity>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<microseg.v4.config.ImportEntity>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateNetworkSecurityPolicyImportApiResponseData"))
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyImportApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if "List<microseg.v4.config.ImportEntity>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateNetworkSecurityPolicyImportApiResponseData")
-}
-
-type OneOfCreateDsCategoryMappingApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfCreateDsCategoryMappingApiResponseData() *OneOfCreateDsCategoryMappingApiResponseData {
-	p := new(OneOfCreateDsCategoryMappingApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateDsCategoryMappingApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateDsCategoryMappingApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateDsCategoryMappingApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateDsCategoryMappingApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDsCategoryMappingApiResponseData"))
-}
-
-func (p *OneOfCreateDsCategoryMappingApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateDsCategoryMappingApiResponseData")
-}
-
-type OneOfCreateAddressGroupApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfCreateAddressGroupApiResponseData() *OneOfCreateAddressGroupApiResponseData {
-	p := new(OneOfCreateAddressGroupApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateAddressGroupApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateAddressGroupApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateAddressGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateAddressGroupApiResponseData"))
-}
-
-func (p *OneOfCreateAddressGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateAddressGroupApiResponseData")
-}
-
 type OneOfGetAddressGroupApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType0    *AddressGroup          `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
 }
 
 func NewOneOfGetAddressGroupApiResponseData() *OneOfGetAddressGroupApiResponseData {
@@ -5120,19 +6211,6 @@ func (p *OneOfGetAddressGroupApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfGetAddressGroupApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case AddressGroup:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(AddressGroup)
@@ -5146,6 +6224,19 @@ func (p *OneOfGetAddressGroupApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -5153,34 +6244,16 @@ func (p *OneOfGetAddressGroupApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetAddressGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
 func (p *OneOfGetAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType0 := new(AddressGroup)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "microseg.v4.config.AddressGroup" == *vOneOfType0.ObjectType_ {
@@ -5199,51 +6272,56 @@ func (p *OneOfGetAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetAddressGroupApiResponseData"))
 }
 
 func (p *OneOfGetAddressGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfGetAddressGroupApiResponseData")
 }
 
-type OneOfDeleteAddressGroupApiResponseData struct {
+type OneOfUpdateDsCategoryMappingApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
 }
 
-func NewOneOfDeleteAddressGroupApiResponseData() *OneOfDeleteAddressGroupApiResponseData {
-	p := new(OneOfDeleteAddressGroupApiResponseData)
+func NewOneOfUpdateDsCategoryMappingApiResponseData() *OneOfUpdateDsCategoryMappingApiResponseData {
+	p := new(OneOfUpdateDsCategoryMappingApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDeleteAddressGroupApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfUpdateDsCategoryMappingApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteAddressGroupApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfUpdateDsCategoryMappingApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case import3.TaskReference:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(import3.TaskReference)
@@ -5257,41 +6335,36 @@ func (p *OneOfDeleteAddressGroupApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfDeleteAddressGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
+func (p *OneOfUpdateDsCategoryMappingApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfDeleteAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
+func (p *OneOfUpdateDsCategoryMappingApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
@@ -5310,95 +6383,6 @@ func (p *OneOfDeleteAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteAddressGroupApiResponseData"))
-}
-
-func (p *OneOfDeleteAddressGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteAddressGroupApiResponseData")
-}
-
-type OneOfListNetworkSecurityPoliciesApiResponseData struct {
-	Discriminator *string                 `json:"-"`
-	ObjectType_   *string                 `json:"-"`
-	oneOfType400  *import4.ErrorResponse  `json:"-"`
-	oneOfType0    []NetworkSecurityPolicy `json:"-"`
-	oneOfType1    *FileDetail             `json:"-"`
-}
-
-func NewOneOfListNetworkSecurityPoliciesApiResponseData() *OneOfListNetworkSecurityPoliciesApiResponseData {
-	p := new(OneOfListNetworkSecurityPoliciesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListNetworkSecurityPoliciesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListNetworkSecurityPoliciesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []NetworkSecurityPolicy:
-		p.oneOfType0 = v.([]NetworkSecurityPolicy)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<microseg.v4.config.NetworkSecurityPolicy>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<microseg.v4.config.NetworkSecurityPolicy>"
-	case FileDetail:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(FileDetail)
-		}
-		*p.oneOfType1 = v.(FileDetail)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "FileDetail"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "FileDetail"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListNetworkSecurityPoliciesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<microseg.v4.config.NetworkSecurityPolicy>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType1 != nil && "FileDetail" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfListNetworkSecurityPoliciesApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -5417,87 +6401,38 @@ func (p *OneOfListNetworkSecurityPoliciesApiResponseData) UnmarshalJSON(b []byte
 			return nil
 		}
 	}
-	vOneOfType0 := new([]NetworkSecurityPolicy)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "microseg.v4.config.NetworkSecurityPolicy" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<microseg.v4.config.NetworkSecurityPolicy>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<microseg.v4.config.NetworkSecurityPolicy>"
-			return nil
-
-		}
-	}
-	vOneOfType1 := new(FileDetail)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(FileDetail)
-		}
-		*p.oneOfType1 = *vOneOfType1
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "FileDetail"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "FileDetail"
-		return nil
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListNetworkSecurityPoliciesApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateDsCategoryMappingApiResponseData"))
 }
 
-func (p *OneOfListNetworkSecurityPoliciesApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfUpdateDsCategoryMappingApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<microseg.v4.config.NetworkSecurityPolicy>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType1 != nil && "FileDetail" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	return nil, errors.New("No value to marshal for OneOfListNetworkSecurityPoliciesApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfUpdateDsCategoryMappingApiResponseData")
 }
 
-type OneOfDeleteServiceGroupApiResponseData struct {
+type OneOfDeleteNetworkSecurityPolicyApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
 }
 
-func NewOneOfDeleteServiceGroupApiResponseData() *OneOfDeleteServiceGroupApiResponseData {
-	p := new(OneOfDeleteServiceGroupApiResponseData)
+func NewOneOfDeleteNetworkSecurityPolicyApiResponseData() *OneOfDeleteNetworkSecurityPolicyApiResponseData {
+	p := new(OneOfDeleteNetworkSecurityPolicyApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDeleteServiceGroupApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfDeleteNetworkSecurityPolicyApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteServiceGroupApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfDeleteNetworkSecurityPolicyApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case import3.TaskReference:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(import3.TaskReference)
@@ -5511,41 +6446,36 @@ func (p *OneOfDeleteServiceGroupApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfDeleteServiceGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
+func (p *OneOfDeleteNetworkSecurityPolicyApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfDeleteServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
+func (p *OneOfDeleteNetworkSecurityPolicyApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
@@ -5564,81 +6494,6 @@ func (p *OneOfDeleteServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteServiceGroupApiResponseData"))
-}
-
-func (p *OneOfDeleteServiceGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteServiceGroupApiResponseData")
-}
-
-type OneOfUpdateAddressGroupApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfUpdateAddressGroupApiResponseData() *OneOfUpdateAddressGroupApiResponseData {
-	p := new(OneOfUpdateAddressGroupApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateAddressGroupApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateAddressGroupApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateAddressGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUpdateAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -5657,6 +6512,81 @@ func (p *OneOfUpdateAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteNetworkSecurityPolicyApiResponseData"))
+}
+
+func (p *OneOfDeleteNetworkSecurityPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteNetworkSecurityPolicyApiResponseData")
+}
+
+type OneOfCreateAddressGroupApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateAddressGroupApiResponseData() *OneOfCreateAddressGroupApiResponseData {
+	p := new(OneOfCreateAddressGroupApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateAddressGroupApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateAddressGroupApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.TaskReference)
+		}
+		*p.oneOfType0 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateAddressGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
@@ -5675,81 +6605,6 @@ func (p *OneOfUpdateAddressGroupApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateAddressGroupApiResponseData"))
-}
-
-func (p *OneOfUpdateAddressGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateAddressGroupApiResponseData")
-}
-
-type OneOfUpdateNetworkSecurityPolicyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfUpdateNetworkSecurityPolicyApiResponseData() *OneOfUpdateNetworkSecurityPolicyApiResponseData {
-	p := new(OneOfUpdateNetworkSecurityPolicyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateNetworkSecurityPolicyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateNetworkSecurityPolicyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateNetworkSecurityPolicyApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUpdateNetworkSecurityPolicyApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -5768,796 +6623,17 @@ func (p *OneOfUpdateNetworkSecurityPolicyApiResponseData) UnmarshalJSON(b []byte
 			return nil
 		}
 	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateNetworkSecurityPolicyApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateAddressGroupApiResponseData"))
 }
 
-func (p *OneOfUpdateNetworkSecurityPolicyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
+func (p *OneOfCreateAddressGroupApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateNetworkSecurityPolicyApiResponseData")
-}
-
-type OneOfListNetworkSecurityPolicyRulesApiResponseData struct {
-	Discriminator *string                     `json:"-"`
-	ObjectType_   *string                     `json:"-"`
-	oneOfType400  *import4.ErrorResponse      `json:"-"`
-	oneOfType0    []NetworkSecurityPolicyRule `json:"-"`
-}
-
-func NewOneOfListNetworkSecurityPolicyRulesApiResponseData() *OneOfListNetworkSecurityPolicyRulesApiResponseData {
-	p := new(OneOfListNetworkSecurityPolicyRulesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListNetworkSecurityPolicyRulesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListNetworkSecurityPolicyRulesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []NetworkSecurityPolicyRule:
-		p.oneOfType0 = v.([]NetworkSecurityPolicyRule)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<microseg.v4.config.NetworkSecurityPolicyRule>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<microseg.v4.config.NetworkSecurityPolicyRule>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListNetworkSecurityPolicyRulesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<microseg.v4.config.NetworkSecurityPolicyRule>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListNetworkSecurityPolicyRulesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]NetworkSecurityPolicyRule)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "microseg.v4.config.NetworkSecurityPolicyRule" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<microseg.v4.config.NetworkSecurityPolicyRule>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<microseg.v4.config.NetworkSecurityPolicyRule>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListNetworkSecurityPolicyRulesApiResponseData"))
-}
-
-func (p *OneOfListNetworkSecurityPolicyRulesApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<microseg.v4.config.NetworkSecurityPolicyRule>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListNetworkSecurityPolicyRulesApiResponseData")
-}
-
-type OneOfGetServiceGroupApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *ServiceGroup          `json:"-"`
-}
-
-func NewOneOfGetServiceGroupApiResponseData() *OneOfGetServiceGroupApiResponseData {
-	p := new(OneOfGetServiceGroupApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetServiceGroupApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetServiceGroupApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ServiceGroup:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ServiceGroup)
-		}
-		*p.oneOfType0 = v.(ServiceGroup)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetServiceGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGetServiceGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ServiceGroup)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "microseg.v4.config.ServiceGroup" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ServiceGroup)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetServiceGroupApiResponseData"))
-}
-
-func (p *OneOfGetServiceGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetServiceGroupApiResponseData")
-}
-
-type OneOfListAddressGroupsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    []AddressGroup         `json:"-"`
-}
-
-func NewOneOfListAddressGroupsApiResponseData() *OneOfListAddressGroupsApiResponseData {
-	p := new(OneOfListAddressGroupsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListAddressGroupsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListAddressGroupsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []AddressGroup:
-		p.oneOfType0 = v.([]AddressGroup)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<microseg.v4.config.AddressGroup>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<microseg.v4.config.AddressGroup>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListAddressGroupsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<microseg.v4.config.AddressGroup>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListAddressGroupsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]AddressGroup)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "microseg.v4.config.AddressGroup" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<microseg.v4.config.AddressGroup>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<microseg.v4.config.AddressGroup>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListAddressGroupsApiResponseData"))
-}
-
-func (p *OneOfListAddressGroupsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<microseg.v4.config.AddressGroup>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListAddressGroupsApiResponseData")
-}
-
-type OneOfCreateNetworkSecurityPolicyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfCreateNetworkSecurityPolicyApiResponseData() *OneOfCreateNetworkSecurityPolicyApiResponseData {
-	p := new(OneOfCreateNetworkSecurityPolicyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateNetworkSecurityPolicyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateNetworkSecurityPolicyApiResponseData"))
-}
-
-func (p *OneOfCreateNetworkSecurityPolicyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateNetworkSecurityPolicyApiResponseData")
-}
-
-type OneOfListServiceGroupsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    []ServiceGroup         `json:"-"`
-}
-
-func NewOneOfListServiceGroupsApiResponseData() *OneOfListServiceGroupsApiResponseData {
-	p := new(OneOfListServiceGroupsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListServiceGroupsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListServiceGroupsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []ServiceGroup:
-		p.oneOfType0 = v.([]ServiceGroup)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<microseg.v4.config.ServiceGroup>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<microseg.v4.config.ServiceGroup>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListServiceGroupsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<microseg.v4.config.ServiceGroup>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListServiceGroupsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]ServiceGroup)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "microseg.v4.config.ServiceGroup" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<microseg.v4.config.ServiceGroup>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<microseg.v4.config.ServiceGroup>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListServiceGroupsApiResponseData"))
-}
-
-func (p *OneOfListServiceGroupsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<microseg.v4.config.ServiceGroup>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListServiceGroupsApiResponseData")
-}
-
-type OneOfCreateDirectoryServerConfigApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-}
-
-func NewOneOfCreateDirectoryServerConfigApiResponseData() *OneOfCreateDirectoryServerConfigApiResponseData {
-	p := new(OneOfCreateDirectoryServerConfigApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateDirectoryServerConfigApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateDirectoryServerConfigApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateDirectoryServerConfigApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateDirectoryServerConfigApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDirectoryServerConfigApiResponseData"))
-}
-
-func (p *OneOfCreateDirectoryServerConfigApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateDirectoryServerConfigApiResponseData")
-}
-
-type OneOfListDsCategoryMappingsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType0    []CategoryMapping      `json:"-"`
-}
-
-func NewOneOfListDsCategoryMappingsApiResponseData() *OneOfListDsCategoryMappingsApiResponseData {
-	p := new(OneOfListDsCategoryMappingsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListDsCategoryMappingsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListDsCategoryMappingsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []CategoryMapping:
-		p.oneOfType0 = v.([]CategoryMapping)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<microseg.v4.config.CategoryMapping>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<microseg.v4.config.CategoryMapping>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListDsCategoryMappingsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<microseg.v4.config.CategoryMapping>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListDsCategoryMappingsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "microseg.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]CategoryMapping)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "microseg.v4.config.CategoryMapping" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<microseg.v4.config.CategoryMapping>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<microseg.v4.config.CategoryMapping>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListDsCategoryMappingsApiResponseData"))
-}
-
-func (p *OneOfListDsCategoryMappingsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<microseg.v4.config.CategoryMapping>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListDsCategoryMappingsApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfCreateAddressGroupApiResponseData")
 }
 
 type FileDetail struct {

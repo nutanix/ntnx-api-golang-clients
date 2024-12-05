@@ -1,16 +1,16 @@
 /*
  * Generated file models/microseg/v4/operation/operation_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Microseg Versioned APIs
+ * Part of the Nutanix Flow Management APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module microseg.v4.operation of Nutanix Microseg Versioned APIs
+  Module microseg.v4.operation of Nutanix Flow Management APIs
 */
 package operation
 
@@ -30,7 +30,7 @@ _Body for requesting Config Upgrade Summary_
 
 It contains two fields:
   - policyNames
-  - isIncludeSecureSubnetsInfo
+  - shouldIncludeSecureSubnetsInfo
 */
 type DryRunSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -53,7 +53,7 @@ func NewDryRunSpec() *DryRunSpec {
 	p := new(DryRunSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.DryRunSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -79,7 +79,9 @@ type DryRunSummary struct {
 	PolicySummaries []PolicyUpgradeSummary `json:"policySummaries,omitempty"`
 
 	SubnetSummaries []SubnetUpgradeSummary `json:"subnetSummaries,omitempty"`
-
+	/*
+	  Summary of failures from the flow upgrade dry-run summary report.
+	*/
 	SummaryFailures []import2.Message `json:"summaryFailures,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
@@ -91,7 +93,7 @@ func NewDryRunSummary() *DryRunSummary {
 	p := new(DryRunSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.DryRunSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -142,7 +144,7 @@ func NewPolicyCount() *PolicyCount {
 	p := new(PolicyCount)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyCount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -167,7 +169,7 @@ func NewPolicyCountByType() *PolicyCountByType {
 	p := new(PolicyCountByType)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyCountByType"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -237,7 +239,7 @@ func NewPolicyMetadata() *PolicyMetadata {
 	p := new(PolicyMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -274,7 +276,7 @@ func NewPolicyPreview() *PolicyPreview {
 	p := new(PolicyPreview)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyPreview"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -322,7 +324,7 @@ func NewPolicyUpgradeSummary() *PolicyUpgradeSummary {
 	p := new(PolicyUpgradeSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyUpgradeSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -337,9 +339,13 @@ type SecurityPolicyOptions struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  If Hitlog is enabled.
+	*/
 	IsHitlogEnabled *bool `json:"isHitlogEnabled,omitempty"`
-
+	/*
+	  If Ipv6 Traffic is allowed.
+	*/
 	IsIpv6TrafficAllowed *bool `json:"isIpv6TrafficAllowed,omitempty"`
 }
 
@@ -347,7 +353,7 @@ func NewSecurityPolicyOptions() *SecurityPolicyOptions {
 	p := new(SecurityPolicyOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.SecurityPolicyOptions"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsHitlogEnabled = new(bool)
@@ -489,7 +495,7 @@ func NewSubnetUpgradeSummary() *SubnetUpgradeSummary {
 	p := new(SubnetUpgradeSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.SubnetUpgradeSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -526,7 +532,7 @@ func NewTotalPolicyCount() *TotalPolicyCount {
 	p := new(TotalPolicyCount)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.TotalPolicyCount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -535,16 +541,14 @@ func NewTotalPolicyCount() *TotalPolicyCount {
 /*
 __Request body for Config Upgrade__
 
-It contains two fields:
-- isDryRun
+It contains one field:
 - spec
 
-The spec can be one of two types based on isDryRun boolean value.
+The spec can be one of two types based on $dryrun boolean value passed in query parameter.
 
-A sample request body with the flag set would look like this:
+A sample request body with the $dryrun set to true in query parameter would look like this:
 ```
 {
-"isDryRun": true,
 "spec": {
   "policyNames" : [],
   "shouldIncludeSecureSubnetsInfo" : false
@@ -552,12 +556,11 @@ A sample request body with the flag set would look like this:
 }
 ```
 
-A sample request body with the flag unset would look like this:
+A sample request body with the $dryrun not set as part of query parameter would look like this:
 ```
 {
-"isDryRun": false,
 "spec": {
-  "isForceMonitor" : true,
+  "shouldSetMonitorMode" : true,
   "shouldUpgradeSecuredSubnetsOnly" : false
   }
 }
@@ -570,15 +573,12 @@ type UpgradeJob struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  If set to true, it will trigger a dry run of Flow configuration upgrade. As part of this dry run, the policies and subnets will not be upgraded.<br>
-	If set to false, the configuration upgrade is triggered.
-	*/
-	IsDryRun *bool `json:"isDryRun,omitempty"`
-	/*
 
 	 */
 	SpecItemDiscriminator_ *string `json:"$specItemDiscriminator,omitempty"`
-
+	/*
+	  Specifies the type of upgradeJobSpec (UpgradeSpec or DryRunSpec).
+	*/
 	Spec *OneOfUpgradeJobSpec `json:"spec"`
 }
 
@@ -597,11 +597,8 @@ func NewUpgradeJob() *UpgradeJob {
 	p := new(UpgradeJob)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.UpgradeJob"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
-
-	p.IsDryRun = new(bool)
-	*p.IsDryRun = false
 
 	return p
 }
@@ -667,7 +664,7 @@ func NewUpgradeSpec() *UpgradeSpec {
 	p := new(UpgradeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.UpgradeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -676,8 +673,8 @@ func NewUpgradeSpec() *UpgradeSpec {
 type OneOfUpgradeJobSpec struct {
 	Discriminator *string      `json:"-"`
 	ObjectType_   *string      `json:"-"`
-	oneOfType1    *DryRunSpec  `json:"-"`
 	oneOfType0    *UpgradeSpec `json:"-"`
+	oneOfType1    *DryRunSpec  `json:"-"`
 }
 
 func NewOneOfUpgradeJobSpec() *OneOfUpgradeJobSpec {
@@ -692,19 +689,6 @@ func (p *OneOfUpgradeJobSpec) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfUpgradeJobSpec is nil"))
 	}
 	switch v.(type) {
-	case DryRunSpec:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(DryRunSpec)
-		}
-		*p.oneOfType1 = v.(DryRunSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
 	case UpgradeSpec:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(UpgradeSpec)
@@ -718,6 +702,19 @@ func (p *OneOfUpgradeJobSpec) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case DryRunSpec:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(DryRunSpec)
+		}
+		*p.oneOfType1 = v.(DryRunSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -725,34 +722,16 @@ func (p *OneOfUpgradeJobSpec) SetValue(v interface{}) error {
 }
 
 func (p *OneOfUpgradeJobSpec) GetValue() interface{} {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
 	}
 	return nil
 }
 
 func (p *OneOfUpgradeJobSpec) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(DryRunSpec)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "microseg.v4.operation.DryRunSpec" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(DryRunSpec)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType0 := new(UpgradeSpec)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "microseg.v4.operation.UpgradeSpec" == *vOneOfType0.ObjectType_ {
@@ -771,15 +750,33 @@ func (p *OneOfUpgradeJobSpec) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType1 := new(DryRunSpec)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if "microseg.v4.operation.DryRunSpec" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(DryRunSpec)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpgradeJobSpec"))
 }
 
 func (p *OneOfUpgradeJobSpec) MarshalJSON() ([]byte, error) {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
 	}
 	return nil, errors.New("No value to marshal for OneOfUpgradeJobSpec")
 }

@@ -1,4 +1,3 @@
-//Api classes for microseg's golang SDK
 package api
 
 import (
@@ -40,7 +39,7 @@ func (api *DirectoryServerConfigsApi) CreateCategoryMapping(body *import1.Catego
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/category-mappings"
+	uri := "/api/microseg/v4.0/config/category-mappings"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -62,22 +61,22 @@ func (api *DirectoryServerConfigsApi) CreateCategoryMapping(body *import1.Catego
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.CreateDsCategoryMappingApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -88,7 +87,7 @@ func (api *DirectoryServerConfigsApi) CreateDirectoryServerConfig(body *import1.
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/directory-server-configs"
+	uri := "/api/microseg/v4.0/config/directory-server-configs"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -110,22 +109,22 @@ func (api *DirectoryServerConfigsApi) CreateDirectoryServerConfig(body *import1.
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.CreateDirectoryServerConfigApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -136,7 +135,7 @@ func (api *DirectoryServerConfigsApi) DeleteDirectoryServerConfigById(extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/directory-server-configs/{extId}"
+	uri := "/api/microseg/v4.0/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -144,7 +143,6 @@ func (api *DirectoryServerConfigsApi) DeleteDirectoryServerConfigById(extId *str
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -161,22 +159,22 @@ func (api *DirectoryServerConfigsApi) DeleteDirectoryServerConfigById(extId *str
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.DeleteDirectoryServerConfigApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -187,7 +185,7 @@ func (api *DirectoryServerConfigsApi) DeleteDsCategoryMappingById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.0/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -195,7 +193,6 @@ func (api *DirectoryServerConfigsApi) DeleteDsCategoryMappingById(extId *string,
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -212,22 +209,22 @@ func (api *DirectoryServerConfigsApi) DeleteDsCategoryMappingById(extId *string,
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.DeleteDsCategoryMappingApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -238,7 +235,7 @@ func (api *DirectoryServerConfigsApi) GetDirectoryServerConfigById(extId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/directory-server-configs/{extId}"
+	uri := "/api/microseg/v4.0/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -246,7 +243,6 @@ func (api *DirectoryServerConfigsApi) GetDirectoryServerConfigById(extId *string
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -263,22 +259,22 @@ func (api *DirectoryServerConfigsApi) GetDirectoryServerConfigById(extId *string
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetDirectoryServerConfigApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -289,7 +285,7 @@ func (api *DirectoryServerConfigsApi) GetDsCategoryMappingById(extId *string, ar
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.0/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -297,7 +293,6 @@ func (api *DirectoryServerConfigsApi) GetDsCategoryMappingById(extId *string, ar
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -314,33 +309,33 @@ func (api *DirectoryServerConfigsApi) GetDsCategoryMappingById(extId *string, ar
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetDsCategoryMappingApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Gets the list of Directory Server Category Mappings.
-func (api *DirectoryServerConfigsApi) ListCategoryMappings(page_ *int, limit_ *int, select_ *string, args ...map[string]interface{}) (*import1.ListDsCategoryMappingsApiResponse, error) {
+func (api *DirectoryServerConfigsApi) ListCategoryMappings(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListDsCategoryMappingsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/category-mappings"
+	uri := "/api/microseg/v4.0/config/category-mappings"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -354,15 +349,18 @@ func (api *DirectoryServerConfigsApi) ListCategoryMappings(page_ *int, limit_ *i
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
+	if filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -370,22 +368,22 @@ func (api *DirectoryServerConfigsApi) ListCategoryMappings(page_ *int, limit_ *i
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ListDsCategoryMappingsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -396,7 +394,7 @@ func (api *DirectoryServerConfigsApi) ListDirectoryServerConfigs(select_ *string
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/directory-server-configs"
+	uri := "/api/microseg/v4.0/config/directory-server-configs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -410,7 +408,6 @@ func (api *DirectoryServerConfigsApi) ListDirectoryServerConfigs(select_ *string
 
 	// Query Params
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -418,22 +415,22 @@ func (api *DirectoryServerConfigsApi) ListDirectoryServerConfigs(select_ *string
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ListDirectoryServerConfigsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -444,7 +441,7 @@ func (api *DirectoryServerConfigsApi) UpdateDirectoryServerConfigById(extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/directory-server-configs/{extId}"
+	uri := "/api/microseg/v4.0/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -456,7 +453,6 @@ func (api *DirectoryServerConfigsApi) UpdateDirectoryServerConfigById(extId *str
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -473,22 +469,22 @@ func (api *DirectoryServerConfigsApi) UpdateDirectoryServerConfigById(extId *str
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UpdateDirectoryServerConfigApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -499,7 +495,7 @@ func (api *DirectoryServerConfigsApi) UpdateDsCategoryMappingById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0.b1/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.0/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -511,7 +507,6 @@ func (api *DirectoryServerConfigsApi) UpdateDsCategoryMappingById(extId *string,
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -528,21 +523,21 @@ func (api *DirectoryServerConfigsApi) UpdateDsCategoryMappingById(extId *string,
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UpdateDsCategoryMappingApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
