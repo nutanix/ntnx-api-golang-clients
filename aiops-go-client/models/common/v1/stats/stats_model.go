@@ -1,16 +1,16 @@
 /*
  * Generated file models/common/v1/stats/stats_model.go.
  *
- * Product version: 4.0.3-alpha-2
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Aiops Versioned APIs
+ * Part of the Nutanix AIOps APIs
  *
- * (c) 2023 Nutanix Inc.  All rights reserved
+ * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Nutanix Stats Configuration
+  Module common.v1.stats of Nutanix AIOps APIs
 */
 package stats
 
@@ -114,4 +114,17 @@ func (e *DownSamplingOperator) MarshalJSON() ([]byte, error) {
 
 func (e DownSamplingOperator) Ref() *DownSamplingOperator {
 	return &e
+}
+
+type FileDetail struct {
+	Path        *string `json:"-"`
+	ObjectType_ *string `json:"-"`
+}
+
+func NewFileDetail() *FileDetail {
+	p := new(FileDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "FileDetail"
+
+	return p
 }

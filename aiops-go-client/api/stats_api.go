@@ -1,14 +1,15 @@
-//Api classes for aiops's golang SDK
 package api
 
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/aiops/v4/stats"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/stats"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/aiops/v4/config"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/aiops/v4/stats"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/stats"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type StatsApi struct {
@@ -25,7 +26,7 @@ func NewStatsApi(apiClient *client.ApiClient) *StatsApi {
 		ApiClient: apiClient,
 	}
 
-	headers := []string{"authorization", "cookie", "ntnx-request-id", "host", "user-agent"}
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
 	a.headersToSkip = make(map[string]bool)
 	for _, header := range headers {
 		a.headersToSkip[header] = true
@@ -34,22 +35,22 @@ func NewStatsApi(apiClient *client.ApiClient) *StatsApi {
 	return a
 }
 
-// Returns entity and metrics descriptors.
-func (api *StatsApi) GetEntityDescriptorsV4(extId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import1.EntityDescriptorListApiResponse, error) {
+// Returns metadata information available for entity and metrics for given entities.
+func (api *StatsApi) GetEntityDescriptorsV4(sourceExtId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import1.EntityDescriptorListApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0.a2/stats/sources/{extId}/entity-descriptors"
+	uri := "/api/aiops/v4.0/config/sources/{sourceExtId}/entity-descriptors"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'sourceExtId' is set
+	if nil == sourceExtId {
+		return nil, client.ReportError("sourceExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"sourceExtId"+"}", url.PathEscape(client.ParameterToString(*sourceExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -62,15 +63,12 @@ func (api *StatsApi) GetEntityDescriptorsV4(extId *string, page_ *int, limit_ *i
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -78,32 +76,33 @@ func (api *StatsApi) GetEntityDescriptorsV4(extId *string, page_ *int, limit_ *i
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.EntityDescriptorListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Returns attribute/metric data for the selected entities.
-func (api *StatsApi) GetEntityMetricsV4(sourceExtId *string, extId *string, page_ *int, limit_ *int, startTime_ *string, endTime_ *string, samplingInterval_ *int, statType_ *import2.DownSamplingOperator, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.EntityListApiResponse, error) {
+// Returns a list of attributes and metrics (time series data) that are available for a given entity type.
+func (api *StatsApi) GetEntityMetricsV4(sourceExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, page_ *int, limit_ *int, samplingInterval_ *int, statType_ *import5.DownSamplingOperator, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import4.EntityListApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0.a2/stats/sources/{sourceExtId}/entities/{extId}"
+	uri := "/api/aiops/v4.0/stats/sources/{sourceExtId}/entities/{extId}"
 
 	// verify the required parameter 'sourceExtId' is set
 	if nil == sourceExtId {
@@ -112,6 +111,14 @@ func (api *StatsApi) GetEntityMetricsV4(sourceExtId *string, extId *string, page
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'startTime_' is set
+	if nil == startTime_ {
+		return nil, client.ReportError("startTime_ is required and must be specified")
+	}
+	// verify the required parameter 'endTime_' is set
+	if nil == endTime_ {
+		return nil, client.ReportError("endTime_ is required and must be specified")
 	}
 
 	// Path Params
@@ -129,35 +136,24 @@ func (api *StatsApi) GetEntityMetricsV4(sourceExtId *string, extId *string, page
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
-	if startTime_ != nil {
-
-		queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-	}
-	if endTime_ != nil {
-
-		queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	}
+	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
 	if samplingInterval_ != nil {
-
 		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
 	}
 	if statType_ != nil {
-		enumVal := statType_.GetName()
-		queryParams.Add("$statType", client.ParameterToString(enumVal, ""))
+		statType_QueryParamEnumVal := statType_.GetName()
+		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -165,40 +161,41 @@ func (api *StatsApi) GetEntityMetricsV4(sourceExtId *string, extId *string, page
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
-	unmarshalledResp := new(import1.EntityListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import4.EntityListApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Returns a list of available entity types for a given source.
-func (api *StatsApi) GetEntityTypesV4(extId *string, args ...map[string]interface{}) (*import1.EntityTypeListApiResponse, error) {
+// Returns a list of available entity types and their UUIDs for a given source. These UUIDs can further be used for other APIs to retrieve entity metrics and descriptors.
+func (api *StatsApi) GetEntityTypesV4(sourceExtId *string, args ...map[string]interface{}) (*import1.EntityTypeListApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0.a2/stats/sources/{extId}/entity-types"
+	uri := "/api/aiops/v4.0/config/sources/{sourceExtId}/entity-types"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'sourceExtId' is set
+	if nil == sourceExtId {
+		return nil, client.ReportError("sourceExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"sourceExtId"+"}", url.PathEscape(client.ParameterToString(*sourceExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -214,32 +211,33 @@ func (api *StatsApi) GetEntityTypesV4(extId *string, args ...map[string]interfac
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.EntityTypeListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Returns a list of available sources.
+// Returns a list of available sources and their UUIDs. These UUIDs can further be used for other APIs to retrieve entity types and their metrics.
 func (api *StatsApi) GetSourcesV4(args ...map[string]interface{}) (*import1.SourceListApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0.a2/stats/sources"
+	uri := "/api/aiops/v4.0/config/sources"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -256,20 +254,21 @@ func (api *StatsApi) GetSourcesV4(args ...map[string]interface{}) (*import1.Sour
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+
 	unmarshalledResp := new(import1.SourceListApiResponse)
-	json.Unmarshal(responseBody, &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

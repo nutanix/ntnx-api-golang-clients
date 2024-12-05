@@ -5,7 +5,9 @@ import (
 	"bytes"
 	"context"
 	"crypto/tls"
+	"crypto/x509"
 	"encoding/json"
+	"encoding/pem"
 	"encoding/xml"
 	"errors"
 	"fmt"
@@ -13,12 +15,12 @@ import (
 	"github.com/hashicorp/go-retryablehttp"
 	"github.com/sirupsen/logrus"
 	"io"
-	"io/ioutil"
 	"net"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"path/filepath"
 	"reflect"
 	"regexp"
 	"strconv"
@@ -33,11 +35,12 @@ const (
 )
 
 var (
-	jsonCheck       = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
-	xmlCheck        = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
-	uriCheck        = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
-	retryStatusList = []int{408, 503, 504}
-	userAgent       = "Nutanix-aiops/v4.0.3-alpha.2"
+	jsonCheck               = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
+	xmlCheck                = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
+	uriCheck                = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
+	contentDispositionCheck = regexp.MustCompile("attachment;\\s*filename=\"(.*)\"")
+	retryStatusList         = []int{408, 429, 503, 504}
+	userAgent               = "Nutanix-aiops/v4.0.1"
 )
 
 /*
@@ -51,35 +54,50 @@ var (
     Debug (optional) : flag to enable debug logging (default : empty)
     VerifySSL (optional) : Verify SSL certificate of cluster (default: true)
     MaxRetryAttempts (optional) : Maximum number of retry attempts to be made at a time (default: 5)
-    ReadTimeout (optional) : Read timeout for all operations in milliseconds
-    ConnectTimeout (optional) : Connection timeout for all operations in milliseconds
+    MaxRedirects (optional) : Maximum number of redirect attempts to be made at a time (default: 10)
+    ReadTimeout (optional) : Read timeout for all operations (default: 30 sec)
+    ConnectTimeout (optional) : Connection timeout for all operations (default: 30 sec)
     RetryInterval (optional) : Interval between successive retry attempts (default: 3 sec)
+    DownloadDirectory (optional) : Directory location on local for files to download (default: Current Directory)
+    DownloadChunkSize (optional) : Chunk size in bytes for files to download (default: 8*1024 bytes)
+    RootCACertificateFile (string) : PEM encoded Root CA certificate file path
+    ClientCertificateFile (string) : PEM encoded client certificate file path
+    ClientKeyFile (string) : PEM encoded client key file path
     LoggerFile (optional) : Log file to write activity logs
 */
 type ApiClient struct {
-	Scheme           string `json:"scheme,omitempty"`
-	Host             string `json:"host,omitempty"`
-	Port             int    `json:"port,omitempty"`
-	Username         string `json:"username,omitempty"`
-	Password         string `json:"password,omitempty"`
-	Debug            bool   `json:"debug,omitempty"`
-	VerifySSL        bool
-	Proxy            *Proxy
-	MaxRetryAttempts int           `json:"maxRetryAttempts,omitempty"`
-	ReadTimeout      time.Duration `json:"readTimeout,omitempty"`
-	ConnectTimeout   time.Duration `json:"connectTimeout,omitempty"`
-	RetryInterval    time.Duration `json:"retryInterval,omitempty"`
-	LoggerFile       string        `json:"loggerFile,omitempty"`
-	defaultHeaders   map[string]string
-	retryClient      *retryablehttp.Client
-	httpClient       *http.Client
-	dialer           *net.Dialer
-	authentication   map[string]interface{}
-	cookie           string
-	refreshCookie    bool
-	previousAuth     string
-	basicAuth        *BasicAuth
-	logger           *logrus.Logger
+	Scheme                string `json:"scheme,omitempty"`
+	Host                  string `json:"host,omitempty"`
+	Port                  int    `json:"port,omitempty"`
+	Username              string `json:"username,omitempty"`
+	Password              string `json:"password,omitempty"`
+	Debug                 bool   `json:"debug,omitempty"`
+	VerifySSL             bool
+	Proxy                 *Proxy
+	MaxRetryAttempts      int           `json:"maxRetryAttempts,omitempty"`
+	MaxRedirects          int           `json:"maxRedirects,omitempty"`
+	ReadTimeout           time.Duration `json:"readTimeout,omitempty"`
+	ConnectTimeout        time.Duration `json:"connectTimeout,omitempty"`
+	RetryInterval         time.Duration `json:"retryInterval,omitempty"`
+	DownloadDirectory     string        `json:"downloadDirectory,omitempty"`
+	DownloadChunkSize     int           `json:"downloadChunkSize,omitempty"`
+	RootCACertificateFile string
+	ClientCertificateFile string
+	ClientKeyFile         string
+	LoggerFile            string `json:"loggerFile,omitempty"`
+	defaultHeaders        map[string]string
+	retryClient           *retryablehttp.Client
+	httpClient            *http.Client
+	dialer                *net.Dialer
+	authentication        map[string]interface{}
+	cookie                string
+	refreshCookie         bool
+	previousAuth          string
+	basicAuth             *BasicAuth
+	previousRootCA        string
+	previousClientCert    string
+	previousClientKey     string
+	logger                *logrus.Logger
 
 	// maxIdleConns controls the maximum number of idle (keep-alive)
 	// connections across all hosts. Zero means no limit.
@@ -110,7 +128,13 @@ func NewApiClient() *ApiClient {
 
 	basicAuth := new(BasicAuth)
 	authentication := make(map[string]interface{})
+	authentication["apiKeyAuthScheme"] = map[string]interface{}{
+		"apiKey": new(APIKey),
+		"in":     "header",
+		"name":   "X-ntnx-api-key",
+	}
 	authentication["basicAuthScheme"] = basicAuth
+	currentDirectory, _ := os.Getwd()
 
 	a := &ApiClient{
 		Scheme:              "https",
@@ -119,9 +143,12 @@ func NewApiClient() *ApiClient {
 		Debug:               false,
 		VerifySSL:           true,
 		MaxRetryAttempts:    5,
+		MaxRedirects:        10,
 		ReadTimeout:         30 * time.Second,
 		ConnectTimeout:      30 * time.Second,
 		RetryInterval:       3 * time.Second,
+		DownloadDirectory:   currentDirectory,
+		DownloadChunkSize:   8 * 1024,
 		maxIdleConns:        10,
 		maxIdleConnsPerHost: 10,
 		maxConnsPerHost:     100,
@@ -149,7 +176,7 @@ func (a *ApiClient) AddDefaultHeader(headerName string, headerValue string) {
 // Makes the HTTP request with given options and returns response body as byte array.
 func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	queryParams url.Values, headerParams map[string]string, formParams url.Values,
-	accepts []string, contentType []string, authNames []string) ([]byte, error) {
+	accepts []string, contentType []string, authNames []string) (interface{}, error) {
 	path := a.Scheme + "://" + a.Host + ":" + strconv.Itoa(a.Port) + *uri
 
 	if headerParams["Authorization"] != "" {
@@ -161,14 +188,20 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	}
 
 	// set Content-Type header
-	httpContentType := a.selectHeaderContentType(contentType)
-	if httpContentType != "" {
-		headerParams["Content-Type"] = httpContentType
+	if headerParams["Content-Type"] == "" {
+		httpContentType := a.selectHeaderContentType(contentType)
+		if httpContentType != "" {
+			headerParams["Content-Type"] = httpContentType
+		}
 	}
 
 	// set Accept header
-	httpHeaderAccept := a.selectHeaderAccept(accepts)
-	if httpHeaderAccept != "" {
+	if headerParams["Accept"] == "" {
+		httpHeaderAccept := a.selectHeaderAccept(accepts)
+		if httpHeaderAccept == "" {
+			httpHeaderAccept = "application/json"
+		}
+
 		headerParams["Accept"] = httpHeaderAccept
 	}
 
@@ -191,9 +224,18 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	}
 
 	a.setupClient()
+	// Remove Authorization header and reset cookie if we are establishing a mTLS connection
+	if a.previousRootCA != "" && a.previousClientKey != "" && a.previousClientCert != "" {
+		delete(request.Header, "Authorization")
+		a.cookie = ""
+	}
 
 	if a.Debug {
-		dump, err := httputil.DumpRequestOut(request, true)
+		printBody := true
+		if headerParams["Content-Type"] == "application/octet-stream" {
+			printBody = false
+		}
+		dump, err := httputil.DumpRequestOut(request, printBody)
 		if err != nil {
 			a.logger.Debugf("Error while logging request details: %s", err.Error())
 			return nil, err
@@ -220,13 +262,37 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 		response, err = a.httpClient.Do(request)
 	}
 
+	// Retry one more time with X-Redirect-Token as cookie
+	if response != nil && response.StatusCode == 302 {
+		a.logger.Info("Retrying the request to follow the redirect...")
+		if response.Header != nil && response.Header.Get("Location") != "" {
+			location := response.Header.Get("Location")
+			a.logger.Info("Redirecting to : " + location)
+			request, _ = a.prepareRequest(location, httpMethod, body, headerParams, queryParams, formParams, authNames)
+			if response.Header.Get("X-Redirect-Token") != "" {
+				request.Header["Cookie"] = []string{response.Header.Get("X-Redirect-Token")}
+			}
+			response, err = a.httpClient.Do(request)
+		}
+	}
+
 	if err != nil {
 		a.logger.Error(err.Error())
 		return nil, err
 	}
 
+	binaryMediaTypes := []string{"application/octet-stream", "application/pdf", "application/zip"}
+	isBinaryResponse := response.Header != nil && a.Contains(binaryMediaTypes, response.Header.Get("Content-Type"))
+	textMediaTypes := []string{"text/event-stream", "text/html", "text/xml", "text/csv", "text/javascript", "text/markdown", "text/vcard"}
+	isTextResponse := response.Header != nil && a.Contains(textMediaTypes, response.Header.Get("Content-Type"))
+
 	if a.Debug {
-		dump, err := httputil.DumpResponse(response, true)
+		printBody := true
+		if isBinaryResponse {
+			printBody = false
+		}
+
+		dump, err := httputil.DumpResponse(response, printBody)
 		if err != nil {
 			a.logger.Debugf("Error while logging response details: %s", err.Error())
 			return nil, err
@@ -248,13 +314,17 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 		return nil, nil
 	}
 
-	responseBody, err := ioutil.ReadAll(response.Body)
+	if isBinaryResponse || isTextResponse {
+		return response, nil
+	}
+
+	responseBody, err := io.ReadAll(response.Body)
 	if err != nil {
 		a.logger.Error(err.Error())
 		return nil, err
 	}
 	response.Body.Close()
-	response.Body = ioutil.NopCloser(bytes.NewBuffer(responseBody))
+	response.Body = io.NopCloser(bytes.NewBuffer(responseBody))
 
 	if !(200 <= response.StatusCode && response.StatusCode <= 209) {
 		return nil, GenericOpenAPIError{
@@ -265,6 +335,51 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 		responseBody := addEtagReferenceToResponse(response.Header, responseBody)
 		return responseBody, nil
 	}
+}
+
+func (a *ApiClient) Contains(source []string, match string) bool {
+	for _, item := range source {
+		if item == match {
+			return true
+		}
+	}
+	return false
+}
+
+func (a *ApiClient) DownloadFile(response *http.Response) (*string, error) {
+	var filePath string
+	if len(response.Header.Get("Content-Disposition")) != 0 {
+		filename := contentDispositionCheck.FindStringSubmatch(response.Header.Get("Content-Disposition"))
+		if len(filename) == 2 {
+			filePath = filepath.Join(a.DownloadDirectory, filename[1])
+		}
+	} else {
+		filePath = filepath.Join(a.DownloadDirectory, strconv.FormatInt(time.Now().UnixNano(), 10))
+	}
+
+	ext := filepath.Ext(filePath)
+	ts := time.Now().UTC().Format("2006-01-02T15:04:05.000")
+	filePath = fmt.Sprintf("%s_%s%s", filePath[:len(filePath)-len(ext)], ts, ext)
+
+	a.logger.Infof("Writing response content to file at %s", filePath)
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0755)
+	defer file.Close()
+	if err != nil {
+		a.logger.Errorf("Could not create a file on local for downloading: %s", filePath)
+		return nil, err
+	}
+
+	buf := make([]byte, a.DownloadChunkSize)
+	written, err := io.CopyBuffer(file, response.Body, buf)
+
+	if err != nil {
+		a.logger.Errorf("Something went wrong while downloading the file at path %s: %s", filePath, err)
+		return nil, err
+	}
+
+	a.logger.Infof("%d bytes written to file at %s", written, filePath)
+
+	return &filePath, nil
 }
 
 // Get all authentications (key: authentication name, value: authentication)
@@ -300,7 +415,7 @@ func (a *ApiClient) SetApiKey(key string) error {
 		}
 	}
 
-	return ReportError("no API key authentication configured!")
+	return ReportError("No API key authentication is configured!")
 }
 
 // Helper method to set API key prefix for the first API key authentication
@@ -334,11 +449,17 @@ func (a *ApiClient) SetMaxRetryAttempts(maxRetryAttempts int) {
 	a.MaxRetryAttempts = maxRetryAttempts
 }
 
+// Helper method to set maximum redirection attempts.
+// After the initial instantiation of ApiClient, maximum redirection attempts must be modified only via this method
+func (a *ApiClient) SetMaxRedirects(maxRedirects int) {
+	a.MaxRedirects = maxRedirects
+}
+
 func getValidTimeout(dur time.Duration, apiClient *ApiClient) time.Duration {
 	if dur <= 0 {
 		dur = 30 * time.Second
-	} else if dur > (30 * time.Minute) {
-		dur = 30 * time.Minute
+	} else if dur > (180 * time.Minute) {
+		dur = 180 * time.Minute
 	}
 
 	return dur
@@ -365,9 +486,13 @@ func (a *ApiClient) setupClient() {
 		isRetryClientModified = true
 	}
 
+	// Configure logger based on current configuration
+	configureLogger(a)
+
+	// Initialize/modify retryable http client's transport based on current configuration
 	var transport = a.retryClient.HTTPClient.Transport.(*http.Transport)
 	if isRetryClientModified || transport.TLSClientConfig == nil || transport.TLSClientConfig.InsecureSkipVerify != !a.VerifySSL ||
-		a.dialer == nil || a.dialer.Timeout != a.ConnectTimeout {
+		a.dialer == nil || a.dialer.Timeout != a.ConnectTimeout || shouldConfigureMutualTLS(a) {
 		a.dialer = &net.Dialer{
 			Timeout: getValidTimeout(a.ConnectTimeout, a),
 		}
@@ -381,6 +506,8 @@ func (a *ApiClient) setupClient() {
 			TLSHandshakeTimeout:   a.tlsHandshakeTimeout,
 			ExpectContinueTimeout: 1 * time.Second,
 		}
+
+		// Configure proxy settings
 		if (a.Proxy != nil) && (*a.Proxy != Proxy{}) {
 			path := a.Proxy.Host
 			if a.Proxy.Port != 0 {
@@ -392,6 +519,10 @@ func (a *ApiClient) setupClient() {
 				Host:   path,
 			})
 		}
+
+		// Configure mTLS to retryable http client's transport
+		configureMutualTLS(a, transport)
+
 		a.retryClient.HTTPClient.Transport = transport
 		isRetryClientModified = true
 	}
@@ -406,17 +537,91 @@ func (a *ApiClient) setupClient() {
 	a.retryClient.RetryWaitMax = a.RetryInterval
 	a.retryClient.CheckRetry = retryPolicy
 
-	configureLogger(a)
-
 	if isRetryClientModified {
+		// Create a standard http client from the retryablehttp client
 		a.httpClient = a.retryClient.StandardClient()
 	}
 
+	// Set total timeout for the http client
 	a.httpClient.Timeout = getValidTimeout(a.ConnectTimeout, a) + a.tlsHandshakeTimeout + getValidTimeout(a.ReadTimeout, a)
+
+	// Set the check redirect function to avoid automatic redirection
+	a.httpClient.CheckRedirect = func(req *http.Request, via []*http.Request) error {
+		return http.ErrUseLastResponse
+	}
+
+	// Set the variables within the nested retryable http client
+	t, ok := a.httpClient.Transport.(*retryablehttp.RoundTripper)
+	if ok {
+		t.Client.HTTPClient.Timeout = a.httpClient.Timeout
+		t.Client.HTTPClient.CheckRedirect = a.httpClient.CheckRedirect
+	}
+}
+
+func shouldConfigureMutualTLS(a *ApiClient) bool {
+	return a.RootCACertificateFile != a.previousRootCA || a.ClientCertificateFile != a.previousClientCert || a.ClientKeyFile != a.previousClientKey
+}
+
+// Configure mTLS for the http transport
+func configureMutualTLS(a *ApiClient, transport *http.Transport) {
+	// Only configure if any of the current file paths have been changed
+	if shouldConfigureMutualTLS(a) {
+		a.previousRootCA = a.RootCACertificateFile
+		a.previousClientCert = a.ClientCertificateFile
+		a.previousClientKey = a.ClientKeyFile
+
+		rootCACert, err := os.ReadFile(a.RootCACertificateFile)
+		if err != nil {
+			a.logger.Errorf("Failed to open root certificate file: %v", err)
+			return
+		}
+
+		caCertPool := x509.NewCertPool()
+		caCertPool.AppendCertsFromPEM(rootCACert)
+		x509RootCerts, err := decodePemToCerts(a, rootCACert)
+		if err != nil {
+			a.logger.Errorf("Unable to extract certificate chains from root CA pem file: %v", err)
+			return
+		}
+
+		clientCertificate, err := tls.LoadX509KeyPair(a.ClientCertificateFile, a.ClientKeyFile)
+		if err != nil {
+			a.logger.Errorf("Failed to load client certificate: %v", err)
+			return
+		}
+		// Add CA chain to client cert
+		for _, x509Cert := range x509RootCerts {
+			clientCertificate.Certificate = append(clientCertificate.Certificate, x509Cert.Raw)
+		}
+
+		transport.TLSClientConfig = &tls.Config{
+			RootCAs:      caCertPool,
+			Certificates: []tls.Certificate{clientCertificate},
+		}
+	}
+}
+
+// Decode a PEM encoded file and extract certificate chain
+func decodePemToCerts(a *ApiClient, encodedPem []byte) ([]x509.Certificate, error) {
+	certs := []x509.Certificate{}
+
+	for block, rest := pem.Decode(encodedPem); block != nil; block, rest = pem.Decode(rest) {
+		if block.Type == "CERTIFICATE" {
+			// Extract cert chain
+			cert, err := x509.ParseCertificate(block.Bytes)
+			if err != nil {
+				return nil, errors.New("Unable to parse a certificate in provided pem and it seems to be corrupted...")
+			}
+			certs = append(certs, *cert)
+		}
+	}
+	return certs, nil
 }
 
 func configureLogger(a *ApiClient) {
-	a.retryClient.Logger = nil
+	if a.retryClient != nil {
+		a.retryClient.Logger = nil
+	}
 
 	logLevel := logrus.InfoLevel
 	if a.Debug {
@@ -506,10 +711,6 @@ func (a *ApiClient) selectHeaderAccept(accepts []string) string {
 		return ""
 	}
 
-	if contains(accepts, "application/json") {
-		return "application/json"
-	}
-
 	return strings.Join(accepts, ",")
 }
 
@@ -532,9 +733,12 @@ func (a *ApiClient) prepareRequest(
 			contentType = detectContentType(postBody)
 			headerParams["Content-Type"] = contentType
 		}
-		body, err = setBody(postBody, contentType)
-		if err != nil {
-			return nil, err
+
+		if headerParams["Content-Type"] != "application/octet-stream" {
+			body, err = setBody(postBody, contentType)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -566,11 +770,15 @@ func (a *ApiClient) prepareRequest(
 	url.RawQuery = query.Encode()
 
 	// Generate a new request
-	if body != nil {
+	if postBodyValue.IsValid() && !postBodyValue.IsNil() && headerParams["Content-Type"] == "application/octet-stream" {
+		fileTypeBody, _ := postBody.(*os.File)
+		localVarRequest, err = http.NewRequest(method, url.String(), fileTypeBody)
+	} else if body != nil {
 		localVarRequest, err = http.NewRequest(method, url.String(), body)
 	} else {
 		localVarRequest, err = http.NewRequest(method, url.String(), nil)
 	}
+
 	if err != nil {
 		return nil, err
 	}
@@ -605,13 +813,16 @@ func (a *ApiClient) prepareRequest(
 				key = apiKey.Key
 			}
 
-			if auth["in"] == "header" {
-				localVarRequest.Header[auth["name"].(string)] = []string{key}
-			}
-			if auth["in"] == "query" {
-				queries := localVarRequest.URL.Query()
-				queries.Add(auth["name"].(string), key)
-				localVarRequest.URL.RawQuery = queries.Encode()
+			if key != "" {
+				if auth["in"] == "header" {
+					localVarRequest.Header[auth["name"].(string)] = []string{key}
+				}
+
+				if auth["in"] == "query" {
+					queries := localVarRequest.URL.Query()
+					queries.Add(auth["name"].(string), key)
+					localVarRequest.URL.RawQuery = queries.Encode()
+				}
 			}
 			// OAuth or Bearer authentication
 		} else if auth, ok := a.authentication[authName].(*OAuth); ok {
@@ -631,6 +842,12 @@ func (a *ApiClient) prepareRequest(
 	if len(a.cookie) > 0 {
 		localVarRequest.Header["Cookie"] = []string{a.cookie}
 		delete(localVarRequest.Header, "Authorization")
+	}
+
+	// Add content length to request
+	if localVarRequest.Header.Get("Content-Length") != "" {
+		contentLengthInt64, _ := strconv.ParseInt(localVarRequest.Header.Get("Content-Length"), 10, 64)
+		localVarRequest.ContentLength = contentLengthInt64
 	}
 
 	return localVarRequest, nil
@@ -883,11 +1100,41 @@ func ParameterToString(obj interface{}, collectionFormat string) string {
 
 	if reflect.TypeOf(obj).Kind() == reflect.Slice {
 		return strings.Trim(strings.Replace(fmt.Sprint(obj), " ", delimiter, -1), "[]")
+	} else if isEnumType(obj) {
+		return getEnumValue(obj)
 	} else if t, ok := obj.(time.Time); ok {
 		return t.Format(time.RFC3339)
 	}
 
 	return fmt.Sprintf("%v", obj)
+}
+
+// Helper function to get the value of an enum
+func getEnumValue(v interface{}) string {
+	value := reflect.ValueOf(v)
+	if value.IsValid() {
+		// Change method name if model mustache changes enum method
+		method := value.MethodByName("GetName")
+		if method.IsValid() {
+			values := method.Call(nil)
+			if values != nil && len(values) == 1 {
+				return values[0].String()
+			}
+		}
+
+	}
+
+	return ""
+}
+
+// Helper function to check if this is an enum type
+func isEnumType(v interface{}) bool {
+	t := reflect.TypeOf(v)
+	// Check if the type is an integer type
+	if t != nil && (t.Kind() == reflect.Int || t.Kind() == reflect.Int8 || t.Kind() == reflect.Int16 || t.Kind() == reflect.Int32 || t.Kind() == reflect.Int64) {
+		return t.Kind().String() != t.Name() && t.ConvertibleTo(reflect.TypeOf(t.Name()))
+	}
+	return false
 }
 
 // Helper for converting interface{} parameters to json strings
