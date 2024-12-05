@@ -1,11 +1,10 @@
-//Api classes for iam's golang SDK
 package api
 
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/common/v1/response"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/authn"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/common/v1/response"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/authn"
 	"net/http"
 	"net/url"
 	"strings"
@@ -35,18 +34,22 @@ func NewCertificateAuthenticationProvidersApi(apiClient *client.ApiClient) *Cert
 	return a
 }
 
-// Create a Certificate based Authentication provider.
-func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientCaChain *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, dirSvcExtID *string, certRevocationInfo *import1.CertRevocationInfo, createdBy *string, tenantId *string, createdTime *time.Time, links *[]import3.ApiLink, lastUpdatedTime *time.Time, extId *string, args ...map[string]interface{}) (*import1.CreateCertAuthProviderApiResponse, error) {
+// Creates a certificate-based authentication provider.
+func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientCaChain *string, dirSvcExtID *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, certRevocationInfo *import3.CertRevocationInfo, createdBy *string, tenantId *string, createdTime *time.Time, links *[]import2.ApiLink, lastUpdatedTime *time.Time, extId *string, args ...map[string]interface{}) (*import3.CreateCertAuthProviderApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers"
+	uri := "/api/iam/v4.0/authn/cert-auth-providers"
 
 	// verify the required parameter 'clientCaChain' is set
 	if nil == clientCaChain {
 		return nil, client.ReportError("clientCaChain is required and must be specified")
+	}
+	// verify the required parameter 'dirSvcExtID' is set
+	if nil == dirSvcExtID {
+		return nil, client.ReportError("dirSvcExtID is required and must be specified")
 	}
 	// verify the required parameter 'caCertFileName' is set
 	if nil == caCertFileName {
@@ -80,8 +83,8 @@ func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientC
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
@@ -89,9 +92,7 @@ func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientC
 
 	// Form Params
 	formParams.Add("clientCaChain", client.ParameterToString(*clientCaChain, ""))
-	if dirSvcExtID != nil {
-		formParams.Add("dirSvcExtID", client.ParameterToString(*dirSvcExtID, ""))
-	}
+	formParams.Add("dirSvcExtID", client.ParameterToString(*dirSvcExtID, ""))
 	if certRevocationInfo != nil {
 		formParams.Add("certRevocationInfo", client.ParameterToString(*certRevocationInfo, ""))
 	}
@@ -118,26 +119,26 @@ func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientC
 		formParams.Add("extId", client.ParameterToString(*extId, ""))
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.CreateCertAuthProviderApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.CreateCertAuthProviderApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete a Certificate based Authentication provider configuration by its UUID.
-func (api *CertificateAuthenticationProvidersApi) DeleteCertAuthProviderById(extId *string, args ...map[string]interface{}) (*import1.DeleteCertAuthProviderApiResponse, error) {
+// Deletes a certificate-based authentication provider configuration for the given UUID.
+func (api *CertificateAuthenticationProvidersApi) DeleteCertAuthProviderById(extId *string, args ...map[string]interface{}) (*import3.DeleteCertAuthProviderApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.0/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -145,7 +146,6 @@ func (api *CertificateAuthenticationProvidersApi) DeleteCertAuthProviderById(ext
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -162,33 +162,33 @@ func (api *CertificateAuthenticationProvidersApi) DeleteCertAuthProviderById(ext
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.DeleteCertAuthProviderApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.DeleteCertAuthProviderApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a Certificate based Authentication provider by its UUID.
-func (api *CertificateAuthenticationProvidersApi) GetCertAuthProviderById(extId *string, args ...map[string]interface{}) (*import1.GetCertAuthProviderApiResponse, error) {
+// Fetches a certificate-based authentication provider by its UUID.
+func (api *CertificateAuthenticationProvidersApi) GetCertAuthProviderById(extId *string, args ...map[string]interface{}) (*import3.GetCertAuthProviderApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.0/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -196,7 +196,6 @@ func (api *CertificateAuthenticationProvidersApi) GetCertAuthProviderById(extId 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -213,33 +212,33 @@ func (api *CertificateAuthenticationProvidersApi) GetCertAuthProviderById(extId 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetCertAuthProviderApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.GetCertAuthProviderApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List all Configured Certificate based Authentication providers.
-func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListCertAuthProvidersApiResponse, error) {
+// Lists all configured certificate-based authentication providers.
+func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListCertAuthProvidersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers"
+	uri := "/api/iam/v4.0/authn/cert-auth-providers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -252,16 +251,19 @@ func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(filter_ 
 	accepts := []string{"application/json"}
 
 	// Query Params
+	if page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -269,33 +271,33 @@ func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(filter_ 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ListCertAuthProvidersApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.ListCertAuthProvidersApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update a Certificate based Authentication provider configuration.
-func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(extId *string, clientCaChain *string, dirSvcExtID *string, certRevocationInfo *import1.CertRevocationInfo, caCertFileName *string, isCertAuthEnabled *bool, createdBy *string, tenantId *string, name *string, createdTime *time.Time, links *[]import3.ApiLink, isCacEnabled *bool, lastUpdatedTime *time.Time, extId2 *string, args ...map[string]interface{}) (*import1.UpdateCertAuthProviderApiResponse, error) {
+// Updates a certificate-based authentication provider configuration.
+func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(extId *string, clientCaChain *string, dirSvcExtID *string, certRevocationInfo *import3.CertRevocationInfo, caCertFileName *string, isCertAuthEnabled *bool, createdBy *string, tenantId *string, name *string, createdTime *time.Time, links *[]import2.ApiLink, isCacEnabled *bool, lastUpdatedTime *time.Time, extId2 *string, args ...map[string]interface{}) (*import3.UpdateCertAuthProviderApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.0/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -303,7 +305,6 @@ func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(ext
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -320,8 +321,8 @@ func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(ext
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
@@ -368,14 +369,14 @@ func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(ext
 		formParams.Add("extId", client.ParameterToString(*extId2, ""))
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.UpdateCertAuthProviderApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.UpdateCertAuthProviderApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

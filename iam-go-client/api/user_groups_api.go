@@ -1,10 +1,9 @@
-//Api classes for iam's golang SDK
 package api
 
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/authn"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/authn"
 	"net/http"
 	"net/url"
 	"strings"
@@ -33,14 +32,14 @@ func NewUserGroupsApi(apiClient *client.ApiClient) *UserGroupsApi {
 	return a
 }
 
-// Create a User Group.
-func (api *UserGroupsApi) CreateUserGroup(body *import1.UserGroup, args ...map[string]interface{}) (*import1.CreateUserGroupApiResponse, error) {
+// Creates a user group.
+func (api *UserGroupsApi) CreateUserGroup(body *import3.UserGroup, args ...map[string]interface{}) (*import3.CreateUserGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/user-groups"
+	uri := "/api/iam/v4.0/authn/user-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -62,33 +61,33 @@ func (api *UserGroupsApi) CreateUserGroup(body *import1.UserGroup, args ...map[s
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.CreateUserGroupApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.CreateUserGroupApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete a User Group.
-func (api *UserGroupsApi) DeleteUserGroupById(extId *string, args ...map[string]interface{}) (*import1.DeleteUserGroupApiResponse, error) {
+// Deletes a user group based on the provided external identifier.
+func (api *UserGroupsApi) DeleteUserGroupById(extId *string, args ...map[string]interface{}) (*import3.DeleteUserGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/user-groups/{extId}"
+	uri := "/api/iam/v4.0/authn/user-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -96,7 +95,6 @@ func (api *UserGroupsApi) DeleteUserGroupById(extId *string, args ...map[string]
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -113,33 +111,33 @@ func (api *UserGroupsApi) DeleteUserGroupById(extId *string, args ...map[string]
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.DeleteUserGroupApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.DeleteUserGroupApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// View a User Group.
-func (api *UserGroupsApi) GetUserGroupById(extId *string, args ...map[string]interface{}) (*import1.GetUserGroupApiResponse, error) {
+// Displays a user group based on the provided external identifier.
+func (api *UserGroupsApi) GetUserGroupById(extId *string, args ...map[string]interface{}) (*import3.GetUserGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/user-groups/{extId}"
+	uri := "/api/iam/v4.0/authn/user-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -147,7 +145,6 @@ func (api *UserGroupsApi) GetUserGroupById(extId *string, args ...map[string]int
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -164,33 +161,33 @@ func (api *UserGroupsApi) GetUserGroupById(extId *string, args ...map[string]int
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetUserGroupApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.GetUserGroupApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List all User Group(s).
-func (api *UserGroupsApi) ListUserGroups(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListUserGroupsApiResponse, error) {
+// Lists all user group(s).
+func (api *UserGroupsApi) ListUserGroups(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListUserGroupsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/user-groups"
+	uri := "/api/iam/v4.0/authn/user-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -204,23 +201,18 @@ func (api *UserGroupsApi) ListUserGroups(page_ *int, limit_ *int, filter_ *strin
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -228,21 +220,21 @@ func (api *UserGroupsApi) ListUserGroups(page_ *int, limit_ *int, filter_ *strin
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ListUserGroupsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.ListUserGroupsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

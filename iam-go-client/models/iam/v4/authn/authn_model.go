@@ -1,9 +1,9 @@
 /*
  * Generated file models/iam/v4/authn/authn_model.go.
  *
- * Product version: 4.0.2-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Iam Versioned APIs
+ * Part of the Nutanix IAM Versioned APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
@@ -26,7 +26,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users/{extId}/$actions/change-state Post operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{extId}/$actions/change-state Post operation
 */
 type ActivateUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -48,7 +48,7 @@ func NewActivateUserApiResponse() *ActivateUserApiResponse {
 	p := new(ActivateUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ActivateUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -151,9 +151,9 @@ func (e AlgoType) Ref() *AlgoType {
 }
 
 /*
-Credentials in the form of a unique random key for the Service Account.
+The API key details.
 */
-type ApiKey struct {
+type ApiKeyDetails struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -163,319 +163,20 @@ type ApiKey struct {
 	  The actual API key value, returned only during creation.
 	*/
 	ApiKey *string `json:"apiKey,omitempty"`
-	/*
-	  User or Service who created the API Key.
-	*/
-	CreatedBy *string `json:"createdBy,omitempty"`
-	/*
-	  The creation time of the API Key.
-	*/
-	CreatedTime *time.Time `json:"createdTime,omitempty"`
-
-	CustomOptions *ApiKeyCustomOptions `json:"customOptions,omitempty"`
-	/*
-	  Brief description of the API Key.
-	*/
-	Description *string `json:"description,omitempty"`
-	/*
-	  The expiry time of the API Key.
-	*/
-	ExpiryTime *time.Time `json:"expiryTime,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  The time when the API key was last used.
-	*/
-	LastUsedTime *time.Time `json:"lastUsedTime,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
-	/*
-	  Identifier for the API Key in the form of a name.
-	*/
-	Name *string `json:"name,omitempty"`
-	/*
-	  An optional set of audiences for the API key, meant to restrict its access to APIs.
-	*/
-	Scope []string `json:"scope,omitempty"`
-
-	Status *ApiKeyStatusType `json:"status,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
 }
 
-func NewApiKey() *ApiKey {
-	p := new(ApiKey)
+func NewApiKeyDetails() *ApiKeyDetails {
+	p := new(ApiKeyDetails)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ApiKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	*p.ObjectType_ = "iam.v4.authn.ApiKeyDetails"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Optional customizations for the API Key.
-*/
-type ApiKeyCustomOptions struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Custom set of characters for the API Key.
-	*/
-	Alphabet *string `json:"alphabet"`
-	/*
-	  Custom length of the API Key.
-	*/
-	Length *int `json:"length"`
-}
-
-func (p *ApiKeyCustomOptions) MarshalJSON() ([]byte, error) {
-	type ApiKeyCustomOptionsProxy ApiKeyCustomOptions
-	return json.Marshal(struct {
-		*ApiKeyCustomOptionsProxy
-		Alphabet *string `json:"alphabet,omitempty"`
-		Length   *int    `json:"length,omitempty"`
-	}{
-		ApiKeyCustomOptionsProxy: (*ApiKeyCustomOptionsProxy)(p),
-		Alphabet:                 p.Alphabet,
-		Length:                   p.Length,
-	})
-}
-
-func NewApiKeyCustomOptions() *ApiKeyCustomOptions {
-	p := new(ApiKeyCustomOptions)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ApiKeyCustomOptions"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Revoke API key response object.
-*/
-type ApiKeyRevokeResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Action API successful message.
-	*/
-	Message *string `json:"message"`
-}
-
-func (p *ApiKeyRevokeResponse) MarshalJSON() ([]byte, error) {
-	type ApiKeyRevokeResponseProxy ApiKeyRevokeResponse
-	return json.Marshal(struct {
-		*ApiKeyRevokeResponseProxy
-		Message *string `json:"message,omitempty"`
-	}{
-		ApiKeyRevokeResponseProxy: (*ApiKeyRevokeResponseProxy)(p),
-		Message:                   p.Message,
-	})
-}
-
-func NewApiKeyRevokeResponse() *ApiKeyRevokeResponse {
-	p := new(ApiKeyRevokeResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ApiKeyRevokeResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-The revocation status of the API Key.
-*/
-type ApiKeyStatusType int
-
-const (
-	APIKEYSTATUSTYPE_UNKNOWN  ApiKeyStatusType = 0
-	APIKEYSTATUSTYPE_REDACTED ApiKeyStatusType = 1
-	APIKEYSTATUSTYPE_VALID    ApiKeyStatusType = 2
-	APIKEYSTATUSTYPE_REVOKED  ApiKeyStatusType = 3
-	APIKEYSTATUSTYPE_EXPIRED  ApiKeyStatusType = 4
-)
-
-// Returns the name of the enum given an ordinal number
-//
-// Deprecated: Please use GetName instead of name
-func (e *ApiKeyStatusType) name(index int) string {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"VALID",
-		"REVOKED",
-		"EXPIRED",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the name of the enum
-func (e ApiKeyStatusType) GetName() string {
-	index := int(e)
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"VALID",
-		"REVOKED",
-		"EXPIRED",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the enum type given a string value
-func (e *ApiKeyStatusType) index(name string) ApiKeyStatusType {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"VALID",
-		"REVOKED",
-		"EXPIRED",
-	}
-	for idx := range names {
-		if names[idx] == name {
-			return ApiKeyStatusType(idx)
-		}
-	}
-	return APIKEYSTATUSTYPE_UNKNOWN
-}
-
-func (e *ApiKeyStatusType) UnmarshalJSON(b []byte) error {
-	var enumStr string
-	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ApiKeyStatusType:%s", err))
-	}
-	*e = e.index(enumStr)
-	return nil
-}
-
-func (e *ApiKeyStatusType) MarshalJSON() ([]byte, error) {
-	b := bytes.NewBufferString(`"`)
-	b.WriteString(e.name(int(*e)))
-	b.WriteString(`"`)
-	return b.Bytes(), nil
-}
-
-func (e ApiKeyStatusType) Ref() *ApiKeyStatusType {
-	return &e
-}
-
-/*
-Body of the validate request, consists of an audience.
-*/
-type ApiKeyValidateRequest struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	Audience *string `json:"audience,omitempty"`
-}
-
-func NewApiKeyValidateRequest() *ApiKeyValidateRequest {
-	p := new(ApiKeyValidateRequest)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ApiKeyValidateRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Response of the validate request, consists of the API key details and the Service Account ID.
-*/
-type ApiKeyValidateResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The actual API key value, returned only during creation.
-	*/
-	ApiKey *string `json:"apiKey,omitempty"`
-	/*
-	  User or Service who created the API Key.
-	*/
-	CreatedBy *string `json:"createdBy,omitempty"`
-	/*
-	  The creation time of the API Key.
-	*/
-	CreatedTime *time.Time `json:"createdTime,omitempty"`
-
-	CustomOptions *ApiKeyCustomOptions `json:"customOptions,omitempty"`
-	/*
-	  Brief description of the API Key.
-	*/
-	Description *string `json:"description,omitempty"`
-	/*
-	  The expiry time of the API Key.
-	*/
-	ExpiryTime *time.Time `json:"expiryTime,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  The time when the API key was last used.
-	*/
-	LastUsedTime *time.Time `json:"lastUsedTime,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
-	/*
-	  Identifier for the API Key in the form of a name.
-	*/
-	Name *string `json:"name,omitempty"`
-	/*
-	  An optional set of audiences for the API key, meant to restrict its access to APIs.
-	*/
-	Scope []string `json:"scope,omitempty"`
-
-	ServiceAccountId *string `json:"serviceAccountId,omitempty"`
-
-	Status *ApiKeyStatusType `json:"status,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func NewApiKeyValidateResponse() *ApiKeyValidateResponse {
-	p := new(ApiKeyValidateResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ApiKeyValidateResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Supported Auth methods.
+Supported authentication methods.
 */
 type AuthMethodType int
 
@@ -554,7 +255,7 @@ func (e AuthMethodType) Ref() *AuthMethodType {
 }
 
 /*
-Information of Bucket Access Key.
+Information of bucket access key.
 */
 type BucketsAccessKey struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -563,33 +264,57 @@ type BucketsAccessKey struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Name of the Bucket Access Key.
+	  Name of the bucket access key.
 	*/
 	AccessKeyName *string `json:"accessKeyName"`
 	/*
-	  Creation time for the Bucket Access Key.
+	  External client to whom this key is allocated.
+	*/
+	AssignedTo *string `json:"assignedTo,omitempty"`
+	/*
+	  Service account user who created the buckets access key.
+	*/
+	CreatedBy *string `json:"createdBy,omitempty"`
+	/*
+	  Creation time for the bucket access key.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
+
+	CreationType *CreationType `json:"creationType,omitempty"`
+	/*
+	  The expiry time of the buckets access Key.
+	*/
+	ExpiryTime *time.Time `json:"expiryTime,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  Entity that updated the buckets access key.
+	*/
+	LastUpdatedBy *string `json:"lastUpdatedBy,omitempty"`
+	/*
+	  Creation time for the bucket access key.
+	*/
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Secret Access Key, it will be returned only during Bucket Access Key creation.
+	  This represents secret access key, which will be returned only during access key creation.
 	*/
 	SecretAccessKey *string `json:"secretAccessKey,omitempty"`
+
+	Status *BucketsAccessKeyStatusType `json:"status,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  User Identifier who owns the Bucket Access Key.
+	  User identifier who owns the bucket access key.
 	*/
-	UserId *string `json:"userId"`
+	UserId *string `json:"userId,omitempty"`
 }
 
 func (p *BucketsAccessKey) MarshalJSON() ([]byte, error) {
@@ -597,11 +322,9 @@ func (p *BucketsAccessKey) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
 		*BucketsAccessKeyProxy
 		AccessKeyName *string `json:"accessKeyName,omitempty"`
-		UserId        *string `json:"userId,omitempty"`
 	}{
 		BucketsAccessKeyProxy: (*BucketsAccessKeyProxy)(p),
 		AccessKeyName:         p.AccessKeyName,
-		UserId:                p.UserId,
 	})
 }
 
@@ -609,14 +332,97 @@ func NewBucketsAccessKey() *BucketsAccessKey {
 	p := new(BucketsAccessKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.BucketsAccessKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-A Certificate based Authentication provider.
+The status of the buckets access key, that is, valid, expired or revoked.
+*/
+type BucketsAccessKeyStatusType int
+
+const (
+	BUCKETSACCESSKEYSTATUSTYPE_UNKNOWN  BucketsAccessKeyStatusType = 0
+	BUCKETSACCESSKEYSTATUSTYPE_REDACTED BucketsAccessKeyStatusType = 1
+	BUCKETSACCESSKEYSTATUSTYPE_VALID    BucketsAccessKeyStatusType = 2
+	BUCKETSACCESSKEYSTATUSTYPE_REVOKED  BucketsAccessKeyStatusType = 3
+	BUCKETSACCESSKEYSTATUSTYPE_EXPIRED  BucketsAccessKeyStatusType = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *BucketsAccessKeyStatusType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"VALID",
+		"REVOKED",
+		"EXPIRED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e BucketsAccessKeyStatusType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"VALID",
+		"REVOKED",
+		"EXPIRED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *BucketsAccessKeyStatusType) index(name string) BucketsAccessKeyStatusType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"VALID",
+		"REVOKED",
+		"EXPIRED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return BucketsAccessKeyStatusType(idx)
+		}
+	}
+	return BUCKETSACCESSKEYSTATUSTYPE_UNKNOWN
+}
+
+func (e *BucketsAccessKeyStatusType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for BucketsAccessKeyStatusType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *BucketsAccessKeyStatusType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e BucketsAccessKeyStatusType) Ref() *BucketsAccessKeyStatusType {
+	return &e
+}
+
+/*
+A certificate-based authentication provider.
 */
 type CertAuthProvider struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -635,15 +441,15 @@ type CertAuthProvider struct {
 	*/
 	ClientCaChain *string `json:"clientCaChain,omitempty"`
 	/*
-	  User or Service who created the Certificate Authentication Provider.
+	  User or service who created the certificate authentication provider.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  Creation time of the Certificate Authentication Provider.
+	  Creation time of the certificate authentication provider.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
-	  UUID of an existing Directory Service.
+	  UUID of an existing directory service.
 	*/
 	DirSvcExtID *string `json:"dirSvcExtID,omitempty"`
 	/*
@@ -651,15 +457,15 @@ type CertAuthProvider struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Flag to enable/disable Certificate Authentication for the current certificate based authentication provider.
+	  Flag to enable/disable certificate authentication for the current certificate-based authentication provider.
 	*/
 	IsCacEnabled *bool `json:"isCacEnabled,omitempty"`
 	/*
-	  Flag to enable/disable CAC for the current Certificate based Authentication provider.
+	  Flag to enable/disable CAC for the current certificate-based authentication provider.
 	*/
 	IsCertAuthEnabled *bool `json:"isCertAuthEnabled,omitempty"`
 	/*
-	  Last updated time of the Certificate Authentication Provider.
+	  Last updated time of the certificate authentication provider.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -667,7 +473,7 @@ type CertAuthProvider struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Unique name of the Certificate based Authentication provider.
+	  Unique name of the certificate-based authentication provider.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
@@ -680,7 +486,7 @@ func NewCertAuthProvider() *CertAuthProvider {
 	p := new(CertAuthProvider)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.CertAuthProvider"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -700,7 +506,7 @@ type CertRevocationInfo struct {
 	*/
 	CrlDps []string `json:"crlDps,omitempty"`
 	/*
-	  Interval in seconds at which the CRL should be fetched from the CRLDP, default = 86400 seconds(1 day).
+	  Interval in seconds at which the CRL should be fetched from the CRLDP. The default is 86400 seconds(1 day).
 	*/
 	GlobalCrlRefreshInterval *int `json:"globalCrlRefreshInterval,omitempty"`
 	/*
@@ -712,7 +518,7 @@ type CertRevocationInfo struct {
 	*/
 	IsOcspEnabled *bool `json:"isOcspEnabled,omitempty"`
 	/*
-	  URL of the OCSP responder used to override the url from AIA extension.
+	  URL of the OCSP responder used to override the URL from AIA extension.
 	*/
 	OcspResponder *string `json:"ocspResponder,omitempty"`
 }
@@ -721,14 +527,14 @@ func NewCertRevocationInfo() *CertRevocationInfo {
 	p := new(CertRevocationInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.CertRevocationInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users/$actions/change-password Post operation
+REST response for all response codes in API path /iam/v4.0/authn/users/$actions/change-password Post operation
 */
 type ChangeUserPasswordApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -750,7 +556,7 @@ func NewChangeUserPasswordApiResponse() *ChangeUserPasswordApiResponse {
 	p := new(ChangeUserPasswordApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ChangeUserPasswordApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -778,7 +584,7 @@ func (p *ChangeUserPasswordApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Supported claims types.
+Supported claim types.
 */
 type ClaimsType int
 
@@ -889,7 +695,7 @@ func (e ClaimsType) Ref() *ClaimsType {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/directory-services/{extId}/$actions/verify-connection-status Post operation
+REST response for all response codes in API path /iam/v4.0/authn/directory-services/{extId}/$actions/verify-connection-status Post operation
 */
 type ConnectionDirectoryServiceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -911,7 +717,7 @@ func NewConnectionDirectoryServiceApiResponse() *ConnectionDirectoryServiceApiRe
 	p := new(ConnectionDirectoryServiceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ConnectionDirectoryServiceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -939,57 +745,7 @@ func (p *ConnectionDirectoryServiceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{extId}/api-keys Post operation
-*/
-type CreateApiKeyApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfCreateApiKeyApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewCreateApiKeyApiResponse() *CreateApiKeyApiResponse {
-	p := new(CreateApiKeyApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.CreateApiKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *CreateApiKeyApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *CreateApiKeyApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfCreateApiKeyApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/cert-auth-providers Post operation
+REST response for all response codes in API path /iam/v4.0/authn/cert-auth-providers Post operation
 */
 type CreateCertAuthProviderApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1011,7 +767,7 @@ func NewCreateCertAuthProviderApiResponse() *CreateCertAuthProviderApiResponse {
 	p := new(CreateCertAuthProviderApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.CreateCertAuthProviderApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1039,7 +795,7 @@ func (p *CreateCertAuthProviderApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/directory-services Post operation
+REST response for all response codes in API path /iam/v4.0/authn/directory-services Post operation
 */
 type CreateDirectoryServiceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1061,7 +817,7 @@ func NewCreateDirectoryServiceApiResponse() *CreateDirectoryServiceApiResponse {
 	p := new(CreateDirectoryServiceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.CreateDirectoryServiceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1089,7 +845,57 @@ func (p *CreateDirectoryServiceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/saml-identity-providers Post operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{userExtId}/keys Post operation
+*/
+type CreateKeyApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfCreateKeyApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewCreateKeyApiResponse() *CreateKeyApiResponse {
+	p := new(CreateKeyApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.CreateKeyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *CreateKeyApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *CreateKeyApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfCreateKeyApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /iam/v4.0/authn/saml-identity-providers Post operation
 */
 type CreateSamlIdentityProviderApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1111,7 +917,7 @@ func NewCreateSamlIdentityProviderApiResponse() *CreateSamlIdentityProviderApiRe
 	p := new(CreateSamlIdentityProviderApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.CreateSamlIdentityProviderApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1139,157 +945,7 @@ func (p *CreateSamlIdentityProviderApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts Post operation
-*/
-type CreateServiceAccountApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfCreateServiceAccountApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewCreateServiceAccountApiResponse() *CreateServiceAccountApiResponse {
-	p := new(CreateServiceAccountApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.CreateServiceAccountApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *CreateServiceAccountApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *CreateServiceAccountApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfCreateServiceAccountApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{extId}/access-keys Post operation
-*/
-type CreateServiceAccountKeyApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfCreateServiceAccountKeyApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewCreateServiceAccountKeyApiResponse() *CreateServiceAccountKeyApiResponse {
-	p := new(CreateServiceAccountKeyApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.CreateServiceAccountKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *CreateServiceAccountKeyApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *CreateServiceAccountKeyApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfCreateServiceAccountKeyApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/system-config Post operation
-*/
-type CreateSystemConfigApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfCreateSystemConfigApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewCreateSystemConfigApiResponse() *CreateSystemConfigApiResponse {
-	p := new(CreateSystemConfigApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.CreateSystemConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *CreateSystemConfigApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *CreateSystemConfigApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfCreateSystemConfigApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users Post operation
+REST response for all response codes in API path /iam/v4.0/authn/users Post operation
 */
 type CreateUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1311,7 +967,7 @@ func NewCreateUserApiResponse() *CreateUserApiResponse {
 	p := new(CreateUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.CreateUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1339,7 +995,7 @@ func (p *CreateUserApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/user-groups Post operation
+REST response for all response codes in API path /iam/v4.0/authn/user-groups Post operation
 */
 type CreateUserGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1361,7 +1017,7 @@ func NewCreateUserGroupApiResponse() *CreateUserGroupApiResponse {
 	p := new(CreateUserGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.CreateUserGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1389,7 +1045,7 @@ func (p *CreateUserGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users/{extId}/buckets-access-keys Post operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{userExtId}/buckets-access-keys Post operation
 */
 type CreateUserKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1411,7 +1067,7 @@ func NewCreateUserKeyApiResponse() *CreateUserKeyApiResponse {
 	p := new(CreateUserKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.CreateUserKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1439,57 +1095,90 @@ func (p *CreateUserKeyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/api-keys/{extId} Delete operation
+The creation mechanism of this entity.
 */
-type DeleteApiKeyApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
+type CreationType int
 
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+const (
+	CREATIONTYPE_UNKNOWN        CreationType = 0
+	CREATIONTYPE_REDACTED       CreationType = 1
+	CREATIONTYPE_PREDEFINED     CreationType = 2
+	CREATIONTYPE_USERDEFINED    CreationType = 3
+	CREATIONTYPE_SERVICEDEFINED CreationType = 4
+)
 
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfDeleteApiKeyApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewDeleteApiKeyApiResponse() *DeleteApiKeyApiResponse {
-	p := new(DeleteApiKeyApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.DeleteApiKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *DeleteApiKeyApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *CreationType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PREDEFINED",
+		"USERDEFINED",
+		"SERVICEDEFINED",
 	}
-	return p.Data.GetValue()
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
 }
 
-func (p *DeleteApiKeyApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfDeleteApiKeyApiResponseData()
+// Returns the name of the enum
+func (e CreationType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PREDEFINED",
+		"USERDEFINED",
+		"SERVICEDEFINED",
 	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *CreationType) index(name string) CreationType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PREDEFINED",
+		"USERDEFINED",
+		"SERVICEDEFINED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return CreationType(idx)
 		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
-	return e
+	return CREATIONTYPE_UNKNOWN
+}
+
+func (e *CreationType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for CreationType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *CreationType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e CreationType) Ref() *CreationType {
+	return &e
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/cert-auth-providers/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.0/authn/cert-auth-providers/{extId} Delete operation
 */
 type DeleteCertAuthProviderApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1511,7 +1200,7 @@ func NewDeleteCertAuthProviderApiResponse() *DeleteCertAuthProviderApiResponse {
 	p := new(DeleteCertAuthProviderApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DeleteCertAuthProviderApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1539,7 +1228,7 @@ func (p *DeleteCertAuthProviderApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/directory-services/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.0/authn/directory-services/{extId} Delete operation
 */
 type DeleteDirectoryServiceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1561,7 +1250,7 @@ func NewDeleteDirectoryServiceApiResponse() *DeleteDirectoryServiceApiResponse {
 	p := new(DeleteDirectoryServiceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DeleteDirectoryServiceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1589,7 +1278,7 @@ func (p *DeleteDirectoryServiceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/saml-identity-providers/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.0/authn/saml-identity-providers/{extId} Delete operation
 */
 type DeleteSamlIdentityProviderApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1611,7 +1300,7 @@ func NewDeleteSamlIdentityProviderApiResponse() *DeleteSamlIdentityProviderApiRe
 	p := new(DeleteSamlIdentityProviderApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DeleteSamlIdentityProviderApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1639,157 +1328,7 @@ func (p *DeleteSamlIdentityProviderApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{extId} Delete operation
-*/
-type DeleteServiceAccountApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfDeleteServiceAccountApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewDeleteServiceAccountApiResponse() *DeleteServiceAccountApiResponse {
-	p := new(DeleteServiceAccountApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.DeleteServiceAccountApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *DeleteServiceAccountApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *DeleteServiceAccountApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfDeleteServiceAccountApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/access-keys/{extId} Delete operation
-*/
-type DeleteServiceAccountKeyApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfDeleteServiceAccountKeyApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewDeleteServiceAccountKeyApiResponse() *DeleteServiceAccountKeyApiResponse {
-	p := new(DeleteServiceAccountKeyApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.DeleteServiceAccountKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *DeleteServiceAccountKeyApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *DeleteServiceAccountKeyApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfDeleteServiceAccountKeyApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/system-config/{extId} Delete operation
-*/
-type DeleteSystemConfigApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfDeleteSystemConfigApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewDeleteSystemConfigApiResponse() *DeleteSystemConfigApiResponse {
-	p := new(DeleteSystemConfigApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.DeleteSystemConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *DeleteSystemConfigApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *DeleteSystemConfigApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfDeleteSystemConfigApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{extId} Delete operation
 */
 type DeleteUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1811,7 +1350,7 @@ func NewDeleteUserApiResponse() *DeleteUserApiResponse {
 	p := new(DeleteUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DeleteUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1839,7 +1378,7 @@ func (p *DeleteUserApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/user-groups/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.0/authn/user-groups/{extId} Delete operation
 */
 type DeleteUserGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1861,7 +1400,7 @@ func NewDeleteUserGroupApiResponse() *DeleteUserGroupApiResponse {
 	p := new(DeleteUserGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DeleteUserGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1889,7 +1428,7 @@ func (p *DeleteUserGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users/{userExtId}/buckets-access-keys/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{userExtId}/buckets-access-keys/{extId} Delete operation
 */
 type DeleteUserKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1911,7 +1450,7 @@ func NewDeleteUserKeyApiResponse() *DeleteUserKeyApiResponse {
 	p := new(DeleteUserKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DeleteUserKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1939,7 +1478,7 @@ func (p *DeleteUserKeyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Information of a Directory Service.
+Information of a directory service.
 */
 type DirectoryService struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1948,17 +1487,17 @@ type DirectoryService struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  User or Service who created the Directory Service.
+	  User or service who created the directory service.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  Creation time of the Directory Service.
+	  Creation time of the directory service.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 
 	DirectoryType *DirectoryType `json:"directoryType,omitempty"`
 	/*
-	  Domain name for the Directory Service.
+	  Domain name for the directory service.
 	*/
 	DomainName *string `json:"domainName,omitempty"`
 	/*
@@ -1968,7 +1507,7 @@ type DirectoryService struct {
 
 	GroupSearchType *GroupSearchType `json:"groupSearchType,omitempty"`
 	/*
-	  Last updated time of the Directory Service.
+	  Last updated time of the directory service.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -1976,13 +1515,13 @@ type DirectoryService struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Name for the Directory Service.
+	  Name for the directory service.
 	*/
 	Name *string `json:"name,omitempty"`
 
 	OpenLdapConfiguration *OpenLdapConfig `json:"openLdapConfiguration,omitempty"`
 	/*
-	  Secondary URL for the Directory Service.
+	  Secondary URL for the directory service.
 	*/
 	SecondaryUrls []string `json:"secondaryUrls,omitempty"`
 
@@ -1992,11 +1531,11 @@ type DirectoryService struct {
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  URL for the Directory Service.
+	  URL for the directory service.
 	*/
 	Url *string `json:"url,omitempty"`
 	/*
-	  List of allowed User Groups for the Directory Service.
+	  List of allowed user groups for the directory service.
 	*/
 	WhiteListedGroups []string `json:"whiteListedGroups,omitempty"`
 }
@@ -2005,14 +1544,14 @@ func NewDirectoryService() *DirectoryService {
 	p := new(DirectoryService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryService"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information for Directory Service connection request.
+Information for directory service connection request.
 */
 type DirectoryServiceConnectionRequest struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2021,11 +1560,11 @@ type DirectoryServiceConnectionRequest struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Password to connect to the Directory Service.
+	  Password to connect to the directory service.
 	*/
 	Password *string `json:"password"`
 	/*
-	  Username to connect to the Directory Service.
+	  Username to connect to the directory service.
 	*/
 	Username *string `json:"username"`
 }
@@ -2047,14 +1586,14 @@ func NewDirectoryServiceConnectionRequest() *DirectoryServiceConnectionRequest {
 	p := new(DirectoryServiceConnectionRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryServiceConnectionRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Verify Directory Service connection response object.
+Verify directory service connection response object.
 */
 type DirectoryServiceConnectionResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2083,14 +1622,14 @@ func NewDirectoryServiceConnectionResponse() *DirectoryServiceConnectionResponse
 	p := new(DirectoryServiceConnectionResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryServiceConnectionResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-AD/LDAP information of the User.
+AD/LDAP information of the user.
 */
 type DirectoryServiceInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2099,15 +1638,15 @@ type DirectoryServiceInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of AD/LDAP groups having the User.
+	  List of AD/LDAP groups having the user.
 	*/
 	Groups []DirectoryServiceInfoGroup `json:"groups"`
 	/*
-	  List of AD/LDAP OUs having the given User.
+	  List of AD/LDAP OUs having the given user.
 	*/
 	Ous []DirectoryServiceInfoOu `json:"ous"`
 	/*
-	  External Identifier of the User.
+	  External identifier of a user.
 	*/
 	UserId *string `json:"userId"`
 }
@@ -2131,14 +1670,14 @@ func NewDirectoryServiceInfo() *DirectoryServiceInfo {
 	p := new(DirectoryServiceInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryServiceInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information of AD group having the User.
+Information of AD group having the user.
 */
 type DirectoryServiceInfoGroup struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2179,14 +1718,14 @@ func NewDirectoryServiceInfoGroup() *DirectoryServiceInfoGroup {
 	p := new(DirectoryServiceInfoGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryServiceInfoGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information of OUs having the User.
+Information of OUs having the user.
 */
 type DirectoryServiceInfoOu struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2227,7 +1766,7 @@ func NewDirectoryServiceInfoOu() *DirectoryServiceInfoOu {
 	p := new(DirectoryServiceInfoOu)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryServiceInfoOu"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2256,7 +1795,7 @@ func NewDirectoryServiceSearchAttribute() *DirectoryServiceSearchAttribute {
 	p := new(DirectoryServiceSearchAttribute)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryServiceSearchAttribute"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2274,7 +1813,7 @@ type DirectoryServiceSearchEntity struct {
 
 	Attributes []DirectoryServiceSearchAttribute `json:"attributes,omitempty"`
 	/*
-	  Type of entity either User or group.
+	  Type of entity either user or group.
 	*/
 	EntityType *string `json:"entityType,omitempty"`
 	/*
@@ -2287,7 +1826,7 @@ func NewDirectoryServiceSearchEntity() *DirectoryServiceSearchEntity {
 	p := new(DirectoryServiceSearchEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryServiceSearchEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2307,15 +1846,15 @@ type DirectoryServiceSearchQuery struct {
 	*/
 	IsWildcardSearch *bool `json:"isWildcardSearch,omitempty"`
 	/*
-	  Query string for Directory Service search.
+	  Query string for directory service search.
 	*/
 	Query *string `json:"query"`
 	/*
-	  Attributes the search Operation returns.
+	  Attributes returned by the search operation.
 	*/
 	ReturnedAttributes []string `json:"returnedAttributes,omitempty"`
 	/*
-	  Attributes for search Operation. By default search will be performed with common name.
+	  Attributes for search operation. By default, the search will be performed with a common name.
 	*/
 	SearchedAttributes []string `json:"searchedAttributes,omitempty"`
 }
@@ -2335,7 +1874,7 @@ func NewDirectoryServiceSearchQuery() *DirectoryServiceSearchQuery {
 	p := new(DirectoryServiceSearchQuery)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryServiceSearchQuery"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsWildcardSearch = new(bool)
@@ -2345,7 +1884,7 @@ func NewDirectoryServiceSearchQuery() *DirectoryServiceSearchQuery {
 }
 
 /*
-Information of Directory Service search result.
+Information of directory service search result.
 */
 type DirectoryServiceSearchResult struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2354,11 +1893,11 @@ type DirectoryServiceSearchResult struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Domain name for the Directory Service.
+	  Domain name for the directory service.
 	*/
 	DomainName *string `json:"domainName,omitempty"`
 	/*
-	  Result of Directory Service search.
+	  Result of directory service search.
 	*/
 	SearchResults []DirectoryServiceSearchEntity `json:"searchResults,omitempty"`
 }
@@ -2367,14 +1906,14 @@ func NewDirectoryServiceSearchResult() *DirectoryServiceSearchResult {
 	p := new(DirectoryServiceSearchResult)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DirectoryServiceSearchResult"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Type of Directory Service.
+Type of directory service.
 */
 type DirectoryType int
 
@@ -2528,7 +2067,7 @@ func (e DiscoverySubjectType) Ref() *DiscoverySubjectType {
 }
 
 /*
-Information of Service account to connect to the Directory Service.
+Information on the service account to connect to the directory service.
 */
 type DsServiceAccount struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2537,11 +2076,11 @@ type DsServiceAccount struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Password to connect to the Directory Service.
+	  Password to connect to the directory service.
 	*/
 	Password *string `json:"password"`
 	/*
-	  Username to connect to the Directory Service.
+	  Username to connect to the directory service.
 	*/
 	Username *string `json:"username"`
 }
@@ -2563,7 +2102,7 @@ func NewDsServiceAccount() *DsServiceAccount {
 	p := new(DsServiceAccount)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.DsServiceAccount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2589,7 +2128,7 @@ type Federation struct {
 	*/
 	CloudTenant *string `json:"cloudTenant,omitempty"`
 	/*
-	  User or Service who created the OIDC provider.
+	  User or service who created the OIDC provider.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
@@ -2601,7 +2140,7 @@ type Federation struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  IDP attached to Users of the OIDC provider.
+	  IDP attached to the users of the OIDC provider.
 	*/
 	IdpId *string `json:"idpId,omitempty"`
 	/*
@@ -2626,7 +2165,7 @@ func NewFederation() *Federation {
 	p := new(Federation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.Federation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2641,9 +2180,13 @@ type FederationClaims struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  Email of the federation claim.
+	*/
 	Email *string `json:"email,omitempty"`
-
+	/*
+	  Name of the federation claim.
+	*/
 	Name *string `json:"name,omitempty"`
 }
 
@@ -2651,64 +2194,14 @@ func NewFederationClaims() *FederationClaims {
 	p := new(FederationClaims)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.FederationClaims"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/api-keys/{extId} Get operation
-*/
-type GetApiKeyApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetApiKeyApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetApiKeyApiResponse() *GetApiKeyApiResponse {
-	p := new(GetApiKeyApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.GetApiKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetApiKeyApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetApiKeyApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetApiKeyApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/cert-auth-providers/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authn/cert-auth-providers/{extId} Get operation
 */
 type GetCertAuthProviderApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2730,7 +2223,7 @@ func NewGetCertAuthProviderApiResponse() *GetCertAuthProviderApiResponse {
 	p := new(GetCertAuthProviderApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.GetCertAuthProviderApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2758,7 +2251,7 @@ func (p *GetCertAuthProviderApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/directory-services/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authn/directory-services/{extId} Get operation
 */
 type GetDirectoryServiceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2780,7 +2273,7 @@ func NewGetDirectoryServiceApiResponse() *GetDirectoryServiceApiResponse {
 	p := new(GetDirectoryServiceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.GetDirectoryServiceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2808,7 +2301,7 @@ func (p *GetDirectoryServiceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/saml-identity-providers/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authn/saml-identity-providers/{extId} Get operation
 */
 type GetSamlIdentityProviderApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2830,7 +2323,7 @@ func NewGetSamlIdentityProviderApiResponse() *GetSamlIdentityProviderApiResponse
 	p := new(GetSamlIdentityProviderApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.GetSamlIdentityProviderApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2858,7 +2351,7 @@ func (p *GetSamlIdentityProviderApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/saml-sp-metadata Get operation
+REST response for all response codes in API path /iam/v4.0/authn/saml-sp-metadata Get operation
 */
 type GetSamlSpMetadataApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2880,7 +2373,7 @@ func NewGetSamlSpMetadataApiResponse() *GetSamlSpMetadataApiResponse {
 	p := new(GetSamlSpMetadataApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.GetSamlSpMetadataApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2908,107 +2401,7 @@ func (p *GetSamlSpMetadataApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{extId} Get operation
-*/
-type GetServiceAccountApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetServiceAccountApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetServiceAccountApiResponse() *GetServiceAccountApiResponse {
-	p := new(GetServiceAccountApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.GetServiceAccountApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetServiceAccountApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetServiceAccountApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetServiceAccountApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/access-keys/{extId} Get operation
-*/
-type GetServiceAccountKeyApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetServiceAccountKeyApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetServiceAccountKeyApiResponse() *GetServiceAccountKeyApiResponse {
-	p := new(GetServiceAccountKeyApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.GetServiceAccountKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetServiceAccountKeyApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetServiceAccountKeyApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetServiceAccountKeyApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{extId} Get operation
 */
 type GetUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3030,7 +2423,7 @@ func NewGetUserApiResponse() *GetUserApiResponse {
 	p := new(GetUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.GetUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3058,7 +2451,57 @@ func (p *GetUserApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/user-groups/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{userExtId}/buckets-access-keys/{extId} Get operation
+*/
+type GetUserBucketKeyApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetUserBucketKeyApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetUserBucketKeyApiResponse() *GetUserBucketKeyApiResponse {
+	p := new(GetUserBucketKeyApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.GetUserBucketKeyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetUserBucketKeyApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetUserBucketKeyApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetUserBucketKeyApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /iam/v4.0/authn/user-groups/{extId} Get operation
 */
 type GetUserGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3080,7 +2523,7 @@ func NewGetUserGroupApiResponse() *GetUserGroupApiResponse {
 	p := new(GetUserGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.GetUserGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3096,6 +2539,56 @@ func (p *GetUserGroupApiResponse) GetData() interface{} {
 func (p *GetUserGroupApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfGetUserGroupApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /iam/v4.0/authn/users/{userExtId}/keys/{extId} Get operation
+*/
+type GetUserKeyApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetUserKeyApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetUserKeyApiResponse() *GetUserKeyApiResponse {
+	p := new(GetUserKeyApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.GetUserKeyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetUserKeyApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetUserKeyApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetUserKeyApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -3199,7 +2692,7 @@ func (e GrantType) Ref() *GrantType {
 }
 
 /*
-Information of a group of Users.
+Information on a group of users.
 */
 type Group struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3229,14 +2722,14 @@ func NewGroup() *Group {
 	p := new(Group)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.Group"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Group membership search type for the Directory Service.
+Group membership search type for the directory service.
 */
 type GroupSearchType int
 
@@ -3315,7 +2808,7 @@ func (e GroupSearchType) Ref() *GroupSearchType {
 }
 
 /*
-Type of the User Group.
+Type of the user group.
 */
 type GroupType int
 
@@ -3407,19 +2900,19 @@ type IdpMetadata struct {
 	*/
 	Certificate *string `json:"certificate"`
 	/*
-	  Entity Identifier of Identity provider.
+	  Entity identifier of identity provider.
 	*/
 	EntityId *string `json:"entityId"`
 	/*
-	  Error URL of the Identity provider.
+	  Error URL of the identity provider.
 	*/
 	ErrorUrl *string `json:"errorUrl,omitempty"`
 	/*
-	  Login URL of the Identity provider.
+	  Login URL of the identity provider.
 	*/
 	LoginUrl *string `json:"loginUrl"`
 	/*
-	  Logout URL of the Identity provider.
+	  Logout URL of the identity provider.
 	*/
 	LogoutUrl *string `json:"logoutUrl,omitempty"`
 
@@ -3445,10 +2938,325 @@ func NewIdpMetadata() *IdpMetadata {
 	p := new(IdpMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.IdpMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Credentials in the form of a unique random key for the users.
+*/
+type Key struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  External client to whom the given key is allocated.
+	*/
+	AssignedTo *string `json:"assignedTo,omitempty"`
+	/*
+	  User or service who created the key.
+	*/
+	CreatedBy *string `json:"createdBy,omitempty"`
+	/*
+	  The creation time of the key.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+
+	CreationType *CreationType `json:"creationType,omitempty"`
+	/*
+	  Brief description of the key.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  The time when the key will expire.
+	*/
+	ExpiryTime *time.Time `json:"expiryTime,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+
+	 */
+	KeyDetailsItemDiscriminator_ *string `json:"$keyDetailsItemDiscriminator,omitempty"`
+	/*
+	  Details specific to type of the key.
+	*/
+	KeyDetails *OneOfKeyKeyDetails `json:"keyDetails,omitempty"`
+
+	KeyType *KeyKind `json:"keyType"`
+	/*
+	  User who updated the key.
+	*/
+	LastUpdatedBy *string `json:"lastUpdatedBy,omitempty"`
+	/*
+	  The time when the key was updated.
+	*/
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+	/*
+	  The time when the key was last used.
+	*/
+	LastUsedTime *time.Time `json:"lastUsedTime,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Identifier for the key in the form of a name.
+	*/
+	Name *string `json:"name"`
+
+	Status *KeyStatus `json:"status,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Key) MarshalJSON() ([]byte, error) {
+	type KeyProxy Key
+	return json.Marshal(struct {
+		*KeyProxy
+		KeyType *KeyKind `json:"keyType,omitempty"`
+		Name    *string  `json:"name,omitempty"`
+	}{
+		KeyProxy: (*KeyProxy)(p),
+		KeyType:  p.KeyType,
+		Name:     p.Name,
+	})
+}
+
+func NewKey() *Key {
+	p := new(Key)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.Key"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *Key) GetKeyDetails() interface{} {
+	if nil == p.KeyDetails {
+		return nil
+	}
+	return p.KeyDetails.GetValue()
+}
+
+func (p *Key) SetKeyDetails(v interface{}) error {
+	if nil == p.KeyDetails {
+		p.KeyDetails = NewOneOfKeyKeyDetails()
+	}
+	e := p.KeyDetails.SetValue(v)
+	if nil == e {
+		if nil == p.KeyDetailsItemDiscriminator_ {
+			p.KeyDetailsItemDiscriminator_ = new(string)
+		}
+		*p.KeyDetailsItemDiscriminator_ = *p.KeyDetails.Discriminator
+	}
+	return e
+}
+
+/*
+The type of key.
+*/
+type KeyKind int
+
+const (
+	KEYKIND_UNKNOWN    KeyKind = 0
+	KEYKIND_REDACTED   KeyKind = 1
+	KEYKIND_API_KEY    KeyKind = 2
+	KEYKIND_OBJECT_KEY KeyKind = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *KeyKind) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"API_KEY",
+		"OBJECT_KEY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e KeyKind) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"API_KEY",
+		"OBJECT_KEY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *KeyKind) index(name string) KeyKind {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"API_KEY",
+		"OBJECT_KEY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return KeyKind(idx)
+		}
+	}
+	return KEYKIND_UNKNOWN
+}
+
+func (e *KeyKind) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for KeyKind:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *KeyKind) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e KeyKind) Ref() *KeyKind {
+	return &e
+}
+
+/*
+Migrate keys request.
+*/
+type KeyMigrationSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Number of keys to be migrated in this API call.
+	*/
+	MaxKeyCount *int `json:"maxKeyCount"`
+}
+
+func (p *KeyMigrationSpec) MarshalJSON() ([]byte, error) {
+	type KeyMigrationSpecProxy KeyMigrationSpec
+	return json.Marshal(struct {
+		*KeyMigrationSpecProxy
+		MaxKeyCount *int `json:"maxKeyCount,omitempty"`
+	}{
+		KeyMigrationSpecProxy: (*KeyMigrationSpecProxy)(p),
+		MaxKeyCount:           p.MaxKeyCount,
+	})
+}
+
+func NewKeyMigrationSpec() *KeyMigrationSpec {
+	p := new(KeyMigrationSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.KeyMigrationSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The status of the key.
+*/
+type KeyStatus int
+
+const (
+	KEYSTATUS_UNKNOWN  KeyStatus = 0
+	KEYSTATUS_REDACTED KeyStatus = 1
+	KEYSTATUS_VALID    KeyStatus = 2
+	KEYSTATUS_REVOKED  KeyStatus = 3
+	KEYSTATUS_EXPIRED  KeyStatus = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *KeyStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"VALID",
+		"REVOKED",
+		"EXPIRED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e KeyStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"VALID",
+		"REVOKED",
+		"EXPIRED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *KeyStatus) index(name string) KeyStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"VALID",
+		"REVOKED",
+		"EXPIRED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return KeyStatus(idx)
+		}
+	}
+	return KEYSTATUS_UNKNOWN
+}
+
+func (e *KeyStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for KeyStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *KeyStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e KeyStatus) Ref() *KeyStatus {
+	return &e
 }
 
 /*
@@ -3527,57 +3335,7 @@ func (e KeyType) Ref() *KeyType {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{extId}/api-keys Get operation
-*/
-type ListApiKeysApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfListApiKeysApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewListApiKeysApiResponse() *ListApiKeysApiResponse {
-	p := new(ListApiKeysApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ListApiKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ListApiKeysApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ListApiKeysApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfListApiKeysApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/cert-auth-providers Get operation
+REST response for all response codes in API path /iam/v4.0/authn/cert-auth-providers Get operation
 */
 type ListCertAuthProvidersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3599,7 +3357,7 @@ func NewListCertAuthProvidersApiResponse() *ListCertAuthProvidersApiResponse {
 	p := new(ListCertAuthProvidersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ListCertAuthProvidersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3627,7 +3385,7 @@ func (p *ListCertAuthProvidersApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/directory-services Get operation
+REST response for all response codes in API path /iam/v4.0/authn/directory-services Get operation
 */
 type ListDirectoryServicesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3649,7 +3407,7 @@ func NewListDirectoryServicesApiResponse() *ListDirectoryServicesApiResponse {
 	p := new(ListDirectoryServicesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ListDirectoryServicesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3677,7 +3435,7 @@ func (p *ListDirectoryServicesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/saml-identity-providers Get operation
+REST response for all response codes in API path /iam/v4.0/authn/saml-identity-providers Get operation
 */
 type ListSamlIdentityProvidersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3699,7 +3457,7 @@ func NewListSamlIdentityProvidersApiResponse() *ListSamlIdentityProvidersApiResp
 	p := new(ListSamlIdentityProvidersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ListSamlIdentityProvidersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3727,107 +3485,7 @@ func (p *ListSamlIdentityProvidersApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{extId}/access-keys Get operation
-*/
-type ListServiceAccountKeysApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfListServiceAccountKeysApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewListServiceAccountKeysApiResponse() *ListServiceAccountKeysApiResponse {
-	p := new(ListServiceAccountKeysApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ListServiceAccountKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ListServiceAccountKeysApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ListServiceAccountKeysApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfListServiceAccountKeysApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts Get operation
-*/
-type ListServiceAccountsApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfListServiceAccountsApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewListServiceAccountsApiResponse() *ListServiceAccountsApiResponse {
-	p := new(ListServiceAccountsApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ListServiceAccountsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ListServiceAccountsApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ListServiceAccountsApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfListServiceAccountsApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users/{extId}/buckets-access-keys Get operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{userExtId}/buckets-access-keys Get operation
 */
 type ListUserBucketKeysApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3849,7 +3507,7 @@ func NewListUserBucketKeysApiResponse() *ListUserBucketKeysApiResponse {
 	p := new(ListUserBucketKeysApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ListUserBucketKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3877,7 +3535,7 @@ func (p *ListUserBucketKeysApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/user-groups Get operation
+REST response for all response codes in API path /iam/v4.0/authn/user-groups Get operation
 */
 type ListUserGroupsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3899,7 +3557,7 @@ func NewListUserGroupsApiResponse() *ListUserGroupsApiResponse {
 	p := new(ListUserGroupsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ListUserGroupsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3927,7 +3585,57 @@ func (p *ListUserGroupsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users Get operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{userExtId}/keys Get operation
+*/
+type ListUserKeysApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListUserKeysApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListUserKeysApiResponse() *ListUserKeysApiResponse {
+	p := new(ListUserKeysApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.ListUserKeysApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListUserKeysApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListUserKeysApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListUserKeysApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /iam/v4.0/authn/users Get operation
 */
 type ListUsersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3949,7 +3657,7 @@ func NewListUsersApiResponse() *ListUsersApiResponse {
 	p := new(ListUsersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ListUsersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4084,6 +3792,157 @@ func (e NameIdPolicyFormat) Ref() *NameIdPolicyFormat {
 }
 
 /*
+The object key details.
+*/
+type ObjectKeyDetails struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Access key identifier.
+	*/
+	AccessKey *string `json:"accessKey,omitempty"`
+	/*
+	  Secret Access Key, which will be returned during creation of the key of type OBJECT_KEY.
+	*/
+	SecretKey *string `json:"secretKey,omitempty"`
+}
+
+func NewObjectKeyDetails() *ObjectKeyDetails {
+	p := new(ObjectKeyDetails)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.ObjectKeyDetails"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The retrieved auth details.
+*/
+type ObjectsAuthDetails struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  External client to whom this key is allocated.
+	*/
+	AssignedTo *string `json:"assignedTo"`
+
+	CreationType *CreationType `json:"creationType"`
+	/*
+	  Any additional user attributes obtained from the authentication provider in the form of key/value pairs.
+	*/
+	CustomClaims map[string]string `json:"customClaims"`
+	/*
+	  Email ID of the user.
+	*/
+	EmailId *string `json:"emailId"`
+	/*
+	  Identifier of the IDP for the user.
+	*/
+	IdpId *string `json:"idpId"`
+	/*
+	  This represents secret access key, which will be returned only during access key creation.
+	*/
+	SecretAccessKey *string `json:"secretAccessKey"`
+	/*
+	  ID of tenant for which configuration is being set up.
+	*/
+	TenantId *string `json:"tenantId"`
+	/*
+	  User identifier who owns the bucket access key.
+	*/
+	UserId *string `json:"userId"`
+
+	UserType *UserType `json:"userType"`
+	/*
+	  Identifier of the user.
+	*/
+	Username *string `json:"username"`
+}
+
+func (p *ObjectsAuthDetails) MarshalJSON() ([]byte, error) {
+	type ObjectsAuthDetailsProxy ObjectsAuthDetails
+	return json.Marshal(struct {
+		*ObjectsAuthDetailsProxy
+		AssignedTo      *string           `json:"assignedTo,omitempty"`
+		CreationType    *CreationType     `json:"creationType,omitempty"`
+		CustomClaims    map[string]string `json:"customClaims,omitempty"`
+		EmailId         *string           `json:"emailId,omitempty"`
+		IdpId           *string           `json:"idpId,omitempty"`
+		SecretAccessKey *string           `json:"secretAccessKey,omitempty"`
+		TenantId        *string           `json:"tenantId,omitempty"`
+		UserId          *string           `json:"userId,omitempty"`
+		UserType        *UserType         `json:"userType,omitempty"`
+		Username        *string           `json:"username,omitempty"`
+	}{
+		ObjectsAuthDetailsProxy: (*ObjectsAuthDetailsProxy)(p),
+		AssignedTo:              p.AssignedTo,
+		CreationType:            p.CreationType,
+		CustomClaims:            p.CustomClaims,
+		EmailId:                 p.EmailId,
+		IdpId:                   p.IdpId,
+		SecretAccessKey:         p.SecretAccessKey,
+		TenantId:                p.TenantId,
+		UserId:                  p.UserId,
+		UserType:                p.UserType,
+		Username:                p.Username,
+	})
+}
+
+func NewObjectsAuthDetails() *ObjectsAuthDetails {
+	p := new(ObjectsAuthDetails)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.ObjectsAuthDetails"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The specification needed to fetch the auth details.
+*/
+type ObjectsAuthSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The access key which is used to retrieve the auth details.
+	*/
+	AccessKey *string `json:"accessKey"`
+}
+
+func (p *ObjectsAuthSpec) MarshalJSON() ([]byte, error) {
+	type ObjectsAuthSpecProxy ObjectsAuthSpec
+	return json.Marshal(struct {
+		*ObjectsAuthSpecProxy
+		AccessKey *string `json:"accessKey,omitempty"`
+	}{
+		ObjectsAuthSpecProxy: (*ObjectsAuthSpecProxy)(p),
+		AccessKey:            p.AccessKey,
+	})
+}
+
+func NewObjectsAuthSpec() *ObjectsAuthSpec {
+	p := new(ObjectsAuthSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.ObjectsAuthSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 JSON Web Key that can be used to verify the signature of tokens issued by IAM.
 */
 type OidcKey struct {
@@ -4099,7 +3958,7 @@ type OidcKey struct {
 	*/
 	E *string `json:"e"`
 	/*
-	  Unique identifier for the key.
+	  Unique identifier of the key.
 	*/
 	Kid *string `json:"kid"`
 
@@ -4111,7 +3970,7 @@ type OidcKey struct {
 
 	Use *UseType `json:"use"`
 	/*
-	  x509 certificate chain for the key.
+	  x509 certificate chain of the key.
 	*/
 	X5c *string `json:"x5c"`
 }
@@ -4143,7 +4002,7 @@ func NewOidcKey() *OidcKey {
 	p := new(OidcKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.OidcKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4241,7 +4100,7 @@ func (e OidcSubjectType) Ref() *OidcSubjectType {
 }
 
 /*
-IAM OpenID Userinfo response.
+IAM OpenID userinfo response.
 */
 type OidcUserinfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4250,11 +4109,11 @@ type OidcUserinfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  UUID V5 of the authentication connector that was used to verify the credentials of the User.
+	  UUID V5 of the authentication connector that was used to verify the credentials of the user.
 	*/
 	ConnectorId *string `json:"connectorId,omitempty"`
 	/*
-	  Any additional User attributes obtained from the authentication provider in the form of key/value pairs.
+	  Any additional user attributes obtained from the authentication provider in the form of key/value pairs.
 	*/
 	CustomClaims map[string]string `json:"customClaims,omitempty"`
 	/*
@@ -4270,7 +4129,7 @@ type OidcUserinfo struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  List of groups obtained from the authentication provider for the User.
+	  List of groups obtained from the authentication provider for the user.
 	*/
 	Groups []Group `json:"groups,omitempty"`
 	/*
@@ -4278,15 +4137,15 @@ type OidcUserinfo struct {
 	*/
 	Iat *int64 `json:"iat,omitempty"`
 	/*
-	  Boolean to indicate if the email address of end User has been verified by IAM.
+	  Boolean to indicate if the email address of end user has been verified by IAM.
 	*/
 	IsEmailVerified *bool `json:"isEmailVerified,omitempty"`
 	/*
-	  Base URL of the identity Service which it asserts as its issuer identifier.
+	  Base URL of the identity service which it asserts as its issuer identifier.
 	*/
 	Iss *string `json:"iss,omitempty"`
 	/*
-	  List of legacy Prism Roles for the User.
+	  List of legacy Prism roles for the user.
 	*/
 	LegacyRoles []string `json:"legacyRoles,omitempty"`
 	/*
@@ -4294,11 +4153,11 @@ type OidcUserinfo struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Display name of the User including the first and last name.
+	  Display name of the user including the first and last name.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  Subject Identifier. A locally unique identifier for the end User.
+	  Subject identifier. A locally unique identifier for the end user.
 	*/
 	Sub *string `json:"sub,omitempty"`
 
@@ -4310,7 +4169,7 @@ type OidcUserinfo struct {
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  UUID V5 created for the User by IAM.
+	  UUID V5 created for the user by IAM.
 	*/
 	UserId *string `json:"userId,omitempty"`
 }
@@ -4319,14 +4178,14 @@ func NewOidcUserinfo() *OidcUserinfo {
 	p := new(OidcUserinfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.OidcUserinfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Configuration for OpenLDAP Directory Service.
+Configuration for OpenLDAP directory service.
 */
 type OpenLdapConfig struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4357,14 +4216,14 @@ func NewOpenLdapConfig() *OpenLdapConfig {
 	p := new(OpenLdapConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.OpenLdapConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information for password change of User.
+Information for password change of user.
 */
 type PasswordChangeRequest struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4373,15 +4232,15 @@ type PasswordChangeRequest struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  New password for the User.
+	  New password of the user.
 	*/
 	NewPassword *string `json:"newPassword"`
 	/*
-	  Current password of the User.
+	  Current password of the user.
 	*/
 	OldPassword *string `json:"oldPassword"`
 	/*
-	  Identifier for the User in the form an email address.
+	  Identifier of the user.
 	*/
 	Username *string `json:"username"`
 }
@@ -4405,14 +4264,14 @@ func NewPasswordChangeRequest() *PasswordChangeRequest {
 	p := new(PasswordChangeRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.PasswordChangeRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Change User password response object.
+Change user password response object.
 */
 type PasswordChangeResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4441,14 +4300,14 @@ func NewPasswordChangeResponse() *PasswordChangeResponse {
 	p := new(PasswordChangeResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.PasswordChangeResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information for password reset of User.
+Information for password reset of user.
 */
 type PasswordResetRequest struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4457,7 +4316,7 @@ type PasswordResetRequest struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  New password for the User.
+	  New password of the user.
 	*/
 	NewPassword *string `json:"newPassword"`
 }
@@ -4477,7 +4336,7 @@ func NewPasswordResetRequest() *PasswordResetRequest {
 	p := new(PasswordResetRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.PasswordResetRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4513,14 +4372,14 @@ func NewPasswordResetResponse() *PasswordResetResponse {
 	p := new(PasswordResetResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.PasswordResetResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users/{extId}/$actions/reset-password Post operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{extId}/$actions/reset-password Post operation
 */
 type ResetUserPasswordApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4542,7 +4401,7 @@ func NewResetUserPasswordApiResponse() *ResetUserPasswordApiResponse {
 	p := new(ResetUserPasswordApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.ResetUserPasswordApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4653,9 +4512,9 @@ func (e ResponseType) Ref() *ResponseType {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/service-accounts/{svcAccExtId}/api-keys/{extId}/$actions/revoke Post operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{userExtId}/buckets-access-keys/{extId}/$actions/revoke Post operation
 */
-type RevokeApiKeyApiResponse struct {
+type RevokeUserBucketKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -4666,31 +4525,81 @@ type RevokeApiKeyApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfRevokeApiKeyApiResponseData `json:"data,omitempty"`
+	Data *OneOfRevokeUserBucketKeyApiResponseData `json:"data,omitempty"`
 
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewRevokeApiKeyApiResponse() *RevokeApiKeyApiResponse {
-	p := new(RevokeApiKeyApiResponse)
+func NewRevokeUserBucketKeyApiResponse() *RevokeUserBucketKeyApiResponse {
+	p := new(RevokeUserBucketKeyApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.RevokeApiKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	*p.ObjectType_ = "iam.v4.authn.RevokeUserBucketKeyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *RevokeApiKeyApiResponse) GetData() interface{} {
+func (p *RevokeUserBucketKeyApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *RevokeApiKeyApiResponse) SetData(v interface{}) error {
+func (p *RevokeUserBucketKeyApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfRevokeApiKeyApiResponseData()
+		p.Data = NewOneOfRevokeUserBucketKeyApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /iam/v4.0/authn/users/{userExtId}/keys/{extId}/$actions/revoke Post operation
+*/
+type RevokeUserKeyApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfRevokeUserKeyApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewRevokeUserKeyApiResponse() *RevokeUserKeyApiResponse {
+	p := new(RevokeUserKeyApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.RevokeUserKeyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *RevokeUserKeyApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *RevokeUserKeyApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfRevokeUserKeyApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -4712,15 +4621,15 @@ type SamlIdentityProvider struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  User or Service who created the SAML Identity Provider.
+	  User or service who created the SAML identity provider.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  Creation time of the SAML Identity Provider.
+	  Creation time of the SAML identity provider.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
-	  SAML assertions for list of custom attribute elements.
+	  SAML assertions for a list of custom attribute elements.
 	*/
 	CustomAttributes []string `json:"customAttributes,omitempty"`
 	/*
@@ -4728,7 +4637,7 @@ type SamlIdentityProvider struct {
 	*/
 	EmailAttribute *string `json:"emailAttribute,omitempty"`
 	/*
-	  It will be used as Issuer in SAML authnRequest.
+	  It will be used as an issuer in SAML authnRequest.
 	*/
 	EntityIssuer *string `json:"entityIssuer,omitempty"`
 	/*
@@ -4740,13 +4649,13 @@ type SamlIdentityProvider struct {
 	*/
 	GroupsAttribute *string `json:"groupsAttribute,omitempty"`
 	/*
-	  Delimiter is used to split the value of attribute into multiple groups.
+	  Delimiter is used to split the value of an attribute into multiple groups.
 	*/
 	GroupsDelim *string `json:"groupsDelim,omitempty"`
 
 	IdpMetadata *IdpMetadata `json:"idpMetadata,omitempty"`
 	/*
-	  Metadata url that provides IDP details.
+	  Metadata URL that provides IDP details.
 	*/
 	IdpMetadataUrl *string `json:"idpMetadataUrl,omitempty"`
 	/*
@@ -4758,7 +4667,7 @@ type SamlIdentityProvider struct {
 	*/
 	IsSignedAuthnReqEnabled *bool `json:"isSignedAuthnReqEnabled,omitempty"`
 	/*
-	  Last updated time of the SAML Identity Provider.
+	  Last updated time of the SAML identity provider.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -4774,7 +4683,7 @@ type SamlIdentityProvider struct {
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  SAML assertion Username attribute element.
+	  SAML assertion username attribute element.
 	*/
 	UsernameAttribute *string `json:"usernameAttribute,omitempty"`
 }
@@ -4783,7 +4692,7 @@ func NewSamlIdentityProvider() *SamlIdentityProvider {
 	p := new(SamlIdentityProvider)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.SamlIdentityProvider"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.EmailAttribute = new(string)
@@ -4792,89 +4701,6 @@ func NewSamlIdentityProvider() *SamlIdentityProvider {
 	*p.UsernameAttribute = "name"
 
 	return p
-}
-
-/*
-Type of scope.
-*/
-type ScopeType int
-
-const (
-	SCOPETYPE_UNKNOWN  ScopeType = 0
-	SCOPETYPE_REDACTED ScopeType = 1
-	SCOPETYPE_OPEN_ID  ScopeType = 2
-	SCOPETYPE_PROFILE  ScopeType = 3
-	SCOPETYPE_EMAIL    ScopeType = 4
-)
-
-// Returns the name of the enum given an ordinal number
-//
-// Deprecated: Please use GetName instead of name
-func (e *ScopeType) name(index int) string {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"OPEN_ID",
-		"PROFILE",
-		"EMAIL",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the name of the enum
-func (e ScopeType) GetName() string {
-	index := int(e)
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"OPEN_ID",
-		"PROFILE",
-		"EMAIL",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the enum type given a string value
-func (e *ScopeType) index(name string) ScopeType {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"OPEN_ID",
-		"PROFILE",
-		"EMAIL",
-	}
-	for idx := range names {
-		if names[idx] == name {
-			return ScopeType(idx)
-		}
-	}
-	return SCOPETYPE_UNKNOWN
-}
-
-func (e *ScopeType) UnmarshalJSON(b []byte) error {
-	var enumStr string
-	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ScopeType:%s", err))
-	}
-	*e = e.index(enumStr)
-	return nil
-}
-
-func (e *ScopeType) MarshalJSON() ([]byte, error) {
-	b := bytes.NewBufferString(`"`)
-	b.WriteString(e.name(int(*e)))
-	b.WriteString(`"`)
-	return b.Bytes(), nil
-}
-
-func (e ScopeType) Ref() *ScopeType {
-	return &e
 }
 
 /*
@@ -4961,7 +4787,7 @@ func (e ScopesType) Ref() *ScopesType {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/directory-services/{extId}/$actions/search Post operation
+REST response for all response codes in API path /iam/v4.0/authn/directory-services/{extId}/$actions/search Post operation
 */
 type SearchDirectoryServiceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4983,7 +4809,7 @@ func NewSearchDirectoryServiceApiResponse() *SearchDirectoryServiceApiResponse {
 	p := new(SearchDirectoryServiceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.SearchDirectoryServiceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5011,7 +4837,7 @@ func (p *SearchDirectoryServiceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Get Secret Key and User details for given Access Key Id.
+Fetches secret key and user details for a requested access key ID.
 */
 type SecretKeyRequest struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5020,7 +4846,7 @@ type SecretKeyRequest struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  External Identifier for Bucket Access Key.
+	  External identifier for the bucket access key.
 	*/
 	AccessKeyId *string `json:"accessKeyId"`
 }
@@ -5040,7 +4866,7 @@ func NewSecretKeyRequest() *SecretKeyRequest {
 	p := new(SecretKeyRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.SecretKeyRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5056,15 +4882,25 @@ type SecretKeyResponse struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Email Id for the User.
+	  External client to whom this key is allocated.
+	*/
+	AssignedTo *string `json:"assignedTo"`
+
+	CreationType *CreationType `json:"creationType"`
+	/*
+	  Any additional user attributes obtained from the authentication provider in the form of key/value pairs.
+	*/
+	CustomClaims map[string]string `json:"customClaims"`
+	/*
+	  Email ID of the user.
 	*/
 	EmailId *string `json:"emailId"`
 	/*
-	  Identifier of the IDP for the User.
+	  Identifier of the IDP for the user.
 	*/
 	IdpId *string `json:"idpId"`
 	/*
-	  Secret Access Key, it will be returned only during Bucket Access Key creation.
+	  This represents secret access key, which will be returned only during access key creation.
 	*/
 	SecretAccessKey *string `json:"secretAccessKey"`
 	/*
@@ -5072,31 +4908,43 @@ type SecretKeyResponse struct {
 	*/
 	TenantId *string `json:"tenantId"`
 	/*
-	  User Identifier who owns the Bucket Access Key.
+	  User identifier who owns the bucket access key.
 	*/
 	UserId *string `json:"userId"`
 
 	UserType *UserType `json:"userType"`
+	/*
+	  Identifier of the user.
+	*/
+	Username *string `json:"username"`
 }
 
 func (p *SecretKeyResponse) MarshalJSON() ([]byte, error) {
 	type SecretKeyResponseProxy SecretKeyResponse
 	return json.Marshal(struct {
 		*SecretKeyResponseProxy
-		EmailId         *string   `json:"emailId,omitempty"`
-		IdpId           *string   `json:"idpId,omitempty"`
-		SecretAccessKey *string   `json:"secretAccessKey,omitempty"`
-		TenantId        *string   `json:"tenantId,omitempty"`
-		UserId          *string   `json:"userId,omitempty"`
-		UserType        *UserType `json:"userType,omitempty"`
+		AssignedTo      *string           `json:"assignedTo,omitempty"`
+		CreationType    *CreationType     `json:"creationType,omitempty"`
+		CustomClaims    map[string]string `json:"customClaims,omitempty"`
+		EmailId         *string           `json:"emailId,omitempty"`
+		IdpId           *string           `json:"idpId,omitempty"`
+		SecretAccessKey *string           `json:"secretAccessKey,omitempty"`
+		TenantId        *string           `json:"tenantId,omitempty"`
+		UserId          *string           `json:"userId,omitempty"`
+		UserType        *UserType         `json:"userType,omitempty"`
+		Username        *string           `json:"username,omitempty"`
 	}{
 		SecretKeyResponseProxy: (*SecretKeyResponseProxy)(p),
+		AssignedTo:             p.AssignedTo,
+		CreationType:           p.CreationType,
+		CustomClaims:           p.CustomClaims,
 		EmailId:                p.EmailId,
 		IdpId:                  p.IdpId,
 		SecretAccessKey:        p.SecretAccessKey,
 		TenantId:               p.TenantId,
 		UserId:                 p.UserId,
 		UserType:               p.UserType,
+		Username:               p.Username,
 	})
 }
 
@@ -5104,137 +4952,7 @@ func NewSecretKeyResponse() *SecretKeyResponse {
 	p := new(SecretKeyResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.SecretKeyResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-A special type of identity meant for non-browser API clients.
-*/
-type ServiceAccount struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  User or Service who created the Service Account
-	*/
-	CreatedBy *string `json:"createdBy,omitempty"`
-	/*
-	  The creation time of the Service Account.
-	*/
-	CreatedTime *time.Time `json:"createdTime,omitempty"`
-	/*
-	  Brief description of the Service Account.
-	*/
-	Description *string `json:"description,omitempty"`
-	/*
-	  Email ID of the Service Account.
-	*/
-	EmailId *string `json:"emailId,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  The time when the Service Account was last updated.
-	*/
-	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
-	/*
-	  Identifier for the Service Account in the form of a name.
-	*/
-	Name *string `json:"name,omitempty"`
-	/*
-	  Nutanix access keys for the Service Account.
-	*/
-	NutanixAccessKeys []ServiceAccountKey `json:"nutanixAccessKeys,omitempty"`
-	/*
-	  Nutanix API keys for the Service Account.
-	*/
-	NutanixApiKeys []ApiKey `json:"nutanixApiKeys,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func NewServiceAccount() *ServiceAccount {
-	p := new(ServiceAccount)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ServiceAccount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Credentials in the form of a private key and certificate for the Service Account, for authentication over mTLS.
-*/
-type ServiceAccountKey struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  X509 certificate signed by IAM in PEM format (includes leaf as well as ICAs), returned only during creation.
-	*/
-	Certificate *string `json:"certificate,omitempty"`
-	/*
-	  Creation time for the Nutanix Access Key.
-	*/
-	CreatedBy *string `json:"createdBy,omitempty"`
-	/*
-	  User or Service who created the Nutanix Access Key.
-	*/
-	CreatedTime *time.Time `json:"createdTime,omitempty"`
-	/*
-	  Brief description of the Service Account Key.
-	*/
-	Description *string `json:"description,omitempty"`
-	/*
-	  Expiry time of the Certificate.
-	*/
-	ExpiryTime *time.Time `json:"expiryTime,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
-	/*
-	  Identifier of the Service Account Key in the form of a name.
-	*/
-	Name *string `json:"name,omitempty"`
-	/*
-	  RSA private key encoded in PEM format, returned only during creation.
-	*/
-	PrivateKey *string `json:"privateKey,omitempty"`
-	/*
-	  Serial number of the certificate.
-	*/
-	SerialNumber *string `json:"serialNumber,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func NewServiceAccountKey() *ServiceAccountKey {
-	p := new(ServiceAccountKey)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ServiceAccountKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5324,6 +5042,7 @@ const (
 	SUBJECTTYPE_UNKNOWN                                   SubjectType = 0
 	SUBJECTTYPE_REDACTED                                  SubjectType = 1
 	SUBJECTTYPE_URN_IETF_PARAMS_OAUTH_TOKEN_TYPE_ID_TOKEN SubjectType = 2
+	SUBJECTTYPE_URN_IETF_PARAMS_OAUTH_TOKEN_TYPE_API_KEY  SubjectType = 3
 )
 
 // Returns the name of the enum given an ordinal number
@@ -5334,6 +5053,7 @@ func (e *SubjectType) name(index int) string {
 		"$UNKNOWN",
 		"$REDACTED",
 		"URN:IETF:PARAMS:OAUTH:TOKEN-TYPE:ID_TOKEN",
+		"URN:IETF:PARAMS:OAUTH:TOKEN-TYPE:API_KEY",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -5348,6 +5068,7 @@ func (e SubjectType) GetName() string {
 		"$UNKNOWN",
 		"$REDACTED",
 		"URN:IETF:PARAMS:OAUTH:TOKEN-TYPE:ID_TOKEN",
+		"URN:IETF:PARAMS:OAUTH:TOKEN-TYPE:API_KEY",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -5361,6 +5082,7 @@ func (e *SubjectType) index(name string) SubjectType {
 		"$UNKNOWN",
 		"$REDACTED",
 		"URN:IETF:PARAMS:OAUTH:TOKEN-TYPE:ID_TOKEN",
+		"URN:IETF:PARAMS:OAUTH:TOKEN-TYPE:API_KEY",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -5400,47 +5122,38 @@ type SystemConfig struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Creation time of the system configuration.
-	*/
-	CreatedTime *time.Time `json:"createdTime,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  Last update time of the system configuration.
+	  Last update time for the system configuration.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	  Name Value Pair of the system configuration.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
-	/*
-	  Name of the system configuration.
-	*/
-	Name *string `json:"name,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-	/*
-	  Value of the system configuration.
-	*/
-	Value *string `json:"value,omitempty"`
+	NameValuePair []import3.KVPair `json:"nameValuePair"`
+}
+
+func (p *SystemConfig) MarshalJSON() ([]byte, error) {
+	type SystemConfigProxy SystemConfig
+	return json.Marshal(struct {
+		*SystemConfigProxy
+		NameValuePair []import3.KVPair `json:"nameValuePair,omitempty"`
+	}{
+		SystemConfigProxy: (*SystemConfigProxy)(p),
+		NameValuePair:     p.NameValuePair,
+	})
 }
 
 func NewSystemConfig() *SystemConfig {
 	p := new(SystemConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.SystemConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information regarding the tenant that the User belongs to.
+Information regarding the tenant that the user belongs to.
 */
 type Tenant struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5457,7 +5170,7 @@ type Tenant struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Name of the tenant that the User belongs to.
+	  Name of the tenant that the user belongs to.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
@@ -5470,7 +5183,7 @@ func NewTenant() *Tenant {
 	p := new(Tenant)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.Tenant"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5498,7 +5211,7 @@ type TokenRequest struct {
 	*/
 	ClientAssertionType *string `json:"client_assertion_type,omitempty"`
 	/*
-	  Client Identifier for the OIDC token request.
+	  Client identifier for the OIDC token request.
 	*/
 	ClientId *string `json:"client_id"`
 	/*
@@ -5506,17 +5219,17 @@ type TokenRequest struct {
 	*/
 	Code *string `json:"code,omitempty"`
 	/*
-	  Connector Identifier for connector of User.
+	  Connector identifier for the connector of a user.
 	*/
 	ConnectorId *string `json:"connector_id,omitempty"`
 
 	GrantType *GrantType `json:"grant_type"`
 	/*
-	  Non Tenant Issuer for the OIDC token request.
+	  Non-tenant issuer for the OIDC token request.
 	*/
 	NonTenantIssuer *string `json:"non_tenant_issuer,omitempty"`
 	/*
-	  Redirect Uri for the OIDC token request.
+	  Redirect URI for the OIDC token request.
 	*/
 	RedirectUri *string `json:"redirect_uri,omitempty"`
 	/*
@@ -5524,9 +5237,9 @@ type TokenRequest struct {
 	*/
 	RefreshToken *string `json:"refresh_token,omitempty"`
 
-	Scope *ScopeType `json:"scope"`
+	Scope *ScopesType `json:"scope"`
 	/*
-	  Subject Token for the OIDC token request.
+	  Subject token for the OIDC token request.
 	*/
 	SubjectToken *string `json:"subject_token,omitempty"`
 
@@ -5537,9 +5250,9 @@ func (p *TokenRequest) MarshalJSON() ([]byte, error) {
 	type TokenRequestProxy TokenRequest
 	return json.Marshal(struct {
 		*TokenRequestProxy
-		ClientId  *string    `json:"client_id,omitempty"`
-		GrantType *GrantType `json:"grant_type,omitempty"`
-		Scope     *ScopeType `json:"scope,omitempty"`
+		ClientId  *string     `json:"client_id,omitempty"`
+		GrantType *GrantType  `json:"grant_type,omitempty"`
+		Scope     *ScopesType `json:"scope,omitempty"`
 	}{
 		TokenRequestProxy: (*TokenRequestProxy)(p),
 		ClientId:          p.ClientId,
@@ -5552,14 +5265,14 @@ func NewTokenRequest() *TokenRequest {
 	p := new(TokenRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.TokenRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/cert-auth-providers/{extId} Put operation
+REST response for all response codes in API path /iam/v4.0/authn/cert-auth-providers/{extId} Put operation
 */
 type UpdateCertAuthProviderApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5581,7 +5294,7 @@ func NewUpdateCertAuthProviderApiResponse() *UpdateCertAuthProviderApiResponse {
 	p := new(UpdateCertAuthProviderApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UpdateCertAuthProviderApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5609,7 +5322,7 @@ func (p *UpdateCertAuthProviderApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/directory-services/{extId} Put operation
+REST response for all response codes in API path /iam/v4.0/authn/directory-services/{extId} Put operation
 */
 type UpdateDirectoryServiceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5631,7 +5344,7 @@ func NewUpdateDirectoryServiceApiResponse() *UpdateDirectoryServiceApiResponse {
 	p := new(UpdateDirectoryServiceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UpdateDirectoryServiceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5659,7 +5372,7 @@ func (p *UpdateDirectoryServiceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/saml-identity-providers/{extId} Put operation
+REST response for all response codes in API path /iam/v4.0/authn/saml-identity-providers/{extId} Put operation
 */
 type UpdateSamlIdentityProviderApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5681,7 +5394,7 @@ func NewUpdateSamlIdentityProviderApiResponse() *UpdateSamlIdentityProviderApiRe
 	p := new(UpdateSamlIdentityProviderApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UpdateSamlIdentityProviderApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5709,7 +5422,7 @@ func (p *UpdateSamlIdentityProviderApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/system-config/{extId} Put operation
+REST response for all response codes in API path /iam/v4.0/authn/system-config Put operation
 */
 type UpdateSystemConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5731,7 +5444,7 @@ func NewUpdateSystemConfigApiResponse() *UpdateSystemConfigApiResponse {
 	p := new(UpdateSystemConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UpdateSystemConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5759,7 +5472,7 @@ func (p *UpdateSystemConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authn/users/{extId} Put operation
+REST response for all response codes in API path /iam/v4.0/authn/users/{extId} Put operation
 */
 type UpdateUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5781,7 +5494,7 @@ func NewUpdateUserApiResponse() *UpdateUserApiResponse {
 	p := new(UpdateUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UpdateUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5884,7 +5597,7 @@ func (e UseType) Ref() *UseType {
 }
 
 /*
-Information of the User.
+Information of the user.
 */
 type User struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5893,27 +5606,33 @@ type User struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Any additional attribute for the User.
+	  Indicates additional attributes of the user.
 	*/
 	AdditionalAttributes []import3.KVPair `json:"additionalAttributes,omitempty"`
 	/*
-	  Bucket Access Keys for the User.
+	  Bucket access keys for the user.
 	*/
 	BucketsAccessKeys []BucketsAccessKey `json:"bucketsAccessKeys,omitempty"`
 	/*
-	  User or Service who created the User.
+	  User or Service who created the user.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  Creation time of the User.
+	  Creation time of the user.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
+
+	CreationType *CreationType `json:"creationType,omitempty"`
 	/*
-	  Display name for the User.
+	  Description of the user.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  Display name of the user. For LDAP and SAML users, this is set from AD config.
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 	/*
-	  Email Id for the User.
+	  Email ID of the user.
 	*/
 	EmailId *string `json:"emailId,omitempty"`
 	/*
@@ -5921,31 +5640,31 @@ type User struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  First name for the User.
+	  First name of the user.
 	*/
 	FirstName *string `json:"firstName,omitempty"`
 	/*
-	  Identifier of the IDP for the User.
+	  Identifier of the IDP for the user.
 	*/
 	IdpId *string `json:"idpId,omitempty"`
 	/*
-	  Flag to force the User to reset password.
+	  Flag to force the user to reset password.
 	*/
 	IsForceResetPasswordEnabled *bool `json:"isForceResetPasswordEnabled,omitempty"`
 	/*
-	  Last successful logged in time for the User.
+	  The last successful login time for the user.
 	*/
 	LastLoginTime *time.Time `json:"lastLoginTime,omitempty"`
 	/*
-	  Last name for the User.
+	  Last name of the user.
 	*/
 	LastName *string `json:"lastName,omitempty"`
 	/*
-	  Last updated by this User ID.
+	  Last updated by this user ID.
 	*/
 	LastUpdatedBy *string `json:"lastUpdatedBy,omitempty"`
 	/*
-	  Last updated time of the User.
+	  The last updated time for the user.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -5953,19 +5672,19 @@ type User struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Default locale for the User.
+	  Default locale of the user.
 	*/
 	Locale *string `json:"locale,omitempty"`
 	/*
-	  Middle name for the User.
+	  Middle name of the user.
 	*/
 	MiddleInitial *string `json:"middleInitial,omitempty"`
 	/*
-	  Password for the User.
+	  Password of the user.
 	*/
 	Password *string `json:"password,omitempty"`
 	/*
-	  Default Region for the User.
+	  Default region of the user.
 	*/
 	Region *string `json:"region,omitempty"`
 
@@ -5977,7 +5696,7 @@ type User struct {
 
 	UserType *UserType `json:"userType,omitempty"`
 	/*
-	  Identifier for the User in the form an email address.
+	  Identifier of the user.
 	*/
 	Username *string `json:"username,omitempty"`
 }
@@ -5986,14 +5705,50 @@ func NewUser() *User {
 	p := new(User)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.User"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-User configuration for OpenLDAP Directory Service.
+Revoke service account buckets access key response object with a successful message.
+*/
+type UserBucketKeyRevokeResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Action API successful message.
+	*/
+	Message *string `json:"message"`
+}
+
+func (p *UserBucketKeyRevokeResponse) MarshalJSON() ([]byte, error) {
+	type UserBucketKeyRevokeResponseProxy UserBucketKeyRevokeResponse
+	return json.Marshal(struct {
+		*UserBucketKeyRevokeResponseProxy
+		Message *string `json:"message,omitempty"`
+	}{
+		UserBucketKeyRevokeResponseProxy: (*UserBucketKeyRevokeResponseProxy)(p),
+		Message:                          p.Message,
+	})
+}
+
+func NewUserBucketKeyRevokeResponse() *UserBucketKeyRevokeResponse {
+	p := new(UserBucketKeyRevokeResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authn.UserBucketKeyRevokeResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+User configuration for OpenLDAP directory service.
 */
 type UserConfiguration struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6002,15 +5757,15 @@ type UserConfiguration struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Object class in the OpenLDAP system that corresponds to Users.
+	  Object class in the OpenLDAP system that corresponds to the users.
 	*/
 	UserObjectClass *string `json:"userObjectClass"`
 	/*
-	  Base DN for User search.
+	  Base DN for user search.
 	*/
 	UserSearchBase *string `json:"userSearchBase"`
 	/*
-	  Unique Identifier for each User which can be used in Authentication.
+	  Unique identifier for each user that can be used in authentication.
 	*/
 	UsernameAttribute *string `json:"usernameAttribute"`
 }
@@ -6034,14 +5789,14 @@ func NewUserConfiguration() *UserConfiguration {
 	p := new(UserConfiguration)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UserConfiguration"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information of the User Group.
+Information of the user group.
 */
 type UserGroup struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6050,15 +5805,15 @@ type UserGroup struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  User or Service who created the User Group.
+	  User or Service who created the user group.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  Creation time of the User Group.
+	  Creation time of the user group.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
-	  Identifier for the User Group in the form of a distinguished name.
+	  Identifier for the user group in the form of a distinguished name.
 	*/
 	DistinguishedName *string `json:"distinguishedName,omitempty"`
 	/*
@@ -6068,11 +5823,11 @@ type UserGroup struct {
 
 	GroupType *GroupType `json:"groupType,omitempty"`
 	/*
-	  Identifier of the IDP for the User Group.
+	  Identifier of the IDP for the user group.
 	*/
 	IdpId *string `json:"idpId,omitempty"`
 	/*
-	  Last updated time of the User Group.
+	  Last updated time of the user group.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -6080,7 +5835,7 @@ type UserGroup struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Common Name of the User Group.
+	  Common Name of the user group.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
@@ -6093,14 +5848,14 @@ func NewUserGroup() *UserGroup {
 	p := new(UserGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UserGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-User Group configuration for OpenLDAP Directory Service.
+User Group configuration for OpenLDAP directory service.
 */
 type UserGroupConfiguration struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6109,11 +5864,11 @@ type UserGroupConfiguration struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Attribute in a group that associates Users to the group.
+	  Attribute in a group that associates users to the group.
 	*/
 	GroupMemberAttribute *string `json:"groupMemberAttribute"`
 	/*
-	  User attribute value that will be used in group entity to associate User to the group.
+	  User attribute value that will be used in group entity to associate user to the group.
 	*/
 	GroupMemberAttributeValue *string `json:"groupMemberAttributeValue"`
 	/*
@@ -6147,14 +5902,14 @@ func NewUserGroupConfiguration() *UserGroupConfiguration {
 	p := new(UserGroupConfiguration)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UserGroupConfiguration"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Information to change state of User.
+Information to change state of user.
 */
 type UserStateUpdate struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6181,7 +5936,7 @@ func NewUserStateUpdate() *UserStateUpdate {
 	p := new(UserStateUpdate)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UserStateUpdate"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6217,14 +5972,14 @@ func NewUserStateUpdateResponse() *UserStateUpdateResponse {
 	p := new(UserStateUpdateResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.UserStateUpdateResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Status of the User.
+Status of the user.
 */
 type UserStatusType int
 
@@ -6303,17 +6058,18 @@ func (e UserStatusType) Ref() *UserStatusType {
 }
 
 /*
-Type of the User.
+User type like SAML user or local user, and so on.
 */
 type UserType int
 
 const (
-	USERTYPE_UNKNOWN  UserType = 0
-	USERTYPE_REDACTED UserType = 1
-	USERTYPE_LOCAL    UserType = 2
-	USERTYPE_SAML     UserType = 3
-	USERTYPE_LDAP     UserType = 4
-	USERTYPE_EXTERNAL UserType = 5
+	USERTYPE_UNKNOWN         UserType = 0
+	USERTYPE_REDACTED        UserType = 1
+	USERTYPE_LOCAL           UserType = 2
+	USERTYPE_SAML            UserType = 3
+	USERTYPE_LDAP            UserType = 4
+	USERTYPE_EXTERNAL        UserType = 5
+	USERTYPE_SERVICE_ACCOUNT UserType = 6
 )
 
 // Returns the name of the enum given an ordinal number
@@ -6327,6 +6083,7 @@ func (e *UserType) name(index int) string {
 		"SAML",
 		"LDAP",
 		"EXTERNAL",
+		"SERVICE_ACCOUNT",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -6344,6 +6101,7 @@ func (e UserType) GetName() string {
 		"SAML",
 		"LDAP",
 		"EXTERNAL",
+		"SERVICE_ACCOUNT",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -6360,6 +6118,7 @@ func (e *UserType) index(name string) UserType {
 		"SAML",
 		"LDAP",
 		"EXTERNAL",
+		"SERVICE_ACCOUNT",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -6387,278 +6146,6 @@ func (e *UserType) MarshalJSON() ([]byte, error) {
 
 func (e UserType) Ref() *UserType {
 	return &e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authn/api-keys/$actions/validate Post operation
-*/
-type ValidateApiKeyApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfValidateApiKeyApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewValidateApiKeyApiResponse() *ValidateApiKeyApiResponse {
-	p := new(ValidateApiKeyApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authn.ValidateApiKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ValidateApiKeyApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ValidateApiKeyApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfValidateApiKeyApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-type OneOfGetServiceAccountKeyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ServiceAccountKey     `json:"-"`
-}
-
-func NewOneOfGetServiceAccountKeyApiResponseData() *OneOfGetServiceAccountKeyApiResponseData {
-	p := new(OneOfGetServiceAccountKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetServiceAccountKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetServiceAccountKeyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ServiceAccountKey:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ServiceAccountKey)
-		}
-		*p.oneOfType0 = v.(ServiceAccountKey)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetServiceAccountKeyApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGetServiceAccountKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ServiceAccountKey)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.ServiceAccountKey" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ServiceAccountKey)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetServiceAccountKeyApiResponseData"))
-}
-
-func (p *OneOfGetServiceAccountKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetServiceAccountKeyApiResponseData")
-}
-
-type OneOfResetUserPasswordApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *PasswordResetResponse `json:"-"`
-}
-
-func NewOneOfResetUserPasswordApiResponseData() *OneOfResetUserPasswordApiResponseData {
-	p := new(OneOfResetUserPasswordApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfResetUserPasswordApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfResetUserPasswordApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case PasswordResetResponse:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(PasswordResetResponse)
-		}
-		*p.oneOfType0 = v.(PasswordResetResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfResetUserPasswordApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfResetUserPasswordApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(PasswordResetResponse)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.PasswordResetResponse" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(PasswordResetResponse)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfResetUserPasswordApiResponseData"))
-}
-
-func (p *OneOfResetUserPasswordApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfResetUserPasswordApiResponseData")
 }
 
 type OneOfDeleteCertAuthProviderApiResponseData struct {
@@ -6774,2363 +6261,25 @@ func (p *OneOfDeleteCertAuthProviderApiResponseData) MarshalJSON() ([]byte, erro
 	return nil, errors.New("No value to marshal for OneOfDeleteCertAuthProviderApiResponseData")
 }
 
-type OneOfUpdateSamlIdentityProviderApiResponseData struct {
+type OneOfCreateCertAuthProviderApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *SamlIdentityProvider  `json:"-"`
-}
-
-func NewOneOfUpdateSamlIdentityProviderApiResponseData() *OneOfUpdateSamlIdentityProviderApiResponseData {
-	p := new(OneOfUpdateSamlIdentityProviderApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateSamlIdentityProviderApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateSamlIdentityProviderApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case SamlIdentityProvider:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(SamlIdentityProvider)
-		}
-		*p.oneOfType0 = v.(SamlIdentityProvider)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateSamlIdentityProviderApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUpdateSamlIdentityProviderApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(SamlIdentityProvider)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.SamlIdentityProvider" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(SamlIdentityProvider)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSamlIdentityProviderApiResponseData"))
-}
-
-func (p *OneOfUpdateSamlIdentityProviderApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateSamlIdentityProviderApiResponseData")
-}
-
-type OneOfCreateDirectoryServiceApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *DirectoryService      `json:"-"`
-}
-
-func NewOneOfCreateDirectoryServiceApiResponseData() *OneOfCreateDirectoryServiceApiResponseData {
-	p := new(OneOfCreateDirectoryServiceApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateDirectoryServiceApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateDirectoryServiceApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case DirectoryService:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(DirectoryService)
-		}
-		*p.oneOfType0 = v.(DirectoryService)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateDirectoryServiceApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(DirectoryService)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.DirectoryService" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(DirectoryService)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDirectoryServiceApiResponseData"))
-}
-
-func (p *OneOfCreateDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateDirectoryServiceApiResponseData")
-}
-
-type OneOfDeleteUserKeyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteUserKeyApiResponseData() *OneOfDeleteUserKeyApiResponseData {
-	p := new(OneOfDeleteUserKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteUserKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteUserKeyApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteUserKeyApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteUserKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteUserKeyApiResponseData"))
-}
-
-func (p *OneOfDeleteUserKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteUserKeyApiResponseData")
-}
-
-type OneOfDeleteServiceAccountKeyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteServiceAccountKeyApiResponseData() *OneOfDeleteServiceAccountKeyApiResponseData {
-	p := new(OneOfDeleteServiceAccountKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteServiceAccountKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteServiceAccountKeyApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteServiceAccountKeyApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteServiceAccountKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteServiceAccountKeyApiResponseData"))
-}
-
-func (p *OneOfDeleteServiceAccountKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteServiceAccountKeyApiResponseData")
-}
-
-type OneOfCreateServiceAccountKeyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ServiceAccountKey     `json:"-"`
-}
-
-func NewOneOfCreateServiceAccountKeyApiResponseData() *OneOfCreateServiceAccountKeyApiResponseData {
-	p := new(OneOfCreateServiceAccountKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateServiceAccountKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateServiceAccountKeyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ServiceAccountKey:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ServiceAccountKey)
-		}
-		*p.oneOfType0 = v.(ServiceAccountKey)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateServiceAccountKeyApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateServiceAccountKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ServiceAccountKey)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.ServiceAccountKey" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ServiceAccountKey)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateServiceAccountKeyApiResponseData"))
-}
-
-func (p *OneOfCreateServiceAccountKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateServiceAccountKeyApiResponseData")
-}
-
-type OneOfGetUserApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *User                  `json:"-"`
-}
-
-func NewOneOfGetUserApiResponseData() *OneOfGetUserApiResponseData {
-	p := new(OneOfGetUserApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetUserApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetUserApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case User:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(User)
-		}
-		*p.oneOfType0 = v.(User)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetUserApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGetUserApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(User)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.User" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(User)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetUserApiResponseData"))
-}
-
-func (p *OneOfGetUserApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetUserApiResponseData")
-}
-
-type OneOfRevokeApiKeyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *ApiKeyRevokeResponse  `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfRevokeApiKeyApiResponseData() *OneOfRevokeApiKeyApiResponseData {
-	p := new(OneOfRevokeApiKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRevokeApiKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRevokeApiKeyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case ApiKeyRevokeResponse:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiKeyRevokeResponse)
-		}
-		*p.oneOfType0 = v.(ApiKeyRevokeResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRevokeApiKeyApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfRevokeApiKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(ApiKeyRevokeResponse)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.ApiKeyRevokeResponse" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiKeyRevokeResponse)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRevokeApiKeyApiResponseData"))
-}
-
-func (p *OneOfRevokeApiKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfRevokeApiKeyApiResponseData")
-}
-
-type OneOfCreateUserApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *User                  `json:"-"`
-}
-
-func NewOneOfCreateUserApiResponseData() *OneOfCreateUserApiResponseData {
-	p := new(OneOfCreateUserApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateUserApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateUserApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case User:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(User)
-		}
-		*p.oneOfType0 = v.(User)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateUserApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateUserApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(User)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.User" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(User)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateUserApiResponseData"))
-}
-
-func (p *OneOfCreateUserApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateUserApiResponseData")
-}
-
-type OneOfCreateSamlIdentityProviderApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *SamlIdentityProvider  `json:"-"`
-}
-
-func NewOneOfCreateSamlIdentityProviderApiResponseData() *OneOfCreateSamlIdentityProviderApiResponseData {
-	p := new(OneOfCreateSamlIdentityProviderApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateSamlIdentityProviderApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateSamlIdentityProviderApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case SamlIdentityProvider:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(SamlIdentityProvider)
-		}
-		*p.oneOfType0 = v.(SamlIdentityProvider)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateSamlIdentityProviderApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateSamlIdentityProviderApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(SamlIdentityProvider)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.SamlIdentityProvider" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(SamlIdentityProvider)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateSamlIdentityProviderApiResponseData"))
-}
-
-func (p *OneOfCreateSamlIdentityProviderApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateSamlIdentityProviderApiResponseData")
-}
-
-type OneOfDeleteServiceAccountApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteServiceAccountApiResponseData() *OneOfDeleteServiceAccountApiResponseData {
-	p := new(OneOfDeleteServiceAccountApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteServiceAccountApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteServiceAccountApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteServiceAccountApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteServiceAccountApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteServiceAccountApiResponseData"))
-}
-
-func (p *OneOfDeleteServiceAccountApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteServiceAccountApiResponseData")
-}
-
-type OneOfListSamlIdentityProvidersApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    []SamlIdentityProvider `json:"-"`
-}
-
-func NewOneOfListSamlIdentityProvidersApiResponseData() *OneOfListSamlIdentityProvidersApiResponseData {
-	p := new(OneOfListSamlIdentityProvidersApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListSamlIdentityProvidersApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListSamlIdentityProvidersApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []SamlIdentityProvider:
-		p.oneOfType0 = v.([]SamlIdentityProvider)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authn.SamlIdentityProvider>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authn.SamlIdentityProvider>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListSamlIdentityProvidersApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<iam.v4.authn.SamlIdentityProvider>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListSamlIdentityProvidersApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]SamlIdentityProvider)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authn.SamlIdentityProvider" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authn.SamlIdentityProvider>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authn.SamlIdentityProvider>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSamlIdentityProvidersApiResponseData"))
-}
-
-func (p *OneOfListSamlIdentityProvidersApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<iam.v4.authn.SamlIdentityProvider>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListSamlIdentityProvidersApiResponseData")
-}
-
-type OneOfCreateApiKeyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ApiKey                `json:"-"`
-}
-
-func NewOneOfCreateApiKeyApiResponseData() *OneOfCreateApiKeyApiResponseData {
-	p := new(OneOfCreateApiKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateApiKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateApiKeyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ApiKey:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiKey)
-		}
-		*p.oneOfType0 = v.(ApiKey)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateApiKeyApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateApiKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ApiKey)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.ApiKey" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiKey)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateApiKeyApiResponseData"))
-}
-
-func (p *OneOfCreateApiKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateApiKeyApiResponseData")
-}
-
-type OneOfUpdateUserApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *User                  `json:"-"`
-}
-
-func NewOneOfUpdateUserApiResponseData() *OneOfUpdateUserApiResponseData {
-	p := new(OneOfUpdateUserApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateUserApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateUserApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case User:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(User)
-		}
-		*p.oneOfType0 = v.(User)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateUserApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUpdateUserApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(User)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.User" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(User)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateUserApiResponseData"))
-}
-
-func (p *OneOfUpdateUserApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateUserApiResponseData")
-}
-
-type OneOfActivateUserApiResponseData struct {
-	Discriminator *string                  `json:"-"`
-	ObjectType_   *string                  `json:"-"`
-	oneOfType0    *UserStateUpdateResponse `json:"-"`
-	oneOfType400  *import1.ErrorResponse   `json:"-"`
-}
-
-func NewOneOfActivateUserApiResponseData() *OneOfActivateUserApiResponseData {
-	p := new(OneOfActivateUserApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfActivateUserApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfActivateUserApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case UserStateUpdateResponse:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(UserStateUpdateResponse)
-		}
-		*p.oneOfType0 = v.(UserStateUpdateResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfActivateUserApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfActivateUserApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(UserStateUpdateResponse)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.UserStateUpdateResponse" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(UserStateUpdateResponse)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfActivateUserApiResponseData"))
-}
-
-func (p *OneOfActivateUserApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfActivateUserApiResponseData")
-}
-
-type OneOfConnectionDirectoryServiceApiResponseData struct {
-	Discriminator *string                             `json:"-"`
-	ObjectType_   *string                             `json:"-"`
-	oneOfType400  *import1.ErrorResponse              `json:"-"`
-	oneOfType0    *DirectoryServiceConnectionResponse `json:"-"`
-}
-
-func NewOneOfConnectionDirectoryServiceApiResponseData() *OneOfConnectionDirectoryServiceApiResponseData {
-	p := new(OneOfConnectionDirectoryServiceApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfConnectionDirectoryServiceApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfConnectionDirectoryServiceApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case DirectoryServiceConnectionResponse:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(DirectoryServiceConnectionResponse)
-		}
-		*p.oneOfType0 = v.(DirectoryServiceConnectionResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfConnectionDirectoryServiceApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfConnectionDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(DirectoryServiceConnectionResponse)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.DirectoryServiceConnectionResponse" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(DirectoryServiceConnectionResponse)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfConnectionDirectoryServiceApiResponseData"))
-}
-
-func (p *OneOfConnectionDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfConnectionDirectoryServiceApiResponseData")
-}
-
-type OneOfCreateSystemConfigApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *SystemConfig          `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfCreateSystemConfigApiResponseData() *OneOfCreateSystemConfigApiResponseData {
-	p := new(OneOfCreateSystemConfigApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateSystemConfigApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateSystemConfigApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case SystemConfig:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(SystemConfig)
-		}
-		*p.oneOfType0 = v.(SystemConfig)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateSystemConfigApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfCreateSystemConfigApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(SystemConfig)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.SystemConfig" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(SystemConfig)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateSystemConfigApiResponseData"))
-}
-
-func (p *OneOfCreateSystemConfigApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateSystemConfigApiResponseData")
-}
-
-type OneOfGetServiceAccountApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ServiceAccount        `json:"-"`
-}
-
-func NewOneOfGetServiceAccountApiResponseData() *OneOfGetServiceAccountApiResponseData {
-	p := new(OneOfGetServiceAccountApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetServiceAccountApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetServiceAccountApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ServiceAccount:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ServiceAccount)
-		}
-		*p.oneOfType0 = v.(ServiceAccount)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetServiceAccountApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGetServiceAccountApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ServiceAccount)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.ServiceAccount" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ServiceAccount)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetServiceAccountApiResponseData"))
-}
-
-func (p *OneOfGetServiceAccountApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetServiceAccountApiResponseData")
-}
-
-type OneOfListServiceAccountsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    []ServiceAccount       `json:"-"`
-}
-
-func NewOneOfListServiceAccountsApiResponseData() *OneOfListServiceAccountsApiResponseData {
-	p := new(OneOfListServiceAccountsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListServiceAccountsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListServiceAccountsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []ServiceAccount:
-		p.oneOfType0 = v.([]ServiceAccount)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authn.ServiceAccount>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authn.ServiceAccount>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListServiceAccountsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<iam.v4.authn.ServiceAccount>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListServiceAccountsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]ServiceAccount)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authn.ServiceAccount" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authn.ServiceAccount>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authn.ServiceAccount>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListServiceAccountsApiResponseData"))
-}
-
-func (p *OneOfListServiceAccountsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<iam.v4.authn.ServiceAccount>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListServiceAccountsApiResponseData")
-}
-
-type OneOfGetSamlIdentityProviderApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *SamlIdentityProvider  `json:"-"`
-}
-
-func NewOneOfGetSamlIdentityProviderApiResponseData() *OneOfGetSamlIdentityProviderApiResponseData {
-	p := new(OneOfGetSamlIdentityProviderApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetSamlIdentityProviderApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetSamlIdentityProviderApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case SamlIdentityProvider:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(SamlIdentityProvider)
-		}
-		*p.oneOfType0 = v.(SamlIdentityProvider)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetSamlIdentityProviderApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGetSamlIdentityProviderApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(SamlIdentityProvider)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.SamlIdentityProvider" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(SamlIdentityProvider)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSamlIdentityProviderApiResponseData"))
-}
-
-func (p *OneOfGetSamlIdentityProviderApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetSamlIdentityProviderApiResponseData")
-}
-
-type OneOfListServiceAccountKeysApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []ServiceAccountKey    `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfListServiceAccountKeysApiResponseData() *OneOfListServiceAccountKeysApiResponseData {
-	p := new(OneOfListServiceAccountKeysApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListServiceAccountKeysApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListServiceAccountKeysApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []ServiceAccountKey:
-		p.oneOfType0 = v.([]ServiceAccountKey)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authn.ServiceAccountKey>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authn.ServiceAccountKey>"
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListServiceAccountKeysApiResponseData) GetValue() interface{} {
-	if "List<iam.v4.authn.ServiceAccountKey>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfListServiceAccountKeysApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]ServiceAccountKey)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authn.ServiceAccountKey" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authn.ServiceAccountKey>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authn.ServiceAccountKey>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListServiceAccountKeysApiResponseData"))
-}
-
-func (p *OneOfListServiceAccountKeysApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<iam.v4.authn.ServiceAccountKey>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfListServiceAccountKeysApiResponseData")
-}
-
-type OneOfCreateServiceAccountApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ServiceAccount        `json:"-"`
-}
-
-func NewOneOfCreateServiceAccountApiResponseData() *OneOfCreateServiceAccountApiResponseData {
-	p := new(OneOfCreateServiceAccountApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateServiceAccountApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateServiceAccountApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ServiceAccount:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ServiceAccount)
-		}
-		*p.oneOfType0 = v.(ServiceAccount)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateServiceAccountApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateServiceAccountApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ServiceAccount)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.ServiceAccount" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ServiceAccount)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateServiceAccountApiResponseData"))
-}
-
-func (p *OneOfCreateServiceAccountApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateServiceAccountApiResponseData")
-}
-
-type OneOfUpdateCertAuthProviderApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
 	oneOfType0    *CertAuthProvider      `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
 }
 
-func NewOneOfUpdateCertAuthProviderApiResponseData() *OneOfUpdateCertAuthProviderApiResponseData {
-	p := new(OneOfUpdateCertAuthProviderApiResponseData)
+func NewOneOfCreateCertAuthProviderApiResponseData() *OneOfCreateCertAuthProviderApiResponseData {
+	p := new(OneOfCreateCertAuthProviderApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfUpdateCertAuthProviderApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfCreateCertAuthProviderApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateCertAuthProviderApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfCreateCertAuthProviderApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case CertAuthProvider:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(CertAuthProvider)
@@ -9144,41 +6293,36 @@ func (p *OneOfUpdateCertAuthProviderApiResponseData) SetValue(v interface{}) err
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfUpdateCertAuthProviderApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
+func (p *OneOfCreateCertAuthProviderApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfUpdateCertAuthProviderApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
+func (p *OneOfCreateCertAuthProviderApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new(CertAuthProvider)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "iam.v4.authn.CertAuthProvider" == *vOneOfType0.ObjectType_ {
@@ -9197,149 +6341,54 @@ func (p *OneOfUpdateCertAuthProviderApiResponseData) UnmarshalJSON(b []byte) err
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateCertAuthProviderApiResponseData"))
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateCertAuthProviderApiResponseData"))
 }
 
-func (p *OneOfUpdateCertAuthProviderApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
+func (p *OneOfCreateCertAuthProviderApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateCertAuthProviderApiResponseData")
-}
-
-type OneOfDeleteApiKeyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteApiKeyApiResponseData() *OneOfDeleteApiKeyApiResponseData {
-	p := new(OneOfDeleteApiKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteApiKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteApiKeyApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteApiKeyApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteApiKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteApiKeyApiResponseData"))
-}
-
-func (p *OneOfDeleteApiKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfDeleteApiKeyApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfCreateCertAuthProviderApiResponseData")
 }
 
-type OneOfListApiKeysApiResponseData struct {
+type OneOfRevokeUserKeyApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    []ApiKey               `json:"-"`
+	oneOfType2001 *import1.AppMessage    `json:"-"`
 }
 
-func NewOneOfListApiKeysApiResponseData() *OneOfListApiKeysApiResponseData {
-	p := new(OneOfListApiKeysApiResponseData)
+func NewOneOfRevokeUserKeyApiResponseData() *OneOfRevokeUserKeyApiResponseData {
+	p := new(OneOfRevokeUserKeyApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListApiKeysApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfRevokeUserKeyApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListApiKeysApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfRevokeUserKeyApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.ErrorResponse:
@@ -9355,33 +6404,36 @@ func (p *OneOfListApiKeysApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []ApiKey:
-		p.oneOfType0 = v.([]ApiKey)
+	case import1.AppMessage:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.AppMessage)
+		}
+		*p.oneOfType2001 = v.(import1.AppMessage)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<iam.v4.authn.ApiKey>"
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<iam.v4.authn.ApiKey>"
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfListApiKeysApiResponseData) GetValue() interface{} {
+func (p *OneOfRevokeUserKeyApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<iam.v4.authn.ApiKey>" == *p.Discriminator {
-		return p.oneOfType0
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
 	}
 	return nil
 }
 
-func (p *OneOfListApiKeysApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfRevokeUserKeyApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -9400,41 +6452,147 @@ func (p *OneOfListApiKeysApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType0 := new([]ApiKey)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+	vOneOfType2001 := new(import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "iam.v4.error.AppMessage" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.AppMessage)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRevokeUserKeyApiResponseData"))
+}
 
-		if len(*vOneOfType0) == 0 || "iam.v4.authn.ApiKey" == *((*vOneOfType0)[0].ObjectType_) {
+func (p *OneOfRevokeUserKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfRevokeUserKeyApiResponseData")
+}
+
+type OneOfListSamlIdentityProvidersApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []SamlIdentityProvider `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListSamlIdentityProvidersApiResponseData() *OneOfListSamlIdentityProvidersApiResponseData {
+	p := new(OneOfListSamlIdentityProvidersApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListSamlIdentityProvidersApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListSamlIdentityProvidersApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []SamlIdentityProvider:
+		p.oneOfType0 = v.([]SamlIdentityProvider)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authn.SamlIdentityProvider>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authn.SamlIdentityProvider>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListSamlIdentityProvidersApiResponseData) GetValue() interface{} {
+	if "List<iam.v4.authn.SamlIdentityProvider>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListSamlIdentityProvidersApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]SamlIdentityProvider)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authn.SamlIdentityProvider" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<iam.v4.authn.ApiKey>"
+			*p.Discriminator = "List<iam.v4.authn.SamlIdentityProvider>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<iam.v4.authn.ApiKey>"
+			*p.ObjectType_ = "List<iam.v4.authn.SamlIdentityProvider>"
 			return nil
-
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListApiKeysApiResponseData"))
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSamlIdentityProvidersApiResponseData"))
 }
 
-func (p *OneOfListApiKeysApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListSamlIdentityProvidersApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<iam.v4.authn.SamlIdentityProvider>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<iam.v4.authn.ApiKey>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListApiKeysApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListSamlIdentityProvidersApiResponseData")
 }
 
 type OneOfCreateUserKeyApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *BucketsAccessKey      `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    *BucketsAccessKey      `json:"-"`
 }
 
 func NewOneOfCreateUserKeyApiResponseData() *OneOfCreateUserKeyApiResponseData {
@@ -9449,19 +6607,6 @@ func (p *OneOfCreateUserKeyApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfCreateUserKeyApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case BucketsAccessKey:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(BucketsAccessKey)
-		}
-		*p.oneOfType0 = v.(BucketsAccessKey)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -9475,6 +6620,19 @@ func (p *OneOfCreateUserKeyApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case BucketsAccessKey:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(BucketsAccessKey)
+		}
+		*p.oneOfType0 = v.(BucketsAccessKey)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -9482,16 +6640,34 @@ func (p *OneOfCreateUserKeyApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfCreateUserKeyApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	return nil
 }
 
 func (p *OneOfCreateUserKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
 	vOneOfType0 := new(BucketsAccessKey)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "iam.v4.authn.BucketsAccessKey" == *vOneOfType0.ObjectType_ {
@@ -9510,61 +6686,43 @@ func (p *OneOfCreateUserKeyApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateUserKeyApiResponseData"))
 }
 
 func (p *OneOfCreateUserKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfCreateUserKeyApiResponseData")
 }
 
-type OneOfUpdateSystemConfigApiResponseData struct {
+type OneOfGetCertAuthProviderApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *SystemConfig          `json:"-"`
+	oneOfType0    *CertAuthProvider      `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 }
 
-func NewOneOfUpdateSystemConfigApiResponseData() *OneOfUpdateSystemConfigApiResponseData {
-	p := new(OneOfUpdateSystemConfigApiResponseData)
+func NewOneOfGetCertAuthProviderApiResponseData() *OneOfGetCertAuthProviderApiResponseData {
+	p := new(OneOfGetCertAuthProviderApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfUpdateSystemConfigApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetCertAuthProviderApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateSystemConfigApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetCertAuthProviderApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case SystemConfig:
+	case CertAuthProvider:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(SystemConfig)
+			p.oneOfType0 = new(CertAuthProvider)
 		}
-		*p.oneOfType0 = v.(SystemConfig)
+		*p.oneOfType0 = v.(CertAuthProvider)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -9592,7 +6750,7 @@ func (p *OneOfUpdateSystemConfigApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfUpdateSystemConfigApiResponseData) GetValue() interface{} {
+func (p *OneOfGetCertAuthProviderApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -9602,12 +6760,12 @@ func (p *OneOfUpdateSystemConfigApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfUpdateSystemConfigApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(SystemConfig)
+func (p *OneOfGetCertAuthProviderApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(CertAuthProvider)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.SystemConfig" == *vOneOfType0.ObjectType_ {
+		if "iam.v4.authn.CertAuthProvider" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(SystemConfig)
+				p.oneOfType0 = new(CertAuthProvider)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -9639,17 +6797,17 @@ func (p *OneOfUpdateSystemConfigApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSystemConfigApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCertAuthProviderApiResponseData"))
 }
 
-func (p *OneOfUpdateSystemConfigApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetCertAuthProviderApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateSystemConfigApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetCertAuthProviderApiResponseData")
 }
 
 type OneOfDeleteUserGroupApiResponseData struct {
@@ -9765,25 +6923,38 @@ func (p *OneOfDeleteUserGroupApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDeleteUserGroupApiResponseData")
 }
 
-type OneOfCreateCertAuthProviderApiResponseData struct {
+type OneOfGetSamlIdentityProviderApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
+	oneOfType0    *SamlIdentityProvider  `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *CertAuthProvider      `json:"-"`
 }
 
-func NewOneOfCreateCertAuthProviderApiResponseData() *OneOfCreateCertAuthProviderApiResponseData {
-	p := new(OneOfCreateCertAuthProviderApiResponseData)
+func NewOneOfGetSamlIdentityProviderApiResponseData() *OneOfGetSamlIdentityProviderApiResponseData {
+	p := new(OneOfGetSamlIdentityProviderApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCreateCertAuthProviderApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetSamlIdentityProviderApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateCertAuthProviderApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetSamlIdentityProviderApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case SamlIdentityProvider:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(SamlIdentityProvider)
+		}
+		*p.oneOfType0 = v.(SamlIdentityProvider)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -9797,59 +6968,28 @@ func (p *OneOfCreateCertAuthProviderApiResponseData) SetValue(v interface{}) err
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case CertAuthProvider:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(CertAuthProvider)
-		}
-		*p.oneOfType0 = v.(CertAuthProvider)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfCreateCertAuthProviderApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
+func (p *OneOfGetSamlIdentityProviderApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfCreateCertAuthProviderApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(CertAuthProvider)
+func (p *OneOfGetSamlIdentityProviderApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(SamlIdentityProvider)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.CertAuthProvider" == *vOneOfType0.ObjectType_ {
+		if "iam.v4.authn.SamlIdentityProvider" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(CertAuthProvider)
+				p.oneOfType0 = new(SamlIdentityProvider)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -9863,81 +7003,6 @@ func (p *OneOfCreateCertAuthProviderApiResponseData) UnmarshalJSON(b []byte) err
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateCertAuthProviderApiResponseData"))
-}
-
-func (p *OneOfCreateCertAuthProviderApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateCertAuthProviderApiResponseData")
-}
-
-type OneOfGetUserGroupApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *UserGroup             `json:"-"`
-}
-
-func NewOneOfGetUserGroupApiResponseData() *OneOfGetUserGroupApiResponseData {
-	p := new(OneOfGetUserGroupApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetUserGroupApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetUserGroupApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case UserGroup:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(UserGroup)
-		}
-		*p.oneOfType0 = v.(UserGroup)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetUserGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGetUserGroupApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -9956,1127 +7021,17 @@ func (p *OneOfGetUserGroupApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType0 := new(UserGroup)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.UserGroup" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(UserGroup)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetUserGroupApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSamlIdentityProviderApiResponseData"))
 }
 
-func (p *OneOfGetUserGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
+func (p *OneOfGetSamlIdentityProviderApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetUserGroupApiResponseData")
-}
-
-type OneOfGetSamlSpMetadataApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetSamlSpMetadataApiResponseData() *OneOfGetSamlSpMetadataApiResponseData {
-	p := new(OneOfGetSamlSpMetadataApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetSamlSpMetadataApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetSamlSpMetadataApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case string:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(string)
-		}
-		*p.oneOfType0 = v.(string)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "String"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "String"
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetSamlSpMetadataApiResponseData) GetValue() interface{} {
-	if "String" == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetSamlSpMetadataApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(string)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(string)
-		}
-		*p.oneOfType0 = *vOneOfType0
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "String"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "String"
-		return nil
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSamlSpMetadataApiResponseData"))
-}
-
-func (p *OneOfGetSamlSpMetadataApiResponseData) MarshalJSON() ([]byte, error) {
-	if "String" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetSamlSpMetadataApiResponseData")
-}
-
-type OneOfGetCertAuthProviderApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *CertAuthProvider      `json:"-"`
-}
-
-func NewOneOfGetCertAuthProviderApiResponseData() *OneOfGetCertAuthProviderApiResponseData {
-	p := new(OneOfGetCertAuthProviderApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetCertAuthProviderApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetCertAuthProviderApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case CertAuthProvider:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(CertAuthProvider)
-		}
-		*p.oneOfType0 = v.(CertAuthProvider)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetCertAuthProviderApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGetCertAuthProviderApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(CertAuthProvider)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.CertAuthProvider" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(CertAuthProvider)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCertAuthProviderApiResponseData"))
-}
-
-func (p *OneOfGetCertAuthProviderApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetCertAuthProviderApiResponseData")
-}
-
-type OneOfValidateApiKeyApiResponseData struct {
-	Discriminator *string                 `json:"-"`
-	ObjectType_   *string                 `json:"-"`
-	oneOfType400  *import1.ErrorResponse  `json:"-"`
-	oneOfType0    *ApiKeyValidateResponse `json:"-"`
-}
-
-func NewOneOfValidateApiKeyApiResponseData() *OneOfValidateApiKeyApiResponseData {
-	p := new(OneOfValidateApiKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfValidateApiKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfValidateApiKeyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ApiKeyValidateResponse:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiKeyValidateResponse)
-		}
-		*p.oneOfType0 = v.(ApiKeyValidateResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfValidateApiKeyApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfValidateApiKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ApiKeyValidateResponse)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.ApiKeyValidateResponse" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiKeyValidateResponse)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfValidateApiKeyApiResponseData"))
-}
-
-func (p *OneOfValidateApiKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfValidateApiKeyApiResponseData")
-}
-
-type OneOfListUserBucketKeysApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    []BucketsAccessKey     `json:"-"`
-}
-
-func NewOneOfListUserBucketKeysApiResponseData() *OneOfListUserBucketKeysApiResponseData {
-	p := new(OneOfListUserBucketKeysApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListUserBucketKeysApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListUserBucketKeysApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []BucketsAccessKey:
-		p.oneOfType0 = v.([]BucketsAccessKey)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authn.BucketsAccessKey>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authn.BucketsAccessKey>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListUserBucketKeysApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<iam.v4.authn.BucketsAccessKey>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListUserBucketKeysApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]BucketsAccessKey)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authn.BucketsAccessKey" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authn.BucketsAccessKey>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authn.BucketsAccessKey>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListUserBucketKeysApiResponseData"))
-}
-
-func (p *OneOfListUserBucketKeysApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<iam.v4.authn.BucketsAccessKey>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListUserBucketKeysApiResponseData")
-}
-
-type OneOfListUsersApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    []User                 `json:"-"`
-}
-
-func NewOneOfListUsersApiResponseData() *OneOfListUsersApiResponseData {
-	p := new(OneOfListUsersApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListUsersApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListUsersApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []User:
-		p.oneOfType0 = v.([]User)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authn.User>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authn.User>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListUsersApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<iam.v4.authn.User>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListUsersApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]User)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authn.User" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authn.User>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authn.User>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListUsersApiResponseData"))
-}
-
-func (p *OneOfListUsersApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<iam.v4.authn.User>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListUsersApiResponseData")
-}
-
-type OneOfListDirectoryServicesApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    []DirectoryService     `json:"-"`
-}
-
-func NewOneOfListDirectoryServicesApiResponseData() *OneOfListDirectoryServicesApiResponseData {
-	p := new(OneOfListDirectoryServicesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListDirectoryServicesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListDirectoryServicesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []DirectoryService:
-		p.oneOfType0 = v.([]DirectoryService)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authn.DirectoryService>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authn.DirectoryService>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListDirectoryServicesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<iam.v4.authn.DirectoryService>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListDirectoryServicesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]DirectoryService)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authn.DirectoryService" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authn.DirectoryService>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authn.DirectoryService>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListDirectoryServicesApiResponseData"))
-}
-
-func (p *OneOfListDirectoryServicesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<iam.v4.authn.DirectoryService>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListDirectoryServicesApiResponseData")
-}
-
-type OneOfGetApiKeyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ApiKey                `json:"-"`
-}
-
-func NewOneOfGetApiKeyApiResponseData() *OneOfGetApiKeyApiResponseData {
-	p := new(OneOfGetApiKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetApiKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetApiKeyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ApiKey:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiKey)
-		}
-		*p.oneOfType0 = v.(ApiKey)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetApiKeyApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGetApiKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ApiKey)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.ApiKey" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiKey)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetApiKeyApiResponseData"))
-}
-
-func (p *OneOfGetApiKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetApiKeyApiResponseData")
-}
-
-type OneOfChangeUserPasswordApiResponseData struct {
-	Discriminator *string                 `json:"-"`
-	ObjectType_   *string                 `json:"-"`
-	oneOfType400  *import1.ErrorResponse  `json:"-"`
-	oneOfType0    *PasswordChangeResponse `json:"-"`
-}
-
-func NewOneOfChangeUserPasswordApiResponseData() *OneOfChangeUserPasswordApiResponseData {
-	p := new(OneOfChangeUserPasswordApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfChangeUserPasswordApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfChangeUserPasswordApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case PasswordChangeResponse:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(PasswordChangeResponse)
-		}
-		*p.oneOfType0 = v.(PasswordChangeResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfChangeUserPasswordApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfChangeUserPasswordApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(PasswordChangeResponse)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.PasswordChangeResponse" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(PasswordChangeResponse)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfChangeUserPasswordApiResponseData"))
-}
-
-func (p *OneOfChangeUserPasswordApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfChangeUserPasswordApiResponseData")
-}
-
-type OneOfListUserGroupsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    []UserGroup            `json:"-"`
-}
-
-func NewOneOfListUserGroupsApiResponseData() *OneOfListUserGroupsApiResponseData {
-	p := new(OneOfListUserGroupsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListUserGroupsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListUserGroupsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []UserGroup:
-		p.oneOfType0 = v.([]UserGroup)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authn.UserGroup>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authn.UserGroup>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListUserGroupsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<iam.v4.authn.UserGroup>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListUserGroupsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]UserGroup)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authn.UserGroup" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authn.UserGroup>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authn.UserGroup>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListUserGroupsApiResponseData"))
-}
-
-func (p *OneOfListUserGroupsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<iam.v4.authn.UserGroup>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListUserGroupsApiResponseData")
-}
-
-type OneOfUpdateDirectoryServiceApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *DirectoryService      `json:"-"`
-}
-
-func NewOneOfUpdateDirectoryServiceApiResponseData() *OneOfUpdateDirectoryServiceApiResponseData {
-	p := new(OneOfUpdateDirectoryServiceApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateDirectoryServiceApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateDirectoryServiceApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case DirectoryService:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(DirectoryService)
-		}
-		*p.oneOfType0 = v.(DirectoryService)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateDirectoryServiceApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUpdateDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(DirectoryService)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.DirectoryService" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(DirectoryService)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateDirectoryServiceApiResponseData"))
-}
-
-func (p *OneOfUpdateDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateDirectoryServiceApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetSamlIdentityProviderApiResponseData")
 }
 
 type OneOfDeleteDirectoryServiceApiResponseData struct {
@@ -11192,156 +7147,30 @@ func (p *OneOfDeleteDirectoryServiceApiResponseData) MarshalJSON() ([]byte, erro
 	return nil, errors.New("No value to marshal for OneOfDeleteDirectoryServiceApiResponseData")
 }
 
-type OneOfDeleteSystemConfigApiResponseData struct {
+type OneOfUpdateSamlIdentityProviderApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
+	oneOfType0    *SamlIdentityProvider  `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 }
 
-func NewOneOfDeleteSystemConfigApiResponseData() *OneOfDeleteSystemConfigApiResponseData {
-	p := new(OneOfDeleteSystemConfigApiResponseData)
+func NewOneOfUpdateSamlIdentityProviderApiResponseData() *OneOfUpdateSamlIdentityProviderApiResponseData {
+	p := new(OneOfUpdateSamlIdentityProviderApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDeleteSystemConfigApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfUpdateSamlIdentityProviderApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteSystemConfigApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
+		return errors.New(fmt.Sprintf("OneOfUpdateSamlIdentityProviderApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteSystemConfigApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteSystemConfigApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteSystemConfigApiResponseData"))
-}
-
-func (p *OneOfDeleteSystemConfigApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteSystemConfigApiResponseData")
-}
-
-type OneOfSearchDirectoryServiceApiResponseData struct {
-	Discriminator *string                       `json:"-"`
-	ObjectType_   *string                       `json:"-"`
-	oneOfType400  *import1.ErrorResponse        `json:"-"`
-	oneOfType0    *DirectoryServiceSearchResult `json:"-"`
-}
-
-func NewOneOfSearchDirectoryServiceApiResponseData() *OneOfSearchDirectoryServiceApiResponseData {
-	p := new(OneOfSearchDirectoryServiceApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfSearchDirectoryServiceApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfSearchDirectoryServiceApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case DirectoryServiceSearchResult:
+	case SamlIdentityProvider:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(DirectoryServiceSearchResult)
+			p.oneOfType0 = new(SamlIdentityProvider)
 		}
-		*p.oneOfType0 = v.(DirectoryServiceSearchResult)
+		*p.oneOfType0 = v.(SamlIdentityProvider)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -11350,46 +7179,41 @@ func (p *OneOfSearchDirectoryServiceApiResponseData) SetValue(v interface{}) err
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfSearchDirectoryServiceApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
+func (p *OneOfUpdateSamlIdentityProviderApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfSearchDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(DirectoryServiceSearchResult)
+func (p *OneOfUpdateSamlIdentityProviderApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(SamlIdentityProvider)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authn.DirectoryServiceSearchResult" == *vOneOfType0.ObjectType_ {
+		if "iam.v4.authn.SamlIdentityProvider" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(DirectoryServiceSearchResult)
+				p.oneOfType0 = new(SamlIdentityProvider)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -11403,53 +7227,69 @@ func (p *OneOfSearchDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) err
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSearchDirectoryServiceApiResponseData"))
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSamlIdentityProviderApiResponseData"))
 }
 
-func (p *OneOfSearchDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
+func (p *OneOfUpdateSamlIdentityProviderApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfSearchDirectoryServiceApiResponseData")
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateSamlIdentityProviderApiResponseData")
 }
 
-type OneOfDeleteUserApiResponseData struct {
+type OneOfCreateSamlIdentityProviderApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
+	oneOfType0    *SamlIdentityProvider  `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 }
 
-func NewOneOfDeleteUserApiResponseData() *OneOfDeleteUserApiResponseData {
-	p := new(OneOfDeleteUserApiResponseData)
+func NewOneOfCreateSamlIdentityProviderApiResponseData() *OneOfCreateSamlIdentityProviderApiResponseData {
+	p := new(OneOfCreateSamlIdentityProviderApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDeleteUserApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfCreateSamlIdentityProviderApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteUserApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfCreateSamlIdentityProviderApiResponseData is nil"))
 	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
+	switch v.(type) {
+	case SamlIdentityProvider:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(SamlIdentityProvider)
 		}
-		*p.oneOfType1 = nil
+		*p.oneOfType0 = v.(SamlIdentityProvider)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "EMPTY"
+		*p.Discriminator = *p.oneOfType0.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -11469,9 +7309,9 @@ func (p *OneOfDeleteUserApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfDeleteUserApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
+func (p *OneOfCreateSamlIdentityProviderApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -11479,22 +7319,22 @@ func (p *OneOfDeleteUserApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfDeleteUserApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
+func (p *OneOfCreateSamlIdentityProviderApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(SamlIdentityProvider)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.SamlIdentityProvider" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(SamlIdentityProvider)
 			}
-			*p.oneOfType1 = nil
+			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "EMPTY"
+			*p.Discriminator = *p.oneOfType0.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "EMPTY"
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
 			return nil
 		}
 	}
@@ -11516,36 +7356,36 @@ func (p *OneOfDeleteUserApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteUserApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateSamlIdentityProviderApiResponseData"))
 }
 
-func (p *OneOfDeleteUserApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
+func (p *OneOfCreateSamlIdentityProviderApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfDeleteUserApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfCreateSamlIdentityProviderApiResponseData")
 }
 
-type OneOfCreateUserGroupApiResponseData struct {
+type OneOfCreateUserApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *UserGroup             `json:"-"`
+	oneOfType0    *User                  `json:"-"`
 }
 
-func NewOneOfCreateUserGroupApiResponseData() *OneOfCreateUserGroupApiResponseData {
-	p := new(OneOfCreateUserGroupApiResponseData)
+func NewOneOfCreateUserApiResponseData() *OneOfCreateUserApiResponseData {
+	p := new(OneOfCreateUserApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCreateUserGroupApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfCreateUserApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateUserGroupApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfCreateUserApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.ErrorResponse:
@@ -11561,11 +7401,11 @@ func (p *OneOfCreateUserGroupApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case UserGroup:
+	case User:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(UserGroup)
+			p.oneOfType0 = new(User)
 		}
-		*p.oneOfType0 = v.(UserGroup)
+		*p.oneOfType0 = v.(User)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -11580,7 +7420,7 @@ func (p *OneOfCreateUserGroupApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfCreateUserGroupApiResponseData) GetValue() interface{} {
+func (p *OneOfCreateUserApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -11590,7 +7430,7 @@ func (p *OneOfCreateUserGroupApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfCreateUserGroupApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfCreateUserApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -11609,6 +7449,99 @@ func (p *OneOfCreateUserGroupApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType0 := new(User)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.User" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(User)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateUserApiResponseData"))
+}
+
+func (p *OneOfCreateUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateUserApiResponseData")
+}
+
+type OneOfGetUserGroupApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *UserGroup             `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetUserGroupApiResponseData() *OneOfGetUserGroupApiResponseData {
+	p := new(OneOfGetUserGroupApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetUserGroupApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetUserGroupApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case UserGroup:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(UserGroup)
+		}
+		*p.oneOfType0 = v.(UserGroup)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetUserGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetUserGroupApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new(UserGroup)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "iam.v4.authn.UserGroup" == *vOneOfType0.ObjectType_ {
@@ -11627,17 +7560,1020 @@ func (p *OneOfCreateUserGroupApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateUserGroupApiResponseData"))
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetUserGroupApiResponseData"))
 }
 
-func (p *OneOfCreateUserGroupApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetUserGroupApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetUserGroupApiResponseData")
+}
+
+type OneOfUpdateSystemConfigApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *SystemConfig          `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateSystemConfigApiResponseData() *OneOfUpdateSystemConfigApiResponseData {
+	p := new(OneOfUpdateSystemConfigApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateSystemConfigApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateSystemConfigApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case SystemConfig:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(SystemConfig)
+		}
+		*p.oneOfType0 = v.(SystemConfig)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSystemConfigApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSystemConfigApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(SystemConfig)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.SystemConfig" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(SystemConfig)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSystemConfigApiResponseData"))
+}
+
+func (p *OneOfUpdateSystemConfigApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateSystemConfigApiResponseData")
+}
+
+type OneOfListUserBucketKeysApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []BucketsAccessKey     `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListUserBucketKeysApiResponseData() *OneOfListUserBucketKeysApiResponseData {
+	p := new(OneOfListUserBucketKeysApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListUserBucketKeysApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListUserBucketKeysApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []BucketsAccessKey:
+		p.oneOfType0 = v.([]BucketsAccessKey)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authn.BucketsAccessKey>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authn.BucketsAccessKey>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListUserBucketKeysApiResponseData) GetValue() interface{} {
+	if "List<iam.v4.authn.BucketsAccessKey>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListUserBucketKeysApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]BucketsAccessKey)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authn.BucketsAccessKey" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authn.BucketsAccessKey>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authn.BucketsAccessKey>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListUserBucketKeysApiResponseData"))
+}
+
+func (p *OneOfListUserBucketKeysApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<iam.v4.authn.BucketsAccessKey>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListUserBucketKeysApiResponseData")
+}
+
+type OneOfGetSamlSpMetadataApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    *string                `json:"-"`
+}
+
+func NewOneOfGetSamlSpMetadataApiResponseData() *OneOfGetSamlSpMetadataApiResponseData {
+	p := new(OneOfGetSamlSpMetadataApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetSamlSpMetadataApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetSamlSpMetadataApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case string:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(string)
+		}
+		*p.oneOfType0 = v.(string)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "String"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "String"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetSamlSpMetadataApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "String" == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetSamlSpMetadataApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(string)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(string)
+		}
+		*p.oneOfType0 = *vOneOfType0
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "String"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "String"
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSamlSpMetadataApiResponseData"))
+}
+
+func (p *OneOfGetSamlSpMetadataApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "String" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetSamlSpMetadataApiResponseData")
+}
+
+type OneOfGetUserKeyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    *Key                   `json:"-"`
+}
+
+func NewOneOfGetUserKeyApiResponseData() *OneOfGetUserKeyApiResponseData {
+	p := new(OneOfGetUserKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetUserKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetUserKeyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Key:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Key)
+		}
+		*p.oneOfType0 = v.(Key)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetUserKeyApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetUserKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(Key)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.Key" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Key)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetUserKeyApiResponseData"))
+}
+
+func (p *OneOfGetUserKeyApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfCreateUserGroupApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetUserKeyApiResponseData")
+}
+
+type OneOfResetUserPasswordApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *PasswordResetResponse `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfResetUserPasswordApiResponseData() *OneOfResetUserPasswordApiResponseData {
+	p := new(OneOfResetUserPasswordApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfResetUserPasswordApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfResetUserPasswordApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case PasswordResetResponse:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(PasswordResetResponse)
+		}
+		*p.oneOfType0 = v.(PasswordResetResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfResetUserPasswordApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfResetUserPasswordApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(PasswordResetResponse)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.PasswordResetResponse" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(PasswordResetResponse)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfResetUserPasswordApiResponseData"))
+}
+
+func (p *OneOfResetUserPasswordApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfResetUserPasswordApiResponseData")
+}
+
+type OneOfGetDirectoryServiceApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *DirectoryService      `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetDirectoryServiceApiResponseData() *OneOfGetDirectoryServiceApiResponseData {
+	p := new(OneOfGetDirectoryServiceApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetDirectoryServiceApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetDirectoryServiceApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case DirectoryService:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(DirectoryService)
+		}
+		*p.oneOfType0 = v.(DirectoryService)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetDirectoryServiceApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(DirectoryService)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.DirectoryService" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(DirectoryService)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDirectoryServiceApiResponseData"))
+}
+
+func (p *OneOfGetDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetDirectoryServiceApiResponseData")
+}
+
+type OneOfUpdateDirectoryServiceApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *DirectoryService      `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateDirectoryServiceApiResponseData() *OneOfUpdateDirectoryServiceApiResponseData {
+	p := new(OneOfUpdateDirectoryServiceApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateDirectoryServiceApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateDirectoryServiceApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case DirectoryService:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(DirectoryService)
+		}
+		*p.oneOfType0 = v.(DirectoryService)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateDirectoryServiceApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(DirectoryService)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.DirectoryService" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(DirectoryService)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateDirectoryServiceApiResponseData"))
+}
+
+func (p *OneOfUpdateDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateDirectoryServiceApiResponseData")
+}
+
+type OneOfRevokeUserBucketKeyApiResponseData struct {
+	Discriminator *string                      `json:"-"`
+	ObjectType_   *string                      `json:"-"`
+	oneOfType0    *UserBucketKeyRevokeResponse `json:"-"`
+	oneOfType400  *import1.ErrorResponse       `json:"-"`
+}
+
+func NewOneOfRevokeUserBucketKeyApiResponseData() *OneOfRevokeUserBucketKeyApiResponseData {
+	p := new(OneOfRevokeUserBucketKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRevokeUserBucketKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRevokeUserBucketKeyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case UserBucketKeyRevokeResponse:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(UserBucketKeyRevokeResponse)
+		}
+		*p.oneOfType0 = v.(UserBucketKeyRevokeResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRevokeUserBucketKeyApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfRevokeUserBucketKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(UserBucketKeyRevokeResponse)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.UserBucketKeyRevokeResponse" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(UserBucketKeyRevokeResponse)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRevokeUserBucketKeyApiResponseData"))
+}
+
+func (p *OneOfRevokeUserBucketKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfRevokeUserBucketKeyApiResponseData")
+}
+
+type OneOfListUsersApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []User                 `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListUsersApiResponseData() *OneOfListUsersApiResponseData {
+	p := new(OneOfListUsersApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListUsersApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListUsersApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []User:
+		p.oneOfType0 = v.([]User)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authn.User>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authn.User>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListUsersApiResponseData) GetValue() interface{} {
+	if "List<iam.v4.authn.User>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListUsersApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]User)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authn.User" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authn.User>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authn.User>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListUsersApiResponseData"))
+}
+
+func (p *OneOfListUsersApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<iam.v4.authn.User>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListUsersApiResponseData")
 }
 
 type OneOfDeleteSamlIdentityProviderApiResponseData struct {
@@ -11753,25 +8689,38 @@ func (p *OneOfDeleteSamlIdentityProviderApiResponseData) MarshalJSON() ([]byte, 
 	return nil, errors.New("No value to marshal for OneOfDeleteSamlIdentityProviderApiResponseData")
 }
 
-type OneOfGetDirectoryServiceApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *DirectoryService      `json:"-"`
+type OneOfChangeUserPasswordApiResponseData struct {
+	Discriminator *string                 `json:"-"`
+	ObjectType_   *string                 `json:"-"`
+	oneOfType0    *PasswordChangeResponse `json:"-"`
+	oneOfType400  *import1.ErrorResponse  `json:"-"`
 }
 
-func NewOneOfGetDirectoryServiceApiResponseData() *OneOfGetDirectoryServiceApiResponseData {
-	p := new(OneOfGetDirectoryServiceApiResponseData)
+func NewOneOfChangeUserPasswordApiResponseData() *OneOfChangeUserPasswordApiResponseData {
+	p := new(OneOfChangeUserPasswordApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetDirectoryServiceApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfChangeUserPasswordApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetDirectoryServiceApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfChangeUserPasswordApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case PasswordChangeResponse:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(PasswordChangeResponse)
+		}
+		*p.oneOfType0 = v.(PasswordChangeResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -11785,36 +8734,41 @@ func (p *OneOfGetDirectoryServiceApiResponseData) SetValue(v interface{}) error 
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case DirectoryService:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(DirectoryService)
-		}
-		*p.oneOfType0 = v.(DirectoryService)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfGetDirectoryServiceApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
+func (p *OneOfChangeUserPasswordApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfGetDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfChangeUserPasswordApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(PasswordChangeResponse)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.PasswordChangeResponse" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(PasswordChangeResponse)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -11833,6 +8787,959 @@ func (p *OneOfGetDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfChangeUserPasswordApiResponseData"))
+}
+
+func (p *OneOfChangeUserPasswordApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfChangeUserPasswordApiResponseData")
+}
+
+type OneOfGetUserBucketKeyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    *BucketsAccessKey      `json:"-"`
+}
+
+func NewOneOfGetUserBucketKeyApiResponseData() *OneOfGetUserBucketKeyApiResponseData {
+	p := new(OneOfGetUserBucketKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetUserBucketKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetUserBucketKeyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case BucketsAccessKey:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(BucketsAccessKey)
+		}
+		*p.oneOfType0 = v.(BucketsAccessKey)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetUserBucketKeyApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetUserBucketKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(BucketsAccessKey)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.BucketsAccessKey" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(BucketsAccessKey)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetUserBucketKeyApiResponseData"))
+}
+
+func (p *OneOfGetUserBucketKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetUserBucketKeyApiResponseData")
+}
+
+type OneOfDeleteUserApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType1    *interface{}           `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteUserApiResponseData() *OneOfDeleteUserApiResponseData {
+	p := new(OneOfDeleteUserApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteUserApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteUserApiResponseData is nil"))
+	}
+	if nil == v {
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(interface{})
+		}
+		*p.oneOfType1 = nil
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "EMPTY"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "EMPTY"
+		return nil
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteUserApiResponseData) GetValue() interface{} {
+	if "EMPTY" == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteUserApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(interface{})
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if nil == *vOneOfType1 {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(interface{})
+			}
+			*p.oneOfType1 = nil
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "EMPTY"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "EMPTY"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteUserApiResponseData"))
+}
+
+func (p *OneOfDeleteUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if "EMPTY" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteUserApiResponseData")
+}
+
+type OneOfGetUserApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    *User                  `json:"-"`
+}
+
+func NewOneOfGetUserApiResponseData() *OneOfGetUserApiResponseData {
+	p := new(OneOfGetUserApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetUserApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetUserApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case User:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(User)
+		}
+		*p.oneOfType0 = v.(User)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetUserApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetUserApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(User)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.User" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(User)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetUserApiResponseData"))
+}
+
+func (p *OneOfGetUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetUserApiResponseData")
+}
+
+type OneOfCreateUserGroupApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *UserGroup             `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateUserGroupApiResponseData() *OneOfCreateUserGroupApiResponseData {
+	p := new(OneOfCreateUserGroupApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateUserGroupApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateUserGroupApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case UserGroup:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(UserGroup)
+		}
+		*p.oneOfType0 = v.(UserGroup)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateUserGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateUserGroupApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(UserGroup)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.UserGroup" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(UserGroup)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateUserGroupApiResponseData"))
+}
+
+func (p *OneOfCreateUserGroupApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateUserGroupApiResponseData")
+}
+
+type OneOfCreateKeyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    *Key                   `json:"-"`
+}
+
+func NewOneOfCreateKeyApiResponseData() *OneOfCreateKeyApiResponseData {
+	p := new(OneOfCreateKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateKeyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Key:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Key)
+		}
+		*p.oneOfType0 = v.(Key)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateKeyApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfCreateKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(Key)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.Key" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Key)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateKeyApiResponseData"))
+}
+
+func (p *OneOfCreateKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateKeyApiResponseData")
+}
+
+type OneOfListUserGroupsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    []UserGroup            `json:"-"`
+}
+
+func NewOneOfListUserGroupsApiResponseData() *OneOfListUserGroupsApiResponseData {
+	p := new(OneOfListUserGroupsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListUserGroupsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListUserGroupsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []UserGroup:
+		p.oneOfType0 = v.([]UserGroup)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authn.UserGroup>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authn.UserGroup>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListUserGroupsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<iam.v4.authn.UserGroup>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListUserGroupsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]UserGroup)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authn.UserGroup" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authn.UserGroup>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authn.UserGroup>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListUserGroupsApiResponseData"))
+}
+
+func (p *OneOfListUserGroupsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<iam.v4.authn.UserGroup>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListUserGroupsApiResponseData")
+}
+
+type OneOfListUserKeysApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []Key                  `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListUserKeysApiResponseData() *OneOfListUserKeysApiResponseData {
+	p := new(OneOfListUserKeysApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListUserKeysApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListUserKeysApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Key:
+		p.oneOfType0 = v.([]Key)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authn.Key>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authn.Key>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListUserKeysApiResponseData) GetValue() interface{} {
+	if "List<iam.v4.authn.Key>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListUserKeysApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]Key)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authn.Key" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authn.Key>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authn.Key>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListUserKeysApiResponseData"))
+}
+
+func (p *OneOfListUserKeysApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<iam.v4.authn.Key>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListUserKeysApiResponseData")
+}
+
+type OneOfActivateUserApiResponseData struct {
+	Discriminator *string                  `json:"-"`
+	ObjectType_   *string                  `json:"-"`
+	oneOfType0    *UserStateUpdateResponse `json:"-"`
+	oneOfType400  *import1.ErrorResponse   `json:"-"`
+}
+
+func NewOneOfActivateUserApiResponseData() *OneOfActivateUserApiResponseData {
+	p := new(OneOfActivateUserApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfActivateUserApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfActivateUserApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case UserStateUpdateResponse:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(UserStateUpdateResponse)
+		}
+		*p.oneOfType0 = v.(UserStateUpdateResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfActivateUserApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfActivateUserApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(UserStateUpdateResponse)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.UserStateUpdateResponse" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(UserStateUpdateResponse)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfActivateUserApiResponseData"))
+}
+
+func (p *OneOfActivateUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfActivateUserApiResponseData")
+}
+
+type OneOfCreateDirectoryServiceApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *DirectoryService      `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateDirectoryServiceApiResponseData() *OneOfCreateDirectoryServiceApiResponseData {
+	p := new(OneOfCreateDirectoryServiceApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateDirectoryServiceApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateDirectoryServiceApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case DirectoryService:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(DirectoryService)
+		}
+		*p.oneOfType0 = v.(DirectoryService)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateDirectoryServiceApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new(DirectoryService)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "iam.v4.authn.DirectoryService" == *vOneOfType0.ObjectType_ {
@@ -11851,78 +9758,6 @@ func (p *OneOfGetDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDirectoryServiceApiResponseData"))
-}
-
-func (p *OneOfGetDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetDirectoryServiceApiResponseData")
-}
-
-type OneOfListCertAuthProvidersApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    []CertAuthProvider     `json:"-"`
-}
-
-func NewOneOfListCertAuthProvidersApiResponseData() *OneOfListCertAuthProvidersApiResponseData {
-	p := new(OneOfListCertAuthProvidersApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListCertAuthProvidersApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListCertAuthProvidersApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []CertAuthProvider:
-		p.oneOfType0 = v.([]CertAuthProvider)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authn.CertAuthProvider>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authn.CertAuthProvider>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListCertAuthProvidersApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<iam.v4.authn.CertAuthProvider>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListCertAuthProvidersApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -11941,9 +9776,631 @@ func (p *OneOfListCertAuthProvidersApiResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDirectoryServiceApiResponseData"))
+}
+
+func (p *OneOfCreateDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateDirectoryServiceApiResponseData")
+}
+
+type OneOfListDirectoryServicesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    []DirectoryService     `json:"-"`
+}
+
+func NewOneOfListDirectoryServicesApiResponseData() *OneOfListDirectoryServicesApiResponseData {
+	p := new(OneOfListDirectoryServicesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListDirectoryServicesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListDirectoryServicesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []DirectoryService:
+		p.oneOfType0 = v.([]DirectoryService)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authn.DirectoryService>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authn.DirectoryService>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListDirectoryServicesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<iam.v4.authn.DirectoryService>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListDirectoryServicesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]DirectoryService)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authn.DirectoryService" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authn.DirectoryService>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authn.DirectoryService>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListDirectoryServicesApiResponseData"))
+}
+
+func (p *OneOfListDirectoryServicesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<iam.v4.authn.DirectoryService>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListDirectoryServicesApiResponseData")
+}
+
+type OneOfKeyKeyDetails struct {
+	Discriminator *string           `json:"-"`
+	ObjectType_   *string           `json:"-"`
+	oneOfType0    *ApiKeyDetails    `json:"-"`
+	oneOfType1    *ObjectKeyDetails `json:"-"`
+}
+
+func NewOneOfKeyKeyDetails() *OneOfKeyKeyDetails {
+	p := new(OneOfKeyKeyDetails)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfKeyKeyDetails) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfKeyKeyDetails is nil"))
+	}
+	switch v.(type) {
+	case ApiKeyDetails:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(ApiKeyDetails)
+		}
+		*p.oneOfType0 = v.(ApiKeyDetails)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case ObjectKeyDetails:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(ObjectKeyDetails)
+		}
+		*p.oneOfType1 = v.(ObjectKeyDetails)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfKeyKeyDetails) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	return nil
+}
+
+func (p *OneOfKeyKeyDetails) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(ApiKeyDetails)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.ApiKeyDetails" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(ApiKeyDetails)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType1 := new(ObjectKeyDetails)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if "iam.v4.authn.ObjectKeyDetails" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(ObjectKeyDetails)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfKeyKeyDetails"))
+}
+
+func (p *OneOfKeyKeyDetails) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	return nil, errors.New("No value to marshal for OneOfKeyKeyDetails")
+}
+
+type OneOfUpdateCertAuthProviderApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *CertAuthProvider      `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateCertAuthProviderApiResponseData() *OneOfUpdateCertAuthProviderApiResponseData {
+	p := new(OneOfUpdateCertAuthProviderApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateCertAuthProviderApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateCertAuthProviderApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case CertAuthProvider:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(CertAuthProvider)
+		}
+		*p.oneOfType0 = v.(CertAuthProvider)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateCertAuthProviderApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateCertAuthProviderApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(CertAuthProvider)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.CertAuthProvider" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(CertAuthProvider)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateCertAuthProviderApiResponseData"))
+}
+
+func (p *OneOfUpdateCertAuthProviderApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateCertAuthProviderApiResponseData")
+}
+
+type OneOfUpdateUserApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    *User                  `json:"-"`
+}
+
+func NewOneOfUpdateUserApiResponseData() *OneOfUpdateUserApiResponseData {
+	p := new(OneOfUpdateUserApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateUserApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateUserApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case User:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(User)
+		}
+		*p.oneOfType0 = v.(User)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateUserApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfUpdateUserApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(User)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.User" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(User)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateUserApiResponseData"))
+}
+
+func (p *OneOfUpdateUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateUserApiResponseData")
+}
+
+type OneOfDeleteUserKeyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType1    *interface{}           `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteUserKeyApiResponseData() *OneOfDeleteUserKeyApiResponseData {
+	p := new(OneOfDeleteUserKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteUserKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteUserKeyApiResponseData is nil"))
+	}
+	if nil == v {
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(interface{})
+		}
+		*p.oneOfType1 = nil
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "EMPTY"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "EMPTY"
+		return nil
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteUserKeyApiResponseData) GetValue() interface{} {
+	if "EMPTY" == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteUserKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(interface{})
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if nil == *vOneOfType1 {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(interface{})
+			}
+			*p.oneOfType1 = nil
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "EMPTY"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "EMPTY"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteUserKeyApiResponseData"))
+}
+
+func (p *OneOfDeleteUserKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if "EMPTY" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteUserKeyApiResponseData")
+}
+
+type OneOfListCertAuthProvidersApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []CertAuthProvider     `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListCertAuthProvidersApiResponseData() *OneOfListCertAuthProvidersApiResponseData {
+	p := new(OneOfListCertAuthProvidersApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListCertAuthProvidersApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListCertAuthProvidersApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []CertAuthProvider:
+		p.oneOfType0 = v.([]CertAuthProvider)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authn.CertAuthProvider>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authn.CertAuthProvider>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListCertAuthProvidersApiResponseData) GetValue() interface{} {
+	if "List<iam.v4.authn.CertAuthProvider>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListCertAuthProvidersApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new([]CertAuthProvider)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
 		if len(*vOneOfType0) == 0 || "iam.v4.authn.CertAuthProvider" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -11955,20 +10412,259 @@ func (p *OneOfListCertAuthProvidersApiResponseData) UnmarshalJSON(b []byte) erro
 			}
 			*p.ObjectType_ = "List<iam.v4.authn.CertAuthProvider>"
 			return nil
-
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
 		}
 	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListCertAuthProvidersApiResponseData"))
 }
 
 func (p *OneOfListCertAuthProvidersApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
 	if "List<iam.v4.authn.CertAuthProvider>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
 	return nil, errors.New("No value to marshal for OneOfListCertAuthProvidersApiResponseData")
+}
+
+type OneOfConnectionDirectoryServiceApiResponseData struct {
+	Discriminator *string                             `json:"-"`
+	ObjectType_   *string                             `json:"-"`
+	oneOfType0    *DirectoryServiceConnectionResponse `json:"-"`
+	oneOfType400  *import1.ErrorResponse              `json:"-"`
+}
+
+func NewOneOfConnectionDirectoryServiceApiResponseData() *OneOfConnectionDirectoryServiceApiResponseData {
+	p := new(OneOfConnectionDirectoryServiceApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfConnectionDirectoryServiceApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfConnectionDirectoryServiceApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case DirectoryServiceConnectionResponse:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(DirectoryServiceConnectionResponse)
+		}
+		*p.oneOfType0 = v.(DirectoryServiceConnectionResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfConnectionDirectoryServiceApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfConnectionDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(DirectoryServiceConnectionResponse)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.DirectoryServiceConnectionResponse" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(DirectoryServiceConnectionResponse)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfConnectionDirectoryServiceApiResponseData"))
+}
+
+func (p *OneOfConnectionDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfConnectionDirectoryServiceApiResponseData")
+}
+
+type OneOfSearchDirectoryServiceApiResponseData struct {
+	Discriminator *string                       `json:"-"`
+	ObjectType_   *string                       `json:"-"`
+	oneOfType0    *DirectoryServiceSearchResult `json:"-"`
+	oneOfType400  *import1.ErrorResponse        `json:"-"`
+}
+
+func NewOneOfSearchDirectoryServiceApiResponseData() *OneOfSearchDirectoryServiceApiResponseData {
+	p := new(OneOfSearchDirectoryServiceApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfSearchDirectoryServiceApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfSearchDirectoryServiceApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case DirectoryServiceSearchResult:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(DirectoryServiceSearchResult)
+		}
+		*p.oneOfType0 = v.(DirectoryServiceSearchResult)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfSearchDirectoryServiceApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfSearchDirectoryServiceApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(DirectoryServiceSearchResult)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authn.DirectoryServiceSearchResult" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(DirectoryServiceSearchResult)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSearchDirectoryServiceApiResponseData"))
+}
+
+func (p *OneOfSearchDirectoryServiceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfSearchDirectoryServiceApiResponseData")
 }
 
 type FileDetail struct {

@@ -1,16 +1,16 @@
 /*
  * Generated file models/iam/v4/tenant/tenant_model.go.
  *
- * Product version: 4.0.2-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Iam Versioned APIs
+ * Part of the Nutanix IAM Versioned APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module iam.v4.tenant of Nutanix Iam Versioned APIs
+  Module iam.v4.tenant of Nutanix IAM Versioned APIs
 */
 package tenant
 
@@ -53,7 +53,7 @@ func NewTenant() *Tenant {
 	p := new(Tenant)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.tenant.Tenant"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

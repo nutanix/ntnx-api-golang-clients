@@ -1,10 +1,9 @@
-//Api classes for iam's golang SDK
 package api
 
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/authn"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/models/iam/v4/authn"
 	"net/http"
 	"net/url"
 	"strings"
@@ -33,14 +32,14 @@ func NewDirectoryServicesApi(apiClient *client.ApiClient) *DirectoryServicesApi 
 	return a
 }
 
-// Check connection to the Directory Service.
-func (api *DirectoryServicesApi) ConnectionStatusDirectoryService(extId *string, body *import1.DirectoryServiceConnectionRequest, args ...map[string]interface{}) (*import1.ConnectionDirectoryServiceApiResponse, error) {
+// Checks the connection to the directory service.
+func (api *DirectoryServicesApi) ConnectionStatusDirectoryService(extId *string, body *import3.DirectoryServiceConnectionRequest, args ...map[string]interface{}) (*import3.ConnectionDirectoryServiceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/directory-services/{extId}/$actions/verify-connection-status"
+	uri := "/api/iam/v4.0/authn/directory-services/{extId}/$actions/verify-connection-status"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -52,7 +51,6 @@ func (api *DirectoryServicesApi) ConnectionStatusDirectoryService(extId *string,
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -69,33 +67,33 @@ func (api *DirectoryServicesApi) ConnectionStatusDirectoryService(extId *string,
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ConnectionDirectoryServiceApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.ConnectionDirectoryServiceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Create a Directory Service.
-func (api *DirectoryServicesApi) CreateDirectoryService(body *import1.DirectoryService, args ...map[string]interface{}) (*import1.CreateDirectoryServiceApiResponse, error) {
+// Creates a directory service.
+func (api *DirectoryServicesApi) CreateDirectoryService(body *import3.DirectoryService, args ...map[string]interface{}) (*import3.CreateDirectoryServiceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/directory-services"
+	uri := "/api/iam/v4.0/authn/directory-services"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -117,33 +115,33 @@ func (api *DirectoryServicesApi) CreateDirectoryService(body *import1.DirectoryS
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.CreateDirectoryServiceApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.CreateDirectoryServiceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete a Directory Service.
-func (api *DirectoryServicesApi) DeleteDirectoryServiceById(extId *string, args ...map[string]interface{}) (*import1.DeleteDirectoryServiceApiResponse, error) {
+// Deletes a directory service based on the external identifier.
+func (api *DirectoryServicesApi) DeleteDirectoryServiceById(extId *string, args ...map[string]interface{}) (*import3.DeleteDirectoryServiceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.0/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -151,7 +149,6 @@ func (api *DirectoryServicesApi) DeleteDirectoryServiceById(extId *string, args 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -168,33 +165,33 @@ func (api *DirectoryServicesApi) DeleteDirectoryServiceById(extId *string, args 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.DeleteDirectoryServiceApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.DeleteDirectoryServiceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// View a Directory Service.
-func (api *DirectoryServicesApi) GetDirectoryServiceById(extId *string, args ...map[string]interface{}) (*import1.GetDirectoryServiceApiResponse, error) {
+// Fetches a directory service based on the external identifier.
+func (api *DirectoryServicesApi) GetDirectoryServiceById(extId *string, args ...map[string]interface{}) (*import3.GetDirectoryServiceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.0/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -202,7 +199,6 @@ func (api *DirectoryServicesApi) GetDirectoryServiceById(extId *string, args ...
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -219,33 +215,33 @@ func (api *DirectoryServicesApi) GetDirectoryServiceById(extId *string, args ...
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetDirectoryServiceApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.GetDirectoryServiceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List all Directory Service(s).
-func (api *DirectoryServicesApi) ListDirectoryServices(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListDirectoryServicesApiResponse, error) {
+// Lists all directory service(s).
+func (api *DirectoryServicesApi) ListDirectoryServices(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListDirectoryServicesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/directory-services"
+	uri := "/api/iam/v4.0/authn/directory-services"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -259,23 +255,18 @@ func (api *DirectoryServicesApi) ListDirectoryServices(page_ *int, limit_ *int, 
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -283,33 +274,33 @@ func (api *DirectoryServicesApi) ListDirectoryServices(page_ *int, limit_ *int, 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ListDirectoryServicesApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.ListDirectoryServicesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Search User or group in the Directory Service.
-func (api *DirectoryServicesApi) SearchDirectoryService(extId *string, body *import1.DirectoryServiceSearchQuery, args ...map[string]interface{}) (*import1.SearchDirectoryServiceApiResponse, error) {
+// Searches a user or group in the directory service through its external identifier.
+func (api *DirectoryServicesApi) SearchDirectoryService(extId *string, body *import3.DirectoryServiceSearchQuery, args ...map[string]interface{}) (*import3.SearchDirectoryServiceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/directory-services/{extId}/$actions/search"
+	uri := "/api/iam/v4.0/authn/directory-services/{extId}/$actions/search"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -321,7 +312,6 @@ func (api *DirectoryServicesApi) SearchDirectoryService(extId *string, body *imp
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -338,33 +328,33 @@ func (api *DirectoryServicesApi) SearchDirectoryService(extId *string, body *imp
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.SearchDirectoryServiceApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.SearchDirectoryServiceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update a Directory Service.
-func (api *DirectoryServicesApi) UpdateDirectoryServiceById(extId *string, body *import1.DirectoryService, args ...map[string]interface{}) (*import1.UpdateDirectoryServiceApiResponse, error) {
+// Updates a directory service based on the external identifier.
+func (api *DirectoryServicesApi) UpdateDirectoryServiceById(extId *string, body *import3.DirectoryService, args ...map[string]interface{}) (*import3.UpdateDirectoryServiceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0.b2/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.0/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -376,7 +366,6 @@ func (api *DirectoryServicesApi) UpdateDirectoryServiceById(extId *string, body 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -393,21 +382,21 @@ func (api *DirectoryServicesApi) UpdateDirectoryServiceById(extId *string, body 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.UpdateDirectoryServiceApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.UpdateDirectoryServiceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

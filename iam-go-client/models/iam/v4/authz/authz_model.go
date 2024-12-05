@@ -1,9 +1,9 @@
 /*
  * Generated file models/iam/v4/authz/authz_model.go.
  *
- * Product version: 4.0.2-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Iam Versioned APIs
+ * Part of the Nutanix IAM Versioned APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
@@ -105,7 +105,7 @@ func (e ApiVersion) Ref() *ApiVersion {
 }
 
 /*
-The Object which defines the API endpoint, API version and HTTP method for the API endpoint.
+The object which defines the API endpoint, API version, and HTTP method for the API endpoint.
 */
 type AssociatedEndpoint struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -127,7 +127,7 @@ func NewAssociatedEndpoint() *AssociatedEndpoint {
 	p := new(AssociatedEndpoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AssociatedEndpoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -147,7 +147,7 @@ type AttributeEntity struct {
 	*/
 	AttributeValues []string `json:"attributeValues,omitempty"`
 	/*
-	  UI display name of the Entity.
+	  UI display name of the entity.
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 	/*
@@ -172,14 +172,14 @@ func NewAttributeEntity() *AttributeEntity {
 	p := new(AttributeEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AttributeEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-An Authorization Policy to define who can perform what Operation on which entity.
+An authorization policy that defines who can perform what operation on which entity.
 */
 type AuthorizationPolicy struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -187,6 +187,14 @@ type AuthorizationPolicy struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Number of user groups assigned to the authorization policy.
+	*/
+	AssignedUserGroupsCount *int `json:"assignedUserGroupsCount,omitempty"`
+	/*
+	  Number of users assigned to the authorization policy.
+	*/
+	AssignedUsersCount *int `json:"assignedUsersCount,omitempty"`
 
 	AuthorizationPolicyType *AuthorizationPolicyType `json:"authorizationPolicyType,omitempty"`
 	/*
@@ -194,23 +202,23 @@ type AuthorizationPolicy struct {
 	*/
 	ClientName *string `json:"clientName,omitempty"`
 	/*
-	  User or Service Name that created the Authorization Policy.
+	  User or Service Name that created the authorization policy.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  The creation time of the Authorization Policy.
+	  The creation time of the authorization policy.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
-	  Description of the Authorization Policy.
+	  Description of the authorization policy.
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  The display name for the Authorization Policy.
+	  The display name for the authorization policy.
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 	/*
-	  The entities being qualified by the Authorization Policy.
+	  The entities being qualified by the authorization policy.
 	*/
 	Entities []EntityFilter `json:"entities,omitempty"`
 	/*
@@ -218,15 +226,15 @@ type AuthorizationPolicy struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  The identities for which the Authorization Policy is created.
+	  The identities for which the authorization policy is created.
 	*/
 	Identities []IdentityFilter `json:"identities,omitempty"`
 	/*
-	  Flag identifying if the Authorization Policy is system defined or not.
+	  Flag identifying if the authorization policy is system-defined or not.
 	*/
 	IsSystemDefined *bool `json:"isSystemDefined,omitempty"`
 	/*
-	  The time when the Authorization Policy was last updated.
+	  The time when the authorization policy was last updated.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -234,7 +242,7 @@ type AuthorizationPolicy struct {
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
-	  The Role associated with the Authorization Policy.
+	  The role associated with the authorization policy.
 	*/
 	Role *string `json:"role,omitempty"`
 	/*
@@ -247,7 +255,7 @@ func NewAuthorizationPolicy() *AuthorizationPolicy {
 	p := new(AuthorizationPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsSystemDefined = new(bool)
@@ -262,6 +270,14 @@ type AuthorizationPolicyProjection struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Number of user groups assigned to the authorization policy.
+	*/
+	AssignedUserGroupsCount *int `json:"assignedUserGroupsCount,omitempty"`
+	/*
+	  Number of users assigned to the authorization policy.
+	*/
+	AssignedUsersCount *int `json:"assignedUsersCount,omitempty"`
 
 	AuthorizationPolicyType *AuthorizationPolicyType `json:"authorizationPolicyType,omitempty"`
 	/*
@@ -269,23 +285,23 @@ type AuthorizationPolicyProjection struct {
 	*/
 	ClientName *string `json:"clientName,omitempty"`
 	/*
-	  User or Service Name that created the Authorization Policy.
+	  User or Service Name that created the authorization policy.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  The creation time of the Authorization Policy.
+	  The creation time of the authorization policy.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
-	  Description of the Authorization Policy.
+	  Description of the authorization policy.
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  The display name for the Authorization Policy.
+	  The display name for the authorization policy.
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 	/*
-	  The entities being qualified by the Authorization Policy.
+	  The entities being qualified by the authorization policy.
 	*/
 	Entities []EntityFilter `json:"entities,omitempty"`
 	/*
@@ -293,15 +309,15 @@ type AuthorizationPolicyProjection struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  The identities for which the Authorization Policy is created.
+	  The identities for which the authorization policy is created.
 	*/
 	Identities []IdentityFilter `json:"identities,omitempty"`
 	/*
-	  Flag identifying if the Authorization Policy is system defined or not.
+	  Flag identifying if the authorization policy is system-defined or not.
 	*/
 	IsSystemDefined *bool `json:"isSystemDefined,omitempty"`
 	/*
-	  The time when the Authorization Policy was last updated.
+	  The time when the authorization policy was last updated.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -309,7 +325,7 @@ type AuthorizationPolicyProjection struct {
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
-	  The Role associated with the Authorization Policy.
+	  The role associated with the authorization policy.
 	*/
 	Role *string `json:"role,omitempty"`
 
@@ -324,7 +340,7 @@ func NewAuthorizationPolicyProjection() *AuthorizationPolicyProjection {
 	p := new(AuthorizationPolicyProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationPolicyProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsSystemDefined = new(bool)
@@ -334,7 +350,7 @@ func NewAuthorizationPolicyProjection() *AuthorizationPolicyProjection {
 }
 
 /*
-Type of Authorization Policy.
+Type of authorization policy.
 */
 type AuthorizationPolicyType int
 
@@ -425,7 +441,7 @@ func (e AuthorizationPolicyType) Ref() *AuthorizationPolicyType {
 }
 
 /*
-Request body for authorization request.
+Request body for the authorization request.
 */
 type AuthorizationRequest struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -458,7 +474,7 @@ func NewAuthorizationRequest() *AuthorizationRequest {
 	p := new(AuthorizationRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -483,7 +499,7 @@ func NewAuthorizationResponse() *AuthorizationResponse {
 	p := new(AuthorizationResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -506,7 +522,9 @@ type AuthorizationResponseObject struct {
 	  Filter expression.
 	*/
 	Filters *interface{} `json:"filters,omitempty"`
-
+	/*
+	  Authorization Request Id.
+	*/
 	RequestId *string `json:"requestId,omitempty"`
 
 	ResponseType *ResponseType `json:"responseType,omitempty"`
@@ -516,7 +534,7 @@ func NewAuthorizationResponseObject() *AuthorizationResponseObject {
 	p := new(AuthorizationResponseObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationResponseObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -534,7 +552,7 @@ type AuthorizeEntity struct {
 	/*
 	  Map of attributes for the entity.
 	*/
-	Attributes map[string]interface{} `json:"attributes,omitempty"`
+	Attributes *interface{} `json:"attributes,omitempty"`
 	/*
 	  Operation being performed on the entity.
 	*/
@@ -562,7 +580,191 @@ func NewAuthorizeEntity() *AuthorizeEntity {
 	p := new(AuthorizeEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizeEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+An authorization policy that defines who can perform what operation on which entity, without including identity details.
+*/
+type BaseAuthorizationPolicy struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  Description of the authorization policy.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  The display name for the authorization policy.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  The entities being qualified by the authorization policy.
+	*/
+	Entities []EntityFilter `json:"entities,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  The role associated with the authorization policy.
+	*/
+	Role *string `json:"role,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewBaseAuthorizationPolicy() *BaseAuthorizationPolicy {
+	p := new(BaseAuthorizationPolicy)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.BaseAuthorizationPolicy"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type BaseAuthorizationPolicyProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	BaseRoleProjection *BaseRoleProjection `json:"baseRoleProjection,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  Description of the authorization policy.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  The display name for the authorization policy.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  The entities being qualified by the authorization policy.
+	*/
+	Entities []EntityFilter `json:"entities,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  The role associated with the authorization policy.
+	*/
+	Role *string `json:"role,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewBaseAuthorizationPolicyProjection() *BaseAuthorizationPolicyProjection {
+	p := new(BaseAuthorizationPolicyProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.BaseAuthorizationPolicyProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+A base role is a group of operations, but does not include the operation details.
+*/
+type BaseRole struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  The display name of the role.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewBaseRole() *BaseRole {
+	p := new(BaseRole)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.BaseRole"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type BaseRoleProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  The display name of the role.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewBaseRoleProjection() *BaseRoleProjection {
+	p := new(BaseRoleProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.BaseRoleProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -578,15 +780,15 @@ type Client struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  User or Service Name that created the Client.
+	  User or Service Name that created the client.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  The creation time of the Client.
+	  The creation time of the client.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
-	  Deployment List related to the Client.
+	  Deployment List related to the client.
 	*/
 	DeploymentList []string `json:"deploymentList,omitempty"`
 	/*
@@ -594,7 +796,7 @@ type Client struct {
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  UI name of the Client.
+	  UI name of the client.
 	*/
 	DisplayName *string `json:"displayName"`
 	/*
@@ -602,7 +804,7 @@ type Client struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  The time when the Client was last updated.
+	  The time when the client was last updated.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -636,14 +838,14 @@ func NewClient() *Client {
 	p := new(Client)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Client"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/authorization-policies Post operation
+REST response for all response codes in API path /iam/v4.0/authz/authorization-policies Post operation
 */
 type CreateAuthorizationPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -665,7 +867,7 @@ func NewCreateAuthorizationPolicyApiResponse() *CreateAuthorizationPolicyApiResp
 	p := new(CreateAuthorizationPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.CreateAuthorizationPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -693,7 +895,7 @@ func (p *CreateAuthorizationPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/roles Post operation
+REST response for all response codes in API path /iam/v4.0/authz/roles Post operation
 */
 type CreateRoleApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -715,7 +917,7 @@ func NewCreateRoleApiResponse() *CreateRoleApiResponse {
 	p := new(CreateRoleApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.CreateRoleApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -743,7 +945,7 @@ func (p *CreateRoleApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/authorization-policies/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.0/authz/authorization-policies/{extId} Delete operation
 */
 type DeleteAuthorizationPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -765,7 +967,7 @@ func NewDeleteAuthorizationPolicyApiResponse() *DeleteAuthorizationPolicyApiResp
 	p := new(DeleteAuthorizationPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.DeleteAuthorizationPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -793,7 +995,7 @@ func (p *DeleteAuthorizationPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/roles/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.0/authz/roles/{extId} Delete operation
 */
 type DeleteRoleApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -815,7 +1017,7 @@ func NewDeleteRoleApiResponse() *DeleteRoleApiResponse {
 	p := new(DeleteRoleApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.DeleteRoleApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -854,15 +1056,15 @@ type Entity struct {
 
 	AttributeList []AttributeEntity `json:"attributeList,omitempty"`
 	/*
-	  Name of client the Entity belongs to.
+	  Name of client the entity belongs to.
 	*/
 	ClientName *string `json:"clientName,omitempty"`
 	/*
-	  User or Service Name that created the Entity.
+	  User or Service Name that created the entity.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  The creation time of the Entity.
+	  The creation time of the entity.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
@@ -870,7 +1072,7 @@ type Entity struct {
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  UI display name of the Entity.
+	  UI display name of the entity.
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 	/*
@@ -878,7 +1080,11 @@ type Entity struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  The time when the Entity was last updated.
+	  Indicates whether the entity supports scoping using multiple attributes which will result in a logical AND.
+	*/
+	IsLogicalAndSupportedForAttributes *bool `json:"isLogicalAndSupportedForAttributes,omitempty"`
+	/*
+	  The time when the entity was last updated.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -897,42 +1103,45 @@ type Entity struct {
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
-	/*
-	  Unique Identifier of a client entity.
-	*/
-	UniqueId *string `json:"uniqueId,omitempty"`
 }
 
 func NewEntity() *Entity {
 	p := new(Entity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Entity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-type EntityFilter struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-}
-
-func NewEntityFilter() *EntityFilter {
-	p := new(EntityFilter)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authz.EntityFilter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Type of Authorization Policy.
+Entity filter object definition for the entities.
+*/
+type EntityFilter struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Information of the entity filter present in the EntityFilter object.
+	*/
+	EntityFilter *interface{} `json:"entityFilter,omitempty"`
+}
+
+func NewEntityFilter() *EntityFilter {
+	p := new(EntityFilter)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.EntityFilter"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Type of authorization policy.
 */
 type EntityOperators int
 
@@ -1023,7 +1232,7 @@ func (e EntityOperators) Ref() *EntityOperators {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/authorization-policies/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authz/authorization-policies/{extId} Get operation
 */
 type GetAuthorizationPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1045,7 +1254,7 @@ func NewGetAuthorizationPolicyApiResponse() *GetAuthorizationPolicyApiResponse {
 	p := new(GetAuthorizationPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetAuthorizationPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1073,7 +1282,7 @@ func (p *GetAuthorizationPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/clients/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authz/clients/{extId} Get operation
 */
 type GetClientApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1095,7 +1304,7 @@ func NewGetClientApiResponse() *GetClientApiResponse {
 	p := new(GetClientApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetClientApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1123,7 +1332,7 @@ func (p *GetClientApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/entities/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authz/entities/{extId} Get operation
 */
 type GetEntityApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1145,7 +1354,7 @@ func NewGetEntityApiResponse() *GetEntityApiResponse {
 	p := new(GetEntityApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetEntityApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1173,7 +1382,7 @@ func (p *GetEntityApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/operations/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authz/operations/{extId} Get operation
 */
 type GetOperationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1195,7 +1404,7 @@ func NewGetOperationApiResponse() *GetOperationApiResponse {
 	p := new(GetOperationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetOperationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1223,7 +1432,7 @@ func (p *GetOperationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/roles/{extId} Get operation
+REST response for all response codes in API path /iam/v4.0/authz/roles/{extId} Get operation
 */
 type GetRoleApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1245,7 +1454,7 @@ func NewGetRoleApiResponse() *GetRoleApiResponse {
 	p := new(GetRoleApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetRoleApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1363,19 +1572,26 @@ func (e HttpMethod) Ref() *HttpMethod {
 	return &e
 }
 
+/*
+Identity filter object definition for the identities.
+*/
 type IdentityFilter struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Information of the identity filter present in the IdentityFilter object.
+	*/
+	IdentityFilter *interface{} `json:"identityFilter,omitempty"`
 }
 
 func NewIdentityFilter() *IdentityFilter {
 	p := new(IdentityFilter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.IdentityFilter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1393,7 +1609,7 @@ type IdentityObject struct {
 	/*
 	  Map of attributes for the Identity.
 	*/
-	Attributes map[string]interface{} `json:"attributes,omitempty"`
+	Attributes *interface{} `json:"attributes,omitempty"`
 
 	IdentityType *IdentityType `json:"identityType,omitempty"`
 }
@@ -1402,7 +1618,7 @@ func NewIdentityObject() *IdentityObject {
 	p := new(IdentityObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.IdentityObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1488,7 +1704,7 @@ func (e IdentityType) Ref() *IdentityType {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/authorization-policies Get operation
+REST response for all response codes in API path /iam/v4.0/authz/authorization-policies Get operation
 */
 type ListAuthorizationPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1510,7 +1726,7 @@ func NewListAuthorizationPoliciesApiResponse() *ListAuthorizationPoliciesApiResp
 	p := new(ListAuthorizationPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.ListAuthorizationPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1538,57 +1754,7 @@ func (p *ListAuthorizationPoliciesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/clients Get operation
-*/
-type ListClientsApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfListClientsApiResponseData `json:"data,omitempty"`
-
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewListClientsApiResponse() *ListClientsApiResponse {
-	p := new(ListClientsApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "iam.v4.authz.ListClientsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ListClientsApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ListClientsApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfListClientsApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /iam/v4.0.b2/authz/entities Get operation
+REST response for all response codes in API path /iam/v4.0/authz/entities Get operation
 */
 type ListEntitiesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1610,7 +1776,7 @@ func NewListEntitiesApiResponse() *ListEntitiesApiResponse {
 	p := new(ListEntitiesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.ListEntitiesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1638,7 +1804,7 @@ func (p *ListEntitiesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/operations Get operation
+REST response for all response codes in API path /iam/v4.0/authz/operations Get operation
 */
 type ListOperationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1660,7 +1826,7 @@ func NewListOperationsApiResponse() *ListOperationsApiResponse {
 	p := new(ListOperationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.ListOperationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1688,7 +1854,7 @@ func (p *ListOperationsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/roles Get operation
+REST response for all response codes in API path /iam/v4.0/authz/roles Get operation
 */
 type ListRolesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1710,7 +1876,7 @@ func NewListRolesApiResponse() *ListRolesApiResponse {
 	p := new(ListRolesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.ListRolesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1744,7 +1910,7 @@ type Operation struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of associated endpoint objects for the Operation.
+	  List of associated endpoint objects for the operation.
 	*/
 	AssociatedEndpointList []AssociatedEndpoint `json:"associatedEndpointList,omitempty"`
 	/*
@@ -1752,19 +1918,19 @@ type Operation struct {
 	*/
 	ClientName *string `json:"clientName,omitempty"`
 	/*
-	  The creation time of the Operation.
+	  The creation time of the operation.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
-	  Description of the Operation.
+	  Description of the operation.
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  Name of the Operation.
+	  Name of the operation.
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 	/*
-	  Type of entity associated with this Operation.
+	  Type of entity associated with this operation.
 	*/
 	EntityType *string `json:"entityType,omitempty"`
 	/*
@@ -1772,7 +1938,7 @@ type Operation struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  The time when the Operation was last updated.
+	  The time when the operation was last updated.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -1782,7 +1948,7 @@ type Operation struct {
 
 	OperationType *OperationType `json:"operationType,omitempty"`
 	/*
-	  List of related Operations. These are the Operations which might need to be given access to, along with the current Operation, for certain workflows to succeed.
+	  List of related operations. These are the operations that may need to be accessed along with the current operation in order for certain workflows to succeed.
 	*/
 	RelatedOperationList []string `json:"relatedOperationList,omitempty"`
 	/*
@@ -1795,14 +1961,14 @@ func NewOperation() *Operation {
 	p := new(Operation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Operation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-The Operation type. Currently we support INTERNAL, EXTERNAL and SYSTEM_DEFINED_ONLY.
+The operation type. Currently we support INTERNAL, EXTERNAL and SYSTEM_DEFINED_ONLY.
 */
 type OperationType int
 
@@ -1896,7 +2062,7 @@ type RequestObject struct {
 
 	Entity *AuthorizeEntity `json:"entity"`
 	/*
-	  Unique qualifier for the request.
+	  Unique qualifier of the request.
 	*/
 	RequestID *string `json:"requestID"`
 
@@ -1920,7 +2086,7 @@ func NewRequestObject() *RequestObject {
 	p := new(RequestObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.RequestObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2006,7 +2172,7 @@ func (e ResponseType) Ref() *ResponseType {
 }
 
 /*
-A Role to group the Operations.
+A role to group the operations.
 */
 type Role struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2015,19 +2181,27 @@ type Role struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of Accessible Clients for the Role.
+	  List of acessible clients for the role.
 	*/
 	AccessibleClients []string `json:"accessibleClients,omitempty"`
 	/*
-	  List of Accessible EntityTypes for the Role.
+	  Count of accessible clients for the role.
+	*/
+	AccessibleClientsCount *int `json:"accessibleClientsCount,omitempty"`
+	/*
+	  List of accessible entity types for the role.
 	*/
 	AccessibleEntityTypes []string `json:"accessibleEntityTypes,omitempty"`
 	/*
-	  Number of User Groups assigned to given Role.
+	  Count of accessible entity types for the role.
+	*/
+	AccessibleEntityTypesCount *int `json:"accessibleEntityTypesCount,omitempty"`
+	/*
+	  Number of user groups assigned to the given role.
 	*/
 	AssignedUserGroupsCount *int64 `json:"assignedUserGroupsCount,omitempty"`
 	/*
-	  Number of Users assigned to given Role.
+	  Number of users assigned to the given role.
 	*/
 	AssignedUsersCount *int64 `json:"assignedUsersCount,omitempty"`
 	/*
@@ -2035,19 +2209,19 @@ type Role struct {
 	*/
 	ClientName *string `json:"clientName,omitempty"`
 	/*
-	  User or Service Name that created the Role.
+	  User or Service Name that created the role.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  The creation time of the Role.
+	  The creation time of the role.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
-	  Description of the Role.
+	  Description of the role.
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  The display name for the Role.
+	  The display name of the role.
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 	/*
@@ -2055,11 +2229,11 @@ type Role struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Flag identifying if the Role is system defined or not.
+	  Flag identifying if the role is system-defined or not.
 	*/
 	IsSystemDefined *bool `json:"isSystemDefined,omitempty"`
 	/*
-	  The time when the Role was last updated.
+	  The time when the role was last updated.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -2067,7 +2241,7 @@ type Role struct {
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
-	  List of Operations for the Role.
+	  List of operations for the role.
 	*/
 	Operations []string `json:"operations,omitempty"`
 	/*
@@ -2080,7 +2254,7 @@ func NewRole() *Role {
 	p := new(Role)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Role"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsSystemDefined = new(bool)
@@ -2096,19 +2270,27 @@ type RoleProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of Accessible Clients for the Role.
+	  List of acessible clients for the role.
 	*/
 	AccessibleClients []string `json:"accessibleClients,omitempty"`
 	/*
-	  List of Accessible EntityTypes for the Role.
+	  Count of accessible clients for the role.
+	*/
+	AccessibleClientsCount *int `json:"accessibleClientsCount,omitempty"`
+	/*
+	  List of accessible entity types for the role.
 	*/
 	AccessibleEntityTypes []string `json:"accessibleEntityTypes,omitempty"`
 	/*
-	  Number of User Groups assigned to given Role.
+	  Count of accessible entity types for the role.
+	*/
+	AccessibleEntityTypesCount *int `json:"accessibleEntityTypesCount,omitempty"`
+	/*
+	  Number of user groups assigned to the given role.
 	*/
 	AssignedUserGroupsCount *int64 `json:"assignedUserGroupsCount,omitempty"`
 	/*
-	  Number of Users assigned to given Role.
+	  Number of users assigned to the given role.
 	*/
 	AssignedUsersCount *int64 `json:"assignedUsersCount,omitempty"`
 	/*
@@ -2116,19 +2298,19 @@ type RoleProjection struct {
 	*/
 	ClientName *string `json:"clientName,omitempty"`
 	/*
-	  User or Service Name that created the Role.
+	  User or Service Name that created the role.
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
-	  The creation time of the Role.
+	  The creation time of the role.
 	*/
 	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
-	  Description of the Role.
+	  Description of the role.
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  The display name for the Role.
+	  The display name of the role.
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 	/*
@@ -2136,11 +2318,11 @@ type RoleProjection struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Flag identifying if the Role is system defined or not.
+	  Flag identifying if the role is system-defined or not.
 	*/
 	IsSystemDefined *bool `json:"isSystemDefined,omitempty"`
 	/*
-	  The time when the Role was last updated.
+	  The time when the role was last updated.
 	*/
 	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
 	/*
@@ -2148,7 +2330,7 @@ type RoleProjection struct {
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
-	  List of Operations for the Role.
+	  List of operations for the role.
 	*/
 	Operations []string `json:"operations,omitempty"`
 	/*
@@ -2161,7 +2343,7 @@ func NewRoleProjection() *RoleProjection {
 	p := new(RoleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.RoleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsSystemDefined = new(bool)
@@ -2201,14 +2383,14 @@ func NewTenant() *Tenant {
 	p := new(Tenant)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Tenant"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/authorization-policies/{extId} Put operation
+REST response for all response codes in API path /iam/v4.0/authz/authorization-policies/{extId} Put operation
 */
 type UpdateAuthorizationPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2230,7 +2412,7 @@ func NewUpdateAuthorizationPolicyApiResponse() *UpdateAuthorizationPolicyApiResp
 	p := new(UpdateAuthorizationPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.UpdateAuthorizationPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2258,7 +2440,7 @@ func (p *UpdateAuthorizationPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/clients/{extId} Put operation
+REST response for all response codes in API path /iam/v4.0/authz/clients/{extId} Put operation
 */
 type UpdateClientApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2280,7 +2462,7 @@ func NewUpdateClientApiResponse() *UpdateClientApiResponse {
 	p := new(UpdateClientApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.UpdateClientApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2308,7 +2490,7 @@ func (p *UpdateClientApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.0.b2/authz/roles/{extId} Put operation
+REST response for all response codes in API path /iam/v4.0/authz/roles/{extId} Put operation
 */
 type UpdateRoleApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2330,7 +2512,7 @@ func NewUpdateRoleApiResponse() *UpdateRoleApiResponse {
 	p := new(UpdateRoleApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.UpdateRoleApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2357,1588 +2539,152 @@ func (p *UpdateRoleApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-type OneOfDeleteAuthorizationPolicyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
+/*
+The list of authorization policies associated with the user who is making the API call.
+*/
+type UserAuthorizationPolicy struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  Description of the authorization policy.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  The display name for the authorization policy.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  The entities being qualified by the authorization policy.
+	*/
+	Entities []EntityFilter `json:"entities,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  The role associated with the authorization policy.
+	*/
+	Role *string `json:"role,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
 }
 
-func NewOneOfDeleteAuthorizationPolicyApiResponseData() *OneOfDeleteAuthorizationPolicyApiResponseData {
-	p := new(OneOfDeleteAuthorizationPolicyApiResponseData)
-	p.Discriminator = new(string)
+func NewUserAuthorizationPolicy() *UserAuthorizationPolicy {
+	p := new(UserAuthorizationPolicy)
 	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.UserAuthorizationPolicy"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
 	return p
 }
 
-func (p *OneOfDeleteAuthorizationPolicyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteAuthorizationPolicyApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
+/*
+Lists roles associated with the identity/user who is making the API call.
+*/
+type UserRole struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  The display name of the role.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  The list of operations, presented as FQN, that belong to the given role, where FQN is of the format entity_type:client_name:operation_display_name(e.g. role:IAM:View_User_Role).
+	*/
+	Operations []string `json:"operations,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
 }
 
-func (p *OneOfDeleteAuthorizationPolicyApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteAuthorizationPolicyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteAuthorizationPolicyApiResponseData"))
-}
-
-func (p *OneOfDeleteAuthorizationPolicyApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteAuthorizationPolicyApiResponseData")
-}
-
-type OneOfGetAuthorizationPolicyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *AuthorizationPolicy   `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetAuthorizationPolicyApiResponseData() *OneOfGetAuthorizationPolicyApiResponseData {
-	p := new(OneOfGetAuthorizationPolicyApiResponseData)
-	p.Discriminator = new(string)
+func NewUserRole() *UserRole {
+	p := new(UserRole)
 	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.UserRole"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
 	return p
 }
 
-func (p *OneOfGetAuthorizationPolicyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetAuthorizationPolicyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case AuthorizationPolicy:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(AuthorizationPolicy)
-		}
-		*p.oneOfType0 = v.(AuthorizationPolicy)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
+type UserRoleProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  The display name of the role.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  The list of operations, presented as FQN, that belong to the given role, where FQN is of the format entity_type:client_name:operation_display_name(e.g. role:IAM:View_User_Role).
+	*/
+	Operations []string `json:"operations,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
 }
 
-func (p *OneOfGetAuthorizationPolicyApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetAuthorizationPolicyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(AuthorizationPolicy)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authz.AuthorizationPolicy" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(AuthorizationPolicy)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetAuthorizationPolicyApiResponseData"))
-}
-
-func (p *OneOfGetAuthorizationPolicyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetAuthorizationPolicyApiResponseData")
-}
-
-type OneOfGetEntityApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *Entity                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetEntityApiResponseData() *OneOfGetEntityApiResponseData {
-	p := new(OneOfGetEntityApiResponseData)
-	p.Discriminator = new(string)
+func NewUserRoleProjection() *UserRoleProjection {
+	p := new(UserRoleProjection)
 	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.UserRoleProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
 	return p
-}
-
-func (p *OneOfGetEntityApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetEntityApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case Entity:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Entity)
-		}
-		*p.oneOfType0 = v.(Entity)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetEntityApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetEntityApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(Entity)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authz.Entity" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Entity)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetEntityApiResponseData"))
-}
-
-func (p *OneOfGetEntityApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetEntityApiResponseData")
-}
-
-type OneOfUpdateClientApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.Message       `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateClientApiResponseData() *OneOfUpdateClientApiResponseData {
-	p := new(OneOfUpdateClientApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateClientApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateClientApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.Message:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.Message)
-		}
-		*p.oneOfType0 = v.(import3.Message)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateClientApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateClientApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.Message)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "common.v1.config.Message" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.Message)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateClientApiResponseData"))
-}
-
-func (p *OneOfUpdateClientApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateClientApiResponseData")
-}
-
-type OneOfUpdateRoleApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.Message       `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateRoleApiResponseData() *OneOfUpdateRoleApiResponseData {
-	p := new(OneOfUpdateRoleApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateRoleApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateRoleApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.Message:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.Message)
-		}
-		*p.oneOfType0 = v.(import3.Message)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateRoleApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateRoleApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.Message)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "common.v1.config.Message" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.Message)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateRoleApiResponseData"))
-}
-
-func (p *OneOfUpdateRoleApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateRoleApiResponseData")
-}
-
-type OneOfCreateAuthorizationPolicyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *AuthorizationPolicy   `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfCreateAuthorizationPolicyApiResponseData() *OneOfCreateAuthorizationPolicyApiResponseData {
-	p := new(OneOfCreateAuthorizationPolicyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateAuthorizationPolicyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateAuthorizationPolicyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case AuthorizationPolicy:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(AuthorizationPolicy)
-		}
-		*p.oneOfType0 = v.(AuthorizationPolicy)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateAuthorizationPolicyApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfCreateAuthorizationPolicyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(AuthorizationPolicy)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authz.AuthorizationPolicy" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(AuthorizationPolicy)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateAuthorizationPolicyApiResponseData"))
-}
-
-func (p *OneOfCreateAuthorizationPolicyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateAuthorizationPolicyApiResponseData")
-}
-
-type OneOfUpdateAuthorizationPolicyApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.Message       `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateAuthorizationPolicyApiResponseData() *OneOfUpdateAuthorizationPolicyApiResponseData {
-	p := new(OneOfUpdateAuthorizationPolicyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateAuthorizationPolicyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateAuthorizationPolicyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.Message:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.Message)
-		}
-		*p.oneOfType0 = v.(import3.Message)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateAuthorizationPolicyApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateAuthorizationPolicyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.Message)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "common.v1.config.Message" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.Message)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateAuthorizationPolicyApiResponseData"))
-}
-
-func (p *OneOfUpdateAuthorizationPolicyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateAuthorizationPolicyApiResponseData")
-}
-
-type OneOfListOperationsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Operation            `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfListOperationsApiResponseData() *OneOfListOperationsApiResponseData {
-	p := new(OneOfListOperationsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListOperationsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListOperationsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Operation:
-		p.oneOfType0 = v.([]Operation)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authz.Operation>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authz.Operation>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListOperationsApiResponseData) GetValue() interface{} {
-	if "List<iam.v4.authz.Operation>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfListOperationsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Operation)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authz.Operation" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authz.Operation>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authz.Operation>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListOperationsApiResponseData"))
-}
-
-func (p *OneOfListOperationsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<iam.v4.authz.Operation>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfListOperationsApiResponseData")
-}
-
-type OneOfDeleteRoleApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteRoleApiResponseData() *OneOfDeleteRoleApiResponseData {
-	p := new(OneOfDeleteRoleApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteRoleApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteRoleApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteRoleApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteRoleApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteRoleApiResponseData"))
-}
-
-func (p *OneOfDeleteRoleApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteRoleApiResponseData")
-}
-
-type OneOfGetClientApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *Client                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetClientApiResponseData() *OneOfGetClientApiResponseData {
-	p := new(OneOfGetClientApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetClientApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetClientApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case Client:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Client)
-		}
-		*p.oneOfType0 = v.(Client)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetClientApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetClientApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(Client)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authz.Client" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Client)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetClientApiResponseData"))
-}
-
-func (p *OneOfGetClientApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetClientApiResponseData")
-}
-
-type OneOfListEntitiesApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Entity               `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfListEntitiesApiResponseData() *OneOfListEntitiesApiResponseData {
-	p := new(OneOfListEntitiesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListEntitiesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListEntitiesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Entity:
-		p.oneOfType0 = v.([]Entity)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authz.Entity>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authz.Entity>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListEntitiesApiResponseData) GetValue() interface{} {
-	if "List<iam.v4.authz.Entity>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfListEntitiesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Entity)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authz.Entity" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authz.Entity>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authz.Entity>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListEntitiesApiResponseData"))
-}
-
-func (p *OneOfListEntitiesApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<iam.v4.authz.Entity>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfListEntitiesApiResponseData")
-}
-
-type OneOfListAuthorizationPoliciesApiResponseData struct {
-	Discriminator *string                         `json:"-"`
-	ObjectType_   *string                         `json:"-"`
-	oneOfType401  []AuthorizationPolicyProjection `json:"-"`
-	oneOfType400  *import2.ErrorResponse          `json:"-"`
-	oneOfType0    []AuthorizationPolicy           `json:"-"`
-}
-
-func NewOneOfListAuthorizationPoliciesApiResponseData() *OneOfListAuthorizationPoliciesApiResponseData {
-	p := new(OneOfListAuthorizationPoliciesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListAuthorizationPoliciesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListAuthorizationPoliciesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []AuthorizationPolicyProjection:
-		p.oneOfType401 = v.([]AuthorizationPolicyProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authz.AuthorizationPolicyProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authz.AuthorizationPolicyProjection>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []AuthorizationPolicy:
-		p.oneOfType0 = v.([]AuthorizationPolicy)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authz.AuthorizationPolicy>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authz.AuthorizationPolicy>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListAuthorizationPoliciesApiResponseData) GetValue() interface{} {
-	if "List<iam.v4.authz.AuthorizationPolicyProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<iam.v4.authz.AuthorizationPolicy>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListAuthorizationPoliciesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType401 := new([]AuthorizationPolicyProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-
-		if len(*vOneOfType401) == 0 || "iam.v4.authz.AuthorizationPolicyProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authz.AuthorizationPolicyProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authz.AuthorizationPolicyProjection>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]AuthorizationPolicy)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authz.AuthorizationPolicy" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authz.AuthorizationPolicy>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authz.AuthorizationPolicy>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListAuthorizationPoliciesApiResponseData"))
-}
-
-func (p *OneOfListAuthorizationPoliciesApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<iam.v4.authz.AuthorizationPolicyProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<iam.v4.authz.AuthorizationPolicy>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListAuthorizationPoliciesApiResponseData")
-}
-
-type OneOfCreateRoleApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *Role                  `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfCreateRoleApiResponseData() *OneOfCreateRoleApiResponseData {
-	p := new(OneOfCreateRoleApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateRoleApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateRoleApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case Role:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Role)
-		}
-		*p.oneOfType0 = v.(Role)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateRoleApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfCreateRoleApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(Role)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authz.Role" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Role)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateRoleApiResponseData"))
-}
-
-func (p *OneOfCreateRoleApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateRoleApiResponseData")
-}
-
-type OneOfListClientsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Client               `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfListClientsApiResponseData() *OneOfListClientsApiResponseData {
-	p := new(OneOfListClientsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListClientsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListClientsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Client:
-		p.oneOfType0 = v.([]Client)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authz.Client>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authz.Client>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListClientsApiResponseData) GetValue() interface{} {
-	if "List<iam.v4.authz.Client>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfListClientsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Client)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authz.Client" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authz.Client>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authz.Client>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListClientsApiResponseData"))
-}
-
-func (p *OneOfListClientsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<iam.v4.authz.Client>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfListClientsApiResponseData")
 }
 
 type OneOfGetRoleApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType2    *interface{}           `json:"-"`
 	oneOfType0    *Role                  `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
 func NewOneOfGetRoleApiResponseData() *OneOfGetRoleApiResponseData {
@@ -3968,19 +2714,6 @@ func (p *OneOfGetRoleApiResponseData) SetValue(v interface{}) error {
 		return nil
 	}
 	switch v.(type) {
-	case Role:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Role)
-		}
-		*p.oneOfType0 = v.(Role)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import2.ErrorResponse)
@@ -3994,6 +2727,19 @@ func (p *OneOfGetRoleApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Role:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Role)
+		}
+		*p.oneOfType0 = v.(Role)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -4001,14 +2747,14 @@ func (p *OneOfGetRoleApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetRoleApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
 	if "EMPTY" == *p.Discriminator {
 		return *p.oneOfType2
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
 	}
 	return nil
 }
@@ -4032,24 +2778,6 @@ func (p *OneOfGetRoleApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType0 := new(Role)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "iam.v4.authz.Role" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Role)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -4068,18 +2796,36 @@ func (p *OneOfGetRoleApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType0 := new(Role)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authz.Role" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Role)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRoleApiResponseData"))
 }
 
 func (p *OneOfGetRoleApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
 	if "EMPTY" == *p.Discriminator {
 		return json.Marshal(p.oneOfType2)
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfGetRoleApiResponseData")
 }
@@ -4195,12 +2941,702 @@ func (p *OneOfGetOperationApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGetOperationApiResponseData")
 }
 
+type OneOfGetAuthorizationPolicyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *AuthorizationPolicy   `json:"-"`
+}
+
+func NewOneOfGetAuthorizationPolicyApiResponseData() *OneOfGetAuthorizationPolicyApiResponseData {
+	p := new(OneOfGetAuthorizationPolicyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetAuthorizationPolicyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetAuthorizationPolicyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case AuthorizationPolicy:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(AuthorizationPolicy)
+		}
+		*p.oneOfType0 = v.(AuthorizationPolicy)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetAuthorizationPolicyApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetAuthorizationPolicyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(AuthorizationPolicy)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authz.AuthorizationPolicy" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(AuthorizationPolicy)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetAuthorizationPolicyApiResponseData"))
+}
+
+func (p *OneOfGetAuthorizationPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetAuthorizationPolicyApiResponseData")
+}
+
+type OneOfDeleteAuthorizationPolicyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType1    *interface{}           `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteAuthorizationPolicyApiResponseData() *OneOfDeleteAuthorizationPolicyApiResponseData {
+	p := new(OneOfDeleteAuthorizationPolicyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteAuthorizationPolicyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteAuthorizationPolicyApiResponseData is nil"))
+	}
+	if nil == v {
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(interface{})
+		}
+		*p.oneOfType1 = nil
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "EMPTY"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "EMPTY"
+		return nil
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteAuthorizationPolicyApiResponseData) GetValue() interface{} {
+	if "EMPTY" == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteAuthorizationPolicyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(interface{})
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if nil == *vOneOfType1 {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(interface{})
+			}
+			*p.oneOfType1 = nil
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "EMPTY"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "EMPTY"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteAuthorizationPolicyApiResponseData"))
+}
+
+func (p *OneOfDeleteAuthorizationPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+	if "EMPTY" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteAuthorizationPolicyApiResponseData")
+}
+
+type OneOfDeleteRoleApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType1    *interface{}           `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteRoleApiResponseData() *OneOfDeleteRoleApiResponseData {
+	p := new(OneOfDeleteRoleApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteRoleApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteRoleApiResponseData is nil"))
+	}
+	if nil == v {
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(interface{})
+		}
+		*p.oneOfType1 = nil
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "EMPTY"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "EMPTY"
+		return nil
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteRoleApiResponseData) GetValue() interface{} {
+	if "EMPTY" == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteRoleApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(interface{})
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if nil == *vOneOfType1 {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(interface{})
+			}
+			*p.oneOfType1 = nil
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "EMPTY"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "EMPTY"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteRoleApiResponseData"))
+}
+
+func (p *OneOfDeleteRoleApiResponseData) MarshalJSON() ([]byte, error) {
+	if "EMPTY" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteRoleApiResponseData")
+}
+
+type OneOfListOperationsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    []Operation            `json:"-"`
+}
+
+func NewOneOfListOperationsApiResponseData() *OneOfListOperationsApiResponseData {
+	p := new(OneOfListOperationsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListOperationsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListOperationsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Operation:
+		p.oneOfType0 = v.([]Operation)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authz.Operation>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authz.Operation>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListOperationsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<iam.v4.authz.Operation>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListOperationsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]Operation)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authz.Operation" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authz.Operation>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authz.Operation>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListOperationsApiResponseData"))
+}
+
+func (p *OneOfListOperationsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<iam.v4.authz.Operation>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListOperationsApiResponseData")
+}
+
+type OneOfCreateRoleApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *Role                  `json:"-"`
+}
+
+func NewOneOfCreateRoleApiResponseData() *OneOfCreateRoleApiResponseData {
+	p := new(OneOfCreateRoleApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateRoleApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateRoleApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Role:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Role)
+		}
+		*p.oneOfType0 = v.(Role)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateRoleApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfCreateRoleApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(Role)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authz.Role" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Role)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateRoleApiResponseData"))
+}
+
+func (p *OneOfCreateRoleApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateRoleApiResponseData")
+}
+
+type OneOfListAuthorizationPoliciesApiResponseData struct {
+	Discriminator *string                         `json:"-"`
+	ObjectType_   *string                         `json:"-"`
+	oneOfType400  *import2.ErrorResponse          `json:"-"`
+	oneOfType401  []AuthorizationPolicyProjection `json:"-"`
+	oneOfType0    []AuthorizationPolicy           `json:"-"`
+}
+
+func NewOneOfListAuthorizationPoliciesApiResponseData() *OneOfListAuthorizationPoliciesApiResponseData {
+	p := new(OneOfListAuthorizationPoliciesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListAuthorizationPoliciesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListAuthorizationPoliciesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []AuthorizationPolicyProjection:
+		p.oneOfType401 = v.([]AuthorizationPolicyProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authz.AuthorizationPolicyProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authz.AuthorizationPolicyProjection>"
+	case []AuthorizationPolicy:
+		p.oneOfType0 = v.([]AuthorizationPolicy)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authz.AuthorizationPolicy>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authz.AuthorizationPolicy>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListAuthorizationPoliciesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<iam.v4.authz.AuthorizationPolicyProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if "List<iam.v4.authz.AuthorizationPolicy>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListAuthorizationPoliciesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]AuthorizationPolicyProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "iam.v4.authz.AuthorizationPolicyProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authz.AuthorizationPolicyProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authz.AuthorizationPolicyProjection>"
+			return nil
+		}
+	}
+	vOneOfType0 := new([]AuthorizationPolicy)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authz.AuthorizationPolicy" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authz.AuthorizationPolicy>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authz.AuthorizationPolicy>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListAuthorizationPoliciesApiResponseData"))
+}
+
+func (p *OneOfListAuthorizationPoliciesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<iam.v4.authz.AuthorizationPolicyProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if "List<iam.v4.authz.AuthorizationPolicy>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListAuthorizationPoliciesApiResponseData")
+}
+
 type OneOfListRolesApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Role                 `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType401  []RoleProjection       `json:"-"`
+	oneOfType0    []Role                 `json:"-"`
 }
 
 func NewOneOfListRolesApiResponseData() *OneOfListRolesApiResponseData {
@@ -4215,16 +3651,6 @@ func (p *OneOfListRolesApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfListRolesApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []Role:
-		p.oneOfType0 = v.([]Role)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<iam.v4.authz.Role>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<iam.v4.authz.Role>"
 	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import2.ErrorResponse)
@@ -4248,6 +3674,16 @@ func (p *OneOfListRolesApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = "List<iam.v4.authz.RoleProjection>"
+	case []Role:
+		p.oneOfType0 = v.([]Role)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authz.Role>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authz.Role>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -4255,36 +3691,19 @@ func (p *OneOfListRolesApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfListRolesApiResponseData) GetValue() interface{} {
-	if "List<iam.v4.authz.Role>" == *p.Discriminator {
-		return p.oneOfType0
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
 	if "List<iam.v4.authz.RoleProjection>" == *p.Discriminator {
 		return p.oneOfType401
 	}
+	if "List<iam.v4.authz.Role>" == *p.Discriminator {
+		return p.oneOfType0
+	}
 	return nil
 }
 
 func (p *OneOfListRolesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Role)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "iam.v4.authz.Role" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<iam.v4.authz.Role>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<iam.v4.authz.Role>"
-			return nil
-
-		}
-	}
 	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -4305,7 +3724,6 @@ func (p *OneOfListRolesApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType401 := new([]RoleProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-
 		if len(*vOneOfType401) == 0 || "iam.v4.authz.RoleProjection" == *((*vOneOfType401)[0].ObjectType_) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
@@ -4317,23 +3735,808 @@ func (p *OneOfListRolesApiResponseData) UnmarshalJSON(b []byte) error {
 			}
 			*p.ObjectType_ = "List<iam.v4.authz.RoleProjection>"
 			return nil
-
+		}
+	}
+	vOneOfType0 := new([]Role)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authz.Role" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authz.Role>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authz.Role>"
+			return nil
 		}
 	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRolesApiResponseData"))
 }
 
 func (p *OneOfListRolesApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<iam.v4.authz.Role>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if "List<iam.v4.authz.RoleProjection>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType401)
 	}
+	if "List<iam.v4.authz.Role>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
 	return nil, errors.New("No value to marshal for OneOfListRolesApiResponseData")
+}
+
+type OneOfListEntitiesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    []Entity               `json:"-"`
+}
+
+func NewOneOfListEntitiesApiResponseData() *OneOfListEntitiesApiResponseData {
+	p := new(OneOfListEntitiesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListEntitiesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListEntitiesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Entity:
+		p.oneOfType0 = v.([]Entity)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<iam.v4.authz.Entity>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<iam.v4.authz.Entity>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListEntitiesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<iam.v4.authz.Entity>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListEntitiesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]Entity)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "iam.v4.authz.Entity" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<iam.v4.authz.Entity>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<iam.v4.authz.Entity>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListEntitiesApiResponseData"))
+}
+
+func (p *OneOfListEntitiesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<iam.v4.authz.Entity>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListEntitiesApiResponseData")
+}
+
+type OneOfUpdateClientApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import3.Message       `json:"-"`
+}
+
+func NewOneOfUpdateClientApiResponseData() *OneOfUpdateClientApiResponseData {
+	p := new(OneOfUpdateClientApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateClientApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateClientApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import3.Message:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.Message)
+		}
+		*p.oneOfType0 = v.(import3.Message)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateClientApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfUpdateClientApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(import3.Message)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "common.v1.config.Message" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.Message)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateClientApiResponseData"))
+}
+
+func (p *OneOfUpdateClientApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateClientApiResponseData")
+}
+
+type OneOfGetEntityApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *Entity                `json:"-"`
+}
+
+func NewOneOfGetEntityApiResponseData() *OneOfGetEntityApiResponseData {
+	p := new(OneOfGetEntityApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetEntityApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetEntityApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Entity:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Entity)
+		}
+		*p.oneOfType0 = v.(Entity)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetEntityApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetEntityApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(Entity)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authz.Entity" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Entity)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetEntityApiResponseData"))
+}
+
+func (p *OneOfGetEntityApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetEntityApiResponseData")
+}
+
+type OneOfUpdateRoleApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import3.Message       `json:"-"`
+}
+
+func NewOneOfUpdateRoleApiResponseData() *OneOfUpdateRoleApiResponseData {
+	p := new(OneOfUpdateRoleApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateRoleApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateRoleApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import3.Message:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.Message)
+		}
+		*p.oneOfType0 = v.(import3.Message)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateRoleApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfUpdateRoleApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(import3.Message)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "common.v1.config.Message" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.Message)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateRoleApiResponseData"))
+}
+
+func (p *OneOfUpdateRoleApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateRoleApiResponseData")
+}
+
+type OneOfCreateAuthorizationPolicyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *AuthorizationPolicy   `json:"-"`
+}
+
+func NewOneOfCreateAuthorizationPolicyApiResponseData() *OneOfCreateAuthorizationPolicyApiResponseData {
+	p := new(OneOfCreateAuthorizationPolicyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateAuthorizationPolicyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateAuthorizationPolicyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case AuthorizationPolicy:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(AuthorizationPolicy)
+		}
+		*p.oneOfType0 = v.(AuthorizationPolicy)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateAuthorizationPolicyApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfCreateAuthorizationPolicyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(AuthorizationPolicy)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authz.AuthorizationPolicy" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(AuthorizationPolicy)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateAuthorizationPolicyApiResponseData"))
+}
+
+func (p *OneOfCreateAuthorizationPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateAuthorizationPolicyApiResponseData")
+}
+
+type OneOfUpdateAuthorizationPolicyApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import3.Message       `json:"-"`
+}
+
+func NewOneOfUpdateAuthorizationPolicyApiResponseData() *OneOfUpdateAuthorizationPolicyApiResponseData {
+	p := new(OneOfUpdateAuthorizationPolicyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateAuthorizationPolicyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateAuthorizationPolicyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import3.Message:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import3.Message)
+		}
+		*p.oneOfType0 = v.(import3.Message)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateAuthorizationPolicyApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfUpdateAuthorizationPolicyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(import3.Message)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "common.v1.config.Message" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import3.Message)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateAuthorizationPolicyApiResponseData"))
+}
+
+func (p *OneOfUpdateAuthorizationPolicyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateAuthorizationPolicyApiResponseData")
+}
+
+type OneOfGetClientApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *Client                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetClientApiResponseData() *OneOfGetClientApiResponseData {
+	p := new(OneOfGetClientApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetClientApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetClientApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case Client:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Client)
+		}
+		*p.oneOfType0 = v.(Client)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetClientApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetClientApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(Client)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "iam.v4.authz.Client" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Client)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "iam.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetClientApiResponseData"))
+}
+
+func (p *OneOfGetClientApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetClientApiResponseData")
 }
 
 type FileDetail struct {
