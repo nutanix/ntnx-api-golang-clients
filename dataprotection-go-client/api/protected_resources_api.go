@@ -1,4 +1,3 @@
-//Api classes for dataprotection's golang SDK
 package api
 
 import (
@@ -40,7 +39,7 @@ func (api *ProtectedResourcesApi) GetProtectedResourceById(extId *string, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.0.b1/config/protected-resources/{extId}"
+	uri := "/api/dataprotection/v4.0/config/protected-resources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -48,7 +47,6 @@ func (api *ProtectedResourcesApi) GetProtectedResourceById(extId *string, args .
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -65,22 +63,22 @@ func (api *ProtectedResourcesApi) GetProtectedResourceById(extId *string, args .
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetProtectedResourceApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -91,7 +89,7 @@ func (api *ProtectedResourcesApi) PromoteProtectedResource(extId *string, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.0.b1/config/protected-resources/{extId}/$actions/promote"
+	uri := "/api/dataprotection/v4.0/config/protected-resources/{extId}/$actions/promote"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -99,7 +97,6 @@ func (api *ProtectedResourcesApi) PromoteProtectedResource(extId *string, args .
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -116,22 +113,22 @@ func (api *ProtectedResourcesApi) PromoteProtectedResource(extId *string, args .
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ProtectedResourcePromoteApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -142,7 +139,7 @@ func (api *ProtectedResourcesApi) RestoreProtectedResource(extId *string, body *
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.0.b1/config/protected-resources/{extId}/$actions/restore"
+	uri := "/api/dataprotection/v4.0/config/protected-resources/{extId}/$actions/restore"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -154,7 +151,6 @@ func (api *ProtectedResourcesApi) RestoreProtectedResource(extId *string, body *
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -171,21 +167,21 @@ func (api *ProtectedResourcesApi) RestoreProtectedResource(extId *string, body *
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ProtectedResourceRestoreApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

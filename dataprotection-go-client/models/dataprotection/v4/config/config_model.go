@@ -1,9 +1,9 @@
 /*
  * Generated file models/dataprotection/v4/config/config_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Dataprotection Versioned APIs
+ * Part of the Nutanix Data Protection APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
@@ -19,11 +19,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/common/v1/config"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/common/v1/response"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/dataprotection/v4/common"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/dataprotection/v4/error"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/prism/v4/config"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/common/v1/response"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/dataprotection/v4/common"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/dataprotection/v4/error"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/prism/v4/config"
 	"time"
 )
 
@@ -46,7 +45,7 @@ func NewAhvVmOverrideSpec() *AhvVmOverrideSpec {
 	p := new(AhvVmOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.AhvVmOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -75,7 +74,7 @@ func NewAmazonS3Bucket() *AmazonS3Bucket {
 	p := new(AmazonS3Bucket)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.AmazonS3Bucket"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -104,146 +103,16 @@ func NewAzureBlobStorageContainer() *AzureBlobStorageContainer {
 	p := new(AzureBlobStorageContainer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.AzureBlobStorageContainer"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Specifies category in key and value object format.
+REST response for all response codes in API path /dataprotection/v4.0/config/recovery-points/{extId}/$actions/discover-cluster Post operation
 */
-type Category struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Name of the category key.
-	*/
-	Key *string `json:"key"`
-	/*
-	  Name of the category value.
-	*/
-	Value *string `json:"value"`
-}
-
-func (p *Category) MarshalJSON() ([]byte, error) {
-	type CategoryProxy Category
-	return json.Marshal(struct {
-		*CategoryProxy
-		Key   *string `json:"key,omitempty"`
-		Value *string `json:"value,omitempty"`
-	}{
-		CategoryProxy: (*CategoryProxy)(p),
-		Key:           p.Key,
-		Value:         p.Value,
-	})
-}
-
-func NewCategory() *Category {
-	p := new(Category)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.Category"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-The UUID corresponding to the cluster where an entity resides or is synced.
-*/
-type ClusterReference struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  External identifier of the cluster.
-	*/
-	ExtId *string `json:"extId"`
-	/*
-	  Name of the Prism Element cluster, this is a read-only field
-	*/
-	Name *string `json:"name,omitempty"`
-}
-
-func (p *ClusterReference) MarshalJSON() ([]byte, error) {
-	type ClusterReferenceProxy ClusterReference
-	return json.Marshal(struct {
-		*ClusterReferenceProxy
-		ExtId *string `json:"extId,omitempty"`
-	}{
-		ClusterReferenceProxy: (*ClusterReferenceProxy)(p),
-		ExtId:                 p.ExtId,
-	})
-}
-
-func NewClusterReference() *ClusterReference {
-	p := new(ClusterReference)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.ClusterReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Response parameters for the compute changed regions. It is a chunk-encoded stream for the redirect request. It can contain a redirect IP, a certificate, or the actual changed regions. If the response contains a redirect IP, the client must re-send the request to the specified IP. The certificate needs to be set as NTNX_IGW_SESSION cookie in the header.
-*/
-type ComputeChangedRegionsResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	ResponseItemDiscriminator_ *string `json:"$responseItemDiscriminator,omitempty"`
-
-	Response *OneOfComputeChangedRegionsResponseResponse `json:"response,omitempty"`
-}
-
-func NewComputeChangedRegionsResponse() *ComputeChangedRegionsResponse {
-	p := new(ComputeChangedRegionsResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.ComputeChangedRegionsResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ComputeChangedRegionsResponse) GetResponse() interface{} {
-	if nil == p.Response {
-		return nil
-	}
-	return p.Response.GetValue()
-}
-
-func (p *ComputeChangedRegionsResponse) SetResponse(v interface{}) error {
-	if nil == p.Response {
-		p.Response = NewOneOfComputeChangedRegionsResponseResponse()
-	}
-	e := p.Response.SetValue(v)
-	if nil == e {
-		if nil == p.ResponseItemDiscriminator_ {
-			p.ResponseItemDiscriminator_ = new(string)
-		}
-		*p.ResponseItemDiscriminator_ = *p.Response.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
-*/
-type ComputeChangedRegionsResponseModel struct {
+type ClusterInfoApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -254,31 +123,31 @@ type ComputeChangedRegionsResponseModel struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfComputeChangedRegionsResponseModelData `json:"data,omitempty"`
+	Data *OneOfClusterInfoApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewComputeChangedRegionsResponseModel() *ComputeChangedRegionsResponseModel {
-	p := new(ComputeChangedRegionsResponseModel)
+func NewClusterInfoApiResponse() *ClusterInfoApiResponse {
+	p := new(ClusterInfoApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.ComputeChangedRegionsResponseModel"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	*p.ObjectType_ = "dataprotection.v4.config.ClusterInfoApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *ComputeChangedRegionsResponseModel) GetData() interface{} {
+func (p *ClusterInfoApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *ComputeChangedRegionsResponseModel) SetData(v interface{}) error {
+func (p *ClusterInfoApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfComputeChangedRegionsResponseModelData()
+		p.Data = NewOneOfClusterInfoApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -291,7 +160,7 @@ func (p *ComputeChangedRegionsResponseModel) SetData(v interface{}) error {
 }
 
 /*
-There are many scenarios where the state of an application must be captured as an aggregate of the internal state of a set of related entities at some point in time. The Consistency group is a collection of all the entities whose snapshot represents the application state at that point in time
+In many scenarios, it is necessary to capture the state of an application as a combined snapshot of the internal states of a related set of entities at a specific point in time. A consistency group is a collection of these entities, where their combined snapshot reflects the state of an application at that particular point in time.
 */
 type ConsistencyGroup struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -300,7 +169,7 @@ type ConsistencyGroup struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  The external identifier of the cluster to which the entities from the Consistency group are associated.
+	  The external identifier of the cluster to which the entities in the consistency group are associated.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
@@ -310,19 +179,19 @@ type ConsistencyGroup struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 
 	Members []ConsistencyGroupMember `json:"members"`
 	/*
-	  Name of the Consistency group.
+	  Name of the consistency group.
 	*/
 	Name *string `json:"name"`
 	/*
-	  The external identifier of the user who created this Consistency group. This is a read-only field that is inserted into the Consistency group entity at the time of Consistency group creation.
+	  The external identifier of the user who created this consistency group. This is a read-only field that is inserted into the consistency group entity at the time of the consistency group creation.
 	*/
 	OwnerExtId *string `json:"ownerExtId,omitempty"`
 	/*
-	  The external identifier of the Protection policy that protects the Consistency group.
+	  The external identifier of the protection policy that protects the consistency group.
 	*/
 	ProtectionPolicyExtId *string `json:"protectionPolicyExtId,omitempty"`
 	/*
@@ -348,14 +217,14 @@ func NewConsistencyGroup() *ConsistencyGroup {
 	p := new(ConsistencyGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ConsistencyGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-External identifier of the members (VM or volume group) of the Consistency group object.
+External identifier of the members (VM or volume group) of the consistency group object.
 */
 type ConsistencyGroupMember struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -364,9 +233,9 @@ type ConsistencyGroupMember struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  External identifier of the members (VM or volume group) of the Consistency group object.
+	  External identifier of the members (VM or volume group) of the consistency group object.
 	*/
-	EntityExtId *string `json:"entityExtId,omitempty"`
+	EntityExtId *string `json:"entityExtId"`
 
 	EntityType *ConsistencyGroupMemberType `json:"entityType"`
 }
@@ -375,9 +244,11 @@ func (p *ConsistencyGroupMember) MarshalJSON() ([]byte, error) {
 	type ConsistencyGroupMemberProxy ConsistencyGroupMember
 	return json.Marshal(struct {
 		*ConsistencyGroupMemberProxy
-		EntityType *ConsistencyGroupMemberType `json:"entityType,omitempty"`
+		EntityExtId *string                     `json:"entityExtId,omitempty"`
+		EntityType  *ConsistencyGroupMemberType `json:"entityType,omitempty"`
 	}{
 		ConsistencyGroupMemberProxy: (*ConsistencyGroupMemberProxy)(p),
+		EntityExtId:                 p.EntityExtId,
 		EntityType:                  p.EntityType,
 	})
 }
@@ -386,14 +257,14 @@ func NewConsistencyGroupMember() *ConsistencyGroupMember {
 	p := new(ConsistencyGroupMember)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ConsistencyGroupMember"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Consistency group member type
+Consistency group member type.
 */
 type ConsistencyGroupMemberType int
 
@@ -472,7 +343,7 @@ func (e ConsistencyGroupMemberType) Ref() *ConsistencyGroupMemberType {
 }
 
 /*
-Specification for the migrate action on the Consistency group.
+Specification for the migration action on the consistency group.
 */
 type ConsistencyGroupMigrationSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -481,11 +352,11 @@ type ConsistencyGroupMigrationSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Reference to the cluster in the target Availability Zone where the entities need to be migrated.
+	  Reference to the cluster in the target availability zone where the entities need to be migrated.
 	*/
 	TargetClusterExtId *string `json:"targetClusterExtId,omitempty"`
 	/*
-	  Reference to the target Availability Zone where the entities need to be migrated.
+	  Reference to the target availability zone where the entities need to be migrated.
 	*/
 	TargetPcExtId *string `json:"targetPcExtId,omitempty"`
 }
@@ -494,7 +365,7 @@ func NewConsistencyGroupMigrationSpec() *ConsistencyGroupMigrationSpec {
 	p := new(ConsistencyGroupMigrationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ConsistencyGroupMigrationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -507,7 +378,7 @@ type ConsistencyGroupProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  The external identifier of the cluster to which the entities from the Consistency group are associated.
+	  The external identifier of the cluster to which the entities in the consistency group are associated.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
@@ -517,19 +388,19 @@ type ConsistencyGroupProjection struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 
 	Members []ConsistencyGroupMember `json:"members"`
 	/*
-	  Name of the Consistency group.
+	  Name of the consistency group.
 	*/
 	Name *string `json:"name"`
 	/*
-	  The external identifier of the user who created this Consistency group. This is a read-only field that is inserted into the Consistency group entity at the time of Consistency group creation.
+	  The external identifier of the user who created this consistency group. This is a read-only field that is inserted into the consistency group entity at the time of the consistency group creation.
 	*/
 	OwnerExtId *string `json:"ownerExtId,omitempty"`
 	/*
-	  The external identifier of the Protection policy that protects the Consistency group.
+	  The external identifier of the protection policy that protects the consistency group.
 	*/
 	ProtectionPolicyExtId *string `json:"protectionPolicyExtId,omitempty"`
 	/*
@@ -555,14 +426,14 @@ func NewConsistencyGroupProjection() *ConsistencyGroupProjection {
 	p := new(ConsistencyGroupProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ConsistencyGroupProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/consistency-groups Post operation
+REST response for all response codes in API path /dataprotection/v4.0/config/consistency-groups Post operation
 */
 type CreateConsistencyGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -577,14 +448,14 @@ type CreateConsistencyGroupApiResponse struct {
 
 	Data *OneOfCreateConsistencyGroupApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewCreateConsistencyGroupApiResponse() *CreateConsistencyGroupApiResponse {
 	p := new(CreateConsistencyGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.CreateConsistencyGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -612,7 +483,7 @@ func (p *CreateConsistencyGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/recovery-points Post operation
+REST response for all response codes in API path /dataprotection/v4.0/config/recovery-points Post operation
 */
 type CreateRecoveryPointApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -627,14 +498,14 @@ type CreateRecoveryPointApiResponse struct {
 
 	Data *OneOfCreateRecoveryPointApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewCreateRecoveryPointApiResponse() *CreateRecoveryPointApiResponse {
 	p := new(CreateRecoveryPointApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.CreateRecoveryPointApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -661,6 +532,9 @@ func (p *CreateRecoveryPointApiResponse) SetData(v interface{}) error {
 	return e
 }
 
+/*
+Details about the data protection site in the Prism Central.
+*/
 type DataProtectionSiteReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -674,21 +548,32 @@ type DataProtectionSiteReference struct {
 	/*
 	  External identifier of the Prism Central.
 	*/
-	MgmtClusterExtId *string `json:"mgmtClusterExtId,omitempty"`
+	MgmtClusterExtId *string `json:"mgmtClusterExtId"`
+}
+
+func (p *DataProtectionSiteReference) MarshalJSON() ([]byte, error) {
+	type DataProtectionSiteReferenceProxy DataProtectionSiteReference
+	return json.Marshal(struct {
+		*DataProtectionSiteReferenceProxy
+		MgmtClusterExtId *string `json:"mgmtClusterExtId,omitempty"`
+	}{
+		DataProtectionSiteReferenceProxy: (*DataProtectionSiteReferenceProxy)(p),
+		MgmtClusterExtId:                 p.MgmtClusterExtId,
+	})
 }
 
 func NewDataProtectionSiteReference() *DataProtectionSiteReference {
 	p := new(DataProtectionSiteReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.DataProtectionSiteReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/consistency-groups/{extId} Delete operation
+REST response for all response codes in API path /dataprotection/v4.0/config/consistency-groups/{extId} Delete operation
 */
 type DeleteConsistencyGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -703,14 +588,14 @@ type DeleteConsistencyGroupApiResponse struct {
 
 	Data *OneOfDeleteConsistencyGroupApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewDeleteConsistencyGroupApiResponse() *DeleteConsistencyGroupApiResponse {
 	p := new(DeleteConsistencyGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.DeleteConsistencyGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -738,7 +623,7 @@ func (p *DeleteConsistencyGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/recovery-points/{extId} Delete operation
+REST response for all response codes in API path /dataprotection/v4.0/config/recovery-points/{extId} Delete operation
 */
 type DeleteRecoveryPointApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -753,14 +638,14 @@ type DeleteRecoveryPointApiResponse struct {
 
 	Data *OneOfDeleteRecoveryPointApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewDeleteRecoveryPointApiResponse() *DeleteRecoveryPointApiResponse {
 	p := new(DeleteRecoveryPointApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.DeleteRecoveryPointApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -787,72 +672,6 @@ func (p *DeleteRecoveryPointApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-type DisasterRecoveryLocation struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  List of Prism Element clusters references. It is required in the scenario when both primary and secondary Prism Elements are managed by the same Prism Central.
-	*/
-	ClusterReferences []ClusterReference `json:"clusterReferences,omitempty"`
-	/*
-	  External identifier of the Prism Central.
-	*/
-	PcExtId *string `json:"pcExtId"`
-}
-
-func (p *DisasterRecoveryLocation) MarshalJSON() ([]byte, error) {
-	type DisasterRecoveryLocationProxy DisasterRecoveryLocation
-	return json.Marshal(struct {
-		*DisasterRecoveryLocationProxy
-		PcExtId *string `json:"pcExtId,omitempty"`
-	}{
-		DisasterRecoveryLocationProxy: (*DisasterRecoveryLocationProxy)(p),
-		PcExtId:                       p.PcExtId,
-	})
-}
-
-func NewDisasterRecoveryLocation() *DisasterRecoveryLocation {
-	p := new(DisasterRecoveryLocation)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.DisasterRecoveryLocation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-A model that represents the disk recovery point properties.
-*/
-type DiskRecoveryPoint struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Disk external identifier which is captured as part of this recovery point.
-	*/
-	DiskExtId *string `json:"diskExtId,omitempty"`
-	/*
-	  Disk recovery point Identifier.
-	*/
-	DiskRecoveryPointExtId *string `json:"diskRecoveryPointExtId,omitempty"`
-}
-
-func NewDiskRecoveryPoint() *DiskRecoveryPoint {
-	p := new(DiskRecoveryPoint)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.DiskRecoveryPoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
 /*
 Protected resource/recovery point restore that overrides the ESXi VM configuration. The specified properties will be overridden for the restored VM.
 */
@@ -872,7 +691,7 @@ func NewEsxiVmOverrideSpec() *EsxiVmOverrideSpec {
 	p := new(EsxiVmOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.EsxiVmOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -908,14 +727,14 @@ func NewExpirationTimeSpec() *ExpirationTimeSpec {
 	p := new(ExpirationTimeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ExpirationTimeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/protected-resources/{extId} Get operation
+REST response for all response codes in API path /dataprotection/v4.0/config/protected-resources/{extId} Get operation
 */
 type GetProtectedResourceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -930,14 +749,14 @@ type GetProtectedResourceApiResponse struct {
 
 	Data *OneOfGetProtectedResourceApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewGetProtectedResourceApiResponse() *GetProtectedResourceApiResponse {
 	p := new(GetProtectedResourceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.GetProtectedResourceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -965,7 +784,7 @@ func (p *GetProtectedResourceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/recovery-points/{extId} Get operation
+REST response for all response codes in API path /dataprotection/v4.0/config/recovery-points/{extId} Get operation
 */
 type GetRecoveryPointApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -980,14 +799,14 @@ type GetRecoveryPointApiResponse struct {
 
 	Data *OneOfGetRecoveryPointApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewGetRecoveryPointApiResponse() *GetRecoveryPointApiResponse {
 	p := new(GetRecoveryPointApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.GetRecoveryPointApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1003,6 +822,56 @@ func (p *GetRecoveryPointApiResponse) GetData() interface{} {
 func (p *GetRecoveryPointApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfGetRecoveryPointApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /dataprotection/v4.0/config/recovery-points/{recoveryPointExtId}/vm-recovery-points/{extId} Get operation
+*/
+type GetVmRecoveryPointApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetVmRecoveryPointApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetVmRecoveryPointApiResponse() *GetVmRecoveryPointApiResponse {
+	p := new(GetVmRecoveryPointApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "dataprotection.v4.config.GetVmRecoveryPointApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetVmRecoveryPointApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetVmRecoveryPointApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetVmRecoveryPointApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1032,7 +901,7 @@ type HostReference struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Name of the Witness host site.
 	*/
@@ -1047,7 +916,7 @@ func NewHostReference() *HostReference {
 	p := new(HostReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.HostReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1158,14 +1027,14 @@ func NewIpAddress() *IpAddress {
 	p := new(IpAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.IpAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/recovery-points Get operation
+REST response for all response codes in API path /dataprotection/v4.0/config/recovery-points Get operation
 */
 type ListRecoveryPointsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1180,14 +1049,14 @@ type ListRecoveryPointsApiResponse struct {
 
 	Data *OneOfListRecoveryPointsApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewListRecoveryPointsApiResponse() *ListRecoveryPointsApiResponse {
 	p := new(ListRecoveryPointsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ListRecoveryPointsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1233,14 +1102,14 @@ func NewLocationReference() *LocationReference {
 	p := new(LocationReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.LocationReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/consistency-groups/{extId}/$actions/migrate Post operation
+REST response for all response codes in API path /dataprotection/v4.0/config/consistency-groups/{extId}/$actions/migrate Post operation
 */
 type MigrateConsistencyGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1255,14 +1124,14 @@ type MigrateConsistencyGroupApiResponse struct {
 
 	Data *OneOfMigrateConsistencyGroupApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewMigrateConsistencyGroupApiResponse() *MigrateConsistencyGroupApiResponse {
 	p := new(MigrateConsistencyGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.MigrateConsistencyGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1308,7 +1177,7 @@ func NewNutanixObjectsBucket() *NutanixObjectsBucket {
 	p := new(NutanixObjectsBucket)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.NutanixObjectsBucket"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1490,6 +1359,10 @@ type ProtectedResource struct {
 	*/
 	CategoryFqNames []string `json:"categoryFqNames,omitempty"`
 	/*
+	  External identifier of the Consistency group which the protected resource is part of.
+	*/
+	ConsistencyGroupExtId *string `json:"consistencyGroupExtId,omitempty"`
+	/*
 	  The external identifier of the VM or the volume group associated with the protected resource.
 	*/
 	EntityExtId *string `json:"entityExtId,omitempty"`
@@ -1502,7 +1375,7 @@ type ProtectedResource struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 
 	ReplicationStates []ReplicationState `json:"replicationStates,omitempty"`
 	/*
@@ -1521,14 +1394,14 @@ func NewProtectedResource() *ProtectedResource {
 	p := new(ProtectedResource)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ProtectedResource"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/protected-resources/{extId}/$actions/promote Post operation
+REST response for all response codes in API path /dataprotection/v4.0/config/protected-resources/{extId}/$actions/promote Post operation
 */
 type ProtectedResourcePromoteApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1543,14 +1416,14 @@ type ProtectedResourcePromoteApiResponse struct {
 
 	Data *OneOfProtectedResourcePromoteApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewProtectedResourcePromoteApiResponse() *ProtectedResourcePromoteApiResponse {
 	p := new(ProtectedResourcePromoteApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ProtectedResourcePromoteApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1661,7 +1534,7 @@ func (e ProtectedResourceReplicationStatus) Ref() *ProtectedResourceReplicationS
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/protected-resources/{extId}/$actions/restore Post operation
+REST response for all response codes in API path /dataprotection/v4.0/config/protected-resources/{extId}/$actions/restore Post operation
 */
 type ProtectedResourceRestoreApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1676,14 +1549,14 @@ type ProtectedResourceRestoreApiResponse struct {
 
 	Data *OneOfProtectedResourceRestoreApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewProtectedResourceRestoreApiResponse() *ProtectedResourceRestoreApiResponse {
 	p := new(ProtectedResourceRestoreApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ProtectedResourceRestoreApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1724,14 +1597,6 @@ type ProtectedResourceRestoreSpec struct {
 	*/
 	ClusterExtId *string `json:"clusterExtId"`
 	/*
-
-	 */
-	OverridesItemDiscriminator_ *string `json:"$overridesItemDiscriminator,omitempty"`
-	/*
-	  The restore action specifications on the protected resource. This is an optional field and the specified properties will be overridden for the restored VM/VG.
-	*/
-	Overrides *OneOfProtectedResourceRestoreSpecOverrides `json:"overrides,omitempty"`
-	/*
 	  UTC date and time in ISO 8601 format representing the time from when the state of the entity should be restored. This needs to be a valid time within the restorable time range(s) for the protected resource.
 	*/
 	RestoreTime *time.Time `json:"restoreTime,omitempty"`
@@ -1752,31 +1617,10 @@ func NewProtectedResourceRestoreSpec() *ProtectedResourceRestoreSpec {
 	p := new(ProtectedResourceRestoreSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ProtectedResourceRestoreSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-func (p *ProtectedResourceRestoreSpec) GetOverrides() interface{} {
-	if nil == p.Overrides {
-		return nil
-	}
-	return p.Overrides.GetValue()
-}
-
-func (p *ProtectedResourceRestoreSpec) SetOverrides(v interface{}) error {
-	if nil == p.Overrides {
-		p.Overrides = NewOneOfProtectedResourceRestoreSpecOverrides()
-	}
-	e := p.Overrides.SetValue(v)
-	if nil == e {
-		if nil == p.OverridesItemDiscriminator_ {
-			p.OverridesItemDiscriminator_ = new(string)
-		}
-		*p.OverridesItemDiscriminator_ = *p.Overrides.Discriminator
-	}
-	return e
 }
 
 /*
@@ -1798,7 +1642,7 @@ func NewRecoveryInfo() *RecoveryInfo {
 	p := new(RecoveryInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RecoveryInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1828,7 +1672,7 @@ type RecoveryPoint struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Location agnostic identifier of the Recovery point.
 	*/
@@ -1846,9 +1690,9 @@ type RecoveryPoint struct {
 	*/
 	OwnerExtId *string `json:"ownerExtId,omitempty"`
 
-	RecoveryPointType *import4.RecoveryPointType `json:"recoveryPointType,omitempty"`
+	RecoveryPointType *import1.RecoveryPointType `json:"recoveryPointType,omitempty"`
 
-	Status *import4.RecoveryPointStatus `json:"status,omitempty"`
+	Status *import1.RecoveryPointStatus `json:"status,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
@@ -1867,7 +1711,7 @@ func NewRecoveryPoint() *RecoveryPoint {
 	p := new(RecoveryPoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RecoveryPoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1894,7 +1738,7 @@ type RecoveryPointProjection struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Location agnostic identifier of the Recovery point.
 	*/
@@ -1912,9 +1756,9 @@ type RecoveryPointProjection struct {
 	*/
 	OwnerExtId *string `json:"ownerExtId,omitempty"`
 
-	RecoveryPointType *import4.RecoveryPointType `json:"recoveryPointType,omitempty"`
+	RecoveryPointType *import1.RecoveryPointType `json:"recoveryPointType,omitempty"`
 
-	Status *import4.RecoveryPointStatus `json:"status,omitempty"`
+	Status *import1.RecoveryPointStatus `json:"status,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
@@ -1933,14 +1777,14 @@ func NewRecoveryPointProjection() *RecoveryPointProjection {
 	p := new(RecoveryPointProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RecoveryPointProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/recovery-points/{extId}/$actions/replicate Post operation
+REST response for all response codes in API path /dataprotection/v4.0/config/recovery-points/{extId}/$actions/replicate Post operation
 */
 type RecoveryPointReplicateApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1955,14 +1799,14 @@ type RecoveryPointReplicateApiResponse struct {
 
 	Data *OneOfRecoveryPointReplicateApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewRecoveryPointReplicateApiResponse() *RecoveryPointReplicateApiResponse {
 	p := new(RecoveryPointReplicateApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RecoveryPointReplicateApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2012,7 +1856,7 @@ func NewRecoveryPointReplicationSpec() *RecoveryPointReplicationSpec {
 	p := new(RecoveryPointReplicationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RecoveryPointReplicationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2034,7 +1878,7 @@ type RecoveryPointRepository struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Name of the recovery point repository.
 	*/
@@ -2043,7 +1887,9 @@ type RecoveryPointRepository struct {
 
 	 */
 	ObjectStorageReferenceItemDiscriminator_ *string `json:"$objectStorageReferenceItemDiscriminator,omitempty"`
-
+	/*
+	  Object storage reference details.
+	*/
 	ObjectStorageReference *OneOfRecoveryPointRepositoryObjectStorageReference `json:"objectStorageReference,omitempty"`
 
 	ObjectStorageType *ObjectStorageType `json:"objectStorageType,omitempty"`
@@ -2057,7 +1903,7 @@ func NewRecoveryPointRepository() *RecoveryPointRepository {
 	p := new(RecoveryPointRepository)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RecoveryPointRepository"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2097,14 +1943,16 @@ type RecoveryPointRepositoryProjection struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Name of the recovery point repository.
 	*/
 	Name *string `json:"name,omitempty"`
 
 	ObjectStorageReferenceItemDiscriminator_ *string `json:"$objectStorageReferenceItemDiscriminator,omitempty"`
-
+	/*
+	  Object storage reference details.
+	*/
 	ObjectStorageReference *OneOfRecoveryPointRepositoryProjectionObjectStorageReference `json:"objectStorageReference,omitempty"`
 
 	ObjectStorageType *ObjectStorageType `json:"objectStorageType,omitempty"`
@@ -2118,7 +1966,7 @@ func NewRecoveryPointRepositoryProjection() *RecoveryPointRepositoryProjection {
 	p := new(RecoveryPointRepositoryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RecoveryPointRepositoryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2151,14 +1999,14 @@ func NewRecoveryPointRestorationSpec() *RecoveryPointRestorationSpec {
 	p := new(RecoveryPointRestorationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RecoveryPointRestorationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/recovery-points/{extId}/$actions/restore Post operation
+REST response for all response codes in API path /dataprotection/v4.0/config/recovery-points/{extId}/$actions/restore Post operation
 */
 type RecoveryPointRestoreApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2173,14 +2021,14 @@ type RecoveryPointRestoreApiResponse struct {
 
 	Data *OneOfRecoveryPointRestoreApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewRecoveryPointRestoreApiResponse() *RecoveryPointRestoreApiResponse {
 	p := new(RecoveryPointRestoreApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RecoveryPointRestoreApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2205,179 +2053,6 @@ func (p *RecoveryPointRestoreApiResponse) SetData(v interface{}) error {
 		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
 	return e
-}
-
-type RedirectionResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  A special token in string format. This token must be set as a session cookie in the redirect call.
-	*/
-	Certificate *string `json:"certificate,omitempty"`
-
-	RedirectIp *IpAddress `json:"redirectIp,omitempty"`
-}
-
-func NewRedirectionResponse() *RedirectionResponse {
-	p := new(RedirectionResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.RedirectionResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Changed region comprising of offset, length, and type of the region.
-*/
-type Region struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The length of the region in bytes.
-	*/
-	Length *int64 `json:"length"`
-	/*
-	  The start offset of the region in bytes.
-	*/
-	Offset *int64 `json:"offset"`
-
-	RegionType *RegionType `json:"regionType"`
-}
-
-func (p *Region) MarshalJSON() ([]byte, error) {
-	type RegionProxy Region
-	return json.Marshal(struct {
-		*RegionProxy
-		Length     *int64      `json:"length,omitempty"`
-		Offset     *int64      `json:"offset,omitempty"`
-		RegionType *RegionType `json:"regionType,omitempty"`
-	}{
-		RegionProxy: (*RegionProxy)(p),
-		Length:      p.Length,
-		Offset:      p.Offset,
-		RegionType:  p.RegionType,
-	})
-}
-
-func NewRegion() *Region {
-	p := new(Region)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.Region"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-type RegionResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The offset from where the client must continue the request. This field is not set when there are no more changed regions to be returned. Note: the nextOffset can be outside the endOffset specified by the client in the request. This helps clients reach the next changed offset faster.
-	*/
-	NextOffset *int64 `json:"nextOffset,omitempty"`
-
-	Regions []Region `json:"regions,omitempty"`
-}
-
-func NewRegionResponse() *RegionResponse {
-	p := new(RegionResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.RegionResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-The type of the region.
-*/
-type RegionType int
-
-const (
-	REGIONTYPE_UNKNOWN  RegionType = 0
-	REGIONTYPE_REDACTED RegionType = 1
-	REGIONTYPE_ZEROED   RegionType = 2
-	REGIONTYPE_REGULAR  RegionType = 3
-)
-
-// Returns the name of the enum given an ordinal number
-//
-// Deprecated: Please use GetName instead of name
-func (e *RegionType) name(index int) string {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"ZEROED",
-		"REGULAR",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the name of the enum
-func (e RegionType) GetName() string {
-	index := int(e)
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"ZEROED",
-		"REGULAR",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
-}
-
-// Returns the enum type given a string value
-func (e *RegionType) index(name string) RegionType {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"ZEROED",
-		"REGULAR",
-	}
-	for idx := range names {
-		if names[idx] == name {
-			return RegionType(idx)
-		}
-	}
-	return REGIONTYPE_UNKNOWN
-}
-
-func (e *RegionType) UnmarshalJSON(b []byte) error {
-	var enumStr string
-	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for RegionType:%s", err))
-	}
-	*e = e.index(enumStr)
-	return nil
-}
-
-func (e *RegionType) MarshalJSON() ([]byte, error) {
-	b := bytes.NewBufferString(`"`)
-	b.WriteString(e.name(int(*e)))
-	b.WriteString(`"`)
-	return b.Bytes(), nil
-}
-
-func (e RegionType) Ref() *RegionType {
-	return &e
 }
 
 /*
@@ -2407,7 +2082,7 @@ func NewReplicationState() *ReplicationState {
 	p := new(ReplicationState)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.ReplicationState"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2436,7 +2111,7 @@ func NewRestorableTimeRange() *RestorableTimeRange {
 	p := new(RestorableTimeRange)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.RestorableTimeRange"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2455,13 +2130,15 @@ type SiteProtectionInfo struct {
 	LocationReference *DataProtectionSiteReference `json:"locationReference,omitempty"`
 
 	RecoveryInfo *RecoveryInfo `json:"recoveryInfo,omitempty"`
+
+	SynchronousReplicationRole *SynchronousReplicationRole `json:"synchronousReplicationRole,omitempty"`
 }
 
 func NewSiteProtectionInfo() *SiteProtectionInfo {
 	p := new(SiteProtectionInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.SiteProtectionInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2490,37 +2167,14 @@ func NewSiteReference() *SiteReference {
 	p := new(SiteReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.SiteReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-CIDR of the network gateway.
-*/
-type Subnet struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	Ipv4 *import5.IPv4Address `json:"ipv4,omitempty"`
-}
-
-func NewSubnet() *Subnet {
-	p := new(Subnet)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.Subnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/synced-volume-groups/{extId}/$actions/promote Post operation
+REST response for all response codes in API path /dataprotection/v4.0/config/synced-volume-groups/{extId}/$actions/promote Post operation
 */
 type SynchronousReplicaPromoteApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2535,14 +2189,14 @@ type SynchronousReplicaPromoteApiResponse struct {
 
 	Data *OneOfSynchronousReplicaPromoteApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewSynchronousReplicaPromoteApiResponse() *SynchronousReplicaPromoteApiResponse {
 	p := new(SynchronousReplicaPromoteApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.SynchronousReplicaPromoteApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2570,7 +2224,94 @@ func (p *SynchronousReplicaPromoteApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/consistency-groups/{extId} Put operation
+Synchronous Replication role related information of the protected resource.
+*/
+type SynchronousReplicationRole int
+
+const (
+	SYNCHRONOUSREPLICATIONROLE_UNKNOWN     SynchronousReplicationRole = 0
+	SYNCHRONOUSREPLICATIONROLE_REDACTED    SynchronousReplicationRole = 1
+	SYNCHRONOUSREPLICATIONROLE_PRIMARY     SynchronousReplicationRole = 2
+	SYNCHRONOUSREPLICATIONROLE_SECONDARY   SynchronousReplicationRole = 3
+	SYNCHRONOUSREPLICATIONROLE_INDEPENDENT SynchronousReplicationRole = 4
+	SYNCHRONOUSREPLICATIONROLE_DECOUPLED   SynchronousReplicationRole = 5
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *SynchronousReplicationRole) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRIMARY",
+		"SECONDARY",
+		"INDEPENDENT",
+		"DECOUPLED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e SynchronousReplicationRole) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRIMARY",
+		"SECONDARY",
+		"INDEPENDENT",
+		"DECOUPLED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *SynchronousReplicationRole) index(name string) SynchronousReplicationRole {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRIMARY",
+		"SECONDARY",
+		"INDEPENDENT",
+		"DECOUPLED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return SynchronousReplicationRole(idx)
+		}
+	}
+	return SYNCHRONOUSREPLICATIONROLE_UNKNOWN
+}
+
+func (e *SynchronousReplicationRole) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for SynchronousReplicationRole:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *SynchronousReplicationRole) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e SynchronousReplicationRole) Ref() *SynchronousReplicationRole {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /dataprotection/v4.0/config/consistency-groups/{extId} Put operation
 */
 type UpdateConsistencyGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2585,14 +2326,14 @@ type UpdateConsistencyGroupApiResponse struct {
 
 	Data *OneOfUpdateConsistencyGroupApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewUpdateConsistencyGroupApiResponse() *UpdateConsistencyGroupApiResponse {
 	p := new(UpdateConsistencyGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.UpdateConsistencyGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2620,7 +2361,7 @@ func (p *UpdateConsistencyGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0.b1/config/recovery-points/{extId}/$actions/set-expiration-time Post operation
+REST response for all response codes in API path /dataprotection/v4.0/config/recovery-points/{extId}/$actions/set-expiration-time Post operation
 */
 type UpdateRecoveryPointExpirationTimeApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2635,14 +2376,14 @@ type UpdateRecoveryPointExpirationTimeApiResponse struct {
 
 	Data *OneOfUpdateRecoveryPointExpirationTimeApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewUpdateRecoveryPointExpirationTimeApiResponse() *UpdateRecoveryPointExpirationTimeApiResponse {
 	p := new(UpdateRecoveryPointExpirationTimeApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.UpdateRecoveryPointExpirationTimeApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2678,8 +2419,28 @@ type VmRecoveryPoint struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
 
-	DiskRecoveryPoints []DiskRecoveryPoint `json:"diskRecoveryPoints,omitempty"`
+	 */
+	ApplicationConsistentPropertiesItemDiscriminator_ *string `json:"$applicationConsistentPropertiesItemDiscriminator,omitempty"`
+	/*
+	  User-defined application-consistent properties for the recovery point.
+	*/
+	ApplicationConsistentProperties *OneOfVmRecoveryPointApplicationConsistentProperties `json:"applicationConsistentProperties,omitempty"`
+	/*
+	  External identifier of the Consistency group which the VM was part of at the time of recovery point creation.
+	*/
+	ConsistencyGroupExtId *string `json:"consistencyGroupExtId,omitempty"`
+	/*
+	  The UTC date and time in ISO-8601 format when the Recovery point is created.
+	*/
+	CreationTime *time.Time `json:"creationTime,omitempty"`
+
+	DiskRecoveryPoints []import1.DiskRecoveryPoint `json:"diskRecoveryPoints,omitempty"`
+	/*
+	  The UTC date and time in ISO-8601 format when the current Recovery point expires and will be garbage collected.
+	*/
+	ExpirationTime *time.Time `json:"expirationTime,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
@@ -2687,82 +2448,38 @@ type VmRecoveryPoint struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  Location agnostic identifier of the recovery point. This identifier is used to identify the same instances of a recovery point across different sites.
+	  Location agnostic identifier of the Recovery point.
 	*/
 	LocationAgnosticId *string `json:"locationAgnosticId,omitempty"`
+	/*
+	  The name of the Recovery point.
+	*/
+	Name *string `json:"name,omitempty"`
+
+	RecoveryPointType *import1.RecoveryPointType `json:"recoveryPointType,omitempty"`
+
+	Status *import1.RecoveryPointStatus `json:"status,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
-	  Category key-value pairs associated with the VM at the time of recovery point creation. The category key and value are separated by '/'. For example, a category with key 'dept' and value 'hr' will be represented as 'dept/hr'.
+	  Category key-value pairs associated with the VM at the time of recovery point creation. The category key and value are separated by '/'. For example, a category with key 'dept' and value 'hr' is displayed as 'dept/hr'.
 	*/
 	VmCategories []string `json:"vmCategories,omitempty"`
 	/*
-	  VM external identifier which is captured as part of this recovery point.
+	  VM external identifier which is captured as a part of this recovery point.
 	*/
-	VmExtId *string `json:"vmExtId"`
-}
-
-func (p *VmRecoveryPoint) MarshalJSON() ([]byte, error) {
-	type VmRecoveryPointProxy VmRecoveryPoint
-	return json.Marshal(struct {
-		*VmRecoveryPointProxy
-		VmExtId *string `json:"vmExtId,omitempty"`
-	}{
-		VmRecoveryPointProxy: (*VmRecoveryPointProxy)(p),
-		VmExtId:              p.VmExtId,
-	})
+	VmExtId *string `json:"vmExtId,omitempty"`
 }
 
 func NewVmRecoveryPoint() *VmRecoveryPoint {
 	p := new(VmRecoveryPoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.VmRecoveryPoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Compute changed region parameters. In these parameters, you can specify a start offset, an end offset, and a reference disk recovery point. All parameters are optional. However, if a reference disk recovery point needs to be set, all three parameters - recovery point Id, VM recovery point Id, and disk recovery point Id must be specified.
-*/
-type VmRecoveryPointComputeChangedRegionsRequest struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The length to compute the changed region. If the value is not provided, the difference is performed from the start offset to the end of the disk. Note: the end offset might automatically align to a system-defined block boundary.
-	*/
-	Length *int64 `json:"length,omitempty"`
-	/*
-	  The start offset value to compute the changed region. If the value is not provided, the difference is executed from the offset of 0. Note: the start offset might automatically align to a system-defined block boundary.
-	*/
-	Offset *int64 `json:"offset,omitempty"`
-	/*
-	  Disk recovery point external identifier.
-	*/
-	ReferenceDiskRecoveryPointExtId *string `json:"referenceDiskRecoveryPointExtId,omitempty"`
-	/*
-	  The external identifier that can be used to retrieve the recovery point using its URL.
-	*/
-	ReferenceRecoveryPointExtId *string `json:"referenceRecoveryPointExtId,omitempty"`
-	/*
-	  The external identifier that can be used to retrieve the VM recovery point using its URL (Note: This attribute will be removed in future releases, use VM recovery point external identifier instead).
-	*/
-	ReferenceVmRecoveryPointExtId *string `json:"referenceVmRecoveryPointExtId,omitempty"`
-}
-
-func NewVmRecoveryPointComputeChangedRegionsRequest() *VmRecoveryPointComputeChangedRegionsRequest {
-	p := new(VmRecoveryPointComputeChangedRegionsRequest)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.VmRecoveryPointComputeChangedRegionsRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2775,7 +2492,7 @@ type VmRecoveryPointRestoreOverride struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  External identifier of a VM recovery point, that is a part of the top-level recovery point (Note: This attribute will be removed in future releases, use VM recovery point external identifier instead).
+	  External identifier of a VM recovery point, that is a part of the top-level recovery point.
 	*/
 	VmRecoveryPointExtId *string `json:"vmRecoveryPointExtId,omitempty"`
 }
@@ -2784,7 +2501,7 @@ func NewVmRecoveryPointRestoreOverride() *VmRecoveryPointRestoreOverride {
 	p := new(VmRecoveryPointRestoreOverride)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.VmRecoveryPointRestoreOverride"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2809,7 +2526,7 @@ func NewVolumeGroupOverrideSpec() *VolumeGroupOverrideSpec {
 	p := new(VolumeGroupOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.VolumeGroupOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2825,13 +2542,19 @@ type VolumeGroupRecoveryPoint struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
+	  External identifier of the Consistency group which the entity was part of at the time of recovery point creation.
+	*/
+	ConsistencyGroupExtId *string `json:"consistencyGroupExtId,omitempty"`
+
+	DiskRecoveryPoints []import1.DiskRecoveryPoint `json:"diskRecoveryPoints,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Location agnostic identifier of the recovery point. This identifier is used to identify the same instances of a recovery point across different sites.
 	*/
@@ -2865,48 +2588,7 @@ func NewVolumeGroupRecoveryPoint() *VolumeGroupRecoveryPoint {
 	p := new(VolumeGroupRecoveryPoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.VolumeGroupRecoveryPoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Compute changed region parameters. In these parameters, you can specify a start offset, an end offset, and a reference disk recovery point. All parameters are optional. However, if a reference disk recovery point needs to be set, all three parameters - recovery point Id, volume group recovery point Id, and disk recovery point Id must be specified.
-*/
-type VolumeGroupRecoveryPointComputeChangedRegionsRequest struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The length to compute the changed region. If the value is not provided, the difference is performed from the start offset to the end of the disk. Note: the end offset might automatically align to a system-defined block boundary.
-	*/
-	Length *int64 `json:"length,omitempty"`
-	/*
-	  The start offset value to compute the changed region. If the value is not provided, the difference is executed from the offset of 0. Note: the start offset might automatically align to a system-defined block boundary.
-	*/
-	Offset *int64 `json:"offset,omitempty"`
-	/*
-	  Disk recovery point external identifier.
-	*/
-	ReferenceDiskRecoveryPointExtId *string `json:"referenceDiskRecoveryPointExtId,omitempty"`
-	/*
-	  The external identifier that can be used to retrieve the recovery point using its URL.
-	*/
-	ReferenceRecoveryPointExtId *string `json:"referenceRecoveryPointExtId,omitempty"`
-	/*
-	  The external identifier that can be used to retrieve the volume group recovery point using its URL (Note: This attribute will be removed in future releases, use volume group recovery point external identifier instead).
-	*/
-	ReferenceVolumeGroupRecoveryPointExtId *string `json:"referenceVolumeGroupRecoveryPointExtId,omitempty"`
-}
-
-func NewVolumeGroupRecoveryPointComputeChangedRegionsRequest() *VolumeGroupRecoveryPointComputeChangedRegionsRequest {
-	p := new(VolumeGroupRecoveryPointComputeChangedRegionsRequest)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.VolumeGroupRecoveryPointComputeChangedRegionsRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2930,7 +2612,7 @@ func NewVolumeGroupRecoveryPointRestoreOverride() *VolumeGroupRecoveryPointResto
 	p := new(VolumeGroupRecoveryPointRestoreOverride)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.VolumeGroupRecoveryPointRestoreOverride"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2945,57 +2627,29 @@ type VolumeGroupSyncContext struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
 
 	PrimarySite *SiteReference `json:"primarySite,omitempty"`
 
 	SecondarySite *SiteReference `json:"secondarySite,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
 }
 
 func NewVolumeGroupSyncContext() *VolumeGroupSyncContext {
 	p := new(VolumeGroupSyncContext)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.VolumeGroupSyncContext"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-VPC reference.
-*/
-type VpcReference struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  External identifier of the VPC.
-	*/
-	ExtId *string `json:"extId"`
-	/*
-	  Name of the VPC, this is a read-only field.
-	*/
-	Name *string `json:"name,omitempty"`
-}
-
-func (p *VpcReference) MarshalJSON() ([]byte, error) {
-	type VpcReferenceProxy VpcReference
-	return json.Marshal(struct {
-		*VpcReferenceProxy
-		ExtId *string `json:"extId,omitempty"`
-	}{
-		VpcReferenceProxy: (*VpcReferenceProxy)(p),
-		ExtId:             p.ExtId,
-	})
-}
-
-func NewVpcReference() *VpcReference {
-	p := new(VpcReference)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "dataprotection.v4.config.VpcReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3025,7 +2679,7 @@ type Witness struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Name of the Witness site.
 	*/
@@ -3042,7 +2696,7 @@ func NewWitness() *Witness {
 	p := new(Witness)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.config.Witness"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3130,8 +2784,8 @@ func (e WitnessAvailabilityStatus) Ref() *WitnessAvailabilityStatus {
 type OneOfDeleteRecoveryPointApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import4.TaskReference `json:"-"`
 }
 
 func NewOneOfDeleteRecoveryPointApiResponseData() *OneOfDeleteRecoveryPointApiResponseData {
@@ -3146,24 +2800,11 @@ func (p *OneOfDeleteRecoveryPointApiResponseData) SetValue(v interface{}) error 
 		return errors.New(fmt.Sprintf("OneOfDeleteRecoveryPointApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -3172,6 +2813,19 @@ func (p *OneOfDeleteRecoveryPointApiResponseData) SetValue(v interface{}) error 
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import4.TaskReference)
+		}
+		*p.oneOfType0 = v.(import4.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -3179,39 +2833,21 @@ func (p *OneOfDeleteRecoveryPointApiResponseData) SetValue(v interface{}) error 
 }
 
 func (p *OneOfDeleteRecoveryPointApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	return nil
 }
 
 func (p *OneOfDeleteRecoveryPointApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -3225,15 +2861,33 @@ func (p *OneOfDeleteRecoveryPointApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
+	vOneOfType0 := new(import4.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import4.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteRecoveryPointApiResponseData"))
 }
 
 func (p *OneOfDeleteRecoveryPointApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfDeleteRecoveryPointApiResponseData")
 }
@@ -3241,8 +2895,8 @@ func (p *OneOfDeleteRecoveryPointApiResponseData) MarshalJSON() ([]byte, error) 
 type OneOfRecoveryPointReplicateApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import4.TaskReference `json:"-"`
 }
 
 func NewOneOfRecoveryPointReplicateApiResponseData() *OneOfRecoveryPointReplicateApiResponseData {
@@ -3257,24 +2911,11 @@ func (p *OneOfRecoveryPointReplicateApiResponseData) SetValue(v interface{}) err
 		return errors.New(fmt.Sprintf("OneOfRecoveryPointReplicateApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -3283,6 +2924,19 @@ func (p *OneOfRecoveryPointReplicateApiResponseData) SetValue(v interface{}) err
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import4.TaskReference)
+		}
+		*p.oneOfType0 = v.(import4.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -3290,39 +2944,21 @@ func (p *OneOfRecoveryPointReplicateApiResponseData) SetValue(v interface{}) err
 }
 
 func (p *OneOfRecoveryPointReplicateApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	return nil
 }
 
 func (p *OneOfRecoveryPointReplicateApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -3336,70 +2972,74 @@ func (p *OneOfRecoveryPointReplicateApiResponseData) UnmarshalJSON(b []byte) err
 			return nil
 		}
 	}
+	vOneOfType0 := new(import4.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import4.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecoveryPointReplicateApiResponseData"))
 }
 
 func (p *OneOfRecoveryPointReplicateApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfRecoveryPointReplicateApiResponseData")
 }
 
-type OneOfRecoveryPointRepositoryProjectionObjectStorageReference struct {
-	Discriminator *string                    `json:"-"`
-	ObjectType_   *string                    `json:"-"`
-	oneOfType1    *AmazonS3Bucket            `json:"-"`
-	oneOfType2    *NutanixObjectsBucket      `json:"-"`
-	oneOfType0    *AzureBlobStorageContainer `json:"-"`
+type OneOfProtectedResourceRestoreApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import4.TaskReference `json:"-"`
 }
 
-func NewOneOfRecoveryPointRepositoryProjectionObjectStorageReference() *OneOfRecoveryPointRepositoryProjectionObjectStorageReference {
-	p := new(OneOfRecoveryPointRepositoryProjectionObjectStorageReference)
+func NewOneOfProtectedResourceRestoreApiResponseData() *OneOfProtectedResourceRestoreApiResponseData {
+	p := new(OneOfProtectedResourceRestoreApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) SetValue(v interface{}) error {
+func (p *OneOfProtectedResourceRestoreApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRecoveryPointRepositoryProjectionObjectStorageReference is nil"))
+		return errors.New(fmt.Sprintf("OneOfProtectedResourceRestoreApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case AmazonS3Bucket:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(AmazonS3Bucket)
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType1 = v.(AmazonS3Bucket)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
+		*p.Discriminator = *p.oneOfType400.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	case NutanixObjectsBucket:
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(NutanixObjectsBucket)
-		}
-		*p.oneOfType2 = v.(NutanixObjectsBucket)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2.ObjectType_
-	case AzureBlobStorageContainer:
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.TaskReference:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(AzureBlobStorageContainer)
+			p.oneOfType0 = new(import4.TaskReference)
 		}
-		*p.oneOfType0 = v.(AzureBlobStorageContainer)
+		*p.oneOfType0 = v.(import4.TaskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -3414,12 +3054,9 @@ func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) SetValue(
 	return nil
 }
 
-func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) GetValue() interface{} {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2
+func (p *OneOfProtectedResourceRestoreApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
@@ -3427,48 +3064,30 @@ func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) GetValue(
 	return nil
 }
 
-func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(AmazonS3Bucket)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "dataprotection.v4.config.AmazonS3Bucket" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(AmazonS3Bucket)
+func (p *OneOfProtectedResourceRestoreApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
-			*p.oneOfType1 = *vOneOfType1
+			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
+			*p.Discriminator = *p.oneOfType400.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType2 := new(NutanixObjectsBucket)
-	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "dataprotection.v4.config.NutanixObjectsBucket" == *vOneOfType2.ObjectType_ {
-			if nil == p.oneOfType2 {
-				p.oneOfType2 = new(NutanixObjectsBucket)
-			}
-			*p.oneOfType2 = *vOneOfType2
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(AzureBlobStorageContainer)
+	vOneOfType0 := new(import4.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "dataprotection.v4.config.AzureBlobStorageContainer" == *vOneOfType0.ObjectType_ {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(AzureBlobStorageContainer)
+				p.oneOfType0 = new(import4.TaskReference)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -3482,46 +3101,234 @@ func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) Unmarshal
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecoveryPointRepositoryProjectionObjectStorageReference"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfProtectedResourceRestoreApiResponseData"))
 }
 
-func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) MarshalJSON() ([]byte, error) {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2)
+func (p *OneOfProtectedResourceRestoreApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfRecoveryPointRepositoryProjectionObjectStorageReference")
+	return nil, errors.New("No value to marshal for OneOfProtectedResourceRestoreApiResponseData")
 }
 
-type OneOfGetProtectedResourceApiResponseData struct {
+type OneOfUpdateConsistencyGroupApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *ProtectedResource     `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    []import2.AppMessage   `json:"-"`
 }
 
-func NewOneOfGetProtectedResourceApiResponseData() *OneOfGetProtectedResourceApiResponseData {
-	p := new(OneOfGetProtectedResourceApiResponseData)
+func NewOneOfUpdateConsistencyGroupApiResponseData() *OneOfUpdateConsistencyGroupApiResponseData {
+	p := new(OneOfUpdateConsistencyGroupApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetProtectedResourceApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfUpdateConsistencyGroupApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetProtectedResourceApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfUpdateConsistencyGroupApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case ProtectedResource:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ProtectedResource)
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType0 = v.(ProtectedResource)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []import2.AppMessage:
+		p.oneOfType0 = v.([]import2.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<dataprotection.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<dataprotection.v4.error.AppMessage>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateConsistencyGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<dataprotection.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfUpdateConsistencyGroupApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]import2.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "dataprotection.v4.error.AppMessage" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<dataprotection.v4.error.AppMessage>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<dataprotection.v4.error.AppMessage>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateConsistencyGroupApiResponseData"))
+}
+
+func (p *OneOfUpdateConsistencyGroupApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<dataprotection.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateConsistencyGroupApiResponseData")
+}
+
+type OneOfVmRecoveryPointApplicationConsistentProperties struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.VssProperties `json:"-"`
+}
+
+func NewOneOfVmRecoveryPointApplicationConsistentProperties() *OneOfVmRecoveryPointApplicationConsistentProperties {
+	p := new(OneOfVmRecoveryPointApplicationConsistentProperties)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmRecoveryPointApplicationConsistentProperties) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmRecoveryPointApplicationConsistentProperties is nil"))
+	}
+	switch v.(type) {
+	case import1.VssProperties:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.VssProperties)
+		}
+		*p.oneOfType2001 = v.(import1.VssProperties)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmRecoveryPointApplicationConsistentProperties) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfVmRecoveryPointApplicationConsistentProperties) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.VssProperties)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "dataprotection.v4.common.VssProperties" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.VssProperties)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmRecoveryPointApplicationConsistentProperties"))
+}
+
+func (p *OneOfVmRecoveryPointApplicationConsistentProperties) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmRecoveryPointApplicationConsistentProperties")
+}
+
+type OneOfUpdateRecoveryPointExpirationTimeApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import4.TaskReference `json:"-"`
+}
+
+func NewOneOfUpdateRecoveryPointExpirationTimeApiResponseData() *OneOfUpdateRecoveryPointExpirationTimeApiResponseData {
+	p := new(OneOfUpdateRecoveryPointExpirationTimeApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateRecoveryPointExpirationTimeApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import4.TaskReference)
+		}
+		*p.oneOfType0 = v.(import4.TaskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -3530,11 +3337,220 @@ func (p *OneOfGetProtectedResourceApiResponseData) SetValue(v interface{}) error
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+	}
+	vOneOfType0 := new(import4.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import4.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateRecoveryPointExpirationTimeApiResponseData"))
+}
+
+func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateRecoveryPointExpirationTimeApiResponseData")
+}
+
+type OneOfRecoveryPointRestoreApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import4.TaskReference `json:"-"`
+}
+
+func NewOneOfRecoveryPointRestoreApiResponseData() *OneOfRecoveryPointRestoreApiResponseData {
+	p := new(OneOfRecoveryPointRestoreApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRecoveryPointRestoreApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRecoveryPointRestoreApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import4.TaskReference)
+		}
+		*p.oneOfType0 = v.(import4.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRecoveryPointRestoreApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfRecoveryPointRestoreApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(import4.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import4.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecoveryPointRestoreApiResponseData"))
+}
+
+func (p *OneOfRecoveryPointRestoreApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfRecoveryPointRestoreApiResponseData")
+}
+
+type OneOfClusterInfoApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import1.ClusterInfo   `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfClusterInfoApiResponseData() *OneOfClusterInfoApiResponseData {
+	p := new(OneOfClusterInfoApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfClusterInfoApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfClusterInfoApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ClusterInfo:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import1.ClusterInfo)
+		}
+		*p.oneOfType0 = v.(import1.ClusterInfo)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -3549,7 +3565,7 @@ func (p *OneOfGetProtectedResourceApiResponseData) SetValue(v interface{}) error
 	return nil
 }
 
-func (p *OneOfGetProtectedResourceApiResponseData) GetValue() interface{} {
+func (p *OneOfClusterInfoApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -3559,12 +3575,12 @@ func (p *OneOfGetProtectedResourceApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfGetProtectedResourceApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(ProtectedResource)
+func (p *OneOfClusterInfoApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import1.ClusterInfo)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "dataprotection.v4.config.ProtectedResource" == *vOneOfType0.ObjectType_ {
+		if "dataprotection.v4.common.ClusterInfo" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ProtectedResource)
+				p.oneOfType0 = new(import1.ClusterInfo)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -3578,11 +3594,11 @@ func (p *OneOfGetProtectedResourceApiResponseData) UnmarshalJSON(b []byte) error
 			return nil
 		}
 	}
-	vOneOfType400 := new(import1.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -3596,24 +3612,24 @@ func (p *OneOfGetProtectedResourceApiResponseData) UnmarshalJSON(b []byte) error
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetProtectedResourceApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterInfoApiResponseData"))
 }
 
-func (p *OneOfGetProtectedResourceApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfClusterInfoApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetProtectedResourceApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfClusterInfoApiResponseData")
 }
 
 type OneOfDeleteConsistencyGroupApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
 func NewOneOfDeleteConsistencyGroupApiResponseData() *OneOfDeleteConsistencyGroupApiResponseData {
@@ -3643,11 +3659,11 @@ func (p *OneOfDeleteConsistencyGroupApiResponseData) SetValue(v interface{}) err
 		return nil
 	}
 	switch v.(type) {
-	case import1.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -3691,11 +3707,11 @@ func (p *OneOfDeleteConsistencyGroupApiResponseData) UnmarshalJSON(b []byte) err
 			return nil
 		}
 	}
-	vOneOfType400 := new(import1.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -3722,43 +3738,30 @@ func (p *OneOfDeleteConsistencyGroupApiResponseData) MarshalJSON() ([]byte, erro
 	return nil, errors.New("No value to marshal for OneOfDeleteConsistencyGroupApiResponseData")
 }
 
-type OneOfUpdateRecoveryPointExpirationTimeApiResponseData struct {
+type OneOfCreateRecoveryPointApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import4.TaskReference `json:"-"`
 }
 
-func NewOneOfUpdateRecoveryPointExpirationTimeApiResponseData() *OneOfUpdateRecoveryPointExpirationTimeApiResponseData {
-	p := new(OneOfUpdateRecoveryPointExpirationTimeApiResponseData)
+func NewOneOfCreateRecoveryPointApiResponseData() *OneOfCreateRecoveryPointApiResponseData {
+	p := new(OneOfCreateRecoveryPointApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfCreateRecoveryPointApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateRecoveryPointExpirationTimeApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfCreateRecoveryPointApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -3767,46 +3770,41 @@ func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) SetValue(v inter
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import4.TaskReference)
+		}
+		*p.oneOfType0 = v.(import4.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
+func (p *OneOfCreateRecoveryPointApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	return nil
 }
 
-func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
+func (p *OneOfCreateRecoveryPointApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -3820,121 +3818,11 @@ func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) UnmarshalJSON(b 
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateRecoveryPointExpirationTimeApiResponseData"))
-}
-
-func (p *OneOfUpdateRecoveryPointExpirationTimeApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateRecoveryPointExpirationTimeApiResponseData")
-}
-
-type OneOfProtectedResourceRestoreSpecOverrides struct {
-	Discriminator *string                  `json:"-"`
-	ObjectType_   *string                  `json:"-"`
-	oneOfType2    *VolumeGroupOverrideSpec `json:"-"`
-	oneOfType0    *AhvVmOverrideSpec       `json:"-"`
-	oneOfType1    *EsxiVmOverrideSpec      `json:"-"`
-}
-
-func NewOneOfProtectedResourceRestoreSpecOverrides() *OneOfProtectedResourceRestoreSpecOverrides {
-	p := new(OneOfProtectedResourceRestoreSpecOverrides)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfProtectedResourceRestoreSpecOverrides) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfProtectedResourceRestoreSpecOverrides is nil"))
-	}
-	switch v.(type) {
-	case VolumeGroupOverrideSpec:
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(VolumeGroupOverrideSpec)
-		}
-		*p.oneOfType2 = v.(VolumeGroupOverrideSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2.ObjectType_
-	case AhvVmOverrideSpec:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(AhvVmOverrideSpec)
-		}
-		*p.oneOfType0 = v.(AhvVmOverrideSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case EsxiVmOverrideSpec:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(EsxiVmOverrideSpec)
-		}
-		*p.oneOfType1 = v.(EsxiVmOverrideSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfProtectedResourceRestoreSpecOverrides) GetValue() interface{} {
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfProtectedResourceRestoreSpecOverrides) UnmarshalJSON(b []byte) error {
-	vOneOfType2 := new(VolumeGroupOverrideSpec)
-	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "dataprotection.v4.config.VolumeGroupOverrideSpec" == *vOneOfType2.ObjectType_ {
-			if nil == p.oneOfType2 {
-				p.oneOfType2 = new(VolumeGroupOverrideSpec)
-			}
-			*p.oneOfType2 = *vOneOfType2
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(AhvVmOverrideSpec)
+	vOneOfType0 := new(import4.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "dataprotection.v4.config.AhvVmOverrideSpec" == *vOneOfType0.ObjectType_ {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(AhvVmOverrideSpec)
+				p.oneOfType0 = new(import4.TaskReference)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -3948,73 +3836,39 @@ func (p *OneOfProtectedResourceRestoreSpecOverrides) UnmarshalJSON(b []byte) err
 			return nil
 		}
 	}
-	vOneOfType1 := new(EsxiVmOverrideSpec)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "dataprotection.v4.config.EsxiVmOverrideSpec" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(EsxiVmOverrideSpec)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfProtectedResourceRestoreSpecOverrides"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateRecoveryPointApiResponseData"))
 }
 
-func (p *OneOfProtectedResourceRestoreSpecOverrides) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2)
+func (p *OneOfCreateRecoveryPointApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	return nil, errors.New("No value to marshal for OneOfProtectedResourceRestoreSpecOverrides")
+	return nil, errors.New("No value to marshal for OneOfCreateRecoveryPointApiResponseData")
 }
 
-type OneOfRecoveryPointRepositoryObjectStorageReference struct {
+type OneOfRecoveryPointRepositoryProjectionObjectStorageReference struct {
 	Discriminator *string                    `json:"-"`
 	ObjectType_   *string                    `json:"-"`
-	oneOfType1    *AmazonS3Bucket            `json:"-"`
 	oneOfType2    *NutanixObjectsBucket      `json:"-"`
+	oneOfType1    *AmazonS3Bucket            `json:"-"`
 	oneOfType0    *AzureBlobStorageContainer `json:"-"`
 }
 
-func NewOneOfRecoveryPointRepositoryObjectStorageReference() *OneOfRecoveryPointRepositoryObjectStorageReference {
-	p := new(OneOfRecoveryPointRepositoryObjectStorageReference)
+func NewOneOfRecoveryPointRepositoryProjectionObjectStorageReference() *OneOfRecoveryPointRepositoryProjectionObjectStorageReference {
+	p := new(OneOfRecoveryPointRepositoryProjectionObjectStorageReference)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfRecoveryPointRepositoryObjectStorageReference) SetValue(v interface{}) error {
+func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRecoveryPointRepositoryObjectStorageReference is nil"))
+		return errors.New(fmt.Sprintf("OneOfRecoveryPointRepositoryProjectionObjectStorageReference is nil"))
 	}
 	switch v.(type) {
-	case AmazonS3Bucket:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(AmazonS3Bucket)
-		}
-		*p.oneOfType1 = v.(AmazonS3Bucket)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
 	case NutanixObjectsBucket:
 		if nil == p.oneOfType2 {
 			p.oneOfType2 = new(NutanixObjectsBucket)
@@ -4028,6 +3882,19 @@ func (p *OneOfRecoveryPointRepositoryObjectStorageReference) SetValue(v interfac
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType2.ObjectType_
+	case AmazonS3Bucket:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(AmazonS3Bucket)
+		}
+		*p.oneOfType1 = v.(AmazonS3Bucket)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
 	case AzureBlobStorageContainer:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(AzureBlobStorageContainer)
@@ -4047,12 +3914,12 @@ func (p *OneOfRecoveryPointRepositoryObjectStorageReference) SetValue(v interfac
 	return nil
 }
 
-func (p *OneOfRecoveryPointRepositoryObjectStorageReference) GetValue() interface{} {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
+func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) GetValue() interface{} {
 	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
 	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
@@ -4060,25 +3927,7 @@ func (p *OneOfRecoveryPointRepositoryObjectStorageReference) GetValue() interfac
 	return nil
 }
 
-func (p *OneOfRecoveryPointRepositoryObjectStorageReference) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(AmazonS3Bucket)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "dataprotection.v4.config.AmazonS3Bucket" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(AmazonS3Bucket)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
+func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) UnmarshalJSON(b []byte) error {
 	vOneOfType2 := new(NutanixObjectsBucket)
 	if err := json.Unmarshal(b, vOneOfType2); err == nil {
 		if "dataprotection.v4.config.NutanixObjectsBucket" == *vOneOfType2.ObjectType_ {
@@ -4094,6 +3943,24 @@ func (p *OneOfRecoveryPointRepositoryObjectStorageReference) UnmarshalJSON(b []b
 				p.ObjectType_ = new(string)
 			}
 			*p.ObjectType_ = *p.oneOfType2.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType1 := new(AmazonS3Bucket)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if "dataprotection.v4.config.AmazonS3Bucket" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(AmazonS3Bucket)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
 			return nil
 		}
 	}
@@ -4115,501 +3982,46 @@ func (p *OneOfRecoveryPointRepositoryObjectStorageReference) UnmarshalJSON(b []b
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecoveryPointRepositoryObjectStorageReference"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecoveryPointRepositoryProjectionObjectStorageReference"))
 }
 
-func (p *OneOfRecoveryPointRepositoryObjectStorageReference) MarshalJSON() ([]byte, error) {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
+func (p *OneOfRecoveryPointRepositoryProjectionObjectStorageReference) MarshalJSON() ([]byte, error) {
 	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2)
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfRecoveryPointRepositoryObjectStorageReference")
-}
-
-type OneOfProtectedResourceRestoreApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfProtectedResourceRestoreApiResponseData() *OneOfProtectedResourceRestoreApiResponseData {
-	p := new(OneOfProtectedResourceRestoreApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfProtectedResourceRestoreApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfProtectedResourceRestoreApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfProtectedResourceRestoreApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfProtectedResourceRestoreApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfProtectedResourceRestoreApiResponseData"))
-}
-
-func (p *OneOfProtectedResourceRestoreApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfProtectedResourceRestoreApiResponseData")
-}
-
-type OneOfCreateRecoveryPointApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfCreateRecoveryPointApiResponseData() *OneOfCreateRecoveryPointApiResponseData {
-	p := new(OneOfCreateRecoveryPointApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateRecoveryPointApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateRecoveryPointApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateRecoveryPointApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfCreateRecoveryPointApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateRecoveryPointApiResponseData"))
-}
-
-func (p *OneOfCreateRecoveryPointApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateRecoveryPointApiResponseData")
-}
-
-type OneOfSynchronousReplicaPromoteApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfSynchronousReplicaPromoteApiResponseData() *OneOfSynchronousReplicaPromoteApiResponseData {
-	p := new(OneOfSynchronousReplicaPromoteApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfSynchronousReplicaPromoteApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfSynchronousReplicaPromoteApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfSynchronousReplicaPromoteApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfSynchronousReplicaPromoteApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSynchronousReplicaPromoteApiResponseData"))
-}
-
-func (p *OneOfSynchronousReplicaPromoteApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfSynchronousReplicaPromoteApiResponseData")
-}
-
-type OneOfComputeChangedRegionsResponseResponse struct {
-	Discriminator *string              `json:"-"`
-	ObjectType_   *string              `json:"-"`
-	oneOfType0    *RegionResponse      `json:"-"`
-	oneOfType1    *RedirectionResponse `json:"-"`
-}
-
-func NewOneOfComputeChangedRegionsResponseResponse() *OneOfComputeChangedRegionsResponseResponse {
-	p := new(OneOfComputeChangedRegionsResponseResponse)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfComputeChangedRegionsResponseResponse) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfComputeChangedRegionsResponseResponse is nil"))
-	}
-	switch v.(type) {
-	case RegionResponse:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(RegionResponse)
-		}
-		*p.oneOfType0 = v.(RegionResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case RedirectionResponse:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(RedirectionResponse)
-		}
-		*p.oneOfType1 = v.(RedirectionResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfComputeChangedRegionsResponseResponse) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfComputeChangedRegionsResponseResponse) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(RegionResponse)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "dataprotection.v4.config.RegionResponse" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(RegionResponse)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType1 := new(RedirectionResponse)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "dataprotection.v4.config.RedirectionResponse" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(RedirectionResponse)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfComputeChangedRegionsResponseResponse"))
-}
-
-func (p *OneOfComputeChangedRegionsResponseResponse) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}
-	return nil, errors.New("No value to marshal for OneOfComputeChangedRegionsResponseResponse")
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfRecoveryPointRepositoryProjectionObjectStorageReference")
 }
 
-type OneOfListRecoveryPointsApiResponseData struct {
-	Discriminator *string                   `json:"-"`
-	ObjectType_   *string                   `json:"-"`
-	oneOfType0    []RecoveryPoint           `json:"-"`
-	oneOfType400  *import1.ErrorResponse    `json:"-"`
-	oneOfType401  []RecoveryPointProjection `json:"-"`
+type OneOfGetRecoveryPointApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *RecoveryPoint         `json:"-"`
 }
 
-func NewOneOfListRecoveryPointsApiResponseData() *OneOfListRecoveryPointsApiResponseData {
-	p := new(OneOfListRecoveryPointsApiResponseData)
+func NewOneOfGetRecoveryPointApiResponseData() *OneOfGetRecoveryPointApiResponseData {
+	p := new(OneOfGetRecoveryPointApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListRecoveryPointsApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetRecoveryPointApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListRecoveryPointsApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetRecoveryPointApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []RecoveryPoint:
-		p.oneOfType0 = v.([]RecoveryPoint)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<dataprotection.v4.config.RecoveryPoint>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<dataprotection.v4.config.RecoveryPoint>"
-	case import1.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -4618,58 +4030,41 @@ func (p *OneOfListRecoveryPointsApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []RecoveryPointProjection:
-		p.oneOfType401 = v.([]RecoveryPointProjection)
+	case RecoveryPoint:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(RecoveryPoint)
+		}
+		*p.oneOfType0 = v.(RecoveryPoint)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<dataprotection.v4.config.RecoveryPointProjection>"
+		*p.Discriminator = *p.oneOfType0.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<dataprotection.v4.config.RecoveryPointProjection>"
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfListRecoveryPointsApiResponseData) GetValue() interface{} {
-	if "List<dataprotection.v4.config.RecoveryPoint>" == *p.Discriminator {
-		return p.oneOfType0
-	}
+func (p *OneOfGetRecoveryPointApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<dataprotection.v4.config.RecoveryPointProjection>" == *p.Discriminator {
-		return p.oneOfType401
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	return nil
 }
 
-func (p *OneOfListRecoveryPointsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]RecoveryPoint)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "dataprotection.v4.config.RecoveryPoint" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<dataprotection.v4.config.RecoveryPoint>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<dataprotection.v4.config.RecoveryPoint>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
+func (p *OneOfGetRecoveryPointApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -4683,44 +4078,42 @@ func (p *OneOfListRecoveryPointsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType401 := new([]RecoveryPointProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-
-		if len(*vOneOfType401) == 0 || "dataprotection.v4.config.RecoveryPointProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
+	vOneOfType0 := new(RecoveryPoint)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "dataprotection.v4.config.RecoveryPoint" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(RecoveryPoint)
+			}
+			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<dataprotection.v4.config.RecoveryPointProjection>"
+			*p.Discriminator = *p.oneOfType0.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<dataprotection.v4.config.RecoveryPointProjection>"
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
 			return nil
-
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRecoveryPointsApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRecoveryPointApiResponseData"))
 }
 
-func (p *OneOfListRecoveryPointsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<dataprotection.v4.config.RecoveryPoint>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
+func (p *OneOfGetRecoveryPointApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<dataprotection.v4.config.RecoveryPointProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfListRecoveryPointsApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetRecoveryPointApiResponseData")
 }
 
 type OneOfMigrateConsistencyGroupApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import4.TaskReference `json:"-"`
 }
 
 func NewOneOfMigrateConsistencyGroupApiResponseData() *OneOfMigrateConsistencyGroupApiResponseData {
@@ -4735,11 +4128,24 @@ func (p *OneOfMigrateConsistencyGroupApiResponseData) SetValue(v interface{}) er
 		return errors.New(fmt.Sprintf("OneOfMigrateConsistencyGroupApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType0 = v.(import3.TaskReference)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import4.TaskReference)
+		}
+		*p.oneOfType0 = v.(import4.TaskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -4748,11 +4154,109 @@ func (p *OneOfMigrateConsistencyGroupApiResponseData) SetValue(v interface{}) er
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfMigrateConsistencyGroupApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfMigrateConsistencyGroupApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+	}
+	vOneOfType0 := new(import4.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import4.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMigrateConsistencyGroupApiResponseData"))
+}
+
+func (p *OneOfMigrateConsistencyGroupApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfMigrateConsistencyGroupApiResponseData")
+}
+
+type OneOfGetProtectedResourceApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *ProtectedResource     `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetProtectedResourceApiResponseData() *OneOfGetProtectedResourceApiResponseData {
+	p := new(OneOfGetProtectedResourceApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetProtectedResourceApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetProtectedResourceApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case ProtectedResource:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(ProtectedResource)
+		}
+		*p.oneOfType0 = v.(ProtectedResource)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -4767,7 +4271,7 @@ func (p *OneOfMigrateConsistencyGroupApiResponseData) SetValue(v interface{}) er
 	return nil
 }
 
-func (p *OneOfMigrateConsistencyGroupApiResponseData) GetValue() interface{} {
+func (p *OneOfGetProtectedResourceApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -4777,12 +4281,12 @@ func (p *OneOfMigrateConsistencyGroupApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfMigrateConsistencyGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.TaskReference)
+func (p *OneOfGetProtectedResourceApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(ProtectedResource)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+		if "dataprotection.v4.config.ProtectedResource" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
+				p.oneOfType0 = new(ProtectedResource)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -4796,11 +4300,11 @@ func (p *OneOfMigrateConsistencyGroupApiResponseData) UnmarshalJSON(b []byte) er
 			return nil
 		}
 	}
-	vOneOfType400 := new(import1.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -4814,23 +4318,23 @@ func (p *OneOfMigrateConsistencyGroupApiResponseData) UnmarshalJSON(b []byte) er
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMigrateConsistencyGroupApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetProtectedResourceApiResponseData"))
 }
 
-func (p *OneOfMigrateConsistencyGroupApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetProtectedResourceApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfMigrateConsistencyGroupApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetProtectedResourceApiResponseData")
 }
 
 type OneOfCreateConsistencyGroupApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType0    *ConsistencyGroup      `json:"-"`
 }
 
@@ -4846,11 +4350,11 @@ func (p *OneOfCreateConsistencyGroupApiResponseData) SetValue(v interface{}) err
 		return errors.New(fmt.Sprintf("OneOfCreateConsistencyGroupApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import1.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -4889,11 +4393,11 @@ func (p *OneOfCreateConsistencyGroupApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfCreateConsistencyGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -4938,11 +4442,259 @@ func (p *OneOfCreateConsistencyGroupApiResponseData) MarshalJSON() ([]byte, erro
 	return nil, errors.New("No value to marshal for OneOfCreateConsistencyGroupApiResponseData")
 }
 
+type OneOfGetVmRecoveryPointApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *VmRecoveryPoint       `json:"-"`
+}
+
+func NewOneOfGetVmRecoveryPointApiResponseData() *OneOfGetVmRecoveryPointApiResponseData {
+	p := new(OneOfGetVmRecoveryPointApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetVmRecoveryPointApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetVmRecoveryPointApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case VmRecoveryPoint:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(VmRecoveryPoint)
+		}
+		*p.oneOfType0 = v.(VmRecoveryPoint)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetVmRecoveryPointApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfGetVmRecoveryPointApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(VmRecoveryPoint)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "dataprotection.v4.config.VmRecoveryPoint" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(VmRecoveryPoint)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVmRecoveryPointApiResponseData"))
+}
+
+func (p *OneOfGetVmRecoveryPointApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetVmRecoveryPointApiResponseData")
+}
+
+type OneOfListRecoveryPointsApiResponseData struct {
+	Discriminator *string                   `json:"-"`
+	ObjectType_   *string                   `json:"-"`
+	oneOfType400  *import2.ErrorResponse    `json:"-"`
+	oneOfType401  []RecoveryPointProjection `json:"-"`
+	oneOfType0    []RecoveryPoint           `json:"-"`
+}
+
+func NewOneOfListRecoveryPointsApiResponseData() *OneOfListRecoveryPointsApiResponseData {
+	p := new(OneOfListRecoveryPointsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListRecoveryPointsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListRecoveryPointsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []RecoveryPointProjection:
+		p.oneOfType401 = v.([]RecoveryPointProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<dataprotection.v4.config.RecoveryPointProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<dataprotection.v4.config.RecoveryPointProjection>"
+	case []RecoveryPoint:
+		p.oneOfType0 = v.([]RecoveryPoint)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<dataprotection.v4.config.RecoveryPoint>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<dataprotection.v4.config.RecoveryPoint>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListRecoveryPointsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<dataprotection.v4.config.RecoveryPointProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if "List<dataprotection.v4.config.RecoveryPoint>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListRecoveryPointsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]RecoveryPointProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "dataprotection.v4.config.RecoveryPointProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<dataprotection.v4.config.RecoveryPointProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<dataprotection.v4.config.RecoveryPointProjection>"
+			return nil
+		}
+	}
+	vOneOfType0 := new([]RecoveryPoint)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "dataprotection.v4.config.RecoveryPoint" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<dataprotection.v4.config.RecoveryPoint>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<dataprotection.v4.config.RecoveryPoint>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRecoveryPointsApiResponseData"))
+}
+
+func (p *OneOfListRecoveryPointsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<dataprotection.v4.config.RecoveryPointProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if "List<dataprotection.v4.config.RecoveryPoint>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListRecoveryPointsApiResponseData")
+}
+
 type OneOfProtectedResourcePromoteApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import4.TaskReference `json:"-"`
 }
 
 func NewOneOfProtectedResourcePromoteApiResponseData() *OneOfProtectedResourcePromoteApiResponseData {
@@ -4957,24 +4709,11 @@ func (p *OneOfProtectedResourcePromoteApiResponseData) SetValue(v interface{}) e
 		return errors.New(fmt.Sprintf("OneOfProtectedResourcePromoteApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -4983,6 +4722,19 @@ func (p *OneOfProtectedResourcePromoteApiResponseData) SetValue(v interface{}) e
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import4.TaskReference)
+		}
+		*p.oneOfType0 = v.(import4.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -4990,39 +4742,21 @@ func (p *OneOfProtectedResourcePromoteApiResponseData) SetValue(v interface{}) e
 }
 
 func (p *OneOfProtectedResourcePromoteApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	return nil
 }
 
 func (p *OneOfProtectedResourcePromoteApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -5033,6 +4767,24 @@ func (p *OneOfProtectedResourcePromoteApiResponseData) UnmarshalJSON(b []byte) e
 				p.ObjectType_ = new(string)
 			}
 			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(import4.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import4.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
 			return nil
 		}
 	}
@@ -5040,39 +4792,66 @@ func (p *OneOfProtectedResourcePromoteApiResponseData) UnmarshalJSON(b []byte) e
 }
 
 func (p *OneOfProtectedResourcePromoteApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfProtectedResourcePromoteApiResponseData")
 }
 
-type OneOfGetRecoveryPointApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *RecoveryPoint         `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+type OneOfRecoveryPointRepositoryObjectStorageReference struct {
+	Discriminator *string                    `json:"-"`
+	ObjectType_   *string                    `json:"-"`
+	oneOfType2    *NutanixObjectsBucket      `json:"-"`
+	oneOfType1    *AmazonS3Bucket            `json:"-"`
+	oneOfType0    *AzureBlobStorageContainer `json:"-"`
 }
 
-func NewOneOfGetRecoveryPointApiResponseData() *OneOfGetRecoveryPointApiResponseData {
-	p := new(OneOfGetRecoveryPointApiResponseData)
+func NewOneOfRecoveryPointRepositoryObjectStorageReference() *OneOfRecoveryPointRepositoryObjectStorageReference {
+	p := new(OneOfRecoveryPointRepositoryObjectStorageReference)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetRecoveryPointApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfRecoveryPointRepositoryObjectStorageReference) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetRecoveryPointApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfRecoveryPointRepositoryObjectStorageReference is nil"))
 	}
 	switch v.(type) {
-	case RecoveryPoint:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(RecoveryPoint)
+	case NutanixObjectsBucket:
+		if nil == p.oneOfType2 {
+			p.oneOfType2 = new(NutanixObjectsBucket)
 		}
-		*p.oneOfType0 = v.(RecoveryPoint)
+		*p.oneOfType2 = v.(NutanixObjectsBucket)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2.ObjectType_
+	case AmazonS3Bucket:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(AmazonS3Bucket)
+		}
+		*p.oneOfType1 = v.(AmazonS3Bucket)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	case AzureBlobStorageContainer:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(AzureBlobStorageContainer)
+		}
+		*p.oneOfType0 = v.(AzureBlobStorageContainer)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -5081,41 +4860,67 @@ func (p *OneOfGetRecoveryPointApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfGetRecoveryPointApiResponseData) GetValue() interface{} {
+func (p *OneOfRecoveryPointRepositoryObjectStorageReference) GetValue() interface{} {
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfGetRecoveryPointApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(RecoveryPoint)
+func (p *OneOfRecoveryPointRepositoryObjectStorageReference) UnmarshalJSON(b []byte) error {
+	vOneOfType2 := new(NutanixObjectsBucket)
+	if err := json.Unmarshal(b, vOneOfType2); err == nil {
+		if "dataprotection.v4.config.NutanixObjectsBucket" == *vOneOfType2.ObjectType_ {
+			if nil == p.oneOfType2 {
+				p.oneOfType2 = new(NutanixObjectsBucket)
+			}
+			*p.oneOfType2 = *vOneOfType2
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType1 := new(AmazonS3Bucket)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if "dataprotection.v4.config.AmazonS3Bucket" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(AmazonS3Bucket)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(AzureBlobStorageContainer)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "dataprotection.v4.config.RecoveryPoint" == *vOneOfType0.ObjectType_ {
+		if "dataprotection.v4.config.AzureBlobStorageContainer" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(RecoveryPoint)
+				p.oneOfType0 = new(AzureBlobStorageContainer)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -5129,11 +4934,89 @@ func (p *OneOfGetRecoveryPointApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import1.ErrorResponse)
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecoveryPointRepositoryObjectStorageReference"))
+}
+
+func (p *OneOfRecoveryPointRepositoryObjectStorageReference) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2)
+	}
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfRecoveryPointRepositoryObjectStorageReference")
+}
+
+type OneOfSynchronousReplicaPromoteApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    *import4.TaskReference `json:"-"`
+}
+
+func NewOneOfSynchronousReplicaPromoteApiResponseData() *OneOfSynchronousReplicaPromoteApiResponseData {
+	p := new(OneOfSynchronousReplicaPromoteApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfSynchronousReplicaPromoteApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfSynchronousReplicaPromoteApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import4.TaskReference)
+		}
+		*p.oneOfType0 = v.(import4.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfSynchronousReplicaPromoteApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfSynchronousReplicaPromoteApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -5147,86 +5030,11 @@ func (p *OneOfGetRecoveryPointApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRecoveryPointApiResponseData"))
-}
-
-func (p *OneOfGetRecoveryPointApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetRecoveryPointApiResponseData")
-}
-
-type OneOfRecoveryPointRestoreApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import3.TaskReference `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfRecoveryPointRestoreApiResponseData() *OneOfRecoveryPointRestoreApiResponseData {
-	p := new(OneOfRecoveryPointRestoreApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRecoveryPointRestoreApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRecoveryPointRestoreApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import3.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import3.TaskReference)
-		}
-		*p.oneOfType0 = v.(import3.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRecoveryPointRestoreApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfRecoveryPointRestoreApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import3.TaskReference)
+	vOneOfType0 := new(import4.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import3.TaskReference)
+				p.oneOfType0 = new(import4.TaskReference)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -5240,253 +5048,17 @@ func (p *OneOfRecoveryPointRestoreApiResponseData) UnmarshalJSON(b []byte) error
 			return nil
 		}
 	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecoveryPointRestoreApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSynchronousReplicaPromoteApiResponseData"))
 }
 
-func (p *OneOfRecoveryPointRestoreApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
+func (p *OneOfSynchronousReplicaPromoteApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfRecoveryPointRestoreApiResponseData")
-}
-
-type OneOfComputeChangedRegionsResponseModelData struct {
-	Discriminator *string                        `json:"-"`
-	ObjectType_   *string                        `json:"-"`
-	oneOfType0    *ComputeChangedRegionsResponse `json:"-"`
-	oneOfType400  *import1.ErrorResponse         `json:"-"`
-}
-
-func NewOneOfComputeChangedRegionsResponseModelData() *OneOfComputeChangedRegionsResponseModelData {
-	p := new(OneOfComputeChangedRegionsResponseModelData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfComputeChangedRegionsResponseModelData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfComputeChangedRegionsResponseModelData is nil"))
-	}
-	switch v.(type) {
-	case ComputeChangedRegionsResponse:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ComputeChangedRegionsResponse)
-		}
-		*p.oneOfType0 = v.(ComputeChangedRegionsResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfComputeChangedRegionsResponseModelData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfComputeChangedRegionsResponseModelData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(ComputeChangedRegionsResponse)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "dataprotection.v4.config.ComputeChangedRegionsResponse" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ComputeChangedRegionsResponse)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfComputeChangedRegionsResponseModelData"))
-}
-
-func (p *OneOfComputeChangedRegionsResponseModelData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfComputeChangedRegionsResponseModelData")
-}
-
-type OneOfUpdateConsistencyGroupApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []import1.AppMessage   `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateConsistencyGroupApiResponseData() *OneOfUpdateConsistencyGroupApiResponseData {
-	p := new(OneOfUpdateConsistencyGroupApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateConsistencyGroupApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateConsistencyGroupApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []import1.AppMessage:
-		p.oneOfType0 = v.([]import1.AppMessage)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<dataprotection.v4.error.AppMessage>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<dataprotection.v4.error.AppMessage>"
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateConsistencyGroupApiResponseData) GetValue() interface{} {
-	if "List<dataprotection.v4.error.AppMessage>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateConsistencyGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]import1.AppMessage)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "dataprotection.v4.error.AppMessage" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<dataprotection.v4.error.AppMessage>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<dataprotection.v4.error.AppMessage>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateConsistencyGroupApiResponseData"))
-}
-
-func (p *OneOfUpdateConsistencyGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<dataprotection.v4.error.AppMessage>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateConsistencyGroupApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfSynchronousReplicaPromoteApiResponseData")
 }
 
 type FileDetail struct {
