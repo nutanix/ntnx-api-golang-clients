@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type UplinkBondsApi struct {
+type MacAddressesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewUplinkBondsApi(apiClient *client.ApiClient) *UplinkBondsApi {
+func NewMacAddressesApi(apiClient *client.ApiClient) *MacAddressesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &UplinkBondsApi{
+	a := &MacAddressesApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,21 +32,26 @@ func NewUplinkBondsApi(apiClient *client.ApiClient) *UplinkBondsApi {
 	return a
 }
 
-// Get the uplink bond for the given extId.
-func (api *UplinkBondsApi) GetUplinkBondById(extId *string, args ...map[string]interface{}) (*import2.GetUplinkBondApiResponse, error) {
+// Get a specified learned MAC Address of the specified Layer2Stretch.
+func (api *MacAddressesApi) GetLearnedMacAddressForLayer2StretchById(layer2StretchExtId *string, extId *string, args ...map[string]interface{}) (*import2.GetLearnedMacAddressApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/uplink-bonds/{extId}"
+	uri := "/api/networking/v4.0/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses/{extId}"
 
+	// verify the required parameter 'layer2StretchExtId' is set
+	if nil == layer2StretchExtId {
+		return nil, client.ReportError("layer2StretchExtId is required and must be specified")
+	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
+	uri = strings.Replace(uri, "{"+"layer2StretchExtId"+"}", url.PathEscape(client.ParameterToString(*layer2StretchExtId, "")), -1)
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -77,20 +82,27 @@ func (api *UplinkBondsApi) GetUplinkBondById(extId *string, args ...map[string]i
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.GetUplinkBondApiResponse)
+	unmarshalledResp := new(import2.GetLearnedMacAddressApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List uplink bonds.
-func (api *UplinkBondsApi) ListUplinkBonds(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListUplinkBondsApiResponse, error) {
+// Get the learned MAC Addresses for the specified Layer2Stretch.
+func (api *MacAddressesApi) ListLearnedMacAddressesByLayer2StretchId(layer2StretchExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListLearnedMacAddressesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/uplink-bonds"
+	uri := "/api/networking/v4.0/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses"
 
+	// verify the required parameter 'layer2StretchExtId' is set
+	if nil == layer2StretchExtId {
+		return nil, client.ReportError("layer2StretchExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"layer2StretchExtId"+"}", url.PathEscape(client.ParameterToString(*layer2StretchExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -133,7 +145,7 @@ func (api *UplinkBondsApi) ListUplinkBonds(page_ *int, limit_ *int, filter_ *str
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListUplinkBondsApiResponse)
+	unmarshalledResp := new(import2.ListLearnedMacAddressesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

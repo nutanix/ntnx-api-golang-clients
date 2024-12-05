@@ -3,23 +3,23 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/aws/config"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type ClusterCapabilitiesApi struct {
+type AwsSubnetsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewClusterCapabilitiesApi(apiClient *client.ApiClient) *ClusterCapabilitiesApi {
+func NewAwsSubnetsApi(apiClient *client.ApiClient) *AwsSubnetsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ClusterCapabilitiesApi{
+	a := &AwsSubnetsApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,14 +32,19 @@ func NewClusterCapabilitiesApi(apiClient *client.ApiClient) *ClusterCapabilities
 	return a
 }
 
-// List the capabilities for one or more cluster UUIDs.
-func (api *ClusterCapabilitiesApi) ListClusterCapabilities(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListClusterCapabilitiesApiResponse, error) {
+// Get list of NC2 AWS subnets.
+func (api *AwsSubnetsApi) ListAwsSubnets(xClusterId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListAwsSubnetsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/capabilities"
+	uri := "/api/networking/v4.0/aws/config/subnets"
+
+	// verify the required parameter 'xClusterId' is set
+	if nil == xClusterId {
+		return nil, client.ReportError("xClusterId is required and must be specified")
+	}
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -64,6 +69,10 @@ func (api *ClusterCapabilitiesApi) ListClusterCapabilities(page_ *int, limit_ *i
 	if orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -83,7 +92,7 @@ func (api *ClusterCapabilitiesApi) ListClusterCapabilities(page_ *int, limit_ *i
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListClusterCapabilitiesApiResponse)
+	unmarshalledResp := new(import1.ListAwsSubnetsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

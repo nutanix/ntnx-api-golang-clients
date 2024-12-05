@@ -1,10 +1,9 @@
-//Api classes for networking's golang SDK
 package api
 
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
 	"net/http"
 	"net/url"
 	"strings"
@@ -34,13 +33,13 @@ func NewBridgesApi(apiClient *client.ApiClient) *BridgesApi {
 }
 
 // Create a Virtual Switch from an existing bridge.
-func (api *BridgesApi) MigrateBridge(body *import1.Bridge, xClusterId *string, args ...map[string]interface{}) (*import1.TaskReferenceApiResponse, error) {
+func (api *BridgesApi) MigrateBridge(body *import2.Bridge, xClusterId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0.b1/config/virtual-switches/$actions/migrate"
+	uri := "/api/networking/v4.0/config/virtual-switches/$actions/migrate"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -65,21 +64,21 @@ func (api *BridgesApi) MigrateBridge(body *import1.Bridge, xClusterId *string, a
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.TaskReferenceApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import2.TaskReferenceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

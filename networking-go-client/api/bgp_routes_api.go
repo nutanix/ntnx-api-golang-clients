@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type UplinkBondsApi struct {
+type BgpRoutesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewUplinkBondsApi(apiClient *client.ApiClient) *UplinkBondsApi {
+func NewBgpRoutesApi(apiClient *client.ApiClient) *BgpRoutesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &UplinkBondsApi{
+	a := &BgpRoutesApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,22 +32,27 @@ func NewUplinkBondsApi(apiClient *client.ApiClient) *UplinkBondsApi {
 	return a
 }
 
-// Get the uplink bond for the given extId.
-func (api *UplinkBondsApi) GetUplinkBondById(extId *string, args ...map[string]interface{}) (*import2.GetUplinkBondApiResponse, error) {
+// Fetches a route from the specified BGP session.
+func (api *BgpRoutesApi) GetRouteForBgpSessionById(extId *string, bgpSessionExtId *string, args ...map[string]interface{}) (*import2.GetBgpRouteApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/uplink-bonds/{extId}"
+	uri := "/api/networking/v4.0/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
+	// verify the required parameter 'bgpSessionExtId' is set
+	if nil == bgpSessionExtId {
+		return nil, client.ReportError("bgpSessionExtId is required and must be specified")
+	}
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"bgpSessionExtId"+"}", url.PathEscape(client.ParameterToString(*bgpSessionExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -77,20 +82,27 @@ func (api *UplinkBondsApi) GetUplinkBondById(extId *string, args ...map[string]i
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.GetUplinkBondApiResponse)
+	unmarshalledResp := new(import2.GetBgpRouteApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List uplink bonds.
-func (api *UplinkBondsApi) ListUplinkBonds(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListUplinkBondsApiResponse, error) {
+// Lists routes for a specified BGP session.
+func (api *BgpRoutesApi) ListRoutesByBgpSessionId(bgpSessionExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListBgpRoutesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/uplink-bonds"
+	uri := "/api/networking/v4.0/config/bgp-sessions/{bgpSessionExtId}/bgp-routes"
 
+	// verify the required parameter 'bgpSessionExtId' is set
+	if nil == bgpSessionExtId {
+		return nil, client.ReportError("bgpSessionExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"bgpSessionExtId"+"}", url.PathEscape(client.ParameterToString(*bgpSessionExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -133,7 +145,7 @@ func (api *UplinkBondsApi) ListUplinkBonds(page_ *int, limit_ *int, filter_ *str
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListUplinkBondsApiResponse)
+	unmarshalledResp := new(import2.ListBgpRoutesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

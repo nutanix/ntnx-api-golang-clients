@@ -1,9 +1,9 @@
 /*
  * Generated file models/common/v1/stats/stats_model.go.
  *
- * Product version: 4.0.2-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Networking Versioned APIs
+ * Part of the Nutanix Networking APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *

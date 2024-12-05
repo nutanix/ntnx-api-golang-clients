@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type BgpSessionsApi struct {
+type RoutesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewBgpSessionsApi(apiClient *client.ApiClient) *BgpSessionsApi {
+func NewRoutesApi(apiClient *client.ApiClient) *RoutesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &BgpSessionsApi{
+	a := &RoutesApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,20 +32,26 @@ func NewBgpSessionsApi(apiClient *client.ApiClient) *BgpSessionsApi {
 	return a
 }
 
-// Create BGP session.
-func (api *BgpSessionsApi) CreateBgpSession(body *import2.BgpSession, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+// Creates a route based on the provided route table.
+func (api *RoutesApi) CreateRouteForRouteTable(routeTableExtId *string, body *import2.Route, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions"
+	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes"
 
+	// verify the required parameter 'routeTableExtId' is set
+	if nil == routeTableExtId {
+		return nil, client.ReportError("routeTableExtId is required and must be specified")
+	}
 	// verify the required parameter 'body' is set
 	if nil == body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
+	// Path Params
+	uri = strings.Replace(uri, "{"+"routeTableExtId"+"}", url.PathEscape(client.ParameterToString(*routeTableExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -80,22 +86,27 @@ func (api *BgpSessionsApi) CreateBgpSession(body *import2.BgpSession, args ...ma
 	return unmarshalledResp, err
 }
 
-// Delete BGP session for the specified {extId}.
-func (api *BgpSessionsApi) DeleteBgpSessionById(extId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+// Deletes the route by the specified external identifier.
+func (api *RoutesApi) DeleteRouteForRouteTableById(extId *string, routeTableExtId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
+	// verify the required parameter 'routeTableExtId' is set
+	if nil == routeTableExtId {
+		return nil, client.ReportError("routeTableExtId is required and must be specified")
+	}
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"routeTableExtId"+"}", url.PathEscape(client.ParameterToString(*routeTableExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -130,22 +141,27 @@ func (api *BgpSessionsApi) DeleteBgpSessionById(extId *string, args ...map[strin
 	return unmarshalledResp, err
 }
 
-// Get BGP session for the specified {extId}.
-func (api *BgpSessionsApi) GetBgpSessionById(extId *string, args ...map[string]interface{}) (*import2.GetBgpSessionApiResponse, error) {
+// Fetches a route from the specified route table.
+func (api *RoutesApi) GetRouteForRouteTableById(extId *string, routeTableExtId *string, args ...map[string]interface{}) (*import2.GetRouteApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
+	// verify the required parameter 'routeTableExtId' is set
+	if nil == routeTableExtId {
+		return nil, client.ReportError("routeTableExtId is required and must be specified")
+	}
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"routeTableExtId"+"}", url.PathEscape(client.ParameterToString(*routeTableExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -175,20 +191,27 @@ func (api *BgpSessionsApi) GetBgpSessionById(extId *string, args ...map[string]i
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.GetBgpSessionApiResponse)
+	unmarshalledResp := new(import2.GetRouteApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List BGP sessions request.
-func (api *BgpSessionsApi) ListBgpSessions(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, args ...map[string]interface{}) (*import2.ListBgpSessionsApiResponse, error) {
+// Lists routes for a specified route table.
+func (api *RoutesApi) ListRoutesByRouteTableId(routeTableExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListRoutesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions"
+	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes"
 
+	// verify the required parameter 'routeTableExtId' is set
+	if nil == routeTableExtId {
+		return nil, client.ReportError("routeTableExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"routeTableExtId"+"}", url.PathEscape(client.ParameterToString(*routeTableExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -212,9 +235,6 @@ func (api *BgpSessionsApi) ListBgpSessions(page_ *int, limit_ *int, filter_ *str
 	if orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
-	if expand_ != nil {
-		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -234,23 +254,27 @@ func (api *BgpSessionsApi) ListBgpSessions(page_ *int, limit_ *int, filter_ *str
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListBgpSessionsApiResponse)
+	unmarshalledResp := new(import2.ListRoutesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update BGP session for the specified {extId}.
-func (api *BgpSessionsApi) UpdateBgpSessionById(extId *string, body *import2.BgpSession, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+// Update route for the specified external identifier.
+func (api *RoutesApi) UpdateRouteForRouteTableById(extId *string, routeTableExtId *string, body *import2.Route, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'routeTableExtId' is set
+	if nil == routeTableExtId {
+		return nil, client.ReportError("routeTableExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -259,6 +283,7 @@ func (api *BgpSessionsApi) UpdateBgpSessionById(extId *string, body *import2.Bgp
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"routeTableExtId"+"}", url.PathEscape(client.ParameterToString(*routeTableExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
