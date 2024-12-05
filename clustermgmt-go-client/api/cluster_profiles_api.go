@@ -4,25 +4,22 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/config"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/stats"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 )
 
-type DisksApi struct {
+type ClusterProfilesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewDisksApi(apiClient *client.ApiClient) *DisksApi {
+func NewClusterProfilesApi(apiClient *client.ApiClient) *ClusterProfilesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &DisksApi{
+	a := &ClusterProfilesApi{
 		ApiClient: apiClient,
 	}
 
@@ -35,14 +32,170 @@ func NewDisksApi(apiClient *client.ApiClient) *DisksApi {
 	return a
 }
 
-// Repartitions and adds the Disk to a cluster, or adds an old Disk again to a cluster that is marked for removal.
-func (api *DisksApi) AddDisk(extId *string, body *import1.DiskAdditionSpec, args ...map[string]interface{}) (*import1.AddDiskApiResponse, error) {
+// Apply profile to all the attached clusters
+func (api *ClusterProfilesApi) ApplyClusterProfile(extId *string, body *import1.ClusterReferenceListSpec, dryrun_ *bool, args ...map[string]interface{}) (*import1.ApplyClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{extId}/$actions/add-disk"
+	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}/$actions/apply"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ApplyClusterProfileApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Create cluster profile with the required settings
+func (api *ClusterProfilesApi) CreateClusterProfile(body *import1.ClusterProfile, args ...map[string]interface{}) (*import1.CreateClusterProfileApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/cluster-profiles"
+
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.CreateClusterProfileApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Delete cluster profile. Profile consist of different cluster settings like NTP, DNS etc.
+func (api *ClusterProfilesApi) DeleteClusterProfileById(extId *string, args ...map[string]interface{}) (*import1.DeleteClusterProfileApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.DeleteClusterProfileApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Disassociate cluster from a profile
+func (api *ClusterProfilesApi) DisassociateClusterFromClusterProfile(extId *string, body *import1.ClusterReferenceListSpec, args ...map[string]interface{}) (*import1.DisassociateClusterFromClusterProfileApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}/$actions/disassociate-cluster"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -84,69 +237,19 @@ func (api *DisksApi) AddDisk(extId *string, body *import1.DiskAdditionSpec, args
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.AddDiskApiResponse)
+	unmarshalledResp := new(import1.DisassociateClusterFromClusterProfileApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Marks Disk identified by external identifier for removal.
-func (api *DisksApi) DeleteDiskById(extId *string, args ...map[string]interface{}) (*import1.DeleteDiskApiResponse, error) {
+// Get cluster profile. Profile consist of different cluster settings like NTP, DNS etc.
+func (api *ClusterProfilesApi) GetClusterProfileById(extId *string, args ...map[string]interface{}) (*import1.GetClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/disks/{extId}"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.DeleteDiskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Fetch the details of the Disk identified by external identifier.
-func (api *DisksApi) GetDiskById(extId *string, args ...map[string]interface{}) (*import1.GetDiskApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0/config/disks/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -184,87 +287,19 @@ func (api *DisksApi) GetDiskById(extId *string, args ...map[string]interface{}) 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetDiskApiResponse)
+	unmarshalledResp := new(import1.GetClusterProfileApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Fetch the stats information of the Disk identified by external identifier.
-func (api *DisksApi) GetDiskStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import4.DownSamplingOperator, args ...map[string]interface{}) (*import3.GetDiskStatsApiResponse, error) {
+// Fetches a list of cluster profile entities. A profile consists of different cluster settings like Network Time Protocol(NTP), Domain Name System(DNS), and so on.
+func (api *ClusterProfilesApi) ListClusterProfiles(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListClusterProfilesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/stats/disks/{extId}"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'startTime_' is set
-	if nil == startTime_ {
-		return nil, client.ReportError("startTime_ is required and must be specified")
-	}
-	// verify the required parameter 'endTime_' is set
-	if nil == endTime_ {
-		return nil, client.ReportError("endTime_ is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Query Params
-	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	if samplingInterval_ != nil {
-		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
-	}
-	if statType_ != nil {
-		statType_QueryParamEnumVal := statType_.GetName()
-		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
-	}
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import3.GetDiskStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Fetches Disk details from all clusters registered with Prism Central.
-func (api *DisksApi) ListDisks(page_ *int, limit_ *int, filter_ *string, orderby_ *string, apply_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListDisksApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0/config/disks"
+	uri := "/api/clustermgmt/v4.0/config/cluster-profiles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -289,9 +324,6 @@ func (api *DisksApi) ListDisks(page_ *int, limit_ *int, filter_ *string, orderby
 	if orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
-	if apply_ != nil {
-		queryParams.Add("$apply", client.ParameterToString(*apply_, ""))
-	}
 	if select_ != nil {
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
@@ -314,7 +346,65 @@ func (api *DisksApi) ListDisks(page_ *int, limit_ *int, filter_ *string, orderby
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ListDisksApiResponse)
+	unmarshalledResp := new(import1.ListClusterProfilesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Update cluster profile. Profile consist of different cluster settings like NTP, DNS etc.
+func (api *ClusterProfilesApi) UpdateClusterProfileById(extId *string, body *import1.ClusterProfile, dryrun_ *bool, args ...map[string]interface{}) (*import1.UpdateClusterProfileApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.UpdateClusterProfileApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

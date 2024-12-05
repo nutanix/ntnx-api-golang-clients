@@ -1,16 +1,16 @@
 /*
  * Generated file models/common/v1/stats/stats_model.go.
  *
- * Product version: 4.0.1-beta-2
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Clustermgmt Versioned APIs
+ * Part of the Nutanix Cluster Management APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module common.v1.stats of Nutanix Clustermgmt Versioned APIs
+  Nutanix Stats Configuration
 */
 package stats
 
@@ -140,7 +140,7 @@ func NewTimeIntValuePair() *TimeIntValuePair {
 	p := new(TimeIntValuePair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.stats.TimeIntValuePair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

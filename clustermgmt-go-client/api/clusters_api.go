@@ -1,15 +1,16 @@
-//Api classes for clustermgmt's golang SDK
 package api
 
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/config"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/stats"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/operations"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/stats"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type ClustersApi struct {
@@ -35,18 +36,18 @@ func NewClustersApi(apiClient *client.ApiClient) *ClustersApi {
 	return a
 }
 
-// Adds transport ports and protocol details to the SNMP configuration associated with the cluster identified by {extId}.
-func (api *ClustersApi) AddSnmpTransport(extId *string, body *import1.SnmpTransport, args ...map[string]interface{}) (*import1.AddSnmpTransportsApiResponse, error) {
+// Adds transport ports and protocol details to the SNMP configuration associated with the cluster identified by {clusterExtId}.
+func (api *ClustersApi) AddSnmpTransport(clusterExtId *string, body *import1.SnmpTransport, args ...map[string]interface{}) (*import1.AddSnmpTransportsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/$actions/add-transports"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/$actions/add-transports"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -54,8 +55,7 @@ func (api *ClustersApi) AddSnmpTransport(extId *string, body *import1.SnmpTransp
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -71,37 +71,91 @@ func (api *ClustersApi) AddSnmpTransport(extId *string, body *import1.SnmpTransp
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.AddSnmpTransportsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Attach categories to the cluster identified by {clusterExtId}.
+func (api *ClustersApi) AssociateCategoriesToCluster(clusterExtId *string, body *import1.CategoryEntityReferences, args ...map[string]interface{}) (*import1.AssociateCategoriesToClusterApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/associate-categories"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.AssociateCategoriesToClusterApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Provides information on whether hypervisor ISO upload is required or not. This API is not supported for XEN hypervisor type.
-func (api *ClustersApi) CheckHypervisorRequirements(extId *string, body *import1.HypervisorUploadParam, args ...map[string]interface{}) (*import1.CheckHypervisorRequirementsApiResponse, error) {
+func (api *ClustersApi) CheckHypervisorRequirements(clusterExtId *string, body *import1.HypervisorUploadParam, args ...map[string]interface{}) (*import1.CheckHypervisorRequirementsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/check-hypervisor-requirements"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/check-hypervisor-requirements"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -109,8 +163,7 @@ func (api *ClustersApi) CheckHypervisorRequirements(extId *string, body *import1
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -126,33 +179,33 @@ func (api *ClustersApi) CheckHypervisorRequirements(extId *string, body *import1
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.CheckHypervisorRequirementsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Cluster create operation.
-func (api *ClustersApi) CreateCluster(body *import1.Cluster, args ...map[string]interface{}) (*import1.CreateClusterApiResponse, error) {
+func (api *ClustersApi) CreateCluster(body *import1.Cluster, dryrun_ *bool, args ...map[string]interface{}) (*import1.CreateClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters"
+	uri := "/api/clustermgmt/v4.0/config/clusters"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -169,42 +222,46 @@ func (api *ClustersApi) CreateCluster(body *import1.Cluster, args ...map[string]
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.CreateClusterApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Adds RSYSLOG server configuration to the cluster identified by {extId}.
-func (api *ClustersApi) CreateRsyslogServer(extId *string, body *import1.RsyslogServer, args ...map[string]interface{}) (*import1.CreateRsyslogServerApiResponse, error) {
+// Adds RSYSLOG server configuration to the cluster identified by {clusterExtId}.
+func (api *ClustersApi) CreateRsyslogServer(clusterExtId *string, body *import1.RsyslogServer, args ...map[string]interface{}) (*import1.CreateRsyslogServerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/rsyslog-servers"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -212,8 +269,7 @@ func (api *ClustersApi) CreateRsyslogServer(extId *string, body *import1.Rsyslog
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -229,37 +285,37 @@ func (api *ClustersApi) CreateRsyslogServer(extId *string, body *import1.Rsyslog
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.CreateRsyslogServerApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Add SNMP trap configuration associated with the cluster identified by {extId}.
-func (api *ClustersApi) CreateSnmpTrap(extId *string, body *import1.SnmpTrap, args ...map[string]interface{}) (*import1.CreateSnmpTrapApiResponse, error) {
+// Add SNMP trap configuration associated with the cluster identified by {clusterExtId}.
+func (api *ClustersApi) CreateSnmpTrap(clusterExtId *string, body *import1.SnmpTrap, args ...map[string]interface{}) (*import1.CreateSnmpTrapApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/traps"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/traps"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -267,8 +323,7 @@ func (api *ClustersApi) CreateSnmpTrap(extId *string, body *import1.SnmpTrap, ar
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -284,37 +339,37 @@ func (api *ClustersApi) CreateSnmpTrap(extId *string, body *import1.SnmpTrap, ar
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.CreateSnmpTrapApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Adds SNMP user configuration to the cluster identified by {extId}.
-func (api *ClustersApi) CreateSnmpUser(extId *string, body *import1.SnmpUser, args ...map[string]interface{}) (*import1.CreateSnmpUserApiResponse, error) {
+// Adds SNMP user configuration to the cluster identified by {clusterExtId}.
+func (api *ClustersApi) CreateSnmpUser(clusterExtId *string, body *import1.SnmpUser, args ...map[string]interface{}) (*import1.CreateSnmpUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/users"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/users"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -322,8 +377,7 @@ func (api *ClustersApi) CreateSnmpUser(extId *string, body *import1.SnmpUser, ar
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -339,33 +393,33 @@ func (api *ClustersApi) CreateSnmpUser(extId *string, body *import1.SnmpUser, ar
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.CreateSnmpUserApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Deletes the cluster identified by {extId}.
-func (api *ClustersApi) DeleteClusterById(extId *string, runPrechecksOnly *bool, args ...map[string]interface{}) (*import1.DeleteClusterApiResponse, error) {
+func (api *ClustersApi) DeleteClusterById(extId *string, dryrun_ *bool, args ...map[string]interface{}) (*import1.DeleteClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -373,7 +427,6 @@ func (api *ClustersApi) DeleteClusterById(extId *string, runPrechecksOnly *bool,
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -386,31 +439,30 @@ func (api *ClustersApi) DeleteClusterById(extId *string, runPrechecksOnly *bool,
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if runPrechecksOnly != nil {
-
-		queryParams.Add("runPrechecksOnly", client.ParameterToString(*runPrechecksOnly, ""))
+	if dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.DeleteClusterApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -421,7 +473,7 @@ func (api *ClustersApi) DeleteRsyslogServerById(clusterExtId *string, extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -433,9 +485,7 @@ func (api *ClustersApi) DeleteRsyslogServerById(clusterExtId *string, extId *str
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -452,22 +502,22 @@ func (api *ClustersApi) DeleteRsyslogServerById(clusterExtId *string, extId *str
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.DeleteRsyslogServerApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -478,7 +528,7 @@ func (api *ClustersApi) DeleteSnmpTrapById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -490,9 +540,7 @@ func (api *ClustersApi) DeleteSnmpTrapById(clusterExtId *string, extId *string, 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -509,22 +557,22 @@ func (api *ClustersApi) DeleteSnmpTrapById(clusterExtId *string, extId *string, 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.DeleteSnmpTrapApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -535,7 +583,7 @@ func (api *ClustersApi) DeleteSnmpUserById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -547,9 +595,7 @@ func (api *ClustersApi) DeleteSnmpUserById(clusterExtId *string, extId *string, 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -566,321 +612,379 @@ func (api *ClustersApi) DeleteSnmpUserById(clusterExtId *string, extId *string, 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.DeleteSnmpUserApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get the unconfigured node details such as node UUID, node position, node IP, foundation version and more.
-func (api *ClustersApi) DiscoverUnconfiguredNodes(extId *string, body *import1.NodeDiscoveryParams, args ...map[string]interface{}) (*import1.DiscoverUnconfiguredNodesApiResponse, error) {
+// Detach categories from the cluster identified by {clusterExtId}.
+func (api *ClustersApi) DisassociateCategoriesFromCluster(clusterExtId *string, body *import1.CategoryEntityReferences, args ...map[string]interface{}) (*import1.DisassociateCategoriesFromClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/discover-unconfigured-nodes"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.DiscoverUnconfiguredNodesApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Add node on a cluster. This API is not supported for XEN hypervisor type.
-func (api *ClustersApi) ExpandCluster(extId *string, body *import1.ExpandClusterParams, args ...map[string]interface{}) (*import1.ExpandClusterApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/expand-cluster"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.ExpandClusterApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Get a dictionary of cluster networks and available uplinks on the given nodes. This API is not supported for XEN hypervisor type.
-func (api *ClustersApi) FetchNodeNetworkingDetails(extId *string, body *import1.NodeDetails, args ...map[string]interface{}) (*import1.FetchNodeNetworkingDetailsApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/fetch-node-networking-details"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.FetchNodeNetworkingDetailsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Get task response based on the type of request.
-func (api *ClustersApi) FetchTaskResponse(extId *string, body *import1.SearchParams, args ...map[string]interface{}) (*import1.FetchTaskApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0.b2/config/tasks/{extId}/$actions/fetch-task-response"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.FetchTaskApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Fetches the cluster entity details identified by {extId}.
-func (api *ClustersApi) GetClusterById(extId *string, args ...map[string]interface{}) (*import1.GetClusterApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.GetClusterApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Get the statistics data of the cluster identified by {clusterExtId}.
-func (api *ClustersApi) GetClusterStats(clusterExtId *string, startTime_ *string, endTime_ *string, samplingInterval_ *int, statType_ *import3.DownSamplingOperator, args ...map[string]interface{}) (*import2.ClusterStatsApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0.b2/stats/clusters/{clusterExtId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/disassociate-categories"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
 		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
-	// verify the required parameter 'startTime_' is set
-	if nil == startTime_ {
-		return nil, client.ReportError("startTime_ is required and must be specified")
-	}
-	// verify the required parameter 'endTime_' is set
-	if nil == endTime_ {
-		return nil, client.ReportError("endTime_ is required and must be specified")
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.DisassociateCategoriesFromClusterApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Get the unconfigured node details such as node UUID, node position, node IP, foundation version and more.
+func (api *ClustersApi) DiscoverUnconfiguredNodes(clusterExtId *string, body *import1.NodeDiscoveryParams, args ...map[string]interface{}) (*import1.DiscoverUnconfiguredNodesApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/discover-unconfigured-nodes"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.DiscoverUnconfiguredNodesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Enter host identified by {extId} into maintenance mode belonging to the cluster identified by {clusterExtId}.
+func (api *ClustersApi) EnterHostMaintenance(clusterExtId *string, extId *string, body *import2.EnterHostMaintenanceSpec, args ...map[string]interface{}) (*import2.EnterHostMaintenanceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.EnterHostMaintenanceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Exit host identified by {extId} from maintenance mode belonging to the cluster identified by {clusterExtId}.
+func (api *ClustersApi) ExitHostMaintenance(clusterExtId *string, extId *string, body *import2.HostMaintenanceCommonSpec, args ...map[string]interface{}) (*import2.ExitHostMaintenanceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.ExitHostMaintenanceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Add node on a cluster. This API is not supported for XEN hypervisor type.
+func (api *ClustersApi) ExpandCluster(clusterExtId *string, body *import1.ExpandClusterParams, args ...map[string]interface{}) (*import1.ExpandClusterApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/expand-cluster"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ExpandClusterApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Get a dictionary of cluster networks and available uplinks on the given nodes. This API is not supported for XEN hypervisor type.
+func (api *ClustersApi) FetchNodeNetworkingDetails(clusterExtId *string, body *import1.NodeDetails, args ...map[string]interface{}) (*import1.FetchNodeNetworkingDetailsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/fetch-node-networking-details"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.FetchNodeNetworkingDetailsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Get task response based on the type of request.
+func (api *ClustersApi) FetchTaskResponse(extId *string, taskResponseType *import1.TaskResponseType, args ...map[string]interface{}) (*import1.FetchTaskApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/task-response/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'taskResponseType' is set
+	if nil == taskResponseType {
+		return nil, client.ReportError("taskResponseType is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -892,50 +996,40 @@ func (api *ClustersApi) GetClusterStats(clusterExtId *string, startTime_ *string
 	accepts := []string{"application/json"}
 
 	// Query Params
-
-	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-
-	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	if samplingInterval_ != nil {
-
-		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
-	}
-	if statType_ != nil {
-		statType_QueryParamEnumVal := statType_.GetName()
-		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
-	}
+	taskResponseTypeQueryParamEnumVal := taskResponseType.GetName()
+	queryParams.Add("taskResponseType", client.ParameterToString(taskResponseTypeQueryParamEnumVal, ""))
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ClusterStatsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import1.FetchTaskApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Fetches the domain fault tolerance status of the cluster identified by {extId}.
-func (api *ClustersApi) GetFaultToleranceStatusByClusterId(extId *string, args ...map[string]interface{}) (*import1.GetFaultToleranceStatusByClusterIdApiResponse, error) {
+// Fetches the cluster entity details identified by {extId}.
+func (api *ClustersApi) GetClusterById(extId *string, expand_ *string, args ...map[string]interface{}) (*import1.GetClusterApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/fault-tolerance-status"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -943,7 +1037,6 @@ func (api *ClustersApi) GetFaultToleranceStatusByClusterId(extId *string, args .
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -955,27 +1048,102 @@ func (api *ClustersApi) GetFaultToleranceStatusByClusterId(extId *string, args .
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetFaultToleranceStatusByClusterIdApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import1.GetClusterApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Get the statistics data of the cluster identified by {clusterExtId}.
+func (api *ClustersApi) GetClusterStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import4.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import3.ClusterStatsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/stats/clusters/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'startTime_' is set
+	if nil == startTime_ {
+		return nil, client.ReportError("startTime_ is required and must be specified")
+	}
+	// verify the required parameter 'endTime_' is set
+	if nil == endTime_ {
+		return nil, client.ReportError("endTime_ is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
+	if samplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
+	}
+	if statType_ != nil {
+		statType_QueryParamEnumVal := statType_.GetName()
+		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import3.ClusterStatsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -986,7 +1154,7 @@ func (api *ClustersApi) GetHostById(clusterExtId *string, extId *string, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -998,9 +1166,7 @@ func (api *ClustersApi) GetHostById(clusterExtId *string, extId *string, args ..
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1017,22 +1183,22 @@ func (api *ClustersApi) GetHostById(clusterExtId *string, extId *string, args ..
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetHostApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -1043,7 +1209,7 @@ func (api *ClustersApi) GetHostNicById(clusterExtId *string, hostExtId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1059,11 +1225,8 @@ func (api *ClustersApi) GetHostNicById(clusterExtId *string, hostExtId *string, 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"hostExtId"+"}", url.PathEscape(client.ParameterToString(*hostExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1080,41 +1243,41 @@ func (api *ClustersApi) GetHostNicById(clusterExtId *string, hostExtId *string, 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetHostNicApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Get the statistics data of the host identified by {hostExtId} belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersApi) GetHostStats(clusterExtId *string, hostExtId *string, startTime_ *string, endTime_ *string, samplingInterval_ *int, statType_ *import3.DownSamplingOperator, args ...map[string]interface{}) (*import2.HostStatsApiResponse, error) {
+func (api *ClustersApi) GetHostStats(clusterExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import4.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import3.HostStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/stats/clusters/{clusterExtId}/hosts/{hostExtId}"
+	uri := "/api/clustermgmt/v4.0/stats/clusters/{clusterExtId}/hosts/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
 		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
-	// verify the required parameter 'hostExtId' is set
-	if nil == hostExtId {
-		return nil, client.ReportError("hostExtId is required and must be specified")
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'startTime_' is set
 	if nil == startTime_ {
@@ -1126,10 +1289,8 @@ func (api *ClustersApi) GetHostStats(clusterExtId *string, hostExtId *string, st
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
-	uri = strings.Replace(uri, "{"+"hostExtId"+"}", url.PathEscape(client.ParameterToString(*hostExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -1141,39 +1302,39 @@ func (api *ClustersApi) GetHostStats(clusterExtId *string, hostExtId *string, st
 	accepts := []string{"application/json"}
 
 	// Query Params
-
 	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-
 	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
 	if samplingInterval_ != nil {
-
 		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
 	}
 	if statType_ != nil {
 		statType_QueryParamEnumVal := statType_.GetName()
 		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
 	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.HostStatsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.HostStatsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -1184,7 +1345,7 @@ func (api *ClustersApi) GetRackableUnitById(clusterExtId *string, extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/rackable-units/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rackable-units/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1196,9 +1357,7 @@ func (api *ClustersApi) GetRackableUnitById(clusterExtId *string, extId *string,
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1215,22 +1374,22 @@ func (api *ClustersApi) GetRackableUnitById(clusterExtId *string, extId *string,
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetRackableUnitApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -1241,7 +1400,7 @@ func (api *ClustersApi) GetRsyslogServerById(clusterExtId *string, extId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1253,9 +1412,7 @@ func (api *ClustersApi) GetRsyslogServerById(clusterExtId *string, extId *string
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1272,42 +1429,41 @@ func (api *ClustersApi) GetRsyslogServerById(clusterExtId *string, extId *string
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetRsyslogServerApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Fetches SNMP config details of the cluster identified by {extId}.
-func (api *ClustersApi) GetSnmpConfigByClusterId(extId *string, args ...map[string]interface{}) (*import1.GetSnmpConfigByClusterIdApiResponse, error) {
+// Fetches SNMP config details of the cluster identified by {clusterExtId}.
+func (api *ClustersApi) GetSnmpConfigByClusterId(clusterExtId *string, args ...map[string]interface{}) (*import1.GetSnmpConfigByClusterIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/snmp"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -1323,22 +1479,22 @@ func (api *ClustersApi) GetSnmpConfigByClusterId(extId *string, args ...map[stri
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetSnmpConfigByClusterIdApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -1349,7 +1505,7 @@ func (api *ClustersApi) GetSnmpTrapById(clusterExtId *string, extId *string, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1361,9 +1517,7 @@ func (api *ClustersApi) GetSnmpTrapById(clusterExtId *string, extId *string, arg
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1380,22 +1534,22 @@ func (api *ClustersApi) GetSnmpTrapById(clusterExtId *string, extId *string, arg
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetSnmpTrapApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -1406,7 +1560,7 @@ func (api *ClustersApi) GetSnmpUserById(clusterExtId *string, extId *string, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1418,9 +1572,7 @@ func (api *ClustersApi) GetSnmpUserById(clusterExtId *string, extId *string, arg
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1437,22 +1589,22 @@ func (api *ClustersApi) GetSnmpUserById(clusterExtId *string, extId *string, arg
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetSnmpUserApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -1463,7 +1615,7 @@ func (api *ClustersApi) GetVirtualNicById(clusterExtId *string, hostExtId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1479,11 +1631,8 @@ func (api *ClustersApi) GetVirtualNicById(clusterExtId *string, hostExtId *strin
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"hostExtId"+"}", url.PathEscape(client.ParameterToString(*hostExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1500,33 +1649,33 @@ func (api *ClustersApi) GetVirtualNicById(clusterExtId *string, hostExtId *strin
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetVirtualNicApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists all cluster entities registered to Prism Central.
-func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, orderby_ *string, apply_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListClustersApiResponse, error) {
+func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, orderby_ *string, apply_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListClustersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters"
+	uri := "/api/clustermgmt/v4.0/config/clusters"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1540,27 +1689,24 @@ func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, o
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if apply_ != nil {
-
 		queryParams.Add("$apply", client.ParameterToString(*apply_, ""))
 	}
+	if expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -1568,48 +1714,46 @@ func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, o
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ListClustersApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Lists all host NICs for the host identified by {extId} belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListHostNicsByHostIdApiResponse, error) {
+// Lists all host NICs for the host identified by {hostExtId} belonging to the cluster identified by {clusterExtId}.
+func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, hostExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListHostNicsByHostIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{extId}/host-nics"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
 		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'hostExtId' is set
+	if nil == hostExtId {
+		return nil, client.ReportError("hostExtId is required and must be specified")
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"hostExtId"+"}", url.PathEscape(client.ParameterToString(*hostExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -1622,23 +1766,18 @@ func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, extId *string
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -1646,22 +1785,22 @@ func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, extId *string
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ListHostNicsByHostIdApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -1672,7 +1811,7 @@ func (api *ClustersApi) ListHosts(page_ *int, limit_ *int, filter_ *string, orde
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/hosts"
+	uri := "/api/clustermgmt/v4.0/config/hosts"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1686,27 +1825,21 @@ func (api *ClustersApi) ListHosts(page_ *int, limit_ *int, filter_ *string, orde
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if apply_ != nil {
-
 		queryParams.Add("$apply", client.ParameterToString(*apply_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -1714,226 +1847,41 @@ func (api *ClustersApi) ListHosts(page_ *int, limit_ *int, filter_ *string, orde
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ListHostsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Lists all the hosts associated with the cluster identified by {extId}.
-func (api *ClustersApi) ListHostsByClusterId(extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, apply_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListHostsByClusterIdApiResponse, error) {
+// Lists all the hosts associated with the cluster identified by {clusterExtId}.
+func (api *ClustersApi) ListHostsByClusterId(clusterExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, apply_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListHostsByClusterIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/hosts"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Query Params
-	if page_ != nil {
-
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
-	}
-	if limit_ != nil {
-
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
-	}
-	if filter_ != nil {
-
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
-	}
-	if orderby_ != nil {
-
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
-	}
-	if apply_ != nil {
-
-		queryParams.Add("$apply", client.ParameterToString(*apply_, ""))
-	}
-	if select_ != nil {
-
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
-	}
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.ListHostsByClusterIdApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Lists the rackable units of the cluster identified by {extId}.
-func (api *ClustersApi) ListRackableUnitsByClusterId(extId *string, args ...map[string]interface{}) (*import1.ListRackableUnitsByClusterIdApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/rackable-units"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.ListRackableUnitsByClusterIdApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Lists the RSYSLOG server configurations associated with the cluster identified by {extId}.
-func (api *ClustersApi) ListRsyslogServersByClusterId(extId *string, args ...map[string]interface{}) (*import1.ListRsyslogServersByClusterIdApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/rsyslog-servers"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.ListRsyslogServersByClusterIdApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Lists all virtual NICs for the host identified by {extId} belonging to the cluster identified by {clusterExtId}.
-func (api *ClustersApi) ListVirtualNicsByHostId(clusterExtId *string, extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListVirtualNicsByHostIdApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/hosts/{extId}/virtual-nics"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
 		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -1946,23 +1894,21 @@ func (api *ClustersApi) ListVirtualNicsByHostId(clusterExtId *string, extId *str
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
+	if apply_ != nil {
+		queryParams.Add("$apply", client.ParameterToString(*apply_, ""))
+	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -1970,37 +1916,334 @@ func (api *ClustersApi) ListVirtualNicsByHostId(clusterExtId *string, extId *str
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ListHostsByClusterIdApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// List Physical GPU profiles.
+func (api *ClustersApi) ListPhysicalGpuProfiles(clusterExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListPhysicalGpuProfilesApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/physical-gpu-profiles"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ListPhysicalGpuProfilesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Lists the rackable units of the cluster identified by {clusterExtId}.
+func (api *ClustersApi) ListRackableUnitsByClusterId(clusterExtId *string, args ...map[string]interface{}) (*import1.ListRackableUnitsByClusterIdApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rackable-units"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ListRackableUnitsByClusterIdApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Lists the RSYSLOG server configurations associated with the cluster identified by {clusterExtId}.
+func (api *ClustersApi) ListRsyslogServersByClusterId(clusterExtId *string, args ...map[string]interface{}) (*import1.ListRsyslogServersByClusterIdApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ListRsyslogServersByClusterIdApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// List Virtual GPU profiles.
+func (api *ClustersApi) ListVirtualGpuProfiles(clusterExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListVirtualGpuProfilesApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/virtual-gpu-profiles"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ListVirtualGpuProfilesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Lists all virtual NICs for the host identified by {extId} belonging to the cluster identified by {clusterExtId}.
+func (api *ClustersApi) ListVirtualNicsByHostId(clusterExtId *string, hostExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListVirtualNicsByHostIdApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics"
+
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+	// verify the required parameter 'hostExtId' is set
+	if nil == hostExtId {
+		return nil, client.ReportError("hostExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"hostExtId"+"}", url.PathEscape(client.ParameterToString(*hostExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ListVirtualNicsByHostIdApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Removes nodes from cluster identified by {extId}.
-func (api *ClustersApi) RemoveNode(extId *string, body *import1.NodeRemovalParams, args ...map[string]interface{}) (*import1.RemoveNodeApiResponse, error) {
+func (api *ClustersApi) RemoveNode(clusterExtId *string, body *import1.NodeRemovalParams, args ...map[string]interface{}) (*import1.RemoveNodeApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/remove-node"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/remove-node"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -2008,8 +2251,7 @@ func (api *ClustersApi) RemoveNode(extId *string, body *import1.NodeRemovalParam
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -2025,37 +2267,37 @@ func (api *ClustersApi) RemoveNode(extId *string, body *import1.NodeRemovalParam
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.RemoveNodeApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Removes transport ports and protocol detail from the SNMP configuration associated with the cluster identified by {extId}.
-func (api *ClustersApi) RemoveSnmpTransport(extId *string, body *import1.SnmpTransport, args ...map[string]interface{}) (*import1.RemoveSnmpTransportsApiResponse, error) {
+// Removes transport ports and protocol detail from the SNMP configuration associated with the cluster identified by {clusterExtId}.
+func (api *ClustersApi) RemoveSnmpTransport(clusterExtId *string, body *import1.SnmpTransport, args ...map[string]interface{}) (*import1.RemoveSnmpTransportsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/$actions/remove-transports"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/$actions/remove-transports"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -2063,8 +2305,7 @@ func (api *ClustersApi) RemoveSnmpTransport(extId *string, body *import1.SnmpTra
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -2080,22 +2321,22 @@ func (api *ClustersApi) RemoveSnmpTransport(extId *string, body *import1.SnmpTra
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.RemoveSnmpTransportsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -2106,7 +2347,7 @@ func (api *ClustersApi) UpdateClusterById(extId *string, body *import1.Cluster, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2118,7 +2359,6 @@ func (api *ClustersApi) UpdateClusterById(extId *string, body *import1.Cluster, 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -2135,22 +2375,22 @@ func (api *ClustersApi) UpdateClusterById(extId *string, body *import1.Cluster, 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UpdateClusterApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -2161,7 +2401,7 @@ func (api *ClustersApi) UpdateRsyslogServerById(clusterExtId *string, extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2177,9 +2417,7 @@ func (api *ClustersApi) UpdateRsyslogServerById(clusterExtId *string, extId *str
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -2196,37 +2434,37 @@ func (api *ClustersApi) UpdateRsyslogServerById(clusterExtId *string, extId *str
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UpdateRsyslogServerApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Updates the status of SNMP configuration associated with the cluster identified by {extId}.
-func (api *ClustersApi) UpdateSnmpStatus(extId *string, body *import1.SnmpStatusParam, args ...map[string]interface{}) (*import1.UpdateSnmpStatusApiResponse, error) {
+// Updates the status of SNMP configuration associated with the cluster identified by {clusterExtId}.
+func (api *ClustersApi) UpdateSnmpStatus(clusterExtId *string, body *import1.SnmpStatusParam, args ...map[string]interface{}) (*import1.UpdateSnmpStatusApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/snmp/$actions/update-status"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/$actions/update-status"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -2234,8 +2472,7 @@ func (api *ClustersApi) UpdateSnmpStatus(extId *string, body *import1.SnmpStatus
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -2251,22 +2488,22 @@ func (api *ClustersApi) UpdateSnmpStatus(extId *string, body *import1.SnmpStatus
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UpdateSnmpStatusApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -2277,7 +2514,7 @@ func (api *ClustersApi) UpdateSnmpTrapById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2293,9 +2530,7 @@ func (api *ClustersApi) UpdateSnmpTrapById(clusterExtId *string, extId *string, 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -2312,22 +2547,22 @@ func (api *ClustersApi) UpdateSnmpTrapById(clusterExtId *string, extId *string, 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UpdateSnmpTrapApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -2338,7 +2573,7 @@ func (api *ClustersApi) UpdateSnmpUserById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2354,9 +2589,7 @@ func (api *ClustersApi) UpdateSnmpUserById(clusterExtId *string, extId *string, 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -2373,37 +2606,37 @@ func (api *ClustersApi) UpdateSnmpUserById(clusterExtId *string, extId *string, 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UpdateSnmpUserApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Validates hypervisor bundle and node uplinks of the node. This API is not supported for XEN hypervisor type.
-func (api *ClustersApi) ValidateNode(extId *string, body *import1.ValidateNodeParam, args ...map[string]interface{}) (*import1.ValidateNodeApiResponse, error) {
+func (api *ClustersApi) ValidateNode(clusterExtId *string, body *import1.ValidateNodeParam, args ...map[string]interface{}) (*import1.ValidateNodeApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/clusters/{extId}/$actions/validate-node"
+	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/validate-node"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -2411,8 +2644,7 @@ func (api *ClustersApi) ValidateNode(extId *string, body *import1.ValidateNodePa
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -2428,21 +2660,21 @@ func (api *ClustersApi) ValidateNode(extId *string, body *import1.ValidateNodePa
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ValidateNodeApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

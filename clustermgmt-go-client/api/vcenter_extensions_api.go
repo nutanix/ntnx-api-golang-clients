@@ -1,4 +1,3 @@
-//Api classes for clustermgmt's golang SDK
 package api
 
 import (
@@ -40,7 +39,7 @@ func (api *VcenterExtensionsApi) GetVcenterExtensionById(extId *string, args ...
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/vcenter-extensions/{extId}"
+	uri := "/api/clustermgmt/v4.0/config/vcenter-extensions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -48,7 +47,6 @@ func (api *VcenterExtensionsApi) GetVcenterExtensionById(extId *string, args ...
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -65,22 +63,22 @@ func (api *VcenterExtensionsApi) GetVcenterExtensionById(extId *string, args ...
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetVcenterExtensionApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -91,7 +89,7 @@ func (api *VcenterExtensionsApi) ListVcenterExtensions(page_ *int, limit_ *int, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/vcenter-extensions"
+	uri := "/api/clustermgmt/v4.0/config/vcenter-extensions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -105,19 +103,15 @@ func (api *VcenterExtensionsApi) ListVcenterExtensions(page_ *int, limit_ *int, 
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -125,22 +119,22 @@ func (api *VcenterExtensionsApi) ListVcenterExtensions(page_ *int, limit_ *int, 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ListVcenterExtensionsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -151,7 +145,7 @@ func (api *VcenterExtensionsApi) RegisterVcenterExtension(extId *string, body *i
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/vcenter-extensions/{extId}/$actions/register"
+	uri := "/api/clustermgmt/v4.0/config/vcenter-extensions/{extId}/$actions/register"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -163,7 +157,6 @@ func (api *VcenterExtensionsApi) RegisterVcenterExtension(extId *string, body *i
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -180,22 +173,22 @@ func (api *VcenterExtensionsApi) RegisterVcenterExtension(extId *string, body *i
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.RegisterVcenterExtensionApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -206,7 +199,7 @@ func (api *VcenterExtensionsApi) UnregisterVcenterExtension(extId *string, body 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0.b2/config/vcenter-extensions/{extId}/$actions/unregister"
+	uri := "/api/clustermgmt/v4.0/config/vcenter-extensions/{extId}/$actions/unregister"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -218,7 +211,6 @@ func (api *VcenterExtensionsApi) UnregisterVcenterExtension(extId *string, body 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -235,21 +227,21 @@ func (api *VcenterExtensionsApi) UnregisterVcenterExtension(extId *string, body 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UnregisterVcenterExtensionApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

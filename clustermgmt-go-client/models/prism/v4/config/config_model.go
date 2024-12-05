@@ -1,16 +1,16 @@
 /*
  * Generated file models/prism/v4/config/config_model.go.
  *
- * Product version: 4.0.1-beta-2
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Clustermgmt Versioned APIs
+ * Part of the Nutanix Cluster Management APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module prism.v4.config of Nutanix Clustermgmt Versioned APIs
+  Module prism.v4.config of Nutanix Cluster Management APIs
 */
 package config
 
@@ -33,7 +33,7 @@ func NewTaskReference() *TaskReference {
 	p := new(TaskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.TaskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

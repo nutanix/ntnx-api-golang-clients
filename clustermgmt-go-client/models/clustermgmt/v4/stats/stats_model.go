@@ -1,16 +1,16 @@
 /*
  * Generated file models/clustermgmt/v4/stats/stats_model.go.
  *
- * Product version: 4.0.1-beta-2
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Clustermgmt Versioned APIs
+ * Part of the Nutanix Cluster Management APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module clustermgmt.v4.stats of Nutanix Clustermgmt Versioned APIs
+  Module clustermgmt.v4.stats of Nutanix Cluster Management APIs
 */
 package stats
 
@@ -18,12 +18,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/error"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/error"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/response"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/common/v1/stats"
 	"time"
 )
 
+/*
+Cluster entity statistic attributes.
+*/
 type ClusterStats struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -139,6 +142,14 @@ type ClusterStats struct {
 	*/
 	ControllerWriteIoBandwidthKbpsUpperBuf []TimeValuePair `json:"controllerWriteIoBandwidthKbpsUpperBuf,omitempty"`
 	/*
+	  CPU capacity in Hz.
+	*/
+	CpuCapacityHz []TimeValuePair `json:"cpuCapacityHz,omitempty"`
+	/*
+	  CPU usage (Hz)
+	*/
+	CpuUsageHz []TimeValuePair `json:"cpuUsageHz,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
@@ -146,6 +157,10 @@ type ClusterStats struct {
 	  Free physical space(bytes).
 	*/
 	FreePhysicalStorageBytes []TimeValuePair `json:"freePhysicalStorageBytes,omitempty"`
+	/*
+	  NCC check score indicating the health of the entity. The value to health mapping is as follows: Good: 100, Info: 98, Warning: 74, Critical: 24, Error: 13, Unknown: -1.
+	*/
+	HealthCheckScore []TimeValuePair `json:"healthCheckScore,omitempty"`
 	/*
 	  Hypervisor CPU Usage(ppm).
 	*/
@@ -179,11 +194,29 @@ type ClusterStats struct {
 	*/
 	LogicalStorageUsageBytes []TimeValuePair `json:"logicalStorageUsageBytes,omitempty"`
 	/*
+	  Size of memory(in bytes).
+	*/
+	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
+	/*
 	  Overall memory usage(bytes).
 	*/
 	OverallMemoryUsageBytes []TimeValuePair `json:"overallMemoryUsageBytes,omitempty"`
-
-	StatType *import2.DownSamplingOperator `json:"statType,omitempty"`
+	/*
+	  Overall savings (bytes)
+	*/
+	OverallSavingsBytes []TimeValuePair `json:"overallSavingsBytes,omitempty"`
+	/*
+	  Overall saving ratio
+	*/
+	OverallSavingsRatio []TimeValuePair `json:"overallSavingsRatio,omitempty"`
+	/*
+	  Recycle bin usage (bytes)
+	*/
+	RecycleBinUsageBytes []TimeValuePair `json:"recycleBinUsageBytes,omitempty"`
+	/*
+	  Snapshot capacity (bytes)
+	*/
+	SnapshotCapacityBytes []TimeValuePair `json:"snapshotCapacityBytes,omitempty"`
 	/*
 	  Storage capacity(bytes).
 	*/
@@ -202,14 +235,14 @@ func NewClusterStats() *ClusterStats {
 	p := new(ClusterStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b2/stats/clusters/{clusterExtId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.0/stats/clusters/{extId} Get operation
 */
 type ClusterStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -231,7 +264,7 @@ func NewClusterStatsApiResponse() *ClusterStatsApiResponse {
 	p := new(ClusterStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -373,6 +406,14 @@ type ClusterStatsProjection struct {
 	*/
 	ControllerWriteIoBandwidthKbpsUpperBuf []TimeValuePair `json:"controllerWriteIoBandwidthKbpsUpperBuf,omitempty"`
 	/*
+	  CPU capacity in Hz.
+	*/
+	CpuCapacityHz []TimeValuePair `json:"cpuCapacityHz,omitempty"`
+	/*
+	  CPU usage (Hz)
+	*/
+	CpuUsageHz []TimeValuePair `json:"cpuUsageHz,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
@@ -380,6 +421,10 @@ type ClusterStatsProjection struct {
 	  Free physical space(bytes).
 	*/
 	FreePhysicalStorageBytes []TimeValuePair `json:"freePhysicalStorageBytes,omitempty"`
+	/*
+	  NCC check score indicating the health of the entity. The value to health mapping is as follows: Good: 100, Info: 98, Warning: 74, Critical: 24, Error: 13, Unknown: -1.
+	*/
+	HealthCheckScore []TimeValuePair `json:"healthCheckScore,omitempty"`
 	/*
 	  Hypervisor CPU Usage(ppm).
 	*/
@@ -413,11 +458,29 @@ type ClusterStatsProjection struct {
 	*/
 	LogicalStorageUsageBytes []TimeValuePair `json:"logicalStorageUsageBytes,omitempty"`
 	/*
+	  Size of memory(in bytes).
+	*/
+	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
+	/*
 	  Overall memory usage(bytes).
 	*/
 	OverallMemoryUsageBytes []TimeValuePair `json:"overallMemoryUsageBytes,omitempty"`
-
-	StatType *import2.DownSamplingOperator `json:"statType,omitempty"`
+	/*
+	  Overall savings (bytes)
+	*/
+	OverallSavingsBytes []TimeValuePair `json:"overallSavingsBytes,omitempty"`
+	/*
+	  Overall saving ratio
+	*/
+	OverallSavingsRatio []TimeValuePair `json:"overallSavingsRatio,omitempty"`
+	/*
+	  Recycle bin usage (bytes)
+	*/
+	RecycleBinUsageBytes []TimeValuePair `json:"recycleBinUsageBytes,omitempty"`
+	/*
+	  Snapshot capacity (bytes)
+	*/
+	SnapshotCapacityBytes []TimeValuePair `json:"snapshotCapacityBytes,omitempty"`
 	/*
 	  Storage capacity(bytes).
 	*/
@@ -436,7 +499,7 @@ func NewClusterStatsProjection() *ClusterStatsProjection {
 	p := new(ClusterStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -449,137 +512,137 @@ type DiskStats struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Average IO latency.
+	  Average I/O latency.
 	*/
-	DiskAvgIoLatencyMicrosec []import2.TimeIntValuePair `json:"diskAvgIoLatencyMicrosec,omitempty"`
+	DiskAvgIoLatencyMicrosec []import3.TimeIntValuePair `json:"diskAvgIoLatencyMicrosec,omitempty"`
 	/*
-	  Lower limit of data transfer that a Disk can handler per second.
+	  Lower limit of data transfer that a Disk can handle per second.
 	*/
-	DiskBaseIoBandwidthkbps []import2.TimeIntValuePair `json:"diskBaseIoBandwidthkbps,omitempty"`
+	DiskBaseIoBandwidthkbps []import3.TimeIntValuePair `json:"diskBaseIoBandwidthkbps,omitempty"`
 	/*
-	  Lower limit of the latency of I/O operations that Disk can handle without exceeding its standard latency level.
+	  Lower limit of the latency of I/O operations that the Disk can handle without exceeding its standard latency level.
 	*/
-	DiskBaseIoLatencyMicrosec []import2.TimeIntValuePair `json:"diskBaseIoLatencyMicrosec,omitempty"`
+	DiskBaseIoLatencyMicrosec []import3.TimeIntValuePair `json:"diskBaseIoLatencyMicrosec,omitempty"`
 	/*
 	  Lower limit of I/O operations that a Disk can perform per second.
 	*/
-	DiskBaseNumIops []import2.TimeIntValuePair `json:"diskBaseNumIops,omitempty"`
+	DiskBaseNumIops []import3.TimeIntValuePair `json:"diskBaseNumIops,omitempty"`
 	/*
-	  Lower buffer capacity average read IO latency, measured in microseconds (usecs).
+	  Lower buffer capacity average read I/O latency, measured in microseconds (μs).
 	*/
-	DiskBaseReadIoAvgLatencyMicrosec []import2.TimeIntValuePair `json:"diskBaseReadIoAvgLatencyMicrosec,omitempty"`
+	DiskBaseReadIoAvgLatencyMicrosec []import3.TimeIntValuePair `json:"diskBaseReadIoAvgLatencyMicrosec,omitempty"`
 	/*
-	  Lower buffer capacity for the amount of IO bandwidth that a Disk can handle read operations.
+	  Lower buffer capacity for the amount of I/O bandwidth that a Disk can handle read operations.
 	*/
-	DiskBaseReadIoBandwidthkbps []import2.TimeIntValuePair `json:"diskBaseReadIoBandwidthkbps,omitempty"`
+	DiskBaseReadIoBandwidthkbps []import3.TimeIntValuePair `json:"diskBaseReadIoBandwidthkbps,omitempty"`
 	/*
 	  Lower buffer capacity for the number of read IOPS that a Disk can handle.
 	*/
-	DiskBaseReadIops []import2.TimeIntValuePair `json:"diskBaseReadIops,omitempty"`
+	DiskBaseReadIops []import3.TimeIntValuePair `json:"diskBaseReadIops,omitempty"`
 	/*
-	  Lower buffer capacity average write IO latency, measured in microseconds (usecs).
+	  Lower buffer capacity average write I/O latency, measured in microseconds (μs).
 	*/
-	DiskBaseWriteIoAvgLatencyMicrosec []import2.TimeIntValuePair `json:"diskBaseWriteIoAvgLatencyMicrosec,omitempty"`
+	DiskBaseWriteIoAvgLatencyMicrosec []import3.TimeIntValuePair `json:"diskBaseWriteIoAvgLatencyMicrosec,omitempty"`
 	/*
-	  Lower buffer capacity for the amount of IO bandwidth that a Disk can handle write operations.
+	  Lower buffer capacity for the amount of I/O bandwidth that a Disk can handle write operations.
 	*/
-	DiskBaseWriteIoBandwidthkbps []import2.TimeIntValuePair `json:"diskBaseWriteIoBandwidthkbps,omitempty"`
+	DiskBaseWriteIoBandwidthkbps []import3.TimeIntValuePair `json:"diskBaseWriteIoBandwidthkbps,omitempty"`
 	/*
-	  Lower buffer capacity of number of write IO per second.
+	  Lower buffer capacity of a number of write I/O per second.
 	*/
-	DiskBaseWriteIops []import2.TimeIntValuePair `json:"diskBaseWriteIops,omitempty"`
+	DiskBaseWriteIops []import3.TimeIntValuePair `json:"diskBaseWriteIops,omitempty"`
 	/*
-	  Total amount of storage capacity of a device in bytes.
+	  Total storage capacity of a device in bytes.
 	*/
-	DiskCapacityBytes []import2.TimeIntValuePair `json:"diskCapacityBytes,omitempty"`
+	DiskCapacityBytes []import3.TimeIntValuePair `json:"diskCapacityBytes,omitempty"`
 	/*
 	  Free storage space available on the Disk, measured in bytes.
 	*/
-	DiskFreeBytes []import2.TimeIntValuePair `json:"diskFreeBytes,omitempty"`
+	DiskFreeBytes []import3.TimeIntValuePair `json:"diskFreeBytes,omitempty"`
 	/*
-	  IO bandwidth - KB per second.
+	  I/O bandwidth in KB per second.
 	*/
-	DiskIoBandwidthkbps []import2.TimeIntValuePair `json:"diskIoBandwidthkbps,omitempty"`
+	DiskIoBandwidthkbps []import3.TimeIntValuePair `json:"diskIoBandwidthkbps,omitempty"`
 	/*
-	  Number of IO operations that a Disk perform per second.
+	  Number of I/O operations that a Disk performs per second.
 	*/
-	DiskNumIops []import2.TimeIntValuePair `json:"diskNumIops,omitempty"`
+	DiskNumIops []import3.TimeIntValuePair `json:"diskNumIops,omitempty"`
 	/*
 	  Upper limit of data transfer that a Disk can handle per second.
 	*/
-	DiskPeakIoBandwidthkbps []import2.TimeIntValuePair `json:"diskPeakIoBandwidthkbps,omitempty"`
+	DiskPeakIoBandwidthkbps []import3.TimeIntValuePair `json:"diskPeakIoBandwidthkbps,omitempty"`
 	/*
-	  Upper limit of the latency of I/O operations that Disk can handle without exceeding its standard latency level.
+	  Upper limit of the latency of I/O operations that the Disk can handle without exceeding its standard latency level.
 	*/
-	DiskPeakIoLatencyMicrosec []import2.TimeIntValuePair `json:"diskPeakIoLatencyMicrosec,omitempty"`
+	DiskPeakIoLatencyMicrosec []import3.TimeIntValuePair `json:"diskPeakIoLatencyMicrosec,omitempty"`
 	/*
 	  Upper limit of I/O operations that a Disk performs per second.
 	*/
-	DiskPeakNumIops []import2.TimeIntValuePair `json:"diskPeakNumIops,omitempty"`
+	DiskPeakNumIops []import3.TimeIntValuePair `json:"diskPeakNumIops,omitempty"`
 	/*
-	  Upper buffer capacity average read IO latency, measured in microseconds (usecs).
+	  Upper buffer capacity average read I/O latency, measured in microseconds (μs).
 	*/
-	DiskPeakReadIoAvgLatencyMicrosec []import2.TimeIntValuePair `json:"diskPeakReadIoAvgLatencyMicrosec,omitempty"`
+	DiskPeakReadIoAvgLatencyMicrosec []import3.TimeIntValuePair `json:"diskPeakReadIoAvgLatencyMicrosec,omitempty"`
 	/*
-	  Upper buffer capacity for the amount of IO bandwidth that a Disk can handle read operations.
+	  Upper buffer capacity for the amount of I/O bandwidth that a Disk can handle read operations.
 	*/
-	DiskPeakReadIoBandwidthkbps []import2.TimeIntValuePair `json:"diskPeakReadIoBandwidthkbps,omitempty"`
+	DiskPeakReadIoBandwidthkbps []import3.TimeIntValuePair `json:"diskPeakReadIoBandwidthkbps,omitempty"`
 	/*
 	  Upper buffer capacity for the number of read IOPS that a Disk can handle.
 	*/
-	DiskPeakReadIops []import2.TimeIntValuePair `json:"diskPeakReadIops,omitempty"`
+	DiskPeakReadIops []import3.TimeIntValuePair `json:"diskPeakReadIops,omitempty"`
 	/*
-	  Upper buffer capacity average write IO latency, measured in microseconds (usecs).
+	  Upper buffer capacity average write I/O latency, measured in microseconds (μs).
 	*/
-	DiskPeakWriteIoAvgLatencyMicrosec []import2.TimeIntValuePair `json:"diskPeakWriteIoAvgLatencyMicrosec,omitempty"`
+	DiskPeakWriteIoAvgLatencyMicrosec []import3.TimeIntValuePair `json:"diskPeakWriteIoAvgLatencyMicrosec,omitempty"`
 	/*
-	  Upper buffer capacity for the amount of IO bandwidth that a Disk can handle write operations.
+	  Upper buffer capacity for the amount of I/O bandwidth that a Disk can handle write operations.
 	*/
-	DiskPeakWriteIoBandwidthkbps []import2.TimeIntValuePair `json:"diskPeakWriteIoBandwidthkbps,omitempty"`
+	DiskPeakWriteIoBandwidthkbps []import3.TimeIntValuePair `json:"diskPeakWriteIoBandwidthkbps,omitempty"`
 	/*
-	  Upper buffer capacity of number of write IO per second.
+	  Upper buffer capacity of a number of write I/O per second.
 	*/
-	DiskPeakWriteIops []import2.TimeIntValuePair `json:"diskPeakWriteIops,omitempty"`
+	DiskPeakWriteIops []import3.TimeIntValuePair `json:"diskPeakWriteIops,omitempty"`
 	/*
-	  Average read IO latency, measured in microseconds (usecs).
+	  Average read I/O latency, measured in microseconds (μs).
 	*/
-	DiskReadIoAvgLatencyMicrosec []import2.TimeIntValuePair `json:"diskReadIoAvgLatencyMicrosec,omitempty"`
+	DiskReadIoAvgLatencyMicrosec []import3.TimeIntValuePair `json:"diskReadIoAvgLatencyMicrosec,omitempty"`
 	/*
-	  Number of Disk read IO per second reported by Stargate.
+	  Number of Disk read I/O per second as reported by Stargate.
 	*/
-	DiskReadIoBandwidthkbps []import2.TimeIntValuePair `json:"diskReadIoBandwidthkbps,omitempty"`
+	DiskReadIoBandwidthkbps []import3.TimeIntValuePair `json:"diskReadIoBandwidthkbps,omitempty"`
 	/*
-	  Disk read IO, expressed in parts per million.
+	  Disk read I/O, expressed in parts per million.
 	*/
-	DiskReadIoPpm []import2.TimeIntValuePair `json:"diskReadIoPpm,omitempty"`
+	DiskReadIoPpm []import3.TimeIntValuePair `json:"diskReadIoPpm,omitempty"`
 	/*
-	  Number of read IO per second.
+	  Number of read I/O per second.
 	*/
-	DiskReadIops []import2.TimeIntValuePair `json:"diskReadIops,omitempty"`
+	DiskReadIops []import3.TimeIntValuePair `json:"diskReadIops,omitempty"`
 	/*
 	  Amount of storage currently being used, measured in bytes.
 	*/
-	DiskUsageBytes []import2.TimeIntValuePair `json:"diskUsageBytes,omitempty"`
+	DiskUsageBytes []import3.TimeIntValuePair `json:"diskUsageBytes,omitempty"`
 	/*
 	  Disk space used on a storage device, expressed in parts per million (ppm).
 	*/
-	DiskUsagePpm []import2.TimeIntValuePair `json:"diskUsagePpm,omitempty"`
+	DiskUsagePpm []import3.TimeIntValuePair `json:"diskUsagePpm,omitempty"`
 	/*
-	  Average write IO latency, measured in microseconds (usecs).
+	  Average write I/O latency, measured in microseconds (μs).
 	*/
-	DiskWriteIoAvgLatencyMicrosec []import2.TimeIntValuePair `json:"diskWriteIoAvgLatencyMicrosec,omitempty"`
+	DiskWriteIoAvgLatencyMicrosec []import3.TimeIntValuePair `json:"diskWriteIoAvgLatencyMicrosec,omitempty"`
 	/*
-	  Number of Disk write IO per second reported by Stargate.
+	  Number of Disk write I/O per second reported by Stargate.
 	*/
-	DiskWriteIoBandwidthkbps []import2.TimeIntValuePair `json:"diskWriteIoBandwidthkbps,omitempty"`
+	DiskWriteIoBandwidthkbps []import3.TimeIntValuePair `json:"diskWriteIoBandwidthkbps,omitempty"`
 	/*
-	  Disk write IO, expressed in parts per million.
+	  Disk write I/O, expressed in parts per million.
 	*/
-	DiskWriteIoPpm []import2.TimeIntValuePair `json:"diskWriteIoPpm,omitempty"`
+	DiskWriteIoPpm []import3.TimeIntValuePair `json:"diskWriteIoPpm,omitempty"`
 	/*
-	  Number of write IO per second.
+	  Number of write I/O per second.
 	*/
-	DiskWriteIops []import2.TimeIntValuePair `json:"diskWriteIops,omitempty"`
+	DiskWriteIops []import3.TimeIntValuePair `json:"diskWriteIops,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
@@ -598,14 +661,14 @@ func NewDiskStats() *DiskStats {
 	p := new(DiskStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.DiskStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b2/stats/disks/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.0/stats/disks/{extId} Get operation
 */
 type GetDiskStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -627,7 +690,7 @@ func NewGetDiskStatsApiResponse() *GetDiskStatsApiResponse {
 	p := new(GetDiskStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.GetDiskStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -655,7 +718,7 @@ func (p *GetDiskStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b2/stats/storage-containers/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.0/stats/storage-containers/{extId} Get operation
 */
 type GetStorageContainerStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -677,7 +740,7 @@ func NewGetStorageContainerStatsApiResponse() *GetStorageContainerStatsApiRespon
 	p := new(GetStorageContainerStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.GetStorageContainerStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -704,6 +767,9 @@ func (p *GetStorageContainerStatsApiResponse) SetData(v interface{}) error {
 	return e
 }
 
+/*
+Host entity statistic attributes.
+*/
 type HostStats struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -823,6 +889,10 @@ type HostStats struct {
 	*/
 	CpuCapacityHz []TimeValuePair `json:"cpuCapacityHz,omitempty"`
 	/*
+	  CPU usage (Hz)
+	*/
+	CpuUsageHz []TimeValuePair `json:"cpuUsageHz,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
@@ -830,6 +900,10 @@ type HostStats struct {
 	  Free physical space(bytes).
 	*/
 	FreePhysicalStorageBytes []TimeValuePair `json:"freePhysicalStorageBytes,omitempty"`
+	/*
+	  NCC check score indicating the health of the entity. The value to health mapping is as follows: Good: 100, Info: 98, Warning: 74, Critical: 24, Error: 13, Unknown: -1.
+	*/
+	HealthCheckScore []TimeValuePair `json:"healthCheckScore,omitempty"`
 	/*
 	  Hypervisor CPU Usage(ppm).
 	*/
@@ -859,9 +933,17 @@ type HostStats struct {
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
+	  Logical storage usage(bytes).
+	*/
+	LogicalStorageUsageBytes []TimeValuePair `json:"logicalStorageUsageBytes,omitempty"`
+	/*
 	  Size of memory(in bytes).
 	*/
 	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
+	/*
+	  Overall memory usage(bytes).
+	*/
+	OverallMemoryUsageBytes []TimeValuePair `json:"overallMemoryUsageBytes,omitempty"`
 	/*
 	  Overall memory usage(ppm).
 	*/
@@ -874,8 +956,6 @@ type HostStats struct {
 	  Upper Buf value of overall memory usage(ppm).
 	*/
 	OverallMemoryUsagePpmUpperBuf []TimeValuePair `json:"overallMemoryUsagePpmUpperBuf,omitempty"`
-
-	StatType *import2.DownSamplingOperator `json:"statType,omitempty"`
 	/*
 	  Storage capacity(bytes).
 	*/
@@ -894,14 +974,14 @@ func NewHostStats() *HostStats {
 	p := new(HostStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0.b2/stats/clusters/{clusterExtId}/hosts/{hostExtId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.0/stats/clusters/{clusterExtId}/hosts/{extId} Get operation
 */
 type HostStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -923,7 +1003,7 @@ func NewHostStatsApiResponse() *HostStatsApiResponse {
 	p := new(HostStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1069,6 +1149,10 @@ type HostStatsProjection struct {
 	*/
 	CpuCapacityHz []TimeValuePair `json:"cpuCapacityHz,omitempty"`
 	/*
+	  CPU usage (Hz)
+	*/
+	CpuUsageHz []TimeValuePair `json:"cpuUsageHz,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
@@ -1076,6 +1160,10 @@ type HostStatsProjection struct {
 	  Free physical space(bytes).
 	*/
 	FreePhysicalStorageBytes []TimeValuePair `json:"freePhysicalStorageBytes,omitempty"`
+	/*
+	  NCC check score indicating the health of the entity. The value to health mapping is as follows: Good: 100, Info: 98, Warning: 74, Critical: 24, Error: 13, Unknown: -1.
+	*/
+	HealthCheckScore []TimeValuePair `json:"healthCheckScore,omitempty"`
 	/*
 	  Hypervisor CPU Usage(ppm).
 	*/
@@ -1105,9 +1193,17 @@ type HostStatsProjection struct {
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
+	  Logical storage usage(bytes).
+	*/
+	LogicalStorageUsageBytes []TimeValuePair `json:"logicalStorageUsageBytes,omitempty"`
+	/*
 	  Size of memory(in bytes).
 	*/
 	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
+	/*
+	  Overall memory usage(bytes).
+	*/
+	OverallMemoryUsageBytes []TimeValuePair `json:"overallMemoryUsageBytes,omitempty"`
 	/*
 	  Overall memory usage(ppm).
 	*/
@@ -1120,8 +1216,6 @@ type HostStatsProjection struct {
 	  Upper Buf value of overall memory usage(ppm).
 	*/
 	OverallMemoryUsagePpmUpperBuf []TimeValuePair `json:"overallMemoryUsagePpmUpperBuf,omitempty"`
-
-	StatType *import2.DownSamplingOperator `json:"statType,omitempty"`
 	/*
 	  Storage capacity(bytes).
 	*/
@@ -1140,7 +1234,7 @@ func NewHostStatsProjection() *HostStatsProjection {
 	p := new(HostStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1153,145 +1247,197 @@ type StorageContainerStats struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  extId of the Storage Container.
+	  The external identifier of the Storage Container.
 	*/
 	ContainerExtId *string `json:"containerExtId,omitempty"`
 	/*
 	  Average I/O latency in micro secs.
 	*/
-	ControllerAvgIoLatencyuSecs []import2.TimeIntValuePair `json:"controllerAvgIoLatencyuSecs,omitempty"`
+	ControllerAvgIoLatencyuSecs []import3.TimeIntValuePair `json:"controllerAvgIoLatencyuSecs,omitempty"`
 	/*
 	  Average read I/O latency in microseconds.
 	*/
-	ControllerAvgReadIoLatencyuSecs []import2.TimeIntValuePair `json:"controllerAvgReadIoLatencyuSecs,omitempty"`
+	ControllerAvgReadIoLatencyuSecs []import3.TimeIntValuePair `json:"controllerAvgReadIoLatencyuSecs,omitempty"`
 	/*
 	  Average read I/O latency in microseconds.
 	*/
-	ControllerAvgWriteIoLatencyuSecs []import2.TimeIntValuePair `json:"controllerAvgWriteIoLatencyuSecs,omitempty"`
+	ControllerAvgWriteIoLatencyuSecs []import3.TimeIntValuePair `json:"controllerAvgWriteIoLatencyuSecs,omitempty"`
 	/*
 	  Total I/O bandwidth - kB per second.
 	*/
-	ControllerIoBandwidthkBps []import2.TimeIntValuePair `json:"controllerIoBandwidthkBps,omitempty"`
+	ControllerIoBandwidthkBps []import3.TimeIntValuePair `json:"controllerIoBandwidthkBps,omitempty"`
 	/*
 	  Number of I/O per second.
 	*/
-	ControllerNumIops []import2.TimeIntValuePair `json:"controllerNumIops,omitempty"`
+	ControllerNumIops []import3.TimeIntValuePair `json:"controllerNumIops,omitempty"`
 	/*
 	  Number of read I/O per second.
 	*/
-	ControllerNumReadIops []import2.TimeIntValuePair `json:"controllerNumReadIops,omitempty"`
+	ControllerNumReadIops []import3.TimeIntValuePair `json:"controllerNumReadIops,omitempty"`
 	/*
 	  Number of write I/O per second.
 	*/
-	ControllerNumWriteIops []import2.TimeIntValuePair `json:"controllerNumWriteIops,omitempty"`
+	ControllerNumWriteIops []import3.TimeIntValuePair `json:"controllerNumWriteIops,omitempty"`
 	/*
-	  Read I/O bandwidth - kB per second.
+	  Read I/O bandwidth kB per second.
 	*/
-	ControllerReadIoBandwidthkBps []import2.TimeIntValuePair `json:"controllerReadIoBandwidthkBps,omitempty"`
-	/*
-	  Ratio of read I/O to total I/O in PPM.
-	*/
-	ControllerReadIoRatioPpm []import2.TimeIntValuePair `json:"controllerReadIoRatioPpm,omitempty"`
-	/*
-	  Write I/O bandwidth - kB per second.
-	*/
-	ControllerWriteIoBandwidthkBps []import2.TimeIntValuePair `json:"controllerWriteIoBandwidthkBps,omitempty"`
+	ControllerReadIoBandwidthkBps []import3.TimeIntValuePair `json:"controllerReadIoBandwidthkBps,omitempty"`
 	/*
 	  Ratio of read I/O to total I/O in PPM.
 	*/
-	ControllerWriteIoRatioPpm []import2.TimeIntValuePair `json:"controllerWriteIoRatioPpm,omitempty"`
+	ControllerReadIoRatioPpm []import3.TimeIntValuePair `json:"controllerReadIoRatioPpm,omitempty"`
 	/*
-	  Saving ratio in PPM as a result of the Cloning technique.
+	  Write I/O bandwidth kB per second.
 	*/
-	DataReductionCloneSavingRatioPpm []import2.TimeIntValuePair `json:"dataReductionCloneSavingRatioPpm,omitempty"`
+	ControllerWriteIoBandwidthkBps []import3.TimeIntValuePair `json:"controllerWriteIoBandwidthkBps,omitempty"`
 	/*
-	  Saving ratio in PPM as a result of the Compression technique.
+	  Ratio of read I/O to total I/O in PPM.
 	*/
-	DataReductionCompressionSavingRatioPpm []import2.TimeIntValuePair `json:"dataReductionCompressionSavingRatioPpm,omitempty"`
+	ControllerWriteIoRatioPpm []import3.TimeIntValuePair `json:"controllerWriteIoRatioPpm,omitempty"`
 	/*
-	  Saving ratio in PPM as a result of the Deduplication technique.
+	  Storage saving in bytes as a result of the cloning technique.
 	*/
-	DataReductionDedupSavingRatioPpm []import2.TimeIntValuePair `json:"dataReductionDedupSavingRatioPpm,omitempty"`
+	DataReductionCloneSavedBytes []import3.TimeIntValuePair `json:"dataReductionCloneSavedBytes,omitempty"`
 	/*
-	  Saving ratio in PPM as a result of the Erasure Coding technique.
+	  Saving ratio in PPM as a result of the cloning technique.
 	*/
-	DataReductionErasureCodingSavingRatioPpm []import2.TimeIntValuePair `json:"dataReductionErasureCodingSavingRatioPpm,omitempty"`
+	DataReductionCloneSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionCloneSavingRatioPpm,omitempty"`
 	/*
-	  Usage in bytes after reduction of Deduplication, Compression, Erasure Coding, Cloning, and Thin provisioning.
+	  Storage saving in bytes as a result of compression technique.
 	*/
-	DataReductionOverallPostReductionBytes []import2.TimeIntValuePair `json:"dataReductionOverallPostReductionBytes,omitempty"`
+	DataReductionCompressionSavedBytes []import3.TimeIntValuePair `json:"dataReductionCompressionSavedBytes,omitempty"`
 	/*
-	  Usage in bytes before reduction of Deduplication, Compression, Erasure Coding, Cloning, and Thin provisioning.
+	  Saving ratio in PPM as a result of the compression technique.
 	*/
-	DataReductionOverallPreReductionBytes []import2.TimeIntValuePair `json:"dataReductionOverallPreReductionBytes,omitempty"`
+	DataReductionCompressionSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionCompressionSavingRatioPpm,omitempty"`
 	/*
-	  Storage savings in bytes as a result of all the techniques.
+	  Storage saving in bytes as a result of deduplication technique.
 	*/
-	DataReductionSavedBytes []import2.TimeIntValuePair `json:"dataReductionSavedBytes,omitempty"`
+	DataReductionDedupSavedBytes []import3.TimeIntValuePair `json:"dataReductionDedupSavedBytes,omitempty"`
 	/*
-	  Saving ratio in PPM as a result of Deduplication, compression and Erasure Coding.
+	  Saving ratio in PPM as a result of the deduplication technique.
 	*/
-	DataReductionSavingRatioPpm []import2.TimeIntValuePair `json:"dataReductionSavingRatioPpm,omitempty"`
+	DataReductionDedupSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionDedupSavingRatioPpm,omitempty"`
 	/*
-	  Saving ratio in PPM as a result of Snapshot technique.
+	  Storage saving in bytes as a result of erasure coding technique.
 	*/
-	DataReductionSnapshotSavingRatioPpm []import2.TimeIntValuePair `json:"dataReductionSnapshotSavingRatioPpm,omitempty"`
+	DataReductionErasureCodingSavedBytes []import3.TimeIntValuePair `json:"dataReductionErasureCodingSavedBytes,omitempty"`
 	/*
-	  Saving ratio in PPM as a result of the Thin Provisioning technique.
+	  Saving ratio in PPM as a result of the erasure coding technique.
 	*/
-	DataReductionThinProvisionSavingRatioPpm []import2.TimeIntValuePair `json:"dataReductionThinProvisionSavingRatioPpm,omitempty"`
+	DataReductionErasureCodingSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionErasureCodingSavingRatioPpm,omitempty"`
 	/*
-	  Saving ratio in PPM consisting of Deduplication, Compression, Erasure Coding, Cloning, and Thin Provisioning.
+	  Usage in bytes after reduction of ceduplication, compression, erasure coding, cloning, and thin provisioning.
 	*/
-	DataReductionTotalSavingRatioPpm []import2.TimeIntValuePair `json:"dataReductionTotalSavingRatioPpm,omitempty"`
+	DataReductionOverallPostReductionBytes []import3.TimeIntValuePair `json:"dataReductionOverallPostReductionBytes,omitempty"`
+	/*
+	  Usage in bytes before reduction of deduplication, compression, erasure coding, cloning, and thin provisioning.
+	*/
+	DataReductionOverallPreReductionBytes []import3.TimeIntValuePair `json:"dataReductionOverallPreReductionBytes,omitempty"`
+	/*
+	  Storage saving in bytes as a result of deduplication, compression, erasure coding, cloning and thin provisioning technique.
+	*/
+	DataReductionOverallSavedBytes []import3.TimeIntValuePair `json:"dataReductionOverallSavedBytes,omitempty"`
+	/*
+	  Storage saving in bytes as a result of deduplication, compression, erasure coding technique.
+	*/
+	DataReductionSavedBytes []import3.TimeIntValuePair `json:"dataReductionSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of deduplication, compression and erasure coding.
+	*/
+	DataReductionSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionSavingRatioPpm,omitempty"`
+	/*
+	  Storage saving in bytes as a result of the snapshot technique.
+	*/
+	DataReductionSnapshotSavedBytes []import3.TimeIntValuePair `json:"dataReductionSnapshotSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of snapshot technique.
+	*/
+	DataReductionSnapshotSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionSnapshotSavingRatioPpm,omitempty"`
+	/*
+	  Storage saving in bytes as a result of thin Provisioning technique.
+	*/
+	DataReductionThinProvisionSavedBytes []import3.TimeIntValuePair `json:"dataReductionThinProvisionSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of the thin provisioning technique.
+	*/
+	DataReductionThinProvisionSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionThinProvisionSavingRatioPpm,omitempty"`
+	/*
+	  Saving ratio in PPM consisting of deduplication, compression, erasure coding, cloning, and thin provisioning.
+	*/
+	DataReductionTotalSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionTotalSavingRatioPpm,omitempty"`
 	/*
 	  Total amount of savings in bytes as a result of zero writes.
 	*/
-	DataReductionZeroWriteSavingsBytes []import2.TimeIntValuePair `json:"dataReductionZeroWriteSavingsBytes,omitempty"`
+	DataReductionZeroWriteSavingsBytes []import3.TimeIntValuePair `json:"dataReductionZeroWriteSavingsBytes,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Health of the container is represented by an integer value in the range 0-100. Higher value is indicative of better health.
+	  Health of the Storage Container is represented by an integer value in the range 0-100. A higher value indicates better health.
 	*/
-	Health []import2.TimeIntValuePair `json:"health,omitempty"`
+	Health []import3.TimeIntValuePair `json:"health,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
-	  Actual physical disk usage of the container without accounting for the reservation.
+	  Actual physical disk usage of the Storage Container without considering for the reservation.
 	*/
-	StorageActualPhysicalUsageBytes []import2.TimeIntValuePair `json:"storageActualPhysicalUsageBytes,omitempty"`
+	StorageActualPhysicalUsageBytes []import3.TimeIntValuePair `json:"storageActualPhysicalUsageBytes,omitempty"`
 	/*
 	  Storage capacity in bytes.
 	*/
-	StorageCapacityBytes []import2.TimeIntValuePair `json:"storageCapacityBytes,omitempty"`
+	StorageCapacityBytes []import3.TimeIntValuePair `json:"storageCapacityBytes,omitempty"`
 	/*
 	  Free storage in bytes.
 	*/
-	StorageFreeBytes []import2.TimeIntValuePair `json:"storageFreeBytes,omitempty"`
+	StorageFreeBytes []import3.TimeIntValuePair `json:"storageFreeBytes,omitempty"`
 	/*
-	  Replication factor of Container.
+	  The total explicit reserved physical capacity of other Storage Containers in the same Storage Pool.
 	*/
-	StorageReplicationFactor []import2.TimeIntValuePair `json:"storageReplicationFactor,omitempty"`
+	StorageOtherContainersReservedCapacity []import3.TimeIntValuePair `json:"storageOtherContainersReservedCapacity,omitempty"`
 	/*
-	  Implicit physical reserved capacity(aggregated on vDisk level due to thick provisioning) in bytes.
+	  The physical usage outside of the explicitly reserved capacity of other Storage Containers in the same Storage Pool.
 	*/
-	StorageReservedCapacityBytes []import2.TimeIntValuePair `json:"storageReservedCapacityBytes,omitempty"`
+	StorageOtherContainersUnreservedCapacity []import3.TimeIntValuePair `json:"storageOtherContainersUnreservedCapacity,omitempty"`
 	/*
-	  Total usage on HDD tier for the Container in bytes.
+	  Replication factor of Storage Container.
 	*/
-	StorageTierDasSataUsageBytes []import2.TimeIntValuePair `json:"storageTierDasSataUsageBytes,omitempty"`
+	StorageReplicationFactor []import3.TimeIntValuePair `json:"storageReplicationFactor,omitempty"`
 	/*
-	  Total usage on SDD tier for the Container in bytes
+	  Implicit physical reserved capacity (aggregated at the vDisk level due to thick provisioning) in bytes.
 	*/
-	StorageTierSsdUsageBytes []import2.TimeIntValuePair `json:"storageTierSsdUsageBytes,omitempty"`
+	StorageReservedCapacityBytes []import3.TimeIntValuePair `json:"storageReservedCapacityBytes,omitempty"`
+	/*
+	  The remaining unused space of the implicit reserved capacity(aggregated on vDisk level due to thick provisioning) in bytes.
+	*/
+	StorageReservedFreeBytes []import3.TimeIntValuePair `json:"storageReservedFreeBytes,omitempty"`
+	/*
+	  The physical usage of the implicit reserved capacity(aggregated on vDisk level due to thick provisioning) in bytes.
+	*/
+	StorageReservedUsageBytes []import3.TimeIntValuePair `json:"storageReservedUsageBytes,omitempty"`
+	/*
+	  The space that will be reclaimed if all the snapshots in the cluster is deleted. This is the physical snapshot usage with replication factor and data reduction savings taken into account.
+	*/
+	StorageSnapshotReclaimable []import3.TimeIntValuePair `json:"storageSnapshotReclaimable,omitempty"`
+	/*
+	  Total usage on HDD tier for the Storage Container in bytes.
+	*/
+	StorageTierDasSataUsageBytes []import3.TimeIntValuePair `json:"storageTierDasSataUsageBytes,omitempty"`
+	/*
+	  Total usage on SDD tier for the Storage Container in bytes.
+	*/
+	StorageTierSsdUsageBytes []import3.TimeIntValuePair `json:"storageTierSsdUsageBytes,omitempty"`
+	/*
+	  The physical usage from unreserved vDisks(aggregated on thin provisioning vDisks) in bytes.
+	*/
+	StorageUnreservedUsageBytes []import3.TimeIntValuePair `json:"storageUnreservedUsageBytes,omitempty"`
 	/*
 	  Used storage in bytes.
 	*/
-	StorageUsageBytes []import2.TimeIntValuePair `json:"storageUsageBytes,omitempty"`
+	StorageUsageBytes []import3.TimeIntValuePair `json:"storageUsageBytes,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
@@ -1302,7 +1448,221 @@ func NewStorageContainerStats() *StorageContainerStats {
 	p := new(StorageContainerStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.StorageContainerStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type StorageContainerStatsProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The external identifier of the Storage Container.
+	*/
+	ContainerExtId *string `json:"containerExtId,omitempty"`
+	/*
+	  Average I/O latency in micro secs.
+	*/
+	ControllerAvgIoLatencyuSecs []import3.TimeIntValuePair `json:"controllerAvgIoLatencyuSecs,omitempty"`
+	/*
+	  Average read I/O latency in microseconds.
+	*/
+	ControllerAvgReadIoLatencyuSecs []import3.TimeIntValuePair `json:"controllerAvgReadIoLatencyuSecs,omitempty"`
+	/*
+	  Average read I/O latency in microseconds.
+	*/
+	ControllerAvgWriteIoLatencyuSecs []import3.TimeIntValuePair `json:"controllerAvgWriteIoLatencyuSecs,omitempty"`
+	/*
+	  Total I/O bandwidth - kB per second.
+	*/
+	ControllerIoBandwidthkBps []import3.TimeIntValuePair `json:"controllerIoBandwidthkBps,omitempty"`
+	/*
+	  Number of I/O per second.
+	*/
+	ControllerNumIops []import3.TimeIntValuePair `json:"controllerNumIops,omitempty"`
+	/*
+	  Number of read I/O per second.
+	*/
+	ControllerNumReadIops []import3.TimeIntValuePair `json:"controllerNumReadIops,omitempty"`
+	/*
+	  Number of write I/O per second.
+	*/
+	ControllerNumWriteIops []import3.TimeIntValuePair `json:"controllerNumWriteIops,omitempty"`
+	/*
+	  Read I/O bandwidth kB per second.
+	*/
+	ControllerReadIoBandwidthkBps []import3.TimeIntValuePair `json:"controllerReadIoBandwidthkBps,omitempty"`
+	/*
+	  Ratio of read I/O to total I/O in PPM.
+	*/
+	ControllerReadIoRatioPpm []import3.TimeIntValuePair `json:"controllerReadIoRatioPpm,omitempty"`
+	/*
+	  Write I/O bandwidth kB per second.
+	*/
+	ControllerWriteIoBandwidthkBps []import3.TimeIntValuePair `json:"controllerWriteIoBandwidthkBps,omitempty"`
+	/*
+	  Ratio of read I/O to total I/O in PPM.
+	*/
+	ControllerWriteIoRatioPpm []import3.TimeIntValuePair `json:"controllerWriteIoRatioPpm,omitempty"`
+	/*
+	  Storage saving in bytes as a result of the cloning technique.
+	*/
+	DataReductionCloneSavedBytes []import3.TimeIntValuePair `json:"dataReductionCloneSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of the cloning technique.
+	*/
+	DataReductionCloneSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionCloneSavingRatioPpm,omitempty"`
+	/*
+	  Storage saving in bytes as a result of compression technique.
+	*/
+	DataReductionCompressionSavedBytes []import3.TimeIntValuePair `json:"dataReductionCompressionSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of the compression technique.
+	*/
+	DataReductionCompressionSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionCompressionSavingRatioPpm,omitempty"`
+	/*
+	  Storage saving in bytes as a result of deduplication technique.
+	*/
+	DataReductionDedupSavedBytes []import3.TimeIntValuePair `json:"dataReductionDedupSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of the deduplication technique.
+	*/
+	DataReductionDedupSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionDedupSavingRatioPpm,omitempty"`
+	/*
+	  Storage saving in bytes as a result of erasure coding technique.
+	*/
+	DataReductionErasureCodingSavedBytes []import3.TimeIntValuePair `json:"dataReductionErasureCodingSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of the erasure coding technique.
+	*/
+	DataReductionErasureCodingSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionErasureCodingSavingRatioPpm,omitempty"`
+	/*
+	  Usage in bytes after reduction of ceduplication, compression, erasure coding, cloning, and thin provisioning.
+	*/
+	DataReductionOverallPostReductionBytes []import3.TimeIntValuePair `json:"dataReductionOverallPostReductionBytes,omitempty"`
+	/*
+	  Usage in bytes before reduction of deduplication, compression, erasure coding, cloning, and thin provisioning.
+	*/
+	DataReductionOverallPreReductionBytes []import3.TimeIntValuePair `json:"dataReductionOverallPreReductionBytes,omitempty"`
+	/*
+	  Storage saving in bytes as a result of deduplication, compression, erasure coding, cloning and thin provisioning technique.
+	*/
+	DataReductionOverallSavedBytes []import3.TimeIntValuePair `json:"dataReductionOverallSavedBytes,omitempty"`
+	/*
+	  Storage saving in bytes as a result of deduplication, compression, erasure coding technique.
+	*/
+	DataReductionSavedBytes []import3.TimeIntValuePair `json:"dataReductionSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of deduplication, compression and erasure coding.
+	*/
+	DataReductionSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionSavingRatioPpm,omitempty"`
+	/*
+	  Storage saving in bytes as a result of the snapshot technique.
+	*/
+	DataReductionSnapshotSavedBytes []import3.TimeIntValuePair `json:"dataReductionSnapshotSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of snapshot technique.
+	*/
+	DataReductionSnapshotSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionSnapshotSavingRatioPpm,omitempty"`
+	/*
+	  Storage saving in bytes as a result of thin Provisioning technique.
+	*/
+	DataReductionThinProvisionSavedBytes []import3.TimeIntValuePair `json:"dataReductionThinProvisionSavedBytes,omitempty"`
+	/*
+	  Saving ratio in PPM as a result of the thin provisioning technique.
+	*/
+	DataReductionThinProvisionSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionThinProvisionSavingRatioPpm,omitempty"`
+	/*
+	  Saving ratio in PPM consisting of deduplication, compression, erasure coding, cloning, and thin provisioning.
+	*/
+	DataReductionTotalSavingRatioPpm []import3.TimeIntValuePair `json:"dataReductionTotalSavingRatioPpm,omitempty"`
+	/*
+	  Total amount of savings in bytes as a result of zero writes.
+	*/
+	DataReductionZeroWriteSavingsBytes []import3.TimeIntValuePair `json:"dataReductionZeroWriteSavingsBytes,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Health of the Storage Container is represented by an integer value in the range 0-100. A higher value indicates better health.
+	*/
+	Health []import3.TimeIntValuePair `json:"health,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  Actual physical disk usage of the Storage Container without considering for the reservation.
+	*/
+	StorageActualPhysicalUsageBytes []import3.TimeIntValuePair `json:"storageActualPhysicalUsageBytes,omitempty"`
+	/*
+	  Storage capacity in bytes.
+	*/
+	StorageCapacityBytes []import3.TimeIntValuePair `json:"storageCapacityBytes,omitempty"`
+	/*
+	  Free storage in bytes.
+	*/
+	StorageFreeBytes []import3.TimeIntValuePair `json:"storageFreeBytes,omitempty"`
+	/*
+	  The total explicit reserved physical capacity of other Storage Containers in the same Storage Pool.
+	*/
+	StorageOtherContainersReservedCapacity []import3.TimeIntValuePair `json:"storageOtherContainersReservedCapacity,omitempty"`
+	/*
+	  The physical usage outside of the explicitly reserved capacity of other Storage Containers in the same Storage Pool.
+	*/
+	StorageOtherContainersUnreservedCapacity []import3.TimeIntValuePair `json:"storageOtherContainersUnreservedCapacity,omitempty"`
+	/*
+	  Replication factor of Storage Container.
+	*/
+	StorageReplicationFactor []import3.TimeIntValuePair `json:"storageReplicationFactor,omitempty"`
+	/*
+	  Implicit physical reserved capacity (aggregated at the vDisk level due to thick provisioning) in bytes.
+	*/
+	StorageReservedCapacityBytes []import3.TimeIntValuePair `json:"storageReservedCapacityBytes,omitempty"`
+	/*
+	  The remaining unused space of the implicit reserved capacity(aggregated on vDisk level due to thick provisioning) in bytes.
+	*/
+	StorageReservedFreeBytes []import3.TimeIntValuePair `json:"storageReservedFreeBytes,omitempty"`
+	/*
+	  The physical usage of the implicit reserved capacity(aggregated on vDisk level due to thick provisioning) in bytes.
+	*/
+	StorageReservedUsageBytes []import3.TimeIntValuePair `json:"storageReservedUsageBytes,omitempty"`
+	/*
+	  The space that will be reclaimed if all the snapshots in the cluster is deleted. This is the physical snapshot usage with replication factor and data reduction savings taken into account.
+	*/
+	StorageSnapshotReclaimable []import3.TimeIntValuePair `json:"storageSnapshotReclaimable,omitempty"`
+	/*
+	  Total usage on HDD tier for the Storage Container in bytes.
+	*/
+	StorageTierDasSataUsageBytes []import3.TimeIntValuePair `json:"storageTierDasSataUsageBytes,omitempty"`
+	/*
+	  Total usage on SDD tier for the Storage Container in bytes.
+	*/
+	StorageTierSsdUsageBytes []import3.TimeIntValuePair `json:"storageTierSsdUsageBytes,omitempty"`
+	/*
+	  The physical usage from unreserved vDisks(aggregated on thin provisioning vDisks) in bytes.
+	*/
+	StorageUnreservedUsageBytes []import3.TimeIntValuePair `json:"storageUnreservedUsageBytes,omitempty"`
+	/*
+	  Used storage in bytes.
+	*/
+	StorageUsageBytes []import3.TimeIntValuePair `json:"storageUsageBytes,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewStorageContainerStatsProjection() *StorageContainerStatsProjection {
+	p := new(StorageContainerStatsProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.stats.StorageContainerStatsProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1331,239 +1691,17 @@ func NewTimeValuePair() *TimeValuePair {
 	p := new(TimeValuePair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.TimeValuePair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-type OneOfGetDiskStatsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *DiskStats             `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetDiskStatsApiResponseData() *OneOfGetDiskStatsApiResponseData {
-	p := new(OneOfGetDiskStatsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetDiskStatsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetDiskStatsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case DiskStats:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(DiskStats)
-		}
-		*p.oneOfType2001 = v.(DiskStats)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetDiskStatsApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(DiskStats)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "clustermgmt.v4.stats.DiskStats" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(DiskStats)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDiskStatsApiResponseData"))
-}
-
-func (p *OneOfGetDiskStatsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetDiskStatsApiResponseData")
-}
-
-type OneOfClusterStatsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *ClusterStats          `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfClusterStatsApiResponseData() *OneOfClusterStatsApiResponseData {
-	p := new(OneOfClusterStatsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfClusterStatsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfClusterStatsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case ClusterStats:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(ClusterStats)
-		}
-		*p.oneOfType2001 = v.(ClusterStats)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfClusterStatsApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfClusterStatsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(ClusterStats)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "clustermgmt.v4.stats.ClusterStats" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(ClusterStats)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterStatsApiResponseData"))
-}
-
-func (p *OneOfClusterStatsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfClusterStatsApiResponseData")
-}
-
 type OneOfHostStatsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType2001 *HostStats             `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
 }
 
 func NewOneOfHostStatsApiResponseData() *OneOfHostStatsApiResponseData {
@@ -1578,6 +1716,19 @@ func (p *OneOfHostStatsApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfHostStatsApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case HostStats:
 		if nil == p.oneOfType2001 {
 			p.oneOfType2001 = new(HostStats)
@@ -1591,19 +1742,6 @@ func (p *OneOfHostStatsApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -1611,16 +1749,34 @@ func (p *OneOfHostStatsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfHostStatsApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
 	}
 	return nil
 }
 
 func (p *OneOfHostStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
 	vOneOfType2001 := new(HostStats)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
 		if "clustermgmt.v4.stats.HostStats" == *vOneOfType2001.ObjectType_ {
@@ -1639,11 +1795,86 @@ func (p *OneOfHostStatsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfHostStatsApiResponseData"))
+}
+
+func (p *OneOfHostStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfHostStatsApiResponseData")
+}
+
+type OneOfClusterStatsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *ClusterStats          `json:"-"`
+}
+
+func NewOneOfClusterStatsApiResponseData() *OneOfClusterStatsApiResponseData {
+	p := new(OneOfClusterStatsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfClusterStatsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfClusterStatsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case ClusterStats:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(ClusterStats)
+		}
+		*p.oneOfType2001 = v.(ClusterStats)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfClusterStatsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfClusterStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -1657,24 +1888,42 @@ func (p *OneOfHostStatsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfHostStatsApiResponseData"))
+	vOneOfType2001 := new(ClusterStats)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.stats.ClusterStats" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(ClusterStats)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterStatsApiResponseData"))
 }
 
-func (p *OneOfHostStatsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
+func (p *OneOfClusterStatsApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfHostStatsApiResponseData")
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfClusterStatsApiResponseData")
 }
 
 type OneOfGetStorageContainerStatsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType2001 *StorageContainerStats `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
 }
 
 func NewOneOfGetStorageContainerStatsApiResponseData() *OneOfGetStorageContainerStatsApiResponseData {
@@ -1689,6 +1938,19 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) SetValue(v interface{}) e
 		return errors.New(fmt.Sprintf("OneOfGetStorageContainerStatsApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case StorageContainerStats:
 		if nil == p.oneOfType2001 {
 			p.oneOfType2001 = new(StorageContainerStats)
@@ -1702,19 +1964,6 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) SetValue(v interface{}) e
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -1722,16 +1971,34 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) SetValue(v interface{}) e
 }
 
 func (p *OneOfGetStorageContainerStatsApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
 	}
 	return nil
 }
 
 func (p *OneOfGetStorageContainerStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
 	vOneOfType2001 := new(StorageContainerStats)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
 		if "clustermgmt.v4.stats.StorageContainerStats" == *vOneOfType2001.ObjectType_ {
@@ -1750,11 +2017,86 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) UnmarshalJSON(b []byte) e
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetStorageContainerStatsApiResponseData"))
+}
+
+func (p *OneOfGetStorageContainerStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetStorageContainerStatsApiResponseData")
+}
+
+type OneOfGetDiskStatsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *DiskStats             `json:"-"`
+}
+
+func NewOneOfGetDiskStatsApiResponseData() *OneOfGetDiskStatsApiResponseData {
+	p := new(OneOfGetDiskStatsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetDiskStatsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetDiskStatsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case DiskStats:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(DiskStats)
+		}
+		*p.oneOfType2001 = v.(DiskStats)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetDiskStatsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -1768,17 +2110,35 @@ func (p *OneOfGetStorageContainerStatsApiResponseData) UnmarshalJSON(b []byte) e
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetStorageContainerStatsApiResponseData"))
+	vOneOfType2001 := new(DiskStats)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.stats.DiskStats" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(DiskStats)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDiskStatsApiResponseData"))
 }
 
-func (p *OneOfGetStorageContainerStatsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
+func (p *OneOfGetDiskStatsApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetStorageContainerStatsApiResponseData")
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetDiskStatsApiResponseData")
 }
 
 type FileDetail struct {
