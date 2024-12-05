@@ -9,11 +9,11 @@ The Go client for Nutanix Objects Storage Management APIs is designed for Go cli
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.a2
-- Package version: v4.0.1-alpha.2
+- API version: v4.0.b1
+- Package version: v4.0.1-beta.1
 
 ## Requirements.
-Go 1.11 or above are fully supported and tested.
+Go 1.17 or above are fully supported and tested.
 
 
 ## Installation & Usage
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.0.1-alpha.2
+$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.0.1-beta.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.0.1-alpha.2
+	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.0.1-beta.1
 )
 ```
 
@@ -79,10 +79,15 @@ The Go client for Nutanix Objects Storage Management APIs can be configured with
 | VerifySSL | Verify SSL certificate of cluster, the client will connect to                    | No       | True         |
 | Proxy     | Configure a proxy, the client will connect to                                    | No       | N/A          |
 | MaxRetryAttempts| Maximum number of retry attempts while connecting to the cluster           | No       | 5            |
-| RetryInterval| Interval in milliseconds at which retry attempts are made                     | No       | 3000         |
+| RetryInterval | Interval (in time.Duration) at which retry attempts are made                  | No       | 3 * time.Second |
 | LoggerFile | File location to which debug logs are written to                                | No       | N/A          |
-| ConnectTimeout | Connection timeout in milliseconds for all operations                       | No       | 30000        |
-| ReadTimeout | Read timeout in milliseconds for all operations                                | No       | 30000        |
+| ConnectTimeout | Connection timeout (in time.Duration) for all operations                    | No       | 30 * time.Second |
+| ReadTimeout | Read timeout (in time.Duration) for all operations                             | No       | 30 * time.Second |
+| DownloadDirectory | Directory location for files to download                                 | No       | Current Directory |
+| DownloadChunkSize | Chunk size in bytes for files to download                                | No       | 8*1024 bytes |
+| RootCACertificateFile | PEM encoded Root CA certificate file path                            | No       | N/A          |
+| ClientCertificateFile | PEM encoded client certificate file path                             | No       | N/A          |
+| ClientKeyFile | PEM encoded client key file path                                             | No       | N/A          |
 
 A Proxy can be configured with the following parameters
 
@@ -134,17 +139,7 @@ ApiClientInstance.Proxy.Port = 1080
 
 ```
 
-
-### Authentication
-Nutanix APIs currently support HTTP Basic Authentication only, and the Go client can be configured using the username and password parameters to send Basic headers along with every request.
-
-### Retry Mechanism
-The Go client can be configured to retry requests that fail with the following status codes. The numbers of seconds before which the next retry is attempted is determined by the RetryInterval.
-
-- [408 - Request Timeout](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408)
-- [502 - Bad Gateway](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502)
-- [503 - Service Unavailable](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503)
-
+### mTLS Configuration
 ```go
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/client"
@@ -154,8 +149,58 @@ var (
 )
 
 ApiClientInstance = client.NewApiClient()
+// Configure the client as shown in the previous step
+// ...
+
+ApiClientInstance.RootCACertificateFile = "/home/certs/ca.pem"
+ApiClientInstance.ClientCertificateFile = "/home/certs/YourService/YourService.crt"
+ApiClientInstance.ClientKeyFile = "/home/certs/YourService/YourService.key"
+
+```
+
+### Authentication
+Nutanix APIs currently support two type of authentication schemes:
+
+- **HTTP Basic Authentication**
+      - The Go client can be configured using the username and password parameters to send Basic headers along with every request.
+- **API Key Authentication**
+      - The Go client can be configured to set an API key to send "**X-ntnx-api-key**" header with every request.
+ ```go
+  import (
+  	"github.com/nutanix-core/ntnx-api-go-sdk-internal/iam-api-external-go-client/v16/client"
+  )
+
+  var (
+  	ApiClientInstance *client.ApiClient
+  )
+
+  ApiClientInstance = client.NewApiClient()
+  ApiClientInstance.SetApiKey("abcde12345")
+  ```
+
+### Retry Mechanism
+The client can be configured to retry requests that fail with the following status codes. The numbers of seconds before which the next retry is attempted is determined by the retryInterval:
+
+- [408 - Request Timeout](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408)
+- [429 - Too Many Requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429)
+- [502 - Bad Gateway](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502)
+- [503 - Service Unavailable](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503)
+
+The client will also redirect requests that fail with [302 - Found](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302) to the new location specified in the response header `Location`.
+! Note : Within Golang SDK maximum redirect attempts are limited to 10 by default and cannot be changed tro a custom value.
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/client"
+    "time"
+)
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
 ApiClientInstance.MaxRetryAttempts = 5 // Max retry attempts while reconnecting on a loss of connection
-ApiClientInstance.RetryInterval = 5000 // Interval in ms to use during retry attempts
+ApiClientInstance.RetryInterval = 5 * time.Second // Interval (in time.Duration) to use during retry attempts - integer values are treated as time.Nanosecond by default
 ```
 
 ## Usage
@@ -179,11 +224,10 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "3Edcdb0B-bADc-FCce-Ac76-DedD3AFCf2BF"
-expand_ := "string_sample_data"
+extId := "D01626Cf-FEB4-BF7C-8c4B-cEeEAaB309eB"
 
 // 
-getResponse, err := ObjectStoresApiInstance.GetObjectstore(&extId, &expand_)
+getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)
 if err != nil {
 ....
 }
@@ -228,11 +272,10 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "3Edcdb0B-bADc-FCce-Ac76-DedD3AFCf2BF"
-expand_ := "string_sample_data"
+extId := "D01626Cf-FEB4-BF7C-8c4B-cEeEAaB309eB"
 
 // 
-getResponse, err := ObjectStoresApiInstance.GetObjectstore(&extId, &expand_)
+getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)
 if err != nil {
     ....
 }
@@ -246,10 +289,10 @@ args["If-Match"] = etagValue
 // Perform update call with received E-Tag reference
 // initialize/change parameters for update
 // ...
-objectstore := getResponse.GetData().(import1.Objectstore)
+objectStore := getResponse.GetData().(import1.ObjectStore)
 
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := ObjectStoresApiInstance.UpdateObjectstore(&objectstore&extId, , args)
+response, err := ObjectStoresApiInstance.UpdateObjectstoreById(&objectStore&extId, , args)
 if err != nil {
 ....
 }
@@ -291,7 +334,7 @@ expand_ := "string_sample_data"
 select_ := "string_sample_data"
 
 // 
-response, err := ObjectStoresApiInstance.GetObjectstores(&page_, &limit_, &filter_, &orderby_, &expand_, &select_)
+response, err := ObjectStoresApiInstance.ListObjectstores(&page_, &limit_, &filter_, &orderby_, &expand_, &select_)
 if err != nil {
     ....
 }
@@ -302,10 +345,10 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=objects&version=v4.0.a2&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=objects&version=v4.0.b1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
-This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).
+This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
 ## Contact us
 In case of issues please reach out to us at the [mailing list](mailto:sdk@nutanix.com)

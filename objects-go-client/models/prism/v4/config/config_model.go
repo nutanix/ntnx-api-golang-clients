@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/config/config_model.go.
  *
- * Product version: 4.0.1-alpha-2
+ * Product version: 4.0.1-beta-1
  *
  * Part of the Nutanix Objects Storage Management APIs
  *
@@ -24,7 +24,7 @@ type TaskReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  A globally unique identifier of a task.
+	  A globally unique identifier for a task.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 }
@@ -33,7 +33,7 @@ func NewTaskReference() *TaskReference {
 	p := new(TaskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.TaskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
