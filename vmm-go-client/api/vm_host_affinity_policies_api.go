@@ -3,23 +3,23 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/images/config"
+	import10 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/policies"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type ImageRateLimitPoliciesApi struct {
+type VmHostAffinityPoliciesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewImageRateLimitPoliciesApi(apiClient *client.ApiClient) *ImageRateLimitPoliciesApi {
+func NewVmHostAffinityPoliciesApi(apiClient *client.ApiClient) *VmHostAffinityPoliciesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ImageRateLimitPoliciesApi{
+	a := &VmHostAffinityPoliciesApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,14 +32,14 @@ func NewImageRateLimitPoliciesApi(apiClient *client.ApiClient) *ImageRateLimitPo
 	return a
 }
 
-// Creates an image rate limit policy using the provided request body. The name, rate limit Kbps and cluster entity filter are mandatory fields for creating an image rate limit.
-func (api *ImageRateLimitPoliciesApi) CreateRateLimitPolicy(body *import4.RateLimitPolicy, args ...map[string]interface{}) (*import4.CreateRateLimitPolicyApiResponse, error) {
+// Creates a new VM-host affinity policy with the provided configuration.
+func (api *VmHostAffinityPoliciesApi) CreateVmHostAffinityPolicy(body *import10.VmHostAffinityPolicy, args ...map[string]interface{}) (*import10.CreateVmHostAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies"
+	uri := "/api/vmm/v4.0/ahv/policies/vm-host-affinity-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,19 @@ func (api *ImageRateLimitPoliciesApi) CreateRateLimitPolicy(body *import4.RateLi
 		return nil, err
 	}
 
-	unmarshalledResp := new(import4.CreateRateLimitPolicyApiResponse)
+	unmarshalledResp := new(import10.CreateVmHostAffinityPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Deletes the image rate limit policy with the given external identifier.
-func (api *ImageRateLimitPoliciesApi) DeleteRateLimitPolicyById(extId *string, args ...map[string]interface{}) (*import4.DeleteRateLimitPolicyApiResponse, error) {
+// Deletes the VM-host affinity policy with the given external identifier.
+func (api *VmHostAffinityPoliciesApi) DeleteVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import10.DeleteVmHostAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies/{extId}"
+	uri := "/api/vmm/v4.0/ahv/policies/vm-host-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -125,19 +125,19 @@ func (api *ImageRateLimitPoliciesApi) DeleteRateLimitPolicyById(extId *string, a
 		return nil, err
 	}
 
-	unmarshalledResp := new(import4.DeleteRateLimitPolicyApiResponse)
+	unmarshalledResp := new(import10.DeleteVmHostAffinityPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Retrieves an image rate limit policy details for the provided external identifier.
-func (api *ImageRateLimitPoliciesApi) GetRateLimitPolicyById(extId *string, args ...map[string]interface{}) (*import4.GetRateLimitPolicyApiResponse, error) {
+// Fetches the VM-host affinity policy configuration for the provided VM-host affinity policy external identifier.
+func (api *VmHostAffinityPoliciesApi) GetVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import10.GetVmHostAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies/{extId}"
+	uri := "/api/vmm/v4.0/ahv/policies/vm-host-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -175,19 +175,19 @@ func (api *ImageRateLimitPoliciesApi) GetRateLimitPolicyById(extId *string, args
 		return nil, err
 	}
 
-	unmarshalledResp := new(import4.GetRateLimitPolicyApiResponse)
+	unmarshalledResp := new(import10.GetVmHostAffinityPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// The effective rate limit for the Prism Elements. If no rate limit applies to a particular cluster, no entry is returned for that cluster. The API supports operations such as filtering, sorting, selection, and pagination.
-func (api *ImageRateLimitPoliciesApi) ListEffectiveRateLimitPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import4.ListEffectiveRateLimitPoliciesApiResponse, error) {
+// Lists all the VM-Host Affinity policies.
+func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import10.ListVmHostAffinityPoliciesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/effective-rate-limit-policies"
+	uri := "/api/vmm/v4.0/ahv/policies/vm-host-affinity-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -212,9 +212,6 @@ func (api *ImageRateLimitPoliciesApi) ListEffectiveRateLimitPolicies(page_ *int,
 	if orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -234,20 +231,27 @@ func (api *ImageRateLimitPoliciesApi) ListEffectiveRateLimitPolicies(page_ *int,
 		return nil, err
 	}
 
-	unmarshalledResp := new(import4.ListEffectiveRateLimitPoliciesApiResponse)
+	unmarshalledResp := new(import10.ListVmHostAffinityPoliciesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Lists image rate limit policies created on Prism Central along with other details such as, name, description and so on. This API supports operations such as filtering, sorting, selection, and pagination.
-func (api *ImageRateLimitPoliciesApi) ListRateLimitPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import4.ListRateLimitPoliciesApiResponse, error) {
+// Lists the compliance state of all the VMs associated with the VM-host affinity policy.
+func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicyVmComplianceStates(vmHostAffinityPolicyExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import10.ListVmHostAffinityPolicyVmComplianceStatesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies"
+	uri := "/api/vmm/v4.0/ahv/policies/vm-host-affinity-policies/{vmHostAffinityPolicyExtId}/vm-compliance-states"
 
+	// verify the required parameter 'vmHostAffinityPolicyExtId' is set
+	if nil == vmHostAffinityPolicyExtId {
+		return nil, client.ReportError("vmHostAffinityPolicyExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"vmHostAffinityPolicyExtId"+"}", url.PathEscape(client.ParameterToString(*vmHostAffinityPolicyExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -265,15 +269,6 @@ func (api *ImageRateLimitPoliciesApi) ListRateLimitPolicies(page_ *int, limit_ *
 	if limit_ != nil {
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
-	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
-	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -293,19 +288,69 @@ func (api *ImageRateLimitPoliciesApi) ListRateLimitPolicies(page_ *int, limit_ *
 		return nil, err
 	}
 
-	unmarshalledResp := new(import4.ListRateLimitPoliciesApiResponse)
+	unmarshalledResp := new(import10.ListVmHostAffinityPolicyVmComplianceStatesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Updates the image rate limit policy using the provided request body with the given external identifier. It is always recommended to perform a GET operation on a resource before performing a PUT operation to ensure the correct ETag is used.
-func (api *ImageRateLimitPoliciesApi) UpdateRateLimitPolicyById(extId *string, body *import4.RateLimitPolicy, args ...map[string]interface{}) (*import4.UpdateRateLimitPolicyApiResponse, error) {
+// Re-enforces the VM-host affinity policy on all the VMs associated with the policy.
+func (api *VmHostAffinityPoliciesApi) ReEnforceVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import10.ReEnforceVmHostAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies/{extId}"
+	uri := "/api/vmm/v4.0/ahv/policies/vm-host-affinity-policies/{extId}/$actions/re-enforce"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.ReEnforceVmHostAffinityPolicyApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Updates the configuration of the VM-host affinity policy with the given external identifier.
+func (api *VmHostAffinityPoliciesApi) UpdateVmHostAffinityPolicyById(extId *string, body *import10.VmHostAffinityPolicy, args ...map[string]interface{}) (*import10.UpdateVmHostAffinityPolicyApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.0/ahv/policies/vm-host-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -347,7 +392,7 @@ func (api *ImageRateLimitPoliciesApi) UpdateRateLimitPolicyById(extId *string, b
 		return nil, err
 	}
 
-	unmarshalledResp := new(import4.UpdateRateLimitPolicyApiResponse)
+	unmarshalledResp := new(import10.UpdateVmHostAffinityPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

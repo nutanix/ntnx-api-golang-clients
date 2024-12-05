@@ -1,4 +1,3 @@
-//Api classes for vmm's golang SDK
 package api
 
 import (
@@ -33,14 +32,14 @@ func NewTemplatesApi(apiClient *client.ApiClient) *TemplatesApi {
 	return a
 }
 
-// Cancel updating the Guest OS for the given Template Version identifier. The temporary VM created during \"Initiate Guest OS Update\" is deleted and the pending update state is cleared. Please note that any modifications made to the temporary VM will be lost upon successful cancelation of update operation.
+// This operation cancels the update initiated by the \"Initiate guest OS update\" API for the given template. The temporary VM created during the update process is deleted, and the pending update status is cleared. Please note that any modifications made to the temporary VM will be lost upon cancelling the update operation.
 func (api *TemplatesApi) CancelGuestUpdate(extId *string, args ...map[string]interface{}) (*import5.CancelGuestUpdateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{extId}/$actions/cancel-guest-update"
+	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/cancel-guest-update"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -48,7 +47,6 @@ func (api *TemplatesApi) CancelGuestUpdate(extId *string, args ...map[string]int
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -65,33 +63,33 @@ func (api *TemplatesApi) CancelGuestUpdate(extId *string, args ...map[string]int
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.CancelGuestUpdateApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// This operation concludes the previously ongoing update since issuing the \"Initiate Guest OS Update\" operation for the Template. A new Version is added to the Template, the temporary VM created during \"Initiate Guest OS Update\" is deleted and the pending update state is cleared.
+// This operation finalizes the update initiated by the \"Initiate guest OS update\" API for the template. A new version is added to the template, the temporary VM created during the update process is deleted, and the pending update status is cleared.
 func (api *TemplatesApi) CompleteGuestUpdate(extId *string, body *import5.CompleteGuestUpdateSpec, args ...map[string]interface{}) (*import5.CompleteGuestUpdateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{extId}/$actions/complete-guest-update"
+	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/complete-guest-update"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -103,7 +101,6 @@ func (api *TemplatesApi) CompleteGuestUpdate(extId *string, body *import5.Comple
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -120,33 +117,33 @@ func (api *TemplatesApi) CompleteGuestUpdate(extId *string, body *import5.Comple
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.CompleteGuestUpdateApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Create a Template from the given VM identifier. A Template stores the VM configuration and disks from the source VM.
+// Creates a template from the given VM identifier. A template stores the VM configuration and disks from the source VM.
 func (api *TemplatesApi) CreateTemplate(body *import5.Template, args ...map[string]interface{}) (*import5.CreateTemplateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates"
+	uri := "/api/vmm/v4.0/content/templates"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -168,33 +165,33 @@ func (api *TemplatesApi) CreateTemplate(body *import5.Template, args ...map[stri
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.CreateTemplateApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete the Template along with all its Versions for a given Template identifier.
+// Deletes the template and all of its versions for a given template identifier.
 func (api *TemplatesApi) DeleteTemplateById(extId *string, args ...map[string]interface{}) (*import5.DeleteTemplateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{extId}"
+	uri := "/api/vmm/v4.0/content/templates/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -202,7 +199,6 @@ func (api *TemplatesApi) DeleteTemplateById(extId *string, args ...map[string]in
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -219,33 +215,33 @@ func (api *TemplatesApi) DeleteTemplateById(extId *string, args ...map[string]in
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.DeleteTemplateApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete a Version for a given Template Version identifier.
+// Deletes a version for the given template version identifier.
 func (api *TemplatesApi) DeleteTemplateVersionById(templateExtId *string, extId *string, args ...map[string]interface{}) (*import5.DeleteTemplateVersionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{templateExtId}/versions/{extId}"
+	uri := "/api/vmm/v4.0/content/templates/{templateExtId}/versions/{extId}"
 
 	// verify the required parameter 'templateExtId' is set
 	if nil == templateExtId {
@@ -257,9 +253,7 @@ func (api *TemplatesApi) DeleteTemplateVersionById(templateExtId *string, extId 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"templateExtId"+"}", url.PathEscape(client.ParameterToString(*templateExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -276,33 +270,33 @@ func (api *TemplatesApi) DeleteTemplateVersionById(templateExtId *string, extId 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.DeleteTemplateVersionApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Deploy one or more VMs from a Template. Number of VMs to be deployed and their corresponding VM configuration overrides can be provided.
+// Deploys one or more VMs from a template. You can specify the number of VMs to deploy and their corresponding VM configuration overrides.
 func (api *TemplatesApi) DeployTemplate(extId *string, body *import5.TemplateDeployment, args ...map[string]interface{}) (*import5.DeployTemplateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{extId}/$actions/deploy"
+	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/deploy"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -314,7 +308,6 @@ func (api *TemplatesApi) DeployTemplate(extId *string, body *import5.TemplateDep
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -331,33 +324,33 @@ func (api *TemplatesApi) DeployTemplate(extId *string, body *import5.TemplateDep
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.DeployTemplateApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Retrieve the Template details for the given Template identifier.
+// Retrieves the template details for a given template identifier.
 func (api *TemplatesApi) GetTemplateById(extId *string, args ...map[string]interface{}) (*import5.GetTemplateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{extId}"
+	uri := "/api/vmm/v4.0/content/templates/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -365,7 +358,6 @@ func (api *TemplatesApi) GetTemplateById(extId *string, args ...map[string]inter
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -382,33 +374,33 @@ func (api *TemplatesApi) GetTemplateById(extId *string, args ...map[string]inter
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.GetTemplateApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Retrieve the Template Version details for the given Template Version identifier.
+// Retrieves the template version details of the given template and version identifier.
 func (api *TemplatesApi) GetTemplateVersionById(templateExtId *string, extId *string, args ...map[string]interface{}) (*import5.GetTemplateVersionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{templateExtId}/versions/{extId}"
+	uri := "/api/vmm/v4.0/content/templates/{templateExtId}/versions/{extId}"
 
 	// verify the required parameter 'templateExtId' is set
 	if nil == templateExtId {
@@ -420,9 +412,7 @@ func (api *TemplatesApi) GetTemplateVersionById(templateExtId *string, extId *st
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"templateExtId"+"}", url.PathEscape(client.ParameterToString(*templateExtId, "")), -1)
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -439,33 +429,33 @@ func (api *TemplatesApi) GetTemplateVersionById(templateExtId *string, extId *st
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.GetTemplateVersionApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Initiates updating the Guest OS from a given Template Version identifier. Only a single Guest OS Update can be initiated on a Template at a time. A temporary VM is set up where the Guest OS Updates shall be applied. The necessary modifications should be performed on the temporary VM by the user. Once done with the modifications, the user should issue \"Complete Guest OS Update\" to finish the update. The \"Cancel Guest OS Update\" operation can be issued any time to abort an ongoing Guest OS Update.
+// Initiates the process of updating the Guest OS from a given template version identifier. Only one guest OS update can be initiated for a template at a time. A temporary VM is created where the guest OS updates will be applied. The user must make the necessary modifications to this temporary VM. After completing the modifications, the user should issue the \"Complete Guest OS Update\" command to finalize the update. The \"Cancel Guest OS Update\" command can be issued at any time to abort an ongoing update.
 func (api *TemplatesApi) InitiateGuestUpdate(extId *string, body *import5.InitiateGuestUpdateSpec, args ...map[string]interface{}) (*import5.InitiateGuestUpdateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{extId}/$actions/initiate-guest-update"
+	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/initiate-guest-update"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -473,7 +463,6 @@ func (api *TemplatesApi) InitiateGuestUpdate(extId *string, body *import5.Initia
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -490,42 +479,41 @@ func (api *TemplatesApi) InitiateGuestUpdate(extId *string, body *import5.Initia
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.InitiateGuestUpdateApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List Versions with details like name, description, VM configuration, etc. This operation supports filtering, sorting & pagination.
-func (api *TemplatesApi) ListTemplateVersions(extId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import5.ListTemplateVersionsApiResponse, error) {
+// Lists all the versions of a template with details such as name, description, VM configuration and so on. This operation supports filtering, sorting and pagination.
+func (api *TemplatesApi) ListTemplateVersions(templateExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import5.ListTemplateVersionsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{extId}/versions"
+	uri := "/api/vmm/v4.0/content/templates/{templateExtId}/versions"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'templateExtId' is set
+	if nil == templateExtId {
+		return nil, client.ReportError("templateExtId is required and must be specified")
 	}
 
 	// Path Params
-
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"templateExtId"+"}", url.PathEscape(client.ParameterToString(*templateExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -538,53 +526,52 @@ func (api *TemplatesApi) ListTemplateVersions(extId *string, page_ *int, limit_ 
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.ListTemplateVersionsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List Templates with details like name, description, VM configuration, etc. This operation supports filtering, sorting & pagination.
-func (api *TemplatesApi) ListTemplates(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import5.ListTemplatesApiResponse, error) {
+// Lists templates with details such as name, description, VM configuration and so on. This operation supports filtering, sorting and pagination.
+func (api *TemplatesApi) ListTemplates(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import5.ListTemplatesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates"
+	uri := "/api/vmm/v4.0/content/templates"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -598,53 +585,52 @@ func (api *TemplatesApi) ListTemplates(page_ *int, limit_ *int, filter_ *string,
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.ListTemplatesApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Designate the Template Version identified by the given identifier as the Active Version. The Active version is the default version for creating VMs from the Template and for starting the Guest OS Update.
+// Designate the template version identified by the given identifier as the active version. An active version is a default version for creating VMs from the template and starting the Guest OS Update.
 func (api *TemplatesApi) PublishTemplate(extId *string, body *import5.TemplatePublishSpec, args ...map[string]interface{}) (*import5.PublishTemplateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{extId}/$actions/publish"
+	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/publish"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -656,7 +642,6 @@ func (api *TemplatesApi) PublishTemplate(extId *string, body *import5.TemplatePu
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -673,33 +658,33 @@ func (api *TemplatesApi) PublishTemplate(extId *string, body *import5.TemplatePu
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.PublishTemplateApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update the Template with the given Template identifier. This operation results in updating the Template configuration and/or a new Version being added to the Template. The newly created Version is set as the Active Version unless specified otherwise.
+// Updates a template with the given template identifier. This operation updates the template configuration and/or adds a new version to the template. Unless otherwise specified, the newly created version is set as the active version.
 func (api *TemplatesApi) UpdateTemplateById(extId *string, body *import5.Template, args ...map[string]interface{}) (*import5.UpdateTemplateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/content/templates/{extId}"
+	uri := "/api/vmm/v4.0/content/templates/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -707,7 +692,6 @@ func (api *TemplatesApi) UpdateTemplateById(extId *string, body *import5.Templat
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -724,21 +708,21 @@ func (api *TemplatesApi) UpdateTemplateById(extId *string, body *import5.Templat
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import5.UpdateTemplateApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

@@ -1,4 +1,3 @@
-//Api classes for vmm's golang SDK
 package api
 
 import (
@@ -33,14 +32,14 @@ func NewImagePlacementPoliciesApi(apiClient *client.ApiClient) *ImagePlacementPo
 	return a
 }
 
-// Create an image placement policy using the provided request body. Name, placementType, clusterEntityFilter & imageEntityFilter are mandatory fields to create an image placement policy.
+// Creates an image placement policy using the provided request body. The name, placement type, cluster entity filter and image entity filter are mandatory fields for creating an image placement policy.
 func (api *ImagePlacementPoliciesApi) CreatePlacementPolicy(body *import4.PlacementPolicy, args ...map[string]interface{}) (*import4.CreatePlacementPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/images/config/placement-policies"
+	uri := "/api/vmm/v4.0/images/config/placement-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -62,33 +61,33 @@ func (api *ImagePlacementPoliciesApi) CreatePlacementPolicy(body *import4.Placem
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import4.CreatePlacementPolicyApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete the image placement policy with the given external identifier.
+// Deletes the image placement policy with the given external identifier.
 func (api *ImagePlacementPoliciesApi) DeletePlacementPolicyById(extId *string, args ...map[string]interface{}) (*import4.DeletePlacementPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/images/config/placement-policies/{extId}"
+	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -96,7 +95,6 @@ func (api *ImagePlacementPoliciesApi) DeletePlacementPolicyById(extId *string, a
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -113,33 +111,33 @@ func (api *ImagePlacementPoliciesApi) DeletePlacementPolicyById(extId *string, a
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import4.DeletePlacementPolicyApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Retrieve the image placement policy details for the provided external identifier.
+// Retrieves the image placement policy details for the provided external identifier.
 func (api *ImagePlacementPoliciesApi) GetPlacementPolicyById(extId *string, args ...map[string]interface{}) (*import4.GetPlacementPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/images/config/placement-policies/{extId}"
+	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -147,7 +145,6 @@ func (api *ImagePlacementPoliciesApi) GetPlacementPolicyById(extId *string, args
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -164,33 +161,33 @@ func (api *ImagePlacementPoliciesApi) GetPlacementPolicyById(extId *string, args
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import4.GetPlacementPolicyApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List image placement policies created on the Prism Central along with the details like, name, description etc. The API supports operations like filtering, sorting, selection & pagination.
+// Lists image placement policies created in Prism Central, along with details such as name, description, and so on. This API supports operations such as filtering, sorting, selection, and pagination.
 func (api *ImagePlacementPoliciesApi) ListPlacementPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import4.ListPlacementPoliciesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/images/config/placement-policies"
+	uri := "/api/vmm/v4.0/images/config/placement-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -204,23 +201,18 @@ func (api *ImagePlacementPoliciesApi) ListPlacementPolicies(page_ *int, limit_ *
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -228,33 +220,33 @@ func (api *ImagePlacementPoliciesApi) ListPlacementPolicies(page_ *int, limit_ *
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import4.ListPlacementPoliciesApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Resume a suspended image placement policy. A suspended image placement policy is the one that is not being considered for enforcement.
+// Resumes a suspended image placement policy. A suspended image placement policy is one that is not being considered for enforcement.
 func (api *ImagePlacementPoliciesApi) ResumePlacementPolicy(extId *string, args ...map[string]interface{}) (*import4.ResumePlacementPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/images/config/placement-policies/{extId}/$actions/resume"
+	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}/$actions/resume"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -262,7 +254,6 @@ func (api *ImagePlacementPoliciesApi) ResumePlacementPolicy(extId *string, args 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -279,33 +270,33 @@ func (api *ImagePlacementPoliciesApi) ResumePlacementPolicy(extId *string, args 
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import4.ResumePlacementPolicyApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Suspend an active image placement policy. An active image placement policy is the one that is being considered for enforcement.
+// Suspends an active image placement policy. An active image placement policy is considered for enforcement.
 func (api *ImagePlacementPoliciesApi) SuspendPlacementPolicy(extId *string, body *import4.SuspendPlacementPolicyConfig, args ...map[string]interface{}) (*import4.SuspendPlacementPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/images/config/placement-policies/{extId}/$actions/suspend"
+	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}/$actions/suspend"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -317,7 +308,6 @@ func (api *ImagePlacementPoliciesApi) SuspendPlacementPolicy(extId *string, body
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -334,33 +324,33 @@ func (api *ImagePlacementPoliciesApi) SuspendPlacementPolicy(extId *string, body
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import4.SuspendPlacementPolicyApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update the image placement policy with the given external identifier using the provided request body. To make sure the correct ETag is used, it is always recommended to do a GET on a resource before doing a PUT.
+// Updates the image placement policy using the provided request body with the given external identifier. It is always recommended to perform a GET operation on a resource before performing a PUT operation to ensure the correct ETag is used.
 func (api *ImagePlacementPoliciesApi) UpdatePlacementPolicyById(extId *string, body *import4.PlacementPolicy, args ...map[string]interface{}) (*import4.UpdatePlacementPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0.b1/images/config/placement-policies/{extId}"
+	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -372,7 +362,6 @@ func (api *ImagePlacementPoliciesApi) UpdatePlacementPolicyById(extId *string, b
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -389,21 +378,21 @@ func (api *ImagePlacementPoliciesApi) UpdatePlacementPolicyById(extId *string, b
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import4.UpdatePlacementPolicyApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
