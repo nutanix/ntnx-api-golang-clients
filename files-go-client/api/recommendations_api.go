@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type InfectedFilesApi struct {
+type RecommendationsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewInfectedFilesApi(apiClient *client.ApiClient) *InfectedFilesApi {
+func NewRecommendationsApi(apiClient *client.ApiClient) *RecommendationsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &InfectedFilesApi{
+	a := &RecommendationsApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,14 +32,14 @@ func NewInfectedFilesApi(apiClient *client.ApiClient) *InfectedFilesApi {
 	return a
 }
 
-// Deletes the infected file with the given external identifier.  Specify a valid identifier of the file server (`fileServerExtId`) and  of the infected file (`extId`).
-func (api *InfectedFilesApi) DeleteInfectedFileById(fileServerExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteInfectedFileApiResponse, error) {
+// Delete the recommendation identified with the given external identifier.  Specify a valid identifier of the file server (`fileServerExtId`) and of the recommendation (`extId`).
+func (api *RecommendationsApi) DeleteRecommendationById(fileServerExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteRecommendationApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/infected-files/{extId}"
+	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/recommendations/{extId}"
 
 	// verify the required parameter 'fileServerExtId' is set
 	if nil == fileServerExtId {
@@ -82,78 +82,19 @@ func (api *InfectedFilesApi) DeleteInfectedFileById(fileServerExtId *string, ext
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.DeleteInfectedFileApiResponse)
+	unmarshalledResp := new(import3.DeleteRecommendationApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Performs security action provided in the request body on the infected file.
-func (api *InfectedFilesApi) FixInfectedFile(fileServerExtId *string, extId *string, body *import3.InfectedFileFixSpec, args ...map[string]interface{}) (*import3.FixInfectedFileApiResponse, error) {
+// Fetches a specific recommendation detail identified by the external identifier.  Specify a valid identifier of the file server (`fileServerExtId`) and of the recommendation (`extId`).
+func (api *RecommendationsApi) GetRecommendationById(fileServerExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetRecommendationApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/infected-files/{extId}/$actions/fix"
-
-	// verify the required parameter 'fileServerExtId' is set
-	if nil == fileServerExtId {
-		return nil, client.ReportError("fileServerExtId is required and must be specified")
-	}
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import3.FixInfectedFileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Fetches infected files with the given external identifier.  Specify a valid identifier of the file server (`fileServerExtId`) and  of the infected file (`extId`).
-func (api *InfectedFilesApi) GetInfectedFileById(fileServerExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetInfectedFileApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/infected-files/{extId}"
+	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/recommendations/{extId}"
 
 	// verify the required parameter 'fileServerExtId' is set
 	if nil == fileServerExtId {
@@ -196,19 +137,19 @@ func (api *InfectedFilesApi) GetInfectedFileById(fileServerExtId *string, extId 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.GetInfectedFileApiResponse)
+	unmarshalledResp := new(import3.GetRecommendationApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a paginated list of infected files.
-func (api *InfectedFilesApi) ListInfectedFiles(fileServerExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListInfectedFilesApiResponse, error) {
+// Get the paginated list of recommendations for a file server.
+func (api *RecommendationsApi) ListRecommendations(fileServerExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListRecommendationsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/infected-files"
+	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/recommendations"
 
 	// verify the required parameter 'fileServerExtId' is set
 	if nil == fileServerExtId {
@@ -262,7 +203,7 @@ func (api *InfectedFilesApi) ListInfectedFiles(fileServerExtId *string, page_ *i
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.ListInfectedFilesApiResponse)
+	unmarshalledResp := new(import3.ListRecommendationsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

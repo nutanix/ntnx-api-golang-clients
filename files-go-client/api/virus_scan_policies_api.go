@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type SnapshotsApi struct {
+type VirusScanPoliciesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewSnapshotsApi(apiClient *client.ApiClient) *SnapshotsApi {
+func NewVirusScanPoliciesApi(apiClient *client.ApiClient) *VirusScanPoliciesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &SnapshotsApi{
+	a := &VirusScanPoliciesApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,22 +32,18 @@ func NewSnapshotsApi(apiClient *client.ApiClient) *SnapshotsApi {
 	return a
 }
 
-// Create a mount target snapshot by using the provided request body.  Specify a valid external identifier of the file server (`fileServerExtId`) and the mount target (`mountTargetExtId`).  User created snapshot will always be of type `USER_SNAPSHOT`.
-func (api *SnapshotsApi) CreateMountTargetSnapshot(fileServerExtId *string, mountTargetExtId *string, body *import3.Snapshot, args ...map[string]interface{}) (*import3.CreateMountTargetSnapshotApiResponse, error) {
+// Creates a new virus scan policy. Users can create a virus scan policy at the file-server level for all shares or an individual mount target. When no mountTargetReference is passed in the request body, a policy will be created for the file server. When mountTargetReference is passed in the body, the policy will be created for that specific mount target.
+func (api *VirusScanPoliciesApi) CreateVirusScanPolicy(fileServerExtId *string, body *import3.VirusScanPolicy, args ...map[string]interface{}) (*import3.CreateVirusScanPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots"
+	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/virus-scan-policies"
 
 	// verify the required parameter 'fileServerExtId' is set
 	if nil == fileServerExtId {
 		return nil, client.ReportError("fileServerExtId is required and must be specified")
-	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -56,7 +52,6 @@ func (api *SnapshotsApi) CreateMountTargetSnapshot(fileServerExtId *string, moun
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -86,27 +81,23 @@ func (api *SnapshotsApi) CreateMountTargetSnapshot(fileServerExtId *string, moun
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.CreateMountTargetSnapshotApiResponse)
+	unmarshalledResp := new(import3.CreateVirusScanPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete a mount target snapshot with the given external identifier.  Specify a valid identifier of the file server (`fileServerExtId`) and the mount target (`mountTargetExtId`) to which the snapshot belongs and a valid external identifier of the snapshot (`extId`).
-func (api *SnapshotsApi) DeleteMountTargetSnapshotById(fileServerExtId *string, mountTargetExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteMountTargetSnapshotApiResponse, error) {
+// Deletes a virus scan policy for a mount target that is identified by the mountTargetExtId in the request body. The option to delete file-server level policy is not supported.
+func (api *VirusScanPoliciesApi) DeleteVirusScanPolicyById(fileServerExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteVirusScanPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots/{extId}"
+	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/virus-scan-policies/{extId}"
 
 	// verify the required parameter 'fileServerExtId' is set
 	if nil == fileServerExtId {
 		return nil, client.ReportError("fileServerExtId is required and must be specified")
-	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
 	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -115,7 +106,6 @@ func (api *SnapshotsApi) DeleteMountTargetSnapshotById(fileServerExtId *string, 
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -146,27 +136,23 @@ func (api *SnapshotsApi) DeleteMountTargetSnapshotById(fileServerExtId *string, 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.DeleteMountTargetSnapshotApiResponse)
+	unmarshalledResp := new(import3.DeleteVirusScanPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get mount target snapshot with the given external identifier.  Specify a valid identifier of the file server (`fileServerExtId`) and  the mount target (`mountTargetExtId`) to which the snapshot belongs and a valid external identifier of the snapshot (`extId`).
-func (api *SnapshotsApi) GetMountTargetSnapshotById(fileServerExtId *string, mountTargetExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetMountTargetSnapshotApiResponse, error) {
+// Fetch details of a virus scan policy identified by external identifier.
+func (api *VirusScanPoliciesApi) GetVirusScanPolicyById(fileServerExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetVirusScanPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots/{extId}"
+	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/virus-scan-policies/{extId}"
 
 	// verify the required parameter 'fileServerExtId' is set
 	if nil == fileServerExtId {
 		return nil, client.ReportError("fileServerExtId is required and must be specified")
-	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
 	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -175,7 +161,6 @@ func (api *SnapshotsApi) GetMountTargetSnapshotById(fileServerExtId *string, mou
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -206,32 +191,27 @@ func (api *SnapshotsApi) GetMountTargetSnapshotById(fileServerExtId *string, mou
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.GetMountTargetSnapshotApiResponse)
+	unmarshalledResp := new(import3.GetVirusScanPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a paginated list of mount target snapshots.
-func (api *SnapshotsApi) ListMountTargetSnapshots(fileServerExtId *string, mountTargetExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListMountTargetSnapshotsApiResponse, error) {
+// List virus scan policies for a file server.
+func (api *VirusScanPoliciesApi) ListVirusScanPolicies(fileServerExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListVirusScanPoliciesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots"
+	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/virus-scan-policies"
 
 	// verify the required parameter 'fileServerExtId' is set
 	if nil == fileServerExtId {
 		return nil, client.ReportError("fileServerExtId is required and must be specified")
 	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
-	}
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -277,43 +257,42 @@ func (api *SnapshotsApi) ListMountTargetSnapshots(fileServerExtId *string, mount
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.ListMountTargetSnapshotsApiResponse)
+	unmarshalledResp := new(import3.ListVirusScanPoliciesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Restores a mount target from a specified snapshot. This request requires etag of the mount target entity.
-func (api *SnapshotsApi) RestoreMountTarget(fileServerExtId *string, mountTargetExtId *string, extId *string, args ...map[string]interface{}) (*import3.RestoreMountTargetApiResponse, error) {
+// Updated a virus scan policy for file server identified by the external identifier.
+func (api *VirusScanPoliciesApi) UpdateVirusScanPolicyById(fileServerExtId *string, extId *string, body *import3.VirusScanPolicy, args ...map[string]interface{}) (*import3.UpdateVirusScanPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots/{extId}/$actions/restore"
+	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/virus-scan-policies/{extId}"
 
 	// verify the required parameter 'fileServerExtId' is set
 	if nil == fileServerExtId {
 		return nil, client.ReportError("fileServerExtId is required and must be specified")
 	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{}
+	contentTypes := []string{"application/json"}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
@@ -332,12 +311,12 @@ func (api *SnapshotsApi) RestoreMountTarget(fileServerExtId *string, mountTarget
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.RestoreMountTargetApiResponse)
+	unmarshalledResp := new(import3.UpdateVirusScanPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

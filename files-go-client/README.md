@@ -1,6 +1,6 @@
-# Go Client For Nutanix Nutanix Files Versioned APIs
+# Go Client For Nutanix Files APIs
 
-The Go client for Nutanix Files Versioned APIs is designed for Go client application developers offering them simple and flexible access to APIs that manage virtual file servers, create and configure shares for client access, protect them using DR and sync policies, provision storage space and administer security controls.
+The Go client for Nutanix Files APIs is designed for Go client application developers offering them simple and flexible access to APIs that manage virtual file servers, create and configure shares for client access, protect them using DR and sync policies, provision storage space and administer security controls.
 
 ## Features
 - Invoke Nutanix APIs with a simple interface.
@@ -9,11 +9,11 @@ The Go client for Nutanix Files Versioned APIs is designed for Go client applica
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.a2
-- Package version: v4.0.1-alpha.2
+- API version: v4.0
+- Package version: v4.0.1
 
 ## Requirements.
-Go 1.11 or above are fully supported and tested.
+Go 1.17 or above are fully supported and tested.
 
 
 ## Installation & Usage
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/...@v4.0.1-alpha.2
+$ go get github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/...@v4.0.1
 ```
 
 #### Using go modules
@@ -60,26 +60,44 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4 v4.0.1-alpha.2
+	github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4 v4.0.1
 )
 ```
 
 
 ## Configuration
-The Go client for Nutanix Files Versioned APIs can be configured with the following parameters
+The Go client for Nutanix Files APIs can be configured with the following parameters
 
 | Parameter | Description                                                                      | Required | Default Value|
 |-----------|----------------------------------------------------------------------------------|----------|--------------|
+| Scheme    | URI scheme for connecting to the cluster (HTTP or HTTPS using SSL/TLS)           | No       | https        |
 | Host      | IPv4/IPv6 address or FQDN of the cluster to which the client will connect to     | Yes      | N/A          |
 | Port      | Port on the cluster to which the client will connect to                          | No       | 9440         |
 | Username  | Username to connect to a cluster                                                 | Yes      | N/A          |
 | Password  | Password to connect to a cluster                                                 | Yes      | N/A          |
 | Debug     | Runs the client in debug mode if specified                                       | No       | False        |
 | VerifySSL | Verify SSL certificate of cluster, the client will connect to                    | No       | True         |
+| Proxy     | Configure a proxy, the client will connect to                                    | No       | N/A          |
 | MaxRetryAttempts| Maximum number of retry attempts while connecting to the cluster           | No       | 5            |
-| RetryInterval| Interval in milliseconds at which retry attempts are made                     | No       | 3000         |
-| LoggerFile | File location to which debug logs are written to                                | No       | N/A|
-| Timeout | Global timeout in milliseconds for all operations                                  | No       | 30000        |
+| RetryInterval | Interval (in time.Duration) at which retry attempts are made                  | No       | 3 * time.Second |
+| LoggerFile | File location to which debug logs are written to                                | No       | N/A          |
+| ConnectTimeout | Connection timeout (in time.Duration) for all operations                    | No       | 30 * time.Second |
+| ReadTimeout | Read timeout (in time.Duration) for all operations                             | No       | 30 * time.Second |
+| DownloadDirectory | Directory location for files to download                                 | No       | Current Directory |
+| DownloadChunkSize | Chunk size in bytes for files to download                                | No       | 8*1024 bytes |
+| RootCACertificateFile | PEM encoded Root CA certificate file path                            | No       | N/A          |
+| ClientCertificateFile | PEM encoded client certificate file path                             | No       | N/A          |
+| ClientKeyFile | PEM encoded client key file path                                             | No       | N/A          |
+
+A Proxy can be configured with the following parameters
+
+| Parameter      | Description                                                            | Required | Default Value|
+|----------------|------------------------------------------------------------------------|----------|--------------|
+| Proxy.Scheme   | URI Scheme for connecting to the proxy ("http", "https" or "socks5")   | Yes      | N/A          |
+| Proxy.Host     | Host of the proxy to which the client will connect to                  | Yes      | N/A          |
+| Proxy.Port     | Port of the proxy to which the client will connect to                  | Yes      | N/A          |
+| Proxy.Username | Username to connect to the proxy                                       | -        | N/A          |
+| Proxy.Password | Password to connect to the proxy                                       | -        | N/A          |
 
 ### Sample Configuration
 ```go
@@ -98,17 +116,7 @@ ApiClientInstance.Password = "password" // Password to connect to the cluster
 
 ```
 
-
-### Authentication
-Nutanix APIs currently support HTTP Basic Authentication only, and the Go client can be configured using the username and password parameters to send Basic headers along with every request.
-
-### Retry Mechanism
-The Go client can be configured to retry requests that fail with the following status codes. The numbers of seconds before which the next retry is attempted is determined by the RetryInterval.
-
-- [408 - Request Timeout](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408)
-- [502 - Bad Gateway](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502)
-- [503 - Service Unavailable](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503)
-
+### Proxy Configuration
 ```go
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/client"
@@ -118,8 +126,81 @@ var (
 )
 
 ApiClientInstance = client.NewApiClient()
+// Configure the client as shown in the previous step
+// ...
+
+ApiClientInstance.Proxy = new(client.Proxy)
+
+ApiClientInstance.Proxy.Scheme = "socks5"
+ApiClientInstance.Proxy.Username = "proxy_admin"
+ApiClientInstance.Proxy.Password = "proxy_password"
+ApiClientInstance.Proxy.Host = "127.0.0.1"
+ApiClientInstance.Proxy.Port = 1080
+
+```
+
+### mTLS Configuration
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/client"
+)
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+// Configure the client as shown in the previous step
+// ...
+
+ApiClientInstance.RootCACertificateFile = "/home/certs/ca.pem"
+ApiClientInstance.ClientCertificateFile = "/home/certs/YourService/YourService.crt"
+ApiClientInstance.ClientKeyFile = "/home/certs/YourService/YourService.key"
+
+```
+
+### Authentication
+Nutanix APIs currently support two type of authentication schemes:
+
+- **HTTP Basic Authentication**
+      - The Go client can be configured using the username and password parameters to send Basic headers along with every request.
+- **API Key Authentication**
+      - The Go client can be configured to set an API key to send "**X-ntnx-api-key**" header with every request.
+ ```go
+  import (
+  	"github.com/nutanix-core/ntnx-api-go-sdk-internal/iam-api-external-go-client/v16/client"
+  )
+
+  var (
+  	ApiClientInstance *client.ApiClient
+  )
+
+  ApiClientInstance = client.NewApiClient()
+  ApiClientInstance.SetApiKey("abcde12345")
+  ```
+
+### Retry Mechanism
+The client can be configured to retry requests that fail with the following status codes. The numbers of seconds before which the next retry is attempted is determined by the retryInterval:
+
+- [408 - Request Timeout](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408)
+- [429 - Too Many Requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429)
+- [502 - Bad Gateway](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502)
+- [503 - Service Unavailable](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503)
+
+The client will also redirect requests that fail with [302 - Found](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302) to the new location specified in the response header `Location`.
+! Note : Within Golang SDK maximum redirect attempts are limited to 10 by default and cannot be changed tro a custom value.
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/client"
+    "time"
+)
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
 ApiClientInstance.MaxRetryAttempts = 5 // Max retry attempts while reconnecting on a loss of connection
-ApiClientInstance.RetryInterval = 5000 // Interval in ms to use during retry attempts
+ApiClientInstance.RetryInterval = 5 * time.Second // Interval (in time.Duration) to use during retry attempts - integer values are treated as time.Nanosecond by default
 ```
 
 ## Usage
@@ -134,7 +215,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	AdminUsersApiInstance *api.AdminUsersApi
+	AntivirusServersApiInstance *api.AntivirusServersApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -142,11 +223,12 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-AdminUsersApiInstance = api.NewAdminUsersApi(ApiClientInstance)
-adminUserExtId := "^ef24DbA0-AcD9-ddEC-d9c9-DEf2Fe5C6B57$"
+AntivirusServersApiInstance = api.NewAntivirusServersApi(ApiClientInstance)
+fileServerExtId := "bD22efD4-fff7-bDa9-4d9a-ab6cc75fF01D"
+extId := "073FdaE3-Bb3D-Bb6C-E3DA-f8bA3fc45Ab0"
 
 // 
-getResponse, err := AdminUsersApiInstance.GetAdminUserByExtId(adminUserExtId)
+getResponse, err := AntivirusServersApiInstance.GetAntivirusServerById(&fileServerExtId, &extId)
 if err != nil {
 ....
 }
@@ -182,7 +264,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	AdminUsersApiInstance *api.AdminUsersApi
+	AntivirusServersApiInstance *api.AntivirusServersApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -190,11 +272,12 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-AdminUsersApiInstance = api.NewAdminUsersApi(ApiClientInstance)
-adminUserExtId := "^ef24DbA0-AcD9-ddEC-d9c9-DEf2Fe5C6B57$"
+AntivirusServersApiInstance = api.NewAntivirusServersApi(ApiClientInstance)
+fileServerExtId := "bD22efD4-fff7-bDa9-4d9a-ab6cc75fF01D"
+extId := "073FdaE3-Bb3D-Bb6C-E3DA-f8bA3fc45Ab0"
 
 // 
-getResponse, err := AdminUsersApiInstance.GetAdminUserByExtId(adminUserExtId)
+getResponse, err := AntivirusServersApiInstance.GetAntivirusServerById(&fileServerExtId, &extId)
 if err != nil {
     ....
 }
@@ -207,11 +290,11 @@ args["If-Match"] = etagValue
 // ...
 // Perform update call with received E-Tag reference
 // initialize/change parameters for update
-}
-adminUser := getResponse.GetData().(import1.AdminUser)
+// ...
+antivirusServer := getResponse.GetData().(import1.AntivirusServer)
 
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := AdminUsersApiInstance.UpdateAdminUser(adminUser, adminUserExtId, args)
+response, err := AntivirusServersApiInstance.UpdateAntivirusServerById(&antivirusServer&fileServerExtId, &extId, , args)
 if err != nil {
 ....
 }
@@ -222,21 +305,22 @@ List Operations for Nutanix APIs support pagination, filtering, sorting and proj
 
 | Parameter | Description
 |-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| _page     | specifies the page number of the result set. Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will be set to its nearest bound. In other words, a page number of less than 0 would be set to 0 and a page number greater than the total available pages would be set to the last page.|
-| _limit    | specifies the total number of records returned in the result set. Must be a positive integer between 0 and 100. Any number out of this range will be set to the default maximum number of records, which is 100. |
+| _page     | specifies the page number of the result set. Must be a positive integer between 0 and the maximum number of pages that are available for that resource. Any number out of this range will lead to no results being returned.|
+| _limit    | specifies the total number of records returned in the result set. Must be a positive integer between 0 and 100. Any number out of this range will lead to a validation error. If the limit is not provided a default value of 50 records will be returned in the result set|
 | _filter   | allows clients to filter a collection of resources. The expression specified with $filter is evaluated for each resource in the collection, and only items where the expression evaluates to true are included in the response. Expression specified with the $filter must conform to the [OData V4.01 URL](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#sec_SystemQueryOptionfilter) conventions. |
 | _orderby  | allows clients to specify the sort criteria for the returned list of objects. Resources can be sorted in ascending order using asc or descending order using desc. If asc or desc are not specified the resources will be sorted in ascending order by default. For example, 'orderby=templateName desc' would get all templates sorted by templateName in desc order. |
-| _select   | allows clients to request a specific set of properties for each entity or complex type. Expression specified with the $select must conform to the OData V4.01 URL conventions. If a $select expression consists of a single select item that is an asterisk (i.e. *), then all properties on the matching resource will be returned. |
-| _expand   | allows clients to request related resources when a resource that satisfies a particular request is retrieved. Each expand item is evaluated relative to the entity containing the property being expanded. Other query options can be applied to an expanded property by appending a semicolon-separated list of query options, enclosed in parentheses, to the property name. Allowed system query options are $filter,$select, $orderby. |
+| _select   | allows clients to request a specific set of properties for each entity or complex type. Expression specified with the $select must conform to the OData V4.01 URL conventions. If a $select expression consists of a single select item that is an asterisk (i.e., *), then all properties on the matching resource will be returned. |
+| _expand   | allows clients to request related resources when a resource that satisfies a particular request is retrieved. Each expanded item is evaluated relative to the entity containing the property being expanded. Other query options can be applied to an expanded property by appending a semicolon-separated list of query options, enclosed in parentheses, to the property name. Permissible system query options are $filter,$select and $orderby. |
 
 ```go
+// The following sample code is an example and does not reflect the real APIs provided by this client.
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/api"
 )
 var (
 	ApiClientInstance *client.ApiClient
-	AdminUsersApiInstance *api.AdminUsersApi
+	SampleApiInstance *api.SampleApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -244,28 +328,30 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-AdminUsersApiInstance = api.NewAdminUsersApi(ApiClientInstance)
-$page := 0
-$limit := 50
-$filter := "string_sample_data"
-$orderby := "string_sample_data"
+SampleApiInstance = api.SampleApi(ApiClientInstance)
 
-// 
-response, err := AdminUsersApiInstance.GetAdminUsers($page, $limit, $filter, $orderby)
+// Get sample entities list
+response, err := SampleApiInstance.GetSampleEntitiesList(
+			pageValue,    /*if page_ parameter is present*/
+			limitValue,   /*if limit_ parameter is present*/
+			filterValue,  /*if filter_ parameter is present*/
+			orderbyValue, /*if orderby_ parameter is present*/
+			selectValue,  /*if select_ parameter is present*/
+			expandValue   /*if expand_ parameter is present*/
+			)
 if err != nil {
-    ....
+....
 }
-
 
 ```
 The list of filterable and sortable fields with expansion keys can be found in the documentation [here](https://developers.nutanix.com/).
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=files&version=v4.0&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
-This library is licensed under Nutanix proprietary license. Full license text is available in [LICENSE](https://developers.nutanix.com/license).
+This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
 ## Contact us
-In case of issues please reach out to us at the [mailing list](@sdk@nutanix.com)
+In case of issues please reach out to us at the [mailing list](mailto:sdk@nutanix.com)

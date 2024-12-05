@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type SnapshotsApi struct {
+type UnifiedNamespacesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewSnapshotsApi(apiClient *client.ApiClient) *SnapshotsApi {
+func NewUnifiedNamespacesApi(apiClient *client.ApiClient) *UnifiedNamespacesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &SnapshotsApi{
+	a := &UnifiedNamespacesApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,31 +32,20 @@ func NewSnapshotsApi(apiClient *client.ApiClient) *SnapshotsApi {
 	return a
 }
 
-// Create a mount target snapshot by using the provided request body.  Specify a valid external identifier of the file server (`fileServerExtId`) and the mount target (`mountTargetExtId`).  User created snapshot will always be of type `USER_SNAPSHOT`.
-func (api *SnapshotsApi) CreateMountTargetSnapshot(fileServerExtId *string, mountTargetExtId *string, body *import3.Snapshot, args ...map[string]interface{}) (*import3.CreateMountTargetSnapshotApiResponse, error) {
+// Creates a new unified namespace with multiple member file servers and single core member.  The users need to specify the list of member file servers and a single core member to be part of unified namespace inside the request body.
+func (api *UnifiedNamespacesApi) CreateUnifiedNamespace(body *import3.UnifiedNamespace, args ...map[string]interface{}) (*import3.CreateUnifiedNamespaceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots"
+	uri := "/api/files/v4.0/config/unified-namespaces"
 
-	// verify the required parameter 'fileServerExtId' is set
-	if nil == fileServerExtId {
-		return nil, client.ReportError("fileServerExtId is required and must be specified")
-	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
-	}
 	// verify the required parameter 'body' is set
 	if nil == body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
-	// Path Params
-	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -86,36 +75,26 @@ func (api *SnapshotsApi) CreateMountTargetSnapshot(fileServerExtId *string, moun
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.CreateMountTargetSnapshotApiResponse)
+	unmarshalledResp := new(import3.CreateUnifiedNamespaceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Delete a mount target snapshot with the given external identifier.  Specify a valid identifier of the file server (`fileServerExtId`) and the mount target (`mountTargetExtId`) to which the snapshot belongs and a valid external identifier of the snapshot (`extId`).
-func (api *SnapshotsApi) DeleteMountTargetSnapshotById(fileServerExtId *string, mountTargetExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteMountTargetSnapshotApiResponse, error) {
+// Delete the unified namespace identified by external identifier.
+func (api *UnifiedNamespacesApi) DeleteUnifiedNamespaceById(extId *string, args ...map[string]interface{}) (*import3.DeleteUnifiedNamespaceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots/{extId}"
+	uri := "/api/files/v4.0/config/unified-namespaces/{extId}"
 
-	// verify the required parameter 'fileServerExtId' is set
-	if nil == fileServerExtId {
-		return nil, client.ReportError("fileServerExtId is required and must be specified")
-	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -146,36 +125,26 @@ func (api *SnapshotsApi) DeleteMountTargetSnapshotById(fileServerExtId *string, 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.DeleteMountTargetSnapshotApiResponse)
+	unmarshalledResp := new(import3.DeleteUnifiedNamespaceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get mount target snapshot with the given external identifier.  Specify a valid identifier of the file server (`fileServerExtId`) and  the mount target (`mountTargetExtId`) to which the snapshot belongs and a valid external identifier of the snapshot (`extId`).
-func (api *SnapshotsApi) GetMountTargetSnapshotById(fileServerExtId *string, mountTargetExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetMountTargetSnapshotApiResponse, error) {
+// Get a unified namespace with the given external identifier. Specify a valid identifier (`extId`) of the unified namespace to be fetched.
+func (api *UnifiedNamespacesApi) GetUnifiedNamespaceById(extId *string, args ...map[string]interface{}) (*import3.GetUnifiedNamespaceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots/{extId}"
+	uri := "/api/files/v4.0/config/unified-namespaces/{extId}"
 
-	// verify the required parameter 'fileServerExtId' is set
-	if nil == fileServerExtId {
-		return nil, client.ReportError("fileServerExtId is required and must be specified")
-	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -206,32 +175,20 @@ func (api *SnapshotsApi) GetMountTargetSnapshotById(fileServerExtId *string, mou
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.GetMountTargetSnapshotApiResponse)
+	unmarshalledResp := new(import3.GetUnifiedNamespaceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get a paginated list of mount target snapshots.
-func (api *SnapshotsApi) ListMountTargetSnapshots(fileServerExtId *string, mountTargetExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListMountTargetSnapshotsApiResponse, error) {
+// Get a paginated list of unified namespaces. Each unified namespace contains list of unified namespace member configurations. Each unified namespace member configuration contains a member file server and a flag to indicate whether it is a core member.  1. Paginate the returned unified namespaces list ``` /api/files/v4.0.b1/config/unified-namespaces?$page=0&$limit=1 ``` If the user doesn't specify any search query parameters, a list of root level unified namespaces are returned.
+func (api *UnifiedNamespacesApi) ListUnifiedNamespaces(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import3.ListUnifiedNamespacesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots"
+	uri := "/api/files/v4.0/config/unified-namespaces"
 
-	// verify the required parameter 'fileServerExtId' is set
-	if nil == fileServerExtId {
-		return nil, client.ReportError("fileServerExtId is required and must be specified")
-	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -255,9 +212,6 @@ func (api *SnapshotsApi) ListMountTargetSnapshots(fileServerExtId *string, mount
 	if orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -277,43 +231,37 @@ func (api *SnapshotsApi) ListMountTargetSnapshots(fileServerExtId *string, mount
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.ListMountTargetSnapshotsApiResponse)
+	unmarshalledResp := new(import3.ListUnifiedNamespacesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Restores a mount target from a specified snapshot. This request requires etag of the mount target entity.
-func (api *SnapshotsApi) RestoreMountTarget(fileServerExtId *string, mountTargetExtId *string, extId *string, args ...map[string]interface{}) (*import3.RestoreMountTargetApiResponse, error) {
+// Updates the unified namespace with the given external identifier using the provided request body. Specify a valid identifier (`extId`) of the unified namespace to be updated. They also need to provide a request body for performing the update. They need to specify the `extId` of the unified namespace to be updated and its other parameters like `namespaceMemberConfigs` inside the request body. User can either add or delete the member file server(which is non core member) during update and cannot delete or change the core member. It is always recommended to do a GET on a resource before doing an UPDATE.
+func (api *UnifiedNamespacesApi) UpdateUnifiedNamespaceById(extId *string, body *import3.UnifiedNamespace, args ...map[string]interface{}) (*import3.UpdateUnifiedNamespaceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/files/v4.0/config/file-servers/{fileServerExtId}/mount-targets/{mountTargetExtId}/snapshots/{extId}/$actions/restore"
+	uri := "/api/files/v4.0/config/unified-namespaces/{extId}"
 
-	// verify the required parameter 'fileServerExtId' is set
-	if nil == fileServerExtId {
-		return nil, client.ReportError("fileServerExtId is required and must be specified")
-	}
-	// verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
-	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{}
+	contentTypes := []string{"application/json"}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
@@ -332,12 +280,12 @@ func (api *SnapshotsApi) RestoreMountTarget(fileServerExtId *string, mountTarget
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.RestoreMountTargetApiResponse)
+	unmarshalledResp := new(import3.UpdateUnifiedNamespaceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

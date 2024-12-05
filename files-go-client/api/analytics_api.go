@@ -1,17 +1,19 @@
-//Api classes for files's golang SDK
 package api
 
 import (
-    "github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/client"
-	"strings"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/models/files/v4/stats"
 	"encoding/json"
+	"github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/client"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/models/common/v1/stats"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/files-go-client/v4/models/files/v4/stats"
 	"net/http"
-    "net/url"
+	"net/url"
+	"strings"
+	"time"
 )
 
 type AnalyticsApi struct {
-  ApiClient *client.ApiClient
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
 }
 
 func NewAnalyticsApi(apiClient *client.ApiClient) *AnalyticsApi {
@@ -22,207 +24,235 @@ func NewAnalyticsApi(apiClient *client.ApiClient) *AnalyticsApi {
 	a := &AnalyticsApi{
 		ApiClient: apiClient,
 	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
-
-/**
-    Get Antivirus Stats
-    Get the antivirus server stats for the given external identifier.  The user has to specify - a valid external identifier (`antivirusServerExtId`) of the antivirus server for which stats need to be fetched and comma separated list of metrics. The user can also specify `startTimeInUsecs` and `endTimeInUsecs` in query parameters  Available list of metrics are scanned_file_count, threat_count, cleaned_file_count, quarantined_file_count, latency_ms, throughput_bytes, disconnect_count 
-
-    parameters:-
-    -> antivirusServerExtId (string) (required) : Antivirus server UUID. Example:18f78959-14a6-4c47-b5db-920460c4b668.
-    -> metrics (string) (required) : List of metrics. scanned_file_count, threat_count, cleaned_file_count, quarantined_file_count, latency_ms, throughput_bytes, disconnect_count
-    -> startTimeInUsecs (int64) (optional) : Start time in microseconds to retrieve all the stats generated after this timestamp. For example: 1622705280584000
-    -> endTimeInUsecs (int64) (optional) : End time in microseconds to retrieve all the stats generated before this timestamp. For example: 1622791680585000
-    -> args (map[string]interface{}) (optional) : Additional Arguments
-
-    returns: (*files.v4.stats.AntivirusServerStatsApiResponse, error)
-*/
-func (api *AnalyticsApi) GetAntivirusServerStats(antivirusServerExtId *string, metrics *string, startTimeInUsecs *int64, endTimeInUsecs *int64, args ...map[string]interface{}) (*import2.AntivirusServerStatsApiResponse, error) {
-    argMap := make(map[string]interface{})
+// Get the antivirus server statistics for the given external identifier.  Specify a valid identifier of the file server (`fileServerExtId`) and identifier of the antivirus server (`extId`) and comma-separated list of metrics in `$select`. The user can also specify `$startTime` and `$endTime` in query parameters.  `$samplingInterval` should be either empty, 300(default) or 600. `$statType` is not supported for this API.  Following are some valid GET antivirus statistics query examples: ``` - ?$select=scannedFileCount,threatCount - ?$select=scannedFileCount,threatCount&$startTime=2023-01-09T07:23:45.678&$endTime=2023-01-09T18:23:45.678 ```
+func (api *AnalyticsApi) GetAntivirusServerStats(fileServerExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import2.AntivirusServerStatsApiResponse, error) {
+	argMap := make(map[string]interface{})
 	if len(args) > 0 {
-        argMap = args[0]
-    }
-
-    uri := "/api/files/v4.0.a2/stats/file-server/anti-virus-servers/{antivirusServerExtId}"
-
-    // verify the required parameter 'antivirusServerExtId' is set
-	if nil == antivirusServerExtId {
-		return nil, client.ReportError("antivirusServerExtId is required and must be specified")
-	}
-    // verify the required parameter 'metrics' is set
-	if nil == metrics {
-		return nil, client.ReportError("metrics is required and must be specified")
+		argMap = args[0]
 	}
 
-    // Path Params
-    uri = strings.Replace(uri, "{"+"antivirusServerExtId"+"}", url.PathEscape(client.ParameterToString(*antivirusServerExtId, "")), -1)
+	uri := "/api/files/v4.0/stats/file-servers/{fileServerExtId}/anti-virus-servers/{extId}"
+
+	// verify the required parameter 'fileServerExtId' is set
+	if nil == fileServerExtId {
+		return nil, client.ReportError("fileServerExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'startTime_' is set
+	if nil == startTime_ {
+		return nil, client.ReportError("startTime_ is required and must be specified")
+	}
+	// verify the required parameter 'endTime_' is set
+	if nil == endTime_ {
+		return nil, client.ReportError("endTime_ is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
-	// to determine the Content-Type header 
-    contentTypes := []string{}
+	// to determine the Content-Type header
+	contentTypes := []string{}
 
-    // to determine the Accept header 
-	accepts := []string{"application/json"} 
+	// to determine the Accept header
+	accepts := []string{"application/json"}
 
-    // Query Params
-	queryParams.Add("metrics", client.ParameterToString(*metrics, ""))
-	if startTimeInUsecs != nil {
-		queryParams.Add("startTimeInUsecs", client.ParameterToString(*startTimeInUsecs, ""))
+	// Query Params
+	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
+	if samplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
 	}
-	if endTimeInUsecs != nil {
-		queryParams.Add("endTimeInUsecs", client.ParameterToString(*endTimeInUsecs, ""))
+	if statType_ != nil {
+		statType_QueryParamEnumVal := statType_.GetName()
+		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
 	}
 
-    // Header Params
-    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-        headerParams["If-Match"] = ifMatch
-    }
-    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-        headerParams["If-None-Match"] = ifNoneMatch
-    }
-    authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-    responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-    if nil != err || nil == responseBody{
-    	return nil, err
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
 	}
-    unmarshalledResp := new(import2.AntivirusServerStatsApiResponse)
-    json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import2.AntivirusServerStatsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-    Get File server stats
-    Get the file server stats for the file server.  The user has to specify a comma separated list of `metrics`. User can also specify `startTimeInUsecs` and `endTimeInUsecs`  in path parameters.  Available list of metrics are number_of_files, number_of_connections, used_bytes, snapshot_used_bytes, latency,throughput, iops, write_latency, read_latency, metadata_latency, write_throughput, read_throughput, read_iops, write_iops, metadata_iops. 
-
-    parameters:-
-    -> metrics (string) (required) : List of metrics. number_of_files, number_of_connections, used_bytes, snapshot_used_bytes, latency,throughput, iops, write_latency, read_latency, metadata_latency, write_throughput, read_throughput, read_iops, write_iops, metadata_iops
-    -> startTimeInUsecs (int64) (optional) : Start time in microseconds to retrieve all the stats generated after this timestamp. For example: 1622705280584000
-    -> endTimeInUsecs (int64) (optional) : End time in microseconds to retrieve all the stats generated before this timestamp. For example: 1622791680585000
-    -> args (map[string]interface{}) (optional) : Additional Arguments
-
-    returns: (*files.v4.stats.FileServerStatsApiResponse, error)
-*/
-func (api *AnalyticsApi) GetFileServerStats(metrics *string, startTimeInUsecs *int64, endTimeInUsecs *int64, args ...map[string]interface{}) (*import2.FileServerStatsApiResponse, error) {
-    argMap := make(map[string]interface{})
+// Get the file server statistics for the specified file server.  Specify a comma-separated list of metrics in `$select`. Users can also specify `$startTime` and `$endTime` in query parameters.  `$samplingInterval` should be either empty, 300(default) or 600. `$statType` is not supported for this API.  Following are some valid GET file server statistics query examples: ``` - ?$select=numberOfFiles,numberOfConnections - ?$select=numberOfFiles,numberOfConnections&$startTime=2023-01-09T07:23:45.678&$endTime=2023-01-09T18:23:45.678 ```
+func (api *AnalyticsApi) GetFileServerStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import2.FileServerStatsApiResponse, error) {
+	argMap := make(map[string]interface{})
 	if len(args) > 0 {
-        argMap = args[0]
-    }
-
-    uri := "/api/files/v4.0.a2/stats/file-server"
-
-    // verify the required parameter 'metrics' is set
-	if nil == metrics {
-		return nil, client.ReportError("metrics is required and must be specified")
+		argMap = args[0]
 	}
 
+	uri := "/api/files/v4.0/stats/file-servers/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'startTime_' is set
+	if nil == startTime_ {
+		return nil, client.ReportError("startTime_ is required and must be specified")
+	}
+	// verify the required parameter 'endTime_' is set
+	if nil == endTime_ {
+		return nil, client.ReportError("endTime_ is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
-	// to determine the Content-Type header 
-    contentTypes := []string{}
+	// to determine the Content-Type header
+	contentTypes := []string{}
 
-    // to determine the Accept header 
-	accepts := []string{"application/json"} 
+	// to determine the Accept header
+	accepts := []string{"application/json"}
 
-    // Query Params
-	queryParams.Add("metrics", client.ParameterToString(*metrics, ""))
-	if startTimeInUsecs != nil {
-		queryParams.Add("startTimeInUsecs", client.ParameterToString(*startTimeInUsecs, ""))
+	// Query Params
+	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
+	if samplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
 	}
-	if endTimeInUsecs != nil {
-		queryParams.Add("endTimeInUsecs", client.ParameterToString(*endTimeInUsecs, ""))
+	if statType_ != nil {
+		statType_QueryParamEnumVal := statType_.GetName()
+		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
 	}
 
-    // Header Params
-    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-        headerParams["If-Match"] = ifMatch
-    }
-    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-        headerParams["If-None-Match"] = ifNoneMatch
-    }
-    authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-    responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-    if nil != err || nil == responseBody{
-    	return nil, err
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
 	}
-    unmarshalledResp := new(import2.FileServerStatsApiResponse)
-    json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import2.FileServerStatsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-/**
-    Get Mount target stats
-    Get the mount target stats for the mount target with the given external identifier.  The user has to specify - a valid external identifier (`mountTargetExtId`) of the mount target for which the stats need to be fetched and comma separated list of metrics. The user can also specify `startTimeInUsecs` and `endTimeInUsecs` in query parameters  Available list of metrics are average_latency, average_throughput, read_latency, metadata_latency, write_throughput, read_throughput, average_iops, write_iops, read_iops, metadata_iops, number_of_files, number_of_connections, space_used_bytes, snapshot_used_bytes, s3_write_latency\" 
-
-    parameters:-
-    -> mountTargetExtId (string) (required) : The {extId} of the mount target. Example:9c1e537d-6777-4c22-5d41-ddd0c3337aa9.
-    -> metrics (string) (required) : List of metrics. average_latency, average_throughput, read_latency, metadata_latency, write_throughput, read_throughput, average_iops, write_iops, read_iops, metadata_iops, number_of_files, number_of_connections, space_used_bytes, snapshot_used_bytes
-    -> startTimeInUsecs (int64) (optional) : Start time in microseconds to retrieve all the stats generated after this timestamp. For example: 1622705280584000
-    -> endTimeInUsecs (int64) (optional) : End time in microseconds to retrieve all the stats generated before this timestamp. For example: 1622791680585000
-    -> args (map[string]interface{}) (optional) : Additional Arguments
-
-    returns: (*files.v4.stats.MountTargetStatsApiResponse, error)
-*/
-func (api *AnalyticsApi) GetMountTargetStats(mountTargetExtId *string, metrics *string, startTimeInUsecs *int64, endTimeInUsecs *int64, args ...map[string]interface{}) (*import2.MountTargetStatsApiResponse, error) {
-    argMap := make(map[string]interface{})
+// Get the mount target statistics for the mount target with the given external identifier.  Specify a valid file server identifier (`fileServerExtId`) and a mount target identifier (`extId`) and comma-separated list of metrics in `$select`. The user can also specify `$startTime` and `$endTime` in query parameters.  `$samplingInterval` should be either empty, 300(default) or 600. `$statType` is not supported for this API.  Following are some valid GET mount target statistics examples: ``` - ?$select=averageLatencyMs,numberOfFiles - ?$select=averageLatencyMs,numberOfFiles&$startTime=2023-01-09T07:23:45.678&$endTime=2023-01-09T18:23:45.678 ```
+func (api *AnalyticsApi) GetMountTargetStats(fileServerExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import2.MountTargetStatsApiResponse, error) {
+	argMap := make(map[string]interface{})
 	if len(args) > 0 {
-        argMap = args[0]
-    }
-
-    uri := "/api/files/v4.0.a2/stats/file-server/mount-targets/{mountTargetExtId}"
-
-    // verify the required parameter 'mountTargetExtId' is set
-	if nil == mountTargetExtId {
-		return nil, client.ReportError("mountTargetExtId is required and must be specified")
-	}
-    // verify the required parameter 'metrics' is set
-	if nil == metrics {
-		return nil, client.ReportError("metrics is required and must be specified")
+		argMap = args[0]
 	}
 
-    // Path Params
-    uri = strings.Replace(uri, "{"+"mountTargetExtId"+"}", url.PathEscape(client.ParameterToString(*mountTargetExtId, "")), -1)
+	uri := "/api/files/v4.0/stats/file-servers/{fileServerExtId}/mount-targets/{extId}"
+
+	// verify the required parameter 'fileServerExtId' is set
+	if nil == fileServerExtId {
+		return nil, client.ReportError("fileServerExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'startTime_' is set
+	if nil == startTime_ {
+		return nil, client.ReportError("startTime_ is required and must be specified")
+	}
+	// verify the required parameter 'endTime_' is set
+	if nil == endTime_ {
+		return nil, client.ReportError("endTime_ is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"fileServerExtId"+"}", url.PathEscape(client.ParameterToString(*fileServerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
-	// to determine the Content-Type header 
-    contentTypes := []string{}
+	// to determine the Content-Type header
+	contentTypes := []string{}
 
-    // to determine the Accept header 
-	accepts := []string{"application/json"} 
+	// to determine the Accept header
+	accepts := []string{"application/json"}
 
-    // Query Params
-	queryParams.Add("metrics", client.ParameterToString(*metrics, ""))
-	if startTimeInUsecs != nil {
-		queryParams.Add("startTimeInUsecs", client.ParameterToString(*startTimeInUsecs, ""))
+	// Query Params
+	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
+	if samplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
 	}
-	if endTimeInUsecs != nil {
-		queryParams.Add("endTimeInUsecs", client.ParameterToString(*endTimeInUsecs, ""))
+	if statType_ != nil {
+		statType_QueryParamEnumVal := statType_.GetName()
+		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
 	}
 
-    // Header Params
-    if ifMatch, ifMatchOk := argMap["If-Match"].(string); ifMatchOk {
-        headerParams["If-Match"] = ifMatch
-    }
-    if ifNoneMatch, ifNoneMatchOk := argMap["If-None-Match"].(string); ifNoneMatchOk {
-        headerParams["If-None-Match"] = ifNoneMatch
-    }
-    authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-    responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-    if nil != err || nil == responseBody{
-    	return nil, err
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
 	}
-    unmarshalledResp := new(import2.MountTargetStatsApiResponse)
-    json.Unmarshal(responseBody, &unmarshalledResp)
+
+	unmarshalledResp := new(import2.MountTargetStatsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
-
