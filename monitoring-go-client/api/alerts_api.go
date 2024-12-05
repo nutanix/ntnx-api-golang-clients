@@ -1,4 +1,3 @@
-//Api classes for monitoring's golang SDK
 package api
 
 import (
@@ -33,14 +32,14 @@ func NewAlertsApi(apiClient *client.ApiClient) *AlertsApi {
 	return a
 }
 
-// Get the details of an alert identified by {extId}.
+// Fetches the details of an alert identified by external identifier.
 func (api *AlertsApi) GetAlertById(extId *string, args ...map[string]interface{}) (*import1.GetAlertApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0.b1/serviceability/alerts/{extId}"
+	uri := "/api/monitoring/v4.0/serviceability/alerts/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -48,7 +47,6 @@ func (api *AlertsApi) GetAlertById(extId *string, args ...map[string]interface{}
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -65,33 +63,33 @@ func (api *AlertsApi) GetAlertById(extId *string, args ...map[string]interface{}
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetAlertApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Query the list of alerts.
+// Fetches a list of alerts.
 func (api *AlertsApi) ListAlerts(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListAlertsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0.b1/serviceability/alerts"
+	uri := "/api/monitoring/v4.0/serviceability/alerts"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -105,23 +103,18 @@ func (api *AlertsApi) ListAlerts(page_ *int, limit_ *int, filter_ *string, order
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -129,21 +122,21 @@ func (api *AlertsApi) ListAlerts(page_ *int, limit_ *int, filter_ *string, order
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ListAlertsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

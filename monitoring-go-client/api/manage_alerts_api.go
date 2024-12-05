@@ -1,4 +1,3 @@
-//Api classes for monitoring's golang SDK
 package api
 
 import (
@@ -33,14 +32,14 @@ func NewManageAlertsApi(apiClient *client.ApiClient) *ManageAlertsApi {
 	return a
 }
 
-// Acknowledge or resolve the alert identified by {extId}.
+// Acknowledges or resolves the alert identified by external identifier.
 func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertActionSpec, args ...map[string]interface{}) (*import1.ManageAlertApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0.b1/serviceability/alerts/{extId}/$actions/manage-alert"
+	uri := "/api/monitoring/v4.0/serviceability/alerts/{extId}/$actions/manage-alert"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -52,7 +51,6 @@ func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertAction
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -69,21 +67,21 @@ func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertAction
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.ManageAlertApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

@@ -1,4 +1,3 @@
-//Api classes for monitoring's golang SDK
 package api
 
 import (
@@ -33,14 +32,14 @@ func NewAlertEmailConfigurationApi(apiClient *client.ApiClient) *AlertEmailConfi
 	return a
 }
 
-// Get the alert email configuration.
+// Fetches the configuration that is used to send alert emails.
 func (api *AlertEmailConfigurationApi) GetAlertEmailConfiguration(args ...map[string]interface{}) (*import1.GetAlertEmailConfigurationApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0.b1/serviceability/alerts/email-config"
+	uri := "/api/monitoring/v4.0/serviceability/alerts/email-config"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -57,33 +56,33 @@ func (api *AlertEmailConfigurationApi) GetAlertEmailConfiguration(args ...map[st
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetAlertEmailConfigurationApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update the alert email configuration.
+// Updates the configuration that is used to send alert emails.
 func (api *AlertEmailConfigurationApi) UpdateAlertEmailConfiguration(body *import1.AlertEmailConfiguration, args ...map[string]interface{}) (*import1.UpdateAlertEmailConfigurationApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0.b1/serviceability/alerts/email-config"
+	uri := "/api/monitoring/v4.0/serviceability/alerts/email-config"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -105,21 +104,21 @@ func (api *AlertEmailConfigurationApi) UpdateAlertEmailConfiguration(body *impor
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.UpdateAlertEmailConfigurationApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

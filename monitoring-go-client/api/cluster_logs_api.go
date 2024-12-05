@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type EventsApi struct {
+type ClusterLogsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewEventsApi(apiClient *client.ApiClient) *EventsApi {
+func NewClusterLogsApi(apiClient *client.ApiClient) *ClusterLogsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &EventsApi{
+	a := &ClusterLogsApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,18 +32,22 @@ func NewEventsApi(apiClient *client.ApiClient) *EventsApi {
 	return a
 }
 
-// Fetches the details of an event identified by external identifier.
-func (api *EventsApi) GetEventById(extId *string, args ...map[string]interface{}) (*import1.GetEventApiResponse, error) {
+// Collect logs based on the input parameters.
+func (api *ClusterLogsApi) CollectLogs(extId *string, body *import1.LogCollectionSpec, args ...map[string]interface{}) (*import1.CollectLogsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/events/{extId}"
+	uri := "/api/monitoring/v4.0/serviceability/clusters/{extId}/$actions/collect-logs"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -53,7 +57,7 @@ func (api *EventsApi) GetEventById(extId *string, args ...map[string]interface{}
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{}
+	contentTypes := []string{"application/json"}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
@@ -72,25 +76,32 @@ func (api *EventsApi) GetEventById(extId *string, args ...map[string]interface{}
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetEventApiResponse)
+	unmarshalledResp := new(import1.CollectLogsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Fetches a list of events.
-func (api *EventsApi) ListEvents(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListEventsApiResponse, error) {
+// Fetches a list of all available tags for a cluster.
+func (api *ClusterLogsApi) ListTags(clusterExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListTagsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/events"
+	uri := "/api/monitoring/v4.0/serviceability/clusters/{clusterExtId}/tags"
 
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -136,7 +147,7 @@ func (api *EventsApi) ListEvents(page_ *int, limit_ *int, filter_ *string, order
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ListEventsApiResponse)
+	unmarshalledResp := new(import1.ListTagsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

@@ -1,16 +1,16 @@
 /*
  * Generated file models/monitoring/v4/common/common_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Monitoring Versioned APIs
+ * Part of the Nutanix Monitoring APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module monitoring.v4.common of Nutanix Monitoring Versioned APIs
+  Module monitoring.v4.common of Nutanix Monitoring APIs
 */
 package common
 
@@ -22,6 +22,9 @@ import (
 	"time"
 )
 
+/*
+The source entity associated with the alert, event, or audit.
+*/
 type AlertEntityReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -29,7 +32,7 @@ type AlertEntityReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Unique UUID of the entity.
+	  UUID of the entity.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
@@ -46,19 +49,24 @@ func NewAlertEntityReference() *AlertEntityReference {
 	p := new(AlertEntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.AlertEntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
+/*
+Denotes a value of type boolean.
+*/
 type BoolValue struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  Denotes a value of type boolean.
+	*/
 	BoolValue *bool `json:"boolValue"`
 }
 
@@ -77,7 +85,7 @@ func NewBoolValue() *BoolValue {
 	p := new(BoolValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.BoolValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -106,7 +114,7 @@ func NewCauseAndResolution() *CauseAndResolution {
 	p := new(CauseAndResolution)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.CauseAndResolution"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -204,7 +212,7 @@ func (e ComparisonOperator) Ref() *ComparisonOperator {
 }
 
 /*
-Indicating if this symptom is caused by static threshold or anomaly (dynamic threshold) evaluation.  If an indicator is raised, there may have another indicator indicating the safeguard zone value.
+Indicating if this symptom is caused by a static threshold or anomaly (dynamic threshold) evaluation.  If an indicator is raised, there may have another indicator indicating the safeguard zone value.
 */
 type ConditionType int
 
@@ -279,7 +287,7 @@ func (e ConditionType) Ref() *ConditionType {
 }
 
 /*
-Data type of the metric value as stored in database.
+Data type of the metric value as stored in the database.
 */
 type DataType int
 
@@ -365,13 +373,18 @@ func (e DataType) Ref() *DataType {
 	return &e
 }
 
+/*
+Denotes a value of type double.
+*/
 type DoubleValue struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  Denotes a value of type double.
+	*/
 	DoubleValue *float64 `json:"doubleValue"`
 }
 
@@ -390,7 +403,7 @@ func NewDoubleValue() *DoubleValue {
 	p := new(DoubleValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.DoubleValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -406,7 +419,7 @@ type EntityReference struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Unique UUID of the entity.
+	  UUID of the entity.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
@@ -423,7 +436,43 @@ func NewEntityReference() *EntityReference {
 	p := new(EntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.EntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Denotes a value of type float.
+*/
+type FloatValue struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Denotes a value of type float.
+	*/
+	FloatValue *float32 `json:"floatValue"`
+}
+
+func (p *FloatValue) MarshalJSON() ([]byte, error) {
+	type FloatValueProxy FloatValue
+	return json.Marshal(struct {
+		*FloatValueProxy
+		FloatValue *float32 `json:"floatValue,omitempty"`
+	}{
+		FloatValueProxy: (*FloatValueProxy)(p),
+		FloatValue:      p.FloatValue,
+	})
+}
+
+func NewFloatValue() *FloatValue {
+	p := new(FloatValue)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "monitoring.v4.common.FloatValue"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -532,13 +581,18 @@ func (e ImpactType) Ref() *ImpactType {
 	return &e
 }
 
+/*
+Denotes a value of type integer.
+*/
 type IntValue struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  Denotes a value of type integer.
+	*/
 	IntValue *int64 `json:"intValue"`
 }
 
@@ -557,7 +611,7 @@ func NewIntValue() *IntValue {
 	p := new(IntValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.IntValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -576,21 +630,21 @@ type MetricDetail struct {
 
 	DataType *DataType `json:"dataType,omitempty"`
 	/*
-	  Broad category under which this metric falls. For example, Disk, CPU, or Memory.
+	  Broad category under which this metric falls. For example, disk, CPU, or memory.
 	*/
 	MetricCategory *string `json:"metricCategory,omitempty"`
 	/*
-	  English readable name of the metric.
+	  Readable name of the metric in English.
 	*/
 	MetricDisplayName *string `json:"metricDisplayName,omitempty"`
 	/*
-	  The metric key. Allowed values of metrics list can be found at https://portal.nutanix.com/page/documents/details?targetId=Prism-Central-Guide-vpc_2022_9:mul-alerts-user-created-metrics-r.html
+	  The metric key. Allowed values of the metrics list can be found at https://portal.nutanix.com/page/documents/details?targetId=Prism-Central-Guide-vpc_2022_9:mul-alerts-user-created-metrics-r.html.
 	*/
 	MetricName *string `json:"metricName,omitempty"`
 
 	MetricValueItemDiscriminator_ *string `json:"$metricValueItemDiscriminator,omitempty"`
 	/*
-	  Raw value of the metric when the condition threshold was exceeded.
+	  The raw value of the metric when the condition threshold was exceeded.
 	*/
 	MetricValue *OneOfMetricDetailMetricValue `json:"metricValue,omitempty"`
 
@@ -606,9 +660,9 @@ type MetricDetail struct {
 	/*
 	  How long the metric breached the given condition before raising an event.
 	*/
-	TriggerWaitTime *int64 `json:"triggerWaitTime,omitempty"`
+	TriggerWaitTimeSeconds *int64 `json:"triggerWaitTimeSeconds,omitempty"`
 	/*
-	  Unit of the metric. For example, percentage, ms, or usecs.
+	  Unit of the metric. For example, percentage, ms or usecs.
 	*/
 	Unit *string `json:"unit,omitempty"`
 }
@@ -617,7 +671,7 @@ func NewMetricDetail() *MetricDetail {
 	p := new(MetricDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.MetricDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -645,7 +699,7 @@ func (p *MetricDetail) SetMetricValue(v interface{}) error {
 }
 
 /*
-The operation type associated with the audit. For example, CREATE, UPDATE, or DELETE.
+The operation type associated with the audit. For example, create, update, or delete.
 */
 type OperationType int
 
@@ -690,7 +744,11 @@ const (
 	OPERATIONTYPE_TEMPLATEDEPLOY              OperationType = 37
 	OPERATIONTYPE_TEMPLATEVERSIONPUBLISH      OperationType = 38
 	OPERATIONTYPE_CROSSCLUSTERMIGRATE         OperationType = 39
-	OPERATIONTYPE_FLOWCLUSTERMIGRATE          OperationType = 40
+	OPERATIONTYPE_FLOWCONFIGMIGRATE           OperationType = 40
+	OPERATIONTYPE_SUSPEND                     OperationType = 41
+	OPERATIONTYPE_RESUME                      OperationType = 42
+	OPERATIONTYPE_GENERATEURL                 OperationType = 43
+	OPERATIONTYPE_DOWNLOAD                    OperationType = 44
 )
 
 // Returns the name of the enum given an ordinal number
@@ -738,7 +796,11 @@ func (e *OperationType) name(index int) string {
 		"TEMPLATEDEPLOY",
 		"TEMPLATEVERSIONPUBLISH",
 		"CROSSCLUSTERMIGRATE",
-		"FLOWCLUSTERMIGRATE",
+		"FLOWCONFIGMIGRATE",
+		"SUSPEND",
+		"RESUME",
+		"GENERATEURL",
+		"DOWNLOAD",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -790,7 +852,11 @@ func (e OperationType) GetName() string {
 		"TEMPLATEDEPLOY",
 		"TEMPLATEVERSIONPUBLISH",
 		"CROSSCLUSTERMIGRATE",
-		"FLOWCLUSTERMIGRATE",
+		"FLOWCONFIGMIGRATE",
+		"SUSPEND",
+		"RESUME",
+		"GENERATEURL",
+		"DOWNLOAD",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -841,7 +907,11 @@ func (e *OperationType) index(name string) OperationType {
 		"TEMPLATEDEPLOY",
 		"TEMPLATEVERSIONPUBLISH",
 		"CROSSCLUSTERMIGRATE",
-		"FLOWCLUSTERMIGRATE",
+		"FLOWCONFIGMIGRATE",
+		"SUSPEND",
+		"RESUME",
+		"GENERATEURL",
+		"DOWNLOAD",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -893,7 +963,7 @@ func NewParameter() *Parameter {
 	p := new(Parameter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.Parameter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1003,13 +1073,18 @@ func (e Severity) Ref() *Severity {
 	return &e
 }
 
+/*
+Denotes a value of type string.
+*/
 type StringValue struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  Denotes a value of type string.
+	*/
 	StringValue *string `json:"stringValue"`
 }
 
@@ -1028,7 +1103,7 @@ func NewStringValue() *StringValue {
 	p := new(StringValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.StringValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1038,8 +1113,8 @@ type OneOfMetricDetailMetricValue struct {
 	Discriminator *string      `json:"-"`
 	ObjectType_   *string      `json:"-"`
 	oneOfType0    *StringValue `json:"-"`
-	oneOfType2    *DoubleValue `json:"-"`
 	oneOfType3    *IntValue    `json:"-"`
+	oneOfType2    *DoubleValue `json:"-"`
 	oneOfType1    *BoolValue   `json:"-"`
 }
 
@@ -1068,19 +1143,6 @@ func (p *OneOfMetricDetailMetricValue) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case DoubleValue:
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(DoubleValue)
-		}
-		*p.oneOfType2 = v.(DoubleValue)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2.ObjectType_
 	case IntValue:
 		if nil == p.oneOfType3 {
 			p.oneOfType3 = new(IntValue)
@@ -1094,6 +1156,19 @@ func (p *OneOfMetricDetailMetricValue) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType3.ObjectType_
+	case DoubleValue:
+		if nil == p.oneOfType2 {
+			p.oneOfType2 = new(DoubleValue)
+		}
+		*p.oneOfType2 = v.(DoubleValue)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2.ObjectType_
 	case BoolValue:
 		if nil == p.oneOfType1 {
 			p.oneOfType1 = new(BoolValue)
@@ -1117,11 +1192,11 @@ func (p *OneOfMetricDetailMetricValue) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2
-	}
 	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType3
+	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2
 	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
@@ -1148,24 +1223,6 @@ func (p *OneOfMetricDetailMetricValue) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType2 := new(DoubleValue)
-	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "monitoring.v4.common.DoubleValue" == *vOneOfType2.ObjectType_ {
-			if nil == p.oneOfType2 {
-				p.oneOfType2 = new(DoubleValue)
-			}
-			*p.oneOfType2 = *vOneOfType2
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType3 := new(IntValue)
 	if err := json.Unmarshal(b, vOneOfType3); err == nil {
 		if "monitoring.v4.common.IntValue" == *vOneOfType3.ObjectType_ {
@@ -1181,6 +1238,24 @@ func (p *OneOfMetricDetailMetricValue) UnmarshalJSON(b []byte) error {
 				p.ObjectType_ = new(string)
 			}
 			*p.ObjectType_ = *p.oneOfType3.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2 := new(DoubleValue)
+	if err := json.Unmarshal(b, vOneOfType2); err == nil {
+		if "monitoring.v4.common.DoubleValue" == *vOneOfType2.ObjectType_ {
+			if nil == p.oneOfType2 {
+				p.oneOfType2 = new(DoubleValue)
+			}
+			*p.oneOfType2 = *vOneOfType2
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2.ObjectType_
 			return nil
 		}
 	}
@@ -1209,11 +1284,11 @@ func (p *OneOfMetricDetailMetricValue) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2)
-	}
 	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType3)
+	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2)
 	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
@@ -1224,9 +1299,9 @@ func (p *OneOfMetricDetailMetricValue) MarshalJSON() ([]byte, error) {
 type OneOfParameterParamValue struct {
 	Discriminator *string      `json:"-"`
 	ObjectType_   *string      `json:"-"`
-	oneOfType2    *IntValue    `json:"-"`
 	oneOfType0    *StringValue `json:"-"`
 	oneOfType1    *BoolValue   `json:"-"`
+	oneOfType2    *IntValue    `json:"-"`
 }
 
 func NewOneOfParameterParamValue() *OneOfParameterParamValue {
@@ -1241,19 +1316,6 @@ func (p *OneOfParameterParamValue) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfParameterParamValue is nil"))
 	}
 	switch v.(type) {
-	case IntValue:
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(IntValue)
-		}
-		*p.oneOfType2 = v.(IntValue)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2.ObjectType_
 	case StringValue:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(StringValue)
@@ -1280,6 +1342,19 @@ func (p *OneOfParameterParamValue) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	case IntValue:
+		if nil == p.oneOfType2 {
+			p.oneOfType2 = new(IntValue)
+		}
+		*p.oneOfType2 = v.(IntValue)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -1287,37 +1362,19 @@ func (p *OneOfParameterParamValue) SetValue(v interface{}) error {
 }
 
 func (p *OneOfParameterParamValue) GetValue() interface{} {
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
 	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2
+	}
 	return nil
 }
 
 func (p *OneOfParameterParamValue) UnmarshalJSON(b []byte) error {
-	vOneOfType2 := new(IntValue)
-	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "monitoring.v4.common.IntValue" == *vOneOfType2.ObjectType_ {
-			if nil == p.oneOfType2 {
-				p.oneOfType2 = new(IntValue)
-			}
-			*p.oneOfType2 = *vOneOfType2
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType0 := new(StringValue)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
@@ -1354,18 +1411,36 @@ func (p *OneOfParameterParamValue) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType2 := new(IntValue)
+	if err := json.Unmarshal(b, vOneOfType2); err == nil {
+		if "monitoring.v4.common.IntValue" == *vOneOfType2.ObjectType_ {
+			if nil == p.oneOfType2 {
+				p.oneOfType2 = new(IntValue)
+			}
+			*p.oneOfType2 = *vOneOfType2
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfParameterParamValue"))
 }
 
 func (p *OneOfParameterParamValue) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2)
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2)
 	}
 	return nil, errors.New("No value to marshal for OneOfParameterParamValue")
 }
@@ -1373,10 +1448,10 @@ func (p *OneOfParameterParamValue) MarshalJSON() ([]byte, error) {
 type OneOfMetricDetailThresholdValue struct {
 	Discriminator *string      `json:"-"`
 	ObjectType_   *string      `json:"-"`
-	oneOfType0    *StringValue `json:"-"`
-	oneOfType2    *DoubleValue `json:"-"`
 	oneOfType3    *IntValue    `json:"-"`
+	oneOfType2    *DoubleValue `json:"-"`
 	oneOfType1    *BoolValue   `json:"-"`
+	oneOfType0    *StringValue `json:"-"`
 }
 
 func NewOneOfMetricDetailThresholdValue() *OneOfMetricDetailThresholdValue {
@@ -1391,32 +1466,6 @@ func (p *OneOfMetricDetailThresholdValue) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfMetricDetailThresholdValue is nil"))
 	}
 	switch v.(type) {
-	case StringValue:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(StringValue)
-		}
-		*p.oneOfType0 = v.(StringValue)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case DoubleValue:
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(DoubleValue)
-		}
-		*p.oneOfType2 = v.(DoubleValue)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2.ObjectType_
 	case IntValue:
 		if nil == p.oneOfType3 {
 			p.oneOfType3 = new(IntValue)
@@ -1430,6 +1479,19 @@ func (p *OneOfMetricDetailThresholdValue) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType3.ObjectType_
+	case DoubleValue:
+		if nil == p.oneOfType2 {
+			p.oneOfType2 = new(DoubleValue)
+		}
+		*p.oneOfType2 = v.(DoubleValue)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2.ObjectType_
 	case BoolValue:
 		if nil == p.oneOfType1 {
 			p.oneOfType1 = new(BoolValue)
@@ -1443,6 +1505,19 @@ func (p *OneOfMetricDetailThresholdValue) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	case StringValue:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(StringValue)
+		}
+		*p.oneOfType0 = v.(StringValue)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -1450,37 +1525,37 @@ func (p *OneOfMetricDetailThresholdValue) SetValue(v interface{}) error {
 }
 
 func (p *OneOfMetricDetailThresholdValue) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType3
 	}
 	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2
 	}
-	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType3
-	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	return nil
 }
 
 func (p *OneOfMetricDetailThresholdValue) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(StringValue)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(StringValue)
+	vOneOfType3 := new(IntValue)
+	if err := json.Unmarshal(b, vOneOfType3); err == nil {
+		if "monitoring.v4.common.IntValue" == *vOneOfType3.ObjectType_ {
+			if nil == p.oneOfType3 {
+				p.oneOfType3 = new(IntValue)
 			}
-			*p.oneOfType0 = *vOneOfType0
+			*p.oneOfType3 = *vOneOfType3
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = *p.oneOfType3.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = *p.oneOfType3.ObjectType_
 			return nil
 		}
 	}
@@ -1502,24 +1577,6 @@ func (p *OneOfMetricDetailThresholdValue) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType3 := new(IntValue)
-	if err := json.Unmarshal(b, vOneOfType3); err == nil {
-		if "monitoring.v4.common.IntValue" == *vOneOfType3.ObjectType_ {
-			if nil == p.oneOfType3 {
-				p.oneOfType3 = new(IntValue)
-			}
-			*p.oneOfType3 = *vOneOfType3
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType3.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType3.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType1 := new(BoolValue)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
 		if "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
@@ -1538,21 +1595,39 @@ func (p *OneOfMetricDetailThresholdValue) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType0 := new(StringValue)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(StringValue)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMetricDetailThresholdValue"))
 }
 
 func (p *OneOfMetricDetailThresholdValue) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType3)
 	}
 	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2)
 	}
-	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType3)
-	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfMetricDetailThresholdValue")
 }
