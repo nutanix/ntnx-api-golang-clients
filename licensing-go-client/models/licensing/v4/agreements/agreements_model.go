@@ -1,16 +1,16 @@
 /*
  * Generated file models/licensing/v4/agreements/agreements_model.go.
  *
- * Product version: 4.0.1-alpha-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Licensing Versioned APIs
+ * Part of the Nutanix Licensing APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module licensing.v4.agreements of Nutanix Licensing Versioned APIs
+  Module licensing.v4.agreements of Nutanix Licensing APIs
 */
 package agreements
 
@@ -24,7 +24,45 @@ import (
 )
 
 /*
-REST response for all response codes in API path /licensing/v4.0.a1/agreements/eula/$actions/add-user Post operation
+Model containing the EULA acceptance details.
+*/
+type Acceptance struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Date-time at which EULA was accepted.
+	*/
+	AcceptanceTime *time.Time `json:"acceptanceTime,omitempty"`
+
+	AcceptedBy *EndUser `json:"acceptedBy"`
+}
+
+func (p *Acceptance) MarshalJSON() ([]byte, error) {
+	type AcceptanceProxy Acceptance
+	return json.Marshal(struct {
+		*AcceptanceProxy
+		AcceptedBy *EndUser `json:"acceptedBy,omitempty"`
+	}{
+		AcceptanceProxy: (*AcceptanceProxy)(p),
+		AcceptedBy:      p.AcceptedBy,
+	})
+}
+
+func NewAcceptance() *Acceptance {
+	p := new(Acceptance)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.agreements.Acceptance"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.0/agreements/eula/$actions/add-user Post operation
 */
 type AddUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -46,7 +84,7 @@ func NewAddUserApiResponse() *AddUserApiResponse {
 	p := new(AddUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.AddUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -74,6 +112,60 @@ func (p *AddUserApiResponse) SetData(v interface{}) error {
 }
 
 /*
+Model containing the EULA User Details attributes.
+*/
+type EndUser struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Company name of the user accepting the EULA.
+	*/
+	CompanyName *string `json:"companyName"`
+	/*
+	  Job title of the user accepting the EULA.
+	*/
+	JobTitle *string `json:"jobTitle"`
+	/*
+	  Login ID of the user accepting the EULA.
+	*/
+	LoginId *string `json:"loginId"`
+	/*
+	  User name of the user accepting the EULA.
+	*/
+	UserName *string `json:"userName"`
+}
+
+func (p *EndUser) MarshalJSON() ([]byte, error) {
+	type EndUserProxy EndUser
+	return json.Marshal(struct {
+		*EndUserProxy
+		CompanyName *string `json:"companyName,omitempty"`
+		JobTitle    *string `json:"jobTitle,omitempty"`
+		LoginId     *string `json:"loginId,omitempty"`
+		UserName    *string `json:"userName,omitempty"`
+	}{
+		EndUserProxy: (*EndUserProxy)(p),
+		CompanyName:  p.CompanyName,
+		JobTitle:     p.JobTitle,
+		LoginId:      p.LoginId,
+		UserName:     p.UserName,
+	})
+}
+
+func NewEndUser() *EndUser {
+	p := new(EndUser)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.agreements.EndUser"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Model containing the EULA info attributes.
 */
 type Eula struct {
@@ -83,9 +175,9 @@ type Eula struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of user details accepting the EULA.
+	  List of users accepting the EULA along with acceptance time for each.
 	*/
-	AcceptedBy []EulaUser `json:"acceptedBy,omitempty"`
+	Acceptances []Acceptance `json:"acceptances,omitempty"`
 	/*
 	  Textual contents of the end user license agreement.
 	*/
@@ -133,84 +225,14 @@ func NewEula() *Eula {
 	p := new(Eula)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.Eula"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Model containing the EULA User Details attributes.
-*/
-type EulaUser struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Date-time at which EULA was accepted. Date-Time in epoch seconds in ISO date time
-	*/
-	AcceptedTime *time.Time `json:"acceptedTime,omitempty"`
-	/*
-	  Company name of the user accepting the EULA
-	*/
-	CompanyName *string `json:"companyName"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  Job title of the user accepting the EULA
-	*/
-	JobTitle *string `json:"jobTitle"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
-	/*
-	  Login ID of the user accepting the EULA
-	*/
-	LoginId *string `json:"loginId"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-	/*
-	  User name of the user accepting the EULA
-	*/
-	UserName *string `json:"userName"`
-}
-
-func (p *EulaUser) MarshalJSON() ([]byte, error) {
-	type EulaUserProxy EulaUser
-	return json.Marshal(struct {
-		*EulaUserProxy
-		CompanyName *string `json:"companyName,omitempty"`
-		JobTitle    *string `json:"jobTitle,omitempty"`
-		LoginId     *string `json:"loginId,omitempty"`
-		UserName    *string `json:"userName,omitempty"`
-	}{
-		EulaUserProxy: (*EulaUserProxy)(p),
-		CompanyName:   p.CompanyName,
-		JobTitle:      p.JobTitle,
-		LoginId:       p.LoginId,
-		UserName:      p.UserName,
-	})
-}
-
-func NewEulaUser() *EulaUser {
-	p := new(EulaUser)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.agreements.EulaUser"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-REST response for all response codes in API path /licensing/v4.0.a1/agreements/eula Get operation
+REST response for all response codes in API path /licensing/v4.0/agreements/eula Get operation
 */
 type GetEulaApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -232,7 +254,7 @@ func NewGetEulaApiResponse() *GetEulaApiResponse {
 	p := new(GetEulaApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.GetEulaApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -260,7 +282,7 @@ func (p *GetEulaApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0.a1/agreements/eula Put operation
+REST response for all response codes in API path /licensing/v4.0/agreements/eula Put operation
 */
 type UpdateEulaApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -282,7 +304,7 @@ func NewUpdateEulaApiResponse() *UpdateEulaApiResponse {
 	p := new(UpdateEulaApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.UpdateEulaApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -307,117 +329,6 @@ func (p *UpdateEulaApiResponse) SetData(v interface{}) error {
 		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
 	return e
-}
-
-type OneOfAddUserApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType21023 *EulaUser              `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfAddUserApiResponseData() *OneOfAddUserApiResponseData {
-	p := new(OneOfAddUserApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAddUserApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAddUserApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case EulaUser:
-		if nil == p.oneOfType21023 {
-			p.oneOfType21023 = new(EulaUser)
-		}
-		*p.oneOfType21023 = v.(EulaUser)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType21023.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType21023.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAddUserApiResponseData) GetValue() interface{} {
-	if p.oneOfType21023 != nil && *p.oneOfType21023.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType21023
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfAddUserApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType21023 := new(EulaUser)
-	if err := json.Unmarshal(b, vOneOfType21023); err == nil {
-		if "licensing.v4.agreements.EulaUser" == *vOneOfType21023.ObjectType_ {
-			if nil == p.oneOfType21023 {
-				p.oneOfType21023 = new(EulaUser)
-			}
-			*p.oneOfType21023 = *vOneOfType21023
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType21023.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType21023.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddUserApiResponseData"))
-}
-
-func (p *OneOfAddUserApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType21023 != nil && *p.oneOfType21023.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType21023)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfAddUserApiResponseData")
 }
 
 type OneOfGetEulaApiResponseData struct {
@@ -534,8 +445,8 @@ func (p *OneOfGetEulaApiResponseData) MarshalJSON() ([]byte, error) {
 type OneOfUpdateEulaApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
-	oneOfType21021 *Eula                  `json:"-"`
 	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType21021 []import1.AppMessage   `json:"-"`
 }
 
 func NewOneOfUpdateEulaApiResponseData() *OneOfUpdateEulaApiResponseData {
@@ -550,19 +461,121 @@ func (p *OneOfUpdateEulaApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfUpdateEulaApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case Eula:
-		if nil == p.oneOfType21021 {
-			p.oneOfType21021 = new(Eula)
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
 		}
-		*p.oneOfType21021 = v.(Eula)
+		*p.oneOfType400 = v.(import1.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType21021.ObjectType_
+		*p.Discriminator = *p.oneOfType400.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType21021.ObjectType_
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []import1.AppMessage:
+		p.oneOfType21021 = v.([]import1.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateEulaApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType21021
+	}
+	return nil
+}
+
+func (p *OneOfUpdateEulaApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType21021 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType21021); err == nil {
+		if len(*vOneOfType21021) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType21021)[0].ObjectType_) {
+			p.oneOfType21021 = *vOneOfType21021
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateEulaApiResponseData"))
+}
+
+func (p *OneOfUpdateEulaApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21021)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateEulaApiResponseData")
+}
+
+type OneOfAddUserApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType21023 []import1.AppMessage   `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfAddUserApiResponseData() *OneOfAddUserApiResponseData {
+	p := new(OneOfAddUserApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfAddUserApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfAddUserApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []import1.AppMessage:
+		p.oneOfType21023 = v.([]import1.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -582,9 +595,9 @@ func (p *OneOfUpdateEulaApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfUpdateEulaApiResponseData) GetValue() interface{} {
-	if p.oneOfType21021 != nil && *p.oneOfType21021.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType21021
+func (p *OneOfAddUserApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType21023
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -592,22 +605,19 @@ func (p *OneOfUpdateEulaApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfUpdateEulaApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType21021 := new(Eula)
-	if err := json.Unmarshal(b, vOneOfType21021); err == nil {
-		if "licensing.v4.agreements.Eula" == *vOneOfType21021.ObjectType_ {
-			if nil == p.oneOfType21021 {
-				p.oneOfType21021 = new(Eula)
-			}
-			*p.oneOfType21021 = *vOneOfType21021
+func (p *OneOfAddUserApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType21023 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType21023); err == nil {
+		if len(*vOneOfType21023) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType21023)[0].ObjectType_) {
+			p.oneOfType21023 = *vOneOfType21023
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType21021.ObjectType_
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType21021.ObjectType_
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
 			return nil
 		}
 	}
@@ -629,17 +639,17 @@ func (p *OneOfUpdateEulaApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateEulaApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddUserApiResponseData"))
 }
 
-func (p *OneOfUpdateEulaApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType21021 != nil && *p.oneOfType21021.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType21021)
+func (p *OneOfAddUserApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21023)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateEulaApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfAddUserApiResponseData")
 }
 
 type FileDetail struct {

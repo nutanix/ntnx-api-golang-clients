@@ -1,9 +1,9 @@
 /*
  * Generated file models/licensing/v4/config/config_model.go.
  *
- * Product version: 4.0.1-alpha-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Licensing Versioned APIs
+ * Part of the Nutanix Licensing APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
@@ -19,13 +19,135 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/models/common/v1/response"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/models/licensing/v4/error"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/models/common/v1/response"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/models/licensing/v4/error"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/models/prism/v4/config"
 	"time"
 )
 
 /*
-Model representing allowance details
+REST response for all response codes in API path /licensing/v4.0/config/license-keys Post operation
+*/
+type AddLicenseKeyApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfAddLicenseKeyApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewAddLicenseKeyApiResponse() *AddLicenseKeyApiResponse {
+	p := new(AddLicenseKeyApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.AddLicenseKeyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *AddLicenseKeyApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *AddLicenseKeyApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfAddLicenseKeyApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+type AddLicenseKeyDryRunApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Status *DryRunStatus `json:"status,omitempty"`
+
+	Summary *LicenseKey `json:"summary,omitempty"`
+
+	ValidationResult *DryRunValidationResult `json:"validationResult,omitempty"`
+}
+
+func NewAddLicenseKeyDryRunApiResponse() *AddLicenseKeyDryRunApiResponse {
+	p := new(AddLicenseKeyDryRunApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.AddLicenseKeyDryRunApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Model representing allowance details.
+*/
+type Allowance struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing a collection of allowance details
+	*/
+	Details []AllowanceDetail `json:"details,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  True value indicates cluster UUID represents Prism Central otherwise Prism Element.
+	*/
+	IsMulticluster *bool `json:"isMulticluster,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Indicates feature name like Application Monitoring.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *ClusterType `json:"type,omitempty"`
+}
+
+func NewAllowance() *Allowance {
+	p := new(Allowance)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.Allowance"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Model representing allowance details.
 */
 type AllowanceDetail struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -34,24 +156,24 @@ type AllowanceDetail struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Indicates feature id like MAX_NODES, APP_MONITORING
+	  Indicates feature ID like MAX_NODES, APP_MONITORING.
 	*/
 	FeatureId *string `json:"featureId,omitempty"`
 
-	Scope *ScopeEnum `json:"scope,omitempty"`
-
-	Type *TypeEnum `json:"type,omitempty"`
+	Scope *Scope `json:"scope,omitempty"`
 	/*
-	  Attribute for feature value.For boolean, it will be true/false.For integer it will be any numeric value. True value indicates feature is available to use
+	  Attribute for feature value. For boolean, it will be true/false.For integer it will be any numeric value. True value indicates the feature is available to use.
 	*/
 	Value *string `json:"value,omitempty"`
+
+	ValueType *ValueType `json:"valueType,omitempty"`
 }
 
 func NewAllowanceDetail() *AllowanceDetail {
 	p := new(AllowanceDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -64,31 +186,127 @@ type AllowanceDetailProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Indicates feature id like MAX_NODES, APP_MONITORING
+	  Indicates feature ID like MAX_NODES, APP_MONITORING.
 	*/
 	FeatureId *string `json:"featureId,omitempty"`
 
-	Scope *ScopeEnum `json:"scope,omitempty"`
-
-	Type *TypeEnum `json:"type,omitempty"`
+	Scope *Scope `json:"scope,omitempty"`
 	/*
-	  Attribute for feature value.For boolean, it will be true/false.For integer it will be any numeric value. True value indicates feature is available to use
+	  Attribute for feature value. For boolean, it will be true/false.For integer it will be any numeric value. True value indicates the feature is available to use.
 	*/
 	Value *string `json:"value,omitempty"`
+
+	ValueType *ValueType `json:"valueType,omitempty"`
 }
 
 func NewAllowanceDetailProjection() *AllowanceDetailProjection {
 	p := new(AllowanceDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type AllowanceProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	AllowanceDetailProjection []AllowanceDetailProjection `json:"allowanceDetailProjection,omitempty"`
+	/*
+	  Attribute for capturing a collection of allowance details
+	*/
+	Details []AllowanceDetail `json:"details,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  True value indicates cluster UUID represents Prism Central otherwise Prism Element.
+	*/
+	IsMulticluster *bool `json:"isMulticluster,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Indicates feature name like Application Monitoring.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *ClusterType `json:"type,omitempty"`
+}
+
+func NewAllowanceProjection() *AllowanceProjection {
+	p := new(AllowanceProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.AllowanceProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Model containing cluster identifier and a boolean attribute representing whether it is a PC or PE
+REST response for all response codes in API path /licensing/v4.0/config/$actions/assign-license-keys Post operation
+*/
+type AssignLicenseKeysApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfAssignLicenseKeysApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewAssignLicenseKeysApiResponse() *AssignLicenseKeysApiResponse {
+	p := new(AssignLicenseKeysApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.AssignLicenseKeysApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *AssignLicenseKeysApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *AssignLicenseKeysApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfAssignLicenseKeysApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Model containing cluster identifier and a boolean attribute representing whether it is a PC or PE.
 */
 type BaseClusterInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -101,13 +319,13 @@ type BaseClusterInfo struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  True value indicates cluster UUID represents Prism Central otherwise Prism Element
+	  True value indicates cluster UUID represents Prism Central otherwise Prism Element.
 	*/
 	IsMulticluster *bool `json:"isMulticluster,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
@@ -118,14 +336,14 @@ func NewBaseClusterInfo() *BaseClusterInfo {
 	p := new(BaseClusterInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.BaseClusterInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Model containing base licensing attributes like name, type, category and others
+Model containing base licensing attributes like name, type, category and others.
 */
 type BaseLicenseInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -134,9 +352,9 @@ type BaseLicenseInfo struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	Category *LicenseCategoryEnum `json:"category,omitempty"`
+	Category *LicenseCategory `json:"category,omitempty"`
 	/*
-	  Indicates expiry date of license
+	  Indicates the expiration date of the license.
 	*/
 	ExpiryDate *time.Time `json:"expiryDate,omitempty"`
 	/*
@@ -146,287 +364,106 @@ type BaseLicenseInfo struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate
+	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate.
 	*/
 	Name *string `json:"name,omitempty"`
 
-	SubCategory *SubCategoryEnum `json:"subCategory,omitempty"`
+	SubCategory *SubCategory `json:"subCategory,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
-	Type *LicenseTypeEnum `json:"type,omitempty"`
+	Type *LicenseType `json:"type,omitempty"`
+}
+
+func (p *BaseLicenseInfo) MarshalJSON() ([]byte, error) {
+	type BaseLicenseInfoProxy BaseLicenseInfo
+	return json.Marshal(struct {
+		*BaseLicenseInfoProxy
+	}{
+		BaseLicenseInfoProxy: (*BaseLicenseInfoProxy)(p),
+	})
+}
+
+func (p *BaseLicenseInfo) UnmarshalJSON(b []byte) error {
+	type CustomBaseLicenseInfo struct {
+		ObjectType_    *string                `json:"$objectType,omitempty"`
+		Reserved_      map[string]interface{} `json:"$reserved,omitempty"`
+		UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+		Category       *LicenseCategory       `json:"category,omitempty"`
+		ExpiryDate     string                 `json:"expiryDate,omitempty"`
+		ExtId          *string                `json:"extId,omitempty"`
+		Links          []import2.ApiLink      `json:"links,omitempty"`
+		Name           *string                `json:"name,omitempty"`
+		SubCategory    *SubCategory           `json:"subCategory,omitempty"`
+		TenantId       *string                `json:"tenantId,omitempty"`
+		Type           *LicenseType           `json:"type,omitempty"`
+	}
+
+	var customBaseLicenseInfo CustomBaseLicenseInfo
+	err := json.Unmarshal(b, &customBaseLicenseInfo)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customBaseLicenseInfo.ObjectType_
+	p.Reserved_ = customBaseLicenseInfo.Reserved_
+	p.UnknownFields_ = customBaseLicenseInfo.UnknownFields_
+	p.Category = customBaseLicenseInfo.Category
+	// Custom date parsing logic for Date field
+	if customBaseLicenseInfo.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", customBaseLicenseInfo.ExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct BaseLicenseInfo: %s", err))
+		}
+		p.ExpiryDate = &parsedExpiryDate
+	}
+	p.ExtId = customBaseLicenseInfo.ExtId
+	p.Links = customBaseLicenseInfo.Links
+	p.Name = customBaseLicenseInfo.Name
+	p.SubCategory = customBaseLicenseInfo.SubCategory
+	p.TenantId = customBaseLicenseInfo.TenantId
+	p.Type = customBaseLicenseInfo.Type
+
+	return nil
 }
 
 func NewBaseLicenseInfo() *BaseLicenseInfo {
 	p := new(BaseLicenseInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.BaseLicenseInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Model for capturing capacity violation. Capacity violations are thrown when user has not applied licenses to extended capacity.
+Possible values are PAY_AS_YOU_GO and others.
 */
-type CapacityViolation struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	Category *LicenseCategoryEnum `json:"category,omitempty"`
-	/*
-	  Indicates the insufficient quantity of a license.License of given quantity should be applied for a cluster to function properly
-	*/
-	InsufficientQuantity *float64 `json:"insufficientQuantity,omitempty"`
-
-	Meter *MeterEnum `json:"meter,omitempty"`
-
-	Type *LicenseTypeEnum `json:"type,omitempty"`
-}
-
-func NewCapacityViolation() *CapacityViolation {
-	p := new(CapacityViolation)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.CapacityViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Model capturing cluster details along with associated allowances.
-*/
-type ClusterAllowance struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Attribute for capturing collection of allowance details
-	*/
-	AllowanceDetails []AllowanceDetail `json:"allowanceDetails,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  True value indicates cluster UUID represents Prism Central otherwise Prism Element
-	*/
-	IsMulticluster *bool `json:"isMulticluster,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Attribute for capturing cluster name.
-	*/
-	Name *string `json:"name,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-
-	Type *ClusterTypeEnum `json:"type,omitempty"`
-}
-
-func NewClusterAllowance() *ClusterAllowance {
-	p := new(ClusterAllowance)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.ClusterAllowance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-type ClusterAllowanceProjection struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	AllowanceDetailProjection *AllowanceDetailProjection `json:"allowanceDetailProjection,omitempty"`
-	/*
-	  Attribute for capturing collection of allowance details
-	*/
-	AllowanceDetails []AllowanceDetail `json:"allowanceDetails,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  True value indicates cluster UUID represents Prism Central otherwise Prism Element
-	*/
-	IsMulticluster *bool `json:"isMulticluster,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Attribute for capturing cluster name.
-	*/
-	Name *string `json:"name,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-
-	Type *ClusterTypeEnum `json:"type,omitempty"`
-}
-
-func NewClusterAllowanceProjection() *ClusterAllowanceProjection {
-	p := new(ClusterAllowanceProjection)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.ClusterAllowanceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Model containing cluster details along with associated entitlements
-*/
-type ClusterEntitlement struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Indicates cluster UUID.
-	*/
-	ClusterExtId *string `json:"clusterExtId,omitempty"`
-	/*
-	  Attribute for capturing collection of entitlement details.
-	*/
-	EntitlementDetails []EntitlementDetail `json:"entitlementDetails,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  True value indicates cluster UUID represents Prism Central otherwise Prism Element
-	*/
-	IsMulticluster *bool `json:"isMulticluster,omitempty"`
-	/*
-	  Indicates whether cluster is registered with PC or not.
-	*/
-	IsRegistered *bool `json:"isRegistered,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Attribute for capturing cluster name.
-	*/
-	Name *string `json:"name,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-
-	Type *ClusterTypeEnum `json:"type,omitempty"`
-}
-
-func NewClusterEntitlement() *ClusterEntitlement {
-	p := new(ClusterEntitlement)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.ClusterEntitlement"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-type ClusterEntitlementProjection struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Indicates cluster UUID.
-	*/
-	ClusterExtId *string `json:"clusterExtId,omitempty"`
-
-	EntitlementDetailProjection *EntitlementDetailProjection `json:"entitlementDetailProjection,omitempty"`
-	/*
-	  Attribute for capturing collection of entitlement details.
-	*/
-	EntitlementDetails []EntitlementDetail `json:"entitlementDetails,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  True value indicates cluster UUID represents Prism Central otherwise Prism Element
-	*/
-	IsMulticluster *bool `json:"isMulticluster,omitempty"`
-	/*
-	  Indicates whether cluster is registered with PC or not.
-	*/
-	IsRegistered *bool `json:"isRegistered,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Attribute for capturing cluster name.
-	*/
-	Name *string `json:"name,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-
-	Type *ClusterTypeEnum `json:"type,omitempty"`
-}
-
-func NewClusterEntitlementProjection() *ClusterEntitlementProjection {
-	p := new(ClusterEntitlementProjection)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.ClusterEntitlementProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Possible values are NUTANIX,NON_NUTANIX and others
-*/
-type ClusterTypeEnum int
+type BillingPlan int
 
 const (
-	CLUSTERTYPEENUM_UNKNOWN     ClusterTypeEnum = 0
-	CLUSTERTYPEENUM_REDACTED    ClusterTypeEnum = 1
-	CLUSTERTYPEENUM_NUTANIX     ClusterTypeEnum = 2
-	CLUSTERTYPEENUM_VMWARE      ClusterTypeEnum = 3
-	CLUSTERTYPEENUM_NON_NUTANIX ClusterTypeEnum = 4
+	BILLINGPLAN_UNKNOWN       BillingPlan = 0
+	BILLINGPLAN_REDACTED      BillingPlan = 1
+	BILLINGPLAN_FREE_TRIAL    BillingPlan = 2
+	BILLINGPLAN_PAY_AS_YOU_GO BillingPlan = 3
+	BILLINGPLAN_CLOUD_COMMIT  BillingPlan = 4
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *ClusterTypeEnum) name(index int) string {
+func (e *BillingPlan) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"NUTANIX",
-		"VMWARE",
-		"NON_NUTANIX",
+		"FREE_TRIAL",
+		"PAY_AS_YOU_GO",
+		"CLOUD_COMMIT",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -435,14 +472,14 @@ func (e *ClusterTypeEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e ClusterTypeEnum) GetName() string {
+func (e BillingPlan) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"NUTANIX",
-		"VMWARE",
-		"NON_NUTANIX",
+		"FREE_TRIAL",
+		"PAY_AS_YOU_GO",
+		"CLOUD_COMMIT",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -451,89 +488,217 @@ func (e ClusterTypeEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *ClusterTypeEnum) index(name string) ClusterTypeEnum {
+func (e *BillingPlan) index(name string) BillingPlan {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"NUTANIX",
-		"VMWARE",
-		"NON_NUTANIX",
+		"FREE_TRIAL",
+		"PAY_AS_YOU_GO",
+		"CLOUD_COMMIT",
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return ClusterTypeEnum(idx)
+			return BillingPlan(idx)
 		}
 	}
-	return CLUSTERTYPEENUM_UNKNOWN
+	return BILLINGPLAN_UNKNOWN
 }
 
-func (e *ClusterTypeEnum) UnmarshalJSON(b []byte) error {
+func (e *BillingPlan) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ClusterTypeEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for BillingPlan:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *ClusterTypeEnum) MarshalJSON() ([]byte, error) {
+func (e *BillingPlan) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e ClusterTypeEnum) Ref() *ClusterTypeEnum {
+func (e BillingPlan) Ref() *BillingPlan {
 	return &e
 }
 
 /*
-Response object containing cluster and associated features violations.
+Model for capturing capacity violation. Capacity violations are thrown when a user has not applied licenses to extended capacity.
 */
-type ClusterViolation struct {
+type CapacityViolation struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Category *LicenseCategory `json:"category,omitempty"`
+
+	Meter *Meter `json:"meter,omitempty"`
+	/*
+	  Indicates the insufficient quantity of a license. License of given quantity should be applied for a cluster to function properly
+	*/
+	Shortfall *float64 `json:"shortfall,omitempty"`
+
+	Type *LicenseType `json:"type,omitempty"`
+}
+
+func NewCapacityViolation() *CapacityViolation {
+	p := new(CapacityViolation)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.CapacityViolation"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Model for capturing clusters to which license key has been applied.
+*/
+type ClusterLicenseKeyMapping struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of capacity violations. Capacity violations are thrown when user has not applied licenses to extended capacity. Example: Cluster is expanded to have new nodes which are not licensed.
+	  Attribute for cluster UUID.
 	*/
-	CapacityViolations []CapacityViolation `json:"capacityViolations,omitempty"`
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
-	  List of expired licenses for a cluster.Such licenses needs to be replaced in order for cluster to function properly.
+	  Attribute for capturing the license key.
 	*/
-	ExpiredLicenses []ExpiredLicense `json:"expiredLicenses,omitempty"`
+	Key *string `json:"key,omitempty"`
 	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
+	  Attribute for capturing quantity used.
 	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  List of features which are being used by cluster without applying necessary licenses. Feature violations can be resolved by applying necessary licenses.
-	*/
-	FeatureViolations []FeatureViolation `json:"featureViolations,omitempty"`
-	/*
-	  True value indicates cluster UUID represents Prism Central otherwise Prism Element
-	*/
-	IsMulticluster *bool `json:"isMulticluster,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
+	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
 }
 
-func NewClusterViolation() *ClusterViolation {
-	p := new(ClusterViolation)
+func NewClusterLicenseKeyMapping() *ClusterLicenseKeyMapping {
+	p := new(ClusterLicenseKeyMapping)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.ClusterViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	*p.ObjectType_ = "licensing.v4.config.ClusterLicenseKeyMapping"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+type ClusterLicenseKeyMappingProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for cluster UUID.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  Attribute for capturing the license key.
+	*/
+	Key *string `json:"key,omitempty"`
+	/*
+	  Attribute for capturing quantity used.
+	*/
+	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
+}
+
+func NewClusterLicenseKeyMappingProjection() *ClusterLicenseKeyMappingProjection {
+	p := new(ClusterLicenseKeyMappingProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ClusterLicenseKeyMappingProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Possible values are NUTANIX, NON_NUTANIX and others.
+*/
+type ClusterType int
+
+const (
+	CLUSTERTYPE_UNKNOWN           ClusterType = 0
+	CLUSTERTYPE_REDACTED          ClusterType = 1
+	CLUSTERTYPE_NUTANIX           ClusterType = 2
+	CLUSTERTYPE_VMWARE            ClusterType = 3
+	CLUSTERTYPE_OTHER_NON_NUTANIX ClusterType = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ClusterType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NUTANIX",
+		"VMWARE",
+		"OTHER_NON_NUTANIX",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ClusterType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NUTANIX",
+		"VMWARE",
+		"OTHER_NON_NUTANIX",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ClusterType) index(name string) ClusterType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NUTANIX",
+		"VMWARE",
+		"OTHER_NON_NUTANIX",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ClusterType(idx)
+		}
+	}
+	return CLUSTERTYPE_UNKNOWN
+}
+
+func (e *ClusterType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ClusterType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ClusterType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ClusterType) Ref() *ClusterType {
+	return &e
 }
 
 /*
@@ -554,15 +719,15 @@ type Compliance struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  True value indicates cluster UUID represents Prism Central otherwise Prism Element
+	  True value indicates cluster UUID represents Prism Central otherwise Prism Element.
 	*/
 	IsMulticluster *bool `json:"isMulticluster,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Attribute for capturing collection of service details.
+	  Attribute for capturing a collection of service details.
 	*/
 	Services []Service `json:"services,omitempty"`
 	/*
@@ -570,14 +735,14 @@ type Compliance struct {
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
-	Type *ClusterTypeEnum `json:"type,omitempty"`
+	Type *ClusterType `json:"type,omitempty"`
 }
 
 func NewCompliance() *Compliance {
 	p := new(Compliance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Compliance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -598,17 +763,17 @@ type ComplianceProjection struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  True value indicates cluster UUID represents Prism Central otherwise Prism Element
+	  True value indicates cluster UUID represents Prism Central otherwise Prism Element.
 	*/
 	IsMulticluster *bool `json:"isMulticluster,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 
-	ServiceProjection *ServiceProjection `json:"serviceProjection,omitempty"`
+	ServiceProjection []ServiceProjection `json:"serviceProjection,omitempty"`
 	/*
-	  Attribute for capturing collection of service details.
+	  Attribute for capturing a collection of service details.
 	*/
 	Services []Service `json:"services,omitempty"`
 	/*
@@ -616,21 +781,21 @@ type ComplianceProjection struct {
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
-	Type *ClusterTypeEnum `json:"type,omitempty"`
+	Type *ClusterType `json:"type,omitempty"`
 }
 
 func NewComplianceProjection() *ComplianceProjection {
 	p := new(ComplianceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ComplianceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Model containing license consumption details like cluster id and quantity used in that cluster
+Model containing license consumption details like cluster id and quantity used in that cluster.
 */
 type Consumption struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -639,32 +804,20 @@ type Consumption struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Cluster UUID which is consuming the license
+	  Cluster UUID which is consuming the license.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Indicates quantity of licenses consumed by the cluster
+	  Indicates quantity of licenses consumed by the cluster.
 	*/
 	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
 }
 
 func NewConsumption() *Consumption {
 	p := new(Consumption)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Consumption"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -677,32 +830,276 @@ type ConsumptionProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Cluster UUID which is consuming the license
+	  Cluster UUID which is consuming the license.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Indicates quantity of licenses consumed by the cluster
+	  Indicates quantity of licenses consumed by the cluster.
 	*/
 	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
 }
 
 func NewConsumptionProjection() *ConsumptionProjection {
 	p := new(ConsumptionProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ConsumptionProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Possible values are HYBRID and others
+*/
+type ConsumptionType int
+
+const (
+	CONSUMPTIONTYPE_UNKNOWN  ConsumptionType = 0
+	CONSUMPTIONTYPE_REDACTED ConsumptionType = 1
+	CONSUMPTIONTYPE_HYBRID   ConsumptionType = 2
+	CONSUMPTIONTYPE_UTILITY  ConsumptionType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ConsumptionType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HYBRID",
+		"UTILITY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ConsumptionType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HYBRID",
+		"UTILITY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ConsumptionType) index(name string) ConsumptionType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HYBRID",
+		"UTILITY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ConsumptionType(idx)
+		}
+	}
+	return CONSUMPTIONTYPE_UNKNOWN
+}
+
+func (e *ConsumptionType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ConsumptionType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ConsumptionType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ConsumptionType) Ref() *ConsumptionType {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.0/config/license-keys/{extId} Delete operation
+*/
+type DeleteLicenseKeyApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDeleteLicenseKeyApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewDeleteLicenseKeyApiResponse() *DeleteLicenseKeyApiResponse {
+	p := new(DeleteLicenseKeyApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.DeleteLicenseKeyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DeleteLicenseKeyApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DeleteLicenseKeyApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDeleteLicenseKeyApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Validation Check Object for AddLicenseKeyDryRunApiResponse
+*/
+type DryRunCheck struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Name *string `json:"name,omitempty"`
+
+	Result *import1.AppMessage `json:"result,omitempty"`
+}
+
+func NewDryRunCheck() *DryRunCheck {
+	p := new(DryRunCheck)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.DryRunCheck"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The overall status of dry run.
+*/
+type DryRunStatus int
+
+const (
+	DRYRUNSTATUS_UNKNOWN  DryRunStatus = 0
+	DRYRUNSTATUS_REDACTED DryRunStatus = 1
+	DRYRUNSTATUS_SUCCESS  DryRunStatus = 2
+	DRYRUNSTATUS_FAILURE  DryRunStatus = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *DryRunStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SUCCESS",
+		"FAILURE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e DryRunStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SUCCESS",
+		"FAILURE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *DryRunStatus) index(name string) DryRunStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SUCCESS",
+		"FAILURE",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return DryRunStatus(idx)
+		}
+	}
+	return DRYRUNSTATUS_UNKNOWN
+}
+
+func (e *DryRunStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for DryRunStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *DryRunStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e DryRunStatus) Ref() *DryRunStatus {
+	return &e
+}
+
+/*
+Validation Result Object for AddLicenseKeyDryRunApiResponse
+*/
+type DryRunValidationResult struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Checks []DryRunCheck `json:"checks,omitempty"`
+}
+
+func NewDryRunValidationResult() *DryRunValidationResult {
+	p := new(DryRunValidationResult)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.DryRunValidationResult"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -711,28 +1108,28 @@ func NewConsumptionProjection() *ConsumptionProjection {
 /*
 Possible values are NO_NODE_ADDITION, NO_SUPPORT and others.
 */
-type EnforcementActionsEnum int
+type EnforcementActions int
 
 const (
-	ENFORCEMENTACTIONSENUM_UNKNOWN               EnforcementActionsEnum = 0
-	ENFORCEMENTACTIONSENUM_REDACTED              EnforcementActionsEnum = 1
-	ENFORCEMENTACTIONSENUM_NO_NODE_ADDITION      EnforcementActionsEnum = 2
-	ENFORCEMENTACTIONSENUM_NO_ADVERTISE_CAPACITY EnforcementActionsEnum = 3
-	ENFORCEMENTACTIONSENUM_NO_SUPPORT            EnforcementActionsEnum = 4
-	ENFORCEMENTACTIONSENUM_NO_CONTAINER_UPDATE   EnforcementActionsEnum = 5
-	ENFORCEMENTACTIONSENUM_NO_LOGIN              EnforcementActionsEnum = 6
-	ENFORCEMENTACTIONSENUM_NO_CLUSTER_PAGE       EnforcementActionsEnum = 7
-	ENFORCEMENTACTIONSENUM_NO_UPGRADES           EnforcementActionsEnum = 8
-	ENFORCEMENTACTIONSENUM_NO_SECURITY_PATCH     EnforcementActionsEnum = 9
-	ENFORCEMENTACTIONSENUM_SHOW_NAGWARE          EnforcementActionsEnum = 10
-	ENFORCEMENTACTIONSENUM_NO_APP_LAUNCH         EnforcementActionsEnum = 11
-	ENFORCEMENTACTIONSENUM_NO_RUNBOOK            EnforcementActionsEnum = 12
+	ENFORCEMENTACTIONS_UNKNOWN               EnforcementActions = 0
+	ENFORCEMENTACTIONS_REDACTED              EnforcementActions = 1
+	ENFORCEMENTACTIONS_NO_NODE_ADDITION      EnforcementActions = 2
+	ENFORCEMENTACTIONS_NO_ADVERTISE_CAPACITY EnforcementActions = 3
+	ENFORCEMENTACTIONS_NO_SUPPORT            EnforcementActions = 4
+	ENFORCEMENTACTIONS_NO_CONTAINER_UPDATE   EnforcementActions = 5
+	ENFORCEMENTACTIONS_NO_LOGIN              EnforcementActions = 6
+	ENFORCEMENTACTIONS_NO_CLUSTER_PAGE       EnforcementActions = 7
+	ENFORCEMENTACTIONS_NO_UPGRADES           EnforcementActions = 8
+	ENFORCEMENTACTIONS_NO_SECURITY_PATCH     EnforcementActions = 9
+	ENFORCEMENTACTIONS_SHOW_NAGWARE          EnforcementActions = 10
+	ENFORCEMENTACTIONS_NO_APP_LAUNCH         EnforcementActions = 11
+	ENFORCEMENTACTIONS_NO_RUNBOOK            EnforcementActions = 12
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *EnforcementActionsEnum) name(index int) string {
+func (e *EnforcementActions) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -755,7 +1152,7 @@ func (e *EnforcementActionsEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e EnforcementActionsEnum) GetName() string {
+func (e EnforcementActions) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
@@ -779,7 +1176,7 @@ func (e EnforcementActionsEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *EnforcementActionsEnum) index(name string) EnforcementActionsEnum {
+func (e *EnforcementActions) index(name string) EnforcementActions {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -797,48 +1194,48 @@ func (e *EnforcementActionsEnum) index(name string) EnforcementActionsEnum {
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return EnforcementActionsEnum(idx)
+			return EnforcementActions(idx)
 		}
 	}
-	return ENFORCEMENTACTIONSENUM_UNKNOWN
+	return ENFORCEMENTACTIONS_UNKNOWN
 }
 
-func (e *EnforcementActionsEnum) UnmarshalJSON(b []byte) error {
+func (e *EnforcementActions) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for EnforcementActionsEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for EnforcementActions:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *EnforcementActionsEnum) MarshalJSON() ([]byte, error) {
+func (e *EnforcementActions) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e EnforcementActionsEnum) Ref() *EnforcementActionsEnum {
+func (e EnforcementActions) Ref() *EnforcementActions {
 	return &e
 }
 
 /*
 Possible values are LEVEL_10 and LEVEL_20.
 */
-type EnforcementLevelEnum int
+type EnforcementLevel int
 
 const (
-	ENFORCEMENTLEVELENUM_UNKNOWN  EnforcementLevelEnum = 0
-	ENFORCEMENTLEVELENUM_REDACTED EnforcementLevelEnum = 1
-	ENFORCEMENTLEVELENUM_LEVEL_10 EnforcementLevelEnum = 2
-	ENFORCEMENTLEVELENUM_LEVEL_20 EnforcementLevelEnum = 3
+	ENFORCEMENTLEVEL_UNKNOWN  EnforcementLevel = 0
+	ENFORCEMENTLEVEL_REDACTED EnforcementLevel = 1
+	ENFORCEMENTLEVEL_LEVEL_10 EnforcementLevel = 2
+	ENFORCEMENTLEVEL_LEVEL_20 EnforcementLevel = 3
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *EnforcementLevelEnum) name(index int) string {
+func (e *EnforcementLevel) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -852,7 +1249,7 @@ func (e *EnforcementLevelEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e EnforcementLevelEnum) GetName() string {
+func (e EnforcementLevel) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
@@ -867,7 +1264,7 @@ func (e EnforcementLevelEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *EnforcementLevelEnum) index(name string) EnforcementLevelEnum {
+func (e *EnforcementLevel) index(name string) EnforcementLevel {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -876,48 +1273,48 @@ func (e *EnforcementLevelEnum) index(name string) EnforcementLevelEnum {
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return EnforcementLevelEnum(idx)
+			return EnforcementLevel(idx)
 		}
 	}
-	return ENFORCEMENTLEVELENUM_UNKNOWN
+	return ENFORCEMENTLEVEL_UNKNOWN
 }
 
-func (e *EnforcementLevelEnum) UnmarshalJSON(b []byte) error {
+func (e *EnforcementLevel) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for EnforcementLevelEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for EnforcementLevel:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *EnforcementLevelEnum) MarshalJSON() ([]byte, error) {
+func (e *EnforcementLevel) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e EnforcementLevelEnum) Ref() *EnforcementLevelEnum {
+func (e EnforcementLevel) Ref() *EnforcementLevel {
 	return &e
 }
 
 /*
-Possible values are All or None
+Possible values are All or None.
 */
-type EnforcementPolicyEnum int
+type EnforcementPolicy int
 
 const (
-	ENFORCEMENTPOLICYENUM_UNKNOWN  EnforcementPolicyEnum = 0
-	ENFORCEMENTPOLICYENUM_REDACTED EnforcementPolicyEnum = 1
-	ENFORCEMENTPOLICYENUM_ALL      EnforcementPolicyEnum = 2
-	ENFORCEMENTPOLICYENUM_NONE     EnforcementPolicyEnum = 3
+	ENFORCEMENTPOLICY_UNKNOWN  EnforcementPolicy = 0
+	ENFORCEMENTPOLICY_REDACTED EnforcementPolicy = 1
+	ENFORCEMENTPOLICY_ALL      EnforcementPolicy = 2
+	ENFORCEMENTPOLICY_NONE     EnforcementPolicy = 3
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *EnforcementPolicyEnum) name(index int) string {
+func (e *EnforcementPolicy) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -931,7 +1328,7 @@ func (e *EnforcementPolicyEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e EnforcementPolicyEnum) GetName() string {
+func (e EnforcementPolicy) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
@@ -946,7 +1343,7 @@ func (e EnforcementPolicyEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *EnforcementPolicyEnum) index(name string) EnforcementPolicyEnum {
+func (e *EnforcementPolicy) index(name string) EnforcementPolicy {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -955,34 +1352,89 @@ func (e *EnforcementPolicyEnum) index(name string) EnforcementPolicyEnum {
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return EnforcementPolicyEnum(idx)
+			return EnforcementPolicy(idx)
 		}
 	}
-	return ENFORCEMENTPOLICYENUM_UNKNOWN
+	return ENFORCEMENTPOLICY_UNKNOWN
 }
 
-func (e *EnforcementPolicyEnum) UnmarshalJSON(b []byte) error {
+func (e *EnforcementPolicy) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for EnforcementPolicyEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for EnforcementPolicy:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *EnforcementPolicyEnum) MarshalJSON() ([]byte, error) {
+func (e *EnforcementPolicy) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e EnforcementPolicyEnum) Ref() *EnforcementPolicyEnum {
+func (e EnforcementPolicy) Ref() *EnforcementPolicy {
 	return &e
 }
 
 /*
-Model capturing entitlement details
+Model capturing entitlement details.
+*/
+type Entitlement struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing cluster UUID for entitlement.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  Attribute for capturing a collection of entitlement details.
+	*/
+	Details []EntitlementDetail `json:"details,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  True value indicates cluster UUID represents Prism Central otherwise Prism Element.
+	*/
+	IsMulticluster *bool `json:"isMulticluster,omitempty"`
+	/*
+	  Indicates whether cluster is registered with PC or not.
+	*/
+	IsRegistered *bool `json:"isRegistered,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Indicates the name of the license. Possible values could be NCI Pro, NCM Ultimate.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *ClusterType `json:"type,omitempty"`
+}
+
+func NewEntitlement() *Entitlement {
+	p := new(Entitlement)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.Entitlement"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Model capturing entitlement details.
 */
 type EntitlementDetail struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -991,34 +1443,86 @@ type EntitlementDetail struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	Category *LicenseCategoryEnum `json:"category,omitempty"`
+	Category *LicenseCategory `json:"category,omitempty"`
 	/*
-	  Attribute for capturing earliest expiry date across entitlements
+	  Attribute for capturing earliest expiry date across entitlements.
 	*/
 	EarliestExpiryDate *time.Time `json:"earliestExpiryDate,omitempty"`
 
-	Meter *MeterEnum `json:"meter,omitempty"`
+	Meter *Meter `json:"meter,omitempty"`
 	/*
-	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate
+	  Indicates the name of the license. Possible values could be NCI Pro, NCM Ultimate.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  Attribute for capturing quantity for entitlement
+	  Attribute for capturing quantity for entitlement.
 	*/
 	Quantity *float64 `json:"quantity,omitempty"`
 
-	Scope *ScopeEnum `json:"scope,omitempty"`
+	Scope *Scope `json:"scope,omitempty"`
 
-	SubCategory *SubCategoryEnum `json:"subCategory,omitempty"`
+	SubCategory *SubCategory `json:"subCategory,omitempty"`
 
-	Type *LicenseTypeEnum `json:"type,omitempty"`
+	Type *LicenseType `json:"type,omitempty"`
+}
+
+func (p *EntitlementDetail) MarshalJSON() ([]byte, error) {
+	type EntitlementDetailProxy EntitlementDetail
+	return json.Marshal(struct {
+		*EntitlementDetailProxy
+	}{
+		EntitlementDetailProxy: (*EntitlementDetailProxy)(p),
+	})
+}
+
+func (p *EntitlementDetail) UnmarshalJSON(b []byte) error {
+	type CustomEntitlementDetail struct {
+		ObjectType_        *string                `json:"$objectType,omitempty"`
+		Reserved_          map[string]interface{} `json:"$reserved,omitempty"`
+		UnknownFields_     map[string]interface{} `json:"$unknownFields,omitempty"`
+		Category           *LicenseCategory       `json:"category,omitempty"`
+		EarliestExpiryDate string                 `json:"earliestExpiryDate,omitempty"`
+		Meter              *Meter                 `json:"meter,omitempty"`
+		Name               *string                `json:"name,omitempty"`
+		Quantity           *float64               `json:"quantity,omitempty"`
+		Scope              *Scope                 `json:"scope,omitempty"`
+		SubCategory        *SubCategory           `json:"subCategory,omitempty"`
+		Type               *LicenseType           `json:"type,omitempty"`
+	}
+
+	var customEntitlementDetail CustomEntitlementDetail
+	err := json.Unmarshal(b, &customEntitlementDetail)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customEntitlementDetail.ObjectType_
+	p.Reserved_ = customEntitlementDetail.Reserved_
+	p.UnknownFields_ = customEntitlementDetail.UnknownFields_
+	p.Category = customEntitlementDetail.Category
+	// Custom date parsing logic for Date field
+	if customEntitlementDetail.EarliestExpiryDate != "" {
+		parsedEarliestExpiryDate, err := time.Parse("2006-01-02", customEntitlementDetail.EarliestExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field EarliestExpiryDate in struct EntitlementDetail: %s", err))
+		}
+		p.EarliestExpiryDate = &parsedEarliestExpiryDate
+	}
+	p.Meter = customEntitlementDetail.Meter
+	p.Name = customEntitlementDetail.Name
+	p.Quantity = customEntitlementDetail.Quantity
+	p.Scope = customEntitlementDetail.Scope
+	p.SubCategory = customEntitlementDetail.SubCategory
+	p.Type = customEntitlementDetail.Type
+
+	return nil
 }
 
 func NewEntitlementDetail() *EntitlementDetail {
 	p := new(EntitlementDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1031,41 +1535,147 @@ type EntitlementDetailProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	Category *LicenseCategoryEnum `json:"category,omitempty"`
+	Category *LicenseCategory `json:"category,omitempty"`
 	/*
-	  Attribute for capturing earliest expiry date across entitlements
+	  Attribute for capturing earliest expiry date across entitlements.
 	*/
 	EarliestExpiryDate *time.Time `json:"earliestExpiryDate,omitempty"`
 
-	Meter *MeterEnum `json:"meter,omitempty"`
+	Meter *Meter `json:"meter,omitempty"`
 	/*
-	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate
+	  Indicates the name of the license. Possible values could be NCI Pro, NCM Ultimate.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  Attribute for capturing quantity for entitlement
+	  Attribute for capturing quantity for entitlement.
 	*/
 	Quantity *float64 `json:"quantity,omitempty"`
 
-	Scope *ScopeEnum `json:"scope,omitempty"`
+	Scope *Scope `json:"scope,omitempty"`
 
-	SubCategory *SubCategoryEnum `json:"subCategory,omitempty"`
+	SubCategory *SubCategory `json:"subCategory,omitempty"`
 
-	Type *LicenseTypeEnum `json:"type,omitempty"`
+	Type *LicenseType `json:"type,omitempty"`
+}
+
+func (p *EntitlementDetailProjection) MarshalJSON() ([]byte, error) {
+	type EntitlementDetailProjectionProxy EntitlementDetailProjection
+	return json.Marshal(struct {
+		*EntitlementDetailProjectionProxy
+	}{
+		EntitlementDetailProjectionProxy: (*EntitlementDetailProjectionProxy)(p),
+	})
+}
+
+func (p *EntitlementDetailProjection) UnmarshalJSON(b []byte) error {
+	type CustomEntitlementDetailProjection struct {
+		ObjectType_        *string                `json:"$objectType,omitempty"`
+		Reserved_          map[string]interface{} `json:"$reserved,omitempty"`
+		UnknownFields_     map[string]interface{} `json:"$unknownFields,omitempty"`
+		Category           *LicenseCategory       `json:"category,omitempty"`
+		EarliestExpiryDate string                 `json:"earliestExpiryDate,omitempty"`
+		Meter              *Meter                 `json:"meter,omitempty"`
+		Name               *string                `json:"name,omitempty"`
+		Quantity           *float64               `json:"quantity,omitempty"`
+		Scope              *Scope                 `json:"scope,omitempty"`
+		SubCategory        *SubCategory           `json:"subCategory,omitempty"`
+		Type               *LicenseType           `json:"type,omitempty"`
+	}
+
+	var customEntitlementDetailProjection CustomEntitlementDetailProjection
+	err := json.Unmarshal(b, &customEntitlementDetailProjection)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customEntitlementDetailProjection.ObjectType_
+	p.Reserved_ = customEntitlementDetailProjection.Reserved_
+	p.UnknownFields_ = customEntitlementDetailProjection.UnknownFields_
+	p.Category = customEntitlementDetailProjection.Category
+	// Custom date parsing logic for Date field
+	if customEntitlementDetailProjection.EarliestExpiryDate != "" {
+		parsedEarliestExpiryDate, err := time.Parse("2006-01-02", customEntitlementDetailProjection.EarliestExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field EarliestExpiryDate in struct EntitlementDetailProjection: %s", err))
+		}
+		p.EarliestExpiryDate = &parsedEarliestExpiryDate
+	}
+	p.Meter = customEntitlementDetailProjection.Meter
+	p.Name = customEntitlementDetailProjection.Name
+	p.Quantity = customEntitlementDetailProjection.Quantity
+	p.Scope = customEntitlementDetailProjection.Scope
+	p.SubCategory = customEntitlementDetailProjection.SubCategory
+	p.Type = customEntitlementDetailProjection.Type
+
+	return nil
 }
 
 func NewEntitlementDetailProjection() *EntitlementDetailProjection {
 	p := new(EntitlementDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type EntitlementProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing cluster UUID for entitlement.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  Attribute for capturing a collection of entitlement details.
+	*/
+	Details []EntitlementDetail `json:"details,omitempty"`
+
+	EntitlementDetailProjection []EntitlementDetailProjection `json:"entitlementDetailProjection,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  True value indicates cluster UUID represents Prism Central otherwise Prism Element.
+	*/
+	IsMulticluster *bool `json:"isMulticluster,omitempty"`
+	/*
+	  Indicates whether cluster is registered with PC or not.
+	*/
+	IsRegistered *bool `json:"isRegistered,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Indicates the name of the license. Possible values could be NCI Pro, NCM Ultimate.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *ClusterType `json:"type,omitempty"`
+}
+
+func NewEntitlementProjection() *EntitlementProjection {
+	p := new(EntitlementProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.EntitlementProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-License details of expired license
+License details of expired license.
 */
 type ExpiredLicense struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1074,9 +1684,9 @@ type ExpiredLicense struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	Category *LicenseCategoryEnum `json:"category,omitempty"`
+	Category *LicenseCategory `json:"category,omitempty"`
 	/*
-	  Indicates expiry date of license
+	  Indicates the expiration date of the license.
 	*/
 	ExpiryDate *time.Time `json:"expiryDate,omitempty"`
 	/*
@@ -1090,39 +1700,97 @@ type ExpiredLicense struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 
-	Meter *MeterEnum `json:"meter,omitempty"`
+	Meter *Meter `json:"meter,omitempty"`
 	/*
-	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate
+	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate.
 	*/
 	Name *string `json:"name,omitempty"`
 
-	SubCategory *SubCategoryEnum `json:"subCategory,omitempty"`
+	SubCategory *SubCategory `json:"subCategory,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
-	Type *LicenseTypeEnum `json:"type,omitempty"`
+	Type *LicenseType `json:"type,omitempty"`
 	/*
-	  Indicates expired quantity of the license
+	  Indicates the expired quantity of the license.
 	*/
 	UsedQuantity *float64 `json:"usedQuantity,omitempty"`
+}
+
+func (p *ExpiredLicense) MarshalJSON() ([]byte, error) {
+	type ExpiredLicenseProxy ExpiredLicense
+	return json.Marshal(struct {
+		*ExpiredLicenseProxy
+	}{
+		ExpiredLicenseProxy: (*ExpiredLicenseProxy)(p),
+	})
+}
+
+func (p *ExpiredLicense) UnmarshalJSON(b []byte) error {
+	type CustomExpiredLicense struct {
+		ObjectType_    *string                `json:"$objectType,omitempty"`
+		Reserved_      map[string]interface{} `json:"$reserved,omitempty"`
+		UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+		Category       *LicenseCategory       `json:"category,omitempty"`
+		ExpiryDate     string                 `json:"expiryDate,omitempty"`
+		ExtId          *string                `json:"extId,omitempty"`
+		LicenseId      *string                `json:"licenseId,omitempty"`
+		Links          []import2.ApiLink      `json:"links,omitempty"`
+		Meter          *Meter                 `json:"meter,omitempty"`
+		Name           *string                `json:"name,omitempty"`
+		SubCategory    *SubCategory           `json:"subCategory,omitempty"`
+		TenantId       *string                `json:"tenantId,omitempty"`
+		Type           *LicenseType           `json:"type,omitempty"`
+		UsedQuantity   *float64               `json:"usedQuantity,omitempty"`
+	}
+
+	var customExpiredLicense CustomExpiredLicense
+	err := json.Unmarshal(b, &customExpiredLicense)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customExpiredLicense.ObjectType_
+	p.Reserved_ = customExpiredLicense.Reserved_
+	p.UnknownFields_ = customExpiredLicense.UnknownFields_
+	p.Category = customExpiredLicense.Category
+	// Custom date parsing logic for Date field
+	if customExpiredLicense.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", customExpiredLicense.ExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct ExpiredLicense: %s", err))
+		}
+		p.ExpiryDate = &parsedExpiryDate
+	}
+	p.ExtId = customExpiredLicense.ExtId
+	p.LicenseId = customExpiredLicense.LicenseId
+	p.Links = customExpiredLicense.Links
+	p.Meter = customExpiredLicense.Meter
+	p.Name = customExpiredLicense.Name
+	p.SubCategory = customExpiredLicense.SubCategory
+	p.TenantId = customExpiredLicense.TenantId
+	p.Type = customExpiredLicense.Type
+	p.UsedQuantity = customExpiredLicense.UsedQuantity
+
+	return nil
 }
 
 func NewExpiredLicense() *ExpiredLicense {
 	p := new(ExpiredLicense)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ExpiredLicense"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Response object containing feature details like name, description, license type and category mapping and others
+Response object containing feature details like name, description, license type and category mapping and others.
 */
 type Feature struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1135,45 +1803,70 @@ type Feature struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 
-	LicenseCategory *LicenseCategoryEnum `json:"licenseCategory,omitempty"`
+	LicenseCategory *LicenseCategory `json:"licenseCategory,omitempty"`
 
-	LicenseSubCategory *SubCategoryEnum `json:"licenseSubCategory,omitempty"`
+	LicenseSubCategory *SubCategory `json:"licenseSubCategory,omitempty"`
 
-	LicenseType *LicenseTypeEnum `json:"licenseType,omitempty"`
+	LicenseType *LicenseType `json:"licenseType,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Name of feature like dp_recovery, dp_backup_tiering
+	  Name of feature like dp_recovery, dp_backup_tiering.
 	*/
 	Name *string `json:"name,omitempty"`
 
-	Scope *ScopeEnum `json:"scope,omitempty"`
+	Scope *Scope `json:"scope,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
-
-	Type *TypeEnum `json:"type,omitempty"`
 	/*
-	  Value of feature, it could be true, false or integer
+
+	 */
+	ValueItemDiscriminator_ *string `json:"$valueItemDiscriminator,omitempty"`
+	/*
+	  Value of feature, it could be true, false or integer.
 	*/
-	Value *string `json:"value,omitempty"`
+	Value *OneOfFeatureValue `json:"value,omitempty"`
+
+	ValueType *ValueType `json:"valueType,omitempty"`
 }
 
 func NewFeature() *Feature {
 	p := new(Feature)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Feature"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
+func (p *Feature) GetValue() interface{} {
+	if nil == p.Value {
+		return nil
+	}
+	return p.Value.GetValue()
+}
+
+func (p *Feature) SetValue(v interface{}) error {
+	if nil == p.Value {
+		p.Value = NewOneOfFeatureValue()
+	}
+	e := p.Value.SetValue(v)
+	if nil == e {
+		if nil == p.ValueItemDiscriminator_ {
+			p.ValueItemDiscriminator_ = new(string)
+		}
+		*p.ValueItemDiscriminator_ = *p.Value.Discriminator
+	}
+	return e
+}
+
 /*
-Model for capturing feature details
+Model for capturing feature details.
 */
 type FeatureDetail struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1182,15 +1875,15 @@ type FeatureDetail struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Attribute for feature description
+	  Attribute for feature description.
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  Attribute for capturing feature id like VULCAN, APP_MONITORING
+	  Attribute for capturing feature id like VULCAN, APP_MONITORING.
 	*/
 	FeatureId *string `json:"featureId,omitempty"`
 	/*
-	  Attribute for capturing feature name like Application Monitoring
+	  Attribute for capturing feature name like Application Monitoring.
 	*/
 	Name *string `json:"name,omitempty"`
 }
@@ -1199,7 +1892,7 @@ func NewFeatureDetail() *FeatureDetail {
 	p := new(FeatureDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1216,45 +1909,47 @@ type FeatureProjection struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 
-	LicenseCategory *LicenseCategoryEnum `json:"licenseCategory,omitempty"`
+	LicenseCategory *LicenseCategory `json:"licenseCategory,omitempty"`
 
-	LicenseSubCategory *SubCategoryEnum `json:"licenseSubCategory,omitempty"`
+	LicenseSubCategory *SubCategory `json:"licenseSubCategory,omitempty"`
 
-	LicenseType *LicenseTypeEnum `json:"licenseType,omitempty"`
+	LicenseType *LicenseType `json:"licenseType,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  Name of feature like dp_recovery, dp_backup_tiering
+	  Name of feature like dp_recovery, dp_backup_tiering.
 	*/
 	Name *string `json:"name,omitempty"`
 
-	Scope *ScopeEnum `json:"scope,omitempty"`
+	Scope *Scope `json:"scope,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
-	Type *TypeEnum `json:"type,omitempty"`
+	ValueItemDiscriminator_ *string `json:"$valueItemDiscriminator,omitempty"`
 	/*
-	  Value of feature, it could be true, false or integer
+	  Value of feature, it could be true, false or integer.
 	*/
-	Value *string `json:"value,omitempty"`
+	Value *OneOfFeatureProjectionValue `json:"value,omitempty"`
+
+	ValueType *ValueType `json:"valueType,omitempty"`
 }
 
 func NewFeatureProjection() *FeatureProjection {
 	p := new(FeatureProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Model capturing feature info and associated clusters
+Model capturing feature info and associated clusters.
 */
 type FeatureViolation struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1266,19 +1961,19 @@ type FeatureViolation struct {
 	  Description of entity for which feature violation is thrown.
 	Examples: 1) Vm with uuid 000604af-3aa4-9cfe-1c6a-ac1f6b357fb7.
 	          2) Storage Container bucket-data-prod
-	          3) Protection Domain pd_prod with Application consistency group prod
+	          3) Protection Domain pd_prod with Application consistency group prod.
 	*/
 	AffectedEntity *string `json:"affectedEntity,omitempty"`
 	/*
-	  Attribute for feature description
+	  Attribute for feature description.
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  Attribute for capturing feature id like VULCAN, APP_MONITORING
+	  Attribute for capturing feature id like VULCAN, APP_MONITORING.
 	*/
 	FeatureId *string `json:"featureId,omitempty"`
 	/*
-	  Attribute for capturing feature name like Application Monitoring
+	  Attribute for capturing feature name like Application Monitoring.
 	*/
 	Name *string `json:"name,omitempty"`
 }
@@ -1287,16 +1982,16 @@ func NewFeatureViolation() *FeatureViolation {
 	p := new(FeatureViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0.a1/config/clusters/{extId}/allowances Get operation
+REST response for all response codes in API path /licensing/v4.0/config/license-keys/{extId} Get operation
 */
-type GetClusterAllowanceApiResponse struct {
+type GetLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -1307,31 +2002,31 @@ type GetClusterAllowanceApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfGetClusterAllowanceApiResponseData `json:"data,omitempty"`
+	Data *OneOfGetLicenseKeyApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewGetClusterAllowanceApiResponse() *GetClusterAllowanceApiResponse {
-	p := new(GetClusterAllowanceApiResponse)
+func NewGetLicenseKeyApiResponse() *GetLicenseKeyApiResponse {
+	p := new(GetLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.GetClusterAllowanceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	*p.ObjectType_ = "licensing.v4.config.GetLicenseKeyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *GetClusterAllowanceApiResponse) GetData() interface{} {
+func (p *GetLicenseKeyApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *GetClusterAllowanceApiResponse) SetData(v interface{}) error {
+func (p *GetLicenseKeyApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfGetClusterAllowanceApiResponseData()
+		p.Data = NewOneOfGetLicenseKeyApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1344,257 +2039,7 @@ func (p *GetClusterAllowanceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0.a1/config/clusters/{extId}/entitlements Get operation
-*/
-type GetClusterEntitlementApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetClusterEntitlementApiResponseData `json:"data,omitempty"`
-
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetClusterEntitlementApiResponse() *GetClusterEntitlementApiResponse {
-	p := new(GetClusterEntitlementApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.GetClusterEntitlementApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetClusterEntitlementApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetClusterEntitlementApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetClusterEntitlementApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /licensing/v4.0.a1/config/clusters/{extId}/violations Get operation
-*/
-type GetClusterViolationApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetClusterViolationApiResponseData `json:"data,omitempty"`
-
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetClusterViolationApiResponse() *GetClusterViolationApiResponse {
-	p := new(GetClusterViolationApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.GetClusterViolationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetClusterViolationApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetClusterViolationApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetClusterViolationApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /licensing/v4.0.a1/config/clusters/{extId}/compliance Get operation
-*/
-type GetComplianceApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetComplianceApiResponseData `json:"data,omitempty"`
-
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetComplianceApiResponse() *GetComplianceApiResponse {
-	p := new(GetComplianceApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.GetComplianceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetComplianceApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetComplianceApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetComplianceApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /licensing/v4.0.a1/config/licenses/{extId} Get operation
-*/
-type GetLicenseApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetLicenseApiResponseData `json:"data,omitempty"`
-
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetLicenseApiResponse() *GetLicenseApiResponse {
-	p := new(GetLicenseApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.GetLicenseApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetLicenseApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetLicenseApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetLicenseApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /licensing/v4.0.a1/config/clusters/{extId}/settings Get operation
-*/
-type GetSettingApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfGetSettingApiResponseData `json:"data,omitempty"`
-
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewGetSettingApiResponse() *GetSettingApiResponse {
-	p := new(GetSettingApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.GetSettingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *GetSettingApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *GetSettingApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfGetSettingApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-Model containing license details like id, type, category, sub-category, scope and others
+Model containing license details like id, type, category, sub-category, scope and others.
 */
 type License struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1603,13 +2048,13 @@ type License struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	Category *LicenseCategoryEnum `json:"category,omitempty"`
+	Category *LicenseCategory `json:"category,omitempty"`
 	/*
-	  Array containing information about the clusters where these licenses are used
+	  Array containing information about the clusters where these licenses are used.
 	*/
 	ConsumptionDetails []Consumption `json:"consumptionDetails,omitempty"`
 	/*
-	  Indicates expiry date of license
+	  Indicates the expiration date of the license.
 	*/
 	ExpiryDate *time.Time `json:"expiryDate,omitempty"`
 	/*
@@ -1619,86 +2064,153 @@ type License struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 
-	Meter *MeterEnum `json:"meter,omitempty"`
+	Meter *Meter `json:"meter,omitempty"`
 	/*
-	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate
+	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  Total quantity of license consumed
+	  Total quantity of license consumed.
 	*/
-	Quantity *string `json:"quantity,omitempty"`
+	Quantity *float64 `json:"quantity,omitempty"`
+	/*
+	  Attribute for capturing salesforce generated license identifier e.g. LIC-XXX.
+	*/
+	SalesforceLicenseId *string `json:"salesforceLicenseId,omitempty"`
 
-	Scope *ScopeEnum `json:"scope,omitempty"`
+	Scope *Scope `json:"scope,omitempty"`
 
-	SubCategory *SubCategoryEnum `json:"subCategory,omitempty"`
+	SubCategory *SubCategory `json:"subCategory,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
-	Type *LicenseTypeEnum `json:"type,omitempty"`
+	Type *LicenseType `json:"type,omitempty"`
+}
+
+func (p *License) MarshalJSON() ([]byte, error) {
+	type LicenseProxy License
+	return json.Marshal(struct {
+		*LicenseProxy
+	}{
+		LicenseProxy: (*LicenseProxy)(p),
+	})
+}
+
+func (p *License) UnmarshalJSON(b []byte) error {
+	type CustomLicense struct {
+		ObjectType_         *string                `json:"$objectType,omitempty"`
+		Reserved_           map[string]interface{} `json:"$reserved,omitempty"`
+		UnknownFields_      map[string]interface{} `json:"$unknownFields,omitempty"`
+		Category            *LicenseCategory       `json:"category,omitempty"`
+		ConsumptionDetails  []Consumption          `json:"consumptionDetails,omitempty"`
+		ExpiryDate          string                 `json:"expiryDate,omitempty"`
+		ExtId               *string                `json:"extId,omitempty"`
+		Links               []import2.ApiLink      `json:"links,omitempty"`
+		Meter               *Meter                 `json:"meter,omitempty"`
+		Name                *string                `json:"name,omitempty"`
+		Quantity            *float64               `json:"quantity,omitempty"`
+		SalesforceLicenseId *string                `json:"salesforceLicenseId,omitempty"`
+		Scope               *Scope                 `json:"scope,omitempty"`
+		SubCategory         *SubCategory           `json:"subCategory,omitempty"`
+		TenantId            *string                `json:"tenantId,omitempty"`
+		Type                *LicenseType           `json:"type,omitempty"`
+	}
+
+	var customLicense CustomLicense
+	err := json.Unmarshal(b, &customLicense)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customLicense.ObjectType_
+	p.Reserved_ = customLicense.Reserved_
+	p.UnknownFields_ = customLicense.UnknownFields_
+	p.Category = customLicense.Category
+	p.ConsumptionDetails = customLicense.ConsumptionDetails
+	// Custom date parsing logic for Date field
+	if customLicense.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", customLicense.ExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct License: %s", err))
+		}
+		p.ExpiryDate = &parsedExpiryDate
+	}
+	p.ExtId = customLicense.ExtId
+	p.Links = customLicense.Links
+	p.Meter = customLicense.Meter
+	p.Name = customLicense.Name
+	p.Quantity = customLicense.Quantity
+	p.SalesforceLicenseId = customLicense.SalesforceLicenseId
+	p.Scope = customLicense.Scope
+	p.SubCategory = customLicense.SubCategory
+	p.TenantId = customLicense.TenantId
+	p.Type = customLicense.Type
+
+	return nil
 }
 
 func NewLicense() *License {
 	p := new(License)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.License"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Possible values are Starter,Pro,Ultimate and others
+Indicates the different categories of license with possible values of Starter, Pro, Ultimate, and others.
 */
-type LicenseCategoryEnum int
+type LicenseCategory int
 
 const (
-	LICENSECATEGORYENUM_UNKNOWN              LicenseCategoryEnum = 0
-	LICENSECATEGORYENUM_REDACTED             LicenseCategoryEnum = 1
-	LICENSECATEGORYENUM_STARTER              LicenseCategoryEnum = 2
-	LICENSECATEGORYENUM_PRO                  LicenseCategoryEnum = 3
-	LICENSECATEGORYENUM_ULTIMATE             LicenseCategoryEnum = 4
-	LICENSECATEGORYENUM_CALM                 LicenseCategoryEnum = 5
-	LICENSECATEGORYENUM_STANDARD             LicenseCategoryEnum = 6
-	LICENSECATEGORYENUM_AOS_MINE             LicenseCategoryEnum = 7
-	LICENSECATEGORYENUM_SOFTWARE_ENCRYPTION  LicenseCategoryEnum = 8
-	LICENSECATEGORYENUM_ADV_REPLICATION      LicenseCategoryEnum = 9
-	LICENSECATEGORYENUM_OBJECT               LicenseCategoryEnum = 10
-	LICENSECATEGORYENUM_ULTIMATE_TRIAL       LicenseCategoryEnum = 11
-	LICENSECATEGORYENUM_PRISM_STARTER        LicenseCategoryEnum = 12
-	LICENSECATEGORYENUM_PRO_SPECIAL          LicenseCategoryEnum = 13
-	LICENSECATEGORYENUM_ADR                  LicenseCategoryEnum = 14
-	LICENSECATEGORYENUM_SECURITY             LicenseCategoryEnum = 15
-	LICENSECATEGORYENUM_NKS                  LicenseCategoryEnum = 16
-	LICENSECATEGORYENUM_APPAUTOMATION        LicenseCategoryEnum = 17
-	LICENSECATEGORYENUM_NDA                  LicenseCategoryEnum = 18
-	LICENSECATEGORYENUM_UST                  LicenseCategoryEnum = 19
-	LICENSECATEGORYENUM_ANALYTICS            LicenseCategoryEnum = 20
-	LICENSECATEGORYENUM_STANDALONE           LicenseCategoryEnum = 21
-	LICENSECATEGORYENUM_DRASS                LicenseCategoryEnum = 22
-	LICENSECATEGORYENUM_CLOUD_NATIVE         LicenseCategoryEnum = 23
-	LICENSECATEGORYENUM_DATA_ENCRYPTION      LicenseCategoryEnum = 24
-	LICENSECATEGORYENUM_NDS                  LicenseCategoryEnum = 25
-	LICENSECATEGORYENUM_NDB                  LicenseCategoryEnum = 26
-	LICENSECATEGORYENUM_NO_LICENSE           LicenseCategoryEnum = 27
-	LICENSECATEGORYENUM_NUS_ENCRYPTION       LicenseCategoryEnum = 28
-	LICENSECATEGORYENUM_NUS_REPLICATION      LicenseCategoryEnum = 29
-	LICENSECATEGORYENUM_CLOUD_PRO            LicenseCategoryEnum = 30
-	LICENSECATEGORYENUM_CLOUD_ULTIMATE       LicenseCategoryEnum = 31
-	LICENSECATEGORYENUM_CLOUD                LicenseCategoryEnum = 32
-	LICENSECATEGORYENUM_PUBLIC_CLOUD         LicenseCategoryEnum = 33
-	LICENSECATEGORYENUM_ADVANCED_REPLICATION LicenseCategoryEnum = 34
+	LICENSECATEGORY_UNKNOWN              LicenseCategory = 0
+	LICENSECATEGORY_REDACTED             LicenseCategory = 1
+	LICENSECATEGORY_STARTER              LicenseCategory = 2
+	LICENSECATEGORY_PRO                  LicenseCategory = 3
+	LICENSECATEGORY_ULTIMATE             LicenseCategory = 4
+	LICENSECATEGORY_CALM                 LicenseCategory = 5
+	LICENSECATEGORY_STANDARD             LicenseCategory = 6
+	LICENSECATEGORY_AOS_MINE             LicenseCategory = 7
+	LICENSECATEGORY_SOFTWARE_ENCRYPTION  LicenseCategory = 8
+	LICENSECATEGORY_ADV_REPLICATION      LicenseCategory = 9
+	LICENSECATEGORY_OBJECT               LicenseCategory = 10
+	LICENSECATEGORY_ULTIMATE_TRIAL       LicenseCategory = 11
+	LICENSECATEGORY_PRISM_STARTER        LicenseCategory = 12
+	LICENSECATEGORY_PRO_SPECIAL          LicenseCategory = 13
+	LICENSECATEGORY_ADR                  LicenseCategory = 14
+	LICENSECATEGORY_SECURITY             LicenseCategory = 15
+	LICENSECATEGORY_NKS                  LicenseCategory = 16
+	LICENSECATEGORY_APPAUTOMATION        LicenseCategory = 17
+	LICENSECATEGORY_NDA                  LicenseCategory = 18
+	LICENSECATEGORY_UST                  LicenseCategory = 19
+	LICENSECATEGORY_ANALYTICS            LicenseCategory = 20
+	LICENSECATEGORY_STANDALONE           LicenseCategory = 21
+	LICENSECATEGORY_DRASS                LicenseCategory = 22
+	LICENSECATEGORY_CLOUD_NATIVE         LicenseCategory = 23
+	LICENSECATEGORY_DATA_ENCRYPTION      LicenseCategory = 24
+	LICENSECATEGORY_NDS                  LicenseCategory = 25
+	LICENSECATEGORY_NDB                  LicenseCategory = 26
+	LICENSECATEGORY_NO_LICENSE           LicenseCategory = 27
+	LICENSECATEGORY_NUS_ENCRYPTION       LicenseCategory = 28
+	LICENSECATEGORY_NUS_REPLICATION      LicenseCategory = 29
+	LICENSECATEGORY_CLOUD_PRO            LicenseCategory = 30
+	LICENSECATEGORY_CLOUD_ULTIMATE       LicenseCategory = 31
+	LICENSECATEGORY_CLOUD                LicenseCategory = 32
+	LICENSECATEGORY_PUBLIC_CLOUD         LicenseCategory = 33
+	LICENSECATEGORY_ADVANCED_REPLICATION LicenseCategory = 34
+	LICENSECATEGORY_NDK                  LicenseCategory = 35
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *LicenseCategoryEnum) name(index int) string {
+func (e *LicenseCategory) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -1735,6 +2247,7 @@ func (e *LicenseCategoryEnum) name(index int) string {
 		"CLOUD",
 		"PUBLIC_CLOUD",
 		"ADVANCED_REPLICATION",
+		"NDK",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1743,7 +2256,7 @@ func (e *LicenseCategoryEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e LicenseCategoryEnum) GetName() string {
+func (e LicenseCategory) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
@@ -1781,6 +2294,7 @@ func (e LicenseCategoryEnum) GetName() string {
 		"CLOUD",
 		"PUBLIC_CLOUD",
 		"ADVANCED_REPLICATION",
+		"NDK",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1789,7 +2303,7 @@ func (e LicenseCategoryEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *LicenseCategoryEnum) index(name string) LicenseCategoryEnum {
+func (e *LicenseCategory) index(name string) LicenseCategory {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -1826,33 +2340,422 @@ func (e *LicenseCategoryEnum) index(name string) LicenseCategoryEnum {
 		"CLOUD",
 		"PUBLIC_CLOUD",
 		"ADVANCED_REPLICATION",
+		"NDK",
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return LicenseCategoryEnum(idx)
+			return LicenseCategory(idx)
 		}
 	}
-	return LICENSECATEGORYENUM_UNKNOWN
+	return LICENSECATEGORY_UNKNOWN
 }
 
-func (e *LicenseCategoryEnum) UnmarshalJSON(b []byte) error {
+func (e *LicenseCategory) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for LicenseCategoryEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for LicenseCategory:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *LicenseCategoryEnum) MarshalJSON() ([]byte, error) {
+func (e *LicenseCategory) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e LicenseCategoryEnum) Ref() *LicenseCategoryEnum {
+func (e LicenseCategory) Ref() *LicenseCategory {
 	return &e
+}
+
+/*
+Possible values are APPLIANCE, SOFTWARE_ONLY and others.
+*/
+type LicenseClass int
+
+const (
+	LICENSECLASS_UNKNOWN       LicenseClass = 0
+	LICENSECLASS_REDACTED      LicenseClass = 1
+	LICENSECLASS_PRISM_CENTRAL LicenseClass = 2
+	LICENSECLASS_APPLIANCE     LicenseClass = 3
+	LICENSECLASS_SOFTWARE_ONLY LicenseClass = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *LicenseClass) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRISM_CENTRAL",
+		"APPLIANCE",
+		"SOFTWARE_ONLY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e LicenseClass) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRISM_CENTRAL",
+		"APPLIANCE",
+		"SOFTWARE_ONLY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *LicenseClass) index(name string) LicenseClass {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRISM_CENTRAL",
+		"APPLIANCE",
+		"SOFTWARE_ONLY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return LicenseClass(idx)
+		}
+	}
+	return LICENSECLASS_UNKNOWN
+}
+
+func (e *LicenseClass) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for LicenseClass:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *LicenseClass) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e LicenseClass) Ref() *LicenseClass {
+	return &e
+}
+
+/*
+Model for capturing license key detail attributes.
+*/
+type LicenseKey struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing add-on categories associated with this license key.
+	*/
+	Addons []LicenseCategory `json:"addons,omitempty"`
+	/*
+	  Expansion attribute used for fetching the license key assignment details.
+	*/
+	AssignmentDetails []ClusterLicenseKeyMapping `json:"assignmentDetails,omitempty"`
+
+	Category *LicenseCategory `json:"category,omitempty"`
+	/*
+	  Attribute for capturing license key expiration date.
+	*/
+	ExpiryDate *time.Time `json:"expiryDate,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Attribute for capturing license key.
+	*/
+	Key *string `json:"key,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Meter *Meter `json:"meter,omitempty"`
+	/*
+	  Attribute for capturing license key quantity.
+	*/
+	Quantity *float64 `json:"quantity,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *LicenseType `json:"type,omitempty"`
+	/*
+	  Attribute for capturing validation data.
+	*/
+	ValidationDetail *string `json:"validationDetail,omitempty"`
+}
+
+func (p *LicenseKey) MarshalJSON() ([]byte, error) {
+	type LicenseKeyProxy LicenseKey
+	return json.Marshal(struct {
+		*LicenseKeyProxy
+	}{
+		LicenseKeyProxy: (*LicenseKeyProxy)(p),
+	})
+}
+
+func (p *LicenseKey) UnmarshalJSON(b []byte) error {
+	type CustomLicenseKey struct {
+		ObjectType_       *string                    `json:"$objectType,omitempty"`
+		Reserved_         map[string]interface{}     `json:"$reserved,omitempty"`
+		UnknownFields_    map[string]interface{}     `json:"$unknownFields,omitempty"`
+		Addons            []LicenseCategory          `json:"addons,omitempty"`
+		AssignmentDetails []ClusterLicenseKeyMapping `json:"assignmentDetails,omitempty"`
+		Category          *LicenseCategory           `json:"category,omitempty"`
+		ExpiryDate        string                     `json:"expiryDate,omitempty"`
+		ExtId             *string                    `json:"extId,omitempty"`
+		Key               *string                    `json:"key,omitempty"`
+		Links             []import2.ApiLink          `json:"links,omitempty"`
+		Meter             *Meter                     `json:"meter,omitempty"`
+		Quantity          *float64                   `json:"quantity,omitempty"`
+		TenantId          *string                    `json:"tenantId,omitempty"`
+		Type              *LicenseType               `json:"type,omitempty"`
+		ValidationDetail  *string                    `json:"validationDetail,omitempty"`
+	}
+
+	var customLicenseKey CustomLicenseKey
+	err := json.Unmarshal(b, &customLicenseKey)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customLicenseKey.ObjectType_
+	p.Reserved_ = customLicenseKey.Reserved_
+	p.UnknownFields_ = customLicenseKey.UnknownFields_
+	p.Addons = customLicenseKey.Addons
+	p.AssignmentDetails = customLicenseKey.AssignmentDetails
+	p.Category = customLicenseKey.Category
+	// Custom date parsing logic for Date field
+	if customLicenseKey.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", customLicenseKey.ExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct LicenseKey: %s", err))
+		}
+		p.ExpiryDate = &parsedExpiryDate
+	}
+	p.ExtId = customLicenseKey.ExtId
+	p.Key = customLicenseKey.Key
+	p.Links = customLicenseKey.Links
+	p.Meter = customLicenseKey.Meter
+	p.Quantity = customLicenseKey.Quantity
+	p.TenantId = customLicenseKey.TenantId
+	p.Type = customLicenseKey.Type
+	p.ValidationDetail = customLicenseKey.ValidationDetail
+
+	return nil
+}
+
+func NewLicenseKey() *LicenseKey {
+	p := new(LicenseKey)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.LicenseKey"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Model for capturing license key cluster mapping.
+*/
+type LicenseKeyAssignSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing the cluster external identifier.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  Attribute for capturing array of license key mappings.
+	*/
+	LicenseKeyMappings []LicenseKeyMapping `json:"licenseKeyMappings,omitempty"`
+}
+
+func NewLicenseKeyAssignSpec() *LicenseKeyAssignSpec {
+	p := new(LicenseKeyAssignSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssignSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Model for capturing license key and quantity mapping.
+*/
+type LicenseKeyMapping struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing the license key.
+	*/
+	Key *string `json:"key,omitempty"`
+	/*
+	  Attribute for capturing quantity used.
+	*/
+	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
+}
+
+func NewLicenseKeyMapping() *LicenseKeyMapping {
+	p := new(LicenseKeyMapping)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.LicenseKeyMapping"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type LicenseKeyProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing add-on categories associated with this license key.
+	*/
+	Addons []LicenseCategory `json:"addons,omitempty"`
+	/*
+	  Expansion attribute used for fetching the license key assignment details.
+	*/
+	AssignmentDetails []ClusterLicenseKeyMapping `json:"assignmentDetails,omitempty"`
+
+	Category *LicenseCategory `json:"category,omitempty"`
+
+	ClusterLicenseKeyMappingProjection []ClusterLicenseKeyMappingProjection `json:"clusterLicenseKeyMappingProjection,omitempty"`
+	/*
+	  Attribute for capturing license key expiration date.
+	*/
+	ExpiryDate *time.Time `json:"expiryDate,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Attribute for capturing license key.
+	*/
+	Key *string `json:"key,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	Meter *Meter `json:"meter,omitempty"`
+	/*
+	  Attribute for capturing license key quantity.
+	*/
+	Quantity *float64 `json:"quantity,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *LicenseType `json:"type,omitempty"`
+	/*
+	  Attribute for capturing validation data.
+	*/
+	ValidationDetail *string `json:"validationDetail,omitempty"`
+}
+
+func (p *LicenseKeyProjection) MarshalJSON() ([]byte, error) {
+	type LicenseKeyProjectionProxy LicenseKeyProjection
+	return json.Marshal(struct {
+		*LicenseKeyProjectionProxy
+	}{
+		LicenseKeyProjectionProxy: (*LicenseKeyProjectionProxy)(p),
+	})
+}
+
+func (p *LicenseKeyProjection) UnmarshalJSON(b []byte) error {
+	type CustomLicenseKeyProjection struct {
+		ObjectType_                        *string                              `json:"$objectType,omitempty"`
+		Reserved_                          map[string]interface{}               `json:"$reserved,omitempty"`
+		UnknownFields_                     map[string]interface{}               `json:"$unknownFields,omitempty"`
+		Addons                             []LicenseCategory                    `json:"addons,omitempty"`
+		AssignmentDetails                  []ClusterLicenseKeyMapping           `json:"assignmentDetails,omitempty"`
+		Category                           *LicenseCategory                     `json:"category,omitempty"`
+		ClusterLicenseKeyMappingProjection []ClusterLicenseKeyMappingProjection `json:"clusterLicenseKeyMappingProjection,omitempty"`
+		ExpiryDate                         string                               `json:"expiryDate,omitempty"`
+		ExtId                              *string                              `json:"extId,omitempty"`
+		Key                                *string                              `json:"key,omitempty"`
+		Links                              []import2.ApiLink                    `json:"links,omitempty"`
+		Meter                              *Meter                               `json:"meter,omitempty"`
+		Quantity                           *float64                             `json:"quantity,omitempty"`
+		TenantId                           *string                              `json:"tenantId,omitempty"`
+		Type                               *LicenseType                         `json:"type,omitempty"`
+		ValidationDetail                   *string                              `json:"validationDetail,omitempty"`
+	}
+
+	var customLicenseKeyProjection CustomLicenseKeyProjection
+	err := json.Unmarshal(b, &customLicenseKeyProjection)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customLicenseKeyProjection.ObjectType_
+	p.Reserved_ = customLicenseKeyProjection.Reserved_
+	p.UnknownFields_ = customLicenseKeyProjection.UnknownFields_
+	p.Addons = customLicenseKeyProjection.Addons
+	p.AssignmentDetails = customLicenseKeyProjection.AssignmentDetails
+	p.Category = customLicenseKeyProjection.Category
+	p.ClusterLicenseKeyMappingProjection = customLicenseKeyProjection.ClusterLicenseKeyMappingProjection
+	// Custom date parsing logic for Date field
+	if customLicenseKeyProjection.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", customLicenseKeyProjection.ExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct LicenseKeyProjection: %s", err))
+		}
+		p.ExpiryDate = &parsedExpiryDate
+	}
+	p.ExtId = customLicenseKeyProjection.ExtId
+	p.Key = customLicenseKeyProjection.Key
+	p.Links = customLicenseKeyProjection.Links
+	p.Meter = customLicenseKeyProjection.Meter
+	p.Quantity = customLicenseKeyProjection.Quantity
+	p.TenantId = customLicenseKeyProjection.TenantId
+	p.Type = customLicenseKeyProjection.Type
+	p.ValidationDetail = customLicenseKeyProjection.ValidationDetail
+
+	return nil
+}
+
+func NewLicenseKeyProjection() *LicenseKeyProjection {
+	p := new(LicenseKeyProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.LicenseKeyProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 type LicenseProjection struct {
@@ -1862,15 +2765,15 @@ type LicenseProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	Category *LicenseCategoryEnum `json:"category,omitempty"`
+	Category *LicenseCategory `json:"category,omitempty"`
 	/*
-	  Array containing information about the clusters where these licenses are used
+	  Array containing information about the clusters where these licenses are used.
 	*/
 	ConsumptionDetails []Consumption `json:"consumptionDetails,omitempty"`
 
-	ConsumptionProjection *ConsumptionProjection `json:"consumptionProjection,omitempty"`
+	ConsumptionProjection []ConsumptionProjection `json:"consumptionProjection,omitempty"`
 	/*
-	  Indicates expiry date of license
+	  Indicates the expiration date of the license.
 	*/
 	ExpiryDate *time.Time `json:"expiryDate,omitempty"`
 	/*
@@ -1880,80 +2783,184 @@ type LicenseProjection struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 
-	Meter *MeterEnum `json:"meter,omitempty"`
+	Meter *Meter `json:"meter,omitempty"`
 	/*
-	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate
+	  Indicates name of the license. Possible values could be NCI Pro, NCM Ultimate.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  Total quantity of license consumed
+	  Total quantity of license consumed.
 	*/
-	Quantity *string `json:"quantity,omitempty"`
+	Quantity *float64 `json:"quantity,omitempty"`
+	/*
+	  Attribute for capturing salesforce generated license identifier e.g. LIC-XXX.
+	*/
+	SalesforceLicenseId *string `json:"salesforceLicenseId,omitempty"`
 
-	Scope *ScopeEnum `json:"scope,omitempty"`
+	Scope *Scope `json:"scope,omitempty"`
 
-	SubCategory *SubCategoryEnum `json:"subCategory,omitempty"`
+	SubCategory *SubCategory `json:"subCategory,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
-	Type *LicenseTypeEnum `json:"type,omitempty"`
+	Type *LicenseType `json:"type,omitempty"`
+}
+
+func (p *LicenseProjection) MarshalJSON() ([]byte, error) {
+	type LicenseProjectionProxy LicenseProjection
+	return json.Marshal(struct {
+		*LicenseProjectionProxy
+	}{
+		LicenseProjectionProxy: (*LicenseProjectionProxy)(p),
+	})
+}
+
+func (p *LicenseProjection) UnmarshalJSON(b []byte) error {
+	type CustomLicenseProjection struct {
+		ObjectType_           *string                 `json:"$objectType,omitempty"`
+		Reserved_             map[string]interface{}  `json:"$reserved,omitempty"`
+		UnknownFields_        map[string]interface{}  `json:"$unknownFields,omitempty"`
+		Category              *LicenseCategory        `json:"category,omitempty"`
+		ConsumptionDetails    []Consumption           `json:"consumptionDetails,omitempty"`
+		ConsumptionProjection []ConsumptionProjection `json:"consumptionProjection,omitempty"`
+		ExpiryDate            string                  `json:"expiryDate,omitempty"`
+		ExtId                 *string                 `json:"extId,omitempty"`
+		Links                 []import2.ApiLink       `json:"links,omitempty"`
+		Meter                 *Meter                  `json:"meter,omitempty"`
+		Name                  *string                 `json:"name,omitempty"`
+		Quantity              *float64                `json:"quantity,omitempty"`
+		SalesforceLicenseId   *string                 `json:"salesforceLicenseId,omitempty"`
+		Scope                 *Scope                  `json:"scope,omitempty"`
+		SubCategory           *SubCategory            `json:"subCategory,omitempty"`
+		TenantId              *string                 `json:"tenantId,omitempty"`
+		Type                  *LicenseType            `json:"type,omitempty"`
+	}
+
+	var customLicenseProjection CustomLicenseProjection
+	err := json.Unmarshal(b, &customLicenseProjection)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customLicenseProjection.ObjectType_
+	p.Reserved_ = customLicenseProjection.Reserved_
+	p.UnknownFields_ = customLicenseProjection.UnknownFields_
+	p.Category = customLicenseProjection.Category
+	p.ConsumptionDetails = customLicenseProjection.ConsumptionDetails
+	p.ConsumptionProjection = customLicenseProjection.ConsumptionProjection
+	// Custom date parsing logic for Date field
+	if customLicenseProjection.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", customLicenseProjection.ExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct LicenseProjection: %s", err))
+		}
+		p.ExpiryDate = &parsedExpiryDate
+	}
+	p.ExtId = customLicenseProjection.ExtId
+	p.Links = customLicenseProjection.Links
+	p.Meter = customLicenseProjection.Meter
+	p.Name = customLicenseProjection.Name
+	p.Quantity = customLicenseProjection.Quantity
+	p.SalesforceLicenseId = customLicenseProjection.SalesforceLicenseId
+	p.Scope = customLicenseProjection.Scope
+	p.SubCategory = customLicenseProjection.SubCategory
+	p.TenantId = customLicenseProjection.TenantId
+	p.Type = customLicenseProjection.Type
+
+	return nil
 }
 
 func NewLicenseProjection() *LicenseProjection {
 	p := new(LicenseProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Possible values are Prism,AOS,Calm and others
+Model for capturing seamless licensing action attributes.
 */
-type LicenseTypeEnum int
+type LicenseStateSyncSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing affected cluster IDs.
+	*/
+	ClusterExtIds []string `json:"clusterExtIds,omitempty"`
+	/*
+	  Attribute for capturing the entitlement names like NCM_PRO, AOS_PRO and others.
+	*/
+	EntitlementNames []string `json:"entitlementNames,omitempty"`
+
+	Operation *SyncOperationType `json:"operation,omitempty"`
+}
+
+func NewLicenseStateSyncSpec() *LicenseStateSyncSpec {
+	p := new(LicenseStateSyncSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.LicenseStateSyncSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Indicates the different license types with possible values of Prism, AOS, Calm, and others.
+*/
+type LicenseType int
 
 const (
-	LICENSETYPEENUM_UNKNOWN         LicenseTypeEnum = 0
-	LICENSETYPEENUM_REDACTED        LicenseTypeEnum = 1
-	LICENSETYPEENUM_PRISM           LicenseTypeEnum = 2
-	LICENSETYPEENUM_CALM            LicenseTypeEnum = 3
-	LICENSETYPEENUM_FLOW            LicenseTypeEnum = 4
-	LICENSETYPEENUM_OBJECT          LicenseTypeEnum = 5
-	LICENSETYPEENUM_AOS             LicenseTypeEnum = 6
-	LICENSETYPEENUM_FILE            LicenseTypeEnum = 7
-	LICENSETYPEENUM_VDI             LicenseTypeEnum = 8
-	LICENSETYPEENUM_ROBO            LicenseTypeEnum = 9
-	LICENSETYPEENUM_MINE            LicenseTypeEnum = 10
-	LICENSETYPEENUM_NCI             LicenseTypeEnum = 11
-	LICENSETYPEENUM_NCM             LicenseTypeEnum = 12
-	LICENSETYPEENUM_NCI_D           LicenseTypeEnum = 13
-	LICENSETYPEENUM_NDA_PLATFORM    LicenseTypeEnum = 14
-	LICENSETYPEENUM_UNIFIED_STORAGE LicenseTypeEnum = 15
-	LICENSETYPEENUM_EUC             LicenseTypeEnum = 16
-	LICENSETYPEENUM_OBJECTS         LicenseTypeEnum = 17
-	LICENSETYPEENUM_ERA             LicenseTypeEnum = 18
-	LICENSETYPEENUM_DRS             LicenseTypeEnum = 19
-	LICENSETYPEENUM_NDS             LicenseTypeEnum = 20
-	LICENSETYPEENUM_NDA             LicenseTypeEnum = 21
-	LICENSETYPEENUM_NDS_PLATFORM    LicenseTypeEnum = 22
-	LICENSETYPEENUM_NDB_PLATFORM    LicenseTypeEnum = 23
-	LICENSETYPEENUM_NUS             LicenseTypeEnum = 24
-	LICENSETYPEENUM_NDB             LicenseTypeEnum = 25
-	LICENSETYPEENUM_NCM_CLOUD       LicenseTypeEnum = 26
-	LICENSETYPEENUM_EDGE            LicenseTypeEnum = 27
-	LICENSETYPEENUM_NO_LICENSE      LicenseTypeEnum = 28
+	LICENSETYPE_UNKNOWN         LicenseType = 0
+	LICENSETYPE_REDACTED        LicenseType = 1
+	LICENSETYPE_PRISM           LicenseType = 2
+	LICENSETYPE_CALM            LicenseType = 3
+	LICENSETYPE_FLOW            LicenseType = 4
+	LICENSETYPE_OBJECT          LicenseType = 5
+	LICENSETYPE_AOS             LicenseType = 6
+	LICENSETYPE_FILE            LicenseType = 7
+	LICENSETYPE_VDI             LicenseType = 8
+	LICENSETYPE_ROBO            LicenseType = 9
+	LICENSETYPE_MINE            LicenseType = 10
+	LICENSETYPE_NCI             LicenseType = 11
+	LICENSETYPE_NCM             LicenseType = 12
+	LICENSETYPE_NCI_D           LicenseType = 13
+	LICENSETYPE_NDA_PLATFORM    LicenseType = 14
+	LICENSETYPE_UNIFIED_STORAGE LicenseType = 15
+	LICENSETYPE_EUC             LicenseType = 16
+	LICENSETYPE_OBJECTS         LicenseType = 17
+	LICENSETYPE_ERA             LicenseType = 18
+	LICENSETYPE_DRS             LicenseType = 19
+	LICENSETYPE_NDS             LicenseType = 20
+	LICENSETYPE_NDA             LicenseType = 21
+	LICENSETYPE_NDS_PLATFORM    LicenseType = 22
+	LICENSETYPE_NDB_PLATFORM    LicenseType = 23
+	LICENSETYPE_NUS             LicenseType = 24
+	LICENSETYPE_NDB             LicenseType = 25
+	LICENSETYPE_NCM_CLOUD       LicenseType = 26
+	LICENSETYPE_EDGE            LicenseType = 27
+	LICENSETYPE_NO_LICENSE      LicenseType = 28
+	LICENSETYPE_NCM_EDGE        LicenseType = 29
+	LICENSETYPE_NCM_EUC         LicenseType = 30
+	LICENSETYPE_NCI_C           LicenseType = 31
+	LICENSETYPE_NKP             LicenseType = 32
+	LICENSETYPE_NKPFS           LicenseType = 33
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *LicenseTypeEnum) name(index int) string {
+func (e *LicenseType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -1984,6 +2991,11 @@ func (e *LicenseTypeEnum) name(index int) string {
 		"NCM_CLOUD",
 		"EDGE",
 		"NO_LICENSE",
+		"NCM_EDGE",
+		"NCM_EUC",
+		"NCI_C",
+		"NKP",
+		"NKPFS",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1992,7 +3004,7 @@ func (e *LicenseTypeEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e LicenseTypeEnum) GetName() string {
+func (e LicenseType) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
@@ -2024,6 +3036,11 @@ func (e LicenseTypeEnum) GetName() string {
 		"NCM_CLOUD",
 		"EDGE",
 		"NO_LICENSE",
+		"NCM_EDGE",
+		"NCM_EUC",
+		"NCI_C",
+		"NKP",
+		"NKPFS",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2032,7 +3049,7 @@ func (e LicenseTypeEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *LicenseTypeEnum) index(name string) LicenseTypeEnum {
+func (e *LicenseType) index(name string) LicenseType {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -2063,39 +3080,44 @@ func (e *LicenseTypeEnum) index(name string) LicenseTypeEnum {
 		"NCM_CLOUD",
 		"EDGE",
 		"NO_LICENSE",
+		"NCM_EDGE",
+		"NCM_EUC",
+		"NCI_C",
+		"NKP",
+		"NKPFS",
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return LicenseTypeEnum(idx)
+			return LicenseType(idx)
 		}
 	}
-	return LICENSETYPEENUM_UNKNOWN
+	return LICENSETYPE_UNKNOWN
 }
 
-func (e *LicenseTypeEnum) UnmarshalJSON(b []byte) error {
+func (e *LicenseType) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for LicenseTypeEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for LicenseType:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *LicenseTypeEnum) MarshalJSON() ([]byte, error) {
+func (e *LicenseType) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e LicenseTypeEnum) Ref() *LicenseTypeEnum {
+func (e LicenseType) Ref() *LicenseType {
 	return &e
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0.a1/config/allowances Get operation
+REST response for all response codes in API path /licensing/v4.0/config/allowances Get operation
 */
-type ListClusterAllowancesApiResponse struct {
+type ListAllowancesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
@@ -2106,31 +3128,31 @@ type ListClusterAllowancesApiResponse struct {
 	 */
 	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
 
-	Data *OneOfListClusterAllowancesApiResponseData `json:"data,omitempty"`
+	Data *OneOfListAllowancesApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-func NewListClusterAllowancesApiResponse() *ListClusterAllowancesApiResponse {
-	p := new(ListClusterAllowancesApiResponse)
+func NewListAllowancesApiResponse() *ListAllowancesApiResponse {
+	p := new(ListAllowancesApiResponse)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.ListClusterAllowancesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	*p.ObjectType_ = "licensing.v4.config.ListAllowancesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-func (p *ListClusterAllowancesApiResponse) GetData() interface{} {
+func (p *ListAllowancesApiResponse) GetData() interface{} {
 	if nil == p.Data {
 		return nil
 	}
 	return p.Data.GetValue()
 }
 
-func (p *ListClusterAllowancesApiResponse) SetData(v interface{}) error {
+func (p *ListAllowancesApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
-		p.Data = NewOneOfListClusterAllowancesApiResponseData()
+		p.Data = NewOneOfListAllowancesApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2143,107 +3165,7 @@ func (p *ListClusterAllowancesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0.a1/config/entitlements Get operation
-*/
-type ListClusterEntitlementsApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfListClusterEntitlementsApiResponseData `json:"data,omitempty"`
-
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewListClusterEntitlementsApiResponse() *ListClusterEntitlementsApiResponse {
-	p := new(ListClusterEntitlementsApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.ListClusterEntitlementsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ListClusterEntitlementsApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ListClusterEntitlementsApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfListClusterEntitlementsApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /licensing/v4.0.a1/config/violations Get operation
-*/
-type ListClusterViolationsApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfListClusterViolationsApiResponseData `json:"data,omitempty"`
-
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewListClusterViolationsApiResponse() *ListClusterViolationsApiResponse {
-	p := new(ListClusterViolationsApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.ListClusterViolationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ListClusterViolationsApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ListClusterViolationsApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfListClusterViolationsApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /licensing/v4.0.a1/config/compliances Get operation
+REST response for all response codes in API path /licensing/v4.0/config/compliances Get operation
 */
 type ListCompliancesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2258,14 +3180,14 @@ type ListCompliancesApiResponse struct {
 
 	Data *OneOfListCompliancesApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewListCompliancesApiResponse() *ListCompliancesApiResponse {
 	p := new(ListCompliancesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListCompliancesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2293,7 +3215,57 @@ func (p *ListCompliancesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0.a1/config/features Get operation
+REST response for all response codes in API path /licensing/v4.0/config/entitlements Get operation
+*/
+type ListEntitlementsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListEntitlementsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListEntitlementsApiResponse() *ListEntitlementsApiResponse {
+	p := new(ListEntitlementsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ListEntitlementsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListEntitlementsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListEntitlementsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListEntitlementsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.0/config/features Get operation
 */
 type ListFeaturesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2308,14 +3280,14 @@ type ListFeaturesApiResponse struct {
 
 	Data *OneOfListFeaturesApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewListFeaturesApiResponse() *ListFeaturesApiResponse {
 	p := new(ListFeaturesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListFeaturesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2343,7 +3315,57 @@ func (p *ListFeaturesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0.a1/config/licenses Get operation
+REST response for all response codes in API path /licensing/v4.0/config/license-keys Get operation
+*/
+type ListLicenseKeysApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListLicenseKeysApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListLicenseKeysApiResponse() *ListLicenseKeysApiResponse {
+	p := new(ListLicenseKeysApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ListLicenseKeysApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListLicenseKeysApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListLicenseKeysApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListLicenseKeysApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.0/config/licenses Get operation
 */
 type ListLicensesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2358,14 +3380,14 @@ type ListLicensesApiResponse struct {
 
 	Data *OneOfListLicensesApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewListLicensesApiResponse() *ListLicensesApiResponse {
 	p := new(ListLicensesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListLicensesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2393,7 +3415,57 @@ func (p *ListLicensesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0.a1/config/settings Get operation
+REST response for all response codes in API path /licensing/v4.0/config/recommendations Get operation
+*/
+type ListRecommendationsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListRecommendationsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListRecommendationsApiResponse() *ListRecommendationsApiResponse {
+	p := new(ListRecommendationsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ListRecommendationsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListRecommendationsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListRecommendationsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListRecommendationsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.0/config/settings Get operation
 */
 type ListSettingsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2408,14 +3480,14 @@ type ListSettingsApiResponse struct {
 
 	Data *OneOfListSettingsApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewListSettingsApiResponse() *ListSettingsApiResponse {
 	p := new(ListSettingsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListSettingsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2443,7 +3515,57 @@ func (p *ListSettingsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Model representing license and cluster logical versions
+REST response for all response codes in API path /licensing/v4.0/config/violations Get operation
+*/
+type ListViolationsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListViolationsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListViolationsApiResponse() *ListViolationsApiResponse {
+	p := new(ListViolationsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ListViolationsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListViolationsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListViolationsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListViolationsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Model representing license and cluster logical versions.
 */
 type LogicalVersion struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2452,47 +3574,47 @@ type LogicalVersion struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Indicates cluster logical version. This is used to keep cluster and license portal in sync
+	  Indicates cluster logical version. This is used to keep cluster and license portal in sync.
 	*/
-	Cluster *int `json:"cluster,omitempty"`
+	ClusterVersion *int `json:"clusterVersion,omitempty"`
 	/*
-	  Indicates license logical version. This is also used to keep cluster and license portal in sync
+	  Indicates license logical version. This is also used to keep cluster and license portal in sync.
 	*/
-	License *int `json:"license,omitempty"`
+	LicenseVersion *int `json:"licenseVersion,omitempty"`
 }
 
 func NewLogicalVersion() *LogicalVersion {
 	p := new(LogicalVersion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LogicalVersion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Possible values of meter are CORES,NODE,TIB,FLASH,USERS,VI,VM_PACKS & VM.
+Possible values of meter are CORES, NODE, TIB, FLASH, USERS, VI, VM_PACKS and VM.
 */
-type MeterEnum int
+type Meter int
 
 const (
-	METERENUM_UNKNOWN  MeterEnum = 0
-	METERENUM_REDACTED MeterEnum = 1
-	METERENUM_CORES    MeterEnum = 2
-	METERENUM_NODE     MeterEnum = 3
-	METERENUM_TIB      MeterEnum = 4
-	METERENUM_FLASH    MeterEnum = 5
-	METERENUM_USERS    MeterEnum = 6
-	METERENUM_VI       MeterEnum = 7
-	METERENUM_VM_PACKS MeterEnum = 8
-	METERENUM_VM       MeterEnum = 9
+	METER_UNKNOWN  Meter = 0
+	METER_REDACTED Meter = 1
+	METER_CORES    Meter = 2
+	METER_NODE     Meter = 3
+	METER_TIB      Meter = 4
+	METER_FLASH    Meter = 5
+	METER_USERS    Meter = 6
+	METER_VI       Meter = 7
+	METER_VM_PACKS Meter = 8
+	METER_VM       Meter = 9
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *MeterEnum) name(index int) string {
+func (e *Meter) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -2512,7 +3634,7 @@ func (e *MeterEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e MeterEnum) GetName() string {
+func (e Meter) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
@@ -2533,7 +3655,7 @@ func (e MeterEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *MeterEnum) index(name string) MeterEnum {
+func (e *Meter) index(name string) Meter {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -2548,94 +3670,184 @@ func (e *MeterEnum) index(name string) MeterEnum {
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return MeterEnum(idx)
+			return Meter(idx)
 		}
 	}
-	return METERENUM_UNKNOWN
+	return METER_UNKNOWN
 }
 
-func (e *MeterEnum) UnmarshalJSON(b []byte) error {
+func (e *Meter) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for MeterEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for Meter:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *MeterEnum) MarshalJSON() ([]byte, error) {
+func (e *Meter) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e MeterEnum) Ref() *MeterEnum {
+func (e Meter) Ref() *Meter {
 	return &e
 }
 
 /*
-Model for capturing nutanix cluster configuration
+Possible values are UPGRADE, RENEW, REBALANCE and RECLAIM.
 */
-type NutanixClusterConfig struct {
+type OperationType int
+
+const (
+	OPERATIONTYPE_UNKNOWN   OperationType = 0
+	OPERATIONTYPE_REDACTED  OperationType = 1
+	OPERATIONTYPE_UPGRADE   OperationType = 2
+	OPERATIONTYPE_REBALANCE OperationType = 3
+	OPERATIONTYPE_RECLAIM   OperationType = 4
+	OPERATIONTYPE_RENEW     OperationType = 5
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *OperationType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"UPGRADE",
+		"REBALANCE",
+		"RECLAIM",
+		"RENEW",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e OperationType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"UPGRADE",
+		"REBALANCE",
+		"RECLAIM",
+		"RENEW",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *OperationType) index(name string) OperationType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"UPGRADE",
+		"REBALANCE",
+		"RECLAIM",
+		"RENEW",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return OperationType(idx)
+		}
+	}
+	return OPERATIONTYPE_UNKNOWN
+}
+
+func (e *OperationType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for OperationType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *OperationType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e OperationType) Ref() *OperationType {
+	return &e
+}
+
+/*
+Response object containing portal setting attributes.
+*/
+type PortalSetting struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Attribute for capturing billing plan
+	  Authentication token attribute that is used to fetch keyId and apiKey.
 	*/
-	BillingPlan *string `json:"billingPlan,omitempty"`
+	AuthToken *string `json:"authToken,omitempty"`
 	/*
-	  Attribute for nutanix cluster configuration category like nutanix_cluster
+	  Attribute for capturing the endpoint URL. This URL is used for creation of the API Key.
 	*/
-	Category *string `json:"category,omitempty"`
+	EndpointUrl *string `json:"endpointUrl,omitempty"`
 	/*
-	  Indicates consumption model like Subscription
+	  Attribute stating whether portal setting is active or not.
 	*/
-	Consumption *string `json:"consumption,omitempty"`
-	/*
-	  Attribute for nutanix cluster configuration identifier
-	*/
-	Id *string `json:"id,omitempty"`
-	/*
-	  Indicates whether pulse data collection is required
-	*/
-	IsPulseRequired *bool `json:"isPulseRequired,omitempty"`
+	IsEnabled *bool `json:"isEnabled"`
 }
 
-func NewNutanixClusterConfig() *NutanixClusterConfig {
-	p := new(NutanixClusterConfig)
+func (p *PortalSetting) MarshalJSON() ([]byte, error) {
+	type PortalSettingProxy PortalSetting
+	return json.Marshal(struct {
+		*PortalSettingProxy
+		IsEnabled *bool `json:"isEnabled,omitempty"`
+	}{
+		PortalSettingProxy: (*PortalSettingProxy)(p),
+		IsEnabled:          p.IsEnabled,
+	})
+}
+
+func NewPortalSetting() *PortalSetting {
+	p := new(PortalSetting)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.NutanixClusterConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	*p.ObjectType_ = "licensing.v4.config.PortalSetting"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Possible values are MSP and others
+Possible values are MSP and others.
 */
-type PostPaidCategoryEnum int
+type PostPaidCategory int
 
 const (
-	POSTPAIDCATEGORYENUM_UNKNOWN  PostPaidCategoryEnum = 0
-	POSTPAIDCATEGORYENUM_REDACTED PostPaidCategoryEnum = 1
-	POSTPAIDCATEGORYENUM_MSP      PostPaidCategoryEnum = 2
-	POSTPAIDCATEGORYENUM_NONE     PostPaidCategoryEnum = 3
+	POSTPAIDCATEGORY_UNKNOWN  PostPaidCategory = 0
+	POSTPAIDCATEGORY_REDACTED PostPaidCategory = 1
+	POSTPAIDCATEGORY_MSP      PostPaidCategory = 2
+	POSTPAIDCATEGORY_NC2      PostPaidCategory = 3
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *PostPaidCategoryEnum) name(index int) string {
+func (e *PostPaidCategory) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"MSP",
-		"NONE",
+		"NC2",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2644,13 +3856,13 @@ func (e *PostPaidCategoryEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e PostPaidCategoryEnum) GetName() string {
+func (e PostPaidCategory) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"MSP",
-		"NONE",
+		"NC2",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2659,43 +3871,43 @@ func (e PostPaidCategoryEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *PostPaidCategoryEnum) index(name string) PostPaidCategoryEnum {
+func (e *PostPaidCategory) index(name string) PostPaidCategory {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"MSP",
-		"NONE",
+		"NC2",
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return PostPaidCategoryEnum(idx)
+			return PostPaidCategory(idx)
 		}
 	}
-	return POSTPAIDCATEGORYENUM_UNKNOWN
+	return POSTPAIDCATEGORY_UNKNOWN
 }
 
-func (e *PostPaidCategoryEnum) UnmarshalJSON(b []byte) error {
+func (e *PostPaidCategory) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for PostPaidCategoryEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for PostPaidCategory:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *PostPaidCategoryEnum) MarshalJSON() ([]byte, error) {
+func (e *PostPaidCategory) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e PostPaidCategoryEnum) Ref() *PostPaidCategoryEnum {
+func (e PostPaidCategory) Ref() *PostPaidCategory {
 	return &e
 }
 
 /*
-Model for capturing post paid configuration
+Model for capturing postpaid configuration.
 */
 type PostPaidConfig struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2703,16 +3915,18 @@ type PostPaidConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	BillingPlan *BillingPlan `json:"billingPlan,omitempty"`
+
+	Category *PostPaidCategory `json:"category,omitempty"`
+
+	ConsumptionType *ConsumptionType `json:"consumptionType,omitempty"`
 	/*
-	  Captures postpaid cluster category like msp
-	*/
-	Category *string `json:"category,omitempty"`
-	/*
-	  Attribute for post paid configuration identifier
+	  Attribute for postpaid configuration identifier.
 	*/
 	Id *string `json:"id,omitempty"`
 	/*
-	  Indicates whether pulse data collection is required
+	  Indicates whether pulse data collection is required.
 	*/
 	IsPulseRequired *bool `json:"isPulseRequired,omitempty"`
 }
@@ -2721,7 +3935,7 @@ func NewPostPaidConfig() *PostPaidConfig {
 	p := new(PostPaidConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.PostPaidConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2730,24 +3944,24 @@ func NewPostPaidConfig() *PostPaidConfig {
 /*
 Possible values are PRISM, CALM, AOS and others.
 */
-type ProductNameEnum int
+type ProductName int
 
 const (
-	PRODUCTNAMEENUM_UNKNOWN      ProductNameEnum = 0
-	PRODUCTNAMEENUM_REDACTED     ProductNameEnum = 1
-	PRODUCTNAMEENUM_PRISM        ProductNameEnum = 2
-	PRODUCTNAMEENUM_CALM         ProductNameEnum = 3
-	PRODUCTNAMEENUM_FLOW         ProductNameEnum = 4
-	PRODUCTNAMEENUM_OBJECT       ProductNameEnum = 5
-	PRODUCTNAMEENUM_AOS          ProductNameEnum = 6
-	PRODUCTNAMEENUM_FILE         ProductNameEnum = 7
-	PRODUCTNAMEENUM_VOLUME_GROUP ProductNameEnum = 8
+	PRODUCTNAME_UNKNOWN      ProductName = 0
+	PRODUCTNAME_REDACTED     ProductName = 1
+	PRODUCTNAME_PRISM        ProductName = 2
+	PRODUCTNAME_CALM         ProductName = 3
+	PRODUCTNAME_FLOW         ProductName = 4
+	PRODUCTNAME_OBJECT       ProductName = 5
+	PRODUCTNAME_AOS          ProductName = 6
+	PRODUCTNAME_FILE         ProductName = 7
+	PRODUCTNAME_VOLUME_GROUP ProductName = 8
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *ProductNameEnum) name(index int) string {
+func (e *ProductName) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -2766,7 +3980,7 @@ func (e *ProductNameEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e ProductNameEnum) GetName() string {
+func (e ProductName) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
@@ -2786,7 +4000,7 @@ func (e ProductNameEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *ProductNameEnum) index(name string) ProductNameEnum {
+func (e *ProductName) index(name string) ProductName {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -2800,53 +4014,173 @@ func (e *ProductNameEnum) index(name string) ProductNameEnum {
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return ProductNameEnum(idx)
+			return ProductName(idx)
 		}
 	}
-	return PRODUCTNAMEENUM_UNKNOWN
+	return PRODUCTNAME_UNKNOWN
 }
 
-func (e *ProductNameEnum) UnmarshalJSON(b []byte) error {
+func (e *ProductName) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ProductNameEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ProductName:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *ProductNameEnum) MarshalJSON() ([]byte, error) {
+func (e *ProductName) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e ProductNameEnum) Ref() *ProductNameEnum {
+func (e ProductName) Ref() *ProductName {
 	return &e
 }
 
 /*
-Possible values are PC & ALL
+Model for capturing recommendation response.
 */
-type ResetScopeEnum int
+type Recommendation struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Array containing recommendations for the cluster and its associated licenses.
+	*/
+	Details []RecommendationDetail `json:"details,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewRecommendation() *Recommendation {
+	p := new(Recommendation)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.Recommendation"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Model for capturing recommendation details for the cluster and its corresponding licenses.
+*/
+type RecommendationDetail struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing comments regarding the recommendation like cluster over licensed and others.
+	*/
+	Comment *string `json:"comment,omitempty"`
+	/*
+	  Attribute for capturing the license expiration date.
+	*/
+	LicenseExpiryDate *time.Time `json:"licenseExpiryDate,omitempty"`
+	/*
+	  Attribute for capturing the license ID.
+	*/
+	LicenseId *string `json:"licenseId,omitempty"`
+
+	Operation *OperationType `json:"operation,omitempty"`
+
+	Scope *RecommendationScope `json:"scope,omitempty"`
+}
+
+func (p *RecommendationDetail) MarshalJSON() ([]byte, error) {
+	type RecommendationDetailProxy RecommendationDetail
+	return json.Marshal(struct {
+		*RecommendationDetailProxy
+	}{
+		RecommendationDetailProxy: (*RecommendationDetailProxy)(p),
+	})
+}
+
+func (p *RecommendationDetail) UnmarshalJSON(b []byte) error {
+	type CustomRecommendationDetail struct {
+		ObjectType_       *string                `json:"$objectType,omitempty"`
+		Reserved_         map[string]interface{} `json:"$reserved,omitempty"`
+		UnknownFields_    map[string]interface{} `json:"$unknownFields,omitempty"`
+		Comment           *string                `json:"comment,omitempty"`
+		LicenseExpiryDate string                 `json:"licenseExpiryDate,omitempty"`
+		LicenseId         *string                `json:"licenseId,omitempty"`
+		Operation         *OperationType         `json:"operation,omitempty"`
+		Scope             *RecommendationScope   `json:"scope,omitempty"`
+	}
+
+	var customRecommendationDetail CustomRecommendationDetail
+	err := json.Unmarshal(b, &customRecommendationDetail)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customRecommendationDetail.ObjectType_
+	p.Reserved_ = customRecommendationDetail.Reserved_
+	p.UnknownFields_ = customRecommendationDetail.UnknownFields_
+	p.Comment = customRecommendationDetail.Comment
+	// Custom date parsing logic for Date field
+	if customRecommendationDetail.LicenseExpiryDate != "" {
+		parsedLicenseExpiryDate, err := time.Parse("2006-01-02", customRecommendationDetail.LicenseExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field LicenseExpiryDate in struct RecommendationDetail: %s", err))
+		}
+		p.LicenseExpiryDate = &parsedLicenseExpiryDate
+	}
+	p.LicenseId = customRecommendationDetail.LicenseId
+	p.Operation = customRecommendationDetail.Operation
+	p.Scope = customRecommendationDetail.Scope
+
+	return nil
+}
+
+func NewRecommendationDetail() *RecommendationDetail {
+	p := new(RecommendationDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.RecommendationDetail"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Possible values are LICENSE and CLUSTER.
+*/
+type RecommendationScope int
 
 const (
-	RESETSCOPEENUM_UNKNOWN  ResetScopeEnum = 0
-	RESETSCOPEENUM_REDACTED ResetScopeEnum = 1
-	RESETSCOPEENUM_PC       ResetScopeEnum = 2
-	RESETSCOPEENUM_ALL      ResetScopeEnum = 3
+	RECOMMENDATIONSCOPE_UNKNOWN  RecommendationScope = 0
+	RECOMMENDATIONSCOPE_REDACTED RecommendationScope = 1
+	RECOMMENDATIONSCOPE_LICENSE  RecommendationScope = 2
+	RECOMMENDATIONSCOPE_CLUSTER  RecommendationScope = 3
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *ResetScopeEnum) name(index int) string {
+func (e *RecommendationScope) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"PC",
-		"ALL",
+		"LICENSE",
+		"CLUSTER",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2855,13 +4189,13 @@ func (e *ResetScopeEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e ResetScopeEnum) GetName() string {
+func (e RecommendationScope) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"PC",
-		"ALL",
+		"LICENSE",
+		"CLUSTER",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2870,65 +4204,192 @@ func (e ResetScopeEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *ResetScopeEnum) index(name string) ResetScopeEnum {
+func (e *RecommendationScope) index(name string) RecommendationScope {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"PC",
-		"ALL",
+		"LICENSE",
+		"CLUSTER",
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return ResetScopeEnum(idx)
+			return RecommendationScope(idx)
 		}
 	}
-	return RESETSCOPEENUM_UNKNOWN
+	return RECOMMENDATIONSCOPE_UNKNOWN
 }
 
-func (e *ResetScopeEnum) UnmarshalJSON(b []byte) error {
+func (e *RecommendationScope) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ResetScopeEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for RecommendationScope:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *ResetScopeEnum) MarshalJSON() ([]byte, error) {
+func (e *RecommendationScope) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e ResetScopeEnum) Ref() *ResetScopeEnum {
+func (e RecommendationScope) Ref() *RecommendationScope {
 	return &e
 }
 
 /*
-Possible values of scope are PC,PE,PC_ONLY & PC_PE.
+REST response for all response codes in API path /licensing/v4.0/config/$actions/reset-license-state Post operation
 */
-type ScopeEnum int
+type ResetLicenseStateApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfResetLicenseStateApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewResetLicenseStateApiResponse() *ResetLicenseStateApiResponse {
+	p := new(ResetLicenseStateApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ResetLicenseStateApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ResetLicenseStateApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ResetLicenseStateApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfResetLicenseStateApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Possible values are PC and ALL.
+*/
+type ResetScope int
 
 const (
-	SCOPEENUM_UNKNOWN  ScopeEnum = 0
-	SCOPEENUM_REDACTED ScopeEnum = 1
-	SCOPEENUM_PC       ScopeEnum = 2
-	SCOPEENUM_PE       ScopeEnum = 3
-	SCOPEENUM_PC_ONLY  ScopeEnum = 4
-	SCOPEENUM_PC_PE    ScopeEnum = 5
+	RESETSCOPE_UNKNOWN  ResetScope = 0
+	RESETSCOPE_REDACTED ResetScope = 1
+	RESETSCOPE_PC       ResetScope = 2
+	RESETSCOPE_ALL      ResetScope = 3
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *ScopeEnum) name(index int) string {
+func (e *ResetScope) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PC",
+		"ALL",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ResetScope) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PC",
+		"ALL",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ResetScope) index(name string) ResetScope {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PC",
+		"ALL",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ResetScope(idx)
+		}
+	}
+	return RESETSCOPE_UNKNOWN
+}
+
+func (e *ResetScope) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ResetScope:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ResetScope) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ResetScope) Ref() *ResetScope {
+	return &e
+}
+
+/*
+Possible values of scope are PC, PE & PC_PE.
+*/
+type Scope int
+
+const (
+	SCOPE_UNKNOWN  Scope = 0
+	SCOPE_REDACTED Scope = 1
+	SCOPE_PC       Scope = 2
+	SCOPE_PE       Scope = 3
+	SCOPE_PC_PE    Scope = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *Scope) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"PC",
 		"PE",
-		"PC_ONLY",
 		"PC_PE",
 	}
 	if index < 0 || index >= len(names) {
@@ -2938,14 +4399,13 @@ func (e *ScopeEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e ScopeEnum) GetName() string {
+func (e Scope) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"PC",
 		"PE",
-		"PC_ONLY",
 		"PC_PE",
 	}
 	if index < 0 || index >= len(names) {
@@ -2955,40 +4415,39 @@ func (e ScopeEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *ScopeEnum) index(name string) ScopeEnum {
+func (e *Scope) index(name string) Scope {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
 		"PC",
 		"PE",
-		"PC_ONLY",
 		"PC_PE",
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return ScopeEnum(idx)
+			return Scope(idx)
 		}
 	}
-	return SCOPEENUM_UNKNOWN
+	return SCOPE_UNKNOWN
 }
 
-func (e *ScopeEnum) UnmarshalJSON(b []byte) error {
+func (e *Scope) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ScopeEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for Scope:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *ScopeEnum) MarshalJSON() ([]byte, error) {
+func (e *Scope) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e ScopeEnum) Ref() *ScopeEnum {
+func (e Scope) Ref() *Scope {
 	return &e
 }
 
@@ -3004,17 +4463,17 @@ type Service struct {
 	/*
 	  Attribute for capturing the list of enforcement actions corresponding to this service.
 	*/
-	EnforcementActions []EnforcementActionsEnum `json:"enforcementActions,omitempty"`
+	EnforcementActions []EnforcementActions `json:"enforcementActions,omitempty"`
 
-	EnforcementLevel *EnforcementLevelEnum `json:"enforcementLevel,omitempty"`
+	EnforcementLevel *EnforcementLevel `json:"enforcementLevel,omitempty"`
 	/*
-	  Attribute for capturing the whether the service is compliant
+	  Attribute for capturing the whether the service is compliant.
 	*/
 	IsCompliant *bool `json:"isCompliant,omitempty"`
 
-	LicenseType *LicenseTypeEnum `json:"licenseType,omitempty"`
+	LicenseType *LicenseType `json:"licenseType,omitempty"`
 
-	Name *ProductNameEnum `json:"name,omitempty"`
+	Name *ProductName `json:"name,omitempty"`
 	/*
 	  Attribute for capturing the list of violations corresponding to this service.
 	*/
@@ -3025,7 +4484,7 @@ func NewService() *Service {
 	p := new(Service)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Service"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3040,17 +4499,17 @@ type ServiceProjection struct {
 	/*
 	  Attribute for capturing the list of enforcement actions corresponding to this service.
 	*/
-	EnforcementActions []EnforcementActionsEnum `json:"enforcementActions,omitempty"`
+	EnforcementActions []EnforcementActions `json:"enforcementActions,omitempty"`
 
-	EnforcementLevel *EnforcementLevelEnum `json:"enforcementLevel,omitempty"`
+	EnforcementLevel *EnforcementLevel `json:"enforcementLevel,omitempty"`
 	/*
-	  Attribute for capturing the whether the service is compliant
+	  Attribute for capturing the whether the service is compliant.
 	*/
 	IsCompliant *bool `json:"isCompliant,omitempty"`
 
-	LicenseType *LicenseTypeEnum `json:"licenseType,omitempty"`
+	LicenseType *LicenseType `json:"licenseType,omitempty"`
 
-	Name *ProductNameEnum `json:"name,omitempty"`
+	Name *ProductName `json:"name,omitempty"`
 	/*
 	  Attribute for capturing the list of violations corresponding to this service.
 	*/
@@ -3061,7 +4520,7 @@ func NewServiceProjection() *ServiceProjection {
 	p := new(ServiceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ServiceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3081,14 +4540,54 @@ type ServiceViolation struct {
 	*/
 	StartDate *time.Time `json:"startDate,omitempty"`
 
-	Type *ServiceViolationEnum `json:"type,omitempty"`
+	Type *ServiceViolationType `json:"type,omitempty"`
+}
+
+func (p *ServiceViolation) MarshalJSON() ([]byte, error) {
+	type ServiceViolationProxy ServiceViolation
+	return json.Marshal(struct {
+		*ServiceViolationProxy
+	}{
+		ServiceViolationProxy: (*ServiceViolationProxy)(p),
+	})
+}
+
+func (p *ServiceViolation) UnmarshalJSON(b []byte) error {
+	type CustomServiceViolation struct {
+		ObjectType_    *string                `json:"$objectType,omitempty"`
+		Reserved_      map[string]interface{} `json:"$reserved,omitempty"`
+		UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+		StartDate      string                 `json:"startDate,omitempty"`
+		Type           *ServiceViolationType  `json:"type,omitempty"`
+	}
+
+	var customServiceViolation CustomServiceViolation
+	err := json.Unmarshal(b, &customServiceViolation)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customServiceViolation.ObjectType_
+	p.Reserved_ = customServiceViolation.Reserved_
+	p.UnknownFields_ = customServiceViolation.UnknownFields_
+	// Custom date parsing logic for Date field
+	if customServiceViolation.StartDate != "" {
+		parsedStartDate, err := time.Parse("2006-01-02", customServiceViolation.StartDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field StartDate in struct ServiceViolation: %s", err))
+		}
+		p.StartDate = &parsedStartDate
+	}
+	p.Type = customServiceViolation.Type
+
+	return nil
 }
 
 func NewServiceViolation() *ServiceViolation {
 	p := new(ServiceViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ServiceViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3097,20 +4596,20 @@ func NewServiceViolation() *ServiceViolation {
 /*
 Possible values are LICENSE-EXPIRED, FEATURE-VIOLATION and CAPACITY-VIOLATION.
 */
-type ServiceViolationEnum int
+type ServiceViolationType int
 
 const (
-	SERVICEVIOLATIONENUM_UNKNOWN            ServiceViolationEnum = 0
-	SERVICEVIOLATIONENUM_REDACTED           ServiceViolationEnum = 1
-	SERVICEVIOLATIONENUM_LICENSE_EXPIRED    ServiceViolationEnum = 2
-	SERVICEVIOLATIONENUM_FEATURE_VIOLATION  ServiceViolationEnum = 3
-	SERVICEVIOLATIONENUM_CAPACITY_VIOLATION ServiceViolationEnum = 4
+	SERVICEVIOLATIONTYPE_UNKNOWN            ServiceViolationType = 0
+	SERVICEVIOLATIONTYPE_REDACTED           ServiceViolationType = 1
+	SERVICEVIOLATIONTYPE_LICENSE_EXPIRED    ServiceViolationType = 2
+	SERVICEVIOLATIONTYPE_FEATURE_VIOLATION  ServiceViolationType = 3
+	SERVICEVIOLATIONTYPE_CAPACITY_VIOLATION ServiceViolationType = 4
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *ServiceViolationEnum) name(index int) string {
+func (e *ServiceViolationType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -3125,7 +4624,7 @@ func (e *ServiceViolationEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e ServiceViolationEnum) GetName() string {
+func (e ServiceViolationType) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
@@ -3141,7 +4640,7 @@ func (e ServiceViolationEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *ServiceViolationEnum) index(name string) ServiceViolationEnum {
+func (e *ServiceViolationType) index(name string) ServiceViolationType {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -3151,34 +4650,34 @@ func (e *ServiceViolationEnum) index(name string) ServiceViolationEnum {
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return ServiceViolationEnum(idx)
+			return ServiceViolationType(idx)
 		}
 	}
-	return SERVICEVIOLATIONENUM_UNKNOWN
+	return SERVICEVIOLATIONTYPE_UNKNOWN
 }
 
-func (e *ServiceViolationEnum) UnmarshalJSON(b []byte) error {
+func (e *ServiceViolationType) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for ServiceViolationEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ServiceViolationType:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *ServiceViolationEnum) MarshalJSON() ([]byte, error) {
+func (e *ServiceViolationType) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e ServiceViolationEnum) Ref() *ServiceViolationEnum {
+func (e ServiceViolationType) Ref() *ServiceViolationType {
 	return &e
 }
 
 /*
-Response object containing setting details
+Response object containing setting details.
 */
 type Setting struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3187,47 +4686,43 @@ type Setting struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	EnforcementPolicy *EnforcementPolicyEnum `json:"enforcementPolicy,omitempty"`
+	EnforcementPolicy *EnforcementPolicy `json:"enforcementPolicy,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  True value indicates that user is allowed to use non compliant features
+	  True value indicates that user is allowed to use non compliant features.
 	*/
 	HasNonCompliantFeatures *bool `json:"hasNonCompliantFeatures,omitempty"`
 	/*
-	  Used to enable and disable NCC license checks
+	  Indicates whether ultimate trial is active or not.
+	*/
+	HasUltimateTrialEnded *bool `json:"hasUltimateTrialEnded,omitempty"`
+	/*
+	  Used to enable and disable NCC license checks.
 	*/
 	IsLicenseCheckDisabled *bool `json:"isLicenseCheckDisabled,omitempty"`
 	/*
-	  True value indicates cluster UUID represents Prism Central otherwise Prism Element
+	  True value indicates cluster UUID represents Prism Central otherwise Prism Element.
 	*/
 	IsMulticluster *bool `json:"isMulticluster,omitempty"`
 	/*
-	  True value indicates that cluster summary file is downloaded but license summary file is not uplaoded
+	  True value indicates that cluster summary file is downloaded but license summary file is not uplaoded.
 	*/
 	IsStandby *bool `json:"isStandby,omitempty"`
+
+	LicenseClass *LicenseClass `json:"licenseClass,omitempty"`
 	/*
-	  Indicates whether ultimate trial is active or not
-	*/
-	IsUltimateTrialEnded *bool `json:"isUltimateTrialEnded,omitempty"`
-	/*
-	  Attribute for capturing license class value
-	*/
-	LicenseClass *string `json:"licenseClass,omitempty"`
-	/*
-	  License key applied to dark site clusters
+	  License key applied to dark site clusters.
 	*/
 	LicenseKey *string `json:"licenseKey,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import2.ApiLink `json:"links,omitempty"`
 
 	LogicalVersion *LogicalVersion `json:"logicalVersion,omitempty"`
-
-	NutanixClusterConfig *NutanixClusterConfig `json:"nutanixClusterConfig,omitempty"`
 
 	PostPaidConfig *PostPaidConfig `json:"postPaidConfig,omitempty"`
 	/*
@@ -3240,33 +4735,258 @@ func NewSetting() *Setting {
 	p := new(Setting)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Setting"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.a1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.HasNonCompliantFeatures = new(bool)
+	*p.HasNonCompliantFeatures = false
+	p.IsLicenseCheckDisabled = new(bool)
+	*p.IsLicenseCheckDisabled = false
+
+	return p
+}
+
+/*
+Possible values are REGISTERED and UNREGISTERED.
+*/
+type Status int
+
+const (
+	STATUS_UNKNOWN      Status = 0
+	STATUS_REDACTED     Status = 1
+	STATUS_REGISTERED   Status = 2
+	STATUS_UNREGISTERED Status = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *Status) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"REGISTERED",
+		"UNREGISTERED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e Status) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"REGISTERED",
+		"UNREGISTERED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *Status) index(name string) Status {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"REGISTERED",
+		"UNREGISTERED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return Status(idx)
+		}
+	}
+	return STATUS_UNKNOWN
+}
+
+func (e *Status) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for Status:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *Status) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e Status) Ref() *Status {
+	return &e
+}
+
+/*
+Possible values are ADDON, UNLIMITED_CAPACITY.
+*/
+type SubCategory int
+
+const (
+	SUBCATEGORY_UNKNOWN            SubCategory = 0
+	SUBCATEGORY_REDACTED           SubCategory = 1
+	SUBCATEGORY_ADDON              SubCategory = 2
+	SUBCATEGORY_UNLIMITED_CAPACITY SubCategory = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *SubCategory) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ADDON",
+		"UNLIMITED_CAPACITY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e SubCategory) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ADDON",
+		"UNLIMITED_CAPACITY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *SubCategory) index(name string) SubCategory {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ADDON",
+		"UNLIMITED_CAPACITY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return SubCategory(idx)
+		}
+	}
+	return SUBCATEGORY_UNKNOWN
+}
+
+func (e *SubCategory) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for SubCategory:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *SubCategory) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e SubCategory) Ref() *SubCategory {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.0/config/$actions/sync-license-state Post operation
+*/
+type SyncLicenseStateApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfSyncLicenseStateApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewSyncLicenseStateApiResponse() *SyncLicenseStateApiResponse {
+	p := new(SyncLicenseStateApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.SyncLicenseStateApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
+func (p *SyncLicenseStateApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *SyncLicenseStateApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfSyncLicenseStateApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
 /*
-Possible values are REGISTERED & UNREGISTERED
+Possible values are UPLOAD_CLUSTER_SUMMARY, APPLY_LICENSE_SUMMARY, REBALANCE, RECLAIM and others.
 */
-type StatusEnum int
+type SyncOperationType int
 
 const (
-	STATUSENUM_UNKNOWN      StatusEnum = 0
-	STATUSENUM_REDACTED     StatusEnum = 1
-	STATUSENUM_REGISTERED   StatusEnum = 2
-	STATUSENUM_UNREGISTERED StatusEnum = 3
+	SYNCOPERATIONTYPE_UNKNOWN                             SyncOperationType = 0
+	SYNCOPERATIONTYPE_REDACTED                            SyncOperationType = 1
+	SYNCOPERATIONTYPE_UPLOAD_CLUSTER_SUMMARY              SyncOperationType = 2
+	SYNCOPERATIONTYPE_APPLY_LICENSE_SUMMARY               SyncOperationType = 3
+	SYNCOPERATIONTYPE_RECLAIM                             SyncOperationType = 4
+	SYNCOPERATIONTYPE_RENEW                               SyncOperationType = 5
+	SYNCOPERATIONTYPE_REBALANCE                           SyncOperationType = 6
+	SYNCOPERATIONTYPE_UPDATE_METADATA                     SyncOperationType = 7
+	SYNCOPERATIONTYPE_RECLAIM_FOR_DESTROYED_CLUSTER       SyncOperationType = 8
+	SYNCOPERATIONTYPE_APPLY_LICENSE_SUMMARY_WITH_METADATA SyncOperationType = 9
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *StatusEnum) name(index int) string {
+func (e *SyncOperationType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"REGISTERED",
-		"UNREGISTERED",
+		"UPLOAD_CLUSTER_SUMMARY",
+		"APPLY_LICENSE_SUMMARY",
+		"RECLAIM",
+		"RENEW",
+		"REBALANCE",
+		"UPDATE_METADATA",
+		"RECLAIM_FOR_DESTROYED_CLUSTER",
+		"APPLY_LICENSE_SUMMARY_WITH_METADATA",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -3275,13 +4995,19 @@ func (e *StatusEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e StatusEnum) GetName() string {
+func (e SyncOperationType) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"REGISTERED",
-		"UNREGISTERED",
+		"UPLOAD_CLUSTER_SUMMARY",
+		"APPLY_LICENSE_SUMMARY",
+		"RECLAIM",
+		"RENEW",
+		"REBALANCE",
+		"UPDATE_METADATA",
+		"RECLAIM_FOR_DESTROYED_CLUSTER",
+		"APPLY_LICENSE_SUMMARY_WITH_METADATA",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -3290,136 +5016,113 @@ func (e StatusEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *StatusEnum) index(name string) StatusEnum {
+func (e *SyncOperationType) index(name string) SyncOperationType {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
-		"REGISTERED",
-		"UNREGISTERED",
+		"UPLOAD_CLUSTER_SUMMARY",
+		"APPLY_LICENSE_SUMMARY",
+		"RECLAIM",
+		"RENEW",
+		"REBALANCE",
+		"UPDATE_METADATA",
+		"RECLAIM_FOR_DESTROYED_CLUSTER",
+		"APPLY_LICENSE_SUMMARY_WITH_METADATA",
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return StatusEnum(idx)
+			return SyncOperationType(idx)
 		}
 	}
-	return STATUSENUM_UNKNOWN
+	return SYNCOPERATIONTYPE_UNKNOWN
 }
 
-func (e *StatusEnum) UnmarshalJSON(b []byte) error {
+func (e *SyncOperationType) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for StatusEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for SyncOperationType:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *StatusEnum) MarshalJSON() ([]byte, error) {
+func (e *SyncOperationType) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e StatusEnum) Ref() *StatusEnum {
+func (e SyncOperationType) Ref() *SyncOperationType {
 	return &e
 }
 
 /*
-Possible values are ADDON, UNLIMITED_CAPACITY
+REST response for all response codes in API path /licensing/v4.0/config/portal-setting Put operation
 */
-type SubCategoryEnum int
+type UpdatePortalSettingApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
 
-const (
-	SUBCATEGORYENUM_UNKNOWN            SubCategoryEnum = 0
-	SUBCATEGORYENUM_REDACTED           SubCategoryEnum = 1
-	SUBCATEGORYENUM_ADDON              SubCategoryEnum = 2
-	SUBCATEGORYENUM_UNLIMITED_CAPACITY SubCategoryEnum = 3
-)
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
-// Returns the name of the enum given an ordinal number
-//
-// Deprecated: Please use GetName instead of name
-func (e *SubCategoryEnum) name(index int) string {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"ADDON",
-		"UNLIMITED_CAPACITY",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUpdatePortalSettingApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
-// Returns the name of the enum
-func (e SubCategoryEnum) GetName() string {
-	index := int(e)
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"ADDON",
-		"UNLIMITED_CAPACITY",
-	}
-	if index < 0 || index >= len(names) {
-		return "$UNKNOWN"
-	}
-	return names[index]
+func NewUpdatePortalSettingApiResponse() *UpdatePortalSettingApiResponse {
+	p := new(UpdatePortalSettingApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.UpdatePortalSettingApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
-// Returns the enum type given a string value
-func (e *SubCategoryEnum) index(name string) SubCategoryEnum {
-	names := [...]string{
-		"$UNKNOWN",
-		"$REDACTED",
-		"ADDON",
-		"UNLIMITED_CAPACITY",
+func (p *UpdatePortalSettingApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
 	}
-	for idx := range names {
-		if names[idx] == name {
-			return SubCategoryEnum(idx)
+	return p.Data.GetValue()
+}
+
+func (p *UpdatePortalSettingApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUpdatePortalSettingApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
 		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
-	return SUBCATEGORYENUM_UNKNOWN
-}
-
-func (e *SubCategoryEnum) UnmarshalJSON(b []byte) error {
-	var enumStr string
-	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for SubCategoryEnum:%s", err))
-	}
-	*e = e.index(enumStr)
-	return nil
-}
-
-func (e *SubCategoryEnum) MarshalJSON() ([]byte, error) {
-	b := bytes.NewBufferString(`"`)
-	b.WriteString(e.name(int(*e)))
-	b.WriteString(`"`)
-	return b.Bytes(), nil
-}
-
-func (e SubCategoryEnum) Ref() *SubCategoryEnum {
-	return &e
+	return e
 }
 
 /*
-Possible values of type are BOOLEAN & INTEGER
+Possible values of type are BOOLEAN & INTEGER.
 */
-type TypeEnum int
+type ValueType int
 
 const (
-	TYPEENUM_UNKNOWN  TypeEnum = 0
-	TYPEENUM_REDACTED TypeEnum = 1
-	TYPEENUM_BOOLEAN  TypeEnum = 2
-	TYPEENUM_INTEGER  TypeEnum = 3
+	VALUETYPE_UNKNOWN  ValueType = 0
+	VALUETYPE_REDACTED ValueType = 1
+	VALUETYPE_BOOLEAN  ValueType = 2
+	VALUETYPE_INTEGER  ValueType = 3
 )
 
 // Returns the name of the enum given an ordinal number
 //
 // Deprecated: Please use GetName instead of name
-func (e *TypeEnum) name(index int) string {
+func (e *ValueType) name(index int) string {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -3433,7 +5136,7 @@ func (e *TypeEnum) name(index int) string {
 }
 
 // Returns the name of the enum
-func (e TypeEnum) GetName() string {
+func (e ValueType) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"$UNKNOWN",
@@ -3448,7 +5151,7 @@ func (e TypeEnum) GetName() string {
 }
 
 // Returns the enum type given a string value
-func (e *TypeEnum) index(name string) TypeEnum {
+func (e *ValueType) index(name string) ValueType {
 	names := [...]string{
 		"$UNKNOWN",
 		"$REDACTED",
@@ -3457,1123 +5160,87 @@ func (e *TypeEnum) index(name string) TypeEnum {
 	}
 	for idx := range names {
 		if names[idx] == name {
-			return TypeEnum(idx)
+			return ValueType(idx)
 		}
 	}
-	return TYPEENUM_UNKNOWN
+	return VALUETYPE_UNKNOWN
 }
 
-func (e *TypeEnum) UnmarshalJSON(b []byte) error {
+func (e *ValueType) UnmarshalJSON(b []byte) error {
 	var enumStr string
 	if err := json.Unmarshal(b, &enumStr); err != nil {
-		return errors.New(fmt.Sprintf("Unable to unmarshal for TypeEnum:%s", err))
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ValueType:%s", err))
 	}
 	*e = e.index(enumStr)
 	return nil
 }
 
-func (e *TypeEnum) MarshalJSON() ([]byte, error) {
+func (e *ValueType) MarshalJSON() ([]byte, error) {
 	b := bytes.NewBufferString(`"`)
 	b.WriteString(e.name(int(*e)))
 	b.WriteString(`"`)
 	return b.Bytes(), nil
 }
 
-func (e TypeEnum) Ref() *TypeEnum {
+func (e ValueType) Ref() *ValueType {
 	return &e
 }
 
-type OneOfListClusterAllowancesApiResponseData struct {
-	Discriminator  *string                      `json:"-"`
-	ObjectType_    *string                      `json:"-"`
-	oneOfType21012 []ClusterAllowance           `json:"-"`
-	oneOfType400   *import2.ErrorResponse       `json:"-"`
-	oneOfType401   []ClusterAllowanceProjection `json:"-"`
+/*
+Response object containing cluster and associated features violations.
+*/
+type Violation struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of capacity violations. Capacity violations are thrown when user has not applied licenses to extended capacity. Example: Cluster is expanded to have new nodes which are not licensed.
+	*/
+	CapacityViolations []CapacityViolation `json:"capacityViolations,omitempty"`
+	/*
+	  List of expired licenses for a cluster. Such licenses need to be replaced in order for the cluster to function properly.
+	*/
+	ExpiredLicenses []ExpiredLicense `json:"expiredLicenses,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  List of features which are being used by cluster without applying necessary licenses. Feature violations can be resolved by applying necessary licenses.
+	*/
+	FeatureViolations []FeatureViolation `json:"featureViolations,omitempty"`
+	/*
+	  True value indicates cluster UUID represents Prism Central otherwise Prism Element.
+	*/
+	IsMulticluster *bool `json:"isMulticluster,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
 }
 
-func NewOneOfListClusterAllowancesApiResponseData() *OneOfListClusterAllowancesApiResponseData {
-	p := new(OneOfListClusterAllowancesApiResponseData)
-	p.Discriminator = new(string)
+func NewViolation() *Violation {
+	p := new(Violation)
 	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.Violation"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
 	return p
-}
-
-func (p *OneOfListClusterAllowancesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListClusterAllowancesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []ClusterAllowance:
-		p.oneOfType21012 = v.([]ClusterAllowance)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.ClusterAllowance>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.ClusterAllowance>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []ClusterAllowanceProjection:
-		p.oneOfType401 = v.([]ClusterAllowanceProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.ClusterAllowanceProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.ClusterAllowanceProjection>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListClusterAllowancesApiResponseData) GetValue() interface{} {
-	if "List<licensing.v4.config.ClusterAllowance>" == *p.Discriminator {
-		return p.oneOfType21012
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<licensing.v4.config.ClusterAllowanceProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	return nil
-}
-
-func (p *OneOfListClusterAllowancesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType21012 := new([]ClusterAllowance)
-	if err := json.Unmarshal(b, vOneOfType21012); err == nil {
-
-		if len(*vOneOfType21012) == 0 || "licensing.v4.config.ClusterAllowance" == *((*vOneOfType21012)[0].ObjectType_) {
-			p.oneOfType21012 = *vOneOfType21012
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.ClusterAllowance>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.ClusterAllowance>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType401 := new([]ClusterAllowanceProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.ClusterAllowanceProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.ClusterAllowanceProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.ClusterAllowanceProjection>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListClusterAllowancesApiResponseData"))
-}
-
-func (p *OneOfListClusterAllowancesApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<licensing.v4.config.ClusterAllowance>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21012)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<licensing.v4.config.ClusterAllowanceProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	return nil, errors.New("No value to marshal for OneOfListClusterAllowancesApiResponseData")
-}
-
-type OneOfGetSettingApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
-	oneOfType21006 *Setting               `json:"-"`
-}
-
-func NewOneOfGetSettingApiResponseData() *OneOfGetSettingApiResponseData {
-	p := new(OneOfGetSettingApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetSettingApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetSettingApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Setting:
-		if nil == p.oneOfType21006 {
-			p.oneOfType21006 = new(Setting)
-		}
-		*p.oneOfType21006 = v.(Setting)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType21006.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType21006.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetSettingApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType21006 != nil && *p.oneOfType21006.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType21006
-	}
-	return nil
-}
-
-func (p *OneOfGetSettingApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType21006 := new(Setting)
-	if err := json.Unmarshal(b, vOneOfType21006); err == nil {
-		if "licensing.v4.config.Setting" == *vOneOfType21006.ObjectType_ {
-			if nil == p.oneOfType21006 {
-				p.oneOfType21006 = new(Setting)
-			}
-			*p.oneOfType21006 = *vOneOfType21006
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType21006.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType21006.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSettingApiResponseData"))
-}
-
-func (p *OneOfGetSettingApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType21006 != nil && *p.oneOfType21006.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType21006)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetSettingApiResponseData")
-}
-
-type OneOfGetComplianceApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType21016 *Compliance            `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetComplianceApiResponseData() *OneOfGetComplianceApiResponseData {
-	p := new(OneOfGetComplianceApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetComplianceApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetComplianceApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case Compliance:
-		if nil == p.oneOfType21016 {
-			p.oneOfType21016 = new(Compliance)
-		}
-		*p.oneOfType21016 = v.(Compliance)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType21016.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType21016.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetComplianceApiResponseData) GetValue() interface{} {
-	if p.oneOfType21016 != nil && *p.oneOfType21016.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType21016
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetComplianceApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType21016 := new(Compliance)
-	if err := json.Unmarshal(b, vOneOfType21016); err == nil {
-		if "licensing.v4.config.Compliance" == *vOneOfType21016.ObjectType_ {
-			if nil == p.oneOfType21016 {
-				p.oneOfType21016 = new(Compliance)
-			}
-			*p.oneOfType21016 = *vOneOfType21016
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType21016.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType21016.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetComplianceApiResponseData"))
-}
-
-func (p *OneOfGetComplianceApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType21016 != nil && *p.oneOfType21016.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType21016)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetComplianceApiResponseData")
-}
-
-type OneOfGetLicenseApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType21004 *License               `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetLicenseApiResponseData() *OneOfGetLicenseApiResponseData {
-	p := new(OneOfGetLicenseApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetLicenseApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetLicenseApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case License:
-		if nil == p.oneOfType21004 {
-			p.oneOfType21004 = new(License)
-		}
-		*p.oneOfType21004 = v.(License)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType21004.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType21004.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetLicenseApiResponseData) GetValue() interface{} {
-	if p.oneOfType21004 != nil && *p.oneOfType21004.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType21004
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetLicenseApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType21004 := new(License)
-	if err := json.Unmarshal(b, vOneOfType21004); err == nil {
-		if "licensing.v4.config.License" == *vOneOfType21004.ObjectType_ {
-			if nil == p.oneOfType21004 {
-				p.oneOfType21004 = new(License)
-			}
-			*p.oneOfType21004 = *vOneOfType21004
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType21004.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType21004.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetLicenseApiResponseData"))
-}
-
-func (p *OneOfGetLicenseApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType21004 != nil && *p.oneOfType21004.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType21004)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetLicenseApiResponseData")
-}
-
-type OneOfListLicensesApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
-	oneOfType401   []LicenseProjection    `json:"-"`
-	oneOfType21003 []License              `json:"-"`
-}
-
-func NewOneOfListLicensesApiResponseData() *OneOfListLicensesApiResponseData {
-	p := new(OneOfListLicensesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListLicensesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListLicensesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []LicenseProjection:
-		p.oneOfType401 = v.([]LicenseProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.LicenseProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.LicenseProjection>"
-	case []License:
-		p.oneOfType21003 = v.([]License)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.License>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.License>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListLicensesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<licensing.v4.config.LicenseProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	if "List<licensing.v4.config.License>" == *p.Discriminator {
-		return p.oneOfType21003
-	}
-	return nil
-}
-
-func (p *OneOfListLicensesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType401 := new([]LicenseProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.LicenseProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.LicenseProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.LicenseProjection>"
-			return nil
-
-		}
-	}
-	vOneOfType21003 := new([]License)
-	if err := json.Unmarshal(b, vOneOfType21003); err == nil {
-
-		if len(*vOneOfType21003) == 0 || "licensing.v4.config.License" == *((*vOneOfType21003)[0].ObjectType_) {
-			p.oneOfType21003 = *vOneOfType21003
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.License>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.License>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLicensesApiResponseData"))
-}
-
-func (p *OneOfListLicensesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<licensing.v4.config.LicenseProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	if "List<licensing.v4.config.License>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21003)
-	}
-	return nil, errors.New("No value to marshal for OneOfListLicensesApiResponseData")
-}
-
-type OneOfGetClusterViolationApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
-	oneOfType21009 *ClusterViolation      `json:"-"`
-}
-
-func NewOneOfGetClusterViolationApiResponseData() *OneOfGetClusterViolationApiResponseData {
-	p := new(OneOfGetClusterViolationApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetClusterViolationApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetClusterViolationApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ClusterViolation:
-		if nil == p.oneOfType21009 {
-			p.oneOfType21009 = new(ClusterViolation)
-		}
-		*p.oneOfType21009 = v.(ClusterViolation)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType21009.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType21009.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetClusterViolationApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType21009 != nil && *p.oneOfType21009.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType21009
-	}
-	return nil
-}
-
-func (p *OneOfGetClusterViolationApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType21009 := new(ClusterViolation)
-	if err := json.Unmarshal(b, vOneOfType21009); err == nil {
-		if "licensing.v4.config.ClusterViolation" == *vOneOfType21009.ObjectType_ {
-			if nil == p.oneOfType21009 {
-				p.oneOfType21009 = new(ClusterViolation)
-			}
-			*p.oneOfType21009 = *vOneOfType21009
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType21009.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType21009.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetClusterViolationApiResponseData"))
-}
-
-func (p *OneOfGetClusterViolationApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType21009 != nil && *p.oneOfType21009.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType21009)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetClusterViolationApiResponseData")
-}
-
-type OneOfListClusterEntitlementsApiResponseData struct {
-	Discriminator  *string                        `json:"-"`
-	ObjectType_    *string                        `json:"-"`
-	oneOfType400   *import2.ErrorResponse         `json:"-"`
-	oneOfType401   []ClusterEntitlementProjection `json:"-"`
-	oneOfType21010 []ClusterEntitlement           `json:"-"`
-}
-
-func NewOneOfListClusterEntitlementsApiResponseData() *OneOfListClusterEntitlementsApiResponseData {
-	p := new(OneOfListClusterEntitlementsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListClusterEntitlementsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListClusterEntitlementsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []ClusterEntitlementProjection:
-		p.oneOfType401 = v.([]ClusterEntitlementProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.ClusterEntitlementProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.ClusterEntitlementProjection>"
-	case []ClusterEntitlement:
-		p.oneOfType21010 = v.([]ClusterEntitlement)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.ClusterEntitlement>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.ClusterEntitlement>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListClusterEntitlementsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<licensing.v4.config.ClusterEntitlementProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	if "List<licensing.v4.config.ClusterEntitlement>" == *p.Discriminator {
-		return p.oneOfType21010
-	}
-	return nil
-}
-
-func (p *OneOfListClusterEntitlementsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType401 := new([]ClusterEntitlementProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.ClusterEntitlementProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.ClusterEntitlementProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.ClusterEntitlementProjection>"
-			return nil
-
-		}
-	}
-	vOneOfType21010 := new([]ClusterEntitlement)
-	if err := json.Unmarshal(b, vOneOfType21010); err == nil {
-
-		if len(*vOneOfType21010) == 0 || "licensing.v4.config.ClusterEntitlement" == *((*vOneOfType21010)[0].ObjectType_) {
-			p.oneOfType21010 = *vOneOfType21010
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.ClusterEntitlement>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.ClusterEntitlement>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListClusterEntitlementsApiResponseData"))
-}
-
-func (p *OneOfListClusterEntitlementsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<licensing.v4.config.ClusterEntitlementProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	if "List<licensing.v4.config.ClusterEntitlement>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21010)
-	}
-	return nil, errors.New("No value to marshal for OneOfListClusterEntitlementsApiResponseData")
-}
-
-type OneOfGetClusterEntitlementApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
-	oneOfType21011 *ClusterEntitlement    `json:"-"`
-}
-
-func NewOneOfGetClusterEntitlementApiResponseData() *OneOfGetClusterEntitlementApiResponseData {
-	p := new(OneOfGetClusterEntitlementApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetClusterEntitlementApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetClusterEntitlementApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ClusterEntitlement:
-		if nil == p.oneOfType21011 {
-			p.oneOfType21011 = new(ClusterEntitlement)
-		}
-		*p.oneOfType21011 = v.(ClusterEntitlement)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType21011.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType21011.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetClusterEntitlementApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType21011 != nil && *p.oneOfType21011.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType21011
-	}
-	return nil
-}
-
-func (p *OneOfGetClusterEntitlementApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType21011 := new(ClusterEntitlement)
-	if err := json.Unmarshal(b, vOneOfType21011); err == nil {
-		if "licensing.v4.config.ClusterEntitlement" == *vOneOfType21011.ObjectType_ {
-			if nil == p.oneOfType21011 {
-				p.oneOfType21011 = new(ClusterEntitlement)
-			}
-			*p.oneOfType21011 = *vOneOfType21011
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType21011.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType21011.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetClusterEntitlementApiResponseData"))
-}
-
-func (p *OneOfGetClusterEntitlementApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType21011 != nil && *p.oneOfType21011.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType21011)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetClusterEntitlementApiResponseData")
-}
-
-type OneOfListClusterViolationsApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
-	oneOfType21008 []ClusterViolation     `json:"-"`
-}
-
-func NewOneOfListClusterViolationsApiResponseData() *OneOfListClusterViolationsApiResponseData {
-	p := new(OneOfListClusterViolationsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListClusterViolationsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListClusterViolationsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []ClusterViolation:
-		p.oneOfType21008 = v.([]ClusterViolation)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.ClusterViolation>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.ClusterViolation>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListClusterViolationsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<licensing.v4.config.ClusterViolation>" == *p.Discriminator {
-		return p.oneOfType21008
-	}
-	return nil
-}
-
-func (p *OneOfListClusterViolationsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType21008 := new([]ClusterViolation)
-	if err := json.Unmarshal(b, vOneOfType21008); err == nil {
-
-		if len(*vOneOfType21008) == 0 || "licensing.v4.config.ClusterViolation" == *((*vOneOfType21008)[0].ObjectType_) {
-			p.oneOfType21008 = *vOneOfType21008
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.ClusterViolation>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.ClusterViolation>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListClusterViolationsApiResponseData"))
-}
-
-func (p *OneOfListClusterViolationsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<licensing.v4.config.ClusterViolation>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21008)
-	}
-	return nil, errors.New("No value to marshal for OneOfListClusterViolationsApiResponseData")
 }
 
 type OneOfListCompliancesApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
-	oneOfType401   []ComplianceProjection `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
 	oneOfType21015 []Compliance           `json:"-"`
+	oneOfType401   []ComplianceProjection `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
 }
 
 func NewOneOfListCompliancesApiResponseData() *OneOfListCompliancesApiResponseData {
@@ -4588,29 +5255,6 @@ func (p *OneOfListCompliancesApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfListCompliancesApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []ComplianceProjection:
-		p.oneOfType401 = v.([]ComplianceProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.ComplianceProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.ComplianceProjection>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case []Compliance:
 		p.oneOfType21015 = v.([]Compliance)
 		if nil == p.Discriminator {
@@ -4621,6 +5265,29 @@ func (p *OneOfListCompliancesApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = "List<licensing.v4.config.Compliance>"
+	case []ComplianceProjection:
+		p.oneOfType401 = v.([]ComplianceProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.ComplianceProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.ComplianceProjection>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -4628,22 +5295,36 @@ func (p *OneOfListCompliancesApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfListCompliancesApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.config.Compliance>" == *p.Discriminator {
+		return p.oneOfType21015
+	}
 	if "List<licensing.v4.config.ComplianceProjection>" == *p.Discriminator {
 		return p.oneOfType401
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<licensing.v4.config.Compliance>" == *p.Discriminator {
-		return p.oneOfType21015
-	}
 	return nil
 }
 
 func (p *OneOfListCompliancesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType21015 := new([]Compliance)
+	if err := json.Unmarshal(b, vOneOfType21015); err == nil {
+		if len(*vOneOfType21015) == 0 || "licensing.v4.config.Compliance" == *((*vOneOfType21015)[0].ObjectType_) {
+			p.oneOfType21015 = *vOneOfType21015
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Compliance>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Compliance>"
+			return nil
+		}
+	}
 	vOneOfType401 := new([]ComplianceProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-
 		if len(*vOneOfType401) == 0 || "licensing.v4.config.ComplianceProjection" == *((*vOneOfType401)[0].ObjectType_) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
@@ -4655,14 +5336,13 @@ func (p *OneOfListCompliancesApiResponseData) UnmarshalJSON(b []byte) error {
 			}
 			*p.ObjectType_ = "List<licensing.v4.config.ComplianceProjection>"
 			return nil
-
 		}
 	}
-	vOneOfType400 := new(import2.ErrorResponse)
+	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
+				p.oneOfType400 = new(import1.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -4676,45 +5356,450 @@ func (p *OneOfListCompliancesApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType21015 := new([]Compliance)
-	if err := json.Unmarshal(b, vOneOfType21015); err == nil {
-
-		if len(*vOneOfType21015) == 0 || "licensing.v4.config.Compliance" == *((*vOneOfType21015)[0].ObjectType_) {
-			p.oneOfType21015 = *vOneOfType21015
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.Compliance>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.Compliance>"
-			return nil
-
-		}
-	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListCompliancesApiResponseData"))
 }
 
 func (p *OneOfListCompliancesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.config.Compliance>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21015)
+	}
 	if "List<licensing.v4.config.ComplianceProjection>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType401)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<licensing.v4.config.Compliance>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21015)
-	}
 	return nil, errors.New("No value to marshal for OneOfListCompliancesApiResponseData")
+}
+
+type OneOfListRecommendationsApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType21003 []Recommendation       `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListRecommendationsApiResponseData() *OneOfListRecommendationsApiResponseData {
+	p := new(OneOfListRecommendationsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListRecommendationsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListRecommendationsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Recommendation:
+		p.oneOfType21003 = v.([]Recommendation)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Recommendation>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Recommendation>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListRecommendationsApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.config.Recommendation>" == *p.Discriminator {
+		return p.oneOfType21003
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListRecommendationsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType21003 := new([]Recommendation)
+	if err := json.Unmarshal(b, vOneOfType21003); err == nil {
+		if len(*vOneOfType21003) == 0 || "licensing.v4.config.Recommendation" == *((*vOneOfType21003)[0].ObjectType_) {
+			p.oneOfType21003 = *vOneOfType21003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Recommendation>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Recommendation>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRecommendationsApiResponseData"))
+}
+
+func (p *OneOfListRecommendationsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.config.Recommendation>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21003)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListRecommendationsApiResponseData")
+}
+
+type OneOfListSettingsApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType21005 []Setting              `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListSettingsApiResponseData() *OneOfListSettingsApiResponseData {
+	p := new(OneOfListSettingsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListSettingsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListSettingsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Setting:
+		p.oneOfType21005 = v.([]Setting)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Setting>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Setting>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListSettingsApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.config.Setting>" == *p.Discriminator {
+		return p.oneOfType21005
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListSettingsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType21005 := new([]Setting)
+	if err := json.Unmarshal(b, vOneOfType21005); err == nil {
+		if len(*vOneOfType21005) == 0 || "licensing.v4.config.Setting" == *((*vOneOfType21005)[0].ObjectType_) {
+			p.oneOfType21005 = *vOneOfType21005
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Setting>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Setting>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSettingsApiResponseData"))
+}
+
+func (p *OneOfListSettingsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.config.Setting>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21005)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListSettingsApiResponseData")
+}
+
+type OneOfFeatureProjectionValue struct {
+	Discriminator  *string `json:"-"`
+	ObjectType_    *string `json:"-"`
+	oneOfType10032 *int    `json:"-"`
+	oneOfType10022 *bool   `json:"-"`
+}
+
+func NewOneOfFeatureProjectionValue() *OneOfFeatureProjectionValue {
+	p := new(OneOfFeatureProjectionValue)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfFeatureProjectionValue) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfFeatureProjectionValue is nil"))
+	}
+	switch v.(type) {
+	case int:
+		if nil == p.oneOfType10032 {
+			p.oneOfType10032 = new(int)
+		}
+		*p.oneOfType10032 = v.(int)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Integer"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Integer"
+	case bool:
+		if nil == p.oneOfType10022 {
+			p.oneOfType10022 = new(bool)
+		}
+		*p.oneOfType10022 = v.(bool)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Boolean"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Boolean"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfFeatureProjectionValue) GetValue() interface{} {
+	if "Integer" == *p.Discriminator {
+		return *p.oneOfType10032
+	}
+	if "Boolean" == *p.Discriminator {
+		return *p.oneOfType10022
+	}
+	return nil
+}
+
+func (p *OneOfFeatureProjectionValue) UnmarshalJSON(b []byte) error {
+	vOneOfType10032 := new(int)
+	if err := json.Unmarshal(b, vOneOfType10032); err == nil {
+		if nil == p.oneOfType10032 {
+			p.oneOfType10032 = new(int)
+		}
+		*p.oneOfType10032 = *vOneOfType10032
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Integer"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Integer"
+		return nil
+	}
+	vOneOfType10022 := new(bool)
+	if err := json.Unmarshal(b, vOneOfType10022); err == nil {
+		if nil == p.oneOfType10022 {
+			p.oneOfType10022 = new(bool)
+		}
+		*p.oneOfType10022 = *vOneOfType10022
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Boolean"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Boolean"
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFeatureProjectionValue"))
+}
+
+func (p *OneOfFeatureProjectionValue) MarshalJSON() ([]byte, error) {
+	if "Integer" == *p.Discriminator {
+		return json.Marshal(p.oneOfType10032)
+	}
+	if "Boolean" == *p.Discriminator {
+		return json.Marshal(p.oneOfType10022)
+	}
+	return nil, errors.New("No value to marshal for OneOfFeatureProjectionValue")
+}
+
+type OneOfUpdatePortalSettingApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType12003 []import1.AppMessage   `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdatePortalSettingApiResponseData() *OneOfUpdatePortalSettingApiResponseData {
+	p := new(OneOfUpdatePortalSettingApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdatePortalSettingApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdatePortalSettingApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []import1.AppMessage:
+		p.oneOfType12003 = v.([]import1.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdatePortalSettingApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType12003
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdatePortalSettingApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType12003 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType12003); err == nil {
+		if len(*vOneOfType12003) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType12003)[0].ObjectType_) {
+			p.oneOfType12003 = *vOneOfType12003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdatePortalSettingApiResponseData"))
+}
+
+func (p *OneOfUpdatePortalSettingApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType12003)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdatePortalSettingApiResponseData")
 }
 
 type OneOfListFeaturesApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
-	oneOfType401   []FeatureProjection    `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
 	oneOfType21003 []Feature              `json:"-"`
+	oneOfType401   []FeatureProjection    `json:"-"`
 }
 
 func NewOneOfListFeaturesApiResponseData() *OneOfListFeaturesApiResponseData {
@@ -4729,21 +5814,11 @@ func (p *OneOfListFeaturesApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfListFeaturesApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []FeatureProjection:
-		p.oneOfType401 = v.([]FeatureProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.FeatureProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.FeatureProjection>"
-	case import2.ErrorResponse:
+	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
+			p.oneOfType400 = new(import1.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
+		*p.oneOfType400 = v.(import1.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -4762,6 +5837,16 @@ func (p *OneOfListFeaturesApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = "List<licensing.v4.config.Feature>"
+	case []FeatureProjection:
+		p.oneOfType401 = v.([]FeatureProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.FeatureProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.FeatureProjection>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -4769,41 +5854,24 @@ func (p *OneOfListFeaturesApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfListFeaturesApiResponseData) GetValue() interface{} {
-	if "List<licensing.v4.config.FeatureProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
 	if "List<licensing.v4.config.Feature>" == *p.Discriminator {
 		return p.oneOfType21003
 	}
+	if "List<licensing.v4.config.FeatureProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
 	return nil
 }
 
 func (p *OneOfListFeaturesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType401 := new([]FeatureProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.FeatureProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.FeatureProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.FeatureProjection>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
+	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
+				p.oneOfType400 = new(import1.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -4819,7 +5887,6 @@ func (p *OneOfListFeaturesApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType21003 := new([]Feature)
 	if err := json.Unmarshal(b, vOneOfType21003); err == nil {
-
 		if len(*vOneOfType21003) == 0 || "licensing.v4.config.Feature" == *((*vOneOfType21003)[0].ObjectType_) {
 			p.oneOfType21003 = *vOneOfType21003
 			if nil == p.Discriminator {
@@ -4831,49 +5898,76 @@ func (p *OneOfListFeaturesApiResponseData) UnmarshalJSON(b []byte) error {
 			}
 			*p.ObjectType_ = "List<licensing.v4.config.Feature>"
 			return nil
-
+		}
+	}
+	vOneOfType401 := new([]FeatureProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "licensing.v4.config.FeatureProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.FeatureProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.FeatureProjection>"
+			return nil
 		}
 	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListFeaturesApiResponseData"))
 }
 
 func (p *OneOfListFeaturesApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<licensing.v4.config.FeatureProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if "List<licensing.v4.config.Feature>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType21003)
 	}
+	if "List<licensing.v4.config.FeatureProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
 	return nil, errors.New("No value to marshal for OneOfListFeaturesApiResponseData")
 }
 
-type OneOfListSettingsApiResponseData struct {
+type OneOfSyncLicenseStateApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
-	oneOfType21005 []Setting              `json:"-"`
+	oneOfType21017 *import3.TaskReference `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
 }
 
-func NewOneOfListSettingsApiResponseData() *OneOfListSettingsApiResponseData {
-	p := new(OneOfListSettingsApiResponseData)
+func NewOneOfSyncLicenseStateApiResponseData() *OneOfSyncLicenseStateApiResponseData {
+	p := new(OneOfSyncLicenseStateApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListSettingsApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfSyncLicenseStateApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListSettingsApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfSyncLicenseStateApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
+	case import3.TaskReference:
+		if nil == p.oneOfType21017 {
+			p.oneOfType21017 = new(import3.TaskReference)
 		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
+		*p.oneOfType21017 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType21017.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType21017.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -4882,38 +5976,46 @@ func (p *OneOfListSettingsApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Setting:
-		p.oneOfType21005 = v.([]Setting)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.Setting>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.Setting>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfListSettingsApiResponseData) GetValue() interface{} {
+func (p *OneOfSyncLicenseStateApiResponseData) GetValue() interface{} {
+	if p.oneOfType21017 != nil && *p.oneOfType21017.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType21017
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
-	}
-	if "List<licensing.v4.config.Setting>" == *p.Discriminator {
-		return p.oneOfType21005
 	}
 	return nil
 }
 
-func (p *OneOfListSettingsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
+func (p *OneOfSyncLicenseStateApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType21017 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType21017); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType21017.ObjectType_ {
+			if nil == p.oneOfType21017 {
+				p.oneOfType21017 = new(import3.TaskReference)
+			}
+			*p.oneOfType21017 = *vOneOfType21017
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType21017.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType21017.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
+				p.oneOfType400 = new(import1.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -4927,60 +6029,43 @@ func (p *OneOfListSettingsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType21005 := new([]Setting)
-	if err := json.Unmarshal(b, vOneOfType21005); err == nil {
-
-		if len(*vOneOfType21005) == 0 || "licensing.v4.config.Setting" == *((*vOneOfType21005)[0].ObjectType_) {
-			p.oneOfType21005 = *vOneOfType21005
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.Setting>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.Setting>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSettingsApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSyncLicenseStateApiResponseData"))
 }
 
-func (p *OneOfListSettingsApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfSyncLicenseStateApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType21017 != nil && *p.oneOfType21017.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType21017)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<licensing.v4.config.Setting>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21005)
-	}
-	return nil, errors.New("No value to marshal for OneOfListSettingsApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfSyncLicenseStateApiResponseData")
 }
 
-type OneOfGetClusterAllowanceApiResponseData struct {
+type OneOfAssignLicenseKeysApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import2.ErrorResponse `json:"-"`
-	oneOfType21013 *ClusterAllowance      `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType31009 []import1.AppMessage   `json:"-"`
 }
 
-func NewOneOfGetClusterAllowanceApiResponseData() *OneOfGetClusterAllowanceApiResponseData {
-	p := new(OneOfGetClusterAllowanceApiResponseData)
+func NewOneOfAssignLicenseKeysApiResponseData() *OneOfAssignLicenseKeysApiResponseData {
+	p := new(OneOfAssignLicenseKeysApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetClusterAllowanceApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfAssignLicenseKeysApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetClusterAllowanceApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfAssignLicenseKeysApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import2.ErrorResponse:
+	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
+			p.oneOfType400 = new(import1.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
+		*p.oneOfType400 = v.(import1.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -4989,41 +6074,38 @@ func (p *OneOfGetClusterAllowanceApiResponseData) SetValue(v interface{}) error 
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ClusterAllowance:
-		if nil == p.oneOfType21013 {
-			p.oneOfType21013 = new(ClusterAllowance)
-		}
-		*p.oneOfType21013 = v.(ClusterAllowance)
+	case []import1.AppMessage:
+		p.oneOfType31009 = v.([]import1.AppMessage)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType21013.ObjectType_
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType21013.ObjectType_
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfGetClusterAllowanceApiResponseData) GetValue() interface{} {
+func (p *OneOfAssignLicenseKeysApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if p.oneOfType21013 != nil && *p.oneOfType21013.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType21013
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType31009
 	}
 	return nil
 }
 
-func (p *OneOfGetClusterAllowanceApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
+func (p *OneOfAssignLicenseKeysApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
+				p.oneOfType400 = new(import1.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -5037,35 +6119,1270 @@ func (p *OneOfGetClusterAllowanceApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
-	vOneOfType21013 := new(ClusterAllowance)
-	if err := json.Unmarshal(b, vOneOfType21013); err == nil {
-		if "licensing.v4.config.ClusterAllowance" == *vOneOfType21013.ObjectType_ {
-			if nil == p.oneOfType21013 {
-				p.oneOfType21013 = new(ClusterAllowance)
-			}
-			*p.oneOfType21013 = *vOneOfType21013
+	vOneOfType31009 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType31009); err == nil {
+		if len(*vOneOfType31009) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType31009)[0].ObjectType_) {
+			p.oneOfType31009 = *vOneOfType31009
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType21013.ObjectType_
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType21013.ObjectType_
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetClusterAllowanceApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssignLicenseKeysApiResponseData"))
 }
 
-func (p *OneOfGetClusterAllowanceApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfAssignLicenseKeysApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if p.oneOfType21013 != nil && *p.oneOfType21013.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType21013)
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31009)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetClusterAllowanceApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfAssignLicenseKeysApiResponseData")
+}
+
+type OneOfDeleteLicenseKeyApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType31011 *interface{}           `json:"-"`
+}
+
+func NewOneOfDeleteLicenseKeyApiResponseData() *OneOfDeleteLicenseKeyApiResponseData {
+	p := new(OneOfDeleteLicenseKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteLicenseKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteLicenseKeyApiResponseData is nil"))
+	}
+	if nil == v {
+		if nil == p.oneOfType31011 {
+			p.oneOfType31011 = new(interface{})
+		}
+		*p.oneOfType31011 = nil
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "EMPTY"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "EMPTY"
+		return nil
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteLicenseKeyApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "EMPTY" == *p.Discriminator {
+		return *p.oneOfType31011
+	}
+	return nil
+}
+
+func (p *OneOfDeleteLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType31011 := new(interface{})
+	if err := json.Unmarshal(b, vOneOfType31011); err == nil {
+		if nil == *vOneOfType31011 {
+			if nil == p.oneOfType31011 {
+				p.oneOfType31011 = new(interface{})
+			}
+			*p.oneOfType31011 = nil
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "EMPTY"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "EMPTY"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteLicenseKeyApiResponseData"))
+}
+
+func (p *OneOfDeleteLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "EMPTY" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31011)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteLicenseKeyApiResponseData")
+}
+
+type OneOfGetLicenseKeyApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType31013 *LicenseKey            `json:"-"`
+}
+
+func NewOneOfGetLicenseKeyApiResponseData() *OneOfGetLicenseKeyApiResponseData {
+	p := new(OneOfGetLicenseKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetLicenseKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetLicenseKeyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case LicenseKey:
+		if nil == p.oneOfType31013 {
+			p.oneOfType31013 = new(LicenseKey)
+		}
+		*p.oneOfType31013 = v.(LicenseKey)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType31013.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType31013.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetLicenseKeyApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType31013 != nil && *p.oneOfType31013.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType31013
+	}
+	return nil
+}
+
+func (p *OneOfGetLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType31013 := new(LicenseKey)
+	if err := json.Unmarshal(b, vOneOfType31013); err == nil {
+		if "licensing.v4.config.LicenseKey" == *vOneOfType31013.ObjectType_ {
+			if nil == p.oneOfType31013 {
+				p.oneOfType31013 = new(LicenseKey)
+			}
+			*p.oneOfType31013 = *vOneOfType31013
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType31013.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType31013.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetLicenseKeyApiResponseData"))
+}
+
+func (p *OneOfGetLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType31013 != nil && *p.oneOfType31013.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType31013)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetLicenseKeyApiResponseData")
+}
+
+type OneOfListEntitlementsApiResponseData struct {
+	Discriminator  *string                 `json:"-"`
+	ObjectType_    *string                 `json:"-"`
+	oneOfType401   []EntitlementProjection `json:"-"`
+	oneOfType400   *import1.ErrorResponse  `json:"-"`
+	oneOfType21010 []Entitlement           `json:"-"`
+}
+
+func NewOneOfListEntitlementsApiResponseData() *OneOfListEntitlementsApiResponseData {
+	p := new(OneOfListEntitlementsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListEntitlementsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListEntitlementsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []EntitlementProjection:
+		p.oneOfType401 = v.([]EntitlementProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.EntitlementProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.EntitlementProjection>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Entitlement:
+		p.oneOfType21010 = v.([]Entitlement)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Entitlement>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Entitlement>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListEntitlementsApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.config.EntitlementProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<licensing.v4.config.Entitlement>" == *p.Discriminator {
+		return p.oneOfType21010
+	}
+	return nil
+}
+
+func (p *OneOfListEntitlementsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType401 := new([]EntitlementProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "licensing.v4.config.EntitlementProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.EntitlementProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.EntitlementProjection>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType21010 := new([]Entitlement)
+	if err := json.Unmarshal(b, vOneOfType21010); err == nil {
+		if len(*vOneOfType21010) == 0 || "licensing.v4.config.Entitlement" == *((*vOneOfType21010)[0].ObjectType_) {
+			p.oneOfType21010 = *vOneOfType21010
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Entitlement>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Entitlement>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListEntitlementsApiResponseData"))
+}
+
+func (p *OneOfListEntitlementsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.config.EntitlementProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<licensing.v4.config.Entitlement>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21010)
+	}
+	return nil, errors.New("No value to marshal for OneOfListEntitlementsApiResponseData")
+}
+
+type OneOfResetLicenseStateApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType21017 []import1.AppMessage   `json:"-"`
+}
+
+func NewOneOfResetLicenseStateApiResponseData() *OneOfResetLicenseStateApiResponseData {
+	p := new(OneOfResetLicenseStateApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfResetLicenseStateApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfResetLicenseStateApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []import1.AppMessage:
+		p.oneOfType21017 = v.([]import1.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfResetLicenseStateApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType21017
+	}
+	return nil
+}
+
+func (p *OneOfResetLicenseStateApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType21017 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType21017); err == nil {
+		if len(*vOneOfType21017) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType21017)[0].ObjectType_) {
+			p.oneOfType21017 = *vOneOfType21017
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfResetLicenseStateApiResponseData"))
+}
+
+func (p *OneOfResetLicenseStateApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21017)
+	}
+	return nil, errors.New("No value to marshal for OneOfResetLicenseStateApiResponseData")
+}
+
+type OneOfListAllowancesApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType21012 []Allowance            `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType401   []AllowanceProjection  `json:"-"`
+}
+
+func NewOneOfListAllowancesApiResponseData() *OneOfListAllowancesApiResponseData {
+	p := new(OneOfListAllowancesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListAllowancesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListAllowancesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Allowance:
+		p.oneOfType21012 = v.([]Allowance)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Allowance>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Allowance>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []AllowanceProjection:
+		p.oneOfType401 = v.([]AllowanceProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.AllowanceProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.AllowanceProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListAllowancesApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.config.Allowance>" == *p.Discriminator {
+		return p.oneOfType21012
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<licensing.v4.config.AllowanceProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfListAllowancesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType21012 := new([]Allowance)
+	if err := json.Unmarshal(b, vOneOfType21012); err == nil {
+		if len(*vOneOfType21012) == 0 || "licensing.v4.config.Allowance" == *((*vOneOfType21012)[0].ObjectType_) {
+			p.oneOfType21012 = *vOneOfType21012
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Allowance>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Allowance>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]AllowanceProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "licensing.v4.config.AllowanceProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.AllowanceProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.AllowanceProjection>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListAllowancesApiResponseData"))
+}
+
+func (p *OneOfListAllowancesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.config.Allowance>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21012)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<licensing.v4.config.AllowanceProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfListAllowancesApiResponseData")
+}
+
+type OneOfListLicensesApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType401   []LicenseProjection    `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType21003 []License              `json:"-"`
+}
+
+func NewOneOfListLicensesApiResponseData() *OneOfListLicensesApiResponseData {
+	p := new(OneOfListLicensesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListLicensesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListLicensesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []LicenseProjection:
+		p.oneOfType401 = v.([]LicenseProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.LicenseProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.LicenseProjection>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []License:
+		p.oneOfType21003 = v.([]License)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.License>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.License>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListLicensesApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.config.LicenseProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<licensing.v4.config.License>" == *p.Discriminator {
+		return p.oneOfType21003
+	}
+	return nil
+}
+
+func (p *OneOfListLicensesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType401 := new([]LicenseProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "licensing.v4.config.LicenseProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.LicenseProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.LicenseProjection>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType21003 := new([]License)
+	if err := json.Unmarshal(b, vOneOfType21003); err == nil {
+		if len(*vOneOfType21003) == 0 || "licensing.v4.config.License" == *((*vOneOfType21003)[0].ObjectType_) {
+			p.oneOfType21003 = *vOneOfType21003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.License>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.License>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLicensesApiResponseData"))
+}
+
+func (p *OneOfListLicensesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.config.LicenseProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<licensing.v4.config.License>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21003)
+	}
+	return nil, errors.New("No value to marshal for OneOfListLicensesApiResponseData")
+}
+
+type OneOfListViolationsApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType21008 []Violation            `json:"-"`
+}
+
+func NewOneOfListViolationsApiResponseData() *OneOfListViolationsApiResponseData {
+	p := new(OneOfListViolationsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListViolationsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListViolationsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Violation:
+		p.oneOfType21008 = v.([]Violation)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Violation>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Violation>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListViolationsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<licensing.v4.config.Violation>" == *p.Discriminator {
+		return p.oneOfType21008
+	}
+	return nil
+}
+
+func (p *OneOfListViolationsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType21008 := new([]Violation)
+	if err := json.Unmarshal(b, vOneOfType21008); err == nil {
+		if len(*vOneOfType21008) == 0 || "licensing.v4.config.Violation" == *((*vOneOfType21008)[0].ObjectType_) {
+			p.oneOfType21008 = *vOneOfType21008
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Violation>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Violation>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListViolationsApiResponseData"))
+}
+
+func (p *OneOfListViolationsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<licensing.v4.config.Violation>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21008)
+	}
+	return nil, errors.New("No value to marshal for OneOfListViolationsApiResponseData")
+}
+
+type OneOfFeatureValue struct {
+	Discriminator  *string `json:"-"`
+	ObjectType_    *string `json:"-"`
+	oneOfType10032 *int    `json:"-"`
+	oneOfType10022 *bool   `json:"-"`
+}
+
+func NewOneOfFeatureValue() *OneOfFeatureValue {
+	p := new(OneOfFeatureValue)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfFeatureValue) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfFeatureValue is nil"))
+	}
+	switch v.(type) {
+	case int:
+		if nil == p.oneOfType10032 {
+			p.oneOfType10032 = new(int)
+		}
+		*p.oneOfType10032 = v.(int)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Integer"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Integer"
+	case bool:
+		if nil == p.oneOfType10022 {
+			p.oneOfType10022 = new(bool)
+		}
+		*p.oneOfType10022 = v.(bool)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Boolean"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Boolean"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfFeatureValue) GetValue() interface{} {
+	if "Integer" == *p.Discriminator {
+		return *p.oneOfType10032
+	}
+	if "Boolean" == *p.Discriminator {
+		return *p.oneOfType10022
+	}
+	return nil
+}
+
+func (p *OneOfFeatureValue) UnmarshalJSON(b []byte) error {
+	vOneOfType10032 := new(int)
+	if err := json.Unmarshal(b, vOneOfType10032); err == nil {
+		if nil == p.oneOfType10032 {
+			p.oneOfType10032 = new(int)
+		}
+		*p.oneOfType10032 = *vOneOfType10032
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Integer"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Integer"
+		return nil
+	}
+	vOneOfType10022 := new(bool)
+	if err := json.Unmarshal(b, vOneOfType10022); err == nil {
+		if nil == p.oneOfType10022 {
+			p.oneOfType10022 = new(bool)
+		}
+		*p.oneOfType10022 = *vOneOfType10022
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Boolean"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Boolean"
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFeatureValue"))
+}
+
+func (p *OneOfFeatureValue) MarshalJSON() ([]byte, error) {
+	if "Integer" == *p.Discriminator {
+		return json.Marshal(p.oneOfType10032)
+	}
+	if "Boolean" == *p.Discriminator {
+		return json.Marshal(p.oneOfType10022)
+	}
+	return nil, errors.New("No value to marshal for OneOfFeatureValue")
+}
+
+type OneOfAddLicenseKeyApiResponseData struct {
+	Discriminator  *string                         `json:"-"`
+	ObjectType_    *string                         `json:"-"`
+	oneOfType401   *AddLicenseKeyDryRunApiResponse `json:"-"`
+	oneOfType31003 *LicenseKey                     `json:"-"`
+	oneOfType400   *import1.ErrorResponse          `json:"-"`
+}
+
+func NewOneOfAddLicenseKeyApiResponseData() *OneOfAddLicenseKeyApiResponseData {
+	p := new(OneOfAddLicenseKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfAddLicenseKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfAddLicenseKeyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case AddLicenseKeyDryRunApiResponse:
+		if nil == p.oneOfType401 {
+			p.oneOfType401 = new(AddLicenseKeyDryRunApiResponse)
+		}
+		*p.oneOfType401 = v.(AddLicenseKeyDryRunApiResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType401.ObjectType_
+	case LicenseKey:
+		if nil == p.oneOfType31003 {
+			p.oneOfType31003 = new(LicenseKey)
+		}
+		*p.oneOfType31003 = v.(LicenseKey)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType31003.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType31003.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfAddLicenseKeyApiResponseData) GetValue() interface{} {
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType401
+	}
+	if p.oneOfType31003 != nil && *p.oneOfType31003.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType31003
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfAddLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType401 := new(AddLicenseKeyDryRunApiResponse)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if "licensing.v4.config.AddLicenseKeyDryRunApiResponse" == *vOneOfType401.ObjectType_ {
+			if nil == p.oneOfType401 {
+				p.oneOfType401 = new(AddLicenseKeyDryRunApiResponse)
+			}
+			*p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType401.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType31003 := new(LicenseKey)
+	if err := json.Unmarshal(b, vOneOfType31003); err == nil {
+		if "licensing.v4.config.LicenseKey" == *vOneOfType31003.ObjectType_ {
+			if nil == p.oneOfType31003 {
+				p.oneOfType31003 = new(LicenseKey)
+			}
+			*p.oneOfType31003 = *vOneOfType31003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType31003.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType31003.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddLicenseKeyApiResponseData"))
+}
+
+func (p *OneOfAddLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType31003 != nil && *p.oneOfType31003.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType31003)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfAddLicenseKeyApiResponseData")
+}
+
+type OneOfListLicenseKeysApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType31007 []LicenseKey           `json:"-"`
+	oneOfType401   []LicenseKeyProjection `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListLicenseKeysApiResponseData() *OneOfListLicenseKeysApiResponseData {
+	p := new(OneOfListLicenseKeysApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListLicenseKeysApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListLicenseKeysApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []LicenseKey:
+		p.oneOfType31007 = v.([]LicenseKey)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.LicenseKey>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.LicenseKey>"
+	case []LicenseKeyProjection:
+		p.oneOfType401 = v.([]LicenseKeyProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.LicenseKeyProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.LicenseKeyProjection>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListLicenseKeysApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.config.LicenseKey>" == *p.Discriminator {
+		return p.oneOfType31007
+	}
+	if "List<licensing.v4.config.LicenseKeyProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListLicenseKeysApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType31007 := new([]LicenseKey)
+	if err := json.Unmarshal(b, vOneOfType31007); err == nil {
+		if len(*vOneOfType31007) == 0 || "licensing.v4.config.LicenseKey" == *((*vOneOfType31007)[0].ObjectType_) {
+			p.oneOfType31007 = *vOneOfType31007
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.LicenseKey>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.LicenseKey>"
+			return nil
+		}
+	}
+	vOneOfType401 := new([]LicenseKeyProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "licensing.v4.config.LicenseKeyProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.LicenseKeyProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.LicenseKeyProjection>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLicenseKeysApiResponseData"))
+}
+
+func (p *OneOfListLicenseKeysApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.config.LicenseKey>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31007)
+	}
+	if "List<licensing.v4.config.LicenseKeyProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListLicenseKeysApiResponseData")
 }
 
 type FileDetail struct {
