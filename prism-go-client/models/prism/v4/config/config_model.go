@@ -1,9 +1,9 @@
 /*
  * Generated file models/prism/v4/config/config_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Prism Versioned APIs
+ * Part of the Nutanix Prism APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
@@ -19,18 +19,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/common/v1/config"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/common/v1/response"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/error"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/clustermgmt/v4/config"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/common/v1/config"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/common/v1/response"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/error"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/vmm/v4/ahv/config"
 	"time"
 )
 
-/*
-This attribute contains the list of entities and policies which have been assigned the given category.<br>
-These entities are grouped by entity types (like VM or HOST) or policy types (like PROTECTION_POLICY or NGT_POLICY).<br>
-Each associated object contains the total entities belonging to the given entity type, count, category extId, and
-references (for example for VM it'd be VM uuid).
-*/
 type AssociationDetail struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -38,11 +34,19 @@ type AssociationDetail struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  External identifier for the given category, used across all v4 apis/entities/resources where categories are referenced.<br>
-	The field has UUID format.<br>
+	  External identifier for the given category that is used across all v4 apis/entities/resources where categories are referenced.<br>
+	The field is in UUID format.<br>
 	A type 4 UUID is generated during category creation.
 	*/
 	CategoryId *string `json:"categoryId,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
 
 	ResourceGroup *ResourceGroup `json:"resourceGroup,omitempty"`
 	/*
@@ -51,24 +55,28 @@ type AssociationDetail struct {
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	ResourceType *ResourceType `json:"resourceType,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
 }
 
 func NewAssociationDetail() *AssociationDetail {
 	p := new(AssociationDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-This attribute contains the list of entities which have been assigned the given category.<br>
+This attribute contains a list of entities which have been assigned the given category.<br>
 These entities are grouped by entity types (like VM or HOST) or policy types (like PROTECTION_POLICY or
 NGT_POLICY).<br>
 Each associated object contains the total entities belonging to the given entity type, category extId, and
-references (for example for VM it'd be VM UUID).
+references (for example, for VM it will be VM UUID).
 */
 type AssociationDetailOld struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -98,7 +106,7 @@ func NewAssociationDetailOld() *AssociationDetailOld {
 	p := new(AssociationDetailOld)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationDetailOld"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -132,7 +140,7 @@ func NewAssociationDetailOldProjection() *AssociationDetailOldProjection {
 	p := new(AssociationDetailOldProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationDetailOldProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -145,11 +153,19 @@ type AssociationDetailProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  External identifier for the given category, used across all v4 apis/entities/resources where categories are referenced.<br>
-	The field has UUID format.<br>
+	  External identifier for the given category that is used across all v4 apis/entities/resources where categories are referenced.<br>
+	The field is in UUID format.<br>
 	A type 4 UUID is generated during category creation.
 	*/
 	CategoryId *string `json:"categoryId,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
 
 	ResourceGroup *ResourceGroup `json:"resourceGroup,omitempty"`
 	/*
@@ -158,23 +174,27 @@ type AssociationDetailProjection struct {
 	ResourceId *string `json:"resourceId,omitempty"`
 
 	ResourceType *ResourceType `json:"resourceType,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
 }
 
 func NewAssociationDetailProjection() *AssociationDetailProjection {
 	p := new(AssociationDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-This attribute contains the list of entities and policies which have been assigned the given category.<br>
+This attribute contains a list of entities and policies that have been assigned the given category.<br>
 These entities are grouped by entity types (like VM or HOST) or policy types (like PROTECTION_POLICY or NGT_POLICY).<br>
 Each associated object contains the total entities belonging to the given entity type, count, category extId, and
-references (for example for VM it'd be VM uuid).
+references (for example, for VM it will be VM UUID).
 */
 type AssociationSummary struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -183,8 +203,8 @@ type AssociationSummary struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  External identifier for the given category, used across all v4 apis/entities/resources where categories are referenced.<br>
-	The field has UUID format.<br>
+	  External identifier for the given category that is used across all v4 apis/entities/resources where categories are referenced.<br>
+	The field is in UUID format.<br>
 	A type 4 UUID is generated during category creation.
 	*/
 	CategoryId *string `json:"categoryId,omitempty"`
@@ -202,7 +222,7 @@ func NewAssociationSummary() *AssociationSummary {
 	p := new(AssociationSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -215,8 +235,8 @@ type AssociationSummaryProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  External identifier for the given category, used across all v4 apis/entities/resources where categories are referenced.<br>
-	The field has UUID format.<br>
+	  External identifier for the given category that is used across all v4 apis/entities/resources where categories are referenced.<br>
+	The field is in UUID format.<br>
 	A type 4 UUID is generated during category creation.
 	*/
 	CategoryId *string `json:"categoryId,omitempty"`
@@ -234,14 +254,85 @@ func NewAssociationSummaryProjection() *AssociationSummaryProjection {
 	p := new(AssociationSummaryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationSummaryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/config/tasks/{taskExtId}/$actions/cancel Post operation
+This model would abstract away the common attributes as part of internal and external networks.
+*/
+type BaseNetwork struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	DefaultGateway *import2.IPAddressOrFQDN `json:"defaultGateway"`
+	/*
+	  Range of IPs used for Prism Central network setup.
+	*/
+	IpRanges []import2.IpRange `json:"ipRanges"`
+
+	SubnetMask *import2.IPAddressOrFQDN `json:"subnetMask"`
+}
+
+func (p *BaseNetwork) MarshalJSON() ([]byte, error) {
+	type BaseNetworkProxy BaseNetwork
+	return json.Marshal(struct {
+		*BaseNetworkProxy
+		DefaultGateway *import2.IPAddressOrFQDN `json:"defaultGateway,omitempty"`
+		IpRanges       []import2.IpRange        `json:"ipRanges,omitempty"`
+		SubnetMask     *import2.IPAddressOrFQDN `json:"subnetMask,omitempty"`
+	}{
+		BaseNetworkProxy: (*BaseNetworkProxy)(p),
+		DefaultGateway:   p.DefaultGateway,
+		IpRanges:         p.IpRanges,
+		SubnetMask:       p.SubnetMask,
+	})
+}
+
+func NewBaseNetwork() *BaseNetwork {
+	p := new(BaseNetwork)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.BaseNetwork"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Bootstrap configuration details for the domain manager (Prism Central).
+*/
+type BootstrapConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of cloud-init commands required to bootstrap the domain manager (Prism Central) cluster on a startup.
+	*/
+	CloudInitConfig []import3.CloudInit `json:"cloudInitConfig,omitempty"`
+
+	EnvironmentInfo *EnvironmentInfo `json:"environmentInfo,omitempty"`
+}
+
+func NewBootstrapConfig() *BootstrapConfig {
+	p := new(BootstrapConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.BootstrapConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /prism/v4.0/config/tasks/{taskExtId}/$actions/cancel Post operation
 */
 type CancelTaskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -256,14 +347,14 @@ type CancelTaskApiResponse struct {
 
 	Data *OneOfCancelTaskApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewCancelTaskApiResponse() *CancelTaskApiResponse {
 	p := new(CancelTaskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CancelTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -297,11 +388,11 @@ type Category struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  This field gives basic information about resources that are associated to the category.<br>
-	The results present under this field summarize the counts of various kinds of resources associated to the category.<br>
+	  This field gives basic information about resources that are associated with the category.<br>
+	The results present under this field summarize the counts of various kinds of resources associated with the category.<br>
 	For more detailed information about the UUIDs of the resources, please look into the field `detailedAssociations`.<br>
 	This field will be ignored, if given in the payload of `updateCategoryById` or `createCategory` APIs.<br>
-	This field will not be present by default in `listCategories` API, unless the parameter $expand=associations is present in the url.
+	This field will not be present by default in `listCategories` API, unless the parameter $expand=associations is present in the URL.
 	*/
 	Associations []AssociationSummary `json:"associations,omitempty"`
 	/*
@@ -314,10 +405,10 @@ type Category struct {
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  This field gives detailed information about resources that are associated to the category.<br>
-	The results present under this field contain the UUIDs of the entities and policies of various kinds associated to the category.<br>
+	  This field gives detailed information about the resources which are associated with the category.<br>
+	The results present under this field contain the UUIDs of the entities and policies of various kinds associated with the category.<br>
 	This field will be ignored, if given in the payload of `updateCategoryById` or `createCategory` APIs.<br>
-	This field will not be present by default in `listCategories` or `getCategoryById` APIs, unless the parameter $expand=detailedAssociations is present in the url.
+	This field will not be present by default in `listCategories` or `getCategoryById` APIs, unless the parameter $expand=detailedAssociations is present in the URL.
 	*/
 	DetailedAssociations []AssociationDetail `json:"detailedAssociations,omitempty"`
 	/*
@@ -339,12 +430,12 @@ type Category struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
 	  This field contains the UUID of a user who owns the category.<br>
-	This field will be ignored, if given in the payload of `createCategory` API. Hence, when a category is created, the logged-in user automatically becomes the owner of the category.<br>
-	This field can be updated through `updateCategoryById` API, in which case, should be provided, UUID of a valid user present in the system.<br>
-	Validity of the user UUID can be checked by invoking the api: authn/users/{extId} in the 'Identity and Access Management' or 'IAM' namespace.<br>
+	This field will be ignored if given in the payload of `createCategory` API. Hence, when a category is created, the logged-in user automatically becomes the owner of the category.<br>
+	This field can be updated through `updateCategoryById` API, in which case, should be provided, UUID of a valid user is present in the system.<br>
+	Validity of the user UUID can be checked by invoking the API: authn/users/{extId} in the 'Identity and Access Management' or 'IAM' namespace.<br>
 	It is used for enabling RBAC access to self-owned categories.
 	*/
 	OwnerUuid *string `json:"ownerUuid,omitempty"`
@@ -357,8 +448,8 @@ type Category struct {
 	/*
 	  The value of a category when it is represented in `key:value` format.
 
-	Constraints applicable when field is given in the payload during create and update:
-	* A string of maxlength 64
+	Constraints applicable when the field is given in the payload during create and update:
+	* A string of max length 64
 	* Character at the start cannot be `$`
 	* Character `/` is not allowed anywhere
 
@@ -386,14 +477,14 @@ func NewCategory() *Category {
 	p := new(Category)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.Category"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-This attribute contains the list of entities which have been assigned the given category.<br>
+This attribute contains a list of entities that have been assigned the given category.<br>
 These entities are grouped by entity types (like VM or HOST).<br>
 Each associated object contains the total entities belonging to the given entity type, and category extId.
 */
@@ -423,7 +514,7 @@ func NewCategoryAssociationSummaryOld() *CategoryAssociationSummaryOld {
 	p := new(CategoryAssociationSummaryOld)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryAssociationSummaryOld"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -455,7 +546,7 @@ func NewCategoryAssociationSummaryOldProjection() *CategoryAssociationSummaryOld
 	p := new(CategoryAssociationSummaryOldProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryAssociationSummaryOldProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -474,7 +565,11 @@ type CategoryOld struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	Associations []CategoryAssociationSummaryOld `json:"associations,omitempty"`
-
+	/*
+	  This attribute contains the list of all the categories for which this category is the parent.<br>
+	The parentExtId attributes of each child category is set as the extId of this category.<br>
+	Note that this list only contains the Summary view of each child category.
+	*/
 	ChildCategories []CategorySummaryOld `json:"childCategories,omitempty"`
 	/*
 	  A string consisting of the description of the category as defined by the user.
@@ -500,21 +595,22 @@ type CategoryOld struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
 	  Opaque metadata which can be associated to a category.<br>
 	It is a list of key-value pairs.<br>
 	For example, for a category 'California/SanJose' we can associate a geographical coordinate based metadata
-	like: {'latitude': '37.3382° N' , 'longitude': '121.8863° W'}.
+	like: {'latitude': '37.3382° N', 'longitude': '121.8863° W'}.
 
 	The server does not validate this value nor does it enforce the uniqueness or any other constraints.
 	It is the responsibility of the user to ensure that any semantic or syntactic constraints are retained when mutating
 	this field.
 	*/
-	Metadata []import3.KVPair `json:"metadata,omitempty"`
+	Metadata []import2.KVPair `json:"metadata,omitempty"`
 	/*
 	  The short name of this category. It may not be unique for each category.<br>
-	It is a mandatory field which must be specified inside the post/put request body.<br>
+	It is a mandatory field that must be specified inside the post/put request
+	body.<br>
 	This field is immutable.
 	*/
 	Name *string `json:"name"`
@@ -540,11 +636,11 @@ type CategoryOld struct {
 
 	Type *CategoryType `json:"type,omitempty"`
 	/*
-	  The user specified name is a string that the user can specify; with syntax and semantics controlled by the user.
+	  The user-specified name is a string that the user can specify; with syntax and semantics controlled by the user.
 
 	The server does not validate this value nor does it enforce the uniqueness or any other constraints.<br>
 	It is the responsibility of the user to ensure that any semantic or syntactic constraints are retained when mutating
-	this field. Unlike the name of the categories, which is immutable, the user name can be changed by the user to meet their needs.
+	this field. Unlike the name of the categories, which are immutable, the user name can be changed by the user to meet their needs.
 	*/
 	UserSpecifiedName *string `json:"userSpecifiedName,omitempty"`
 }
@@ -564,7 +660,7 @@ func NewCategoryOld() *CategoryOld {
 	p := new(CategoryOld)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryOld"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -579,10 +675,14 @@ type CategoryOldProjection struct {
 
 	Associations []CategoryAssociationSummaryOld `json:"associations,omitempty"`
 
-	CategoryAssociationSummaryOldProjection *CategoryAssociationSummaryOldProjection `json:"categoryAssociationSummaryOldProjection,omitempty"`
+	CategoryAssociationSummaryOldProjection []CategoryAssociationSummaryOldProjection `json:"categoryAssociationSummaryOldProjection,omitempty"`
 
-	CategorySummaryOldProjection *CategorySummaryOldProjection `json:"categorySummaryOldProjection,omitempty"`
-
+	CategorySummaryOldProjection []CategorySummaryOldProjection `json:"categorySummaryOldProjection,omitempty"`
+	/*
+	  This attribute contains the list of all the categories for which this category is the parent.<br>
+	The parentExtId attributes of each child category is set as the extId of this category.<br>
+	Note that this list only contains the Summary view of each child category.
+	*/
 	ChildCategories []CategorySummaryOld `json:"childCategories,omitempty"`
 	/*
 	  A string consisting of the description of the category as defined by the user.
@@ -608,21 +708,22 @@ type CategoryOldProjection struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
 	  Opaque metadata which can be associated to a category.<br>
 	It is a list of key-value pairs.<br>
 	For example, for a category 'California/SanJose' we can associate a geographical coordinate based metadata
-	like: {'latitude': '37.3382° N' , 'longitude': '121.8863° W'}.
+	like: {'latitude': '37.3382° N', 'longitude': '121.8863° W'}.
 
 	The server does not validate this value nor does it enforce the uniqueness or any other constraints.
 	It is the responsibility of the user to ensure that any semantic or syntactic constraints are retained when mutating
 	this field.
 	*/
-	Metadata []import3.KVPair `json:"metadata,omitempty"`
+	Metadata []import2.KVPair `json:"metadata,omitempty"`
 	/*
 	  The short name of this category. It may not be unique for each category.<br>
-	It is a mandatory field which must be specified inside the post/put request body.<br>
+	It is a mandatory field that must be specified inside the post/put request
+	body.<br>
 	This field is immutable.
 	*/
 	Name *string `json:"name"`
@@ -648,11 +749,11 @@ type CategoryOldProjection struct {
 
 	Type *CategoryType `json:"type,omitempty"`
 	/*
-	  The user specified name is a string that the user can specify; with syntax and semantics controlled by the user.
+	  The user-specified name is a string that the user can specify; with syntax and semantics controlled by the user.
 
 	The server does not validate this value nor does it enforce the uniqueness or any other constraints.<br>
 	It is the responsibility of the user to ensure that any semantic or syntactic constraints are retained when mutating
-	this field. Unlike the name of the categories, which is immutable, the user name can be changed by the user to meet their needs.
+	this field. Unlike the name of the categories, which are immutable, the user name can be changed by the user to meet their needs.
 	*/
 	UserSpecifiedName *string `json:"userSpecifiedName,omitempty"`
 }
@@ -661,7 +762,7 @@ func NewCategoryOldProjection() *CategoryOldProjection {
 	p := new(CategoryOldProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryOldProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -674,15 +775,15 @@ type CategoryProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	AssociationDetailProjection *AssociationDetailProjection `json:"associationDetailProjection,omitempty"`
+	AssociationDetailProjection []AssociationDetailProjection `json:"associationDetailProjection,omitempty"`
 
-	AssociationSummaryProjection *AssociationSummaryProjection `json:"associationSummaryProjection,omitempty"`
+	AssociationSummaryProjection []AssociationSummaryProjection `json:"associationSummaryProjection,omitempty"`
 	/*
-	  This field gives basic information about resources that are associated to the category.<br>
-	The results present under this field summarize the counts of various kinds of resources associated to the category.<br>
+	  This field gives basic information about resources that are associated with the category.<br>
+	The results present under this field summarize the counts of various kinds of resources associated with the category.<br>
 	For more detailed information about the UUIDs of the resources, please look into the field `detailedAssociations`.<br>
 	This field will be ignored, if given in the payload of `updateCategoryById` or `createCategory` APIs.<br>
-	This field will not be present by default in `listCategories` API, unless the parameter $expand=associations is present in the url.
+	This field will not be present by default in `listCategories` API, unless the parameter $expand=associations is present in the URL.
 	*/
 	Associations []AssociationSummary `json:"associations,omitempty"`
 	/*
@@ -695,10 +796,10 @@ type CategoryProjection struct {
 	*/
 	Description *string `json:"description,omitempty"`
 	/*
-	  This field gives detailed information about resources that are associated to the category.<br>
-	The results present under this field contain the UUIDs of the entities and policies of various kinds associated to the category.<br>
+	  This field gives detailed information about the resources which are associated with the category.<br>
+	The results present under this field contain the UUIDs of the entities and policies of various kinds associated with the category.<br>
 	This field will be ignored, if given in the payload of `updateCategoryById` or `createCategory` APIs.<br>
-	This field will not be present by default in `listCategories` or `getCategoryById` APIs, unless the parameter $expand=detailedAssociations is present in the url.
+	This field will not be present by default in `listCategories` or `getCategoryById` APIs, unless the parameter $expand=detailedAssociations is present in the URL.
 	*/
 	DetailedAssociations []AssociationDetail `json:"detailedAssociations,omitempty"`
 	/*
@@ -720,12 +821,12 @@ type CategoryProjection struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
 	  This field contains the UUID of a user who owns the category.<br>
-	This field will be ignored, if given in the payload of `createCategory` API. Hence, when a category is created, the logged-in user automatically becomes the owner of the category.<br>
-	This field can be updated through `updateCategoryById` API, in which case, should be provided, UUID of a valid user present in the system.<br>
-	Validity of the user UUID can be checked by invoking the api: authn/users/{extId} in the 'Identity and Access Management' or 'IAM' namespace.<br>
+	This field will be ignored if given in the payload of `createCategory` API. Hence, when a category is created, the logged-in user automatically becomes the owner of the category.<br>
+	This field can be updated through `updateCategoryById` API, in which case, should be provided, UUID of a valid user is present in the system.<br>
+	Validity of the user UUID can be checked by invoking the API: authn/users/{extId} in the 'Identity and Access Management' or 'IAM' namespace.<br>
 	It is used for enabling RBAC access to self-owned categories.
 	*/
 	OwnerUuid *string `json:"ownerUuid,omitempty"`
@@ -738,8 +839,8 @@ type CategoryProjection struct {
 	/*
 	  The value of a category when it is represented in `key:value` format.
 
-	Constraints applicable when field is given in the payload during create and update:
-	* A string of maxlength 64
+	Constraints applicable when the field is given in the payload during create and update:
+	* A string of max length 64
 	* Character at the start cannot be `$`
 	* Character `/` is not allowed anywhere
 
@@ -767,7 +868,7 @@ func NewCategoryProjection() *CategoryProjection {
 	p := new(CategoryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -781,7 +882,11 @@ type CategorySummaryOld struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	Associations []CategoryAssociationSummaryOld `json:"associations,omitempty"`
-
+	/*
+	  This attribute contains the list of all the categories for which this category is the parent.<br>
+	The parentExtId attributes of each child category is set as the extId of this category.<br>
+	Note that this list only contains the Summary view of each child category.
+	*/
 	ChildCategories []CategorySummaryOld `json:"childCategories,omitempty"`
 	/*
 	  A string consisting of the description of the category as defined by the user.
@@ -807,10 +912,11 @@ type CategorySummaryOld struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
 	  The short name of this category. It may not be unique for each category.<br>
-	It is a mandatory field which must be specified inside the post/put request body.<br>
+	It is a mandatory field that must be specified inside the post/put request
+	body.<br>
 	This field is immutable.
 	*/
 	Name *string `json:"name"`
@@ -836,11 +942,11 @@ type CategorySummaryOld struct {
 
 	Type *CategoryType `json:"type,omitempty"`
 	/*
-	  The user specified name is a string that the user can specify; with syntax and semantics controlled by the user.
+	  The user-specified name is a string that the user can specify; with syntax and semantics controlled by the user.
 
 	The server does not validate this value nor does it enforce the uniqueness or any other constraints.<br>
 	It is the responsibility of the user to ensure that any semantic or syntactic constraints are retained when mutating
-	this field. Unlike the name of the categories, which is immutable, the user name can be changed by the user to meet their needs.
+	this field. Unlike the name of the categories, which are immutable, the user name can be changed by the user to meet their needs.
 	*/
 	UserSpecifiedName *string `json:"userSpecifiedName,omitempty"`
 }
@@ -860,7 +966,7 @@ func NewCategorySummaryOld() *CategorySummaryOld {
 	p := new(CategorySummaryOld)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategorySummaryOld"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -875,10 +981,14 @@ type CategorySummaryOldProjection struct {
 
 	Associations []CategoryAssociationSummaryOld `json:"associations,omitempty"`
 
-	CategoryAssociationSummaryOldProjection *CategoryAssociationSummaryOldProjection `json:"categoryAssociationSummaryOldProjection,omitempty"`
+	CategoryAssociationSummaryOldProjection []CategoryAssociationSummaryOldProjection `json:"categoryAssociationSummaryOldProjection,omitempty"`
 
-	CategorySummaryOldProjection *CategorySummaryOldProjection `json:"categorySummaryOldProjection,omitempty"`
-
+	CategorySummaryOldProjection []CategorySummaryOldProjection `json:"categorySummaryOldProjection,omitempty"`
+	/*
+	  This attribute contains the list of all the categories for which this category is the parent.<br>
+	The parentExtId attributes of each child category is set as the extId of this category.<br>
+	Note that this list only contains the Summary view of each child category.
+	*/
 	ChildCategories []CategorySummaryOld `json:"childCategories,omitempty"`
 	/*
 	  A string consisting of the description of the category as defined by the user.
@@ -904,10 +1014,11 @@ type CategorySummaryOldProjection struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import2.ApiLink `json:"links,omitempty"`
+	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
 	  The short name of this category. It may not be unique for each category.<br>
-	It is a mandatory field which must be specified inside the post/put request body.<br>
+	It is a mandatory field that must be specified inside the post/put request
+	body.<br>
 	This field is immutable.
 	*/
 	Name *string `json:"name"`
@@ -933,11 +1044,11 @@ type CategorySummaryOldProjection struct {
 
 	Type *CategoryType `json:"type,omitempty"`
 	/*
-	  The user specified name is a string that the user can specify; with syntax and semantics controlled by the user.
+	  The user-specified name is a string that the user can specify; with syntax and semantics controlled by the user.
 
 	The server does not validate this value nor does it enforce the uniqueness or any other constraints.<br>
 	It is the responsibility of the user to ensure that any semantic or syntactic constraints are retained when mutating
-	this field. Unlike the name of the categories, which is immutable, the user name can be changed by the user to meet their needs.
+	this field. Unlike the name of the categories, which are immutable, the user name can be changed by the user to meet their needs.
 	*/
 	UserSpecifiedName *string `json:"userSpecifiedName,omitempty"`
 }
@@ -957,7 +1068,7 @@ func NewCategorySummaryOldProjection() *CategorySummaryOldProjection {
 	p := new(CategorySummaryOldProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategorySummaryOldProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1049,7 +1160,7 @@ func (e CategoryType) Ref() *CategoryType {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/config/categories Post operation
+REST response for all response codes in API path /prism/v4.0/config/categories Post operation
 */
 type CreateCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1064,14 +1175,14 @@ type CreateCategoryApiResponse struct {
 
 	Data *OneOfCreateCategoryApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewCreateCategoryApiResponse() *CreateCategoryApiResponse {
 	p := new(CreateCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CreateCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1099,7 +1210,57 @@ func (p *CreateCategoryApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/config/categories/{extId} Delete operation
+REST response for all response codes in API path /prism/v4.0/config/domain-managers Post operation
+*/
+type CreateDomainManagerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfCreateDomainManagerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewCreateDomainManagerApiResponse() *CreateDomainManagerApiResponse {
+	p := new(CreateDomainManagerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.CreateDomainManagerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *CreateDomainManagerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *CreateDomainManagerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfCreateDomainManagerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /prism/v4.0/config/categories/{extId} Delete operation
 */
 type DeleteCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1114,14 +1275,14 @@ type DeleteCategoryApiResponse struct {
 
 	Data *OneOfDeleteCategoryApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewDeleteCategoryApiResponse() *DeleteCategoryApiResponse {
 	p := new(DeleteCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.DeleteCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1149,6 +1310,196 @@ func (p *DeleteCategoryApiResponse) SetData(v interface{}) error {
 }
 
 /*
+Domain manager (Prism Central) details.
+*/
+type DomainManager struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Config *DomainManagerClusterConfig `json:"config"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  The external identifier of the cluster hosting the domain manager (Prism Central) instance.
+	*/
+	HostingClusterExtId *string `json:"hostingClusterExtId,omitempty"`
+	/*
+	  Boolean value indicating if the domain manager (Prism Central) is registered with the hosting cluster, that is, Prism Element.
+	*/
+	IsRegisteredWithHostingCluster *bool `json:"isRegisteredWithHostingCluster,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+
+	Network *DomainManagerNetwork `json:"network"`
+	/*
+	  Domain manager (Prism Central) nodes external identifier.
+	*/
+	NodeExtIds []string `json:"nodeExtIds,omitempty"`
+	/*
+	  This configuration enables Prism Central to be deployed in scale-out mode.
+	*/
+	ShouldEnableHighAvailability *bool `json:"shouldEnableHighAvailability,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *DomainManager) MarshalJSON() ([]byte, error) {
+	type DomainManagerProxy DomainManager
+	return json.Marshal(struct {
+		*DomainManagerProxy
+		Config  *DomainManagerClusterConfig `json:"config,omitempty"`
+		Network *DomainManagerNetwork       `json:"network,omitempty"`
+	}{
+		DomainManagerProxy: (*DomainManagerProxy)(p),
+		Config:             p.Config,
+		Network:            p.Network,
+	})
+}
+
+func NewDomainManager() *DomainManager {
+	p := new(DomainManager)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.DomainManager"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.ShouldEnableHighAvailability = new(bool)
+	*p.ShouldEnableHighAvailability = false
+
+	return p
+}
+
+/*
+Domain manager (Prism Central) cluster configuration details.
+*/
+type DomainManagerClusterConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	BootstrapConfig *BootstrapConfig `json:"bootstrapConfig,omitempty"`
+
+	BuildInfo *import5.BuildInfo `json:"buildInfo,omitempty"`
+	/*
+	  The credentials consist of a username and password for a particular user like admin. Users can pass the credentials of admin users currently which will be configured in the create domain manager operation.
+	*/
+	Credentials []import2.BasicAuth `json:"credentials,omitempty"`
+	/*
+	  Name of the domain manager (Prism Central).
+	*/
+	Name *string `json:"name,omitempty"`
+
+	ResourceConfig *DomainManagerResourceConfig `json:"resourceConfig,omitempty"`
+	/*
+	  A boolean value indicating whether to enable lockdown mode for a cluster.
+	*/
+	ShouldEnableLockdownMode *bool `json:"shouldEnableLockdownMode,omitempty"`
+
+	Size *Size `json:"size,omitempty"`
+}
+
+func NewDomainManagerClusterConfig() *DomainManagerClusterConfig {
+	p := new(DomainManagerClusterConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.DomainManagerClusterConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Domain manager (Prism Central) network configuration details.
+*/
+type DomainManagerNetwork struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	ExternalAddress *import2.IPAddress `json:"externalAddress,omitempty"`
+	/*
+	  This configuration is used to manage Prism Central.
+	*/
+	ExternalNetworks []ExternalNetwork `json:"externalNetworks,omitempty"`
+	/*
+	  Cluster fully qualified domain name. This is part of payload for cluster update operation only.
+	*/
+	Fqdn *string `json:"fqdn,omitempty"`
+	/*
+	  This configuration is used to internally manage Prism Central network.
+	*/
+	InternalNetworks []BaseNetwork `json:"internalNetworks,omitempty"`
+	/*
+	  List of name servers on a cluster. This is part of payload for both cluster create & update operations. For create operation, only ipv4 address / fqdn values are supported currently.
+	*/
+	NameServers []import2.IPAddressOrFQDN `json:"nameServers,omitempty"`
+	/*
+	  List of NTP servers on a cluster. This is part of payload for both cluster create & update operations. For create operation, only ipv4 address / fqdn values are supported currently.
+	*/
+	NtpServers []import2.IPAddressOrFQDN `json:"ntpServers,omitempty"`
+}
+
+func NewDomainManagerNetwork() *DomainManagerNetwork {
+	p := new(DomainManagerNetwork)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.DomainManagerNetwork"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+This configuration is used to provide the resource-related details like container external identifiers, number of VCPUs, memory size, data disk size of the domain manager (Prism Central). In the case of a multi-node setup, the sum of resources like number of VCPUs, memory size and data disk size are provided.
+*/
+type DomainManagerResourceConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The external identifier of the container that will be used to create the domain manager (Prism Central) cluster.
+	*/
+	ContainerExtIds []string `json:"containerExtIds,omitempty"`
+	/*
+	  This property is used for readOnly purposes to display Prism Central data disk size allocation at a cluster level.
+	*/
+	DataDiskSizeBytes *int64 `json:"dataDiskSizeBytes,omitempty"`
+	/*
+	  This property is used for readOnly purposes to display Prism Central RAM allocation at the cluster level.
+	*/
+	MemorySizeBytes *int64 `json:"memorySizeBytes,omitempty"`
+	/*
+	  This property is used for readOnly purposes to display Prism Central number of VCPUs allocation.
+	*/
+	NumVcpus *int `json:"numVcpus,omitempty"`
+}
+
+func NewDomainManagerResourceConfig() *DomainManagerResourceConfig {
+	p := new(DomainManagerResourceConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.DomainManagerResourceConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Details of the entity.
 */
 type EntityReference struct {
@@ -1162,6 +1513,10 @@ type EntityReference struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  Name of the entity.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
 	  Entity type identified as 'namespace:module[:submodule]:entityType'. For example - vmm:ahv:vm, where vmm is the namepsace, ahv is the module and vm is the entitytype.
 	*/
 	Rel *string `json:"rel,omitempty"`
@@ -1171,14 +1526,176 @@ func NewEntityReference() *EntityReference {
 	p := new(EntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.EntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/config/categories/{extId} Get operation
+An object denoting the environment information of the PC. It contains the following fields:<br>
+- type: Enums denoting the environment type of the PC.<br>
+- providerType: Enums denoting the provider of the cloud PC.<br>
+- instanceObj: Enums denoting the instance type of the cloud PC.<br>
+*/
+type EnvironmentInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	ProviderType *ProviderType `json:"providerType,omitempty"`
+
+	ProvisioningType *ProvisioningType `json:"provisioningType,omitempty"`
+
+	Type *EnvironmentType `json:"type,omitempty"`
+}
+
+func NewEnvironmentInfo() *EnvironmentInfo {
+	p := new(EnvironmentInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.EnvironmentInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Enums denoting the environment type of the PC, that is, on-prem PC or cloud PC.<br>
+Following are the supported entity types:
+- ONPREM
+- NTNX_CLOUD
+*/
+type EnvironmentType int
+
+const (
+	ENVIRONMENTTYPE_UNKNOWN    EnvironmentType = 0
+	ENVIRONMENTTYPE_REDACTED   EnvironmentType = 1
+	ENVIRONMENTTYPE_ONPREM     EnvironmentType = 2
+	ENVIRONMENTTYPE_NTNX_CLOUD EnvironmentType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *EnvironmentType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ONPREM",
+		"NTNX_CLOUD",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e EnvironmentType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ONPREM",
+		"NTNX_CLOUD",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *EnvironmentType) index(name string) EnvironmentType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ONPREM",
+		"NTNX_CLOUD",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return EnvironmentType(idx)
+		}
+	}
+	return ENVIRONMENTTYPE_UNKNOWN
+}
+
+func (e *EnvironmentType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for EnvironmentType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *EnvironmentType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e EnvironmentType) Ref() *EnvironmentType {
+	return &e
+}
+
+/*
+This configuration is used to manage Prism Central.
+*/
+type ExternalNetwork struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	DefaultGateway *import2.IPAddressOrFQDN `json:"defaultGateway"`
+	/*
+	  Range of IPs used for Prism Central network setup.
+	*/
+	IpRanges []import2.IpRange `json:"ipRanges"`
+	/*
+	  The network external identifier to which Domain Manager (Prism Central) is to be deployed or is already configured.
+	*/
+	NetworkExtId *string `json:"networkExtId"`
+
+	SubnetMask *import2.IPAddressOrFQDN `json:"subnetMask"`
+}
+
+func (p *ExternalNetwork) MarshalJSON() ([]byte, error) {
+	type ExternalNetworkProxy ExternalNetwork
+	return json.Marshal(struct {
+		*ExternalNetworkProxy
+		DefaultGateway *import2.IPAddressOrFQDN `json:"defaultGateway,omitempty"`
+		IpRanges       []import2.IpRange        `json:"ipRanges,omitempty"`
+		NetworkExtId   *string                  `json:"networkExtId,omitempty"`
+		SubnetMask     *import2.IPAddressOrFQDN `json:"subnetMask,omitempty"`
+	}{
+		ExternalNetworkProxy: (*ExternalNetworkProxy)(p),
+		DefaultGateway:       p.DefaultGateway,
+		IpRanges:             p.IpRanges,
+		NetworkExtId:         p.NetworkExtId,
+		SubnetMask:           p.SubnetMask,
+	})
+}
+
+func NewExternalNetwork() *ExternalNetwork {
+	p := new(ExternalNetwork)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.ExternalNetwork"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /prism/v4.0/config/categories/{extId} Get operation
 */
 type GetCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1193,14 +1710,14 @@ type GetCategoryApiResponse struct {
 
 	Data *OneOfGetCategoryApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewGetCategoryApiResponse() *GetCategoryApiResponse {
 	p := new(GetCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.GetCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1228,7 +1745,57 @@ func (p *GetCategoryApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/config/tasks/{extId} Get operation
+REST response for all response codes in API path /prism/v4.0/config/domain-managers/{extId} Get operation
+*/
+type GetDomainManagerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetDomainManagerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetDomainManagerApiResponse() *GetDomainManagerApiResponse {
+	p := new(GetDomainManagerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.GetDomainManagerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetDomainManagerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetDomainManagerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetDomainManagerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /prism/v4.0/config/tasks/{extId} Get operation
 */
 type GetTaskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1243,14 +1810,14 @@ type GetTaskApiResponse struct {
 
 	Data *OneOfGetTaskApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewGetTaskApiResponse() *GetTaskApiResponse {
 	p := new(GetTaskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.GetTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1278,7 +1845,7 @@ func (p *GetTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/config/categories Get operation
+REST response for all response codes in API path /prism/v4.0/config/categories Get operation
 */
 type ListCategoriesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1293,14 +1860,14 @@ type ListCategoriesApiResponse struct {
 
 	Data *OneOfListCategoriesApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewListCategoriesApiResponse() *ListCategoriesApiResponse {
 	p := new(ListCategoriesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.ListCategoriesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1328,7 +1895,57 @@ func (p *ListCategoriesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/config/tasks Get operation
+REST response for all response codes in API path /prism/v4.0/config/domain-managers Get operation
+*/
+type ListDomainManagerApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListDomainManagerApiResponseData `json:"data,omitempty"`
+
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListDomainManagerApiResponse() *ListDomainManagerApiResponse {
+	p := new(ListDomainManagerApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.ListDomainManagerApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListDomainManagerApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListDomainManagerApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListDomainManagerApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /prism/v4.0/config/tasks Get operation
 */
 type ListTasksApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1343,14 +1960,14 @@ type ListTasksApiResponse struct {
 
 	Data *OneOfListTasksApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewListTasksApiResponse() *ListTasksApiResponse {
 	p := new(ListTasksApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.ListTasksApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1400,10 +2017,189 @@ func NewOwnerReference() *OwnerReference {
 	p := new(OwnerReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.OwnerReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Enums denoting the provider of the cloud, in case of environment type a cloud PC.<br>
+The service currently supports the following providers:
+- NTNX
+- AZURE
+- AWS
+- GCP
+- VSPHERE
+*/
+type ProviderType int
+
+const (
+	PROVIDERTYPE_UNKNOWN  ProviderType = 0
+	PROVIDERTYPE_REDACTED ProviderType = 1
+	PROVIDERTYPE_NTNX     ProviderType = 2
+	PROVIDERTYPE_AZURE    ProviderType = 3
+	PROVIDERTYPE_AWS      ProviderType = 4
+	PROVIDERTYPE_GCP      ProviderType = 5
+	PROVIDERTYPE_VSPHERE  ProviderType = 6
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ProviderType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NTNX",
+		"AZURE",
+		"AWS",
+		"GCP",
+		"VSPHERE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ProviderType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NTNX",
+		"AZURE",
+		"AWS",
+		"GCP",
+		"VSPHERE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ProviderType) index(name string) ProviderType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NTNX",
+		"AZURE",
+		"AWS",
+		"GCP",
+		"VSPHERE",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ProviderType(idx)
+		}
+	}
+	return PROVIDERTYPE_UNKNOWN
+}
+
+func (e *ProviderType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ProviderType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ProviderType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ProviderType) Ref() *ProviderType {
+	return &e
+}
+
+/*
+Enums denoting the instance type of the cloud PC. It indicates whether the PC is created on bare-metal
+or on a cloud-provisioned VM. Hence, it supports two possible values:
+- NTNX
+- NATIVE
+*/
+type ProvisioningType int
+
+const (
+	PROVISIONINGTYPE_UNKNOWN  ProvisioningType = 0
+	PROVISIONINGTYPE_REDACTED ProvisioningType = 1
+	PROVISIONINGTYPE_NTNX     ProvisioningType = 2
+	PROVISIONINGTYPE_NATIVE   ProvisioningType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ProvisioningType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NTNX",
+		"NATIVE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ProvisioningType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NTNX",
+		"NATIVE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ProvisioningType) index(name string) ProvisioningType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NTNX",
+		"NATIVE",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ProvisioningType(idx)
+		}
+	}
+	return PROVISIONINGTYPE_UNKNOWN
+}
+
+func (e *ProvisioningType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ProvisioningType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ProvisioningType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ProvisioningType) Ref() *ProvisioningType {
+	return &e
 }
 
 /*
@@ -1416,8 +2212,6 @@ type Reference struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
 	  The external identifier of the resource which uniquely identifies it.
 	*/
@@ -1428,7 +2222,7 @@ func NewReference() *Reference {
 	p := new(Reference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.Reference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1436,7 +2230,7 @@ func NewReference() *Reference {
 
 /*
 An enum denoting the resource group.<br>
-Resources can be organised into either an entity or a policy, hence it supports two possible values:
+Resources can be organised into either an entity or a policy. Hence, it supports two possible values:
   * ENTITY
   * POLICY
 */
@@ -1518,37 +2312,40 @@ func (e ResourceGroup) Ref() *ResourceGroup {
 
 /*
 An enum denoting the associated resource types.<br>
-Resource types are further grouped into 2 types - entity or a policy.
+Resource types are further grouped into two types: entity or policy.
 */
 type ResourceType int
 
 const (
-	RESOURCETYPE_UNKNOWN                 ResourceType = 0
-	RESOURCETYPE_REDACTED                ResourceType = 1
-	RESOURCETYPE_VM                      ResourceType = 2
-	RESOURCETYPE_MH_VM                   ResourceType = 3
-	RESOURCETYPE_IMAGE                   ResourceType = 4
-	RESOURCETYPE_SUBNET                  ResourceType = 5
-	RESOURCETYPE_CLUSTER                 ResourceType = 6
-	RESOURCETYPE_HOST                    ResourceType = 7
-	RESOURCETYPE_REPORT                  ResourceType = 8
-	RESOURCETYPE_MARKETPLACE_ITEM        ResourceType = 9
-	RESOURCETYPE_BLUEPRINT               ResourceType = 10
-	RESOURCETYPE_APP                     ResourceType = 11
-	RESOURCETYPE_VOLUMEGROUP             ResourceType = 12
-	RESOURCETYPE_IMAGE_PLACEMENT_POLICY  ResourceType = 13
-	RESOURCETYPE_NETWORK_SECURITY_POLICY ResourceType = 14
-	RESOURCETYPE_NETWORK_SECURITY_RULE   ResourceType = 15
-	RESOURCETYPE_VM_HOST_AFFINITY_POLICY ResourceType = 16
-	RESOURCETYPE_QOS_POLICY              ResourceType = 17
-	RESOURCETYPE_NGT_POLICY              ResourceType = 18
-	RESOURCETYPE_PROTECTION_RULE         ResourceType = 19
-	RESOURCETYPE_ACCESS_CONTROL_POLICY   ResourceType = 20
-	RESOURCETYPE_STORAGE_POLICY          ResourceType = 21
-	RESOURCETYPE_IMAGE_RATE_LIMIT        ResourceType = 22
-	RESOURCETYPE_RECOVERY_PLAN           ResourceType = 23
-	RESOURCETYPE_BUNDLE                  ResourceType = 24
-	RESOURCETYPE_POLICY_SCHEMA           ResourceType = 25
+	RESOURCETYPE_UNKNOWN                    ResourceType = 0
+	RESOURCETYPE_REDACTED                   ResourceType = 1
+	RESOURCETYPE_VM                         ResourceType = 2
+	RESOURCETYPE_MH_VM                      ResourceType = 3
+	RESOURCETYPE_IMAGE                      ResourceType = 4
+	RESOURCETYPE_SUBNET                     ResourceType = 5
+	RESOURCETYPE_CLUSTER                    ResourceType = 6
+	RESOURCETYPE_HOST                       ResourceType = 7
+	RESOURCETYPE_REPORT                     ResourceType = 8
+	RESOURCETYPE_MARKETPLACE_ITEM           ResourceType = 9
+	RESOURCETYPE_BLUEPRINT                  ResourceType = 10
+	RESOURCETYPE_APP                        ResourceType = 11
+	RESOURCETYPE_VOLUMEGROUP                ResourceType = 12
+	RESOURCETYPE_IMAGE_PLACEMENT_POLICY     ResourceType = 13
+	RESOURCETYPE_NETWORK_SECURITY_POLICY    ResourceType = 14
+	RESOURCETYPE_NETWORK_SECURITY_RULE      ResourceType = 15
+	RESOURCETYPE_VM_HOST_AFFINITY_POLICY    ResourceType = 16
+	RESOURCETYPE_VM_VM_ANTI_AFFINITY_POLICY ResourceType = 17
+	RESOURCETYPE_QOS_POLICY                 ResourceType = 18
+	RESOURCETYPE_NGT_POLICY                 ResourceType = 19
+	RESOURCETYPE_PROTECTION_RULE            ResourceType = 20
+	RESOURCETYPE_ACCESS_CONTROL_POLICY      ResourceType = 21
+	RESOURCETYPE_STORAGE_POLICY             ResourceType = 22
+	RESOURCETYPE_IMAGE_RATE_LIMIT           ResourceType = 23
+	RESOURCETYPE_RECOVERY_PLAN              ResourceType = 24
+	RESOURCETYPE_BUNDLE                     ResourceType = 25
+	RESOURCETYPE_POLICY_SCHEMA              ResourceType = 26
+	RESOURCETYPE_HOST_NIC                   ResourceType = 27
+	RESOURCETYPE_ACTION_RULE                ResourceType = 28
 )
 
 // Returns the name of the enum given an ordinal number
@@ -1573,6 +2370,7 @@ func (e *ResourceType) name(index int) string {
 		"NETWORK_SECURITY_POLICY",
 		"NETWORK_SECURITY_RULE",
 		"VM_HOST_AFFINITY_POLICY",
+		"VM_VM_ANTI_AFFINITY_POLICY",
 		"QOS_POLICY",
 		"NGT_POLICY",
 		"PROTECTION_RULE",
@@ -1582,6 +2380,8 @@ func (e *ResourceType) name(index int) string {
 		"RECOVERY_PLAN",
 		"BUNDLE",
 		"POLICY_SCHEMA",
+		"HOST_NIC",
+		"ACTION_RULE",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1610,6 +2410,7 @@ func (e ResourceType) GetName() string {
 		"NETWORK_SECURITY_POLICY",
 		"NETWORK_SECURITY_RULE",
 		"VM_HOST_AFFINITY_POLICY",
+		"VM_VM_ANTI_AFFINITY_POLICY",
 		"QOS_POLICY",
 		"NGT_POLICY",
 		"PROTECTION_RULE",
@@ -1619,6 +2420,8 @@ func (e ResourceType) GetName() string {
 		"RECOVERY_PLAN",
 		"BUNDLE",
 		"POLICY_SCHEMA",
+		"HOST_NIC",
+		"ACTION_RULE",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1646,6 +2449,7 @@ func (e *ResourceType) index(name string) ResourceType {
 		"NETWORK_SECURITY_POLICY",
 		"NETWORK_SECURITY_RULE",
 		"VM_HOST_AFFINITY_POLICY",
+		"VM_VM_ANTI_AFFINITY_POLICY",
 		"QOS_POLICY",
 		"NGT_POLICY",
 		"PROTECTION_RULE",
@@ -1655,6 +2459,8 @@ func (e *ResourceType) index(name string) ResourceType {
 		"RECOVERY_PLAN",
 		"BUNDLE",
 		"POLICY_SCHEMA",
+		"HOST_NIC",
+		"ACTION_RULE",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -1685,6 +2491,93 @@ func (e ResourceType) Ref() *ResourceType {
 }
 
 /*
+Domain manager (Prism Central) size is an enumeration of starter, small, large, or extra large starter values.
+*/
+type Size int
+
+const (
+	SIZE_UNKNOWN    Size = 0
+	SIZE_REDACTED   Size = 1
+	SIZE_STARTER    Size = 2
+	SIZE_SMALL      Size = 3
+	SIZE_LARGE      Size = 4
+	SIZE_EXTRALARGE Size = 5
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *Size) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"STARTER",
+		"SMALL",
+		"LARGE",
+		"EXTRALARGE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e Size) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"STARTER",
+		"SMALL",
+		"LARGE",
+		"EXTRALARGE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *Size) index(name string) Size {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"STARTER",
+		"SMALL",
+		"LARGE",
+		"EXTRALARGE",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return Size(idx)
+		}
+	}
+	return SIZE_UNKNOWN
+}
+
+func (e *Size) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for Size:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *Size) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e Size) Ref() *Size {
+	return &e
+}
+
+/*
 The task object tracking an asynchronous operation.
 */
 type Task struct {
@@ -1704,7 +2597,7 @@ type Task struct {
 	/*
 	  Additional details on the task to aid the user with further actions post completion of the task.
 	*/
-	CompletionDetails []import3.KVPair `json:"completionDetails,omitempty"`
+	CompletionDetails []import2.KVPair `json:"completionDetails,omitempty"`
 	/*
 	  UTC date and time in RFC-3339 format when the task was created.
 	*/
@@ -1716,11 +2609,15 @@ type Task struct {
 	/*
 	  Error details explaining a task failure. These would be populated only in the case of task failures.
 	*/
-	ErrorMessages []import1.AppMessage `json:"errorMessages,omitempty"`
+	ErrorMessages []import4.AppMessage `json:"errorMessages,omitempty"`
 	/*
 	  A globally unique identifier of a task.
 	*/
 	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Signifies if the task is a background task or not.
+	*/
+	IsBackgroundTask *bool `json:"isBackgroundTask,omitempty"`
 	/*
 	  Signifies if the task can be cancelled.
 	*/
@@ -1733,6 +2630,14 @@ type Task struct {
 	  Provides an error message in the absence of a well-defined error message for the tasks created through legacy APIs.
 	*/
 	LegacyErrorMessage *string `json:"legacyErrorMessage,omitempty"`
+	/*
+	  Number of entities associated with the task.
+	*/
+	NumberOfEntitiesAffected *int `json:"numberOfEntitiesAffected,omitempty"`
+	/*
+	  Number of tasks spawned as children of the current task.
+	*/
+	NumberOfSubtasks *int `json:"numberOfSubtasks,omitempty"`
 	/*
 	  The operation name being tracked by the task.
 	*/
@@ -1749,6 +2654,8 @@ type Task struct {
 	  Task progress expressed as a percentage.
 	*/
 	ProgressPercentage *int `json:"progressPercentage,omitempty"`
+
+	RootTask *TaskReferenceInternal `json:"rootTask,omitempty"`
 	/*
 	  UTC date and time in RFC-3339 format when the task was started.
 	*/
@@ -1766,14 +2673,14 @@ type Task struct {
 	/*
 	  Warning messages to alert the user of issues which did not directly cause task failure. These can be populated for any task.
 	*/
-	Warnings []import1.AppMessage `json:"warnings,omitempty"`
+	Warnings []import4.AppMessage `json:"warnings,omitempty"`
 }
 
 func NewTask() *Task {
 	p := new(Task)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.Task"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1798,7 +2705,7 @@ func NewTaskReference() *TaskReference {
 	p := new(TaskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.TaskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1831,7 +2738,7 @@ func NewTaskReferenceInternal() *TaskReferenceInternal {
 	p := new(TaskReferenceInternal)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.TaskReferenceInternal"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1851,6 +2758,7 @@ const (
 	TASKSTATUS_SUCCEEDED TaskStatus = 5
 	TASKSTATUS_FAILED    TaskStatus = 6
 	TASKSTATUS_CANCELED  TaskStatus = 7
+	TASKSTATUS_SUSPENDED TaskStatus = 8
 )
 
 // Returns the name of the enum given an ordinal number
@@ -1866,6 +2774,7 @@ func (e *TaskStatus) name(index int) string {
 		"SUCCEEDED",
 		"FAILED",
 		"CANCELED",
+		"SUSPENDED",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1885,6 +2794,7 @@ func (e TaskStatus) GetName() string {
 		"SUCCEEDED",
 		"FAILED",
 		"CANCELED",
+		"SUSPENDED",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1903,6 +2813,7 @@ func (e *TaskStatus) index(name string) TaskStatus {
 		"SUCCEEDED",
 		"FAILED",
 		"CANCELED",
+		"SUSPENDED",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -1951,14 +2862,14 @@ func NewTaskStep() *TaskStep {
 	p := new(TaskStep)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.TaskStep"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/config/categories/{extId} Put operation
+REST response for all response codes in API path /prism/v4.0/config/categories/{extId} Put operation
 */
 type UpdateCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1973,14 +2884,14 @@ type UpdateCategoryApiResponse struct {
 
 	Data *OneOfUpdateCategoryApiResponseData `json:"data,omitempty"`
 
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func NewUpdateCategoryApiResponse() *UpdateCategoryApiResponse {
 	p := new(UpdateCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.UpdateCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2007,374 +2918,11 @@ func (p *UpdateCategoryApiResponse) SetData(v interface{}) error {
 	return e
 }
 
-type OneOfCreateCategoryApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *Category              `json:"-"`
-}
-
-func NewOneOfCreateCategoryApiResponseData() *OneOfCreateCategoryApiResponseData {
-	p := new(OneOfCreateCategoryApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateCategoryApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateCategoryApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Category:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Category)
-		}
-		*p.oneOfType0 = v.(Category)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateCategoryApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfCreateCategoryApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(Category)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.Category" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Category)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateCategoryApiResponseData"))
-}
-
-func (p *OneOfCreateCategoryApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateCategoryApiResponseData")
-}
-
-type OneOfListCategoriesApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType401  []CategoryProjection   `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    []Category             `json:"-"`
-}
-
-func NewOneOfListCategoriesApiResponseData() *OneOfListCategoriesApiResponseData {
-	p := new(OneOfListCategoriesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListCategoriesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListCategoriesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []CategoryProjection:
-		p.oneOfType401 = v.([]CategoryProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<prism.v4.config.CategoryProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<prism.v4.config.CategoryProjection>"
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Category:
-		p.oneOfType0 = v.([]Category)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<prism.v4.config.Category>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<prism.v4.config.Category>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListCategoriesApiResponseData) GetValue() interface{} {
-	if "List<prism.v4.config.CategoryProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<prism.v4.config.Category>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfListCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType401 := new([]CategoryProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-
-		if len(*vOneOfType401) == 0 || "prism.v4.config.CategoryProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<prism.v4.config.CategoryProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<prism.v4.config.CategoryProjection>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new([]Category)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
-		if len(*vOneOfType0) == 0 || "prism.v4.config.Category" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<prism.v4.config.Category>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<prism.v4.config.Category>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListCategoriesApiResponseData"))
-}
-
-func (p *OneOfListCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<prism.v4.config.CategoryProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<prism.v4.config.Category>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfListCategoriesApiResponseData")
-}
-
-type OneOfUpdateCategoryApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *Category              `json:"-"`
-}
-
-func NewOneOfUpdateCategoryApiResponseData() *OneOfUpdateCategoryApiResponseData {
-	p := new(OneOfUpdateCategoryApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateCategoryApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateCategoryApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Category:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Category)
-		}
-		*p.oneOfType0 = v.(Category)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateCategoryApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfUpdateCategoryApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(Category)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.Category" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Category)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateCategoryApiResponseData"))
-}
-
-func (p *OneOfUpdateCategoryApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateCategoryApiResponseData")
-}
-
 type OneOfCancelTaskApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.AppMessage    `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *import4.AppMessage    `json:"-"`
 }
 
 func NewOneOfCancelTaskApiResponseData() *OneOfCancelTaskApiResponseData {
@@ -2389,24 +2937,11 @@ func (p *OneOfCancelTaskApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfCancelTaskApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import1.AppMessage:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.AppMessage)
-		}
-		*p.oneOfType2001 = v.(import1.AppMessage)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import1.ErrorResponse:
+	case import4.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import4.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import4.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -2415,6 +2950,19 @@ func (p *OneOfCancelTaskApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.AppMessage:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import4.AppMessage)
+		}
+		*p.oneOfType2001 = v.(import4.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -2422,39 +2970,21 @@ func (p *OneOfCancelTaskApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfCancelTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
 	}
 	return nil
 }
 
 func (p *OneOfCancelTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.AppMessage)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.error.AppMessage" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.AppMessage)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
+	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import4.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -2468,15 +2998,33 @@ func (p *OneOfCancelTaskApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType2001 := new(import4.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.error.AppMessage" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import4.AppMessage)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCancelTaskApiResponseData"))
 }
 
 func (p *OneOfCancelTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
 	}
 	return nil, errors.New("No value to marshal for OneOfCancelTaskApiResponseData")
 }
@@ -2484,8 +3032,8 @@ func (p *OneOfCancelTaskApiResponseData) MarshalJSON() ([]byte, error) {
 type OneOfGetTaskApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
 	oneOfType2001 *Task                  `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
 }
 
 func NewOneOfGetTaskApiResponseData() *OneOfGetTaskApiResponseData {
@@ -2500,6 +3048,19 @@ func (p *OneOfGetTaskApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfGetTaskApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case Task:
 		if nil == p.oneOfType2001 {
 			p.oneOfType2001 = new(Task)
@@ -2513,19 +3074,6 @@ func (p *OneOfGetTaskApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -2533,16 +3081,34 @@ func (p *OneOfGetTaskApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
 	}
 	return nil
 }
 
 func (p *OneOfGetTaskApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
 	vOneOfType2001 := new(Task)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
 		if "prism.v4.config.Task" == *vOneOfType2001.ObjectType_ {
@@ -2561,71 +3127,53 @@ func (p *OneOfGetTaskApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetTaskApiResponseData"))
 }
 
 func (p *OneOfGetTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
 	}
 	return nil, errors.New("No value to marshal for OneOfGetTaskApiResponseData")
 }
 
-type OneOfListTasksApiResponseData struct {
+type OneOfUpdateCategoryApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType2001 []Task                 `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType0    []import4.AppMessage   `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
 }
 
-func NewOneOfListTasksApiResponseData() *OneOfListTasksApiResponseData {
-	p := new(OneOfListTasksApiResponseData)
+func NewOneOfUpdateCategoryApiResponseData() *OneOfUpdateCategoryApiResponseData {
+	p := new(OneOfUpdateCategoryApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListTasksApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfUpdateCategoryApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListTasksApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfUpdateCategoryApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []Task:
-		p.oneOfType2001 = v.([]Task)
+	case []import4.AppMessage:
+		p.oneOfType0 = v.([]import4.AppMessage)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<prism.v4.config.Task>"
+		*p.Discriminator = "List<prism.v4.error.AppMessage>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<prism.v4.config.Task>"
-	case import1.ErrorResponse:
+		*p.ObjectType_ = "List<prism.v4.error.AppMessage>"
+	case import4.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import4.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import4.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -2640,9 +3188,9 @@ func (p *OneOfListTasksApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfListTasksApiResponseData) GetValue() interface{} {
-	if "List<prism.v4.config.Task>" == *p.Discriminator {
-		return p.oneOfType2001
+func (p *OneOfUpdateCategoryApiResponseData) GetValue() interface{} {
+	if "List<prism.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType0
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -2650,171 +3198,58 @@ func (p *OneOfListTasksApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfListTasksApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new([]Task)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-
-		if len(*vOneOfType2001) == 0 || "prism.v4.config.Task" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<prism.v4.config.Task>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<prism.v4.config.Task>"
-			return nil
-
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListTasksApiResponseData"))
-}
-
-func (p *OneOfListTasksApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<prism.v4.config.Task>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfListTasksApiResponseData")
-}
-
-type OneOfGetCategoryApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *Category              `json:"-"`
-}
-
-func NewOneOfGetCategoryApiResponseData() *OneOfGetCategoryApiResponseData {
-	p := new(OneOfGetCategoryApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetCategoryApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetCategoryApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Category:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Category)
-		}
-		*p.oneOfType0 = v.(Category)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetCategoryApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfGetCategoryApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(Category)
+func (p *OneOfUpdateCategoryApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]import4.AppMessage)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.Category" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Category)
-			}
-			*p.oneOfType0 = *vOneOfType0
+		if len(*vOneOfType0) == 0 || "prism.v4.error.AppMessage" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = "List<prism.v4.error.AppMessage>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = "List<prism.v4.error.AppMessage>"
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCategoryApiResponseData"))
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateCategoryApiResponseData"))
 }
 
-func (p *OneOfGetCategoryApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+func (p *OneOfUpdateCategoryApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<prism.v4.error.AppMessage>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetCategoryApiResponseData")
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateCategoryApiResponseData")
 }
 
 type OneOfDeleteCategoryApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
 }
 
 func NewOneOfDeleteCategoryApiResponseData() *OneOfDeleteCategoryApiResponseData {
@@ -2844,11 +3279,11 @@ func (p *OneOfDeleteCategoryApiResponseData) SetValue(v interface{}) error {
 		return nil
 	}
 	switch v.(type) {
-	case import1.ErrorResponse:
+	case import4.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
+			p.oneOfType400 = new(import4.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
+		*p.oneOfType400 = v.(import4.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -2892,11 +3327,11 @@ func (p *OneOfDeleteCategoryApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import1.ErrorResponse)
+	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
+				p.oneOfType400 = new(import4.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -2921,6 +3356,797 @@ func (p *OneOfDeleteCategoryApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfDeleteCategoryApiResponseData")
+}
+
+type OneOfGetDomainManagerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *DomainManager         `json:"-"`
+}
+
+func NewOneOfGetDomainManagerApiResponseData() *OneOfGetDomainManagerApiResponseData {
+	p := new(OneOfGetDomainManagerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetDomainManagerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetDomainManagerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case DomainManager:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(DomainManager)
+		}
+		*p.oneOfType2001 = v.(DomainManager)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetDomainManagerApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetDomainManagerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(DomainManager)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.DomainManager" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(DomainManager)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDomainManagerApiResponseData"))
+}
+
+func (p *OneOfGetDomainManagerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetDomainManagerApiResponseData")
+}
+
+type OneOfGetCategoryApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *Category              `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetCategoryApiResponseData() *OneOfGetCategoryApiResponseData {
+	p := new(OneOfGetCategoryApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetCategoryApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetCategoryApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case Category:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Category)
+		}
+		*p.oneOfType0 = v.(Category)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetCategoryApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetCategoryApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(Category)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.Category" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Category)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCategoryApiResponseData"))
+}
+
+func (p *OneOfGetCategoryApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetCategoryApiResponseData")
+}
+
+type OneOfListTasksApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 []Task                 `json:"-"`
+}
+
+func NewOneOfListTasksApiResponseData() *OneOfListTasksApiResponseData {
+	p := new(OneOfListTasksApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListTasksApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListTasksApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Task:
+		p.oneOfType2001 = v.([]Task)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.config.Task>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.config.Task>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListTasksApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<prism.v4.config.Task>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListTasksApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]Task)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "prism.v4.config.Task" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.config.Task>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.config.Task>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListTasksApiResponseData"))
+}
+
+func (p *OneOfListTasksApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<prism.v4.config.Task>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListTasksApiResponseData")
+}
+
+type OneOfCreateDomainManagerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *TaskReference         `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateDomainManagerApiResponseData() *OneOfCreateDomainManagerApiResponseData {
+	p := new(OneOfCreateDomainManagerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateDomainManagerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateDomainManagerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(TaskReference)
+		}
+		*p.oneOfType2001 = v.(TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateDomainManagerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateDomainManagerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDomainManagerApiResponseData"))
+}
+
+func (p *OneOfCreateDomainManagerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateDomainManagerApiResponseData")
+}
+
+type OneOfCreateCategoryApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *Category              `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateCategoryApiResponseData() *OneOfCreateCategoryApiResponseData {
+	p := new(OneOfCreateCategoryApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateCategoryApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateCategoryApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case Category:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Category)
+		}
+		*p.oneOfType0 = v.(Category)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateCategoryApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateCategoryApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(Category)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.Category" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Category)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateCategoryApiResponseData"))
+}
+
+func (p *OneOfCreateCategoryApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateCategoryApiResponseData")
+}
+
+type OneOfListCategoriesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType401  []CategoryProjection   `json:"-"`
+	oneOfType0    []Category             `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListCategoriesApiResponseData() *OneOfListCategoriesApiResponseData {
+	p := new(OneOfListCategoriesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListCategoriesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListCategoriesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []CategoryProjection:
+		p.oneOfType401 = v.([]CategoryProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.config.CategoryProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.config.CategoryProjection>"
+	case []Category:
+		p.oneOfType0 = v.([]Category)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.config.Category>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.config.Category>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListCategoriesApiResponseData) GetValue() interface{} {
+	if "List<prism.v4.config.CategoryProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if "List<prism.v4.config.Category>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType401 := new([]CategoryProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "prism.v4.config.CategoryProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.config.CategoryProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.config.CategoryProjection>"
+			return nil
+		}
+	}
+	vOneOfType0 := new([]Category)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "prism.v4.config.Category" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.config.Category>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.config.Category>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListCategoriesApiResponseData"))
+}
+
+func (p *OneOfListCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<prism.v4.config.CategoryProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if "List<prism.v4.config.Category>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListCategoriesApiResponseData")
+}
+
+type OneOfListDomainManagerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 []DomainManager        `json:"-"`
+}
+
+func NewOneOfListDomainManagerApiResponseData() *OneOfListDomainManagerApiResponseData {
+	p := new(OneOfListDomainManagerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListDomainManagerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListDomainManagerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []DomainManager:
+		p.oneOfType2001 = v.([]DomainManager)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.config.DomainManager>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.config.DomainManager>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListDomainManagerApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<prism.v4.config.DomainManager>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListDomainManagerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]DomainManager)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "prism.v4.config.DomainManager" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.config.DomainManager>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.config.DomainManager>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListDomainManagerApiResponseData"))
+}
+
+func (p *OneOfListDomainManagerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<prism.v4.config.DomainManager>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListDomainManagerApiResponseData")
 }
 
 type FileDetail struct {

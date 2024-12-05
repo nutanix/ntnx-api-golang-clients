@@ -1,9 +1,9 @@
 /*
  * Generated file models/common/v1/response/response_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Prism Versioned APIs
+ * Part of the Nutanix Prism APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
@@ -41,7 +41,7 @@ func NewApiLink() *ApiLink {
 	p := new(ApiLink)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.response.ApiLink"
-	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -82,7 +82,7 @@ func NewApiResponseMetadata() *ApiResponseMetadata {
 	p := new(ApiResponseMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.response.ApiResponseMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -115,7 +115,7 @@ func NewExternalizableAbstractModel() *ExternalizableAbstractModel {
 	p := new(ExternalizableAbstractModel)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "common.v1.response.ExternalizableAbstractModel"
-	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

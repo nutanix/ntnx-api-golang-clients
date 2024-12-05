@@ -1,16 +1,16 @@
 /*
  * Generated file models/prism/v4/operations/operations_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Prism Versioned APIs
+ * Part of the Nutanix Prism APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module prism.v4.operations of Nutanix Prism Versioned APIs
+  Module prism.v4.operations of Nutanix Prism APIs
 */
 package operations
 
@@ -146,6 +146,10 @@ type Batch struct {
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
+	  A flag indicating whether the batch procession should halt or continue when an error response is received from the server during the execution of a batch chunk
+	*/
+	ShouldStopOnError *bool `json:"shouldStopOnError,omitempty"`
+	/*
 	  The total number of elements submitted for processing in the batch.
 	*/
 	Size *int `json:"size,omitempty"`
@@ -167,7 +171,7 @@ func NewBatch() *Batch {
 	p := new(Batch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.Batch"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -358,7 +362,7 @@ func NewBatchSpec() *BatchSpec {
 	p := new(BatchSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -386,7 +390,7 @@ type BatchSpecMetadata struct {
 	/*
 	  A flag indicating whether the batch procession should halt or continue when an error response is received from the server during the execution of a batch chunk
 	*/
-	StopOnError *bool `json:"stopOnError,omitempty"`
+	ShouldStopOnError *bool `json:"shouldStopOnError,omitempty"`
 	/*
 	  The absolute URI of the API operation on which batching will be performed.
 	*/
@@ -412,11 +416,13 @@ func NewBatchSpecMetadata() *BatchSpecMetadata {
 	p := new(BatchSpecMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ChunkSize = new(int)
 	*p.ChunkSize = 1
+	p.ShouldStopOnError = new(bool)
+	*p.ShouldStopOnError = false
 
 	return p
 }
@@ -442,7 +448,7 @@ func NewBatchSpecPayload() *BatchSpecPayload {
 	p := new(BatchSpecPayload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -467,7 +473,7 @@ func NewBatchSpecPayloadMetadata() *BatchSpecPayloadMetadata {
 	p := new(BatchSpecPayloadMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -509,7 +515,7 @@ func NewBatchSpecPayloadMetadataHeader() *BatchSpecPayloadMetadataHeader {
 	p := new(BatchSpecPayloadMetadataHeader)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataHeader"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -551,14 +557,14 @@ func NewBatchSpecPayloadMetadataPath() *BatchSpecPayloadMetadataPath {
 	p := new(BatchSpecPayloadMetadataPath)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataPath"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/operations/batches/{extId} Get operation
+REST response for all response codes in API path /prism/v4.0/operations/batches/{extId} Get operation
 */
 type GetBatchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -580,7 +586,7 @@ func NewGetBatchApiResponse() *GetBatchApiResponse {
 	p := new(GetBatchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.GetBatchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -608,7 +614,7 @@ func (p *GetBatchApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/operations/batches Get operation
+REST response for all response codes in API path /prism/v4.0/operations/batches Get operation
 */
 type ListBatchesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -630,7 +636,7 @@ func NewListBatchesApiResponse() *ListBatchesApiResponse {
 	p := new(ListBatchesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.ListBatchesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -658,7 +664,7 @@ func (p *ListBatchesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0.b1/operations/$actions/batch Post operation
+REST response for all response codes in API path /prism/v4.0/operations/$actions/batch Post operation
 */
 type SubmitBatchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -680,7 +686,7 @@ func NewSubmitBatchApiResponse() *SubmitBatchApiResponse {
 	p := new(SubmitBatchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.SubmitBatchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -710,8 +716,8 @@ func (p *SubmitBatchApiResponse) SetData(v interface{}) error {
 type OneOfGetBatchApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType0    *Batch                 `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
 func NewOneOfGetBatchApiResponseData() *OneOfGetBatchApiResponseData {
@@ -726,19 +732,6 @@ func (p *OneOfGetBatchApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfGetBatchApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case Batch:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(Batch)
@@ -752,6 +745,19 @@ func (p *OneOfGetBatchApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -759,34 +765,16 @@ func (p *OneOfGetBatchApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetBatchApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
 func (p *OneOfGetBatchApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType0 := new(Batch)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.operations.Batch" == *vOneOfType0.ObjectType_ {
@@ -805,15 +793,33 @@ func (p *OneOfGetBatchApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetBatchApiResponseData"))
 }
 
 func (p *OneOfGetBatchApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfGetBatchApiResponseData")
 }
@@ -897,7 +903,6 @@ func (p *OneOfListBatchesApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new([]Batch)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-
 		if len(*vOneOfType0) == 0 || "prism.v4.operations.Batch" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -909,7 +914,6 @@ func (p *OneOfListBatchesApiResponseData) UnmarshalJSON(b []byte) error {
 			}
 			*p.ObjectType_ = "List<prism.v4.operations.Batch>"
 			return nil
-
 		}
 	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListBatchesApiResponseData"))
@@ -928,8 +932,8 @@ func (p *OneOfListBatchesApiResponseData) MarshalJSON() ([]byte, error) {
 type OneOfSubmitBatchApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
 	oneOfType0    *import3.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
 func NewOneOfSubmitBatchApiResponseData() *OneOfSubmitBatchApiResponseData {
@@ -944,19 +948,6 @@ func (p *OneOfSubmitBatchApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfSubmitBatchApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case import3.TaskReference:
 		if nil == p.oneOfType0 {
 			p.oneOfType0 = new(import3.TaskReference)
@@ -970,6 +961,19 @@ func (p *OneOfSubmitBatchApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -977,34 +981,16 @@ func (p *OneOfSubmitBatchApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfSubmitBatchApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
 func (p *OneOfSubmitBatchApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType0 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
@@ -1023,15 +1009,33 @@ func (p *OneOfSubmitBatchApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSubmitBatchApiResponseData"))
 }
 
 func (p *OneOfSubmitBatchApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfSubmitBatchApiResponseData")
 }

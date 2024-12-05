@@ -1,4 +1,3 @@
-//Api classes for prism's golang SDK
 package api
 
 import (
@@ -40,7 +39,7 @@ func (api *TasksApi) CancelTask(taskExtId *string, args ...map[string]interface{
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0.b1/config/tasks/{taskExtId}/$actions/cancel"
+	uri := "/api/prism/v4.0/config/tasks/{taskExtId}/$actions/cancel"
 
 	// verify the required parameter 'taskExtId' is set
 	if nil == taskExtId {
@@ -48,7 +47,6 @@ func (api *TasksApi) CancelTask(taskExtId *string, args ...map[string]interface{
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"taskExtId"+"}", url.PathEscape(client.ParameterToString(*taskExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -65,33 +63,33 @@ func (api *TasksApi) CancelTask(taskExtId *string, args ...map[string]interface{
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import2.CancelTaskApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Fetch an asynchronous operation called a task for the provided extId.
-func (api *TasksApi) GetTaskById(extId *string, args ...map[string]interface{}) (*import2.GetTaskApiResponse, error) {
+func (api *TasksApi) GetTaskById(extId *string, select_ *string, args ...map[string]interface{}) (*import2.GetTaskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0.b1/config/tasks/{extId}"
+	uri := "/api/prism/v4.0/config/tasks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -99,7 +97,6 @@ func (api *TasksApi) GetTaskById(extId *string, args ...map[string]interface{}) 
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -111,27 +108,31 @@ func (api *TasksApi) GetTaskById(extId *string, args ...map[string]interface{}) 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import2.GetTaskApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
@@ -142,7 +143,7 @@ func (api *TasksApi) ListTasks(page_ *int, limit_ *int, filter_ *string, orderby
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0.b1/config/tasks"
+	uri := "/api/prism/v4.0/config/tasks"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -156,23 +157,18 @@ func (api *TasksApi) ListTasks(page_ *int, limit_ *int, filter_ *string, orderby
 
 	// Query Params
 	if page_ != nil {
-
 		queryParams.Add("$page", client.ParameterToString(*page_, ""))
 	}
 	if limit_ != nil {
-
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
 	}
 	if filter_ != nil {
-
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
 	}
 	if orderby_ != nil {
-
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if select_ != nil {
-
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
@@ -180,21 +176,21 @@ func (api *TasksApi) ListTasks(page_ *int, limit_ *int, filter_ *string, orderby
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import2.ListTasksApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
