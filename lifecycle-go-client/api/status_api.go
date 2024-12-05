@@ -1,4 +1,3 @@
-//Api classes for lifecycle's golang SDK
 package api
 
 import (
@@ -40,7 +39,7 @@ func (api *StatusApi) GetStatus(xClusterId *string, args ...map[string]interface
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0.b1/resources/status"
+	uri := "/api/lifecycle/v4.0/resources/status"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -60,21 +59,21 @@ func (api *StatusApi) GetStatus(xClusterId *string, args ...map[string]interface
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetStatusApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

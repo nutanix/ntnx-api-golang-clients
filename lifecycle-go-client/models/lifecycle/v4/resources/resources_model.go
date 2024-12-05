@@ -1,9 +1,9 @@
 /*
  * Generated file models/lifecycle/v4/resources/resources_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Lifecycle Versioned APIs
+ * Part of the Nutanix Lifecycle Management APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
@@ -19,11 +19,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/common/v1/config"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/common/v1/config"
 	import2 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/common/v1/response"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/common"
 	import4 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/error"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/prism/v4/config"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/prism/v4/config"
 	"time"
 )
 
@@ -84,17 +84,413 @@ type AvailableVersion struct {
 	Version *string `json:"version,omitempty"`
 }
 
+func (p *AvailableVersion) MarshalJSON() ([]byte, error) {
+	type AvailableVersionProxy AvailableVersion
+	return json.Marshal(struct {
+		*AvailableVersionProxy
+	}{
+		AvailableVersionProxy: (*AvailableVersionProxy)(p),
+	})
+}
+
+func (p *AvailableVersion) UnmarshalJSON(b []byte) error {
+	type CustomAvailableVersion struct {
+		ObjectType_          *string                         `json:"$objectType,omitempty"`
+		Reserved_            map[string]interface{}          `json:"$reserved,omitempty"`
+		UnknownFields_       map[string]interface{}          `json:"$unknownFields,omitempty"`
+		AvailableVersionUuid *string                         `json:"availableVersionUuid,omitempty"`
+		ChildEntities        []string                        `json:"childEntities,omitempty"`
+		CustomMessage        *string                         `json:"customMessage,omitempty"`
+		Dependencies         []DependentEntity               `json:"dependencies,omitempty"`
+		DisablementReason    *string                         `json:"disablementReason,omitempty"`
+		GroupUuid            *string                         `json:"groupUuid,omitempty"`
+		IsEnabled            *bool                           `json:"isEnabled,omitempty"`
+		Order                *int64                          `json:"order,omitempty"`
+		ReleaseDate          string                          `json:"releaseDate,omitempty"`
+		ReleaseNotes         *string                         `json:"releaseNotes,omitempty"`
+		Status               *import1.AvailableVersionStatus `json:"status,omitempty"`
+		Version              *string                         `json:"version,omitempty"`
+	}
+
+	var customAvailableVersion CustomAvailableVersion
+	err := json.Unmarshal(b, &customAvailableVersion)
+	if err != nil {
+		return err
+	}
+
+	p.ObjectType_ = customAvailableVersion.ObjectType_
+	p.Reserved_ = customAvailableVersion.Reserved_
+	p.UnknownFields_ = customAvailableVersion.UnknownFields_
+	p.AvailableVersionUuid = customAvailableVersion.AvailableVersionUuid
+	p.ChildEntities = customAvailableVersion.ChildEntities
+	p.CustomMessage = customAvailableVersion.CustomMessage
+	p.Dependencies = customAvailableVersion.Dependencies
+	p.DisablementReason = customAvailableVersion.DisablementReason
+	p.GroupUuid = customAvailableVersion.GroupUuid
+	p.IsEnabled = customAvailableVersion.IsEnabled
+	p.Order = customAvailableVersion.Order
+	// Custom date parsing logic for Date field
+	if customAvailableVersion.ReleaseDate != "" {
+		parsedReleaseDate, err := time.Parse("2006-01-02", customAvailableVersion.ReleaseDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field ReleaseDate in struct AvailableVersion: %s", err))
+		}
+		p.ReleaseDate = &parsedReleaseDate
+	}
+	p.ReleaseNotes = customAvailableVersion.ReleaseNotes
+	p.Status = customAvailableVersion.Status
+	p.Version = customAvailableVersion.Version
+
+	return nil
+}
+
 func NewAvailableVersion() *AvailableVersion {
 	p := new(AvailableVersion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.AvailableVersion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsEnabled = new(bool)
 	*p.IsEnabled = true
 
 	return p
+}
+
+/*
+Details of the LCM bundle
+*/
+type Bundle struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	ChecksumItemDiscriminator_ *string `json:"$checksumItemDiscriminator,omitempty"`
+	/*
+	  SHA256 sum.
+	*/
+	Checksum *OneOfBundleChecksum `json:"checksum,omitempty"`
+	/*
+	  Cluster uuid on which the resource is present or operation is being performed.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  List of LCM images
+	*/
+	Images []Image `json:"images,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Name of the LCM bundle
+	*/
+	Name *string `json:"name"`
+	/*
+	  Size of the LCM bundle
+	*/
+	SizeBytes *int64 `json:"sizeBytes,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	Type *BundleType `json:"type,omitempty"`
+
+	Vendor *BundleVendor `json:"vendor"`
+}
+
+func (p *Bundle) MarshalJSON() ([]byte, error) {
+	type BundleProxy Bundle
+	return json.Marshal(struct {
+		*BundleProxy
+		Name   *string       `json:"name,omitempty"`
+		Vendor *BundleVendor `json:"vendor,omitempty"`
+	}{
+		BundleProxy: (*BundleProxy)(p),
+		Name:        p.Name,
+		Vendor:      p.Vendor,
+	})
+}
+
+func NewBundle() *Bundle {
+	p := new(Bundle)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.Bundle"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *Bundle) GetChecksum() interface{} {
+	if nil == p.Checksum {
+		return nil
+	}
+	return p.Checksum.GetValue()
+}
+
+func (p *Bundle) SetChecksum(v interface{}) error {
+	if nil == p.Checksum {
+		p.Checksum = NewOneOfBundleChecksum()
+	}
+	e := p.Checksum.SetValue(v)
+	if nil == e {
+		if nil == p.ChecksumItemDiscriminator_ {
+			p.ChecksumItemDiscriminator_ = new(string)
+		}
+		*p.ChecksumItemDiscriminator_ = *p.Checksum.Discriminator
+	}
+	return e
+}
+
+/*
+Type of LCM bundle being uploaded
+*/
+type BundleType int
+
+const (
+	BUNDLETYPE_UNKNOWN      BundleType = 0
+	BUNDLETYPE_REDACTED     BundleType = 1
+	BUNDLETYPE_SOFTWARE     BundleType = 2
+	BUNDLETYPE_FIRMWARE     BundleType = 3
+	BUNDLETYPE_PRODUCT_META BundleType = 4
+	BUNDLETYPE_FRAMEWORK    BundleType = 5
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *BundleType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SOFTWARE",
+		"FIRMWARE",
+		"PRODUCT_META",
+		"FRAMEWORK",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e BundleType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SOFTWARE",
+		"FIRMWARE",
+		"PRODUCT_META",
+		"FRAMEWORK",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *BundleType) index(name string) BundleType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SOFTWARE",
+		"FIRMWARE",
+		"PRODUCT_META",
+		"FRAMEWORK",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return BundleType(idx)
+		}
+	}
+	return BUNDLETYPE_UNKNOWN
+}
+
+func (e *BundleType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for BundleType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *BundleType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e BundleType) Ref() *BundleType {
+	return &e
+}
+
+/*
+Owner or vendor of the Bundle
+*/
+type BundleVendor int
+
+const (
+	BUNDLEVENDOR_UNKNOWN     BundleVendor = 0
+	BUNDLEVENDOR_REDACTED    BundleVendor = 1
+	BUNDLEVENDOR_NUTANIX     BundleVendor = 2
+	BUNDLEVENDOR_THIRD_PARTY BundleVendor = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *BundleVendor) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NUTANIX",
+		"THIRD_PARTY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e BundleVendor) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NUTANIX",
+		"THIRD_PARTY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *BundleVendor) index(name string) BundleVendor {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NUTANIX",
+		"THIRD_PARTY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return BundleVendor(idx)
+		}
+	}
+	return BUNDLEVENDOR_UNKNOWN
+}
+
+func (e *BundleVendor) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for BundleVendor:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *BundleVendor) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e BundleVendor) Ref() *BundleVendor {
+	return &e
+}
+
+/*
+Details of a cluster capability.
+*/
+type Capability int
+
+const (
+	CAPABILITY_UNKNOWN       Capability = 0
+	CAPABILITY_REDACTED      Capability = 1
+	CAPABILITY_MCL_INVENTORY Capability = 2
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *Capability) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"MCL_INVENTORY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e Capability) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"MCL_INVENTORY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *Capability) index(name string) Capability {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"MCL_INVENTORY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return Capability(idx)
+		}
+	}
+	return CAPABILITY_UNKNOWN
+}
+
+func (e *Capability) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for Capability:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *Capability) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e Capability) Ref() *Capability {
+	return &e
 }
 
 /*
@@ -166,7 +562,7 @@ func NewConfig() *Config {
 	p := new(Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HasModuleAutoUpgradeEnabled = new(bool)
@@ -265,6 +661,106 @@ func (e ConnectivityType) Ref() *ConnectivityType {
 }
 
 /*
+REST response for all response codes in API path /lifecycle/v4.0/resources/bundles Post operation
+*/
+type CreateBundleApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfCreateBundleApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewCreateBundleApiResponse() *CreateBundleApiResponse {
+	p := new(CreateBundleApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.CreateBundleApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *CreateBundleApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *CreateBundleApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfCreateBundleApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.0/resources/bundles/{extId} Delete operation
+*/
+type DeleteBundleByIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDeleteBundleByIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewDeleteBundleByIdApiResponse() *DeleteBundleByIdApiResponse {
+	p := new(DeleteBundleByIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.DeleteBundleByIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DeleteBundleByIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DeleteBundleByIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDeleteBundleByIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
 Dependency of an LCM entity available version.
 */
 type DependentEntity struct {
@@ -276,7 +772,7 @@ type DependentEntity struct {
 	/*
 	  Information of the dependent entity versions for this available entity.
 	*/
-	DependentVersions []import3.KVPair `json:"dependentVersions,omitempty"`
+	DependentVersions []import5.KVPair `json:"dependentVersions,omitempty"`
 	/*
 	  LCM entity class.
 	*/
@@ -313,7 +809,7 @@ func NewDependentEntity() *DependentEntity {
 	p := new(DependentEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.DependentEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -370,7 +866,7 @@ func NewDeployableVersion() *DeployableVersion {
 	p := new(DeployableVersion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.DeployableVersion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -412,7 +908,7 @@ type Entity struct {
 	/*
 	  Detailed information for the LCM entity. For example, firmware entities contain additional information about NIC and so on.
 	*/
-	EntityDetails []import3.KVPair `json:"entityDetails,omitempty"`
+	EntityDetails []import5.KVPair `json:"entityDetails,omitempty"`
 	/*
 	  LCM entity model.
 	*/
@@ -435,6 +931,10 @@ type Entity struct {
 	  A hardware family for a LCM entity.
 	*/
 	HardwareFamily *string `json:"hardwareFamily,omitempty"`
+	/*
+	  Hardware vendor information.
+	*/
+	HardwareVendor *string `json:"hardwareVendor,omitempty"`
 	/*
 	  UTC date and time in RFC-3339 format when the task was last updated.
 	*/
@@ -463,7 +963,7 @@ func NewEntity() *Entity {
 	p := new(Entity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.Entity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -496,7 +996,7 @@ func NewFrameworkVersionInfo() *FrameworkVersionInfo {
 	p := new(FrameworkVersionInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.FrameworkVersionInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsUpdateNeeded = new(bool)
@@ -506,7 +1006,57 @@ func NewFrameworkVersionInfo() *FrameworkVersionInfo {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.0.b1/resources/config Get operation
+REST response for all response codes in API path /lifecycle/v4.0/resources/bundles/{extId} Get operation
+*/
+type GetBundleByIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetBundleByIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetBundleByIdApiResponse() *GetBundleByIdApiResponse {
+	p := new(GetBundleByIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.GetBundleByIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetBundleByIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetBundleByIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetBundleByIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.0/resources/config Get operation
 */
 type GetConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -528,7 +1078,7 @@ func NewGetConfigApiResponse() *GetConfigApiResponse {
 	p := new(GetConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -556,7 +1106,7 @@ func (p *GetConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.0.b1/resources/entities/{extId} Get operation
+REST response for all response codes in API path /lifecycle/v4.0/resources/entities/{extId} Get operation
 */
 type GetEntityByIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -578,7 +1128,7 @@ func NewGetEntityByIdApiResponse() *GetEntityByIdApiResponse {
 	p := new(GetEntityByIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetEntityByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -606,7 +1156,57 @@ func (p *GetEntityByIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.0.b1/resources/notifications/{extId} Get operation
+REST response for all response codes in API path /lifecycle/v4.0/resources/lcm-summaries/{extId} Get operation
+*/
+type GetLcmSummaryByIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetLcmSummaryByIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewGetLcmSummaryByIdApiResponse() *GetLcmSummaryByIdApiResponse {
+	p := new(GetLcmSummaryByIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.GetLcmSummaryByIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetLcmSummaryByIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetLcmSummaryByIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetLcmSummaryByIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.0/resources/notifications/{extId} Get operation
 */
 type GetNotificationsByIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -628,7 +1228,7 @@ func NewGetNotificationsByIdApiResponse() *GetNotificationsByIdApiResponse {
 	p := new(GetNotificationsByIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetNotificationsByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -656,7 +1256,7 @@ func (p *GetNotificationsByIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.0.b1/resources/recommendations/{extId} Get operation
+REST response for all response codes in API path /lifecycle/v4.0/resources/recommendations/{extId} Get operation
 */
 type GetRecommendationByIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -678,7 +1278,7 @@ func NewGetRecommendationByIdApiResponse() *GetRecommendationByIdApiResponse {
 	p := new(GetRecommendationByIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetRecommendationByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -706,7 +1306,7 @@ func (p *GetRecommendationByIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.0.b1/resources/status Get operation
+REST response for all response codes in API path /lifecycle/v4.0/resources/status Get operation
 */
 type GetStatusApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -728,7 +1328,7 @@ func NewGetStatusApiResponse() *GetStatusApiResponse {
 	p := new(GetStatusApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetStatusApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -786,8 +1386,10 @@ type Image struct {
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-
-	Files []ImageFile `json:"files"`
+	/*
+	  List of files in the image.
+	*/
+	Files []ImageFile `json:"files,omitempty"`
 	/*
 	  A hardware family for a LCM entity.
 	*/
@@ -820,11 +1422,9 @@ func (p *Image) MarshalJSON() ([]byte, error) {
 	type ImageProxy Image
 	return json.Marshal(struct {
 		*ImageProxy
-		Files       []ImageFile `json:"files,omitempty"`
-		SpecVersion *string     `json:"specVersion,omitempty"`
+		SpecVersion *string `json:"specVersion,omitempty"`
 	}{
 		ImageProxy:  (*ImageProxy)(p),
-		Files:       p.Files,
 		SpecVersion: p.SpecVersion,
 	})
 }
@@ -833,7 +1433,7 @@ func NewImage() *Image {
 	p := new(Image)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.Image"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsQualified = new(bool)
@@ -894,7 +1494,7 @@ func NewImageFile() *ImageFile {
 	p := new(ImageFile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.ImageFile"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -921,14 +1521,119 @@ func NewInProgressOpInfo() *InProgressOpInfo {
 	p := new(InProgressOpInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.InProgressOpInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.0.b1/resources/entities Get operation
+Summary of LCM state on a cluster.
+*/
+type LcmSummary struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  LCM framework version present in the LCM URL.
+	*/
+	AvailableVersion *string `json:"availableVersion,omitempty"`
+	/*
+	  List of capabilities of cluster. These capabilities are used to determine the features supported by LCM in the cluster.
+	*/
+	Capabilities []Capability `json:"capabilities,omitempty"`
+	/*
+	  Cluster uuid on which the resource is present or operation is being performed.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  Current LCM Version.
+	*/
+	CurrentVersion *string `json:"currentVersion,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Hardware vendor information.
+	*/
+	HardwareVendor *string `json:"hardwareVendor,omitempty"`
+
+	InProgressOperation *import1.InProgressOpDetails `json:"inProgressOperation,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func NewLcmSummary() *LcmSummary {
+	p := new(LcmSummary)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.LcmSummary"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.0/resources/bundles Get operation
+*/
+type ListBundlesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListBundlesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListBundlesApiResponse() *ListBundlesApiResponse {
+	p := new(ListBundlesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ListBundlesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListBundlesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListBundlesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListBundlesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.0/resources/entities Get operation
 */
 type ListEntitiesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -950,7 +1655,7 @@ func NewListEntitiesApiResponse() *ListEntitiesApiResponse {
 	p := new(ListEntitiesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.ListEntitiesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -978,7 +1683,7 @@ func (p *ListEntitiesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.0.b1/resources/images Get operation
+REST response for all response codes in API path /lifecycle/v4.0/resources/images Get operation
 */
 type ListImagesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1000,7 +1705,7 @@ func NewListImagesApiResponse() *ListImagesApiResponse {
 	p := new(ListImagesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.ListImagesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1016,6 +1721,56 @@ func (p *ListImagesApiResponse) GetData() interface{} {
 func (p *ListImagesApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfListImagesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.0/resources/lcm-summaries Get operation
+*/
+type ListLcmSummariesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListLcmSummariesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func NewListLcmSummariesApiResponse() *ListLcmSummariesApiResponse {
+	p := new(ListLcmSummariesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ListLcmSummariesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListLcmSummariesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListLcmSummariesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListLcmSummariesApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1060,7 +1815,7 @@ func NewNotification() *Notification {
 	p := new(Notification)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.Notification"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1087,7 +1842,7 @@ func NewNotificationDetail() *NotificationDetail {
 	p := new(NotificationDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.NotificationDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1152,7 +1907,43 @@ func NewNotificationItem() *NotificationItem {
 	p := new(NotificationItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.NotificationItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+LCM upgrade notification generated for a node or cluster based on specified entity/entities and target version(s).
+*/
+type NotificationsSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The computed LCM upgrade notifications for the given input.
+	*/
+	NotificationsSpec []import1.EntityUpdateSpec `json:"notificationsSpec"`
+}
+
+func (p *NotificationsSpec) MarshalJSON() ([]byte, error) {
+	type NotificationsSpecProxy NotificationsSpec
+	return json.Marshal(struct {
+		*NotificationsSpecProxy
+		NotificationsSpec []import1.EntityUpdateSpec `json:"notificationsSpec,omitempty"`
+	}{
+		NotificationsSpecProxy: (*NotificationsSpecProxy)(p),
+		NotificationsSpec:      p.NotificationsSpec,
+	})
+}
+
+func NewNotificationsSpec() *NotificationsSpec {
+	p := new(NotificationsSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.NotificationsSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1209,7 +2000,7 @@ func NewRecommendationResult() *RecommendationResult {
 	p := new(RecommendationResult)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.RecommendationResult"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1228,7 +2019,9 @@ type RecommendationSpec struct {
 
 	 */
 	RecommendationSpecItemDiscriminator_ *string `json:"$recommendationSpecItemDiscriminator,omitempty"`
-
+	/*
+	  Specification to get upgrade recommendations for specific UUID and target version via LCM Recommendation
+	*/
 	RecommendationSpec *OneOfRecommendationSpecRecommendationSpec `json:"recommendationSpec"`
 }
 
@@ -1247,7 +2040,7 @@ func NewRecommendationSpec() *RecommendationSpec {
 	p := new(RecommendationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.RecommendationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1366,6 +2159,10 @@ type StatusInfo struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
 
 	FrameworkVersion *FrameworkVersionInfo `json:"frameworkVersion,omitempty"`
 
@@ -1374,6 +2171,14 @@ type StatusInfo struct {
 	  Boolean that indicates if cancel intent for LCM update is set or not.
 	*/
 	IsCancelIntentSet *bool `json:"isCancelIntentSet,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
 	/*
 	  Upload task UUID.
 	*/
@@ -1384,7 +2189,7 @@ func NewStatusInfo() *StatusInfo {
 	p := new(StatusInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.StatusInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsCancelIntentSet = new(bool)
@@ -1459,14 +2264,14 @@ func NewTargetEntity() *TargetEntity {
 	p := new(TargetEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.TargetEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.0.b1/resources/config Put operation
+REST response for all response codes in API path /lifecycle/v4.0/resources/config Put operation
 */
 type UpdateConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1488,7 +2293,7 @@ func NewUpdateConfigApiResponse() *UpdateConfigApiResponse {
 	p := new(UpdateConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.UpdateConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1562,7 +2367,7 @@ func NewUpdatedTargetEntity() *UpdatedTargetEntity {
 	p := new(UpdatedTargetEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.UpdatedTargetEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1600,31 +2405,44 @@ func NewUpdatedTargetEntityResult() *UpdatedTargetEntityResult {
 	p := new(UpdatedTargetEntityResult)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.UpdatedTargetEntityResult"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
-type OneOfGetRecommendationByIdApiResponseData struct {
+type OneOfGetEntityByIdApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *Entity                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 *RecommendationResult  `json:"-"`
 }
 
-func NewOneOfGetRecommendationByIdApiResponseData() *OneOfGetRecommendationByIdApiResponseData {
-	p := new(OneOfGetRecommendationByIdApiResponseData)
+func NewOneOfGetEntityByIdApiResponseData() *OneOfGetEntityByIdApiResponseData {
+	p := new(OneOfGetEntityByIdApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetRecommendationByIdApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetEntityByIdApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetRecommendationByIdApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetEntityByIdApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case Entity:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Entity)
+		}
+		*p.oneOfType2001 = v.(Entity)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	case import4.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import4.ErrorResponse)
@@ -1638,36 +2456,41 @@ func (p *OneOfGetRecommendationByIdApiResponseData) SetValue(v interface{}) erro
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case RecommendationResult:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(RecommendationResult)
-		}
-		*p.oneOfType2001 = v.(RecommendationResult)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfGetRecommendationByIdApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
+func (p *OneOfGetEntityByIdApiResponseData) GetValue() interface{} {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfGetRecommendationByIdApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfGetEntityByIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(Entity)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "lifecycle.v4.resources.Entity" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Entity)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -1686,11 +2509,247 @@ func (p *OneOfGetRecommendationByIdApiResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
-	vOneOfType2001 := new(RecommendationResult)
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetEntityByIdApiResponseData"))
+}
+
+func (p *OneOfGetEntityByIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetEntityByIdApiResponseData")
+}
+
+type OneOfRecommendationSpecRecommendationSpec struct {
+	Discriminator *string                    `json:"-"`
+	ObjectType_   *string                    `json:"-"`
+	oneOfType2002 []TargetEntity             `json:"-"`
+	oneOfType2003 []import1.EntityUpdateSpec `json:"-"`
+	oneOfType2001 []import1.EntityType       `json:"-"`
+	oneOfType2004 []import1.EntityDeploySpec `json:"-"`
+}
+
+func NewOneOfRecommendationSpecRecommendationSpec() *OneOfRecommendationSpecRecommendationSpec {
+	p := new(OneOfRecommendationSpecRecommendationSpec)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRecommendationSpecRecommendationSpec) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRecommendationSpecRecommendationSpec is nil"))
+	}
+	switch v.(type) {
+	case []TargetEntity:
+		p.oneOfType2002 = v.([]TargetEntity)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.resources.TargetEntity>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.resources.TargetEntity>"
+	case []import1.EntityUpdateSpec:
+		p.oneOfType2003 = v.([]import1.EntityUpdateSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.common.EntityUpdateSpec>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.common.EntityUpdateSpec>"
+	case []import1.EntityType:
+		p.oneOfType2001 = v.([]import1.EntityType)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.common.EntityType>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.common.EntityType>"
+	case []import1.EntityDeploySpec:
+		p.oneOfType2004 = v.([]import1.EntityDeploySpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.common.EntityDeploySpec>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.common.EntityDeploySpec>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRecommendationSpecRecommendationSpec) GetValue() interface{} {
+	if "List<lifecycle.v4.resources.TargetEntity>" == *p.Discriminator {
+		return p.oneOfType2002
+	}
+	if "List<lifecycle.v4.common.EntityUpdateSpec>" == *p.Discriminator {
+		return p.oneOfType2003
+	}
+	if "List<lifecycle.v4.common.EntityType>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if "List<lifecycle.v4.common.EntityDeploySpec>" == *p.Discriminator {
+		return p.oneOfType2004
+	}
+	return nil
+}
+
+func (p *OneOfRecommendationSpecRecommendationSpec) UnmarshalJSON(b []byte) error {
+	vOneOfType2002 := new([]TargetEntity)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if len(*vOneOfType2002) == 0 || "lifecycle.v4.resources.TargetEntity" == *((*vOneOfType2002)[0].ObjectType_) {
+			p.oneOfType2002 = *vOneOfType2002
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<lifecycle.v4.resources.TargetEntity>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<lifecycle.v4.resources.TargetEntity>"
+			return nil
+		}
+	}
+	vOneOfType2003 := new([]import1.EntityUpdateSpec)
+	if err := json.Unmarshal(b, vOneOfType2003); err == nil {
+		if len(*vOneOfType2003) == 0 || "lifecycle.v4.common.EntityUpdateSpec" == *((*vOneOfType2003)[0].ObjectType_) {
+			p.oneOfType2003 = *vOneOfType2003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<lifecycle.v4.common.EntityUpdateSpec>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<lifecycle.v4.common.EntityUpdateSpec>"
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]import1.EntityType)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "lifecycle.v4.resources.RecommendationResult" == *vOneOfType2001.ObjectType_ {
+		p.oneOfType2001 = *vOneOfType2001
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.common.EntityType>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.common.EntityType>"
+		return nil
+	}
+	vOneOfType2004 := new([]import1.EntityDeploySpec)
+	if err := json.Unmarshal(b, vOneOfType2004); err == nil {
+		if len(*vOneOfType2004) == 0 || "lifecycle.v4.common.EntityDeploySpec" == *((*vOneOfType2004)[0].ObjectType_) {
+			p.oneOfType2004 = *vOneOfType2004
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<lifecycle.v4.common.EntityDeploySpec>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<lifecycle.v4.common.EntityDeploySpec>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecommendationSpecRecommendationSpec"))
+}
+
+func (p *OneOfRecommendationSpecRecommendationSpec) MarshalJSON() ([]byte, error) {
+	if "List<lifecycle.v4.resources.TargetEntity>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
+	}
+	if "List<lifecycle.v4.common.EntityUpdateSpec>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2003)
+	}
+	if "List<lifecycle.v4.common.EntityType>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if "List<lifecycle.v4.common.EntityDeploySpec>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2004)
+	}
+	return nil, errors.New("No value to marshal for OneOfRecommendationSpecRecommendationSpec")
+}
+
+type OneOfUpdateConfigApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateConfigApiResponseData() *OneOfUpdateConfigApiResponseData {
+	p := new(OneOfUpdateConfigApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateConfigApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateConfigApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateConfigApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateConfigApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(RecommendationResult)
+				p.oneOfType2001 = new(import3.TaskReference)
 			}
 			*p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
@@ -1704,17 +2763,461 @@ func (p *OneOfGetRecommendationByIdApiResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRecommendationByIdApiResponseData"))
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateConfigApiResponseData"))
 }
 
-func (p *OneOfGetRecommendationByIdApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
+func (p *OneOfUpdateConfigApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetRecommendationByIdApiResponseData")
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateConfigApiResponseData")
+}
+
+type OneOfListEntitiesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []Entity               `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListEntitiesApiResponseData() *OneOfListEntitiesApiResponseData {
+	p := new(OneOfListEntitiesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListEntitiesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListEntitiesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Entity:
+		p.oneOfType2001 = v.([]Entity)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.resources.Entity>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.resources.Entity>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListEntitiesApiResponseData) GetValue() interface{} {
+	if "List<lifecycle.v4.resources.Entity>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListEntitiesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]Entity)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.Entity" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<lifecycle.v4.resources.Entity>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<lifecycle.v4.resources.Entity>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListEntitiesApiResponseData"))
+}
+
+func (p *OneOfListEntitiesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<lifecycle.v4.resources.Entity>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListEntitiesApiResponseData")
+}
+
+type OneOfListBundlesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 []Bundle               `json:"-"`
+}
+
+func NewOneOfListBundlesApiResponseData() *OneOfListBundlesApiResponseData {
+	p := new(OneOfListBundlesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListBundlesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListBundlesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Bundle:
+		p.oneOfType2001 = v.([]Bundle)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.resources.Bundle>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.resources.Bundle>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListBundlesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<lifecycle.v4.resources.Bundle>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListBundlesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]Bundle)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.Bundle" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<lifecycle.v4.resources.Bundle>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<lifecycle.v4.resources.Bundle>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListBundlesApiResponseData"))
+}
+
+func (p *OneOfListBundlesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<lifecycle.v4.resources.Bundle>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListBundlesApiResponseData")
+}
+
+type OneOfCreateBundleApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateBundleApiResponseData() *OneOfCreateBundleApiResponseData {
+	p := new(OneOfCreateBundleApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateBundleApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateBundleApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateBundleApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateBundleApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import3.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateBundleApiResponseData"))
+}
+
+func (p *OneOfCreateBundleApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateBundleApiResponseData")
+}
+
+type OneOfListLcmSummariesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []LcmSummary           `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListLcmSummariesApiResponseData() *OneOfListLcmSummariesApiResponseData {
+	p := new(OneOfListLcmSummariesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListLcmSummariesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListLcmSummariesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []LcmSummary:
+		p.oneOfType2001 = v.([]LcmSummary)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.resources.LcmSummary>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.resources.LcmSummary>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListLcmSummariesApiResponseData) GetValue() interface{} {
+	if "List<lifecycle.v4.resources.LcmSummary>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListLcmSummariesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]LcmSummary)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.LcmSummary" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<lifecycle.v4.resources.LcmSummary>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<lifecycle.v4.resources.LcmSummary>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLcmSummariesApiResponseData"))
+}
+
+func (p *OneOfListLcmSummariesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<lifecycle.v4.resources.LcmSummary>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListLcmSummariesApiResponseData")
 }
 
 type OneOfGetStatusApiResponseData struct {
@@ -1828,23 +3331,134 @@ func (p *OneOfGetStatusApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGetStatusApiResponseData")
 }
 
-type OneOfListImagesApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 []Image                `json:"-"`
+type OneOfBundleChecksum struct {
+	Discriminator *string               `json:"-"`
+	ObjectType_   *string               `json:"-"`
+	oneOfType2401 *import1.LcmSha256Sum `json:"-"`
+	oneOfType2402 *import1.LcmMd5Sum    `json:"-"`
 }
 
-func NewOneOfListImagesApiResponseData() *OneOfListImagesApiResponseData {
-	p := new(OneOfListImagesApiResponseData)
+func NewOneOfBundleChecksum() *OneOfBundleChecksum {
+	p := new(OneOfBundleChecksum)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListImagesApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfBundleChecksum) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListImagesApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfBundleChecksum is nil"))
+	}
+	switch v.(type) {
+	case import1.LcmSha256Sum:
+		if nil == p.oneOfType2401 {
+			p.oneOfType2401 = new(import1.LcmSha256Sum)
+		}
+		*p.oneOfType2401 = v.(import1.LcmSha256Sum)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2401.ObjectType_
+	case import1.LcmMd5Sum:
+		if nil == p.oneOfType2402 {
+			p.oneOfType2402 = new(import1.LcmMd5Sum)
+		}
+		*p.oneOfType2402 = v.(import1.LcmMd5Sum)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2402.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2402.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfBundleChecksum) GetValue() interface{} {
+	if p.oneOfType2401 != nil && *p.oneOfType2401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2401
+	}
+	if p.oneOfType2402 != nil && *p.oneOfType2402.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2402
+	}
+	return nil
+}
+
+func (p *OneOfBundleChecksum) UnmarshalJSON(b []byte) error {
+	vOneOfType2401 := new(import1.LcmSha256Sum)
+	if err := json.Unmarshal(b, vOneOfType2401); err == nil {
+		if "lifecycle.v4.common.LcmSha256Sum" == *vOneOfType2401.ObjectType_ {
+			if nil == p.oneOfType2401 {
+				p.oneOfType2401 = new(import1.LcmSha256Sum)
+			}
+			*p.oneOfType2401 = *vOneOfType2401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2401.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2402 := new(import1.LcmMd5Sum)
+	if err := json.Unmarshal(b, vOneOfType2402); err == nil {
+		if "lifecycle.v4.common.LcmMd5Sum" == *vOneOfType2402.ObjectType_ {
+			if nil == p.oneOfType2402 {
+				p.oneOfType2402 = new(import1.LcmMd5Sum)
+			}
+			*p.oneOfType2402 = *vOneOfType2402
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2402.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2402.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfBundleChecksum"))
+}
+
+func (p *OneOfBundleChecksum) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2401 != nil && *p.oneOfType2401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2401)
+	}
+	if p.oneOfType2402 != nil && *p.oneOfType2402.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2402)
+	}
+	return nil, errors.New("No value to marshal for OneOfBundleChecksum")
+}
+
+type OneOfGetRecommendationByIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *RecommendationResult  `json:"-"`
+}
+
+func NewOneOfGetRecommendationByIdApiResponseData() *OneOfGetRecommendationByIdApiResponseData {
+	p := new(OneOfGetRecommendationByIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetRecommendationByIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetRecommendationByIdApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import4.ErrorResponse:
@@ -1860,285 +3474,11 @@ func (p *OneOfListImagesApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Image:
-		p.oneOfType2001 = v.([]Image)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<lifecycle.v4.resources.Image>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<lifecycle.v4.resources.Image>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListImagesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<lifecycle.v4.resources.Image>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfListImagesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new([]Image)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-
-		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.Image" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<lifecycle.v4.resources.Image>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<lifecycle.v4.resources.Image>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListImagesApiResponseData"))
-}
-
-func (p *OneOfListImagesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<lifecycle.v4.resources.Image>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfListImagesApiResponseData")
-}
-
-type OneOfRecommendationSpecRecommendationSpec struct {
-	Discriminator *string                    `json:"-"`
-	ObjectType_   *string                    `json:"-"`
-	oneOfType2002 []TargetEntity             `json:"-"`
-	oneOfType2001 []import1.EntityType       `json:"-"`
-	oneOfType2004 []import1.EntityDeploySpec `json:"-"`
-	oneOfType2003 []import1.EntityUpdateSpec `json:"-"`
-}
-
-func NewOneOfRecommendationSpecRecommendationSpec() *OneOfRecommendationSpecRecommendationSpec {
-	p := new(OneOfRecommendationSpecRecommendationSpec)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRecommendationSpecRecommendationSpec) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRecommendationSpecRecommendationSpec is nil"))
-	}
-	switch v.(type) {
-	case []TargetEntity:
-		p.oneOfType2002 = v.([]TargetEntity)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<lifecycle.v4.resources.TargetEntity>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<lifecycle.v4.resources.TargetEntity>"
-	case []import1.EntityType:
-		p.oneOfType2001 = v.([]import1.EntityType)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<lifecycle.v4.common.EntityType>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<lifecycle.v4.common.EntityType>"
-	case []import1.EntityDeploySpec:
-		p.oneOfType2004 = v.([]import1.EntityDeploySpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<lifecycle.v4.common.EntityDeploySpec>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<lifecycle.v4.common.EntityDeploySpec>"
-	case []import1.EntityUpdateSpec:
-		p.oneOfType2003 = v.([]import1.EntityUpdateSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<lifecycle.v4.common.EntityUpdateSpec>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<lifecycle.v4.common.EntityUpdateSpec>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRecommendationSpecRecommendationSpec) GetValue() interface{} {
-	if "List<lifecycle.v4.resources.TargetEntity>" == *p.Discriminator {
-		return p.oneOfType2002
-	}
-	if "List<lifecycle.v4.common.EntityType>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	if "List<lifecycle.v4.common.EntityDeploySpec>" == *p.Discriminator {
-		return p.oneOfType2004
-	}
-	if "List<lifecycle.v4.common.EntityUpdateSpec>" == *p.Discriminator {
-		return p.oneOfType2003
-	}
-	return nil
-}
-
-func (p *OneOfRecommendationSpecRecommendationSpec) UnmarshalJSON(b []byte) error {
-	vOneOfType2002 := new([]TargetEntity)
-	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
-
-		if len(*vOneOfType2002) == 0 || "lifecycle.v4.resources.TargetEntity" == *((*vOneOfType2002)[0].ObjectType_) {
-			p.oneOfType2002 = *vOneOfType2002
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<lifecycle.v4.resources.TargetEntity>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<lifecycle.v4.resources.TargetEntity>"
-			return nil
-
-		}
-	}
-	vOneOfType2001 := new([]import1.EntityType)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		p.oneOfType2001 = *vOneOfType2001
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<lifecycle.v4.common.EntityType>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<lifecycle.v4.common.EntityType>"
-		return nil
-	}
-	vOneOfType2004 := new([]import1.EntityDeploySpec)
-	if err := json.Unmarshal(b, vOneOfType2004); err == nil {
-
-		if len(*vOneOfType2004) == 0 || "lifecycle.v4.common.EntityDeploySpec" == *((*vOneOfType2004)[0].ObjectType_) {
-			p.oneOfType2004 = *vOneOfType2004
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<lifecycle.v4.common.EntityDeploySpec>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<lifecycle.v4.common.EntityDeploySpec>"
-			return nil
-
-		}
-	}
-	vOneOfType2003 := new([]import1.EntityUpdateSpec)
-	if err := json.Unmarshal(b, vOneOfType2003); err == nil {
-
-		if len(*vOneOfType2003) == 0 || "lifecycle.v4.common.EntityUpdateSpec" == *((*vOneOfType2003)[0].ObjectType_) {
-			p.oneOfType2003 = *vOneOfType2003
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<lifecycle.v4.common.EntityUpdateSpec>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<lifecycle.v4.common.EntityUpdateSpec>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecommendationSpecRecommendationSpec"))
-}
-
-func (p *OneOfRecommendationSpecRecommendationSpec) MarshalJSON() ([]byte, error) {
-	if "List<lifecycle.v4.resources.TargetEntity>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2002)
-	}
-	if "List<lifecycle.v4.common.EntityType>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if "List<lifecycle.v4.common.EntityDeploySpec>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2004)
-	}
-	if "List<lifecycle.v4.common.EntityUpdateSpec>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2003)
-	}
-	return nil, errors.New("No value to marshal for OneOfRecommendationSpecRecommendationSpec")
-}
-
-type OneOfGetEntityByIdApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 *Entity                `json:"-"`
-}
-
-func NewOneOfGetEntityByIdApiResponseData() *OneOfGetEntityByIdApiResponseData {
-	p := new(OneOfGetEntityByIdApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetEntityByIdApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetEntityByIdApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Entity:
+	case RecommendationResult:
 		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(Entity)
+			p.oneOfType2001 = new(RecommendationResult)
 		}
-		*p.oneOfType2001 = v.(Entity)
+		*p.oneOfType2001 = v.(RecommendationResult)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -2153,7 +3493,7 @@ func (p *OneOfGetEntityByIdApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfGetEntityByIdApiResponseData) GetValue() interface{} {
+func (p *OneOfGetRecommendationByIdApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -2163,7 +3503,7 @@ func (p *OneOfGetEntityByIdApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfGetEntityByIdApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfGetRecommendationByIdApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -2182,11 +3522,11 @@ func (p *OneOfGetEntityByIdApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType2001 := new(Entity)
+	vOneOfType2001 := new(RecommendationResult)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "lifecycle.v4.resources.Entity" == *vOneOfType2001.ObjectType_ {
+		if "lifecycle.v4.resources.RecommendationResult" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(Entity)
+				p.oneOfType2001 = new(RecommendationResult)
 			}
 			*p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
@@ -2200,36 +3540,36 @@ func (p *OneOfGetEntityByIdApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetEntityByIdApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRecommendationByIdApiResponseData"))
 }
 
-func (p *OneOfGetEntityByIdApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetRecommendationByIdApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetEntityByIdApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetRecommendationByIdApiResponseData")
 }
 
-type OneOfGetConfigApiResponseData struct {
+type OneOfGetLcmSummaryByIdApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 *Config                `json:"-"`
+	oneOfType2001 *LcmSummary            `json:"-"`
 }
 
-func NewOneOfGetConfigApiResponseData() *OneOfGetConfigApiResponseData {
-	p := new(OneOfGetConfigApiResponseData)
+func NewOneOfGetLcmSummaryByIdApiResponseData() *OneOfGetLcmSummaryByIdApiResponseData {
+	p := new(OneOfGetLcmSummaryByIdApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetConfigApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetLcmSummaryByIdApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetConfigApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetLcmSummaryByIdApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import4.ErrorResponse:
@@ -2245,11 +3585,11 @@ func (p *OneOfGetConfigApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Config:
+	case LcmSummary:
 		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(Config)
+			p.oneOfType2001 = new(LcmSummary)
 		}
-		*p.oneOfType2001 = v.(Config)
+		*p.oneOfType2001 = v.(LcmSummary)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -2264,7 +3604,7 @@ func (p *OneOfGetConfigApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfGetConfigApiResponseData) GetValue() interface{} {
+func (p *OneOfGetLcmSummaryByIdApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -2274,7 +3614,7 @@ func (p *OneOfGetConfigApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfGetConfigApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfGetLcmSummaryByIdApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -2293,11 +3633,11 @@ func (p *OneOfGetConfigApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType2001 := new(Config)
+	vOneOfType2001 := new(LcmSummary)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "lifecycle.v4.resources.Config" == *vOneOfType2001.ObjectType_ {
+		if "lifecycle.v4.resources.LcmSummary" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(Config)
+				p.oneOfType2001 = new(LcmSummary)
 			}
 			*p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
@@ -2311,17 +3651,17 @@ func (p *OneOfGetConfigApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetConfigApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetLcmSummaryByIdApiResponseData"))
 }
 
-func (p *OneOfGetConfigApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetLcmSummaryByIdApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetConfigApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetLcmSummaryByIdApiResponseData")
 }
 
 type OneOfGetNotificationsByIdApiResponseData struct {
@@ -2435,23 +3775,23 @@ func (p *OneOfGetNotificationsByIdApiResponseData) MarshalJSON() ([]byte, error)
 	return nil, errors.New("No value to marshal for OneOfGetNotificationsByIdApiResponseData")
 }
 
-type OneOfListEntitiesApiResponseData struct {
+type OneOfGetBundleByIdApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 []Entity               `json:"-"`
+	oneOfType2001 *Bundle                `json:"-"`
 }
 
-func NewOneOfListEntitiesApiResponseData() *OneOfListEntitiesApiResponseData {
-	p := new(OneOfListEntitiesApiResponseData)
+func NewOneOfGetBundleByIdApiResponseData() *OneOfGetBundleByIdApiResponseData {
+	p := new(OneOfGetBundleByIdApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListEntitiesApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetBundleByIdApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListEntitiesApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetBundleByIdApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import4.ErrorResponse:
@@ -2467,118 +3807,11 @@ func (p *OneOfListEntitiesApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Entity:
-		p.oneOfType2001 = v.([]Entity)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<lifecycle.v4.resources.Entity>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<lifecycle.v4.resources.Entity>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListEntitiesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<lifecycle.v4.resources.Entity>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfListEntitiesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new([]Entity)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-
-		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.Entity" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<lifecycle.v4.resources.Entity>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<lifecycle.v4.resources.Entity>"
-			return nil
-
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListEntitiesApiResponseData"))
-}
-
-func (p *OneOfListEntitiesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<lifecycle.v4.resources.Entity>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfListEntitiesApiResponseData")
-}
-
-type OneOfUpdateConfigApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 *import5.TaskReference `json:"-"`
-}
-
-func NewOneOfUpdateConfigApiResponseData() *OneOfUpdateConfigApiResponseData {
-	p := new(OneOfUpdateConfigApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateConfigApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateConfigApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import5.TaskReference:
+	case Bundle:
 		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import5.TaskReference)
+			p.oneOfType2001 = new(Bundle)
 		}
-		*p.oneOfType2001 = v.(import5.TaskReference)
+		*p.oneOfType2001 = v.(Bundle)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -2593,7 +3826,7 @@ func (p *OneOfUpdateConfigApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfUpdateConfigApiResponseData) GetValue() interface{} {
+func (p *OneOfGetBundleByIdApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -2603,7 +3836,7 @@ func (p *OneOfUpdateConfigApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfUpdateConfigApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfGetBundleByIdApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -2622,11 +3855,11 @@ func (p *OneOfUpdateConfigApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType2001 := new(import5.TaskReference)
+	vOneOfType2001 := new(Bundle)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+		if "lifecycle.v4.resources.Bundle" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import5.TaskReference)
+				p.oneOfType2001 = new(Bundle)
 			}
 			*p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
@@ -2640,17 +3873,344 @@ func (p *OneOfUpdateConfigApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateConfigApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetBundleByIdApiResponseData"))
 }
 
-func (p *OneOfUpdateConfigApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGetBundleByIdApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateConfigApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetBundleByIdApiResponseData")
+}
+
+type OneOfGetConfigApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *Config                `json:"-"`
+}
+
+func NewOneOfGetConfigApiResponseData() *OneOfGetConfigApiResponseData {
+	p := new(OneOfGetConfigApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetConfigApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetConfigApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Config:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Config)
+		}
+		*p.oneOfType2001 = v.(Config)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetConfigApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetConfigApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(Config)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "lifecycle.v4.resources.Config" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Config)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetConfigApiResponseData"))
+}
+
+func (p *OneOfGetConfigApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetConfigApiResponseData")
+}
+
+type OneOfDeleteBundleByIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteBundleByIdApiResponseData() *OneOfDeleteBundleByIdApiResponseData {
+	p := new(OneOfDeleteBundleByIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteBundleByIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteBundleByIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteBundleByIdApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteBundleByIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import3.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteBundleByIdApiResponseData"))
+}
+
+func (p *OneOfDeleteBundleByIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteBundleByIdApiResponseData")
+}
+
+type OneOfListImagesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 []Image                `json:"-"`
+}
+
+func NewOneOfListImagesApiResponseData() *OneOfListImagesApiResponseData {
+	p := new(OneOfListImagesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListImagesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListImagesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Image:
+		p.oneOfType2001 = v.([]Image)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.resources.Image>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.resources.Image>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListImagesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<lifecycle.v4.resources.Image>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListImagesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]Image)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.Image" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<lifecycle.v4.resources.Image>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<lifecycle.v4.resources.Image>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListImagesApiResponseData"))
+}
+
+func (p *OneOfListImagesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<lifecycle.v4.resources.Image>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListImagesApiResponseData")
 }
 
 type FileDetail struct {

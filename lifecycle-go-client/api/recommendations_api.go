@@ -1,10 +1,9 @@
-//Api classes for lifecycle's golang SDK
 package api
 
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/resources"
 	"net/http"
 	"net/url"
@@ -34,14 +33,19 @@ func NewRecommendationsApi(apiClient *client.ApiClient) *RecommendationsApi {
 	return a
 }
 
-// Compute LCM upgrade recommendations given a set of entities to update along with a target version.
-func (api *RecommendationsApi) ComputeRecommendations(body *import1.RecommendationSpec, xClusterId *string, args ...map[string]interface{}) (*import2.ComputeRecommendationsApiResponse, error) {
+// Compute LCM upgrade recommendations given a set of entities to update along with a target version. The recommendations are computed based on the current state of the entities and the target version. Once the task is successfully completed, the resource identifier for the computation result is stored in the completion_details field of the task. The result can then be retrieved using the resource id via the GET recommendations/ endpoint.
+func (api *RecommendationsApi) ComputeRecommendations(body *import1.RecommendationSpec, xClusterId *string, args ...map[string]interface{}) (*import3.ComputeRecommendationsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0.b1/operations/$actions/compute-recommendations"
+	uri := "/api/lifecycle/v4.0/operations/$actions/compute-recommendations"
+
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -61,33 +65,33 @@ func (api *RecommendationsApi) ComputeRecommendations(body *import1.Recommendati
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ComputeRecommendationsApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.ComputeRecommendationsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get LCM upgrade recommendation details for specified UUID.
+// Get LCM upgrade recommendation details for specified resource ID. The resource is valid for 1 hour from the time it was created using the computeRecommendations endpoint.
 func (api *RecommendationsApi) GetRecommendationById(extId *string, args ...map[string]interface{}) (*import1.GetRecommendationByIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0.b1/resources/recommendations/{extId}"
+	uri := "/api/lifecycle/v4.0/resources/recommendations/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -95,7 +99,6 @@ func (api *RecommendationsApi) GetRecommendationById(extId *string, args ...map[
 	}
 
 	// Path Params
-
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -112,21 +115,21 @@ func (api *RecommendationsApi) GetRecommendationById(extId *string, args ...map[
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
 	unmarshalledResp := new(import1.GetRecommendationByIdApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

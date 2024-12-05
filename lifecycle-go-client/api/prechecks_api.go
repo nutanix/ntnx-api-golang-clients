@@ -1,11 +1,10 @@
-//Api classes for lifecycle's golang SDK
 package api
 
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/common"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/common"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
 	"net/http"
 	"net/url"
 	"strings"
@@ -35,13 +34,18 @@ func NewPrechecksApi(apiClient *client.ApiClient) *PrechecksApi {
 }
 
 // Perform LCM prechecks for the intended update operation.
-func (api *PrechecksApi) PerformPrechecks(body *import3.PrechecksSpec, xClusterId *string, args ...map[string]interface{}) (*import2.PrechecksApiResponse, error) {
+func (api *PrechecksApi) PerformPrechecks(body *import2.PrechecksSpec, xClusterId *string, args ...map[string]interface{}) (*import3.PrechecksApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0.b1/operations/$actions/prechecks"
+	uri := "/api/lifecycle/v4.0/operations/$actions/prechecks"
+
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -61,21 +65,21 @@ func (api *PrechecksApi) PerformPrechecks(body *import3.PrechecksSpec, xClusterI
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.PrechecksApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.PrechecksApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

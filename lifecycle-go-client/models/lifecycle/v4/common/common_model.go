@@ -1,9 +1,9 @@
 /*
  * Generated file models/lifecycle/v4/common/common_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
- * Part of the Nutanix Lifecycle Versioned APIs
+ * Part of the Nutanix Lifecycle Management APIs
  *
  * (c) 2024 Nutanix Inc.  All rights reserved
  *
@@ -38,6 +38,7 @@ const (
 	AVAILABLEVERSIONSTATUS_AVAILABLE   AvailableVersionStatus = 7
 	AVAILABLEVERSIONSTATUS_LTS         AvailableVersionStatus = 8
 	AVAILABLEVERSIONSTATUS_STS         AvailableVersionStatus = 9
+	AVAILABLEVERSIONSTATUS_ESTS        AvailableVersionStatus = 10
 )
 
 // Returns the name of the enum given an ordinal number
@@ -55,6 +56,7 @@ func (e *AvailableVersionStatus) name(index int) string {
 		"AVAILABLE",
 		"LTS",
 		"STS",
+		"ESTS",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -76,6 +78,7 @@ func (e AvailableVersionStatus) GetName() string {
 		"AVAILABLE",
 		"LTS",
 		"STS",
+		"ESTS",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -96,6 +99,7 @@ func (e *AvailableVersionStatus) index(name string) AvailableVersionStatus {
 		"AVAILABLE",
 		"LTS",
 		"STS",
+		"ESTS",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -205,6 +209,42 @@ func (e CheckSumType) Ref() *CheckSumType {
 }
 
 /*
+Specification for deployment of entities.
+*/
+type DeploySpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of deploy specifications for use in the recommendations API.
+	*/
+	EntityDeploySpecs []EntityDeploySpec `json:"entityDeploySpecs"`
+}
+
+func (p *DeploySpec) MarshalJSON() ([]byte, error) {
+	type DeploySpecProxy DeploySpec
+	return json.Marshal(struct {
+		*DeploySpecProxy
+		EntityDeploySpecs []EntityDeploySpec `json:"entityDeploySpecs,omitempty"`
+	}{
+		DeploySpecProxy:   (*DeploySpecProxy)(p),
+		EntityDeploySpecs: p.EntityDeploySpecs,
+	})
+}
+
+func NewDeploySpec() *DeploySpec {
+	p := new(DeploySpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.common.DeploySpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 The list of properties that can be expanded on the LCM entity.
 */
 type EntityBaseModel struct {
@@ -249,7 +289,7 @@ func NewEntityBaseModel() *EntityBaseModel {
 	p := new(EntityBaseModel)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.EntityBaseModel"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -283,7 +323,7 @@ func NewEntityDeploySpec() *EntityDeploySpec {
 	p := new(EntityDeploySpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.EntityDeploySpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -404,7 +444,7 @@ func NewEntityUpdateSpec() *EntityUpdateSpec {
 	p := new(EntityUpdateSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.EntityUpdateSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -494,6 +534,105 @@ func (e HypervisorType) Ref() *HypervisorType {
 }
 
 /*
+Details of the in progress LCM operation.
+*/
+type InProgressOpDetails struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	OperationType *OperationType `json:"operationType,omitempty"`
+	/*
+	  Task ext id of the in progress LCM operation.
+	*/
+	TaskExtId *string `json:"taskExtId,omitempty"`
+}
+
+func NewInProgressOpDetails() *InProgressOpDetails {
+	p := new(InProgressOpDetails)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.common.InProgressOpDetails"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+MD5Sum of the bundle.
+*/
+type LcmMd5Sum struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Hex digest of the MD5 sum.
+	*/
+	HexDigest *string `json:"hexDigest"`
+}
+
+func (p *LcmMd5Sum) MarshalJSON() ([]byte, error) {
+	type LcmMd5SumProxy LcmMd5Sum
+	return json.Marshal(struct {
+		*LcmMd5SumProxy
+		HexDigest *string `json:"hexDigest,omitempty"`
+	}{
+		LcmMd5SumProxy: (*LcmMd5SumProxy)(p),
+		HexDigest:      p.HexDigest,
+	})
+}
+
+func NewLcmMd5Sum() *LcmMd5Sum {
+	p := new(LcmMd5Sum)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.common.LcmMd5Sum"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Sha256sum of the bundle.
+*/
+type LcmSha256Sum struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Hex digest of the SHA256 sum.
+	*/
+	HexDigest *string `json:"hexDigest"`
+}
+
+func (p *LcmSha256Sum) MarshalJSON() ([]byte, error) {
+	type LcmSha256SumProxy LcmSha256Sum
+	return json.Marshal(struct {
+		*LcmSha256SumProxy
+		HexDigest *string `json:"hexDigest,omitempty"`
+	}{
+		LcmSha256SumProxy: (*LcmSha256SumProxy)(p),
+		HexDigest:         p.HexDigest,
+	})
+}
+
+func NewLcmSha256Sum() *LcmSha256Sum {
+	p := new(LcmSha256Sum)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.common.LcmSha256Sum"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Location info corresponds to a tuple of location type (either node/cluster) and ExtID
 */
 type LocationInfo struct {
@@ -504,7 +643,9 @@ type LocationInfo struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	LocationType *LocationType `json:"locationType,omitempty"`
-
+	/*
+	  Location UUID of the resource.
+	*/
 	Uuid *string `json:"uuid,omitempty"`
 }
 
@@ -512,7 +653,7 @@ func NewLocationInfo() *LocationInfo {
 	p := new(LocationInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.LocationInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -602,7 +743,7 @@ func (e LocationType) Ref() *LocationType {
 }
 
 /*
-Cluster management server configuration used while updating clusters with ESX or HyperV.
+Cluster management server configuration used while updating clusters with ESX or Hyper-V.
 */
 type ManagementServer struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -647,7 +788,7 @@ func NewManagementServer() *ManagementServer {
 	p := new(ManagementServer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.ManagementServer"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -828,7 +969,9 @@ type PrechecksSpec struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
+	/*
+	  List of entity update objects for getting recommendations.
+	*/
 	EntityUpdateSpecs []EntityUpdateSpec `json:"entityUpdateSpecs"`
 
 	ManagementServer *ManagementServer `json:"managementServer,omitempty"`
@@ -853,7 +996,43 @@ func NewPrechecksSpec() *PrechecksSpec {
 	p := new(PrechecksSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.PrechecksSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+A specification defining the entity being preloaded and its version.
+*/
+type PreloadSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of entity update objects for getting recommendations.
+	*/
+	EntityUpdateSpecs []EntityUpdateSpec `json:"entityUpdateSpecs"`
+}
+
+func (p *PreloadSpec) MarshalJSON() ([]byte, error) {
+	type PreloadSpecProxy PreloadSpec
+	return json.Marshal(struct {
+		*PreloadSpecProxy
+		EntityUpdateSpecs []EntityUpdateSpec `json:"entityUpdateSpecs,omitempty"`
+	}{
+		PreloadSpecProxy:  (*PreloadSpecProxy)(p),
+		EntityUpdateSpecs: p.EntityUpdateSpecs,
+	})
+}
+
+func NewPreloadSpec() *PreloadSpec {
+	p := new(PreloadSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.common.PreloadSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -947,7 +1126,9 @@ type UpgradeSpec struct {
 	  List of automated system operations to perform, to avoid precheck failure and let the system restore state after an update is complete. The allowed flag is: - 'powerOffUvms': This allows the system to automatically power off user VMs which cannot be migrated to other hosts and power them on when the update is done. This option can avoid pinned VM precheck failure on the host which needs to enter maintenance mode during the update and allow the update to go through.
 	*/
 	AutoHandleFlags []SystemAutoMgmtFlag `json:"autoHandleFlags,omitempty"`
-
+	/*
+	  List of entity update objects for getting recommendations.
+	*/
 	EntityUpdateSpecs []EntityUpdateSpec `json:"entityUpdateSpecs"`
 
 	ManagementServer *ManagementServer `json:"managementServer,omitempty"`
@@ -976,7 +1157,7 @@ func NewUpgradeSpec() *UpgradeSpec {
 	p := new(UpgradeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.UpgradeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

@@ -1,10 +1,9 @@
-//Api classes for lifecycle's golang SDK
 package api
 
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
 	"net/http"
 	"net/url"
 	"strings"
@@ -34,13 +33,13 @@ func NewInventoryApi(apiClient *client.ApiClient) *InventoryApi {
 }
 
 // Perform an LCM inventory operation.
-func (api *InventoryApi) PerformInventory(xClusterId *string, args ...map[string]interface{}) (*import2.InventoryApiResponse, error) {
+func (api *InventoryApi) PerformInventory(xClusterId *string, args ...map[string]interface{}) (*import3.InventoryApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0.b1/operations/$actions/inventory"
+	uri := "/api/lifecycle/v4.0/operations/$actions/inventory"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -60,21 +59,21 @@ func (api *InventoryApi) PerformInventory(xClusterId *string, args ...map[string
 		// Skip platform generated headers
 		if !api.headersToSkip[strings.ToLower(headerKey)] {
 			if value != nil {
-				if headerValue, headerValueOk := value.(string); headerValueOk {
-					headerParams[headerKey] = headerValue
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
 				}
 			}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	responseBody, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == responseBody {
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.InventoryApiResponse)
-	json.Unmarshal(responseBody.([]byte), &unmarshalledResp)
+	unmarshalledResp := new(import3.InventoryApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
