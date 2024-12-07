@@ -1,49 +1,202 @@
-SDK LICENSE AGREEMENT IMPORTANT -- READ CAREFULLY
-READ THIS SDK LICENSE AGREEMENT (THE "AGREEMENT") BEFORE DOWNLOADING, INSTALLING, COPYING, CONFIGURING, ACCESSING, DEPLOYING AND/OR USING THE SDK OR THE DOCUMENTATION (EACH AS DEFINED BELOW). BY DOWNLOADING, INSTALLING, COPYING, CONFIGURING, ACCESSING, DEPLOYING, USING AND/OR OTHERWISE USING ALL OR ANY PART OF THE  SDK OR THE DOCUMENTATION, OR BY CLICKING ON AN "ACCEPT" BUTTON, YOU AGREE TO THE TERMS AND CONDITIONS OF THIS AGREEMENT. YOU FURTHER AGREE THAT YOU ARE BOUND BY AND ARE A PARTY TO THIS AGREEMENT, AND, IF YOU ARE ACCEPTING THESE TERMS ON BEHALF OF ANOTHER PERSON OR A COMPANY OR OTHER LEGAL ENTITY, YOU REPRESENT AND WARRANT THAT YOU HAVE FULL AUTHORITY TO BIND THAT PERSON, COMPANY, OR LEGAL ENTITY TO THESE TERMS.
 
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 
-YOUR USE OF THE  SDK AND DOCUMENTATION IS EXPRESSLY CONDITIONED ON YOUR ACCEPTANCE OF THE TERMS AND CONDITIONS OF THIS AGREEMENT. IF YOU DO NOT AGREE TO THE TERMS AND CONDITIONS OF THIS AGREEMENT, DO NOT DOWNLOAD, INSTALL, COPY, CONFIGURE, ACCESS, DEPLOY, CLICK ON AN "ACCEPT" BUTTON AND/OR OTHERWISE USE THE SDK OR DOCUMENTATION.
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
+   1. Definitions.
 
-This Agreement is between you, on behalf of the company, partnership or business entity that you represent ("Licensee") and Nutanix, Inc. a Delaware corporation, with ofﬁces located at 1740 Technology Drive, Suite 150, San Jose, CA 95110, USA ("Nutanix") (each of Licensee and Nutanix a "Party" and together the "Parties"), and is effective as of the date on which Licensee accepts the terms of this Agreement ("Effective Date").
-In consideration of the terms and conditions of this Agreement, the Parties agree as follows:
-DEFINITIONS
-In addition to the capitalized terms set forth above, the following capitalized terms shall have the following deﬁnitions:
-	1.1 	"Documentation" means any manuals, instructions and other documentation pertaining to the SDK that Nutanix may deliver or make available to Licensee.
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
 
-	1.2 	"Intellectual Property Rights" means patents of any type, design rights, utility models or other similar invention rights, copyrights, derivative works, mask work rights, trade secret or conﬁdentiality rights, trademarks, trade names and service marks and any other intangible property rights, including applications and registrations for any of the foregoing, in any country, arising under statutory or common law or by contract and whether or not perfected, now existing or hereafter ﬁled, issued, or acquired.
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
 
-	1.3 	“Licensee Software” means a software program developed by Licensee that utilizes or interacts with the SDK or any other Nutanix Products in any way.
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
 
-	1.4	"Nutanix Products" means any Nutanix proprietary software, internet-based or hosted offerings, and any updates or upgrades not provided under a software-specific license.
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
 
-	1.5 	“SDK” means the software development kit provided by Nutanix under this Agreement.
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
 
-LICENSE GRANT AND SERVICES
-Grant. Subject to this Section 2, and conditioned upon Licensee's compliance with all the terms and conditions of this Agreement, Nutanix grants to Licensee a non-exclusive, non-transferable, non-sublicensable, terminable (in accordance with Section 5 herein) license to use and make incidental copies of the SDK in object code form solely for development purposes in connection with Licensee’s use of Nutanix’s application programming interfaces (“APIs”) for the purpose of enabling  interoperability of Licensee Software  with Nutanix Products.  Subject to this Section 2, Licensee may distribute the SDK in object code form as a component of Licensee Software, so long as distribution is necessary for interoperability of such Licensee Software with Nutanix Products and the Licensee is otherwise in compliance with this Agreement.
-Restrictions. Except as specified in this Agreement,  Licensee shall not and agrees not to: (i) use the SDK or the Documentation for any use or purpose other than as explicitly permitted in this section, including but not limited to use to provide benchmarking or other services of any kind to third parties or to run any business operations; (ii) lease, loan, resell, sublicense, distribute, or transfer the SDK or the Documentation; (iii) copy or otherwise reproduce the SDK or the Documentation; (iv) modify or create derivative works of the SDK or the Documentation; (v) disassemble, decompile or reverse engineer the SDK, or change or remove any proprietary rights notice on any of the foregoing or the Documentation; or, (vi) use the SDK in a manner that would subject the SDK to any other license terms, including licenses that require the SDK to be (a) disclosed or distributed in source code form, or (b) licensed for the purpose of making derivative works. 
-Distribution Limitations. If Licensee distributes the SDK, Licensee will: (a) ensure that any third party use of the SDK will be subject only to the terms of this Agreement, (b) not alter this Agreement, and (c) include a copy of this Agreement with Licensee Software in place and in manner where Licensee provides such third party notices in Licensee Software generally.
-Use of Open Source Software. Portions of the SDK may constitute open source software (the "Open Source Software") that is distributed subject to one or more applicable open source software license(s) (the "Open Source Software License"). Licensee may use the Open Source Software in accordance with the applicable Open Source Software License and, to the extent any of the provisions of this Agreement are inconsistent with the applicable Open Source Software License, the Open Source Software License shall take precedence.
-Services. At Nutanix’s sole election, it may provide assistance to Licensee with respect to the use of the SDK ("Support Services"). Such Support Services shall be provided at no charge solely as a courtesy to Licensee, and as set forth in Section 6.1 below, such Support Services shall be provided without warranty and Nutanix shall have no liability with respect to such Support Services.
-Nutanix Products. If you configure the SDK to connect with Nutanix Products, the Nutanix Products shall be governed by the Nutanix License and Services Agreement (“NLSA”) located at https://www.nutanix.com/legal/eula, which may be updated from time to time. The NLSA is incorporated herein by reference. Any use of the SDK that violates the NLSA will also be a violation of this Agreement.
-CONFIDENTIALITY AND ACCESS RESTRICTIONS
-“Confidential Information” means any information disclosed by Nutanix to Licensee pursuant to this Agreement that is marked “Confidential,” “Proprietary,” or in some similar manner and any information which Licensee knew or reasonably should have known to be confidential.  Licensee shall treat as confidential all Confidential Information of Nutanix and shall not use such Confidential Information except to exercise Licensee's rights or perform Licensee's obligations under this Agreement.  Licensee will protect Confidential Information from unauthorized use, access, or disclosure in the same manner as Licensee protect their own confidential or proprietary information of a similar nature but with no less than reasonable care.  Licensee shall not disclose such Confidential Information to any third party during or after the term of this Agreement.  This paragraph will not apply to any Confidential Information that: (a) was rightfully in Licensee's possession prior to receipt of such Confidential Information from Nutanix; (b) is or becomes a matter of public knowledge through no fault of Licensee; (c) is rightfully received from a third party without a duty of confidentiality; (d) is independently developed by Licensee without breach of any confidentiality obligations; (e) is disclosed by Licensee with Nutanix’s prior written approval; or (f) Licensee is required to disclose by applicable law or court order, provided that Licensee notifies Nutanix of such required disclosure promptly in writing and cooperates with Nutanix in any lawful action to contest or limit the scope of such required disclosure.  Licensee acknowledge that breach of this Section 3 will cause irreparable damage to Nutanix for which monetary damages will be an inadequate remedy.   Accordingly, Nutanix will be entitled to seek and obtain injunctive and any other relief (legal or equitable) to restrain any breach or anticipated breach of this Section 3.
-TERM AND TERMINATION
-Term. This Agreement and the licenses granted hereunder shall become effective as of the Effective Date and may be terminated by either party at any time upon written notice. In addition, this Agreement automatically terminates if Licensee or any of its employees or consultants fail to comply with the terms and conditions of this Agreement. Upon expiration or termination of this Agreement for any reason: (a) all licenses granted by Nutanix shall immediately terminate; (b) Licensee shall immediately discontinue use of the SDK and the Documentation; (c) Licensee shall destroy all copies of the SDK and the Documentation  in Licensee's possession, custody or control; and (d) if requested, Licensee shall certify to Nutanix in writing that such return or destruction has occurred.
-Survival. Sections 2.3, 3, 4.2, and 5-9 shall survive any expiration or termination of this Agreement.
-OWNERSHIP
-As between Nutanix and Licensee, Nutanix and its licensors own all worldwide right, title and interest in the SDK and Documentation including all Intellectual Property Rights. The SDK and Documentation are Nutanix's valuable trade secrets and constitute Nutanix's Confidential Information. Except for the rights explicitly granted to Licensee in this Agreement, all right, title and interest in the SDK  and Documentation are reserved and retained by Nutanix, its affiliates, and/or its licensors. Licensee does not acquire any intellectual property or other rights in the SDK or Documentation as a result of downloading, installing, accessing or using the SDK or Documentation except as specified in this Agreement.
-WARRANTY DISCLAIMERS AND INDEMNIFICATION
-Disclaimers by Nutanix. THE SDK, DOCUMENTATION, AND SUPPORT SERVICES ARE PROVIDED HEREUNDER "AS IS" WITHOUT WARRANTY OF ANY KIND. NUTANIX DISCLAIMS ALL WARRANTIES, EXPRESS AND  IMPLIED WITH RESPECT TO THE FOREGOING, INCLUDING BUT NOT LIMITED TO ANY IMPLIED WARRANTIES OF MERCHANTABILITY, MERCHANTABLE QUALITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. NUTANIX SHALL HAVE NO LIABILITY FOR DAMAGES OF ANY KIND ARISING FROM THE SUBJECT MATTER OF THIS AGREEMENT OR RESULTING FROM THE SDK, THE SUPPORT SERVICES, OR THE DOCUMENTATION, OR ANY USE THEREOF.
-Licensee Indemnity. Licensee shall defend, indemnify and hold Nutanix and its directors, employees subsidiaries, affiliates, successors and assigns harmless from and against all claims, damages, losses, costs and expenses, including attorneys' fees, arising from any third party claims asserted against Nutanix and its employees, subsidiaries, affiliates, successors and assigns, that are based in whole or in part on any of the following: (a) Licensee's distribution, use, or misuse of the SDK in violation of this Agreement; (b) Licensee’s use of the SDK in combination with any other software not provided hereunder; (c) Licensee’s breach of this Agreement; or (d) a claim based upon an actual or alleged infringement of an intellectual property right of a third party arising from or related to the Licensee Software.
-FEEDBACK
-During the course of this Agreement, Licensee may provide input or feedback regarding the  SDK, the Documentation, or other products, services, business or technology plans of Nutanix (collectively "Feedback"). In order for Nutanix to utilize such Feedback, Licensee grants to Nutanix a non-exclusive, perpetual, irrevocable, worldwide, royalty-free license, with the right to sublicense, under all relevant Intellectual Property Rights of Licensee, to use for any purpose, publish, and disclose such Feedback and to display, perform, copy, make, have made, use, sell, and otherwise exploit or dispose of such Feedback, including in connection with Nutanix's and its sublicensee's products or services embodying or based upon Feedback in any manner and via any media Nutanix chooses, without attribution or reference to the source of the Feedback. Nutanix shall be entitled to use Feedback for any purpose without restriction or remuneration of any kind with respect to Licensee and/or its representatives. Except for the foregoing license to use Feedback provided by Licensee at its sole discretion, Nutanix acquires no title or interest in any pre-existing or independently developed data, information, or Intellectual Property Rights of Licensee under this Agreement.
-USAGE DATA AND PRIVACY
-Notwithstanding anything to the contrary in the Agreement, Licensee agrees that Nutanix shall have the right to collect and process data pertaining to Licensee and its users and data related to their use of the SDK, Nutanix Products , and/or Support Services for Nutanix's legitimate business purposes, such as account management, security and support, as well as to develop, improve and market, products and services. Any such usage data shall be considered Feedback under the terms of this Agreement. Any personal data or personal information collected by Nutanix under this Agreement shall be processed by Nutanix in accordance with its data privacy statement, which can be found at https://www.nutanix.com/legal/privacy-statement.
-GENERAL
-Changes to the Agreement. We reserve the right, at our sole discretion, to amend this Agreement at any time and will update this Agreement in the event of any such amendments. Licensee’s continued use of the SDK constitutes agreement to our revisions of this Agreement.
-Severability. In the event any one or more of the provisions contained in this Agreement shall be held to be invalid or unenforceable in any respect, such invalidity or unenforceability shall not affect the other provisions of this Agreement, and this Agreement shall be construed as if such invalid or unenforceable provision had never been contained herein.
-Waiver. No waiver shall be effective unless in writing signed by the Party to be charged with the waiver. If either Party should waive any breach of any provision of this Agreement, it shall not thereby be deemed to have waived any preceding or succeeding breach of the same or any other provision hereof.
-Governing Law. This Agreement shall be governed by and construed under the laws of the state of California without regard to or application of its choice of law rules or principles. Each of the parties hereto consents to the exclusive jurisdiction and venue of the state and federal courts of Santa Clara County, California.  In the event of any conﬂicts between foreign law, rules, and regulations, and United States of America law, rules, and regulations, United States of America law, rules, and regulations shall prevail and govern. The United Nations Convention on Contracts for the International Sale of Goods shall not apply to this Agreement. The Uniform Computer Information Transactions Act as enacted shall not apply.
-Compliance with Laws; Export Control. Each Party shall comply with all laws applicable to the actions contemplated by this Agreement. Licensee acknowledges that the SDK is of United States origin, and is subject to the U.S. Export Administration Regulations, and may be subject to the export control laws of the applicable territory, and that diversion contrary to applicable export control laws is prohibited. Licensee represents and warrants that (1) Licensee is not, and is not acting on behalf of, (a) any person who is a citizen, national, or resident of, or who is controlled by the government of any country to which the United States has prohibited export transactions; or (b) any person or entity listed on the U.S. Treasury Department lists of Specially Designated Nationals, Foreign Sanctions Evaders, Sectoral Sanctions Identiﬁcations, or Palestinian Legislative Council; or the U.S. Commerce Department Denied Persons List, Entity List, or Unveriﬁed List; or the U.S. State Department Nonproliferation Sanctions, or Debarred List; and (2) Licensee will not permit the SDK, directly, or indirectly, to be used for any purposes prohibited by law, including any prohibited development, design, manufacture or production of missiles or nuclear, chemical or biological weapons. Licensee agrees that the SDK may not be exported/re-exported to Cuba, Iran, North Korea, Sudan and Syria.
-Miscellaneous. If any part of this Agreement is held invalid or unenforceable, that part shall be construed to reﬂect the Parties' original intent, and the remaining portions remain in full force and effect. The controlling language of this Agreement is English. If Licensee has received a translation into another language, it has been provided for Licensee's convenience only. A waiver by either Party of any term or condition of this Agreement or any breach thereof, in any one instance, shall not waive such term or condition or any subsequent breach thereof. Licensee may not assign, delegate any performance, or otherwise transfer by operation of law or otherwise this Agreement or any rights or obligations herein. Licensee agrees not to copy, sell, give or assign the  SDK, the Documentation, or any part thereof to a third party, including by operation of law. Nutanix may assign this Agreement to any person or entity at its sole discretion. This Agreement shall be binding upon and shall inure to the beneﬁt of the Parties, their successors and permitted assigns. This Agreement constitutes the entire and sole agreement between Licensee and Nutanix with respect to  the SDK and the Documentation and supersedes all prior and contemporaneous agreements relating to  the SDK and the Documentation, whether oral or written (including any inconsistent terms contained in a purchase order). If Licensee is found to have breached Section 2 or Section 3 of this Agreement, then Nutanix shall be awarded attorney fees, costs and expenses. 
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
