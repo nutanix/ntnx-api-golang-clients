@@ -61,7 +61,7 @@ and use them as:
 package main
 
 import (
-    "github.com/nutanix/ntnx-api-golang-client/vmm-go-client/v4/client"
+    "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
 )
 var (
     ApiClientInstance *client.ApiClient
