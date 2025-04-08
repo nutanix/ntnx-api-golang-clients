@@ -1,11 +1,11 @@
 /*
  * Generated file models/common/v1/config/config_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.0.2
  *
  * Part of the Nutanix Cluster Management APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -20,6 +20,48 @@ import (
 	"errors"
 	"fmt"
 )
+
+/*
+An authentication scheme that requires the client to present a username and password. The server will service the request only if it can validate the user-ID and password for the protection space of the Request-URI.
+*/
+type BasicAuth struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Password required for the basic auth scheme.
+	*/
+	Password *string `json:"password"`
+	/*
+	  Username required for the basic auth scheme. As per [RFC 2617](https://datatracker.ietf.org/doc/html/rfc2617) usernames might be case sensitive.
+	*/
+	Username *string `json:"username"`
+}
+
+func (p *BasicAuth) MarshalJSON() ([]byte, error) {
+	type BasicAuthProxy BasicAuth
+	return json.Marshal(struct {
+		*BasicAuthProxy
+		Password *string `json:"password,omitempty"`
+		Username *string `json:"username,omitempty"`
+	}{
+		BasicAuthProxy: (*BasicAuthProxy)(p),
+		Password:       p.Password,
+		Username:       p.Username,
+	})
+}
+
+func NewBasicAuth() *BasicAuth {
+	p := new(BasicAuth)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "common.v1.config.BasicAuth"
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
 
 /*
 A fully qualified domain name that specifies its exact location in the tree hierarchy of the Domain Name System.

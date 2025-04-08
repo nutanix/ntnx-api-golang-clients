@@ -1,11 +1,11 @@
 /*
  * Generated file models/clustermgmt/v4/stats/stats_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.0.2
  *
  * Part of the Nutanix Cluster Management APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -209,6 +209,10 @@ type ClusterStats struct {
 	  Overall saving ratio
 	*/
 	OverallSavingsRatio []TimeValuePair `json:"overallSavingsRatio,omitempty"`
+	/*
+	  Power instant consumption (watt)
+	*/
+	PowerConsumptionInstantWatt []TimeValuePair `json:"powerConsumptionInstantWatt,omitempty"`
 	/*
 	  Recycle bin usage (bytes)
 	*/
@@ -473,6 +477,10 @@ type ClusterStatsProjection struct {
 	  Overall saving ratio
 	*/
 	OverallSavingsRatio []TimeValuePair `json:"overallSavingsRatio,omitempty"`
+	/*
+	  Power instant consumption (watt)
+	*/
+	PowerConsumptionInstantWatt []TimeValuePair `json:"powerConsumptionInstantWatt,omitempty"`
 	/*
 	  Recycle bin usage (bytes)
 	*/
@@ -957,6 +965,10 @@ type HostStats struct {
 	*/
 	OverallMemoryUsagePpmUpperBuf []TimeValuePair `json:"overallMemoryUsagePpmUpperBuf,omitempty"`
 	/*
+	  Power instant consumption (watt)
+	*/
+	PowerConsumptionInstantWatt []TimeValuePair `json:"powerConsumptionInstantWatt,omitempty"`
+	/*
 	  Storage capacity(bytes).
 	*/
 	StorageCapacityBytes []TimeValuePair `json:"storageCapacityBytes,omitempty"`
@@ -1216,6 +1228,10 @@ type HostStatsProjection struct {
 	  Upper Buf value of overall memory usage(ppm).
 	*/
 	OverallMemoryUsagePpmUpperBuf []TimeValuePair `json:"overallMemoryUsagePpmUpperBuf,omitempty"`
+	/*
+	  Power instant consumption (watt)
+	*/
+	PowerConsumptionInstantWatt []TimeValuePair `json:"powerConsumptionInstantWatt,omitempty"`
 	/*
 	  Storage capacity(bytes).
 	*/
