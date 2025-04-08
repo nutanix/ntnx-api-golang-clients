@@ -1,11 +1,11 @@
 /*
  * Generated file models/objects/v4/config/config_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
  * Part of the Nutanix Objects Storage Management APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -37,6 +37,10 @@ type Certificate struct {
 	*/
 	AlternateFqdns []import1.FQDN `json:"alternateFqdns,omitempty"`
 	/*
+	  A list of the IPs included as Subject Alternative Names (SANs) in the certificate. The IPs must be among the public IPs of the Object store (publicNetworkIps).
+	*/
+	AlternateIps []import1.IPAddress `json:"alternateIps,omitempty"`
+	/*
 	  The CA certificate or chain to upload.
 	*/
 	Ca *string `json:"ca,omitempty"`
@@ -59,6 +63,10 @@ type Certificate struct {
 	*/
 	PublicCert *string `json:"publicCert,omitempty"`
 	/*
+	  If true, the certificate is generated with the provided alternate FQDNs and IPs.
+	*/
+	ShouldGenerate *bool `json:"shouldGenerate,omitempty"`
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -68,8 +76,11 @@ func NewCertificate() *Certificate {
 	p := new(Certificate)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.Certificate"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	p.ShouldGenerate = new(bool)
+	*p.ShouldGenerate = false
 
 	return p
 }
@@ -85,6 +96,10 @@ type CertificateProjection struct {
 	*/
 	AlternateFqdns []import1.FQDN `json:"alternateFqdns,omitempty"`
 	/*
+	  A list of the IPs included as Subject Alternative Names (SANs) in the certificate. The IPs must be among the public IPs of the Object store (publicNetworkIps).
+	*/
+	AlternateIps []import1.IPAddress `json:"alternateIps,omitempty"`
+	/*
 	  The CA certificate or chain to upload.
 	*/
 	Ca *string `json:"ca,omitempty"`
@@ -107,6 +122,10 @@ type CertificateProjection struct {
 	*/
 	PublicCert *string `json:"publicCert,omitempty"`
 	/*
+	  If true, the certificate is generated with the provided alternate FQDNs and IPs.
+	*/
+	ShouldGenerate *bool `json:"shouldGenerate,omitempty"`
+	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
@@ -116,14 +135,17 @@ func NewCertificateProjection() *CertificateProjection {
 	p := new(CertificateProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.CertificateProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	p.ShouldGenerate = new(bool)
+	*p.ShouldGenerate = false
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /objects/v4.0.b1/config/object-stores/{objectStoreExtId}/certificates Post operation
+REST response for all response codes in API path /objects/v4.0/config/object-stores/{objectStoreExtId}/certificates Post operation
 */
 type CreateCertificateApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -145,7 +167,7 @@ func NewCreateCertificateApiResponse() *CreateCertificateApiResponse {
 	p := new(CreateCertificateApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.CreateCertificateApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -173,7 +195,7 @@ func (p *CreateCertificateApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /objects/v4.0.b1/config/object-stores Post operation
+REST response for all response codes in API path /objects/v4.0/config/object-stores Post operation
 */
 type CreateObjectstoreApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -195,7 +217,7 @@ func NewCreateObjectstoreApiResponse() *CreateObjectstoreApiResponse {
 	p := new(CreateObjectstoreApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.CreateObjectstoreApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -223,7 +245,7 @@ func (p *CreateObjectstoreApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /objects/v4.0.b1/config/object-stores/{extId} Delete operation
+REST response for all response codes in API path /objects/v4.0/config/object-stores/{extId} Delete operation
 */
 type DeleteObjectstoreApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -245,7 +267,7 @@ func NewDeleteObjectstoreApiResponse() *DeleteObjectstoreApiResponse {
 	p := new(DeleteObjectstoreApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.DeleteObjectstoreApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -273,7 +295,7 @@ func (p *DeleteObjectstoreApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /objects/v4.0.b1/config/object-stores/{objectStoreExtId}/certificates/{extId}/certificate-authority Get operation
+REST response for all response codes in API path /objects/v4.0/config/object-stores/{objectStoreExtId}/certificates/{certificateExtId}/certificate-authority Get operation
 */
 type GetCaApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -295,7 +317,7 @@ func NewGetCaApiResponse() *GetCaApiResponse {
 	p := new(GetCaApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.GetCaApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -323,7 +345,7 @@ func (p *GetCaApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /objects/v4.0.b1/config/object-stores/{objectStoreExtId}/certificates/{extId} Get operation
+REST response for all response codes in API path /objects/v4.0/config/object-stores/{objectStoreExtId}/certificates/{extId} Get operation
 */
 type GetCertificateApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -345,7 +367,7 @@ func NewGetCertificateApiResponse() *GetCertificateApiResponse {
 	p := new(GetCertificateApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.GetCertificateApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -373,7 +395,7 @@ func (p *GetCertificateApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /objects/v4.0.b1/config/object-stores/{extId} Get operation
+REST response for all response codes in API path /objects/v4.0/config/object-stores/{extId} Get operation
 */
 type GetObjectstoreApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -395,7 +417,7 @@ func NewGetObjectstoreApiResponse() *GetObjectstoreApiResponse {
 	p := new(GetObjectstoreApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.GetObjectstoreApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -423,7 +445,7 @@ func (p *GetObjectstoreApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /objects/v4.0.b1/config/object-stores/{objectStoreExtId}/certificates Get operation
+REST response for all response codes in API path /objects/v4.0/config/object-stores/{objectStoreExtId}/certificates Get operation
 */
 type ListCertificatesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -445,7 +467,7 @@ func NewListCertificatesApiResponse() *ListCertificatesApiResponse {
 	p := new(ListCertificatesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.ListCertificatesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -473,7 +495,7 @@ func (p *ListCertificatesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /objects/v4.0.b1/config/object-stores Get operation
+REST response for all response codes in API path /objects/v4.0/config/object-stores Get operation
 */
 type ListObjectstoresApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -495,7 +517,7 @@ func NewListObjectstoresApiResponse() *ListObjectstoresApiResponse {
 	p := new(ListObjectstoresApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.ListObjectstoresApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -621,7 +643,7 @@ func NewObjectStore() *ObjectStore {
 	p := new(ObjectStore)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.ObjectStore"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -728,7 +750,7 @@ func NewObjectStoreProjection() *ObjectStoreProjection {
 	p := new(ObjectStoreProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.ObjectStoreProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -846,7 +868,7 @@ func (e State) Ref() *State {
 }
 
 /*
-REST response for all response codes in API path /objects/v4.0.b1/config/object-stores/{extId} Put operation
+REST response for all response codes in API path /objects/v4.0/config/object-stores/{extId} Put operation
 */
 type UpdateObjectstoreApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -868,7 +890,7 @@ func NewUpdateObjectstoreApiResponse() *UpdateObjectstoreApiResponse {
 	p := new(UpdateObjectstoreApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "objects.v4.config.UpdateObjectstoreApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

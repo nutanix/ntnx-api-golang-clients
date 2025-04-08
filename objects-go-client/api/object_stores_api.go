@@ -36,14 +36,14 @@ func NewObjectStoresApi(apiClient *client.ApiClient) *ObjectStoresApi {
 	return a
 }
 
-// This operation creates a new default certificate and keys. It also creates the alternate FQDNs for the Object store. The certificate of an Object store can be created when it is in a OBJECT_STORE_AVAILABLE or OBJECT_STORE_CERT_CREATION_FAILED state. If the publicCert, privateKey, and ca values are provided in the request body, these values are used to create the new certificate. If these values are not provided, the existing certificate will be used as the new certificate. Optionally, a list of additional alternate FQDNs can be provided.
+// This operation creates a new default certificate and keys. It also creates the alternate FQDNs and alternate IPs for the Object store. The certificate of an Object store can be created when it is in a OBJECT_STORE_AVAILABLE or OBJECT_STORE_CERT_CREATION_FAILED state. If the publicCert, privateKey, and ca values are provided in the request body, these values are used to create the new certificate. If these values are not provided, a new certificate will be generated if 'shouldGenerate' is set to true and if it is set to false, the existing certificate will be used as the new certificate. Optionally, a list of additional alternate FQDNs and alternate IPs can be provided. These alternateFqdns and alternateIps must be included in the CA certificate if it has been provided.
 func (api *ObjectStoresApi) CreateCertificate(objectStoreExtId *string, path *string, args ...map[string]interface{}) (*import1.CreateCertificateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0.b1/config/object-stores/{objectStoreExtId}/certificates"
+	uri := "/api/objects/v4.0/config/object-stores/{objectStoreExtId}/certificates"
 
 	// verify the required parameter 'objectStoreExtId' is set
 	if nil == objectStoreExtId {
@@ -109,7 +109,7 @@ func (api *ObjectStoresApi) CreateObjectstore(body *import1.ObjectStore, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0.b1/config/object-stores"
+	uri := "/api/objects/v4.0/config/object-stores"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -157,7 +157,7 @@ func (api *ObjectStoresApi) DeleteObjectstoreById(extId *string, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0.b1/config/object-stores/{extId}"
+	uri := "/api/objects/v4.0/config/object-stores/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -201,26 +201,26 @@ func (api *ObjectStoresApi) DeleteObjectstoreById(extId *string, args ...map[str
 }
 
 // Download the certificate authority of an Object store certificate.
-func (api *ObjectStoresApi) GetCaByCertificateId(objectStoreExtId *string, extId *string, args ...map[string]interface{}) (*import1.GetCaApiResponse, error) {
+func (api *ObjectStoresApi) GetCaByCertificateId(objectStoreExtId *string, certificateExtId *string, args ...map[string]interface{}) (*import1.GetCaApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0.b1/config/object-stores/{objectStoreExtId}/certificates/{extId}/certificate-authority"
+	uri := "/api/objects/v4.0/config/object-stores/{objectStoreExtId}/certificates/{certificateExtId}/certificate-authority"
 
 	// verify the required parameter 'objectStoreExtId' is set
 	if nil == objectStoreExtId {
 		return nil, client.ReportError("objectStoreExtId is required and must be specified")
 	}
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'certificateExtId' is set
+	if nil == certificateExtId {
+		return nil, client.ReportError("certificateExtId is required and must be specified")
 	}
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"objectStoreExtId"+"}", url.PathEscape(client.ParameterToString(*objectStoreExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"certificateExtId"+"}", url.PathEscape(client.ParameterToString(*certificateExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -291,7 +291,7 @@ func (api *ObjectStoresApi) GetCertificateById(objectStoreExtId *string, extId *
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0.b1/config/object-stores/{objectStoreExtId}/certificates/{extId}"
+	uri := "/api/objects/v4.0/config/object-stores/{objectStoreExtId}/certificates/{extId}"
 
 	// verify the required parameter 'objectStoreExtId' is set
 	if nil == objectStoreExtId {
@@ -339,14 +339,14 @@ func (api *ObjectStoresApi) GetCertificateById(objectStoreExtId *string, extId *
 	return unmarshalledResp, err
 }
 
-// Get an Object store for the provided UUID.      `state`   string (State of the Object store)   Enum for the state of the Object store.   | Enum | Description | | ----------- | ----------- | | `\"DEPLOYING_OBJECT_STORE\"` | The Object store will be in this state during an ongoing deployment of the Object store. The Object store will be unavailable through S3 APIs in this state. The Object store will move to the OBJECT_STORE_AVAILABLE state if the deployment succeeds, and to the OBJECT_STORE_DEPLOYMENT_FAILED state if the deployment fails. | | `\"OBJECT_STORE_OPERATION_FAILED\"` | The Object store is in this state when there is an error while performing an operation on the Object store. The Object store may not be available through S3 APIs in this state. | | `\"OBJECT_STORE_CERT_CREATION_FAILED\"` |  An Object store enters this state if there is an error while creating the Object store certificate. Creating a new certificate can be retried from this state. The Object store may not be available through S3 APIs in this state. | | `\"OBJECT_STORE_OPERATION_PENDING\"` |  The Object store is in this state during an ongoing operation on the Object store. The Object store may not be available through S3 APIs in this state. The Object store will enter the OBJECT_STORE_OPERATION_FAILED state if the operation fails, or the OBJECT_STORE_AVAILABLE state if the operation is successful. | | `\"UNDEPLOYED_OBJECT_STORE\"` |  The Object store is in this state if it has not been deployed. | | `\"CREATING_OBJECT_STORE_CERT\"` |  The Object store is in this state during a certificate creation for the Object store. The Object store will be unavailable through S3 APIs in this state. It will move to the OBJECT_STORE_AVAILABLE state if the certificate was created successfully, or to the OBJECT_STORE_CERT_CREATION_FAILED state if an error occurs while creating the certificate. | | `\"OBJECT_STORE_AVAILABLE\"`  | An Object store is in this state if its deployment was successful, and there are no ongoing operations on the Object store. The Object store will be available through S3 APIs in this state. In this state, the Object store can be deleted or a new certificate can be created for this Object store. | | `\"OBJECT_STORE_DELETION_FAILED\"` |  An Object store enters this state if there is an error deleting the Object store. The Object store will not be available through S3 APIs in this state. Deleting the Object store can be retried from this state. | | `\"OBJECT_STORE_DEPLOYMENT_FAILED\"` |  An Object store enters this state when its deployment fails. The Object store deployment can be retried or the Object store can be deleted from this state. | | `\"DELETING_OBJECT_STORE\"` |  A deployed Object store is in this state when the Object store is being deleted. The Object store will be unavailable through S3 APIs in this state. It can be either deleted or move to the OBJECT_STORE_DELETION_FAILED state if the deletion fails. |
+// Get an Object store for the provided UUID. `state` string (State of the Object store) Enum for the state of the Object store. | Enum | Description | | ----------- | ----------- | | `\"DEPLOYING_OBJECT_STORE\"` | The Object store will be in this state during an ongoing deployment of the Object store. The Object store will be unavailable through S3 APIs in this state. The Object store will move to the OBJECT_STORE_AVAILABLE state if the deployment succeeds, and to the OBJECT_STORE_DEPLOYMENT_FAILED state if the deployment fails. | | `\"OBJECT_STORE_OPERATION_FAILED\"` | The Object store is in this state when there is an error while performing an operation on the Object store. The Object store may not be available through S3 APIs in this state. | | `\"OBJECT_STORE_CERT_CREATION_FAILED\"` |  An Object store enters this state if there is an error while creating the Object store certificate. Creating a new certificate can be retried from this state. The Object store may not be available through S3 APIs in this state. | | `\"OBJECT_STORE_OPERATION_PENDING\"` |  The Object store is in this state during an ongoing operation on the Object store. The Object store may not be available through S3 APIs in this state. The Object store will enter the OBJECT_STORE_OPERATION_FAILED state if the operation fails, or the OBJECT_STORE_AVAILABLE state if the operation is successful. | | `\"UNDEPLOYED_OBJECT_STORE\"` |  The Object store is in this state if it has not been deployed. | | `\"CREATING_OBJECT_STORE_CERT\"` |  The Object store is in this state during a certificate creation for the Object store. The Object store will be unavailable through S3 APIs in this state. It will move to the OBJECT_STORE_AVAILABLE state if the certificate was created successfully, or to the OBJECT_STORE_CERT_CREATION_FAILED state if an error occurs while creating the certificate. | | `\"OBJECT_STORE_AVAILABLE\"`  | An Object store is in this state if its deployment was successful, and there are no ongoing operations on the Object store. The Object store will be available through S3 APIs in this state. In this state, the Object store can be deleted or a new certificate can be created for this Object store. | | `\"OBJECT_STORE_DELETION_FAILED\"` |  An Object store enters this state if there is an error deleting the Object store. The Object store will not be available through S3 APIs in this state. Deleting the Object store can be retried from this state. | | `\"OBJECT_STORE_DEPLOYMENT_FAILED\"` |  An Object store enters this state when its deployment fails. The Object store deployment can be retried or the Object store can be deleted from this state. | | `\"DELETING_OBJECT_STORE\"` |  A deployed Object store is in this state when the Object store is being deleted. The Object store will be unavailable through S3 APIs in this state. It can be either deleted or move to the OBJECT_STORE_DELETION_FAILED state if the deletion fails. |
 func (api *ObjectStoresApi) GetObjectstoreById(extId *string, args ...map[string]interface{}) (*import1.GetObjectstoreApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0.b1/config/object-stores/{extId}"
+	uri := "/api/objects/v4.0/config/object-stores/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -396,7 +396,7 @@ func (api *ObjectStoresApi) ListCertificatesByObjectstoreId(objectStoreExtId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0.b1/config/object-stores/{objectStoreExtId}/certificates"
+	uri := "/api/objects/v4.0/config/object-stores/{objectStoreExtId}/certificates"
 
 	// verify the required parameter 'objectStoreExtId' is set
 	if nil == objectStoreExtId {
@@ -459,7 +459,7 @@ func (api *ObjectStoresApi) ListObjectstores(page_ *int, limit_ *int, filter_ *s
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0.b1/config/object-stores"
+	uri := "/api/objects/v4.0/config/object-stores"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -521,7 +521,7 @@ func (api *ObjectStoresApi) UpdateObjectstoreById(extId *string, body *import1.O
 		argMap = args[0]
 	}
 
-	uri := "/api/objects/v4.0.b1/config/object-stores/{extId}"
+	uri := "/api/objects/v4.0/config/object-stores/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

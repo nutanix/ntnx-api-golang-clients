@@ -9,8 +9,8 @@ The Go client for Nutanix Objects Storage Management APIs is designed for Go cli
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.b1
-- Package version: v4.0.1-beta.1
+- API version: v4.0
+- Package version: v4.0.1
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.0.1-beta.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.0.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.0.1-beta.1
+	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.0.1
 )
 ```
 
@@ -85,9 +85,6 @@ The Go client for Nutanix Objects Storage Management APIs can be configured with
 | ReadTimeout | Read timeout (in time.Duration) for all operations                             | No       | 30 * time.Second |
 | DownloadDirectory | Directory location for files to download                                 | No       | Current Directory |
 | DownloadChunkSize | Chunk size in bytes for files to download                                | No       | 8*1024 bytes |
-| RootCACertificateFile | PEM encoded Root CA certificate file path                            | No       | N/A          |
-| ClientCertificateFile | PEM encoded client certificate file path                             | No       | N/A          |
-| ClientKeyFile | PEM encoded client key file path                                             | No       | N/A          |
 
 A Proxy can be configured with the following parameters
 
@@ -139,24 +136,7 @@ ApiClientInstance.Proxy.Port = 1080
 
 ```
 
-### mTLS Configuration
-```go
-import (
-	"github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/client"
-)
-var (
-	ApiClientInstance *client.ApiClient
-)
 
-ApiClientInstance = client.NewApiClient()
-// Configure the client as shown in the previous step
-// ...
-
-ApiClientInstance.RootCACertificateFile = "/home/certs/ca.pem"
-ApiClientInstance.ClientCertificateFile = "/home/certs/YourService/YourService.crt"
-ApiClientInstance.ClientKeyFile = "/home/certs/YourService/YourService.key"
-
-```
 
 ### Authentication
 Nutanix APIs currently support two type of authentication schemes:
@@ -224,7 +204,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "D01626Cf-FEB4-BF7C-8c4B-cEeEAaB309eB"
+extId := "CDc9A12d-DAA4-C504-f9FB-58CBD263BdBC"
 
 // 
 getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)
@@ -272,7 +252,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "D01626Cf-FEB4-BF7C-8c4B-cEeEAaB309eB"
+extId := "CDc9A12d-DAA4-C504-f9FB-58CBD263BdBC"
 
 // 
 getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)
@@ -345,7 +325,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=objects&version=v4.0.b1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=objects&version=v4.0&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).
