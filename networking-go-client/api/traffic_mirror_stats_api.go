@@ -41,7 +41,7 @@ func (api *TrafficMirrorStatsApi) GetTrafficMirrorStats(extId *string, startTime
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/stats/traffic-mirrors/{extId}"
+	uri := "/api/networking/v4.1/stats/traffic-mirrors/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

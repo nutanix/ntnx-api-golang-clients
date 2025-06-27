@@ -32,14 +32,14 @@ func NewBgpRoutesApi(apiClient *client.ApiClient) *BgpRoutesApi {
 	return a
 }
 
-// Fetches a route from the specified BGP session.
+// Get the specified read-only route of the specified BGP session.
 func (api *BgpRoutesApi) GetRouteForBgpSessionById(extId *string, bgpSessionExtId *string, args ...map[string]interface{}) (*import2.GetBgpRouteApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId}"
+	uri := "/api/networking/v4.1/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -87,14 +87,14 @@ func (api *BgpRoutesApi) GetRouteForBgpSessionById(extId *string, bgpSessionExtI
 	return unmarshalledResp, err
 }
 
-// Lists routes for a specified BGP session.
+// Lists read-only routes of the specified BGP session.
 func (api *BgpRoutesApi) ListRoutesByBgpSessionId(bgpSessionExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListBgpRoutesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions/{bgpSessionExtId}/bgp-routes"
+	uri := "/api/networking/v4.1/config/bgp-sessions/{bgpSessionExtId}/bgp-routes"
 
 	// verify the required parameter 'bgpSessionExtId' is set
 	if nil == bgpSessionExtId {

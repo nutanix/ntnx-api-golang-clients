@@ -39,7 +39,7 @@ func (api *FloatingIpsApi) CreateFloatingIp(body *import2.FloatingIp, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/floating-ips"
+	uri := "/api/networking/v4.1/config/floating-ips"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *FloatingIpsApi) DeleteFloatingIpById(extId *string, args ...map[strin
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/floating-ips/{extId}"
+	uri := "/api/networking/v4.1/config/floating-ips/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *FloatingIpsApi) GetFloatingIpById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/floating-ips/{extId}"
+	uri := "/api/networking/v4.1/config/floating-ips/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *FloatingIpsApi) ListFloatingIps(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/floating-ips"
+	uri := "/api/networking/v4.1/config/floating-ips"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *FloatingIpsApi) UpdateFloatingIpById(extId *string, body *import2.Flo
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/floating-ips/{extId}"
+	uri := "/api/networking/v4.1/config/floating-ips/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

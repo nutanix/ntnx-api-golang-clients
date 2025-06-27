@@ -39,7 +39,7 @@ func (api *AwsSubnetsApi) ListAwsSubnets(xClusterId *string, page_ *int, limit_ 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/aws/config/subnets"
+	uri := "/api/networking/v4.1/aws/config/subnets"
 
 	// verify the required parameter 'xClusterId' is set
 	if nil == xClusterId {

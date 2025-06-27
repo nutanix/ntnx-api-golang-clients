@@ -39,7 +39,7 @@ func (api *VirtualSwitchesApi) CreateVirtualSwitch(body *import2.VirtualSwitch, 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/virtual-switches"
+	uri := "/api/networking/v4.1/config/virtual-switches"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -90,7 +90,7 @@ func (api *VirtualSwitchesApi) DeleteVirtualSwitchById(extId *string, xClusterId
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.1/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -143,7 +143,7 @@ func (api *VirtualSwitchesApi) GetVirtualSwitchById(extId *string, xClusterId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.1/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -196,7 +196,7 @@ func (api *VirtualSwitchesApi) ListVirtualSwitches(xClusterId *string, page_ *in
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/virtual-switches"
+	uri := "/api/networking/v4.1/config/virtual-switches"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -255,7 +255,7 @@ func (api *VirtualSwitchesApi) UpdateVirtualSwitchById(extId *string, body *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.1/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

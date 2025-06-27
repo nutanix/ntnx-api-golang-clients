@@ -39,7 +39,7 @@ func (api *NetworkControllersApi) CreateNetworkController(body *import2.NetworkC
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/controllers"
+	uri := "/api/networking/v4.1/config/controllers"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *NetworkControllersApi) DeleteNetworkControllerById(extId *string, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/controllers/{extId}"
+	uri := "/api/networking/v4.1/config/controllers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *NetworkControllersApi) GetNetworkControllerById(extId *string, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/controllers/{extId}"
+	uri := "/api/networking/v4.1/config/controllers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *NetworkControllersApi) ListNetworkControllers(page_ *int, limit_ *int
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/controllers"
+	uri := "/api/networking/v4.1/config/controllers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -237,7 +237,7 @@ func (api *NetworkControllersApi) UpdateNetworkControllerById(extId *string, bod
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/controllers/{extId}"
+	uri := "/api/networking/v4.1/config/controllers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

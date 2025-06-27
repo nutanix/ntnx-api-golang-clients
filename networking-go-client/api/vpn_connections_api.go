@@ -39,7 +39,7 @@ func (api *VpnConnectionsApi) CreateVpnConnection(body *import2.VpnConnection, a
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/vpn-connections"
+	uri := "/api/networking/v4.1/config/vpn-connections"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *VpnConnectionsApi) DeleteVpnConnectionById(extId *string, args ...map
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/vpn-connections/{extId}"
+	uri := "/api/networking/v4.1/config/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *VpnConnectionsApi) GetVpnApplianceForVpnConnectionById(vpnConnectionE
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs/{extId}"
+	uri := "/api/networking/v4.1/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs/{extId}"
 
 	// verify the required parameter 'vpnConnectionExtId' is set
 	if nil == vpnConnectionExtId {
@@ -192,7 +192,7 @@ func (api *VpnConnectionsApi) GetVpnConnectionById(extId *string, args ...map[st
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/vpn-connections/{extId}"
+	uri := "/api/networking/v4.1/config/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -242,7 +242,7 @@ func (api *VpnConnectionsApi) ListVpnAppliancesByVpnConnectionId(vpnConnectionEx
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs"
+	uri := "/api/networking/v4.1/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs"
 
 	// verify the required parameter 'vpnConnectionExtId' is set
 	if nil == vpnConnectionExtId {
@@ -305,7 +305,7 @@ func (api *VpnConnectionsApi) ListVpnConnections(page_ *int, limit_ *int, filter
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/vpn-connections"
+	uri := "/api/networking/v4.1/config/vpn-connections"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -361,7 +361,7 @@ func (api *VpnConnectionsApi) UpdateVpnConnectionById(extId *string, body *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/vpn-connections/{extId}"
+	uri := "/api/networking/v4.1/config/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

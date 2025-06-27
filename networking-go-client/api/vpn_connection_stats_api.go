@@ -41,7 +41,7 @@ func (api *VpnConnectionStatsApi) GetVpnConnectionStats(extId *string, startTime
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/stats/vpn-connections/{extId}"
+	uri := "/api/networking/v4.1/stats/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

@@ -39,7 +39,7 @@ func (api *RouteTablesApi) GetRouteTableById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/route-tables/{extId}"
+	uri := "/api/networking/v4.1/config/route-tables/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *RouteTablesApi) ListRouteTables(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/route-tables"
+	uri := "/api/networking/v4.1/config/route-tables"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

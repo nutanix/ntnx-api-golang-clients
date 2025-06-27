@@ -32,14 +32,14 @@ func NewMacAddressesApi(apiClient *client.ApiClient) *MacAddressesApi {
 	return a
 }
 
-// Get a specified learned MAC Address of the specified Layer2Stretch.
+// Get a specified MAC address that the specified Layer2Stretch has learned (i.e. ARP broadcasts, manual configuration).
 func (api *MacAddressesApi) GetLearnedMacAddressForLayer2StretchById(layer2StretchExtId *string, extId *string, args ...map[string]interface{}) (*import2.GetLearnedMacAddressApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses/{extId}"
+	uri := "/api/networking/v4.1/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses/{extId}"
 
 	// verify the required parameter 'layer2StretchExtId' is set
 	if nil == layer2StretchExtId {
@@ -87,14 +87,14 @@ func (api *MacAddressesApi) GetLearnedMacAddressForLayer2StretchById(layer2Stret
 	return unmarshalledResp, err
 }
 
-// Get the learned MAC Addresses for the specified Layer2Stretch.
+// Get the MAC addresses that the specified Layer2Stretch has learned (i.e. ARP broadcasts, manual configuration).
 func (api *MacAddressesApi) ListLearnedMacAddressesByLayer2StretchId(layer2StretchExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListLearnedMacAddressesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses"
+	uri := "/api/networking/v4.1/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses"
 
 	// verify the required parameter 'layer2StretchExtId' is set
 	if nil == layer2StretchExtId {

@@ -32,14 +32,14 @@ func NewRoutesApi(apiClient *client.ApiClient) *RoutesApi {
 	return a
 }
 
-// Creates a route based on the provided route table.
+// Create a user-configured route for a specified .
 func (api *RoutesApi) CreateRouteForRouteTable(routeTableExtId *string, body *import2.Route, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes"
+	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes"
 
 	// verify the required parameter 'routeTableExtId' is set
 	if nil == routeTableExtId {
@@ -86,14 +86,14 @@ func (api *RoutesApi) CreateRouteForRouteTable(routeTableExtId *string, body *im
 	return unmarshalledResp, err
 }
 
-// Deletes the route by the specified external identifier.
+// Delete route for the specified {extId}.
 func (api *RoutesApi) DeleteRouteForRouteTableById(extId *string, routeTableExtId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes/{extId}"
+	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -141,14 +141,14 @@ func (api *RoutesApi) DeleteRouteForRouteTableById(extId *string, routeTableExtI
 	return unmarshalledResp, err
 }
 
-// Fetches a route from the specified route table.
+// Get the specified user/system-configured route of the specified route table.
 func (api *RoutesApi) GetRouteForRouteTableById(extId *string, routeTableExtId *string, args ...map[string]interface{}) (*import2.GetRouteApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes/{extId}"
+	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -196,14 +196,14 @@ func (api *RoutesApi) GetRouteForRouteTableById(extId *string, routeTableExtId *
 	return unmarshalledResp, err
 }
 
-// Lists routes for a specified route table.
+// Lists user/system-configured routes of the specified route table.
 func (api *RoutesApi) ListRoutesByRouteTableId(routeTableExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListRoutesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes"
+	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes"
 
 	// verify the required parameter 'routeTableExtId' is set
 	if nil == routeTableExtId {
@@ -259,14 +259,14 @@ func (api *RoutesApi) ListRoutesByRouteTableId(routeTableExtId *string, page_ *i
 	return unmarshalledResp, err
 }
 
-// Update route for the specified external identifier.
+// Update the specified user-configured route of the specified route table.
 func (api *RoutesApi) UpdateRouteForRouteTableById(extId *string, routeTableExtId *string, body *import2.Route, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/route-tables/{routeTableExtId}/routes/{extId}"
+	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

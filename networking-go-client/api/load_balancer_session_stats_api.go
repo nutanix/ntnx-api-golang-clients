@@ -34,14 +34,14 @@ func NewLoadBalancerSessionStatsApi(apiClient *client.ApiClient) *LoadBalancerSe
 	return a
 }
 
-// Get load balancer session listener and target statistics.
+// Get load balancer session listener and target statistics
 func (api *LoadBalancerSessionStatsApi) GetLoadBalancerSessionStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import3.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import4.LoadBalancerSessionStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/stats/load-balancer-sessions/{extId}"
+	uri := "/api/networking/v4.1/stats/load-balancer-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

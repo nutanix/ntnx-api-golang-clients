@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type VpcsApi struct {
+type NicProfilesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewVpcsApi(apiClient *client.ApiClient) *VpcsApi {
+func NewNicProfilesApi(apiClient *client.ApiClient) *NicProfilesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &VpcsApi{
+	a := &NicProfilesApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,14 +32,68 @@ func NewVpcsApi(apiClient *client.ApiClient) *VpcsApi {
 	return a
 }
 
-// Create a VPC.
-func (api *VpcsApi) CreateVpc(body *import2.Vpc, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+// Associate a Host NIC to a NIC Profile. The capability will be enabled on the Host NIC. VMs can be associated with the Host NIC's VFs.
+func (api *NicProfilesApi) AssociateHostNicToNicProfile(extId *string, body *import2.HostNic, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs"
+	uri := "/api/networking/v4.1/config/nic-profiles/{extId}/$actions/associate-host-nic"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.TaskReferenceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Create a NIC Profile with the given name, description and capability specifications.
+func (api *NicProfilesApi) CreateNicProfile(body *import2.NicProfile, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.1/config/nic-profiles"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -80,14 +134,14 @@ func (api *VpcsApi) CreateVpc(body *import2.Vpc, args ...map[string]interface{})
 	return unmarshalledResp, err
 }
 
-// Delete the specified VPC.
-func (api *VpcsApi) DeleteVpcById(extId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+// Delete a NIC Profile by UUID.
+func (api *NicProfilesApi) DeleteNicProfileById(extId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs/{extId}"
+	uri := "/api/networking/v4.1/config/nic-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -130,14 +184,68 @@ func (api *VpcsApi) DeleteVpcById(extId *string, args ...map[string]interface{})
 	return unmarshalledResp, err
 }
 
-// Get the VPC for the specified UUID.
-func (api *VpcsApi) GetVpcById(extId *string, args ...map[string]interface{}) (*import2.GetVpcApiResponse, error) {
+// Disassociate a Host NIC from a NIC Profile. The capability will be disabled on the Host NIC.
+func (api *NicProfilesApi) DisassociateHostNicFromNicProfile(extId *string, body *import2.HostNic, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs/{extId}"
+	uri := "/api/networking/v4.1/config/nic-profiles/{extId}/$actions/disassociate-host-nic"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.TaskReferenceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Get a NIC Profile by UUID.
+func (api *NicProfilesApi) GetNicProfileById(extId *string, args ...map[string]interface{}) (*import2.GetNicProfileApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/networking/v4.1/config/nic-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -175,19 +283,19 @@ func (api *VpcsApi) GetVpcById(extId *string, args ...map[string]interface{}) (*
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.GetVpcApiResponse)
+	unmarshalledResp := new(import2.GetNicProfileApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get the list of existing VPCs.
-func (api *VpcsApi) ListVpcs(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListVpcsApiResponse, error) {
+// Lists all NIC Profiles with host NICs and capability.
+func (api *NicProfilesApi) ListNicProfiles(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListNicProfilesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs"
+	uri := "/api/networking/v4.1/config/nic-profiles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -234,19 +342,19 @@ func (api *VpcsApi) ListVpcs(page_ *int, limit_ *int, filter_ *string, orderby_ 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListVpcsApiResponse)
+	unmarshalledResp := new(import2.ListNicProfilesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update the specified VPC.
-func (api *VpcsApi) UpdateVpcById(extId *string, body *import2.Vpc, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+// Update a NIC Profile with given specifications. Only name and description can be updated.
+func (api *NicProfilesApi) UpdateNicProfileById(extId *string, body *import2.NicProfile, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs/{extId}"
+	uri := "/api/networking/v4.1/config/nic-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

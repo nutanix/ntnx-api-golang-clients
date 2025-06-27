@@ -39,7 +39,7 @@ func (api *BgpSessionsApi) CreateBgpSession(body *import2.BgpSession, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions"
+	uri := "/api/networking/v4.1/config/bgp-sessions"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *BgpSessionsApi) DeleteBgpSessionById(extId *string, args ...map[strin
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.1/config/bgp-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *BgpSessionsApi) GetBgpSessionById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.1/config/bgp-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *BgpSessionsApi) ListBgpSessions(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions"
+	uri := "/api/networking/v4.1/config/bgp-sessions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *BgpSessionsApi) UpdateBgpSessionById(extId *string, body *import2.Bgp
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/bgp-sessions/{extId}"
+	uri := "/api/networking/v4.1/config/bgp-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

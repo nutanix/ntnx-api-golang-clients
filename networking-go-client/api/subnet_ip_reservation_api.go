@@ -32,14 +32,14 @@ func NewSubnetIPReservationApi(apiClient *client.ApiClient) *SubnetIPReservation
 	return a
 }
 
-// Get the list of reserved IP addresses on a particular managed subnet.
+// Fetches a list of reserved IP addresses on a particular managed subnet.
 func (api *SubnetIPReservationApi) ListReservedIpsBySubnetId(subnetExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListSubnetReservedIpsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/subnets/{subnetExtId}/reserved-ips"
+	uri := "/api/networking/v4.1/config/subnets/{subnetExtId}/reserved-ips"
 
 	// verify the required parameter 'subnetExtId' is set
 	if nil == subnetExtId {
@@ -105,7 +105,7 @@ func (api *SubnetIPReservationApi) ReserveIpsBySubnetId(extId *string, body *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/subnets/{extId}/addresses/$actions/reserve"
+	uri := "/api/networking/v4.1/config/subnets/{extId}/addresses/$actions/reserve"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -159,7 +159,7 @@ func (api *SubnetIPReservationApi) UnreserveIpsBySubnetId(extId *string, body *i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/subnets/{extId}/addresses/$actions/unreserve"
+	uri := "/api/networking/v4.1/config/subnets/{extId}/addresses/$actions/unreserve"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

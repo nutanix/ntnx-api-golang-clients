@@ -39,7 +39,7 @@ func (api *Layer2StretchesApi) CreateLayer2Stretch(body *import2.Layer2Stretch, 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/layer2-stretches"
+	uri := "/api/networking/v4.1/config/layer2-stretches"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *Layer2StretchesApi) DeleteLayer2StretchById(extId *string, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.1/config/layer2-stretches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -130,14 +130,14 @@ func (api *Layer2StretchesApi) DeleteLayer2StretchById(extId *string, args ...ma
 	return unmarshalledResp, err
 }
 
-// Get the Layer2Stretch configuration with the specified UUID.
+// Get the Layer2Stretch configuration for the specified reference.
 func (api *Layer2StretchesApi) GetLayer2StretchById(extId *string, args ...map[string]interface{}) (*import2.GetLayer2StretchApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.1/config/layer2-stretches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *Layer2StretchesApi) ListLayer2Stretches(page_ *int, limit_ *int, filt
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/layer2-stretches"
+	uri := "/api/networking/v4.1/config/layer2-stretches"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -243,7 +243,7 @@ func (api *Layer2StretchesApi) UpdateLayer2StretchById(extId *string, body *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.1/config/layer2-stretches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

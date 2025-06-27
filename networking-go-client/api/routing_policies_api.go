@@ -39,7 +39,7 @@ func (api *RoutingPoliciesApi) CreateRoutingPolicy(body *import2.RoutingPolicy, 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/routing-policies"
+	uri := "/api/networking/v4.1/config/routing-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *RoutingPoliciesApi) DeleteRoutingPolicyById(extId *string, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/routing-policies/{extId}"
+	uri := "/api/networking/v4.1/config/routing-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *RoutingPoliciesApi) GetRoutingPolicyById(extId *string, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/routing-policies/{extId}"
+	uri := "/api/networking/v4.1/config/routing-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *RoutingPoliciesApi) ListRoutingPolicies(page_ *int, limit_ *int, filt
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/routing-policies"
+	uri := "/api/networking/v4.1/config/routing-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -249,7 +249,7 @@ func (api *RoutingPoliciesApi) UpdateRoutingPolicyById(extId *string, body *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/routing-policies/{extId}"
+	uri := "/api/networking/v4.1/config/routing-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

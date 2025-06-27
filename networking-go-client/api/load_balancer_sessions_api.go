@@ -39,7 +39,7 @@ func (api *LoadBalancerSessionsApi) CreateLoadBalancerSession(body *import2.Load
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/load-balancer-sessions"
+	uri := "/api/networking/v4.1/config/load-balancer-sessions"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *LoadBalancerSessionsApi) DeleteLoadBalancerSessionById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/load-balancer-sessions/{extId}"
+	uri := "/api/networking/v4.1/config/load-balancer-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *LoadBalancerSessionsApi) GetLoadBalancerSessionById(extId *string, se
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/load-balancer-sessions/{extId}"
+	uri := "/api/networking/v4.1/config/load-balancer-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -191,7 +191,7 @@ func (api *LoadBalancerSessionsApi) ListLoadBalancerSessions(page_ *int, limit_ 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/load-balancer-sessions"
+	uri := "/api/networking/v4.1/config/load-balancer-sessions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -250,7 +250,7 @@ func (api *LoadBalancerSessionsApi) UpdateLoadBalancerSessionById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/load-balancer-sessions/{extId}"
+	uri := "/api/networking/v4.1/config/load-balancer-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

@@ -39,7 +39,7 @@ func (api *SubnetMigrationsApi) MigrateSubnets(body *import2.VlanSubnetMigration
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/$actions/migrate-subnets"
+	uri := "/api/networking/v4.1/config/$actions/migrate-subnets"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *SubnetMigrationsApi) MigrateVnicById(extId *string, body *import2.Vni
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.0/config/vnics/{extId}/$actions/migrate"
+	uri := "/api/networking/v4.1/config/vnics/{extId}/$actions/migrate"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

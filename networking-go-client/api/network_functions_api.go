@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type VpcsApi struct {
+type NetworkFunctionsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewVpcsApi(apiClient *client.ApiClient) *VpcsApi {
+func NewNetworkFunctionsApi(apiClient *client.ApiClient) *NetworkFunctionsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &VpcsApi{
+	a := &NetworkFunctionsApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,14 +32,14 @@ func NewVpcsApi(apiClient *client.ApiClient) *VpcsApi {
 	return a
 }
 
-// Create a VPC.
-func (api *VpcsApi) CreateVpc(body *import2.Vpc, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+// Create a network function.
+func (api *NetworkFunctionsApi) CreateNetworkFunction(body *import2.NetworkFunction, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs"
+	uri := "/api/networking/v4.1/config/network-functions"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -80,14 +80,14 @@ func (api *VpcsApi) CreateVpc(body *import2.Vpc, args ...map[string]interface{})
 	return unmarshalledResp, err
 }
 
-// Delete the specified VPC.
-func (api *VpcsApi) DeleteVpcById(extId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+// Delete the specified network function.
+func (api *NetworkFunctionsApi) DeleteNetworkFunctionById(extId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs/{extId}"
+	uri := "/api/networking/v4.1/config/network-functions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -130,14 +130,14 @@ func (api *VpcsApi) DeleteVpcById(extId *string, args ...map[string]interface{})
 	return unmarshalledResp, err
 }
 
-// Get the VPC for the specified UUID.
-func (api *VpcsApi) GetVpcById(extId *string, args ...map[string]interface{}) (*import2.GetVpcApiResponse, error) {
+// Get a network function with the specified UUID.
+func (api *NetworkFunctionsApi) GetNetworkFunctionById(extId *string, args ...map[string]interface{}) (*import2.GetNetworkFunctionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs/{extId}"
+	uri := "/api/networking/v4.1/config/network-functions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -175,19 +175,19 @@ func (api *VpcsApi) GetVpcById(extId *string, args ...map[string]interface{}) (*
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.GetVpcApiResponse)
+	unmarshalledResp := new(import2.GetNetworkFunctionApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get the list of existing VPCs.
-func (api *VpcsApi) ListVpcs(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListVpcsApiResponse, error) {
+// Fetches the list of existing network functions.
+func (api *NetworkFunctionsApi) ListNetworkFunctions(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListNetworkFunctionsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs"
+	uri := "/api/networking/v4.1/config/network-functions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -212,9 +212,6 @@ func (api *VpcsApi) ListVpcs(page_ *int, limit_ *int, filter_ *string, orderby_ 
 	if orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -234,19 +231,19 @@ func (api *VpcsApi) ListVpcs(page_ *int, limit_ *int, filter_ *string, orderby_ 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListVpcsApiResponse)
+	unmarshalledResp := new(import2.ListNetworkFunctionsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Update the specified VPC.
-func (api *VpcsApi) UpdateVpcById(extId *string, body *import2.Vpc, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+// Update the specified network function.
+func (api *NetworkFunctionsApi) UpdateNetworkFunctionById(extId *string, body *import2.NetworkFunction, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs/{extId}"
+	uri := "/api/networking/v4.1/config/network-functions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
