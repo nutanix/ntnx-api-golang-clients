@@ -39,7 +39,7 @@ func (api *UsersApi) ChangeUserPassword(body *import3.PasswordChangeRequest, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/$actions/change-password"
+	uri := "/api/iam/v4.1.b1/authn/users/$actions/change-password"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -89,7 +89,7 @@ func (api *UsersApi) CreateBucketAccessKey(userExtId *string, body *import3.Buck
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/buckets-access-keys"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/buckets-access-keys"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -143,7 +143,7 @@ func (api *UsersApi) CreateUser(body *import3.User, args ...map[string]interface
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users"
+	uri := "/api/iam/v4.1.b1/authn/users"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -191,7 +191,7 @@ func (api *UsersApi) CreateUserKey(userExtId *string, body *import3.Key, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/keys"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/keys"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -247,7 +247,7 @@ func (api *UsersApi) DeleteUserBucketKeyById(userExtId *string, extId *string, a
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/buckets-access-keys/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/buckets-access-keys/{extId}"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -302,7 +302,7 @@ func (api *UsersApi) DeleteUserKeyById(userExtId *string, extId *string, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/keys/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/keys/{extId}"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -359,7 +359,7 @@ func (api *UsersApi) GetUserBucketKeyById(userExtId *string, extId *string, args
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/buckets-access-keys/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/buckets-access-keys/{extId}"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -407,14 +407,14 @@ func (api *UsersApi) GetUserBucketKeyById(userExtId *string, extId *string, args
 	return unmarshalledResp, err
 }
 
-// Fetches a user based on the provided external identifier.
+// Fetches a user based on its external identifier.
 func (api *UsersApi) GetUserById(extId *string, args ...map[string]interface{}) (*import3.GetUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/users/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -464,7 +464,7 @@ func (api *UsersApi) GetUserKeyById(userExtId *string, extId *string, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/keys/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/keys/{extId}"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -521,7 +521,7 @@ func (api *UsersApi) ListUserBucketKeys(userExtId *string, page_ *int, limit_ *i
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/buckets-access-keys"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/buckets-access-keys"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -584,7 +584,7 @@ func (api *UsersApi) ListUserKeys(userExtId *string, page_ *int, limit_ *int, fi
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/keys"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/keys"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -650,7 +650,7 @@ func (api *UsersApi) ListUsers(page_ *int, limit_ *int, filter_ *string, orderby
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users"
+	uri := "/api/iam/v4.1.b1/authn/users"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -709,7 +709,7 @@ func (api *UsersApi) ResetUserPassword(extId *string, body *import3.PasswordRese
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{extId}/$actions/reset-password"
+	uri := "/api/iam/v4.1.b1/authn/users/{extId}/$actions/reset-password"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -765,7 +765,7 @@ func (api *UsersApi) RevokeUserBucketAccessKey(userExtId *string, extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/buckets-access-keys/{extId}/$actions/revoke"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/buckets-access-keys/{extId}/$actions/revoke"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -820,7 +820,7 @@ func (api *UsersApi) RevokeUserKey(userExtId *string, extId *string, args ...map
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{userExtId}/keys/{extId}/$actions/revoke"
+	uri := "/api/iam/v4.1.b1/authn/users/{userExtId}/keys/{extId}/$actions/revoke"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == userExtId {
@@ -875,7 +875,7 @@ func (api *UsersApi) UpdateUserById(extId *string, body *import3.User, args ...m
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/users/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -929,7 +929,7 @@ func (api *UsersApi) UpdateUserState(extId *string, body *import3.UserStateUpdat
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/users/{extId}/$actions/change-state"
+	uri := "/api/iam/v4.1.b1/authn/users/{extId}/$actions/change-state"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

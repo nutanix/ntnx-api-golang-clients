@@ -35,21 +35,17 @@ func NewCertificateAuthenticationProvidersApi(apiClient *client.ApiClient) *Cert
 }
 
 // Creates a certificate-based authentication provider.
-func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientCaChain *string, dirSvcExtID *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, certRevocationInfo *import3.CertRevocationInfo, createdBy *string, tenantId *string, createdTime *time.Time, links *[]import2.ApiLink, lastUpdatedTime *time.Time, extId *string, args ...map[string]interface{}) (*import3.CreateCertAuthProviderApiResponse, error) {
+func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientCaChain *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, dirSvcExtID *string, certRevocationInfo *import3.CertRevocationInfo, createdBy *string, tenantId *string, createdTime *time.Time, links *[]import2.ApiLink, lastUpdatedTime *time.Time, extId *string, args ...map[string]interface{}) (*import3.CreateCertAuthProviderApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/cert-auth-providers"
+	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers"
 
 	// verify the required parameter 'clientCaChain' is set
 	if nil == clientCaChain {
 		return nil, client.ReportError("clientCaChain is required and must be specified")
-	}
-	// verify the required parameter 'dirSvcExtID' is set
-	if nil == dirSvcExtID {
-		return nil, client.ReportError("dirSvcExtID is required and must be specified")
 	}
 	// verify the required parameter 'caCertFileName' is set
 	if nil == caCertFileName {
@@ -92,7 +88,9 @@ func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientC
 
 	// Form Params
 	formParams.Add("clientCaChain", client.ParameterToString(*clientCaChain, ""))
-	formParams.Add("dirSvcExtID", client.ParameterToString(*dirSvcExtID, ""))
+	if dirSvcExtID != nil {
+		formParams.Add("dirSvcExtID", client.ParameterToString(*dirSvcExtID, ""))
+	}
 	if certRevocationInfo != nil {
 		formParams.Add("certRevocationInfo", client.ParameterToString(*certRevocationInfo, ""))
 	}
@@ -138,7 +136,7 @@ func (api *CertificateAuthenticationProvidersApi) DeleteCertAuthProviderById(ext
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -188,7 +186,7 @@ func (api *CertificateAuthenticationProvidersApi) GetCertAuthProviderById(extId 
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -232,13 +230,13 @@ func (api *CertificateAuthenticationProvidersApi) GetCertAuthProviderById(extId 
 }
 
 // Lists all configured certificate-based authentication providers.
-func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListCertAuthProvidersApiResponse, error) {
+func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(page_ *int, limit_ *int, args ...map[string]interface{}) (*import3.ListCertAuthProvidersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/cert-auth-providers"
+	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -256,15 +254,6 @@ func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(page_ *i
 	}
 	if limit_ != nil {
 		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
-	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
-	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
-	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -297,7 +286,7 @@ func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(ext
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

@@ -39,7 +39,7 @@ func (api *DirectoryServicesApi) ConnectionStatusDirectoryService(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/directory-services/{extId}/$actions/verify-connection-status"
+	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}/$actions/verify-connection-status"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -93,7 +93,7 @@ func (api *DirectoryServicesApi) CreateDirectoryService(body *import3.DirectoryS
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/directory-services"
+	uri := "/api/iam/v4.1.b1/authn/directory-services"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -134,14 +134,14 @@ func (api *DirectoryServicesApi) CreateDirectoryService(body *import3.DirectoryS
 	return unmarshalledResp, err
 }
 
-// Deletes a directory service based on the external identifier.
+// Deletes a directory service.
 func (api *DirectoryServicesApi) DeleteDirectoryServiceById(extId *string, args ...map[string]interface{}) (*import3.DeleteDirectoryServiceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -184,14 +184,14 @@ func (api *DirectoryServicesApi) DeleteDirectoryServiceById(extId *string, args 
 	return unmarshalledResp, err
 }
 
-// Fetches a directory service based on the external identifier.
+// Fetches a directory service.
 func (api *DirectoryServicesApi) GetDirectoryServiceById(extId *string, args ...map[string]interface{}) (*import3.GetDirectoryServiceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -241,7 +241,7 @@ func (api *DirectoryServicesApi) ListDirectoryServices(page_ *int, limit_ *int, 
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/directory-services"
+	uri := "/api/iam/v4.1.b1/authn/directory-services"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -300,7 +300,7 @@ func (api *DirectoryServicesApi) SearchDirectoryService(extId *string, body *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/directory-services/{extId}/$actions/search"
+	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}/$actions/search"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -347,14 +347,14 @@ func (api *DirectoryServicesApi) SearchDirectoryService(extId *string, body *imp
 	return unmarshalledResp, err
 }
 
-// Updates a directory service based on the external identifier.
+// Updates a directory service.
 func (api *DirectoryServicesApi) UpdateDirectoryServiceById(extId *string, body *import3.DirectoryService, args ...map[string]interface{}) (*import3.UpdateDirectoryServiceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

@@ -42,7 +42,7 @@ func (api *SAMLIdentityProvidersApi) CreateSamlIdentityProvider(body *import3.Sa
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/saml-identity-providers"
+	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -90,7 +90,7 @@ func (api *SAMLIdentityProvidersApi) DeleteSamlIdentityProviderById(extId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/saml-identity-providers/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -140,7 +140,7 @@ func (api *SAMLIdentityProvidersApi) GetSamlIdentityProviderById(extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/saml-identity-providers/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -184,13 +184,88 @@ func (api *SAMLIdentityProvidersApi) GetSamlIdentityProviderById(extId *string, 
 }
 
 // Downloads SP-Metadata for SAML identity provider.
+func (api *SAMLIdentityProvidersApi) GetSamlIdpSpMetadataById(extId *string, args ...map[string]interface{}) (*import3.GetSamlIdpSpMetadataApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers/{extId}/sp-metadata"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"text/xml", "application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	textMediaTypes := []string{"text/event-stream", "text/html", "text/xml", "text/csv", "text/javascript", "text/markdown", "text/vcard"}
+	if httpResponse, ok := apiClientResponse.(*http.Response); ok {
+		if httpResponse.Header != nil && api.ApiClient.Contains(textMediaTypes, httpResponse.Header.Get("Content-Type")) {
+			response := import3.NewGetSamlIdpSpMetadataApiResponse()
+
+			flagName := "hasError"
+			flagValue := false
+			var flags []import4.Flag
+			flags = append(flags, import4.Flag{Name: &flagName, Value: &flagValue})
+			metadata := import2.NewApiResponseMetadata()
+			metadata.Flags = flags
+			response.Metadata = metadata
+			responseBody, err := io.ReadAll(httpResponse.Body)
+			if err != nil {
+				return nil, err
+			}
+			httpResponse.Body.Close()
+			err = response.SetData(string(responseBody))
+			if err != nil {
+				return nil, err
+			}
+			return response, nil
+		}
+	}
+
+	unmarshalledResp := new(import3.GetSamlIdpSpMetadataApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Downloads SP-Metadata for SAML identity provider.
 func (api *SAMLIdentityProvidersApi) GetSamlSpMetadata(args ...map[string]interface{}) (*import3.GetSamlSpMetadataApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/saml-sp-metadata"
+	uri := "/api/iam/v4.1.b1/authn/saml-sp-metadata"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -226,13 +301,6 @@ func (api *SAMLIdentityProvidersApi) GetSamlSpMetadata(args ...map[string]interf
 		if httpResponse.Header != nil && api.ApiClient.Contains(textMediaTypes, httpResponse.Header.Get("Content-Type")) {
 			response := import3.NewGetSamlSpMetadataApiResponse()
 
-			flagName := "hasError"
-			flagValue := false
-			var flags []import4.Flag
-			flags = append(flags, import4.Flag{Name: &flagName, Value: &flagValue})
-			metadata := import2.NewApiResponseMetadata()
-			metadata.Flags = flags
-			response.Metadata = metadata
 			responseBody, err := io.ReadAll(httpResponse.Body)
 			if err != nil {
 				return nil, err
@@ -258,7 +326,7 @@ func (api *SAMLIdentityProvidersApi) ListSamlIdentityProviders(page_ *int, limit
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/saml-identity-providers"
+	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -317,7 +385,7 @@ func (api *SAMLIdentityProvidersApi) UpdateSamlIdentityProviderById(extId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/saml-identity-providers/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

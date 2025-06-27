@@ -39,7 +39,7 @@ func (api *UserGroupsApi) CreateUserGroup(body *import3.UserGroup, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/user-groups"
+	uri := "/api/iam/v4.1.b1/authn/user-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *UserGroupsApi) DeleteUserGroupById(extId *string, args ...map[string]
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/user-groups/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/user-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *UserGroupsApi) GetUserGroupById(extId *string, args ...map[string]int
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/user-groups/{extId}"
+	uri := "/api/iam/v4.1.b1/authn/user-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *UserGroupsApi) ListUserGroups(page_ *int, limit_ *int, filter_ *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authn/user-groups"
+	uri := "/api/iam/v4.1.b1/authn/user-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

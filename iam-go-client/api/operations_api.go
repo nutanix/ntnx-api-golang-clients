@@ -39,7 +39,7 @@ func (api *OperationsApi) GetOperationById(extId *string, args ...map[string]int
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authz/operations/{extId}"
+	uri := "/api/iam/v4.1.b1/authz/operations/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *OperationsApi) ListOperations(page_ *int, limit_ *int, filter_ *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authz/operations"
+	uri := "/api/iam/v4.1.b1/authz/operations"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

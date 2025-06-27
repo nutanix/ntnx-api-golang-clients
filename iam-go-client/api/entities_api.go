@@ -39,7 +39,7 @@ func (api *EntitiesApi) GetEntityById(extId *string, args ...map[string]interfac
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authz/entities/{extId}"
+	uri := "/api/iam/v4.1.b1/authz/entities/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *EntitiesApi) ListEntities(page_ *int, limit_ *int, filter_ *string, o
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authz/entities"
+	uri := "/api/iam/v4.1.b1/authz/entities"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

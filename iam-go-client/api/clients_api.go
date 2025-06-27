@@ -39,7 +39,7 @@ func (api *ClientsApi) GetRegisteredClientById(extId *string, args ...map[string
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.0/authz/clients/{extId}"
+	uri := "/api/iam/v4.1.b1/authz/clients/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
