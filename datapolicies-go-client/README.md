@@ -9,8 +9,8 @@ The Go client for Nutanix Data Policies APIs is designed for Go client applicati
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0
-- Package version: v4.0.1
+- API version: v4.1
+- Package version: v4.1.1
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/..
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/...@v4.0.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/...@v4.1.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4 v4.0.1
+	github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4 v4.1.1
 )
 ```
 
@@ -85,9 +85,6 @@ The Go client for Nutanix Data Policies APIs can be configured with the followin
 | ReadTimeout | Read timeout (in time.Duration) for all operations                             | No       | 30 * time.Second |
 | DownloadDirectory | Directory location for files to download                                 | No       | Current Directory |
 | DownloadChunkSize | Chunk size in bytes for files to download                                | No       | 8*1024 bytes |
-| RootCACertificateFile | PEM encoded Root CA certificate file path                            | No       | N/A          |
-| ClientCertificateFile | PEM encoded client certificate file path                             | No       | N/A          |
-| ClientKeyFile | PEM encoded client key file path                                             | No       | N/A          |
 
 A Proxy can be configured with the following parameters
 
@@ -139,24 +136,7 @@ ApiClientInstance.Proxy.Port = 1080
 
 ```
 
-### mTLS Configuration
-```go
-import (
-	"github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/client"
-)
-var (
-	ApiClientInstance *client.ApiClient
-)
 
-ApiClientInstance = client.NewApiClient()
-// Configure the client as shown in the previous step
-// ...
-
-ApiClientInstance.RootCACertificateFile = "/home/certs/ca.pem"
-ApiClientInstance.ClientCertificateFile = "/home/certs/YourService/YourService.crt"
-ApiClientInstance.ClientKeyFile = "/home/certs/YourService/YourService.key"
-
-```
 
 ### Authentication
 Nutanix APIs currently support two type of authentication schemes:
@@ -224,7 +204,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ProtectionPoliciesApiInstance = api.NewProtectionPoliciesApi(ApiClientInstance)
-extId := "BecDd2ff-eC89-cffa-DAE0-1C81AE19B1cd"
+extId := "eFf57687-eDfD-dA10-aCD0-b726BbC5Abfb"
 
 // 
 getResponse, err := ProtectionPoliciesApiInstance.GetProtectionPolicyById(&extId)
@@ -272,7 +252,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ProtectionPoliciesApiInstance = api.NewProtectionPoliciesApi(ApiClientInstance)
-extId := "BecDd2ff-eC89-cffa-DAE0-1C81AE19B1cd"
+extId := "eFf57687-eDfD-dA10-aCD0-b726BbC5Abfb"
 
 // 
 getResponse, err := ProtectionPoliciesApiInstance.GetProtectionPolicyById(&extId)
@@ -317,7 +297,7 @@ import (
 )
 var (
 	ApiClientInstance *client.ApiClient
-	ProtectionPoliciesApiInstance *api.ProtectionPoliciesApi
+	EntitySyncPoliciesApiInstance *api.EntitySyncPoliciesApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -325,7 +305,7 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ProtectionPoliciesApiInstance = api.NewProtectionPoliciesApi(ApiClientInstance)
+EntitySyncPoliciesApiInstance = api.NewEntitySyncPoliciesApi(ApiClientInstance)
 page_ := 0
 limit_ := 50
 filter_ := "string_sample_data"
@@ -333,7 +313,7 @@ orderby_ := "string_sample_data"
 select_ := "string_sample_data"
 
 // 
-response, err := ProtectionPoliciesApiInstance.ListProtectionPolicies(&page_, &limit_, &filter_, &orderby_, &select_)
+response, err := EntitySyncPoliciesApiInstance.ListEntitySyncPolicies(&page_, &limit_, &filter_, &orderby_, &select_)
 if err != nil {
     ....
 }
@@ -344,7 +324,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=datapolicies&version=v4.0&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=datapolicies&version=v4.1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).
