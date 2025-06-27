@@ -1,11 +1,11 @@
 /*
  * Generated file models/aiops/v4/clusterMetrics/clusterMetrics_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.0.2
  *
  * Part of the Nutanix AIOps APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -15,6 +15,7 @@
 package clusterMetrics
 
 import (
+	"encoding/json"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/config"
 	import2 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/response"
 )
@@ -49,6 +50,72 @@ type Cluster struct {
 	UsageBytes *string `json:"usageBytes,omitempty"`
 
 	Uuid *string `json:"uuid,omitempty"`
+}
+
+func (p *Cluster) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Cluster
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Cluster) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Cluster
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Cluster(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "capacityBytes")
+	delete(allFields, "externalIpAddress")
+	delete(allFields, "freeBytes")
+	delete(allFields, "hypervisorCpuUsagePpm")
+	delete(allFields, "hypervisorMemoryUsagePpm")
+	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "name")
+	delete(allFields, "numCpus")
+	delete(allFields, "rf")
+	delete(allFields, "savedBytes")
+	delete(allFields, "usageBytes")
+	delete(allFields, "uuid")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewCluster() *Cluster {
@@ -134,7 +201,7 @@ type ClusterMetrics struct {
 	*/
 	ProvisionedVCpuCount *int64 `json:"provisionedVCpuCount,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -173,6 +240,87 @@ type ClusterMetrics struct {
 	  Total number of vCPUs in the cluster
 	*/
 	TotalVCpuCount *int64 `json:"totalVCpuCount,omitempty"`
+}
+
+func (p *ClusterMetrics) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterMetrics
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterMetrics) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterMetrics
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterMetrics(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "availableMemorySizeBytes")
+	delete(allFields, "availableVCpuCount")
+	delete(allFields, "clusterName")
+	delete(allFields, "currentMemoryUsageSizeBytes")
+	delete(allFields, "currentUsedCpuHz")
+	delete(allFields, "currentUsedVCpuCount")
+	delete(allFields, "cvmIPs")
+	delete(allFields, "extId")
+	delete(allFields, "externalIP")
+	delete(allFields, "largestPoweredOffVMMemory")
+	delete(allFields, "largestPoweredOffVMVCpu")
+	delete(allFields, "links")
+	delete(allFields, "maxVmMemorySizeBytes")
+	delete(allFields, "maxVmVCpuSize")
+	delete(allFields, "provisionedCpuHz")
+	delete(allFields, "provisionedMemoryUsageBytes")
+	delete(allFields, "provisionedVCpuCount")
+	delete(allFields, "tenantId")
+	delete(allFields, "totalCpuHz")
+	delete(allFields, "totalMemorySizeBytes")
+	delete(allFields, "totalStorageAvailableBytes")
+	delete(allFields, "totalStorageAvailableLogicalBytes")
+	delete(allFields, "totalStorageCapacityLogicalBytes")
+	delete(allFields, "totalStorageCapacityLogicalWithSavingsBytes")
+	delete(allFields, "totalStorageCapacityRawBytes")
+	delete(allFields, "totalStorageUsageBytes")
+	delete(allFields, "totalVCpuCount")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewClusterMetrics() *ClusterMetrics {
@@ -221,6 +369,74 @@ type ClusterProjection struct {
 	VmProjection []VmProjection `json:"vmProjection,omitempty"`
 }
 
+func (p *ClusterProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "capacityBytes")
+	delete(allFields, "externalIpAddress")
+	delete(allFields, "freeBytes")
+	delete(allFields, "hypervisorCpuUsagePpm")
+	delete(allFields, "hypervisorMemoryUsagePpm")
+	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "name")
+	delete(allFields, "nodeProjection")
+	delete(allFields, "numCpus")
+	delete(allFields, "rf")
+	delete(allFields, "savedBytes")
+	delete(allFields, "usageBytes")
+	delete(allFields, "uuid")
+	delete(allFields, "vmProjection")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewClusterProjection() *ClusterProjection {
 	p := new(ClusterProjection)
 	p.ObjectType_ = new(string)
@@ -247,6 +463,65 @@ type Node struct {
 	NodeUuid *string `json:"nodeUuid,omitempty"`
 
 	NumCpuThreads *string `json:"numCpuThreads,omitempty"`
+}
+
+func (p *Node) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Node
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Node) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Node
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Node(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "capacityHz")
+	delete(allFields, "haMemoryReservedBytes")
+	delete(allFields, "memorySizeBytes")
+	delete(allFields, "nodeUuid")
+	delete(allFields, "numCpuThreads")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewNode() *Node {
@@ -277,6 +552,65 @@ type NodeProjection struct {
 	NumCpuThreads *string `json:"numCpuThreads,omitempty"`
 }
 
+func (p *NodeProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias NodeProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *NodeProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias NodeProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = NodeProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "capacityHz")
+	delete(allFields, "haMemoryReservedBytes")
+	delete(allFields, "memorySizeBytes")
+	delete(allFields, "nodeUuid")
+	delete(allFields, "numCpuThreads")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewNodeProjection() *NodeProjection {
 	p := new(NodeProjection)
 	p.ObjectType_ = new(string)
@@ -305,6 +639,65 @@ type Vm struct {
 	VmUuid *string `json:"vmUuid,omitempty"`
 }
 
+func (p *Vm) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Vm
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Vm) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Vm
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Vm(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "node")
+	delete(allFields, "numVcpus")
+	delete(allFields, "powerState")
+	delete(allFields, "vmMemory")
+	delete(allFields, "vmUuid")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVm() *Vm {
 	p := new(Vm)
 	p.ObjectType_ = new(string)
@@ -331,6 +724,65 @@ type VmProjection struct {
 	VmMemory *string `json:"vmMemory,omitempty"`
 
 	VmUuid *string `json:"vmUuid,omitempty"`
+}
+
+func (p *VmProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VmProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "node")
+	delete(allFields, "numVcpus")
+	delete(allFields, "powerState")
+	delete(allFields, "vmMemory")
+	delete(allFields, "vmUuid")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVmProjection() *VmProjection {
