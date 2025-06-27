@@ -39,7 +39,7 @@ func (api *EsxiVmApi) AssignVmOwner(extId *string, body *import3.OwnershipInfo, 
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/assign-owner"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/assign-owner"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -93,7 +93,7 @@ func (api *EsxiVmApi) AssociateCategories(extId *string, body *import3.Associate
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/associate-categories"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/associate-categories"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -147,7 +147,7 @@ func (api *EsxiVmApi) DisassociateCategories(extId *string, body *import3.Disass
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/disassociate-categories"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/disassociate-categories"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -201,7 +201,7 @@ func (api *EsxiVmApi) GetNutanixGuestToolsById(extId *string, args ...map[string
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/nutanix-guest-tools"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -251,7 +251,7 @@ func (api *EsxiVmApi) GetVmById(extId *string, args ...map[string]interface{}) (
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -301,7 +301,7 @@ func (api *EsxiVmApi) InsertNutanixGuestTools(extId *string, body *import3.Nutan
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/insert-iso"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/insert-iso"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -355,7 +355,7 @@ func (api *EsxiVmApi) InstallNutanixGuestTools(extId *string, body *import3.Nuta
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/install"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/install"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -409,7 +409,7 @@ func (api *EsxiVmApi) ListVms(page_ *int, limit_ *int, filter_ *string, orderby_
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms"
+	uri := "/api/vmm/v4.1/esxi/config/vms"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -468,7 +468,7 @@ func (api *EsxiVmApi) PowerOffVm(extId *string, args ...map[string]interface{}) 
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/power-off"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/power-off"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -518,7 +518,7 @@ func (api *EsxiVmApi) PowerOnVm(extId *string, args ...map[string]interface{}) (
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/power-on"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/power-on"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -568,7 +568,7 @@ func (api *EsxiVmApi) RebootGuestVm(extId *string, args ...map[string]interface{
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/guest-reboot"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/guest-reboot"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -618,7 +618,7 @@ func (api *EsxiVmApi) ResetVm(extId *string, args ...map[string]interface{}) (*i
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/reset"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/reset"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -668,7 +668,7 @@ func (api *EsxiVmApi) RevertVm(extId *string, body *import3.RevertParams, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/revert"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/revert"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -722,7 +722,7 @@ func (api *EsxiVmApi) ShutdownGuestVm(extId *string, args ...map[string]interfac
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/guest-shutdown"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/guest-shutdown"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -772,7 +772,7 @@ func (api *EsxiVmApi) SuspendVm(extId *string, args ...map[string]interface{}) (
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/$actions/suspend"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/$actions/suspend"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -822,7 +822,7 @@ func (api *EsxiVmApi) UninstallNutanixGuestTools(extId *string, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/uninstall"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/uninstall"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -872,7 +872,7 @@ func (api *EsxiVmApi) UpdateNutanixGuestToolsById(extId *string, body *import3.N
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/nutanix-guest-tools"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -926,7 +926,7 @@ func (api *EsxiVmApi) UpgradeNutanixGuestTools(extId *string, body *import3.Nuta
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/upgrade"
+	uri := "/api/vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/upgrade"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

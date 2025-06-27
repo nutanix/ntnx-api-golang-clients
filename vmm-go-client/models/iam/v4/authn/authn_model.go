@@ -1,11 +1,11 @@
 /*
  * Generated file models/iam/v4/authn/authn_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -78,7 +78,7 @@ type BucketsAccessKey struct {
 
 	Status *BucketsAccessKeyStatusType `json:"status,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -89,20 +89,84 @@ type BucketsAccessKey struct {
 
 func (p *BucketsAccessKey) MarshalJSON() ([]byte, error) {
 	type BucketsAccessKeyProxy BucketsAccessKey
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*BucketsAccessKeyProxy
 		AccessKeyName *string `json:"accessKeyName,omitempty"`
 	}{
 		BucketsAccessKeyProxy: (*BucketsAccessKeyProxy)(p),
 		AccessKeyName:         p.AccessKeyName,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BucketsAccessKey) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BucketsAccessKey
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BucketsAccessKey(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "accessKeyName")
+	delete(allFields, "assignedTo")
+	delete(allFields, "createdBy")
+	delete(allFields, "createdTime")
+	delete(allFields, "creationType")
+	delete(allFields, "expiryTime")
+	delete(allFields, "extId")
+	delete(allFields, "lastUpdatedBy")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "links")
+	delete(allFields, "secretAccessKey")
+	delete(allFields, "status")
+	delete(allFields, "tenantId")
+	delete(allFields, "userId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewBucketsAccessKey() *BucketsAccessKey {
 	p := new(BucketsAccessKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.BucketsAccessKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -368,7 +432,7 @@ type User struct {
 
 	Status *UserStatusType `json:"status,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -379,11 +443,90 @@ type User struct {
 	Username *string `json:"username,omitempty"`
 }
 
+func (p *User) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias User
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *User) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias User
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = User(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "additionalAttributes")
+	delete(allFields, "bucketsAccessKeys")
+	delete(allFields, "createdBy")
+	delete(allFields, "createdTime")
+	delete(allFields, "creationType")
+	delete(allFields, "description")
+	delete(allFields, "displayName")
+	delete(allFields, "emailId")
+	delete(allFields, "extId")
+	delete(allFields, "firstName")
+	delete(allFields, "idpId")
+	delete(allFields, "isForceResetPasswordEnabled")
+	delete(allFields, "lastLoginTime")
+	delete(allFields, "lastName")
+	delete(allFields, "lastUpdatedBy")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "links")
+	delete(allFields, "locale")
+	delete(allFields, "middleInitial")
+	delete(allFields, "password")
+	delete(allFields, "region")
+	delete(allFields, "status")
+	delete(allFields, "tenantId")
+	delete(allFields, "userType")
+	delete(allFields, "username")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewUser() *User {
 	p := new(User)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.User"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

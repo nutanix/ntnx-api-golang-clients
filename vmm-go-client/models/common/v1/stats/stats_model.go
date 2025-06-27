@@ -1,16 +1,16 @@
 /*
  * Generated file models/common/v1/stats/stats_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module common.v1.stats of Nutanix Virtual Machine Management APIs
+  Nutanix Stats Configuration
 */
 package stats
 

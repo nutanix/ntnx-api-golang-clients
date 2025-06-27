@@ -39,7 +39,7 @@ func (api *ImageRateLimitPoliciesApi) CreateRateLimitPolicy(body *import4.RateLi
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies"
+	uri := "/api/vmm/v4.1/images/config/rate-limit-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *ImageRateLimitPoliciesApi) DeleteRateLimitPolicyById(extId *string, a
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies/{extId}"
+	uri := "/api/vmm/v4.1/images/config/rate-limit-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *ImageRateLimitPoliciesApi) GetRateLimitPolicyById(extId *string, args
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies/{extId}"
+	uri := "/api/vmm/v4.1/images/config/rate-limit-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *ImageRateLimitPoliciesApi) ListEffectiveRateLimitPolicies(page_ *int,
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/effective-rate-limit-policies"
+	uri := "/api/vmm/v4.1/images/config/effective-rate-limit-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *ImageRateLimitPoliciesApi) ListRateLimitPolicies(page_ *int, limit_ *
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies"
+	uri := "/api/vmm/v4.1/images/config/rate-limit-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,7 +305,7 @@ func (api *ImageRateLimitPoliciesApi) UpdateRateLimitPolicyById(extId *string, b
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/rate-limit-policies/{extId}"
+	uri := "/api/vmm/v4.1/images/config/rate-limit-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

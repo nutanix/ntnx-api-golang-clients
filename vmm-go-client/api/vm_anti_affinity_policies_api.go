@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import10 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/policies"
+	import11 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/policies"
 	"net/http"
 	"net/url"
 	"strings"
@@ -33,13 +33,13 @@ func NewVmAntiAffinityPoliciesApi(apiClient *client.ApiClient) *VmAntiAffinityPo
 }
 
 // Creates a VM-VM anti-affinity policy.
-func (api *VmAntiAffinityPoliciesApi) CreateVmAntiAffinityPolicy(body *import10.VmAntiAffinityPolicy, args ...map[string]interface{}) (*import10.CreateVmAntiAffinityPolicyApiResponse, error) {
+func (api *VmAntiAffinityPoliciesApi) CreateVmAntiAffinityPolicy(body *import11.VmAntiAffinityPolicy, args ...map[string]interface{}) (*import11.CreateVmAntiAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/policies/vm-anti-affinity-policies"
+	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,19 @@ func (api *VmAntiAffinityPoliciesApi) CreateVmAntiAffinityPolicy(body *import10.
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.CreateVmAntiAffinityPolicyApiResponse)
+	unmarshalledResp := new(import11.CreateVmAntiAffinityPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Deletes the legacy VM-VM anti-affinity policy.
-func (api *VmAntiAffinityPoliciesApi) DeleteLegacyVmAntiAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import10.DeleteLegacyVmAntiAffinityPolicyApiResponse, error) {
+// Deletes the legacy VM-VM anti-affinity policy. The legacy VM-VM anti-affinity policies refer to the anti-affinity policies configured using VM groups through aCLI in Prism Element.
+func (api *VmAntiAffinityPoliciesApi) DeleteLegacyVmAntiAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import11.DeleteLegacyVmAntiAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/policies/legacy-vm-anti-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.1/ahv/policies/legacy-vm-anti-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -125,19 +125,19 @@ func (api *VmAntiAffinityPoliciesApi) DeleteLegacyVmAntiAffinityPolicyById(extId
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.DeleteLegacyVmAntiAffinityPolicyApiResponse)
+	unmarshalledResp := new(import11.DeleteLegacyVmAntiAffinityPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Deletes the requested VM-VM anti-affinity policy.
-func (api *VmAntiAffinityPoliciesApi) DeleteVmAntiAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import10.DeleteVmAntiAffinityPolicyApiResponse, error) {
+func (api *VmAntiAffinityPoliciesApi) DeleteVmAntiAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import11.DeleteVmAntiAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/policies/vm-anti-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -175,19 +175,19 @@ func (api *VmAntiAffinityPoliciesApi) DeleteVmAntiAffinityPolicyById(extId *stri
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.DeleteVmAntiAffinityPolicyApiResponse)
+	unmarshalledResp := new(import11.DeleteVmAntiAffinityPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Fetches the VM-VM anti-affinity policy of the provided VM-VM anti-affinity policy external identifier.
-func (api *VmAntiAffinityPoliciesApi) GetVmAntiAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import10.GetVmAntiAffinityPolicyApiResponse, error) {
+func (api *VmAntiAffinityPoliciesApi) GetVmAntiAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import11.GetVmAntiAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/policies/vm-anti-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -225,19 +225,19 @@ func (api *VmAntiAffinityPoliciesApi) GetVmAntiAffinityPolicyById(extId *string,
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.GetVmAntiAffinityPolicyApiResponse)
+	unmarshalledResp := new(import11.GetVmAntiAffinityPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List legacy VM-VM anti-affinity policies.
-func (api *VmAntiAffinityPoliciesApi) ListLegacyVmAntiAffinityPolicies(page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import10.ListLegacyVmAntiAffinityPoliciesApiResponse, error) {
+// List legacy VM-VM anti-affinity policies. The legacy VM-VM anti-affinity policies refer to the anti-affinity policies configured using VM groups through aCLI in Prism Element.
+func (api *VmAntiAffinityPoliciesApi) ListLegacyVmAntiAffinityPolicies(page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import11.ListLegacyVmAntiAffinityPoliciesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/policies/legacy-vm-anti-affinity-policies"
+	uri := "/api/vmm/v4.1/ahv/policies/legacy-vm-anti-affinity-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -278,19 +278,19 @@ func (api *VmAntiAffinityPoliciesApi) ListLegacyVmAntiAffinityPolicies(page_ *in
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.ListLegacyVmAntiAffinityPoliciesApiResponse)
+	unmarshalledResp := new(import11.ListLegacyVmAntiAffinityPoliciesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // List VM-VM anti-affinity policies.
-func (api *VmAntiAffinityPoliciesApi) ListVmAntiAffinityPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import10.ListVmAntiAffinityPoliciesApiResponse, error) {
+func (api *VmAntiAffinityPoliciesApi) ListVmAntiAffinityPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import11.ListVmAntiAffinityPoliciesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/policies/vm-anti-affinity-policies"
+	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -334,19 +334,19 @@ func (api *VmAntiAffinityPoliciesApi) ListVmAntiAffinityPolicies(page_ *int, lim
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.ListVmAntiAffinityPoliciesApiResponse)
+	unmarshalledResp := new(import11.ListVmAntiAffinityPoliciesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists compliance states of VMs in the VM-VM anti-affinity policy of the provided VM-VM anti-affinity policy external identifier.
-func (api *VmAntiAffinityPoliciesApi) ListVmAntiAffinityPolicyVmComplianceStates(vmAntiAffinityPolicyExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import10.ListVmAntiAffinityPolicyVmComplianceStatesApiResponse, error) {
+func (api *VmAntiAffinityPoliciesApi) ListVmAntiAffinityPolicyVmComplianceStates(vmAntiAffinityPolicyExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import11.ListVmAntiAffinityPolicyVmComplianceStatesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/policies/vm-anti-affinity-policies/{vmAntiAffinityPolicyExtId}/vm-compliance-states"
+	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies/{vmAntiAffinityPolicyExtId}/vm-compliance-states"
 
 	// verify the required parameter 'vmAntiAffinityPolicyExtId' is set
 	if nil == vmAntiAffinityPolicyExtId {
@@ -391,19 +391,19 @@ func (api *VmAntiAffinityPoliciesApi) ListVmAntiAffinityPolicyVmComplianceStates
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.ListVmAntiAffinityPolicyVmComplianceStatesApiResponse)
+	unmarshalledResp := new(import11.ListVmAntiAffinityPolicyVmComplianceStatesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Updates the requested VM-VM anti-affinity policy.
-func (api *VmAntiAffinityPoliciesApi) UpdateVmAntiAffinityPolicyById(extId *string, body *import10.VmAntiAffinityPolicy, args ...map[string]interface{}) (*import10.UpdateVmAntiAffinityPolicyApiResponse, error) {
+func (api *VmAntiAffinityPoliciesApi) UpdateVmAntiAffinityPolicyById(extId *string, body *import11.VmAntiAffinityPolicy, args ...map[string]interface{}) (*import11.UpdateVmAntiAffinityPolicyApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/policies/vm-anti-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -445,7 +445,7 @@ func (api *VmAntiAffinityPoliciesApi) UpdateVmAntiAffinityPolicyById(extId *stri
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.UpdateVmAntiAffinityPolicyApiResponse)
+	unmarshalledResp := new(import11.UpdateVmAntiAffinityPolicyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

@@ -39,7 +39,7 @@ func (api *ImagePlacementPoliciesApi) CreatePlacementPolicy(body *import4.Placem
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/placement-policies"
+	uri := "/api/vmm/v4.1/images/config/placement-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *ImagePlacementPoliciesApi) DeletePlacementPolicyById(extId *string, a
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}"
+	uri := "/api/vmm/v4.1/images/config/placement-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *ImagePlacementPoliciesApi) GetPlacementPolicyById(extId *string, args
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}"
+	uri := "/api/vmm/v4.1/images/config/placement-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *ImagePlacementPoliciesApi) ListPlacementPolicies(page_ *int, limit_ *
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/placement-policies"
+	uri := "/api/vmm/v4.1/images/config/placement-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *ImagePlacementPoliciesApi) ResumePlacementPolicy(extId *string, args 
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}/$actions/resume"
+	uri := "/api/vmm/v4.1/images/config/placement-policies/{extId}/$actions/resume"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -296,7 +296,7 @@ func (api *ImagePlacementPoliciesApi) SuspendPlacementPolicy(extId *string, body
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}/$actions/suspend"
+	uri := "/api/vmm/v4.1/images/config/placement-policies/{extId}/$actions/suspend"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -350,7 +350,7 @@ func (api *ImagePlacementPoliciesApi) UpdatePlacementPolicyById(extId *string, b
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/images/config/placement-policies/{extId}"
+	uri := "/api/vmm/v4.1/images/config/placement-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

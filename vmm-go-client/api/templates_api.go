@@ -39,7 +39,7 @@ func (api *TemplatesApi) CancelGuestUpdate(extId *string, args ...map[string]int
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/cancel-guest-update"
+	uri := "/api/vmm/v4.1/content/templates/{extId}/$actions/cancel-guest-update"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *TemplatesApi) CompleteGuestUpdate(extId *string, body *import5.Comple
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/complete-guest-update"
+	uri := "/api/vmm/v4.1/content/templates/{extId}/$actions/complete-guest-update"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -143,7 +143,7 @@ func (api *TemplatesApi) CreateTemplate(body *import5.Template, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates"
+	uri := "/api/vmm/v4.1/content/templates"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -191,7 +191,7 @@ func (api *TemplatesApi) DeleteTemplateById(extId *string, args ...map[string]in
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{extId}"
+	uri := "/api/vmm/v4.1/content/templates/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -241,7 +241,7 @@ func (api *TemplatesApi) DeleteTemplateVersionById(templateExtId *string, extId 
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{templateExtId}/versions/{extId}"
+	uri := "/api/vmm/v4.1/content/templates/{templateExtId}/versions/{extId}"
 
 	// verify the required parameter 'templateExtId' is set
 	if nil == templateExtId {
@@ -296,7 +296,7 @@ func (api *TemplatesApi) DeployTemplate(extId *string, body *import5.TemplateDep
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/deploy"
+	uri := "/api/vmm/v4.1/content/templates/{extId}/$actions/deploy"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -350,7 +350,7 @@ func (api *TemplatesApi) GetTemplateById(extId *string, args ...map[string]inter
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{extId}"
+	uri := "/api/vmm/v4.1/content/templates/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -400,7 +400,7 @@ func (api *TemplatesApi) GetTemplateVersionById(templateExtId *string, extId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{templateExtId}/versions/{extId}"
+	uri := "/api/vmm/v4.1/content/templates/{templateExtId}/versions/{extId}"
 
 	// verify the required parameter 'templateExtId' is set
 	if nil == templateExtId {
@@ -455,7 +455,7 @@ func (api *TemplatesApi) InitiateGuestUpdate(extId *string, body *import5.Initia
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/initiate-guest-update"
+	uri := "/api/vmm/v4.1/content/templates/{extId}/$actions/initiate-guest-update"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -505,7 +505,7 @@ func (api *TemplatesApi) ListTemplateVersions(templateExtId *string, page_ *int,
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{templateExtId}/versions"
+	uri := "/api/vmm/v4.1/content/templates/{templateExtId}/versions"
 
 	// verify the required parameter 'templateExtId' is set
 	if nil == templateExtId {
@@ -571,7 +571,7 @@ func (api *TemplatesApi) ListTemplates(page_ *int, limit_ *int, filter_ *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates"
+	uri := "/api/vmm/v4.1/content/templates"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -630,7 +630,7 @@ func (api *TemplatesApi) PublishTemplate(extId *string, body *import5.TemplatePu
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{extId}/$actions/publish"
+	uri := "/api/vmm/v4.1/content/templates/{extId}/$actions/publish"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -684,7 +684,7 @@ func (api *TemplatesApi) UpdateTemplateById(extId *string, body *import5.Templat
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/templates/{extId}"
+	uri := "/api/vmm/v4.1/content/templates/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

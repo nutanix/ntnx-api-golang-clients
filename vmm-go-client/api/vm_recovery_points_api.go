@@ -3,23 +3,23 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import11 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/policies"
+	import10 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type VmHostAffinityPoliciesApi struct {
+type VmRecoveryPointsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewVmHostAffinityPoliciesApi(apiClient *client.ApiClient) *VmHostAffinityPoliciesApi {
+func NewVmRecoveryPointsApi(apiClient *client.ApiClient) *VmRecoveryPointsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &VmHostAffinityPoliciesApi{
+	a := &VmRecoveryPointsApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,14 +32,14 @@ func NewVmHostAffinityPoliciesApi(apiClient *client.ApiClient) *VmHostAffinityPo
 	return a
 }
 
-// Creates a new VM-host affinity policy with the provided configuration.
-func (api *VmHostAffinityPoliciesApi) CreateVmHostAffinityPolicy(body *import11.VmHostAffinityPolicy, args ...map[string]interface{}) (*import11.CreateVmHostAffinityPolicyApiResponse, error) {
+// Creates an AHV VM recovery point based on the provided recovery point details.
+func (api *VmRecoveryPointsApi) CreateVmRecoveryPoint(body *import10.VmRecoveryPoint, args ...map[string]interface{}) (*import10.CreateVMRecoveryPointApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies"
+	uri := "/api/vmm/v4.1/ahv/config/vm-recovery-points"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,19 @@ func (api *VmHostAffinityPoliciesApi) CreateVmHostAffinityPolicy(body *import11.
 		return nil, err
 	}
 
-	unmarshalledResp := new(import11.CreateVmHostAffinityPolicyApiResponse)
+	unmarshalledResp := new(import10.CreateVMRecoveryPointApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Deletes the VM-host affinity policy with the given external identifier.
-func (api *VmHostAffinityPoliciesApi) DeleteVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import11.DeleteVmHostAffinityPolicyApiResponse, error) {
+// Deletes an AHV VM recovery point based on the provided identifier.
+func (api *VmRecoveryPointsApi) DeleteVmRecoveryPointByExtId(extId *string, args ...map[string]interface{}) (*import10.DeleteVmRecoveryPointApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vm-recovery-points/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -125,19 +125,19 @@ func (api *VmHostAffinityPoliciesApi) DeleteVmHostAffinityPolicyById(extId *stri
 		return nil, err
 	}
 
-	unmarshalledResp := new(import11.DeleteVmHostAffinityPolicyApiResponse)
+	unmarshalledResp := new(import10.DeleteVmRecoveryPointApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Fetches the VM-host affinity policy configuration for the provided VM-host affinity policy external identifier.
-func (api *VmHostAffinityPoliciesApi) GetVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import11.GetVmHostAffinityPolicyApiResponse, error) {
+// Retrieves the AHV VM recovery point details, including both VM recovery point and VM configuration.
+func (api *VmRecoveryPointsApi) GetVmRecoveryPointByExtId(extId *string, args ...map[string]interface{}) (*import10.GetVmRecoveryPointApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vm-recovery-points/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -175,19 +175,19 @@ func (api *VmHostAffinityPoliciesApi) GetVmHostAffinityPolicyById(extId *string,
 		return nil, err
 	}
 
-	unmarshalledResp := new(import11.GetVmHostAffinityPolicyApiResponse)
+	unmarshalledResp := new(import10.GetVmRecoveryPointApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Lists all the VM-Host Affinity policies.
-func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicies(page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import11.ListVmHostAffinityPoliciesApiResponse, error) {
+// List the AHV VM recovery points defined on the PC. It can be further refined using various filtering.
+func (api *VmRecoveryPointsApi) ListVmRecoveryPoints(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import10.ListVmRecoveryPointsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies"
+	uri := "/api/vmm/v4.1/ahv/config/vm-recovery-points"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -212,62 +212,8 @@ func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicies(page_ *int, lim
 	if orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import11.ListVmHostAffinityPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Lists the compliance state of all the VMs associated with the VM-host affinity policy.
-func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicyVmComplianceStates(vmHostAffinityPolicyExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import11.ListVmHostAffinityPolicyVmComplianceStatesApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{vmHostAffinityPolicyExtId}/vm-compliance-states"
-
-	// verify the required parameter 'vmHostAffinityPolicyExtId' is set
-	if nil == vmHostAffinityPolicyExtId {
-		return nil, client.ReportError("vmHostAffinityPolicyExtId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"vmHostAffinityPolicyExtId"+"}", url.PathEscape(client.ParameterToString(*vmHostAffinityPolicyExtId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
-	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -288,69 +234,19 @@ func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicyVmComplianceStates
 		return nil, err
 	}
 
-	unmarshalledResp := new(import11.ListVmHostAffinityPolicyVmComplianceStatesApiResponse)
+	unmarshalledResp := new(import10.ListVmRecoveryPointsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Re-enforces the VM-host affinity policy on all the VMs associated with the policy.
-func (api *VmHostAffinityPoliciesApi) ReEnforceVmHostAffinityPolicyById(extId *string, args ...map[string]interface{}) (*import11.ReEnforceVmHostAffinityPolicyApiResponse, error) {
+// Restores a new VM from an AHV VM recovery point using the VM configuration captured in the VM recovery point and the parameters provided in the restore API request body.
+func (api *VmRecoveryPointsApi) RestoreVmRecoveryPoint(extId *string, body *import10.RestoreVmRecoveryPointParams, args ...map[string]interface{}) (*import10.RestoreVmRecoveryPointApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{extId}/$actions/re-enforce"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import11.ReEnforceVmHostAffinityPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Updates the configuration of the VM-host affinity policy with the given external identifier.
-func (api *VmHostAffinityPoliciesApi) UpdateVmHostAffinityPolicyById(extId *string, body *import11.VmHostAffinityPolicy, args ...map[string]interface{}) (*import11.UpdateVmHostAffinityPolicyApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vm-recovery-points/{extId}/$actions/restore"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -387,12 +283,12 @@ func (api *VmHostAffinityPoliciesApi) UpdateVmHostAffinityPolicyById(extId *stri
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import11.UpdateVmHostAffinityPolicyApiResponse)
+	unmarshalledResp := new(import10.RestoreVmRecoveryPointApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

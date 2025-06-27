@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
-	import9 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
+	import10 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/ahv/config"
 	"net/http"
 	"net/url"
 	"strings"
@@ -33,13 +33,13 @@ func NewVmApi(apiClient *client.ApiClient) *VmApi {
 }
 
 // Assigns a specific IP address to a network device attached to a managed network.
-func (api *VmApi) AssignIpById(vmExtId *string, extId *string, body *import9.AssignIpParams, args ...map[string]interface{}) (*import9.AssignIpApiResponse, error) {
+func (api *VmApi) AssignIpById(vmExtId *string, extId *string, body *import10.AssignIpParams, args ...map[string]interface{}) (*import10.AssignIpApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/assign-ip"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/assign-ip"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -86,19 +86,19 @@ func (api *VmApi) AssignIpById(vmExtId *string, extId *string, body *import9.Ass
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.AssignIpApiResponse)
+	unmarshalledResp := new(import10.AssignIpApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Assign the owner of a virtual machine.
-func (api *VmApi) AssignVmOwner(extId *string, body *import9.OwnershipInfo, args ...map[string]interface{}) (*import9.AssignVmOwnerApiResponse, error) {
+func (api *VmApi) AssignVmOwner(extId *string, body *import10.OwnershipInfo, args ...map[string]interface{}) (*import10.AssignVmOwnerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/assign-owner"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/assign-owner"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -140,19 +140,19 @@ func (api *VmApi) AssignVmOwner(extId *string, body *import9.OwnershipInfo, args
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.AssignVmOwnerApiResponse)
+	unmarshalledResp := new(import10.AssignVmOwnerApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Associate categories to a virtual machine.
-func (api *VmApi) AssociateCategories(extId *string, body *import9.AssociateVmCategoriesParams, args ...map[string]interface{}) (*import9.AssociateCategoriesApiResponse, error) {
+func (api *VmApi) AssociateCategories(extId *string, body *import10.AssociateVmCategoriesParams, args ...map[string]interface{}) (*import10.AssociateCategoriesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/associate-categories"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/associate-categories"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -194,19 +194,19 @@ func (api *VmApi) AssociateCategories(extId *string, body *import9.AssociateVmCa
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.AssociateCategoriesApiResponse)
+	unmarshalledResp := new(import10.AssociateCategoriesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Clones an existing virtual machine. This operation also includes updating the existing configuration during the clone operation.
-func (api *VmApi) CloneVm(extId *string, body *import9.CloneOverrideParams, args ...map[string]interface{}) (*import9.CloneVmApiResponse, error) {
+func (api *VmApi) CloneVm(extId *string, body *import10.CloneOverrideParams, args ...map[string]interface{}) (*import10.CloneVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/clone"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/clone"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -244,19 +244,19 @@ func (api *VmApi) CloneVm(extId *string, body *import9.CloneOverrideParams, args
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CloneVmApiResponse)
+	unmarshalledResp := new(import10.CloneVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Creates and attaches a CD-ROM device to a virtual machine.
-func (api *VmApi) CreateCdRom(vmExtId *string, body *import9.CdRom, args ...map[string]interface{}) (*import9.CreateCdRomApiResponse, error) {
+func (api *VmApi) CreateCdRom(vmExtId *string, body *import10.CdRom, args ...map[string]interface{}) (*import10.CreateCdRomApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/cd-roms"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -298,19 +298,19 @@ func (api *VmApi) CreateCdRom(vmExtId *string, body *import9.CdRom, args ...map[
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CreateCdRomApiResponse)
+	unmarshalledResp := new(import10.CreateCdRomApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Creates and attaches a disk device to a virtual machine.
-func (api *VmApi) CreateDisk(vmExtId *string, body *import9.Disk, args ...map[string]interface{}) (*import9.CreateDiskApiResponse, error) {
+func (api *VmApi) CreateDisk(vmExtId *string, body *import10.Disk, args ...map[string]interface{}) (*import10.CreateDiskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/disks"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -352,19 +352,19 @@ func (api *VmApi) CreateDisk(vmExtId *string, body *import9.Disk, args ...map[st
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CreateDiskApiResponse)
+	unmarshalledResp := new(import10.CreateDiskApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Attaches a GPU device to a virtual machine
-func (api *VmApi) CreateGpu(vmExtId *string, body *import9.Gpu, args ...map[string]interface{}) (*import9.CreateGpuApiResponse, error) {
+func (api *VmApi) CreateGpu(vmExtId *string, body *import10.Gpu, args ...map[string]interface{}) (*import10.CreateGpuApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/gpus"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/gpus"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -406,19 +406,19 @@ func (api *VmApi) CreateGpu(vmExtId *string, body *import9.Gpu, args ...map[stri
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CreateGpuApiResponse)
+	unmarshalledResp := new(import10.CreateGpuApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Creates and attaches a network device to a virtual machine.
-func (api *VmApi) CreateNic(vmExtId *string, body *import9.Nic, args ...map[string]interface{}) (*import9.CreateNicApiResponse, error) {
+func (api *VmApi) CreateNic(vmExtId *string, body *import10.Nic, args ...map[string]interface{}) (*import10.CreateNicApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/nics"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -460,19 +460,19 @@ func (api *VmApi) CreateNic(vmExtId *string, body *import9.Nic, args ...map[stri
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CreateNicApiResponse)
+	unmarshalledResp := new(import10.CreateNicApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Creates and attaches a PCIe device to a virtual machine.
-func (api *VmApi) CreatePcieDevice(vmExtId *string, body *import9.PcieDevice, args ...map[string]interface{}) (*import9.CreatePcieDeviceApiResponse, error) {
+func (api *VmApi) CreatePcieDevice(vmExtId *string, body *import10.PcieDevice, args ...map[string]interface{}) (*import10.CreatePcieDeviceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/pcie-devices"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -514,19 +514,19 @@ func (api *VmApi) CreatePcieDevice(vmExtId *string, body *import9.PcieDevice, ar
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CreatePcieDeviceApiResponse)
+	unmarshalledResp := new(import10.CreatePcieDeviceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Creates and attaches a serial port device to a virtual machine.
-func (api *VmApi) CreateSerialPort(vmExtId *string, body *import9.SerialPort, args ...map[string]interface{}) (*import9.CreateSerialPortApiResponse, error) {
+func (api *VmApi) CreateSerialPort(vmExtId *string, body *import10.SerialPort, args ...map[string]interface{}) (*import10.CreateSerialPortApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/serial-ports"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -568,19 +568,19 @@ func (api *VmApi) CreateSerialPort(vmExtId *string, body *import9.SerialPort, ar
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CreateSerialPortApiResponse)
+	unmarshalledResp := new(import10.CreateSerialPortApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Creates a Virtual Machine with the provided configuration.
-func (api *VmApi) CreateVm(body *import9.Vm, args ...map[string]interface{}) (*import9.CreateVmApiResponse, error) {
+func (api *VmApi) CreateVm(body *import10.Vm, args ...map[string]interface{}) (*import10.CreateVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms"
+	uri := "/api/vmm/v4.1/ahv/config/vms"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -616,19 +616,19 @@ func (api *VmApi) CreateVm(body *import9.Vm, args ...map[string]interface{}) (*i
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CreateVmApiResponse)
+	unmarshalledResp := new(import10.CreateVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Migrates a VM from the current cluster to a new target cluster. Supports the dry-run option, which if used results only in validation of the cross-cluster migration parameters and pre-requisites.
-func (api *VmApi) CrossClusterMigrateVm(extId *string, body *import9.VmCrossClusterMigrateParams, dryrun_ *bool, args ...map[string]interface{}) (*import9.CrossClusterMigrateVmApiResponse, error) {
+func (api *VmApi) CrossClusterMigrateVm(extId *string, body *import10.VmCrossClusterMigrateParams, dryrun_ *bool, args ...map[string]interface{}) (*import10.CrossClusterMigrateVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/migrate"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/migrate"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -674,19 +674,19 @@ func (api *VmApi) CrossClusterMigrateVm(extId *string, body *import9.VmCrossClus
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CrossClusterMigrateVmApiResponse)
+	unmarshalledResp := new(import10.CrossClusterMigrateVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Stage a Sysprep or cloud-init configuration file to be used by the guest for the next boot. Note that the Sysprep command must be used to generalize the Windows VMs before triggering this API call.
-func (api *VmApi) CustomizeGuestVm(extId *string, body *import9.GuestCustomizationParams, args ...map[string]interface{}) (*import9.CustomizeGuestVmApiResponse, error) {
+func (api *VmApi) CustomizeGuestVm(extId *string, body *import10.GuestCustomizationParams, args ...map[string]interface{}) (*import10.CustomizeGuestVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/customize-guest"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/customize-guest"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -728,19 +728,19 @@ func (api *VmApi) CustomizeGuestVm(extId *string, body *import9.GuestCustomizati
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.CustomizeGuestVmApiResponse)
+	unmarshalledResp := new(import10.CustomizeGuestVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Removes the specified CD-ROM device from a virtual machine.
-func (api *VmApi) DeleteCdRomById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.DeleteCdRomApiResponse, error) {
+func (api *VmApi) DeleteCdRomById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.DeleteCdRomApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -783,19 +783,19 @@ func (api *VmApi) DeleteCdRomById(vmExtId *string, extId *string, args ...map[st
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.DeleteCdRomApiResponse)
+	unmarshalledResp := new(import10.DeleteCdRomApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Removes the specified disk device from a virtual machine.
-func (api *VmApi) DeleteDiskById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.DeleteDiskApiResponse, error) {
+func (api *VmApi) DeleteDiskById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.DeleteDiskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/disks/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -838,19 +838,19 @@ func (api *VmApi) DeleteDiskById(vmExtId *string, extId *string, args ...map[str
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.DeleteDiskApiResponse)
+	unmarshalledResp := new(import10.DeleteDiskApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Removes the specified GPU device from a virtual machine
-func (api *VmApi) DeleteGpuById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.DeleteGpuApiResponse, error) {
+func (api *VmApi) DeleteGpuById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.DeleteGpuApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/gpus/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/gpus/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -893,19 +893,19 @@ func (api *VmApi) DeleteGpuById(vmExtId *string, extId *string, args ...map[stri
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.DeleteGpuApiResponse)
+	unmarshalledResp := new(import10.DeleteGpuApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Removes the specified network device from a virtual machine.
-func (api *VmApi) DeleteNicById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.DeleteNicApiResponse, error) {
+func (api *VmApi) DeleteNicById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.DeleteNicApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/nics/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -948,19 +948,19 @@ func (api *VmApi) DeleteNicById(vmExtId *string, extId *string, args ...map[stri
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.DeleteNicApiResponse)
+	unmarshalledResp := new(import10.DeleteNicApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Removes the specified PCIe device from a virtual machine.
-func (api *VmApi) DeletePcieDeviceById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.DeletePcieDeviceApiResponse, error) {
+func (api *VmApi) DeletePcieDeviceById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.DeletePcieDeviceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/pcie-devices/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1003,19 +1003,19 @@ func (api *VmApi) DeletePcieDeviceById(vmExtId *string, extId *string, args ...m
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.DeletePcieDeviceApiResponse)
+	unmarshalledResp := new(import10.DeletePcieDeviceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Removes the specified serial port from a virtual machine.
-func (api *VmApi) DeleteSerialPortById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.DeleteSerialPortApiResponse, error) {
+func (api *VmApi) DeleteSerialPortById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.DeleteSerialPortApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1058,19 +1058,19 @@ func (api *VmApi) DeleteSerialPortById(vmExtId *string, extId *string, args ...m
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.DeleteSerialPortApiResponse)
+	unmarshalledResp := new(import10.DeleteSerialPortApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Delete the specified virtual machine.
-func (api *VmApi) DeleteVmById(extId *string, args ...map[string]interface{}) (*import9.DeleteVmApiResponse, error) {
+func (api *VmApi) DeleteVmById(extId *string, args ...map[string]interface{}) (*import10.DeleteVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1108,19 +1108,19 @@ func (api *VmApi) DeleteVmById(extId *string, args ...map[string]interface{}) (*
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.DeleteVmApiResponse)
+	unmarshalledResp := new(import10.DeleteVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Disassociate categories from a virtual machine.
-func (api *VmApi) DisassociateCategories(extId *string, body *import9.DisassociateVmCategoriesParams, args ...map[string]interface{}) (*import9.DisassociateCategoriesApiResponse, error) {
+func (api *VmApi) DisassociateCategories(extId *string, body *import10.DisassociateVmCategoriesParams, args ...map[string]interface{}) (*import10.DisassociateCategoriesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/disassociate-categories"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/disassociate-categories"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1162,19 +1162,19 @@ func (api *VmApi) DisassociateCategories(extId *string, body *import9.Disassocia
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.DisassociateCategoriesApiResponse)
+	unmarshalledResp := new(import10.DisassociateCategoriesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Ejects the ISO currently inserted into a CD-ROM device on a Virtual Machine.
-func (api *VmApi) EjectCdRomById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.EjectCdRomApiResponse, error) {
+func (api *VmApi) EjectCdRomById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.EjectCdRomApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/eject"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/eject"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1217,19 +1217,19 @@ func (api *VmApi) EjectCdRomById(vmExtId *string, extId *string, args ...map[str
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.EjectCdRomApiResponse)
+	unmarshalledResp := new(import10.EjectCdRomApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves configuration details for the provided CD-ROM device attached to a virtual machine.
-func (api *VmApi) GetCdRomById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.GetCdRomApiResponse, error) {
+func (api *VmApi) GetCdRomById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.GetCdRomApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1272,19 +1272,19 @@ func (api *VmApi) GetCdRomById(vmExtId *string, extId *string, args ...map[strin
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.GetCdRomApiResponse)
+	unmarshalledResp := new(import10.GetCdRomApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves configuration details for the provided disk device attached to a virtual machine.
-func (api *VmApi) GetDiskById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.GetDiskApiResponse, error) {
+func (api *VmApi) GetDiskById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.GetDiskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/disks/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1327,19 +1327,19 @@ func (api *VmApi) GetDiskById(vmExtId *string, extId *string, args ...map[string
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.GetDiskApiResponse)
+	unmarshalledResp := new(import10.GetDiskApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves configuration details for the provided GPU device attached to a virtual machine.
-func (api *VmApi) GetGpuById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.GetGpuApiResponse, error) {
+func (api *VmApi) GetGpuById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.GetGpuApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/gpus/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/gpus/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1382,19 +1382,19 @@ func (api *VmApi) GetGpuById(vmExtId *string, extId *string, args ...map[string]
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.GetGpuApiResponse)
+	unmarshalledResp := new(import10.GetGpuApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves the Nutanix Guest Tools configuration for a virtual machine.
-func (api *VmApi) GetGuestToolsById(extId *string, args ...map[string]interface{}) (*import9.GetGuestToolsApiResponse, error) {
+func (api *VmApi) GetGuestToolsById(extId *string, args ...map[string]interface{}) (*import10.GetGuestToolsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/guest-tools"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1432,19 +1432,19 @@ func (api *VmApi) GetGuestToolsById(extId *string, args ...map[string]interface{
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.GetGuestToolsApiResponse)
+	unmarshalledResp := new(import10.GetGuestToolsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves configuration details for the provided network device attached to a virtual machine.
-func (api *VmApi) GetNicById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.GetNicApiResponse, error) {
+func (api *VmApi) GetNicById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.GetNicApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/nics/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1487,19 +1487,19 @@ func (api *VmApi) GetNicById(vmExtId *string, extId *string, args ...map[string]
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.GetNicApiResponse)
+	unmarshalledResp := new(import10.GetNicApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves configuration details for the provided PCIe device attached to a virtual machine.
-func (api *VmApi) GetPcieDeviceById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.GetPcieDeviceApiResponse, error) {
+func (api *VmApi) GetPcieDeviceById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.GetPcieDeviceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/pcie-devices/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1542,19 +1542,19 @@ func (api *VmApi) GetPcieDeviceById(vmExtId *string, extId *string, args ...map[
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.GetPcieDeviceApiResponse)
+	unmarshalledResp := new(import10.GetPcieDeviceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves configuration details for the provided serial port attached to a virtual machine.
-func (api *VmApi) GetSerialPortById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.GetSerialPortApiResponse, error) {
+func (api *VmApi) GetSerialPortById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.GetSerialPortApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1597,19 +1597,19 @@ func (api *VmApi) GetSerialPortById(vmExtId *string, extId *string, args ...map[
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.GetSerialPortApiResponse)
+	unmarshalledResp := new(import10.GetSerialPortApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves configuration details for a virtual machine.
-func (api *VmApi) GetVmById(extId *string, args ...map[string]interface{}) (*import9.GetVmApiResponse, error) {
+func (api *VmApi) GetVmById(extId *string, args ...map[string]interface{}) (*import10.GetVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1647,19 +1647,19 @@ func (api *VmApi) GetVmById(extId *string, args ...map[string]interface{}) (*imp
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.GetVmApiResponse)
+	unmarshalledResp := new(import10.GetVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Inserts the defined ISO into a CD-ROM device attached to a Virtual Machine.
-func (api *VmApi) InsertCdRomById(vmExtId *string, extId *string, body *import9.CdRomInsertParams, args ...map[string]interface{}) (*import9.InsertCdRomApiResponse, error) {
+func (api *VmApi) InsertCdRomById(vmExtId *string, extId *string, body *import10.CdRomInsertParams, args ...map[string]interface{}) (*import10.InsertCdRomApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/insert"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/insert"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1706,19 +1706,19 @@ func (api *VmApi) InsertCdRomById(vmExtId *string, extId *string, body *import9.
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.InsertCdRomApiResponse)
+	unmarshalledResp := new(import10.InsertCdRomApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Inserts the Nutanix Guest Tools installation and configuration ISO into a virtual machine.
-func (api *VmApi) InsertVmGuestTools(extId *string, body *import9.GuestToolsInsertConfig, args ...map[string]interface{}) (*import9.InsertVmGuestToolsApiResponse, error) {
+func (api *VmApi) InsertVmGuestTools(extId *string, body *import10.GuestToolsInsertConfig, args ...map[string]interface{}) (*import10.InsertVmGuestToolsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/guest-tools/$actions/insert-iso"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/insert-iso"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1760,19 +1760,19 @@ func (api *VmApi) InsertVmGuestTools(extId *string, body *import9.GuestToolsInse
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.InsertVmGuestToolsApiResponse)
+	unmarshalledResp := new(import10.InsertVmGuestToolsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Installs Nutanix Guest Tools in a Virtual Machine by using the provided credentials.
-func (api *VmApi) InstallVmGuestTools(extId *string, body *import9.GuestToolsInstallConfig, args ...map[string]interface{}) (*import9.InstallVmGuestToolsApiResponse, error) {
+func (api *VmApi) InstallVmGuestTools(extId *string, body *import10.GuestToolsInstallConfig, args ...map[string]interface{}) (*import10.InstallVmGuestToolsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/guest-tools/$actions/install"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/install"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1814,19 +1814,19 @@ func (api *VmApi) InstallVmGuestTools(extId *string, body *import9.GuestToolsIns
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.InstallVmGuestToolsApiResponse)
+	unmarshalledResp := new(import10.InstallVmGuestToolsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists the CD-ROM devices attached to a virtual machine.
-func (api *VmApi) ListCdRomsByVmId(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import9.ListCdRomsApiResponse, error) {
+func (api *VmApi) ListCdRomsByVmId(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import10.ListCdRomsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/cd-roms"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1871,19 +1871,19 @@ func (api *VmApi) ListCdRomsByVmId(vmExtId *string, page_ *int, limit_ *int, arg
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ListCdRomsApiResponse)
+	unmarshalledResp := new(import10.ListCdRomsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists the disk devices attached to a virtual machine.
-func (api *VmApi) ListDisksByVmId(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import9.ListDisksApiResponse, error) {
+func (api *VmApi) ListDisksByVmId(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import10.ListDisksApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/disks"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1928,19 +1928,19 @@ func (api *VmApi) ListDisksByVmId(vmExtId *string, page_ *int, limit_ *int, args
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ListDisksApiResponse)
+	unmarshalledResp := new(import10.ListDisksApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists the GPU devices attached to a virtual machine
-func (api *VmApi) ListGpusByVmId(vmExtId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import9.ListGpusApiResponse, error) {
+func (api *VmApi) ListGpusByVmId(vmExtId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import10.ListGpusApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/gpus"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/gpus"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1988,19 +1988,19 @@ func (api *VmApi) ListGpusByVmId(vmExtId *string, page_ *int, limit_ *int, filte
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ListGpusApiResponse)
+	unmarshalledResp := new(import10.ListGpusApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists the network devices attached to a virtual machine.
-func (api *VmApi) ListNicsByVmId(vmExtId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import9.ListNicsApiResponse, error) {
+func (api *VmApi) ListNicsByVmId(vmExtId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import10.ListNicsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/nics"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2048,19 +2048,19 @@ func (api *VmApi) ListNicsByVmId(vmExtId *string, page_ *int, limit_ *int, filte
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ListNicsApiResponse)
+	unmarshalledResp := new(import10.ListNicsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists all the PCIe devices attached to a virtual machine.
-func (api *VmApi) ListPcieDevicesByVmId(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import9.ListPcieDevicesApiResponse, error) {
+func (api *VmApi) ListPcieDevicesByVmId(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import10.ListPcieDevicesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/pcie-devices"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2105,19 +2105,19 @@ func (api *VmApi) ListPcieDevicesByVmId(vmExtId *string, page_ *int, limit_ *int
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ListPcieDevicesApiResponse)
+	unmarshalledResp := new(import10.ListPcieDevicesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists the serial ports attached to a virtual machine.
-func (api *VmApi) ListSerialPortsByVmId(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import9.ListSerialPortsApiResponse, error) {
+func (api *VmApi) ListSerialPortsByVmId(vmExtId *string, page_ *int, limit_ *int, args ...map[string]interface{}) (*import10.ListSerialPortsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/serial-ports"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2162,19 +2162,19 @@ func (api *VmApi) ListSerialPortsByVmId(vmExtId *string, page_ *int, limit_ *int
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ListSerialPortsApiResponse)
+	unmarshalledResp := new(import10.ListSerialPortsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists the Virtual Machines defined on the system. List of Virtual Machines can be further filtered out using various filtering options.
-func (api *VmApi) ListVms(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import9.ListVmsApiResponse, error) {
+func (api *VmApi) ListVms(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import10.ListVmsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms"
+	uri := "/api/vmm/v4.1/ahv/config/vms"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -2221,19 +2221,19 @@ func (api *VmApi) ListVms(page_ *int, limit_ *int, filter_ *string, orderby_ *st
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ListVmsApiResponse)
+	unmarshalledResp := new(import10.ListVmsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Migrates a network device attached to a Virtual Machine to another subnet. This can be used to move network devices between VLAN and VPC subnets.
-func (api *VmApi) MigrateNicById(vmExtId *string, extId *string, body *import9.MigrateNicConfig, args ...map[string]interface{}) (*import9.MigrateNicApiResponse, error) {
+func (api *VmApi) MigrateNicById(vmExtId *string, extId *string, body *import10.MigrateNicConfig, args ...map[string]interface{}) (*import10.MigrateNicApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/migrate"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/migrate"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2280,19 +2280,19 @@ func (api *VmApi) MigrateNicById(vmExtId *string, extId *string, body *import9.M
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.MigrateNicApiResponse)
+	unmarshalledResp := new(import10.MigrateNicApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Specifies the VmDisks of a VM for migration and the migration plan for them. If all the disks of a VM need to be migrated to the same storage container, only a single migration plan with only the external ID of the destination storage container is needed.  If the disks are being migrated to different containers, one plan per disk needs to be specified.
-func (api *VmApi) MigrateVmDisks(extId *string, body *import9.DiskMigrationParams, args ...map[string]interface{}) (*import9.MigrateVmDisksApiResponse, error) {
+func (api *VmApi) MigrateVmDisks(extId *string, body *import10.DiskMigrationParams, args ...map[string]interface{}) (*import10.MigrateVmDisksApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/migrate-vm-disks"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/migrate-vm-disks"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2334,19 +2334,19 @@ func (api *VmApi) MigrateVmDisks(extId *string, body *import9.DiskMigrationParam
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.MigrateVmDisksApiResponse)
+	unmarshalledResp := new(import10.MigrateVmDisksApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Migrate a VM to another host within the same cluster.
-func (api *VmApi) MigrateVmToHost(extId *string, body *import9.VmMigrateToHostParams, args ...map[string]interface{}) (*import9.MigrateVmToHostApiResponse, error) {
+func (api *VmApi) MigrateVmToHost(extId *string, body *import10.VmMigrateToHostParams, args ...map[string]interface{}) (*import10.MigrateVmToHostApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/migrate-to-host"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/migrate-to-host"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2388,19 +2388,19 @@ func (api *VmApi) MigrateVmToHost(extId *string, body *import9.VmMigrateToHostPa
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.MigrateVmToHostApiResponse)
+	unmarshalledResp := new(import10.MigrateVmToHostApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Force a power-cycle for a virtual machine. This operation is equivalent to requesting a VM power-off followed by the VM power-on. Power cycling a VM is slower than resetting it, but it will be creating a fresh instance of the virtual machine. When resetting, the same instance is restarted within the context of the running VM instance.
-func (api *VmApi) PowerCycleVm(extId *string, args ...map[string]interface{}) (*import9.PowerCycleVmApiResponse, error) {
+func (api *VmApi) PowerCycleVm(extId *string, args ...map[string]interface{}) (*import10.PowerCycleVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/power-cycle"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/power-cycle"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2438,19 +2438,19 @@ func (api *VmApi) PowerCycleVm(extId *string, args ...map[string]interface{}) (*
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.PowerCycleVmApiResponse)
+	unmarshalledResp := new(import10.PowerCycleVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Forceably shuts down a virtual machine which is equivalent to removing the power cable. Note: The forced shutdown may result in data loss if any operations are in progress during the shutdown.
-func (api *VmApi) PowerOffVm(extId *string, args ...map[string]interface{}) (*import9.PowerOffVmApiResponse, error) {
+func (api *VmApi) PowerOffVm(extId *string, args ...map[string]interface{}) (*import10.PowerOffVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/power-off"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/power-off"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2488,19 +2488,19 @@ func (api *VmApi) PowerOffVm(extId *string, args ...map[string]interface{}) (*im
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.PowerOffVmApiResponse)
+	unmarshalledResp := new(import10.PowerOffVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Turns a Virtual Machine on.
-func (api *VmApi) PowerOnVm(extId *string, args ...map[string]interface{}) (*import9.PowerOnVmApiResponse, error) {
+func (api *VmApi) PowerOnVm(extId *string, args ...map[string]interface{}) (*import10.PowerOnVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/power-on"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/power-on"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2538,19 +2538,19 @@ func (api *VmApi) PowerOnVm(extId *string, args ...map[string]interface{}) (*imp
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.PowerOnVmApiResponse)
+	unmarshalledResp := new(import10.PowerOnVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Collaborative reboot of a Virtual Machine, requesting Nutanix Guest Tools to trigger a reboot from within the VM.
-func (api *VmApi) RebootGuestVm(extId *string, body *import9.GuestPowerOptions, args ...map[string]interface{}) (*import9.RebootVmApiResponse, error) {
+func (api *VmApi) RebootGuestVm(extId *string, body *import10.GuestPowerOptions, args ...map[string]interface{}) (*import10.RebootVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/guest-reboot"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/guest-reboot"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2592,19 +2592,19 @@ func (api *VmApi) RebootGuestVm(extId *string, body *import9.GuestPowerOptions, 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.RebootVmApiResponse)
+	unmarshalledResp := new(import10.RebootVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Collaborative reboot of a Virtual Machine through the ACPI support in the operating system.
-func (api *VmApi) RebootVm(extId *string, args ...map[string]interface{}) (*import9.RebootVmApiResponse, error) {
+func (api *VmApi) RebootVm(extId *string, args ...map[string]interface{}) (*import10.RebootVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/reboot"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/reboot"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2642,19 +2642,19 @@ func (api *VmApi) RebootVm(extId *string, args ...map[string]interface{}) (*impo
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.RebootVmApiResponse)
+	unmarshalledResp := new(import10.RebootVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Releases the IP address assignment from a network device attached to a managed network.
-func (api *VmApi) ReleaseIpById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import9.ReleaseIpApiResponse, error) {
+func (api *VmApi) ReleaseIpById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.ReleaseIpApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/release-ip"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/release-ip"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2697,19 +2697,19 @@ func (api *VmApi) ReleaseIpById(vmExtId *string, extId *string, args ...map[stri
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ReleaseIpApiResponse)
+	unmarshalledResp := new(import10.ReleaseIpApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Force reset of a Virtual Machine, without waiting for the guest VM to shutdown itself. Resetting a VM is faster than power-cycle as the reset occurs within the context of the running virtual machine instance rather than creating a fresh instance.
-func (api *VmApi) ResetVm(extId *string, args ...map[string]interface{}) (*import9.ResetVmApiResponse, error) {
+func (api *VmApi) ResetVm(extId *string, args ...map[string]interface{}) (*import10.ResetVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/reset"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/reset"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2747,19 +2747,19 @@ func (api *VmApi) ResetVm(extId *string, args ...map[string]interface{}) (*impor
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ResetVmApiResponse)
+	unmarshalledResp := new(import10.ResetVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Revert VM identified by {extId}. This does an in-place VM restore from a specified VM Recovery Point.
-func (api *VmApi) RevertVm(extId *string, body *import9.RevertParams, args ...map[string]interface{}) (*import9.RevertVmApiResponse, error) {
+func (api *VmApi) RevertVm(extId *string, body *import10.RevertParams, args ...map[string]interface{}) (*import10.RevertVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/revert"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/revert"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2801,19 +2801,19 @@ func (api *VmApi) RevertVm(extId *string, body *import9.RevertParams, args ...ma
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.RevertVmApiResponse)
+	unmarshalledResp := new(import10.RevertVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Collaborative shutdown of a Virtual Machine, requesting Nutanix Guest Tools to trigger a shutdown from within the VM.
-func (api *VmApi) ShutdownGuestVm(extId *string, body *import9.GuestPowerOptions, args ...map[string]interface{}) (*import9.ShutdownVmApiResponse, error) {
+func (api *VmApi) ShutdownGuestVm(extId *string, body *import10.GuestPowerOptions, args ...map[string]interface{}) (*import10.ShutdownVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/guest-shutdown"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/guest-shutdown"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2855,19 +2855,19 @@ func (api *VmApi) ShutdownGuestVm(extId *string, body *import9.GuestPowerOptions
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ShutdownVmApiResponse)
+	unmarshalledResp := new(import10.ShutdownVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Collaborative shutdown of a Virtual Machine through the ACPI support in the operating system.
-func (api *VmApi) ShutdownVm(extId *string, args ...map[string]interface{}) (*import9.ShutdownVmApiResponse, error) {
+func (api *VmApi) ShutdownVm(extId *string, args ...map[string]interface{}) (*import10.ShutdownVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/$actions/shutdown"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/shutdown"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2905,19 +2905,19 @@ func (api *VmApi) ShutdownVm(extId *string, args ...map[string]interface{}) (*im
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.ShutdownVmApiResponse)
+	unmarshalledResp := new(import10.ShutdownVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Trigger an in-guest uninstallation of Nutanix Guest Tools.
-func (api *VmApi) UninstallVmGuestTools(extId *string, args ...map[string]interface{}) (*import9.UninstallVmGuestToolsApiResponse, error) {
+func (api *VmApi) UninstallVmGuestTools(extId *string, args ...map[string]interface{}) (*import10.UninstallVmGuestToolsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/guest-tools/$actions/uninstall"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/uninstall"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2955,19 +2955,19 @@ func (api *VmApi) UninstallVmGuestTools(extId *string, args ...map[string]interf
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.UninstallVmGuestToolsApiResponse)
+	unmarshalledResp := new(import10.UninstallVmGuestToolsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Updates the configuration details for the provided disk device.
-func (api *VmApi) UpdateDiskById(vmExtId *string, extId *string, body *import9.Disk, args ...map[string]interface{}) (*import9.UpdateDiskApiResponse, error) {
+func (api *VmApi) UpdateDiskById(vmExtId *string, extId *string, body *import10.Disk, args ...map[string]interface{}) (*import10.UpdateDiskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/disks/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -3014,19 +3014,19 @@ func (api *VmApi) UpdateDiskById(vmExtId *string, extId *string, body *import9.D
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.UpdateDiskApiResponse)
+	unmarshalledResp := new(import10.UpdateDiskApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Updates the Nutanix Guest Tools configuration for a virtual machine.
-func (api *VmApi) UpdateGuestToolsById(extId *string, body *import9.GuestTools, args ...map[string]interface{}) (*import9.UpdateGuestToolsApiResponse, error) {
+func (api *VmApi) UpdateGuestToolsById(extId *string, body *import10.GuestTools, args ...map[string]interface{}) (*import10.UpdateGuestToolsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/guest-tools"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -3068,19 +3068,19 @@ func (api *VmApi) UpdateGuestToolsById(extId *string, body *import9.GuestTools, 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.UpdateGuestToolsApiResponse)
+	unmarshalledResp := new(import10.UpdateGuestToolsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Updates the configuration details for the provided network device.
-func (api *VmApi) UpdateNicById(vmExtId *string, extId *string, body *import9.Nic, args ...map[string]interface{}) (*import9.UpdateNicApiResponse, error) {
+func (api *VmApi) UpdateNicById(vmExtId *string, extId *string, body *import10.Nic, args ...map[string]interface{}) (*import10.UpdateNicApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/nics/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -3127,19 +3127,19 @@ func (api *VmApi) UpdateNicById(vmExtId *string, extId *string, body *import9.Ni
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.UpdateNicApiResponse)
+	unmarshalledResp := new(import10.UpdateNicApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Updates the configuration details for the provided serial port.
-func (api *VmApi) UpdateSerialPortById(vmExtId *string, extId *string, body *import9.SerialPort, args ...map[string]interface{}) (*import9.UpdateSerialPortApiResponse, error) {
+func (api *VmApi) UpdateSerialPortById(vmExtId *string, extId *string, body *import10.SerialPort, args ...map[string]interface{}) (*import10.UpdateSerialPortApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -3186,19 +3186,19 @@ func (api *VmApi) UpdateSerialPortById(vmExtId *string, extId *string, body *imp
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.UpdateSerialPortApiResponse)
+	unmarshalledResp := new(import10.UpdateSerialPortApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Updates configuration details for a virtual machine.
-func (api *VmApi) UpdateVmById(extId *string, body *import9.Vm, args ...map[string]interface{}) (*import9.UpdateVmApiResponse, error) {
+func (api *VmApi) UpdateVmById(extId *string, body *import10.Vm, args ...map[string]interface{}) (*import10.UpdateVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -3240,19 +3240,19 @@ func (api *VmApi) UpdateVmById(extId *string, body *import9.Vm, args ...map[stri
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.UpdateVmApiResponse)
+	unmarshalledResp := new(import10.UpdateVmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Trigger an in-guest upgrade of Nutanix Guest Tools.
-func (api *VmApi) UpgradeVmGuestTools(extId *string, body *import9.GuestToolsUpgradeConfig, args ...map[string]interface{}) (*import9.UpgradeVmGuestToolsApiResponse, error) {
+func (api *VmApi) UpgradeVmGuestTools(extId *string, body *import10.GuestToolsUpgradeConfig, args ...map[string]interface{}) (*import10.UpgradeVmGuestToolsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/ahv/config/vms/{extId}/guest-tools/$actions/upgrade"
+	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/upgrade"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -3294,7 +3294,7 @@ func (api *VmApi) UpgradeVmGuestTools(extId *string, body *import9.GuestToolsUpg
 		return nil, err
 	}
 
-	unmarshalledResp := new(import9.UpgradeVmGuestToolsApiResponse)
+	unmarshalledResp := new(import10.UpgradeVmGuestToolsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

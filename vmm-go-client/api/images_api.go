@@ -41,7 +41,7 @@ func (api *ImagesApi) CreateImage(body *import5.Image, args ...map[string]interf
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/images"
+	uri := "/api/vmm/v4.1/content/images"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -89,7 +89,7 @@ func (api *ImagesApi) DeleteImageById(extId *string, args ...map[string]interfac
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/images/{extId}"
+	uri := "/api/vmm/v4.1/content/images/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -139,7 +139,7 @@ func (api *ImagesApi) GetFileByImageId(imageExtId *string, args ...map[string]in
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/images/{imageExtId}/file"
+	uri := "/api/vmm/v4.1/content/images/{imageExtId}/file"
 
 	// verify the required parameter 'imageExtId' is set
 	if nil == imageExtId {
@@ -218,7 +218,7 @@ func (api *ImagesApi) GetImageById(extId *string, args ...map[string]interface{}
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/images/{extId}"
+	uri := "/api/vmm/v4.1/content/images/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -268,7 +268,7 @@ func (api *ImagesApi) ImportImage(body *import5.ImageImportConfig, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/images/$actions/import"
+	uri := "/api/vmm/v4.1/content/images/$actions/import"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -316,7 +316,7 @@ func (api *ImagesApi) ListImages(page_ *int, limit_ *int, filter_ *string, order
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/images"
+	uri := "/api/vmm/v4.1/content/images"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -375,7 +375,7 @@ func (api *ImagesApi) UpdateImageById(extId *string, body *import5.Image, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.0/content/images/{extId}"
+	uri := "/api/vmm/v4.1/content/images/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
