@@ -39,7 +39,7 @@ func (api *LicenseKeysApi) AddLicenseKey(body *import2.LicenseKey, dryrun_ *bool
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.0/config/license-keys"
+	uri := "/api/licensing/v4.1/config/license-keys"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -91,7 +91,7 @@ func (api *LicenseKeysApi) AssignLicenseKeys(body *[]import2.LicenseKeyAssignSpe
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.0/config/$actions/assign-license-keys"
+	uri := "/api/licensing/v4.1/config/$actions/assign-license-keys"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -139,7 +139,7 @@ func (api *LicenseKeysApi) DeleteLicenseKeyById(extId *string, args ...map[strin
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.0/config/license-keys/{extId}"
+	uri := "/api/licensing/v4.1/config/license-keys/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -189,7 +189,7 @@ func (api *LicenseKeysApi) GetLicenseKeyById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.0/config/license-keys/{extId}"
+	uri := "/api/licensing/v4.1/config/license-keys/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -239,7 +239,7 @@ func (api *LicenseKeysApi) ListLicenseKeys(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.0/config/license-keys"
+	uri := "/api/licensing/v4.1/config/license-keys"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

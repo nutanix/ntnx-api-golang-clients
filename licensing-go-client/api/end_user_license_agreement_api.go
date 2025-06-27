@@ -39,7 +39,7 @@ func (api *EndUserLicenseAgreementApi) AddUser(body *import1.EndUser, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.0/agreements/eula/$actions/add-user"
+	uri := "/api/licensing/v4.1/agreements/eula/$actions/add-user"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *EndUserLicenseAgreementApi) GetEula(args ...map[string]interface{}) (
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.0/agreements/eula"
+	uri := "/api/licensing/v4.1/agreements/eula"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

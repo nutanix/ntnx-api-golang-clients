@@ -1,11 +1,11 @@
 /*
  * Generated file models/licensing/v4/config/config_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Licensing APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -26,7 +26,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/license-keys Post operation
+REST response for all response codes in API path /licensing/v4.1/config/license-keys Post operation
 */
 type AddLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -44,11 +44,68 @@ type AddLicenseKeyApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *AddLicenseKeyApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AddLicenseKeyApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AddLicenseKeyApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AddLicenseKeyApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AddLicenseKeyApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAddLicenseKeyApiResponse() *AddLicenseKeyApiResponse {
 	p := new(AddLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AddLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -89,11 +146,68 @@ type AddLicenseKeyDryRunApiResponse struct {
 	ValidationResult *DryRunValidationResult `json:"validationResult,omitempty"`
 }
 
+func (p *AddLicenseKeyDryRunApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AddLicenseKeyDryRunApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AddLicenseKeyDryRunApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AddLicenseKeyDryRunApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AddLicenseKeyDryRunApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "status")
+	delete(allFields, "summary")
+	delete(allFields, "validationResult")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAddLicenseKeyDryRunApiResponse() *AddLicenseKeyDryRunApiResponse {
 	p := new(AddLicenseKeyDryRunApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AddLicenseKeyDryRunApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -129,18 +243,79 @@ type Allowance struct {
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	Type *ClusterType `json:"type,omitempty"`
 }
 
+func (p *Allowance) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Allowance
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Allowance) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Allowance
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Allowance(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "details")
+	delete(allFields, "extId")
+	delete(allFields, "isMulticluster")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAllowance() *Allowance {
 	p := new(Allowance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Allowance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -169,11 +344,69 @@ type AllowanceDetail struct {
 	ValueType *ValueType `json:"valueType,omitempty"`
 }
 
+func (p *AllowanceDetail) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AllowanceDetail
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AllowanceDetail) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AllowanceDetail
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AllowanceDetail(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "featureId")
+	delete(allFields, "scope")
+	delete(allFields, "value")
+	delete(allFields, "valueType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAllowanceDetail() *AllowanceDetail {
 	p := new(AllowanceDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -199,11 +432,69 @@ type AllowanceDetailProjection struct {
 	ValueType *ValueType `json:"valueType,omitempty"`
 }
 
+func (p *AllowanceDetailProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AllowanceDetailProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AllowanceDetailProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AllowanceDetailProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AllowanceDetailProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "featureId")
+	delete(allFields, "scope")
+	delete(allFields, "value")
+	delete(allFields, "valueType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAllowanceDetailProjection() *AllowanceDetailProjection {
 	p := new(AllowanceDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -238,25 +529,87 @@ type AllowanceProjection struct {
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	Type *ClusterType `json:"type,omitempty"`
 }
 
+func (p *AllowanceProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AllowanceProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AllowanceProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AllowanceProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AllowanceProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "allowanceDetailProjection")
+	delete(allFields, "details")
+	delete(allFields, "extId")
+	delete(allFields, "isMulticluster")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAllowanceProjection() *AllowanceProjection {
 	p := new(AllowanceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/$actions/assign-license-keys Post operation
+REST response for all response codes in API path /licensing/v4.1/config/$actions/assign-license-keys Post operation
 */
 type AssignLicenseKeysApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -274,11 +627,68 @@ type AssignLicenseKeysApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *AssignLicenseKeysApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AssignLicenseKeysApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AssignLicenseKeysApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AssignLicenseKeysApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AssignLicenseKeysApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAssignLicenseKeysApiResponse() *AssignLicenseKeysApiResponse {
 	p := new(AssignLicenseKeysApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AssignLicenseKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -327,16 +737,74 @@ type BaseClusterInfo struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *BaseClusterInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias BaseClusterInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BaseClusterInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BaseClusterInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BaseClusterInfo(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "isMulticluster")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewBaseClusterInfo() *BaseClusterInfo {
 	p := new(BaseClusterInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.BaseClusterInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -372,7 +840,7 @@ type BaseLicenseInfo struct {
 
 	SubCategory *SubCategory `json:"subCategory,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -381,14 +849,52 @@ type BaseLicenseInfo struct {
 
 func (p *BaseLicenseInfo) MarshalJSON() ([]byte, error) {
 	type BaseLicenseInfoProxy BaseLicenseInfo
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*BaseLicenseInfoProxy
+		ExpiryDate string `json:"expiryDate,omitempty"`
 	}{
 		BaseLicenseInfoProxy: (*BaseLicenseInfoProxy)(p),
-	})
+		ExpiryDate: func() string {
+			if p.ExpiryDate != nil {
+				return p.ExpiryDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *BaseLicenseInfo) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
 	type CustomBaseLicenseInfo struct {
 		ObjectType_    *string                `json:"$objectType,omitempty"`
 		Reserved_      map[string]interface{} `json:"$reserved,omitempty"`
@@ -403,30 +909,57 @@ func (p *BaseLicenseInfo) UnmarshalJSON(b []byte) error {
 		Type           *LicenseType           `json:"type,omitempty"`
 	}
 
-	var customBaseLicenseInfo CustomBaseLicenseInfo
-	err := json.Unmarshal(b, &customBaseLicenseInfo)
-	if err != nil {
+	var knownFields CustomBaseLicenseInfo
+	if err := json.Unmarshal(b, &knownFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customBaseLicenseInfo.ObjectType_
-	p.Reserved_ = customBaseLicenseInfo.Reserved_
-	p.UnknownFields_ = customBaseLicenseInfo.UnknownFields_
-	p.Category = customBaseLicenseInfo.Category
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
+	p.Category = knownFields.Category
+	// Handle custom date parsing
 	// Custom date parsing logic for Date field
-	if customBaseLicenseInfo.ExpiryDate != "" {
-		parsedExpiryDate, err := time.Parse("2006-01-02", customBaseLicenseInfo.ExpiryDate)
+	if knownFields.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", knownFields.ExpiryDate)
 		if err != nil {
 			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct BaseLicenseInfo: %s", err))
 		}
 		p.ExpiryDate = &parsedExpiryDate
 	}
-	p.ExtId = customBaseLicenseInfo.ExtId
-	p.Links = customBaseLicenseInfo.Links
-	p.Name = customBaseLicenseInfo.Name
-	p.SubCategory = customBaseLicenseInfo.SubCategory
-	p.TenantId = customBaseLicenseInfo.TenantId
-	p.Type = customBaseLicenseInfo.Type
+	// Handle custom date parsing
+	p.ExtId = knownFields.ExtId
+	// Handle custom date parsing
+	p.Links = knownFields.Links
+	// Handle custom date parsing
+	p.Name = knownFields.Name
+	// Handle custom date parsing
+	p.SubCategory = knownFields.SubCategory
+	// Handle custom date parsing
+	p.TenantId = knownFields.TenantId
+	// Handle custom date parsing
+	p.Type = knownFields.Type
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "category")
+	delete(allFields, "expiryDate")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "subCategory")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -435,7 +968,7 @@ func NewBaseLicenseInfo() *BaseLicenseInfo {
 	p := new(BaseLicenseInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.BaseLicenseInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -545,11 +1078,69 @@ type CapacityViolation struct {
 	Type *LicenseType `json:"type,omitempty"`
 }
 
+func (p *CapacityViolation) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CapacityViolation
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CapacityViolation) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CapacityViolation
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = CapacityViolation(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "category")
+	delete(allFields, "meter")
+	delete(allFields, "shortfall")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewCapacityViolation() *CapacityViolation {
 	p := new(CapacityViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.CapacityViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -578,11 +1169,68 @@ type ClusterLicenseKeyMapping struct {
 	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
 }
 
+func (p *ClusterLicenseKeyMapping) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterLicenseKeyMapping
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterLicenseKeyMapping) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterLicenseKeyMapping
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterLicenseKeyMapping(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "key")
+	delete(allFields, "quantityUsed")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewClusterLicenseKeyMapping() *ClusterLicenseKeyMapping {
 	p := new(ClusterLicenseKeyMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ClusterLicenseKeyMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -608,11 +1256,68 @@ type ClusterLicenseKeyMappingProjection struct {
 	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
 }
 
+func (p *ClusterLicenseKeyMappingProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterLicenseKeyMappingProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterLicenseKeyMappingProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterLicenseKeyMappingProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterLicenseKeyMappingProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "key")
+	delete(allFields, "quantityUsed")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewClusterLicenseKeyMappingProjection() *ClusterLicenseKeyMappingProjection {
 	p := new(ClusterLicenseKeyMappingProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ClusterLicenseKeyMappingProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -731,18 +1436,79 @@ type Compliance struct {
 	*/
 	Services []Service `json:"services,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	Type *ClusterType `json:"type,omitempty"`
 }
 
+func (p *Compliance) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Compliance
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Compliance) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Compliance
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Compliance(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "extId")
+	delete(allFields, "isMulticluster")
+	delete(allFields, "links")
+	delete(allFields, "services")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewCompliance() *Compliance {
 	p := new(Compliance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Compliance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -777,18 +1543,80 @@ type ComplianceProjection struct {
 	*/
 	Services []Service `json:"services,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	Type *ClusterType `json:"type,omitempty"`
 }
 
+func (p *ComplianceProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ComplianceProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ComplianceProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ComplianceProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ComplianceProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "extId")
+	delete(allFields, "isMulticluster")
+	delete(allFields, "links")
+	delete(allFields, "serviceProjection")
+	delete(allFields, "services")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewComplianceProjection() *ComplianceProjection {
 	p := new(ComplianceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ComplianceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -813,11 +1641,67 @@ type Consumption struct {
 	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
 }
 
+func (p *Consumption) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Consumption
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Consumption) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Consumption
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Consumption(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "quantityUsed")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewConsumption() *Consumption {
 	p := new(Consumption)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Consumption"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -839,11 +1723,67 @@ type ConsumptionProjection struct {
 	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
 }
 
+func (p *ConsumptionProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ConsumptionProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ConsumptionProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ConsumptionProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ConsumptionProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "quantityUsed")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewConsumptionProjection() *ConsumptionProjection {
 	p := new(ConsumptionProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ConsumptionProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -929,7 +1869,7 @@ func (e ConsumptionType) Ref() *ConsumptionType {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/license-keys/{extId} Delete operation
+REST response for all response codes in API path /licensing/v4.1/config/license-keys/{extId} Delete operation
 */
 type DeleteLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -947,11 +1887,68 @@ type DeleteLicenseKeyApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *DeleteLicenseKeyApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DeleteLicenseKeyApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DeleteLicenseKeyApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DeleteLicenseKeyApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DeleteLicenseKeyApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDeleteLicenseKeyApiResponse() *DeleteLicenseKeyApiResponse {
 	p := new(DeleteLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.DeleteLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -993,11 +1990,67 @@ type DryRunCheck struct {
 	Result *import1.AppMessage `json:"result,omitempty"`
 }
 
+func (p *DryRunCheck) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DryRunCheck
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DryRunCheck) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DryRunCheck
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DryRunCheck(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "name")
+	delete(allFields, "result")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDryRunCheck() *DryRunCheck {
 	p := new(DryRunCheck)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.DryRunCheck"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1095,11 +2148,66 @@ type DryRunValidationResult struct {
 	Checks []DryRunCheck `json:"checks,omitempty"`
 }
 
+func (p *DryRunValidationResult) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DryRunValidationResult
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DryRunValidationResult) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DryRunValidationResult
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DryRunValidationResult(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "checks")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDryRunValidationResult() *DryRunValidationResult {
 	p := new(DryRunValidationResult)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.DryRunValidationResult"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1416,18 +2524,81 @@ type Entitlement struct {
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	Type *ClusterType `json:"type,omitempty"`
 }
 
+func (p *Entitlement) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Entitlement
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Entitlement) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Entitlement
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Entitlement(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "details")
+	delete(allFields, "extId")
+	delete(allFields, "isMulticluster")
+	delete(allFields, "isRegistered")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewEntitlement() *Entitlement {
 	p := new(Entitlement)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Entitlement"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1468,14 +2639,52 @@ type EntitlementDetail struct {
 
 func (p *EntitlementDetail) MarshalJSON() ([]byte, error) {
 	type EntitlementDetailProxy EntitlementDetail
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*EntitlementDetailProxy
+		EarliestExpiryDate string `json:"earliestExpiryDate,omitempty"`
 	}{
 		EntitlementDetailProxy: (*EntitlementDetailProxy)(p),
-	})
+		EarliestExpiryDate: func() string {
+			if p.EarliestExpiryDate != nil {
+				return p.EarliestExpiryDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *EntitlementDetail) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
 	type CustomEntitlementDetail struct {
 		ObjectType_        *string                `json:"$objectType,omitempty"`
 		Reserved_          map[string]interface{} `json:"$reserved,omitempty"`
@@ -1490,30 +2699,57 @@ func (p *EntitlementDetail) UnmarshalJSON(b []byte) error {
 		Type               *LicenseType           `json:"type,omitempty"`
 	}
 
-	var customEntitlementDetail CustomEntitlementDetail
-	err := json.Unmarshal(b, &customEntitlementDetail)
-	if err != nil {
+	var knownFields CustomEntitlementDetail
+	if err := json.Unmarshal(b, &knownFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customEntitlementDetail.ObjectType_
-	p.Reserved_ = customEntitlementDetail.Reserved_
-	p.UnknownFields_ = customEntitlementDetail.UnknownFields_
-	p.Category = customEntitlementDetail.Category
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
+	p.Category = knownFields.Category
+	// Handle custom date parsing
 	// Custom date parsing logic for Date field
-	if customEntitlementDetail.EarliestExpiryDate != "" {
-		parsedEarliestExpiryDate, err := time.Parse("2006-01-02", customEntitlementDetail.EarliestExpiryDate)
+	if knownFields.EarliestExpiryDate != "" {
+		parsedEarliestExpiryDate, err := time.Parse("2006-01-02", knownFields.EarliestExpiryDate)
 		if err != nil {
 			return errors.New(fmt.Sprintf("Unable to unmarshal field EarliestExpiryDate in struct EntitlementDetail: %s", err))
 		}
 		p.EarliestExpiryDate = &parsedEarliestExpiryDate
 	}
-	p.Meter = customEntitlementDetail.Meter
-	p.Name = customEntitlementDetail.Name
-	p.Quantity = customEntitlementDetail.Quantity
-	p.Scope = customEntitlementDetail.Scope
-	p.SubCategory = customEntitlementDetail.SubCategory
-	p.Type = customEntitlementDetail.Type
+	// Handle custom date parsing
+	p.Meter = knownFields.Meter
+	// Handle custom date parsing
+	p.Name = knownFields.Name
+	// Handle custom date parsing
+	p.Quantity = knownFields.Quantity
+	// Handle custom date parsing
+	p.Scope = knownFields.Scope
+	// Handle custom date parsing
+	p.SubCategory = knownFields.SubCategory
+	// Handle custom date parsing
+	p.Type = knownFields.Type
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "category")
+	delete(allFields, "earliestExpiryDate")
+	delete(allFields, "meter")
+	delete(allFields, "name")
+	delete(allFields, "quantity")
+	delete(allFields, "scope")
+	delete(allFields, "subCategory")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -1522,7 +2758,7 @@ func NewEntitlementDetail() *EntitlementDetail {
 	p := new(EntitlementDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1560,14 +2796,52 @@ type EntitlementDetailProjection struct {
 
 func (p *EntitlementDetailProjection) MarshalJSON() ([]byte, error) {
 	type EntitlementDetailProjectionProxy EntitlementDetailProjection
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*EntitlementDetailProjectionProxy
+		EarliestExpiryDate string `json:"earliestExpiryDate,omitempty"`
 	}{
 		EntitlementDetailProjectionProxy: (*EntitlementDetailProjectionProxy)(p),
-	})
+		EarliestExpiryDate: func() string {
+			if p.EarliestExpiryDate != nil {
+				return p.EarliestExpiryDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *EntitlementDetailProjection) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
 	type CustomEntitlementDetailProjection struct {
 		ObjectType_        *string                `json:"$objectType,omitempty"`
 		Reserved_          map[string]interface{} `json:"$reserved,omitempty"`
@@ -1582,30 +2856,57 @@ func (p *EntitlementDetailProjection) UnmarshalJSON(b []byte) error {
 		Type               *LicenseType           `json:"type,omitempty"`
 	}
 
-	var customEntitlementDetailProjection CustomEntitlementDetailProjection
-	err := json.Unmarshal(b, &customEntitlementDetailProjection)
-	if err != nil {
+	var knownFields CustomEntitlementDetailProjection
+	if err := json.Unmarshal(b, &knownFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customEntitlementDetailProjection.ObjectType_
-	p.Reserved_ = customEntitlementDetailProjection.Reserved_
-	p.UnknownFields_ = customEntitlementDetailProjection.UnknownFields_
-	p.Category = customEntitlementDetailProjection.Category
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
+	p.Category = knownFields.Category
+	// Handle custom date parsing
 	// Custom date parsing logic for Date field
-	if customEntitlementDetailProjection.EarliestExpiryDate != "" {
-		parsedEarliestExpiryDate, err := time.Parse("2006-01-02", customEntitlementDetailProjection.EarliestExpiryDate)
+	if knownFields.EarliestExpiryDate != "" {
+		parsedEarliestExpiryDate, err := time.Parse("2006-01-02", knownFields.EarliestExpiryDate)
 		if err != nil {
 			return errors.New(fmt.Sprintf("Unable to unmarshal field EarliestExpiryDate in struct EntitlementDetailProjection: %s", err))
 		}
 		p.EarliestExpiryDate = &parsedEarliestExpiryDate
 	}
-	p.Meter = customEntitlementDetailProjection.Meter
-	p.Name = customEntitlementDetailProjection.Name
-	p.Quantity = customEntitlementDetailProjection.Quantity
-	p.Scope = customEntitlementDetailProjection.Scope
-	p.SubCategory = customEntitlementDetailProjection.SubCategory
-	p.Type = customEntitlementDetailProjection.Type
+	// Handle custom date parsing
+	p.Meter = knownFields.Meter
+	// Handle custom date parsing
+	p.Name = knownFields.Name
+	// Handle custom date parsing
+	p.Quantity = knownFields.Quantity
+	// Handle custom date parsing
+	p.Scope = knownFields.Scope
+	// Handle custom date parsing
+	p.SubCategory = knownFields.SubCategory
+	// Handle custom date parsing
+	p.Type = knownFields.Type
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "category")
+	delete(allFields, "earliestExpiryDate")
+	delete(allFields, "meter")
+	delete(allFields, "name")
+	delete(allFields, "quantity")
+	delete(allFields, "scope")
+	delete(allFields, "subCategory")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -1614,7 +2915,7 @@ func NewEntitlementDetailProjection() *EntitlementDetailProjection {
 	p := new(EntitlementDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1657,18 +2958,82 @@ type EntitlementProjection struct {
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	Type *ClusterType `json:"type,omitempty"`
 }
 
+func (p *EntitlementProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EntitlementProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EntitlementProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EntitlementProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = EntitlementProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "details")
+	delete(allFields, "entitlementDetailProjection")
+	delete(allFields, "extId")
+	delete(allFields, "isMulticluster")
+	delete(allFields, "isRegistered")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewEntitlementProjection() *EntitlementProjection {
 	p := new(EntitlementProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1710,7 +3075,7 @@ type ExpiredLicense struct {
 
 	SubCategory *SubCategory `json:"subCategory,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -1723,14 +3088,52 @@ type ExpiredLicense struct {
 
 func (p *ExpiredLicense) MarshalJSON() ([]byte, error) {
 	type ExpiredLicenseProxy ExpiredLicense
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*ExpiredLicenseProxy
+		ExpiryDate string `json:"expiryDate,omitempty"`
 	}{
 		ExpiredLicenseProxy: (*ExpiredLicenseProxy)(p),
-	})
+		ExpiryDate: func() string {
+			if p.ExpiryDate != nil {
+				return p.ExpiryDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *ExpiredLicense) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
 	type CustomExpiredLicense struct {
 		ObjectType_    *string                `json:"$objectType,omitempty"`
 		Reserved_      map[string]interface{} `json:"$reserved,omitempty"`
@@ -1748,33 +3151,66 @@ func (p *ExpiredLicense) UnmarshalJSON(b []byte) error {
 		UsedQuantity   *float64               `json:"usedQuantity,omitempty"`
 	}
 
-	var customExpiredLicense CustomExpiredLicense
-	err := json.Unmarshal(b, &customExpiredLicense)
-	if err != nil {
+	var knownFields CustomExpiredLicense
+	if err := json.Unmarshal(b, &knownFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customExpiredLicense.ObjectType_
-	p.Reserved_ = customExpiredLicense.Reserved_
-	p.UnknownFields_ = customExpiredLicense.UnknownFields_
-	p.Category = customExpiredLicense.Category
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
+	p.Category = knownFields.Category
+	// Handle custom date parsing
 	// Custom date parsing logic for Date field
-	if customExpiredLicense.ExpiryDate != "" {
-		parsedExpiryDate, err := time.Parse("2006-01-02", customExpiredLicense.ExpiryDate)
+	if knownFields.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", knownFields.ExpiryDate)
 		if err != nil {
 			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct ExpiredLicense: %s", err))
 		}
 		p.ExpiryDate = &parsedExpiryDate
 	}
-	p.ExtId = customExpiredLicense.ExtId
-	p.LicenseId = customExpiredLicense.LicenseId
-	p.Links = customExpiredLicense.Links
-	p.Meter = customExpiredLicense.Meter
-	p.Name = customExpiredLicense.Name
-	p.SubCategory = customExpiredLicense.SubCategory
-	p.TenantId = customExpiredLicense.TenantId
-	p.Type = customExpiredLicense.Type
-	p.UsedQuantity = customExpiredLicense.UsedQuantity
+	// Handle custom date parsing
+	p.ExtId = knownFields.ExtId
+	// Handle custom date parsing
+	p.LicenseId = knownFields.LicenseId
+	// Handle custom date parsing
+	p.Links = knownFields.Links
+	// Handle custom date parsing
+	p.Meter = knownFields.Meter
+	// Handle custom date parsing
+	p.Name = knownFields.Name
+	// Handle custom date parsing
+	p.SubCategory = knownFields.SubCategory
+	// Handle custom date parsing
+	p.TenantId = knownFields.TenantId
+	// Handle custom date parsing
+	p.Type = knownFields.Type
+	// Handle custom date parsing
+	p.UsedQuantity = knownFields.UsedQuantity
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "category")
+	delete(allFields, "expiryDate")
+	delete(allFields, "extId")
+	delete(allFields, "licenseId")
+	delete(allFields, "links")
+	delete(allFields, "meter")
+	delete(allFields, "name")
+	delete(allFields, "subCategory")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+	delete(allFields, "usedQuantity")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -1783,7 +3219,7 @@ func NewExpiredLicense() *ExpiredLicense {
 	p := new(ExpiredLicense)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ExpiredLicense"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1819,7 +3255,7 @@ type Feature struct {
 
 	Scope *Scope `json:"scope,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -1834,11 +3270,76 @@ type Feature struct {
 	ValueType *ValueType `json:"valueType,omitempty"`
 }
 
+func (p *Feature) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Feature
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Feature) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Feature
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Feature(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "licenseCategory")
+	delete(allFields, "licenseSubCategory")
+	delete(allFields, "licenseType")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "scope")
+	delete(allFields, "tenantId")
+	delete(allFields, "$valueItemDiscriminator")
+	delete(allFields, "value")
+	delete(allFields, "valueType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewFeature() *Feature {
 	p := new(Feature)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Feature"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1888,11 +3389,68 @@ type FeatureDetail struct {
 	Name *string `json:"name,omitempty"`
 }
 
+func (p *FeatureDetail) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias FeatureDetail
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FeatureDetail) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FeatureDetail
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = FeatureDetail(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "description")
+	delete(allFields, "featureId")
+	delete(allFields, "name")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewFeatureDetail() *FeatureDetail {
 	p := new(FeatureDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1925,7 +3483,7 @@ type FeatureProjection struct {
 
 	Scope *Scope `json:"scope,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -1938,11 +3496,76 @@ type FeatureProjection struct {
 	ValueType *ValueType `json:"valueType,omitempty"`
 }
 
+func (p *FeatureProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias FeatureProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FeatureProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FeatureProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = FeatureProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "licenseCategory")
+	delete(allFields, "licenseSubCategory")
+	delete(allFields, "licenseType")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "scope")
+	delete(allFields, "tenantId")
+	delete(allFields, "$valueItemDiscriminator")
+	delete(allFields, "value")
+	delete(allFields, "valueType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewFeatureProjection() *FeatureProjection {
 	p := new(FeatureProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1978,18 +3601,76 @@ type FeatureViolation struct {
 	Name *string `json:"name,omitempty"`
 }
 
+func (p *FeatureViolation) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias FeatureViolation
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FeatureViolation) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FeatureViolation
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = FeatureViolation(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "affectedEntity")
+	delete(allFields, "description")
+	delete(allFields, "featureId")
+	delete(allFields, "name")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewFeatureViolation() *FeatureViolation {
 	p := new(FeatureViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/license-keys/{extId} Get operation
+REST response for all response codes in API path /licensing/v4.1/config/license-keys/{extId} Get operation
 */
 type GetLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2007,11 +3688,68 @@ type GetLicenseKeyApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetLicenseKeyApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetLicenseKeyApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetLicenseKeyApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetLicenseKeyApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetLicenseKeyApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetLicenseKeyApiResponse() *GetLicenseKeyApiResponse {
 	p := new(GetLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.GetLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2084,7 +3822,7 @@ type License struct {
 
 	SubCategory *SubCategory `json:"subCategory,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -2093,14 +3831,52 @@ type License struct {
 
 func (p *License) MarshalJSON() ([]byte, error) {
 	type LicenseProxy License
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*LicenseProxy
+		ExpiryDate string `json:"expiryDate,omitempty"`
 	}{
 		LicenseProxy: (*LicenseProxy)(p),
-	})
+		ExpiryDate: func() string {
+			if p.ExpiryDate != nil {
+				return p.ExpiryDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *License) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
 	type CustomLicense struct {
 		ObjectType_         *string                `json:"$objectType,omitempty"`
 		Reserved_           map[string]interface{} `json:"$reserved,omitempty"`
@@ -2120,35 +3896,72 @@ func (p *License) UnmarshalJSON(b []byte) error {
 		Type                *LicenseType           `json:"type,omitempty"`
 	}
 
-	var customLicense CustomLicense
-	err := json.Unmarshal(b, &customLicense)
-	if err != nil {
+	var knownFields CustomLicense
+	if err := json.Unmarshal(b, &knownFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customLicense.ObjectType_
-	p.Reserved_ = customLicense.Reserved_
-	p.UnknownFields_ = customLicense.UnknownFields_
-	p.Category = customLicense.Category
-	p.ConsumptionDetails = customLicense.ConsumptionDetails
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
+	p.Category = knownFields.Category
+	// Handle custom date parsing
+	p.ConsumptionDetails = knownFields.ConsumptionDetails
+	// Handle custom date parsing
 	// Custom date parsing logic for Date field
-	if customLicense.ExpiryDate != "" {
-		parsedExpiryDate, err := time.Parse("2006-01-02", customLicense.ExpiryDate)
+	if knownFields.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", knownFields.ExpiryDate)
 		if err != nil {
 			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct License: %s", err))
 		}
 		p.ExpiryDate = &parsedExpiryDate
 	}
-	p.ExtId = customLicense.ExtId
-	p.Links = customLicense.Links
-	p.Meter = customLicense.Meter
-	p.Name = customLicense.Name
-	p.Quantity = customLicense.Quantity
-	p.SalesforceLicenseId = customLicense.SalesforceLicenseId
-	p.Scope = customLicense.Scope
-	p.SubCategory = customLicense.SubCategory
-	p.TenantId = customLicense.TenantId
-	p.Type = customLicense.Type
+	// Handle custom date parsing
+	p.ExtId = knownFields.ExtId
+	// Handle custom date parsing
+	p.Links = knownFields.Links
+	// Handle custom date parsing
+	p.Meter = knownFields.Meter
+	// Handle custom date parsing
+	p.Name = knownFields.Name
+	// Handle custom date parsing
+	p.Quantity = knownFields.Quantity
+	// Handle custom date parsing
+	p.SalesforceLicenseId = knownFields.SalesforceLicenseId
+	// Handle custom date parsing
+	p.Scope = knownFields.Scope
+	// Handle custom date parsing
+	p.SubCategory = knownFields.SubCategory
+	// Handle custom date parsing
+	p.TenantId = knownFields.TenantId
+	// Handle custom date parsing
+	p.Type = knownFields.Type
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "category")
+	delete(allFields, "consumptionDetails")
+	delete(allFields, "expiryDate")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "meter")
+	delete(allFields, "name")
+	delete(allFields, "quantity")
+	delete(allFields, "salesforceLicenseId")
+	delete(allFields, "scope")
+	delete(allFields, "subCategory")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -2157,7 +3970,7 @@ func NewLicense() *License {
 	p := new(License)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.License"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2463,23 +4276,23 @@ type LicenseKey struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Attribute for capturing add-on categories associated with this license key.
-	*/
-	Addons []LicenseCategory `json:"addons,omitempty"`
-	/*
 	  Expansion attribute used for fetching the license key assignment details.
 	*/
 	AssignmentDetails []ClusterLicenseKeyMapping `json:"assignmentDetails,omitempty"`
 
 	Category *LicenseCategory `json:"category,omitempty"`
 	/*
-	  Attribute for capturing license key expiration date.
+	  Attribute for capturing expiry date of the entitlement encoded in license key.
 	*/
-	ExpiryDate *time.Time `json:"expiryDate,omitempty"`
+	EntitlementExpiryDate *time.Time `json:"entitlementExpiryDate,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Attribute for capturing groupId associated with this license key.
+	*/
+	GroupId *string `json:"groupId,omitempty"`
 	/*
 	  Attribute for capturing license key.
 	*/
@@ -2494,8 +4307,10 @@ type LicenseKey struct {
 	  Attribute for capturing license key quantity.
 	*/
 	Quantity *float64 `json:"quantity,omitempty"`
+
+	SubCategory *LicenseKeySubCategory `json:"subCategory,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -2508,60 +4323,137 @@ type LicenseKey struct {
 
 func (p *LicenseKey) MarshalJSON() ([]byte, error) {
 	type LicenseKeyProxy LicenseKey
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*LicenseKeyProxy
+		EntitlementExpiryDate string `json:"entitlementExpiryDate,omitempty"`
 	}{
 		LicenseKeyProxy: (*LicenseKeyProxy)(p),
-	})
+		EntitlementExpiryDate: func() string {
+			if p.EntitlementExpiryDate != nil {
+				return p.EntitlementExpiryDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *LicenseKey) UnmarshalJSON(b []byte) error {
-	type CustomLicenseKey struct {
-		ObjectType_       *string                    `json:"$objectType,omitempty"`
-		Reserved_         map[string]interface{}     `json:"$reserved,omitempty"`
-		UnknownFields_    map[string]interface{}     `json:"$unknownFields,omitempty"`
-		Addons            []LicenseCategory          `json:"addons,omitempty"`
-		AssignmentDetails []ClusterLicenseKeyMapping `json:"assignmentDetails,omitempty"`
-		Category          *LicenseCategory           `json:"category,omitempty"`
-		ExpiryDate        string                     `json:"expiryDate,omitempty"`
-		ExtId             *string                    `json:"extId,omitempty"`
-		Key               *string                    `json:"key,omitempty"`
-		Links             []import2.ApiLink          `json:"links,omitempty"`
-		Meter             *Meter                     `json:"meter,omitempty"`
-		Quantity          *float64                   `json:"quantity,omitempty"`
-		TenantId          *string                    `json:"tenantId,omitempty"`
-		Type              *LicenseType               `json:"type,omitempty"`
-		ValidationDetail  *string                    `json:"validationDetail,omitempty"`
-	}
 
-	var customLicenseKey CustomLicenseKey
-	err := json.Unmarshal(b, &customLicenseKey)
-	if err != nil {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customLicenseKey.ObjectType_
-	p.Reserved_ = customLicenseKey.Reserved_
-	p.UnknownFields_ = customLicenseKey.UnknownFields_
-	p.Addons = customLicenseKey.Addons
-	p.AssignmentDetails = customLicenseKey.AssignmentDetails
-	p.Category = customLicenseKey.Category
-	// Custom date parsing logic for Date field
-	if customLicenseKey.ExpiryDate != "" {
-		parsedExpiryDate, err := time.Parse("2006-01-02", customLicenseKey.ExpiryDate)
-		if err != nil {
-			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct LicenseKey: %s", err))
-		}
-		p.ExpiryDate = &parsedExpiryDate
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
+	type CustomLicenseKey struct {
+		ObjectType_           *string                    `json:"$objectType,omitempty"`
+		Reserved_             map[string]interface{}     `json:"$reserved,omitempty"`
+		UnknownFields_        map[string]interface{}     `json:"$unknownFields,omitempty"`
+		AssignmentDetails     []ClusterLicenseKeyMapping `json:"assignmentDetails,omitempty"`
+		Category              *LicenseCategory           `json:"category,omitempty"`
+		EntitlementExpiryDate string                     `json:"entitlementExpiryDate,omitempty"`
+		ExtId                 *string                    `json:"extId,omitempty"`
+		GroupId               *string                    `json:"groupId,omitempty"`
+		Key                   *string                    `json:"key,omitempty"`
+		Links                 []import2.ApiLink          `json:"links,omitempty"`
+		Meter                 *Meter                     `json:"meter,omitempty"`
+		Quantity              *float64                   `json:"quantity,omitempty"`
+		SubCategory           *LicenseKeySubCategory     `json:"subCategory,omitempty"`
+		TenantId              *string                    `json:"tenantId,omitempty"`
+		Type                  *LicenseType               `json:"type,omitempty"`
+		ValidationDetail      *string                    `json:"validationDetail,omitempty"`
 	}
-	p.ExtId = customLicenseKey.ExtId
-	p.Key = customLicenseKey.Key
-	p.Links = customLicenseKey.Links
-	p.Meter = customLicenseKey.Meter
-	p.Quantity = customLicenseKey.Quantity
-	p.TenantId = customLicenseKey.TenantId
-	p.Type = customLicenseKey.Type
-	p.ValidationDetail = customLicenseKey.ValidationDetail
+
+	var knownFields CustomLicenseKey
+	if err := json.Unmarshal(b, &knownFields); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
+	p.AssignmentDetails = knownFields.AssignmentDetails
+	// Handle custom date parsing
+	p.Category = knownFields.Category
+	// Handle custom date parsing
+	// Custom date parsing logic for Date field
+	if knownFields.EntitlementExpiryDate != "" {
+		parsedEntitlementExpiryDate, err := time.Parse("2006-01-02", knownFields.EntitlementExpiryDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field EntitlementExpiryDate in struct LicenseKey: %s", err))
+		}
+		p.EntitlementExpiryDate = &parsedEntitlementExpiryDate
+	}
+	// Handle custom date parsing
+	p.ExtId = knownFields.ExtId
+	// Handle custom date parsing
+	p.GroupId = knownFields.GroupId
+	// Handle custom date parsing
+	p.Key = knownFields.Key
+	// Handle custom date parsing
+	p.Links = knownFields.Links
+	// Handle custom date parsing
+	p.Meter = knownFields.Meter
+	// Handle custom date parsing
+	p.Quantity = knownFields.Quantity
+	// Handle custom date parsing
+	p.SubCategory = knownFields.SubCategory
+	// Handle custom date parsing
+	p.TenantId = knownFields.TenantId
+	// Handle custom date parsing
+	p.Type = knownFields.Type
+	// Handle custom date parsing
+	p.ValidationDetail = knownFields.ValidationDetail
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "assignmentDetails")
+	delete(allFields, "category")
+	delete(allFields, "entitlementExpiryDate")
+	delete(allFields, "extId")
+	delete(allFields, "groupId")
+	delete(allFields, "key")
+	delete(allFields, "links")
+	delete(allFields, "meter")
+	delete(allFields, "quantity")
+	delete(allFields, "subCategory")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+	delete(allFields, "validationDetail")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -2570,7 +4462,7 @@ func NewLicenseKey() *LicenseKey {
 	p := new(LicenseKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2595,11 +4487,67 @@ type LicenseKeyAssignSpec struct {
 	LicenseKeyMappings []LicenseKeyMapping `json:"licenseKeyMappings,omitempty"`
 }
 
+func (p *LicenseKeyAssignSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias LicenseKeyAssignSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *LicenseKeyAssignSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias LicenseKeyAssignSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = LicenseKeyAssignSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "licenseKeyMappings")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewLicenseKeyAssignSpec() *LicenseKeyAssignSpec {
 	p := new(LicenseKeyAssignSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssignSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2624,11 +4572,67 @@ type LicenseKeyMapping struct {
 	QuantityUsed *float64 `json:"quantityUsed,omitempty"`
 }
 
+func (p *LicenseKeyMapping) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias LicenseKeyMapping
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *LicenseKeyMapping) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias LicenseKeyMapping
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = LicenseKeyMapping(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "key")
+	delete(allFields, "quantityUsed")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewLicenseKeyMapping() *LicenseKeyMapping {
 	p := new(LicenseKeyMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2641,10 +4645,6 @@ type LicenseKeyProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Attribute for capturing add-on categories associated with this license key.
-	*/
-	Addons []LicenseCategory `json:"addons,omitempty"`
-	/*
 	  Expansion attribute used for fetching the license key assignment details.
 	*/
 	AssignmentDetails []ClusterLicenseKeyMapping `json:"assignmentDetails,omitempty"`
@@ -2653,13 +4653,17 @@ type LicenseKeyProjection struct {
 
 	ClusterLicenseKeyMappingProjection []ClusterLicenseKeyMappingProjection `json:"clusterLicenseKeyMappingProjection,omitempty"`
 	/*
-	  Attribute for capturing license key expiration date.
+	  Attribute for capturing expiry date of the entitlement encoded in license key.
 	*/
-	ExpiryDate *time.Time `json:"expiryDate,omitempty"`
+	EntitlementExpiryDate *time.Time `json:"entitlementExpiryDate,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Attribute for capturing groupId associated with this license key.
+	*/
+	GroupId *string `json:"groupId,omitempty"`
 	/*
 	  Attribute for capturing license key.
 	*/
@@ -2674,8 +4678,10 @@ type LicenseKeyProjection struct {
 	  Attribute for capturing license key quantity.
 	*/
 	Quantity *float64 `json:"quantity,omitempty"`
+
+	SubCategory *LicenseKeySubCategory `json:"subCategory,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -2688,62 +4694,141 @@ type LicenseKeyProjection struct {
 
 func (p *LicenseKeyProjection) MarshalJSON() ([]byte, error) {
 	type LicenseKeyProjectionProxy LicenseKeyProjection
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*LicenseKeyProjectionProxy
+		EntitlementExpiryDate string `json:"entitlementExpiryDate,omitempty"`
 	}{
 		LicenseKeyProjectionProxy: (*LicenseKeyProjectionProxy)(p),
-	})
+		EntitlementExpiryDate: func() string {
+			if p.EntitlementExpiryDate != nil {
+				return p.EntitlementExpiryDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *LicenseKeyProjection) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
 	type CustomLicenseKeyProjection struct {
 		ObjectType_                        *string                              `json:"$objectType,omitempty"`
 		Reserved_                          map[string]interface{}               `json:"$reserved,omitempty"`
 		UnknownFields_                     map[string]interface{}               `json:"$unknownFields,omitempty"`
-		Addons                             []LicenseCategory                    `json:"addons,omitempty"`
 		AssignmentDetails                  []ClusterLicenseKeyMapping           `json:"assignmentDetails,omitempty"`
 		Category                           *LicenseCategory                     `json:"category,omitempty"`
 		ClusterLicenseKeyMappingProjection []ClusterLicenseKeyMappingProjection `json:"clusterLicenseKeyMappingProjection,omitempty"`
-		ExpiryDate                         string                               `json:"expiryDate,omitempty"`
+		EntitlementExpiryDate              string                               `json:"entitlementExpiryDate,omitempty"`
 		ExtId                              *string                              `json:"extId,omitempty"`
+		GroupId                            *string                              `json:"groupId,omitempty"`
 		Key                                *string                              `json:"key,omitempty"`
 		Links                              []import2.ApiLink                    `json:"links,omitempty"`
 		Meter                              *Meter                               `json:"meter,omitempty"`
 		Quantity                           *float64                             `json:"quantity,omitempty"`
+		SubCategory                        *LicenseKeySubCategory               `json:"subCategory,omitempty"`
 		TenantId                           *string                              `json:"tenantId,omitempty"`
 		Type                               *LicenseType                         `json:"type,omitempty"`
 		ValidationDetail                   *string                              `json:"validationDetail,omitempty"`
 	}
 
-	var customLicenseKeyProjection CustomLicenseKeyProjection
-	err := json.Unmarshal(b, &customLicenseKeyProjection)
-	if err != nil {
+	var knownFields CustomLicenseKeyProjection
+	if err := json.Unmarshal(b, &knownFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customLicenseKeyProjection.ObjectType_
-	p.Reserved_ = customLicenseKeyProjection.Reserved_
-	p.UnknownFields_ = customLicenseKeyProjection.UnknownFields_
-	p.Addons = customLicenseKeyProjection.Addons
-	p.AssignmentDetails = customLicenseKeyProjection.AssignmentDetails
-	p.Category = customLicenseKeyProjection.Category
-	p.ClusterLicenseKeyMappingProjection = customLicenseKeyProjection.ClusterLicenseKeyMappingProjection
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
+	p.AssignmentDetails = knownFields.AssignmentDetails
+	// Handle custom date parsing
+	p.Category = knownFields.Category
+	// Handle custom date parsing
+	p.ClusterLicenseKeyMappingProjection = knownFields.ClusterLicenseKeyMappingProjection
+	// Handle custom date parsing
 	// Custom date parsing logic for Date field
-	if customLicenseKeyProjection.ExpiryDate != "" {
-		parsedExpiryDate, err := time.Parse("2006-01-02", customLicenseKeyProjection.ExpiryDate)
+	if knownFields.EntitlementExpiryDate != "" {
+		parsedEntitlementExpiryDate, err := time.Parse("2006-01-02", knownFields.EntitlementExpiryDate)
 		if err != nil {
-			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct LicenseKeyProjection: %s", err))
+			return errors.New(fmt.Sprintf("Unable to unmarshal field EntitlementExpiryDate in struct LicenseKeyProjection: %s", err))
 		}
-		p.ExpiryDate = &parsedExpiryDate
+		p.EntitlementExpiryDate = &parsedEntitlementExpiryDate
 	}
-	p.ExtId = customLicenseKeyProjection.ExtId
-	p.Key = customLicenseKeyProjection.Key
-	p.Links = customLicenseKeyProjection.Links
-	p.Meter = customLicenseKeyProjection.Meter
-	p.Quantity = customLicenseKeyProjection.Quantity
-	p.TenantId = customLicenseKeyProjection.TenantId
-	p.Type = customLicenseKeyProjection.Type
-	p.ValidationDetail = customLicenseKeyProjection.ValidationDetail
+	// Handle custom date parsing
+	p.ExtId = knownFields.ExtId
+	// Handle custom date parsing
+	p.GroupId = knownFields.GroupId
+	// Handle custom date parsing
+	p.Key = knownFields.Key
+	// Handle custom date parsing
+	p.Links = knownFields.Links
+	// Handle custom date parsing
+	p.Meter = knownFields.Meter
+	// Handle custom date parsing
+	p.Quantity = knownFields.Quantity
+	// Handle custom date parsing
+	p.SubCategory = knownFields.SubCategory
+	// Handle custom date parsing
+	p.TenantId = knownFields.TenantId
+	// Handle custom date parsing
+	p.Type = knownFields.Type
+	// Handle custom date parsing
+	p.ValidationDetail = knownFields.ValidationDetail
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "assignmentDetails")
+	delete(allFields, "category")
+	delete(allFields, "clusterLicenseKeyMappingProjection")
+	delete(allFields, "entitlementExpiryDate")
+	delete(allFields, "extId")
+	delete(allFields, "groupId")
+	delete(allFields, "key")
+	delete(allFields, "links")
+	delete(allFields, "meter")
+	delete(allFields, "quantity")
+	delete(allFields, "subCategory")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+	delete(allFields, "validationDetail")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -2752,10 +4837,89 @@ func NewLicenseKeyProjection() *LicenseKeyProjection {
 	p := new(LicenseKeyProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Possible values are PRIMARY, ADDON.
+*/
+type LicenseKeySubCategory int
+
+const (
+	LICENSEKEYSUBCATEGORY_UNKNOWN  LicenseKeySubCategory = 0
+	LICENSEKEYSUBCATEGORY_REDACTED LicenseKeySubCategory = 1
+	LICENSEKEYSUBCATEGORY_PRIMARY  LicenseKeySubCategory = 2
+	LICENSEKEYSUBCATEGORY_ADDON    LicenseKeySubCategory = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *LicenseKeySubCategory) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRIMARY",
+		"ADDON",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e LicenseKeySubCategory) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRIMARY",
+		"ADDON",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *LicenseKeySubCategory) index(name string) LicenseKeySubCategory {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRIMARY",
+		"ADDON",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return LicenseKeySubCategory(idx)
+		}
+	}
+	return LICENSEKEYSUBCATEGORY_UNKNOWN
+}
+
+func (e *LicenseKeySubCategory) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for LicenseKeySubCategory:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *LicenseKeySubCategory) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e LicenseKeySubCategory) Ref() *LicenseKeySubCategory {
+	return &e
 }
 
 type LicenseProjection struct {
@@ -2803,7 +4967,7 @@ type LicenseProjection struct {
 
 	SubCategory *SubCategory `json:"subCategory,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -2812,14 +4976,52 @@ type LicenseProjection struct {
 
 func (p *LicenseProjection) MarshalJSON() ([]byte, error) {
 	type LicenseProjectionProxy LicenseProjection
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*LicenseProjectionProxy
+		ExpiryDate string `json:"expiryDate,omitempty"`
 	}{
 		LicenseProjectionProxy: (*LicenseProjectionProxy)(p),
-	})
+		ExpiryDate: func() string {
+			if p.ExpiryDate != nil {
+				return p.ExpiryDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *LicenseProjection) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
 	type CustomLicenseProjection struct {
 		ObjectType_           *string                 `json:"$objectType,omitempty"`
 		Reserved_             map[string]interface{}  `json:"$reserved,omitempty"`
@@ -2840,36 +5042,75 @@ func (p *LicenseProjection) UnmarshalJSON(b []byte) error {
 		Type                  *LicenseType            `json:"type,omitempty"`
 	}
 
-	var customLicenseProjection CustomLicenseProjection
-	err := json.Unmarshal(b, &customLicenseProjection)
-	if err != nil {
+	var knownFields CustomLicenseProjection
+	if err := json.Unmarshal(b, &knownFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customLicenseProjection.ObjectType_
-	p.Reserved_ = customLicenseProjection.Reserved_
-	p.UnknownFields_ = customLicenseProjection.UnknownFields_
-	p.Category = customLicenseProjection.Category
-	p.ConsumptionDetails = customLicenseProjection.ConsumptionDetails
-	p.ConsumptionProjection = customLicenseProjection.ConsumptionProjection
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
+	p.Category = knownFields.Category
+	// Handle custom date parsing
+	p.ConsumptionDetails = knownFields.ConsumptionDetails
+	// Handle custom date parsing
+	p.ConsumptionProjection = knownFields.ConsumptionProjection
+	// Handle custom date parsing
 	// Custom date parsing logic for Date field
-	if customLicenseProjection.ExpiryDate != "" {
-		parsedExpiryDate, err := time.Parse("2006-01-02", customLicenseProjection.ExpiryDate)
+	if knownFields.ExpiryDate != "" {
+		parsedExpiryDate, err := time.Parse("2006-01-02", knownFields.ExpiryDate)
 		if err != nil {
 			return errors.New(fmt.Sprintf("Unable to unmarshal field ExpiryDate in struct LicenseProjection: %s", err))
 		}
 		p.ExpiryDate = &parsedExpiryDate
 	}
-	p.ExtId = customLicenseProjection.ExtId
-	p.Links = customLicenseProjection.Links
-	p.Meter = customLicenseProjection.Meter
-	p.Name = customLicenseProjection.Name
-	p.Quantity = customLicenseProjection.Quantity
-	p.SalesforceLicenseId = customLicenseProjection.SalesforceLicenseId
-	p.Scope = customLicenseProjection.Scope
-	p.SubCategory = customLicenseProjection.SubCategory
-	p.TenantId = customLicenseProjection.TenantId
-	p.Type = customLicenseProjection.Type
+	// Handle custom date parsing
+	p.ExtId = knownFields.ExtId
+	// Handle custom date parsing
+	p.Links = knownFields.Links
+	// Handle custom date parsing
+	p.Meter = knownFields.Meter
+	// Handle custom date parsing
+	p.Name = knownFields.Name
+	// Handle custom date parsing
+	p.Quantity = knownFields.Quantity
+	// Handle custom date parsing
+	p.SalesforceLicenseId = knownFields.SalesforceLicenseId
+	// Handle custom date parsing
+	p.Scope = knownFields.Scope
+	// Handle custom date parsing
+	p.SubCategory = knownFields.SubCategory
+	// Handle custom date parsing
+	p.TenantId = knownFields.TenantId
+	// Handle custom date parsing
+	p.Type = knownFields.Type
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "category")
+	delete(allFields, "consumptionDetails")
+	delete(allFields, "consumptionProjection")
+	delete(allFields, "expiryDate")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "meter")
+	delete(allFields, "name")
+	delete(allFields, "quantity")
+	delete(allFields, "salesforceLicenseId")
+	delete(allFields, "scope")
+	delete(allFields, "subCategory")
+	delete(allFields, "tenantId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -2878,7 +5119,7 @@ func NewLicenseProjection() *LicenseProjection {
 	p := new(LicenseProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2905,11 +5146,68 @@ type LicenseStateSyncSpec struct {
 	Operation *SyncOperationType `json:"operation,omitempty"`
 }
 
+func (p *LicenseStateSyncSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias LicenseStateSyncSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *LicenseStateSyncSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias LicenseStateSyncSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = LicenseStateSyncSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtIds")
+	delete(allFields, "entitlementNames")
+	delete(allFields, "operation")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewLicenseStateSyncSpec() *LicenseStateSyncSpec {
 	p := new(LicenseStateSyncSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseStateSyncSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2955,6 +5253,7 @@ const (
 	LICENSETYPE_NCI_C           LicenseType = 31
 	LICENSETYPE_NKP             LicenseType = 32
 	LICENSETYPE_NKPFS           LicenseType = 33
+	LICENSETYPE_NAI             LicenseType = 34
 )
 
 // Returns the name of the enum given an ordinal number
@@ -2996,6 +5295,7 @@ func (e *LicenseType) name(index int) string {
 		"NCI_C",
 		"NKP",
 		"NKPFS",
+		"NAI",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -3041,6 +5341,7 @@ func (e LicenseType) GetName() string {
 		"NCI_C",
 		"NKP",
 		"NKPFS",
+		"NAI",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -3085,6 +5386,7 @@ func (e *LicenseType) index(name string) LicenseType {
 		"NCI_C",
 		"NKP",
 		"NKPFS",
+		"NAI",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -3115,7 +5417,7 @@ func (e LicenseType) Ref() *LicenseType {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/allowances Get operation
+REST response for all response codes in API path /licensing/v4.1/config/allowances Get operation
 */
 type ListAllowancesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3133,11 +5435,68 @@ type ListAllowancesApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListAllowancesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListAllowancesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListAllowancesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListAllowancesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListAllowancesApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListAllowancesApiResponse() *ListAllowancesApiResponse {
 	p := new(ListAllowancesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListAllowancesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3165,7 +5524,7 @@ func (p *ListAllowancesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/compliances Get operation
+REST response for all response codes in API path /licensing/v4.1/config/compliances Get operation
 */
 type ListCompliancesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3183,11 +5542,68 @@ type ListCompliancesApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListCompliancesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListCompliancesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListCompliancesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListCompliancesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListCompliancesApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListCompliancesApiResponse() *ListCompliancesApiResponse {
 	p := new(ListCompliancesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListCompliancesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3215,7 +5631,7 @@ func (p *ListCompliancesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/entitlements Get operation
+REST response for all response codes in API path /licensing/v4.1/config/entitlements Get operation
 */
 type ListEntitlementsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3233,11 +5649,68 @@ type ListEntitlementsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListEntitlementsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListEntitlementsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListEntitlementsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListEntitlementsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListEntitlementsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListEntitlementsApiResponse() *ListEntitlementsApiResponse {
 	p := new(ListEntitlementsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListEntitlementsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3265,7 +5738,7 @@ func (p *ListEntitlementsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/features Get operation
+REST response for all response codes in API path /licensing/v4.1/config/features Get operation
 */
 type ListFeaturesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3283,11 +5756,68 @@ type ListFeaturesApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListFeaturesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListFeaturesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListFeaturesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListFeaturesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListFeaturesApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListFeaturesApiResponse() *ListFeaturesApiResponse {
 	p := new(ListFeaturesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListFeaturesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3315,7 +5845,7 @@ func (p *ListFeaturesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/license-keys Get operation
+REST response for all response codes in API path /licensing/v4.1/config/license-keys Get operation
 */
 type ListLicenseKeysApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3333,11 +5863,68 @@ type ListLicenseKeysApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListLicenseKeysApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListLicenseKeysApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListLicenseKeysApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListLicenseKeysApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListLicenseKeysApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListLicenseKeysApiResponse() *ListLicenseKeysApiResponse {
 	p := new(ListLicenseKeysApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListLicenseKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3365,7 +5952,7 @@ func (p *ListLicenseKeysApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/licenses Get operation
+REST response for all response codes in API path /licensing/v4.1/config/licenses Get operation
 */
 type ListLicensesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3383,11 +5970,68 @@ type ListLicensesApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListLicensesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListLicensesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListLicensesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListLicensesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListLicensesApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListLicensesApiResponse() *ListLicensesApiResponse {
 	p := new(ListLicensesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListLicensesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3415,7 +6059,7 @@ func (p *ListLicensesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/recommendations Get operation
+REST response for all response codes in API path /licensing/v4.1/config/recommendations Get operation
 */
 type ListRecommendationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3433,11 +6077,68 @@ type ListRecommendationsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListRecommendationsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListRecommendationsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListRecommendationsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListRecommendationsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListRecommendationsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListRecommendationsApiResponse() *ListRecommendationsApiResponse {
 	p := new(ListRecommendationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListRecommendationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3465,7 +6166,7 @@ func (p *ListRecommendationsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/settings Get operation
+REST response for all response codes in API path /licensing/v4.1/config/settings Get operation
 */
 type ListSettingsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3483,11 +6184,68 @@ type ListSettingsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListSettingsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListSettingsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListSettingsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListSettingsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListSettingsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListSettingsApiResponse() *ListSettingsApiResponse {
 	p := new(ListSettingsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListSettingsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3515,7 +6273,7 @@ func (p *ListSettingsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/violations Get operation
+REST response for all response codes in API path /licensing/v4.1/config/violations Get operation
 */
 type ListViolationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3533,11 +6291,68 @@ type ListViolationsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListViolationsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListViolationsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListViolationsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListViolationsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListViolationsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListViolationsApiResponse() *ListViolationsApiResponse {
 	p := new(ListViolationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListViolationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3583,11 +6398,67 @@ type LogicalVersion struct {
 	LicenseVersion *int `json:"licenseVersion,omitempty"`
 }
 
+func (p *LogicalVersion) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias LogicalVersion
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *LogicalVersion) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias LogicalVersion
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = LogicalVersion(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterVersion")
+	delete(allFields, "licenseVersion")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewLogicalVersion() *LogicalVersion {
 	p := new(LogicalVersion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LogicalVersion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3609,6 +6480,7 @@ const (
 	METER_VI       Meter = 7
 	METER_VM_PACKS Meter = 8
 	METER_VM       Meter = 9
+	METER_VCPU     Meter = 10
 )
 
 // Returns the name of the enum given an ordinal number
@@ -3626,6 +6498,7 @@ func (e *Meter) name(index int) string {
 		"VI",
 		"VM_PACKS",
 		"VM",
+		"VCPU",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -3647,6 +6520,7 @@ func (e Meter) GetName() string {
 		"VI",
 		"VM_PACKS",
 		"VM",
+		"VCPU",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -3667,6 +6541,7 @@ func (e *Meter) index(name string) Meter {
 		"VI",
 		"VM_PACKS",
 		"VM",
+		"VCPU",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -3808,20 +6683,73 @@ type PortalSetting struct {
 
 func (p *PortalSetting) MarshalJSON() ([]byte, error) {
 	type PortalSettingProxy PortalSetting
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*PortalSettingProxy
 		IsEnabled *bool `json:"isEnabled,omitempty"`
 	}{
 		PortalSettingProxy: (*PortalSettingProxy)(p),
 		IsEnabled:          p.IsEnabled,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PortalSetting) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PortalSetting
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = PortalSetting(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "authToken")
+	delete(allFields, "endpointUrl")
+	delete(allFields, "isEnabled")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewPortalSetting() *PortalSetting {
 	p := new(PortalSetting)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.PortalSetting"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3931,11 +6859,70 @@ type PostPaidConfig struct {
 	IsPulseRequired *bool `json:"isPulseRequired,omitempty"`
 }
 
+func (p *PostPaidConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PostPaidConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PostPaidConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PostPaidConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = PostPaidConfig(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "billingPlan")
+	delete(allFields, "category")
+	delete(allFields, "consumptionType")
+	delete(allFields, "id")
+	delete(allFields, "isPulseRequired")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewPostPaidConfig() *PostPaidConfig {
 	p := new(PostPaidConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.PostPaidConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4062,16 +7049,74 @@ type Recommendation struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Recommendation) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Recommendation
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Recommendation) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Recommendation
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Recommendation(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "details")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewRecommendation() *Recommendation {
 	p := new(Recommendation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Recommendation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4106,14 +7151,52 @@ type RecommendationDetail struct {
 
 func (p *RecommendationDetail) MarshalJSON() ([]byte, error) {
 	type RecommendationDetailProxy RecommendationDetail
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*RecommendationDetailProxy
+		LicenseExpiryDate string `json:"licenseExpiryDate,omitempty"`
 	}{
 		RecommendationDetailProxy: (*RecommendationDetailProxy)(p),
-	})
+		LicenseExpiryDate: func() string {
+			if p.LicenseExpiryDate != nil {
+				return p.LicenseExpiryDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *RecommendationDetail) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
 	type CustomRecommendationDetail struct {
 		ObjectType_       *string                `json:"$objectType,omitempty"`
 		Reserved_         map[string]interface{} `json:"$reserved,omitempty"`
@@ -4125,27 +7208,48 @@ func (p *RecommendationDetail) UnmarshalJSON(b []byte) error {
 		Scope             *RecommendationScope   `json:"scope,omitempty"`
 	}
 
-	var customRecommendationDetail CustomRecommendationDetail
-	err := json.Unmarshal(b, &customRecommendationDetail)
-	if err != nil {
+	var knownFields CustomRecommendationDetail
+	if err := json.Unmarshal(b, &knownFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customRecommendationDetail.ObjectType_
-	p.Reserved_ = customRecommendationDetail.Reserved_
-	p.UnknownFields_ = customRecommendationDetail.UnknownFields_
-	p.Comment = customRecommendationDetail.Comment
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
+	p.Comment = knownFields.Comment
+	// Handle custom date parsing
 	// Custom date parsing logic for Date field
-	if customRecommendationDetail.LicenseExpiryDate != "" {
-		parsedLicenseExpiryDate, err := time.Parse("2006-01-02", customRecommendationDetail.LicenseExpiryDate)
+	if knownFields.LicenseExpiryDate != "" {
+		parsedLicenseExpiryDate, err := time.Parse("2006-01-02", knownFields.LicenseExpiryDate)
 		if err != nil {
 			return errors.New(fmt.Sprintf("Unable to unmarshal field LicenseExpiryDate in struct RecommendationDetail: %s", err))
 		}
 		p.LicenseExpiryDate = &parsedLicenseExpiryDate
 	}
-	p.LicenseId = customRecommendationDetail.LicenseId
-	p.Operation = customRecommendationDetail.Operation
-	p.Scope = customRecommendationDetail.Scope
+	// Handle custom date parsing
+	p.LicenseId = knownFields.LicenseId
+	// Handle custom date parsing
+	p.Operation = knownFields.Operation
+	// Handle custom date parsing
+	p.Scope = knownFields.Scope
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "comment")
+	delete(allFields, "licenseExpiryDate")
+	delete(allFields, "licenseId")
+	delete(allFields, "operation")
+	delete(allFields, "scope")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -4154,7 +7258,7 @@ func NewRecommendationDetail() *RecommendationDetail {
 	p := new(RecommendationDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.RecommendationDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4237,56 +7341,6 @@ func (e *RecommendationScope) MarshalJSON() ([]byte, error) {
 
 func (e RecommendationScope) Ref() *RecommendationScope {
 	return &e
-}
-
-/*
-REST response for all response codes in API path /licensing/v4.0/config/$actions/reset-license-state Post operation
-*/
-type ResetLicenseStateApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfResetLicenseStateApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewResetLicenseStateApiResponse() *ResetLicenseStateApiResponse {
-	p := new(ResetLicenseStateApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.ResetLicenseStateApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ResetLicenseStateApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ResetLicenseStateApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfResetLicenseStateApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -4480,11 +7534,71 @@ type Service struct {
 	Violations []ServiceViolation `json:"violations,omitempty"`
 }
 
+func (p *Service) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Service
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Service) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Service
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Service(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "enforcementActions")
+	delete(allFields, "enforcementLevel")
+	delete(allFields, "isCompliant")
+	delete(allFields, "licenseType")
+	delete(allFields, "name")
+	delete(allFields, "violations")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewService() *Service {
 	p := new(Service)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Service"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4516,11 +7630,71 @@ type ServiceProjection struct {
 	Violations []ServiceViolation `json:"violations,omitempty"`
 }
 
+func (p *ServiceProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ServiceProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ServiceProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ServiceProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ServiceProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "enforcementActions")
+	delete(allFields, "enforcementLevel")
+	delete(allFields, "isCompliant")
+	delete(allFields, "licenseType")
+	delete(allFields, "name")
+	delete(allFields, "violations")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewServiceProjection() *ServiceProjection {
 	p := new(ServiceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ServiceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4545,14 +7719,52 @@ type ServiceViolation struct {
 
 func (p *ServiceViolation) MarshalJSON() ([]byte, error) {
 	type ServiceViolationProxy ServiceViolation
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
 		*ServiceViolationProxy
+		StartDate string `json:"startDate,omitempty"`
 	}{
 		ServiceViolationProxy: (*ServiceViolationProxy)(p),
-	})
+		StartDate: func() string {
+			if p.StartDate != nil {
+				return p.StartDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
 }
 
 func (p *ServiceViolation) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
 	type CustomServiceViolation struct {
 		ObjectType_    *string                `json:"$objectType,omitempty"`
 		Reserved_      map[string]interface{} `json:"$reserved,omitempty"`
@@ -4561,24 +7773,39 @@ func (p *ServiceViolation) UnmarshalJSON(b []byte) error {
 		Type           *ServiceViolationType  `json:"type,omitempty"`
 	}
 
-	var customServiceViolation CustomServiceViolation
-	err := json.Unmarshal(b, &customServiceViolation)
-	if err != nil {
+	var knownFields CustomServiceViolation
+	if err := json.Unmarshal(b, &knownFields); err != nil {
 		return err
 	}
 
-	p.ObjectType_ = customServiceViolation.ObjectType_
-	p.Reserved_ = customServiceViolation.Reserved_
-	p.UnknownFields_ = customServiceViolation.UnknownFields_
+	// Step 3: Assign known fields
+	// Handle custom date parsing
+	p.ObjectType_ = knownFields.ObjectType_
+	// Handle custom date parsing
+	p.Reserved_ = knownFields.Reserved_
+	// Handle custom date parsing
+	p.UnknownFields_ = knownFields.UnknownFields_
+	// Handle custom date parsing
 	// Custom date parsing logic for Date field
-	if customServiceViolation.StartDate != "" {
-		parsedStartDate, err := time.Parse("2006-01-02", customServiceViolation.StartDate)
+	if knownFields.StartDate != "" {
+		parsedStartDate, err := time.Parse("2006-01-02", knownFields.StartDate)
 		if err != nil {
 			return errors.New(fmt.Sprintf("Unable to unmarshal field StartDate in struct ServiceViolation: %s", err))
 		}
 		p.StartDate = &parsedStartDate
 	}
-	p.Type = customServiceViolation.Type
+	// Handle custom date parsing
+	p.Type = knownFields.Type
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "startDate")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
 
 	return nil
 }
@@ -4587,7 +7814,7 @@ func NewServiceViolation() *ServiceViolation {
 	p := new(ServiceViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ServiceViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4726,16 +7953,83 @@ type Setting struct {
 
 	PostPaidConfig *PostPaidConfig `json:"postPaidConfig,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Setting) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Setting
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Setting) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Setting
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Setting(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "enforcementPolicy")
+	delete(allFields, "extId")
+	delete(allFields, "hasNonCompliantFeatures")
+	delete(allFields, "hasUltimateTrialEnded")
+	delete(allFields, "isLicenseCheckDisabled")
+	delete(allFields, "isMulticluster")
+	delete(allFields, "isStandby")
+	delete(allFields, "licenseClass")
+	delete(allFields, "licenseKey")
+	delete(allFields, "links")
+	delete(allFields, "logicalVersion")
+	delete(allFields, "postPaidConfig")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewSetting() *Setting {
 	p := new(Setting)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Setting"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HasNonCompliantFeatures = new(bool)
@@ -4905,7 +8199,7 @@ func (e SubCategory) Ref() *SubCategory {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/$actions/sync-license-state Post operation
+REST response for all response codes in API path /licensing/v4.1/config/$actions/sync-license-state Post operation
 */
 type SyncLicenseStateApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4923,11 +8217,68 @@ type SyncLicenseStateApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *SyncLicenseStateApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SyncLicenseStateApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SyncLicenseStateApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SyncLicenseStateApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = SyncLicenseStateApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewSyncLicenseStateApiResponse() *SyncLicenseStateApiResponse {
 	p := new(SyncLicenseStateApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.SyncLicenseStateApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5058,56 +8409,6 @@ func (e SyncOperationType) Ref() *SyncOperationType {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.0/config/portal-setting Put operation
-*/
-type UpdatePortalSettingApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUpdatePortalSettingApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUpdatePortalSettingApiResponse() *UpdatePortalSettingApiResponse {
-	p := new(UpdatePortalSettingApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.UpdatePortalSettingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UpdatePortalSettingApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UpdatePortalSettingApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUpdatePortalSettingApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
 Possible values of type are BOOLEAN & INTEGER.
 */
 type ValueType int
@@ -5220,16 +8521,77 @@ type Violation struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Violation) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Violation
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Violation) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Violation
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Violation(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "capacityViolations")
+	delete(allFields, "expiredLicenses")
+	delete(allFields, "extId")
+	delete(allFields, "featureViolations")
+	delete(allFields, "isMulticluster")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewViolation() *Violation {
 	p := new(Violation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Violation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5687,111 +9049,6 @@ func (p *OneOfFeatureProjectionValue) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType10022)
 	}
 	return nil, errors.New("No value to marshal for OneOfFeatureProjectionValue")
-}
-
-type OneOfUpdatePortalSettingApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType12003 []import1.AppMessage   `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdatePortalSettingApiResponseData() *OneOfUpdatePortalSettingApiResponseData {
-	p := new(OneOfUpdatePortalSettingApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdatePortalSettingApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdatePortalSettingApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []import1.AppMessage:
-		p.oneOfType12003 = v.([]import1.AppMessage)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdatePortalSettingApiResponseData) GetValue() interface{} {
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return p.oneOfType12003
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdatePortalSettingApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType12003 := new([]import1.AppMessage)
-	if err := json.Unmarshal(b, vOneOfType12003); err == nil {
-		if len(*vOneOfType12003) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType12003)[0].ObjectType_) {
-			p.oneOfType12003 = *vOneOfType12003
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdatePortalSettingApiResponseData"))
-}
-
-func (p *OneOfUpdatePortalSettingApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType12003)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdatePortalSettingApiResponseData")
 }
 
 type OneOfListFeaturesApiResponseData struct {
@@ -6506,111 +9763,6 @@ func (p *OneOfListEntitlementsApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType21010)
 	}
 	return nil, errors.New("No value to marshal for OneOfListEntitlementsApiResponseData")
-}
-
-type OneOfResetLicenseStateApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
-	oneOfType21017 []import1.AppMessage   `json:"-"`
-}
-
-func NewOneOfResetLicenseStateApiResponseData() *OneOfResetLicenseStateApiResponseData {
-	p := new(OneOfResetLicenseStateApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfResetLicenseStateApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfResetLicenseStateApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []import1.AppMessage:
-		p.oneOfType21017 = v.([]import1.AppMessage)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfResetLicenseStateApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return p.oneOfType21017
-	}
-	return nil
-}
-
-func (p *OneOfResetLicenseStateApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType21017 := new([]import1.AppMessage)
-	if err := json.Unmarshal(b, vOneOfType21017); err == nil {
-		if len(*vOneOfType21017) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType21017)[0].ObjectType_) {
-			p.oneOfType21017 = *vOneOfType21017
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfResetLicenseStateApiResponseData"))
-}
-
-func (p *OneOfResetLicenseStateApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21017)
-	}
-	return nil, errors.New("No value to marshal for OneOfResetLicenseStateApiResponseData")
 }
 
 type OneOfListAllowancesApiResponseData struct {
