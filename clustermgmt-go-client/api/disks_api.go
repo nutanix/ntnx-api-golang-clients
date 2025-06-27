@@ -42,7 +42,7 @@ func (api *DisksApi) AddDisk(extId *string, body *import1.DiskAdditionSpec, args
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{extId}/$actions/add-disk"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{extId}/$actions/add-disk"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -96,7 +96,7 @@ func (api *DisksApi) DeleteDiskById(extId *string, args ...map[string]interface{
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/disks/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/disks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -146,7 +146,7 @@ func (api *DisksApi) GetDiskById(extId *string, args ...map[string]interface{}) 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/disks/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/disks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -196,7 +196,7 @@ func (api *DisksApi) GetDiskStats(extId *string, startTime_ *time.Time, endTime_
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/stats/disks/{extId}"
+	uri := "/api/clustermgmt/v4.1/stats/disks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -264,7 +264,7 @@ func (api *DisksApi) ListDisks(page_ *int, limit_ *int, filter_ *string, orderby
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/disks"
+	uri := "/api/clustermgmt/v4.1/config/disks"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -315,6 +315,60 @@ func (api *DisksApi) ListDisks(page_ *int, limit_ *int, filter_ *string, orderby
 	}
 
 	unmarshalledResp := new(import1.ListDisksApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Updates the LED state of a Disk to on or off.
+func (api *DisksApi) UpdateDiskLEDState(extId *string, body *import1.LEDStateUpdationSpec, args ...map[string]interface{}) (*import1.UpdateDiskLEDStateTaskResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.1/config/disks/{extId}/$actions/update-led-state"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.UpdateDiskLEDStateTaskResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

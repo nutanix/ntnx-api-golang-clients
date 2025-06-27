@@ -1,7 +1,7 @@
 /*
  * Generated file models/clustermgmt/v4/stats/stats_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -230,23 +230,127 @@ type ClusterStats struct {
 	*/
 	StorageUsageBytes []TimeValuePair `json:"storageUsageBytes,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ClusterStats) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterStats
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterStats) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterStats
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterStats(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpm")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpmLowerBuf")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpmUpperBuf")
+	delete(allFields, "controllerAvgIoLatencyUsecs")
+	delete(allFields, "controllerAvgIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerAvgReadIoLatencyUsecs")
+	delete(allFields, "controllerAvgReadIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgReadIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecs")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerNumIops")
+	delete(allFields, "controllerNumIopsLowerBuf")
+	delete(allFields, "controllerNumIopsUpperBuf")
+	delete(allFields, "controllerNumReadIops")
+	delete(allFields, "controllerNumReadIopsLowerBuf")
+	delete(allFields, "controllerNumReadIopsUpperBuf")
+	delete(allFields, "controllerNumWriteIops")
+	delete(allFields, "controllerNumWriteIopsLowerBuf")
+	delete(allFields, "controllerNumWriteIopsUpperBuf")
+	delete(allFields, "controllerReadIoBandwidthKbps")
+	delete(allFields, "controllerReadIoBandwidthKbpsLowerBuf")
+	delete(allFields, "controllerReadIoBandwidthKbpsUpperBuf")
+	delete(allFields, "controllerWriteIoBandwidthKbps")
+	delete(allFields, "controllerWriteIoBandwidthKbpsLowerBuf")
+	delete(allFields, "controllerWriteIoBandwidthKbpsUpperBuf")
+	delete(allFields, "cpuCapacityHz")
+	delete(allFields, "cpuUsageHz")
+	delete(allFields, "extId")
+	delete(allFields, "freePhysicalStorageBytes")
+	delete(allFields, "healthCheckScore")
+	delete(allFields, "hypervisorCpuUsagePpm")
+	delete(allFields, "hypervisorCpuUsagePpmLowerBuf")
+	delete(allFields, "hypervisorCpuUsagePpmUpperBuf")
+	delete(allFields, "ioBandwidthKbps")
+	delete(allFields, "ioBandwidthKbpsLowerBuf")
+	delete(allFields, "ioBandwidthKbpsUpperBuf")
+	delete(allFields, "links")
+	delete(allFields, "logicalStorageUsageBytes")
+	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "overallMemoryUsageBytes")
+	delete(allFields, "overallSavingsBytes")
+	delete(allFields, "overallSavingsRatio")
+	delete(allFields, "powerConsumptionInstantWatt")
+	delete(allFields, "recycleBinUsageBytes")
+	delete(allFields, "snapshotCapacityBytes")
+	delete(allFields, "storageCapacityBytes")
+	delete(allFields, "storageUsageBytes")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewClusterStats() *ClusterStats {
 	p := new(ClusterStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0/stats/clusters/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.1/stats/clusters/{extId} Get operation
 */
 type ClusterStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -264,11 +368,68 @@ type ClusterStatsApiResponse struct {
 	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ClusterStatsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterStatsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterStatsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterStatsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterStatsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewClusterStatsApiResponse() *ClusterStatsApiResponse {
 	p := new(ClusterStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -498,16 +659,120 @@ type ClusterStatsProjection struct {
 	*/
 	StorageUsageBytes []TimeValuePair `json:"storageUsageBytes,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ClusterStatsProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterStatsProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterStatsProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterStatsProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpm")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpmLowerBuf")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpmUpperBuf")
+	delete(allFields, "controllerAvgIoLatencyUsecs")
+	delete(allFields, "controllerAvgIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerAvgReadIoLatencyUsecs")
+	delete(allFields, "controllerAvgReadIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgReadIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecs")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerNumIops")
+	delete(allFields, "controllerNumIopsLowerBuf")
+	delete(allFields, "controllerNumIopsUpperBuf")
+	delete(allFields, "controllerNumReadIops")
+	delete(allFields, "controllerNumReadIopsLowerBuf")
+	delete(allFields, "controllerNumReadIopsUpperBuf")
+	delete(allFields, "controllerNumWriteIops")
+	delete(allFields, "controllerNumWriteIopsLowerBuf")
+	delete(allFields, "controllerNumWriteIopsUpperBuf")
+	delete(allFields, "controllerReadIoBandwidthKbps")
+	delete(allFields, "controllerReadIoBandwidthKbpsLowerBuf")
+	delete(allFields, "controllerReadIoBandwidthKbpsUpperBuf")
+	delete(allFields, "controllerWriteIoBandwidthKbps")
+	delete(allFields, "controllerWriteIoBandwidthKbpsLowerBuf")
+	delete(allFields, "controllerWriteIoBandwidthKbpsUpperBuf")
+	delete(allFields, "cpuCapacityHz")
+	delete(allFields, "cpuUsageHz")
+	delete(allFields, "extId")
+	delete(allFields, "freePhysicalStorageBytes")
+	delete(allFields, "healthCheckScore")
+	delete(allFields, "hypervisorCpuUsagePpm")
+	delete(allFields, "hypervisorCpuUsagePpmLowerBuf")
+	delete(allFields, "hypervisorCpuUsagePpmUpperBuf")
+	delete(allFields, "ioBandwidthKbps")
+	delete(allFields, "ioBandwidthKbpsLowerBuf")
+	delete(allFields, "ioBandwidthKbpsUpperBuf")
+	delete(allFields, "links")
+	delete(allFields, "logicalStorageUsageBytes")
+	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "overallMemoryUsageBytes")
+	delete(allFields, "overallSavingsBytes")
+	delete(allFields, "overallSavingsRatio")
+	delete(allFields, "powerConsumptionInstantWatt")
+	delete(allFields, "recycleBinUsageBytes")
+	delete(allFields, "snapshotCapacityBytes")
+	delete(allFields, "storageCapacityBytes")
+	delete(allFields, "storageUsageBytes")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewClusterStatsProjection() *ClusterStatsProjection {
 	p := new(ClusterStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -660,23 +925,113 @@ type DiskStats struct {
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *DiskStats) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DiskStats
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DiskStats) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DiskStats
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DiskStats(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "diskAvgIoLatencyMicrosec")
+	delete(allFields, "diskBaseIoBandwidthkbps")
+	delete(allFields, "diskBaseIoLatencyMicrosec")
+	delete(allFields, "diskBaseNumIops")
+	delete(allFields, "diskBaseReadIoAvgLatencyMicrosec")
+	delete(allFields, "diskBaseReadIoBandwidthkbps")
+	delete(allFields, "diskBaseReadIops")
+	delete(allFields, "diskBaseWriteIoAvgLatencyMicrosec")
+	delete(allFields, "diskBaseWriteIoBandwidthkbps")
+	delete(allFields, "diskBaseWriteIops")
+	delete(allFields, "diskCapacityBytes")
+	delete(allFields, "diskFreeBytes")
+	delete(allFields, "diskIoBandwidthkbps")
+	delete(allFields, "diskNumIops")
+	delete(allFields, "diskPeakIoBandwidthkbps")
+	delete(allFields, "diskPeakIoLatencyMicrosec")
+	delete(allFields, "diskPeakNumIops")
+	delete(allFields, "diskPeakReadIoAvgLatencyMicrosec")
+	delete(allFields, "diskPeakReadIoBandwidthkbps")
+	delete(allFields, "diskPeakReadIops")
+	delete(allFields, "diskPeakWriteIoAvgLatencyMicrosec")
+	delete(allFields, "diskPeakWriteIoBandwidthkbps")
+	delete(allFields, "diskPeakWriteIops")
+	delete(allFields, "diskReadIoAvgLatencyMicrosec")
+	delete(allFields, "diskReadIoBandwidthkbps")
+	delete(allFields, "diskReadIoPpm")
+	delete(allFields, "diskReadIops")
+	delete(allFields, "diskUsageBytes")
+	delete(allFields, "diskUsagePpm")
+	delete(allFields, "diskWriteIoAvgLatencyMicrosec")
+	delete(allFields, "diskWriteIoBandwidthkbps")
+	delete(allFields, "diskWriteIoPpm")
+	delete(allFields, "diskWriteIops")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewDiskStats() *DiskStats {
 	p := new(DiskStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.DiskStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0/stats/disks/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.1/stats/disks/{extId} Get operation
 */
 type GetDiskStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -694,11 +1049,68 @@ type GetDiskStatsApiResponse struct {
 	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetDiskStatsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetDiskStatsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetDiskStatsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetDiskStatsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetDiskStatsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetDiskStatsApiResponse() *GetDiskStatsApiResponse {
 	p := new(GetDiskStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.GetDiskStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -726,7 +1138,7 @@ func (p *GetDiskStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0/stats/storage-containers/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.1/stats/storage-containers/{extId} Get operation
 */
 type GetStorageContainerStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -744,11 +1156,68 @@ type GetStorageContainerStatsApiResponse struct {
 	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetStorageContainerStatsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetStorageContainerStatsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetStorageContainerStatsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetStorageContainerStatsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetStorageContainerStatsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetStorageContainerStatsApiResponse() *GetStorageContainerStatsApiResponse {
 	p := new(GetStorageContainerStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.GetStorageContainerStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -977,23 +1446,126 @@ type HostStats struct {
 	*/
 	StorageUsageBytes []TimeValuePair `json:"storageUsageBytes,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *HostStats) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias HostStats
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *HostStats) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias HostStats
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = HostStats(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpm")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpmLowerBuf")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpmUpperBuf")
+	delete(allFields, "controllerAvgIoLatencyUsecs")
+	delete(allFields, "controllerAvgIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerAvgReadIoLatencyUsecs")
+	delete(allFields, "controllerAvgReadIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgReadIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecs")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerNumIops")
+	delete(allFields, "controllerNumIopsLowerBuf")
+	delete(allFields, "controllerNumIopsUpperBuf")
+	delete(allFields, "controllerNumReadIops")
+	delete(allFields, "controllerNumReadIopsLowerBuf")
+	delete(allFields, "controllerNumReadIopsUpperBuf")
+	delete(allFields, "controllerNumWriteIops")
+	delete(allFields, "controllerNumWriteIopsLowerBuf")
+	delete(allFields, "controllerNumWriteIopsUpperBuf")
+	delete(allFields, "controllerReadIoBandwidthKbps")
+	delete(allFields, "controllerReadIoBandwidthKbpsLowerBuf")
+	delete(allFields, "controllerReadIoBandwidthKbpsUpperBuf")
+	delete(allFields, "controllerWriteIoBandwidthKbps")
+	delete(allFields, "controllerWriteIoBandwidthKbpsLowerBuf")
+	delete(allFields, "controllerWriteIoBandwidthKbpsUpperBuf")
+	delete(allFields, "cpuCapacityHz")
+	delete(allFields, "cpuUsageHz")
+	delete(allFields, "extId")
+	delete(allFields, "freePhysicalStorageBytes")
+	delete(allFields, "healthCheckScore")
+	delete(allFields, "hypervisorCpuUsagePpm")
+	delete(allFields, "hypervisorCpuUsagePpmLowerBuf")
+	delete(allFields, "hypervisorCpuUsagePpmUpperBuf")
+	delete(allFields, "ioBandwidthKbps")
+	delete(allFields, "ioBandwidthKbpsLowerBuf")
+	delete(allFields, "ioBandwidthKbpsUpperBuf")
+	delete(allFields, "links")
+	delete(allFields, "logicalStorageUsageBytes")
+	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "overallMemoryUsageBytes")
+	delete(allFields, "overallMemoryUsagePpm")
+	delete(allFields, "overallMemoryUsagePpmLowerBuf")
+	delete(allFields, "overallMemoryUsagePpmUpperBuf")
+	delete(allFields, "powerConsumptionInstantWatt")
+	delete(allFields, "storageCapacityBytes")
+	delete(allFields, "storageUsageBytes")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewHostStats() *HostStats {
 	p := new(HostStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0/stats/clusters/{clusterExtId}/hosts/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.1/stats/clusters/{clusterExtId}/hosts/{extId} Get operation
 */
 type HostStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1011,11 +1583,68 @@ type HostStatsApiResponse struct {
 	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *HostStatsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias HostStatsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *HostStatsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias HostStatsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = HostStatsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewHostStatsApiResponse() *HostStatsApiResponse {
 	p := new(HostStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1241,16 +1870,119 @@ type HostStatsProjection struct {
 	*/
 	StorageUsageBytes []TimeValuePair `json:"storageUsageBytes,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *HostStatsProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias HostStatsProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *HostStatsProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias HostStatsProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = HostStatsProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpm")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpmLowerBuf")
+	delete(allFields, "aggregateHypervisorMemoryUsagePpmUpperBuf")
+	delete(allFields, "controllerAvgIoLatencyUsecs")
+	delete(allFields, "controllerAvgIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerAvgReadIoLatencyUsecs")
+	delete(allFields, "controllerAvgReadIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgReadIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecs")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecsLowerBuf")
+	delete(allFields, "controllerAvgWriteIoLatencyUsecsUpperBuf")
+	delete(allFields, "controllerNumIops")
+	delete(allFields, "controllerNumIopsLowerBuf")
+	delete(allFields, "controllerNumIopsUpperBuf")
+	delete(allFields, "controllerNumReadIops")
+	delete(allFields, "controllerNumReadIopsLowerBuf")
+	delete(allFields, "controllerNumReadIopsUpperBuf")
+	delete(allFields, "controllerNumWriteIops")
+	delete(allFields, "controllerNumWriteIopsLowerBuf")
+	delete(allFields, "controllerNumWriteIopsUpperBuf")
+	delete(allFields, "controllerReadIoBandwidthKbps")
+	delete(allFields, "controllerReadIoBandwidthKbpsLowerBuf")
+	delete(allFields, "controllerReadIoBandwidthKbpsUpperBuf")
+	delete(allFields, "controllerWriteIoBandwidthKbps")
+	delete(allFields, "controllerWriteIoBandwidthKbpsLowerBuf")
+	delete(allFields, "controllerWriteIoBandwidthKbpsUpperBuf")
+	delete(allFields, "cpuCapacityHz")
+	delete(allFields, "cpuUsageHz")
+	delete(allFields, "extId")
+	delete(allFields, "freePhysicalStorageBytes")
+	delete(allFields, "healthCheckScore")
+	delete(allFields, "hypervisorCpuUsagePpm")
+	delete(allFields, "hypervisorCpuUsagePpmLowerBuf")
+	delete(allFields, "hypervisorCpuUsagePpmUpperBuf")
+	delete(allFields, "ioBandwidthKbps")
+	delete(allFields, "ioBandwidthKbpsLowerBuf")
+	delete(allFields, "ioBandwidthKbpsUpperBuf")
+	delete(allFields, "links")
+	delete(allFields, "logicalStorageUsageBytes")
+	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "overallMemoryUsageBytes")
+	delete(allFields, "overallMemoryUsagePpm")
+	delete(allFields, "overallMemoryUsagePpmLowerBuf")
+	delete(allFields, "overallMemoryUsagePpmUpperBuf")
+	delete(allFields, "powerConsumptionInstantWatt")
+	delete(allFields, "storageCapacityBytes")
+	delete(allFields, "storageUsageBytes")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewHostStatsProjection() *HostStatsProjection {
 	p := new(HostStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1455,16 +2187,119 @@ type StorageContainerStats struct {
 	*/
 	StorageUsageBytes []import3.TimeIntValuePair `json:"storageUsageBytes,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *StorageContainerStats) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias StorageContainerStats
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StorageContainerStats) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StorageContainerStats
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = StorageContainerStats(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "containerExtId")
+	delete(allFields, "controllerAvgIoLatencyuSecs")
+	delete(allFields, "controllerAvgReadIoLatencyuSecs")
+	delete(allFields, "controllerAvgWriteIoLatencyuSecs")
+	delete(allFields, "controllerIoBandwidthkBps")
+	delete(allFields, "controllerNumIops")
+	delete(allFields, "controllerNumReadIops")
+	delete(allFields, "controllerNumWriteIops")
+	delete(allFields, "controllerReadIoBandwidthkBps")
+	delete(allFields, "controllerReadIoRatioPpm")
+	delete(allFields, "controllerWriteIoBandwidthkBps")
+	delete(allFields, "controllerWriteIoRatioPpm")
+	delete(allFields, "dataReductionCloneSavedBytes")
+	delete(allFields, "dataReductionCloneSavingRatioPpm")
+	delete(allFields, "dataReductionCompressionSavedBytes")
+	delete(allFields, "dataReductionCompressionSavingRatioPpm")
+	delete(allFields, "dataReductionDedupSavedBytes")
+	delete(allFields, "dataReductionDedupSavingRatioPpm")
+	delete(allFields, "dataReductionErasureCodingSavedBytes")
+	delete(allFields, "dataReductionErasureCodingSavingRatioPpm")
+	delete(allFields, "dataReductionOverallPostReductionBytes")
+	delete(allFields, "dataReductionOverallPreReductionBytes")
+	delete(allFields, "dataReductionOverallSavedBytes")
+	delete(allFields, "dataReductionSavedBytes")
+	delete(allFields, "dataReductionSavingRatioPpm")
+	delete(allFields, "dataReductionSnapshotSavedBytes")
+	delete(allFields, "dataReductionSnapshotSavingRatioPpm")
+	delete(allFields, "dataReductionThinProvisionSavedBytes")
+	delete(allFields, "dataReductionThinProvisionSavingRatioPpm")
+	delete(allFields, "dataReductionTotalSavingRatioPpm")
+	delete(allFields, "dataReductionZeroWriteSavingsBytes")
+	delete(allFields, "extId")
+	delete(allFields, "health")
+	delete(allFields, "links")
+	delete(allFields, "storageActualPhysicalUsageBytes")
+	delete(allFields, "storageCapacityBytes")
+	delete(allFields, "storageFreeBytes")
+	delete(allFields, "storageOtherContainersReservedCapacity")
+	delete(allFields, "storageOtherContainersUnreservedCapacity")
+	delete(allFields, "storageReplicationFactor")
+	delete(allFields, "storageReservedCapacityBytes")
+	delete(allFields, "storageReservedFreeBytes")
+	delete(allFields, "storageReservedUsageBytes")
+	delete(allFields, "storageSnapshotReclaimable")
+	delete(allFields, "storageTierDasSataUsageBytes")
+	delete(allFields, "storageTierSsdUsageBytes")
+	delete(allFields, "storageUnreservedUsageBytes")
+	delete(allFields, "storageUsageBytes")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewStorageContainerStats() *StorageContainerStats {
 	p := new(StorageContainerStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.StorageContainerStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1669,16 +2504,119 @@ type StorageContainerStatsProjection struct {
 	*/
 	StorageUsageBytes []import3.TimeIntValuePair `json:"storageUsageBytes,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *StorageContainerStatsProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias StorageContainerStatsProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StorageContainerStatsProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StorageContainerStatsProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = StorageContainerStatsProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "containerExtId")
+	delete(allFields, "controllerAvgIoLatencyuSecs")
+	delete(allFields, "controllerAvgReadIoLatencyuSecs")
+	delete(allFields, "controllerAvgWriteIoLatencyuSecs")
+	delete(allFields, "controllerIoBandwidthkBps")
+	delete(allFields, "controllerNumIops")
+	delete(allFields, "controllerNumReadIops")
+	delete(allFields, "controllerNumWriteIops")
+	delete(allFields, "controllerReadIoBandwidthkBps")
+	delete(allFields, "controllerReadIoRatioPpm")
+	delete(allFields, "controllerWriteIoBandwidthkBps")
+	delete(allFields, "controllerWriteIoRatioPpm")
+	delete(allFields, "dataReductionCloneSavedBytes")
+	delete(allFields, "dataReductionCloneSavingRatioPpm")
+	delete(allFields, "dataReductionCompressionSavedBytes")
+	delete(allFields, "dataReductionCompressionSavingRatioPpm")
+	delete(allFields, "dataReductionDedupSavedBytes")
+	delete(allFields, "dataReductionDedupSavingRatioPpm")
+	delete(allFields, "dataReductionErasureCodingSavedBytes")
+	delete(allFields, "dataReductionErasureCodingSavingRatioPpm")
+	delete(allFields, "dataReductionOverallPostReductionBytes")
+	delete(allFields, "dataReductionOverallPreReductionBytes")
+	delete(allFields, "dataReductionOverallSavedBytes")
+	delete(allFields, "dataReductionSavedBytes")
+	delete(allFields, "dataReductionSavingRatioPpm")
+	delete(allFields, "dataReductionSnapshotSavedBytes")
+	delete(allFields, "dataReductionSnapshotSavingRatioPpm")
+	delete(allFields, "dataReductionThinProvisionSavedBytes")
+	delete(allFields, "dataReductionThinProvisionSavingRatioPpm")
+	delete(allFields, "dataReductionTotalSavingRatioPpm")
+	delete(allFields, "dataReductionZeroWriteSavingsBytes")
+	delete(allFields, "extId")
+	delete(allFields, "health")
+	delete(allFields, "links")
+	delete(allFields, "storageActualPhysicalUsageBytes")
+	delete(allFields, "storageCapacityBytes")
+	delete(allFields, "storageFreeBytes")
+	delete(allFields, "storageOtherContainersReservedCapacity")
+	delete(allFields, "storageOtherContainersUnreservedCapacity")
+	delete(allFields, "storageReplicationFactor")
+	delete(allFields, "storageReservedCapacityBytes")
+	delete(allFields, "storageReservedFreeBytes")
+	delete(allFields, "storageReservedUsageBytes")
+	delete(allFields, "storageSnapshotReclaimable")
+	delete(allFields, "storageTierDasSataUsageBytes")
+	delete(allFields, "storageTierSsdUsageBytes")
+	delete(allFields, "storageUnreservedUsageBytes")
+	delete(allFields, "storageUsageBytes")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewStorageContainerStatsProjection() *StorageContainerStatsProjection {
 	p := new(StorageContainerStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.StorageContainerStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1703,11 +2641,67 @@ type TimeValuePair struct {
 	Value *int64 `json:"value,omitempty"`
 }
 
+func (p *TimeValuePair) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TimeValuePair
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TimeValuePair) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TimeValuePair
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = TimeValuePair(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "timestamp")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewTimeValuePair() *TimeValuePair {
 	p := new(TimeValuePair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.TimeValuePair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

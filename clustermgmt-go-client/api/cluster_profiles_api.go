@@ -32,14 +32,14 @@ func NewClusterProfilesApi(apiClient *client.ApiClient) *ClusterProfilesApi {
 	return a
 }
 
-// Apply profile to all the attached clusters
+// Applies or associates clusters to a profile. The clusters will be added for application and monitoring.
 func (api *ClusterProfilesApi) ApplyClusterProfile(extId *string, body *import1.ClusterReferenceListSpec, dryrun_ *bool, args ...map[string]interface{}) (*import1.ApplyClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}/$actions/apply"
+	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}/$actions/apply"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -90,14 +90,14 @@ func (api *ClusterProfilesApi) ApplyClusterProfile(extId *string, body *import1.
 	return unmarshalledResp, err
 }
 
-// Create cluster profile with the required settings
+// Creates a cluster profile with the settings provided in the request body.
 func (api *ClusterProfilesApi) CreateClusterProfile(body *import1.ClusterProfile, args ...map[string]interface{}) (*import1.CreateClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/cluster-profiles"
+	uri := "/api/clustermgmt/v4.1/config/cluster-profiles"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -138,14 +138,14 @@ func (api *ClusterProfilesApi) CreateClusterProfile(body *import1.ClusterProfile
 	return unmarshalledResp, err
 }
 
-// Delete cluster profile. Profile consist of different cluster settings like NTP, DNS etc.
+// Deletes cluster profile. A profile consists of different cluster settings like Network Time Protocol(NTP), Domain Name System(DNS), and so on.
 func (api *ClusterProfilesApi) DeleteClusterProfileById(extId *string, args ...map[string]interface{}) (*import1.DeleteClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -188,14 +188,14 @@ func (api *ClusterProfilesApi) DeleteClusterProfileById(extId *string, args ...m
 	return unmarshalledResp, err
 }
 
-// Disassociate cluster from a profile
+// Disassociate cluster from a cluster profile. This will halt the application and monitoring of the clusters.
 func (api *ClusterProfilesApi) DisassociateClusterFromClusterProfile(extId *string, body *import1.ClusterReferenceListSpec, args ...map[string]interface{}) (*import1.DisassociateClusterFromClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}/$actions/disassociate-cluster"
+	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}/$actions/disassociate-cluster"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -242,14 +242,14 @@ func (api *ClusterProfilesApi) DisassociateClusterFromClusterProfile(extId *stri
 	return unmarshalledResp, err
 }
 
-// Get cluster profile. Profile consist of different cluster settings like NTP, DNS etc.
+// Fetches a cluster profile. A profile consists of different cluster settings like Network Time Protocol(NTP), Domain Name System(DNS), and so on.
 func (api *ClusterProfilesApi) GetClusterProfileById(extId *string, args ...map[string]interface{}) (*import1.GetClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -299,7 +299,7 @@ func (api *ClusterProfilesApi) ListClusterProfiles(page_ *int, limit_ *int, filt
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/cluster-profiles"
+	uri := "/api/clustermgmt/v4.1/config/cluster-profiles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -351,14 +351,14 @@ func (api *ClusterProfilesApi) ListClusterProfiles(page_ *int, limit_ *int, filt
 	return unmarshalledResp, err
 }
 
-// Update cluster profile. Profile consist of different cluster settings like NTP, DNS etc.
+// Updates a cluster profile. A profile consists of different cluster settings like Network Time Protocol(NTP), Domain Name System(DNS), and so on.
 func (api *ClusterProfilesApi) UpdateClusterProfileById(extId *string, body *import1.ClusterProfile, dryrun_ *bool, args ...map[string]interface{}) (*import1.UpdateClusterProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/cluster-profiles/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

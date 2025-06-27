@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type BmcApi struct {
+type SSLCertificateApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewBmcApi(apiClient *client.ApiClient) *BmcApi {
+func NewSSLCertificateApi(apiClient *client.ApiClient) *SSLCertificateApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &BmcApi{
+	a := &SSLCertificateApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,27 +32,22 @@ func NewBmcApi(apiClient *client.ApiClient) *BmcApi {
 	return a
 }
 
-// Get BMC details of a host.
-func (api *BmcApi) GetBmcInfo(clusterExtId *string, extId *string, args ...map[string]interface{}) (*import1.GetBmcInfoResponse, error) {
+// Provides detailed information about the SSL certificate in privacy-enhanced mail (.pem) format for the specified cluster.
+func (api *SSLCertificateApi) GetSSLCertificate(clusterExtId *string, args ...map[string]interface{}) (*import1.GetSSLCertificateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/ssl-certificate"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
 		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -82,27 +77,23 @@ func (api *BmcApi) GetBmcInfo(clusterExtId *string, extId *string, args ...map[s
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetBmcInfoResponse)
+	unmarshalledResp := new(import1.GetSSLCertificateApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Updates the BMC summary information based on the provided identifier.
-func (api *BmcApi) UpdateBmcInfo(clusterExtId *string, extId *string, body *import1.BmcInfo, args ...map[string]interface{}) (*import1.UpdateBmcInfoResponse, error) {
+// To update the SSL certificate for a specific cluster, you must provide a valid certificate payload in Base64 format. You can either import a new SSL certificate or replace an existing one by supplying all necessary fields, including the Base64-encoded certificate and private key. Alternatively, you can regenerate a self-signed certificate by specifying the privateKeyAlgorithm, noting that only the RSA_2048 algorithm is supported for SSL certificate regeneration. This process helps maintain the security and integrity of your cluster's communications by allowing you to update or regenerate the SSL certificate as needed.
+func (api *SSLCertificateApi) UpdateSSLCertificate(clusterExtId *string, body *import1.SSLCertificate, args ...map[string]interface{}) (*import1.UpdateSSLCertificateApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/ssl-certificate"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
 		return nil, client.ReportError("clusterExtId is required and must be specified")
-	}
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -111,7 +102,6 @@ func (api *BmcApi) UpdateBmcInfo(clusterExtId *string, extId *string, body *impo
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -141,7 +131,7 @@ func (api *BmcApi) UpdateBmcInfo(clusterExtId *string, extId *string, body *impo
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.UpdateBmcInfoResponse)
+	unmarshalledResp := new(import1.UpdateSSLCertificateApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

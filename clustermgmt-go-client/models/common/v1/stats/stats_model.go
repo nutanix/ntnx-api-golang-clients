@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/stats/stats_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -10,7 +10,7 @@
  */
 
 /*
-  Module common.v1.stats of Nutanix Cluster Management APIs
+  Nutanix Stats Configuration
 */
 package stats
 
@@ -134,6 +134,62 @@ type TimeIntValuePair struct {
 	  Value of the stat at the recorded date and time in extended ISO-8601 format."
 	*/
 	Value *int64 `json:"value,omitempty"`
+}
+
+func (p *TimeIntValuePair) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TimeIntValuePair
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TimeIntValuePair) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TimeIntValuePair
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = TimeIntValuePair(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "timestamp")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewTimeIntValuePair() *TimeIntValuePair {

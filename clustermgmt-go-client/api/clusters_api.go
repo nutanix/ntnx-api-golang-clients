@@ -43,7 +43,7 @@ func (api *ClustersApi) AddSnmpTransport(clusterExtId *string, body *import1.Snm
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/$actions/add-transports"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/$actions/add-transports"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -97,7 +97,7 @@ func (api *ClustersApi) AssociateCategoriesToCluster(clusterExtId *string, body 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/associate-categories"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/associate-categories"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -151,7 +151,7 @@ func (api *ClustersApi) CheckHypervisorRequirements(clusterExtId *string, body *
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/check-hypervisor-requirements"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/check-hypervisor-requirements"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -205,7 +205,7 @@ func (api *ClustersApi) CreateCluster(body *import1.Cluster, dryrun_ *bool, args
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters"
+	uri := "/api/clustermgmt/v4.1/config/clusters"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -257,7 +257,7 @@ func (api *ClustersApi) CreateRsyslogServer(clusterExtId *string, body *import1.
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -311,7 +311,7 @@ func (api *ClustersApi) CreateSnmpTrap(clusterExtId *string, body *import1.SnmpT
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/traps"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -365,7 +365,7 @@ func (api *ClustersApi) CreateSnmpUser(clusterExtId *string, body *import1.SnmpU
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/users"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -419,7 +419,7 @@ func (api *ClustersApi) DeleteClusterById(extId *string, dryrun_ *bool, args ...
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -473,7 +473,7 @@ func (api *ClustersApi) DeleteRsyslogServerById(clusterExtId *string, extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -528,7 +528,7 @@ func (api *ClustersApi) DeleteSnmpTrapById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -583,7 +583,7 @@ func (api *ClustersApi) DeleteSnmpUserById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -638,7 +638,7 @@ func (api *ClustersApi) DisassociateCategoriesFromCluster(clusterExtId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/disassociate-categories"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/disassociate-categories"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -692,7 +692,7 @@ func (api *ClustersApi) DiscoverUnconfiguredNodes(clusterExtId *string, body *im
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/discover-unconfigured-nodes"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/discover-unconfigured-nodes"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -746,7 +746,7 @@ func (api *ClustersApi) EnterHostMaintenance(clusterExtId *string, extId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance"
+	uri := "/api/clustermgmt/v4.1/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -805,7 +805,7 @@ func (api *ClustersApi) ExitHostMaintenance(clusterExtId *string, extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance"
+	uri := "/api/clustermgmt/v4.1/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -864,7 +864,7 @@ func (api *ClustersApi) ExpandCluster(clusterExtId *string, body *import1.Expand
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/expand-cluster"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/expand-cluster"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -918,7 +918,7 @@ func (api *ClustersApi) FetchNodeNetworkingDetails(clusterExtId *string, body *i
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/fetch-node-networking-details"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/fetch-node-networking-details"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -972,7 +972,7 @@ func (api *ClustersApi) FetchTaskResponse(extId *string, taskResponseType *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/task-response/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/task-response/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1029,7 +1029,7 @@ func (api *ClustersApi) GetClusterById(extId *string, expand_ *string, args ...m
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1083,7 +1083,7 @@ func (api *ClustersApi) GetClusterStats(extId *string, startTime_ *time.Time, en
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/stats/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.1/stats/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1154,7 +1154,7 @@ func (api *ClustersApi) GetHostById(clusterExtId *string, extId *string, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1209,7 +1209,7 @@ func (api *ClustersApi) GetHostNicById(clusterExtId *string, hostExtId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1269,7 +1269,7 @@ func (api *ClustersApi) GetHostStats(clusterExtId *string, extId *string, startT
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/stats/clusters/{clusterExtId}/hosts/{extId}"
+	uri := "/api/clustermgmt/v4.1/stats/clusters/{clusterExtId}/hosts/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1345,7 +1345,7 @@ func (api *ClustersApi) GetRackableUnitById(clusterExtId *string, extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rackable-units/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rackable-units/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1400,7 +1400,7 @@ func (api *ClustersApi) GetRsyslogServerById(clusterExtId *string, extId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1455,7 +1455,7 @@ func (api *ClustersApi) GetSnmpConfigByClusterId(clusterExtId *string, args ...m
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1505,7 +1505,7 @@ func (api *ClustersApi) GetSnmpTrapById(clusterExtId *string, extId *string, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1560,7 +1560,7 @@ func (api *ClustersApi) GetSnmpUserById(clusterExtId *string, extId *string, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1615,7 +1615,7 @@ func (api *ClustersApi) GetVirtualNicById(clusterExtId *string, hostExtId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1675,7 +1675,7 @@ func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, o
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters"
+	uri := "/api/clustermgmt/v4.1/config/clusters"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1733,6 +1733,65 @@ func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, o
 	return unmarshalledResp, err
 }
 
+// Fetches a list of all host NICs for all the clusters attached to the PC.
+func (api *ClustersApi) ListHostNics(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListHostNicsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.1/config/host-nics"
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ListHostNicsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Lists all host NICs for the host identified by {hostExtId} belonging to the cluster identified by {clusterExtId}.
 func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, hostExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListHostNicsByHostIdApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -1740,7 +1799,7 @@ func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, hostExtId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1811,7 +1870,7 @@ func (api *ClustersApi) ListHosts(page_ *int, limit_ *int, filter_ *string, orde
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/hosts"
+	uri := "/api/clustermgmt/v4.1/config/hosts"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1873,7 +1932,7 @@ func (api *ClustersApi) ListHostsByClusterId(clusterExtId *string, page_ *int, l
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1942,7 +2001,7 @@ func (api *ClustersApi) ListPhysicalGpuProfiles(clusterExtId *string, page_ *int
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/physical-gpu-profiles"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/physical-gpu-profiles"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2005,7 +2064,7 @@ func (api *ClustersApi) ListRackableUnitsByClusterId(clusterExtId *string, args 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rackable-units"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rackable-units"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2055,7 +2114,7 @@ func (api *ClustersApi) ListRsyslogServersByClusterId(clusterExtId *string, args
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2105,7 +2164,7 @@ func (api *ClustersApi) ListVirtualGpuProfiles(clusterExtId *string, page_ *int,
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/virtual-gpu-profiles"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/virtual-gpu-profiles"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2168,7 +2227,7 @@ func (api *ClustersApi) ListVirtualNicsByHostId(clusterExtId *string, hostExtId 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2239,7 +2298,7 @@ func (api *ClustersApi) RemoveNode(clusterExtId *string, body *import1.NodeRemov
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/remove-node"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/remove-node"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2293,7 +2352,7 @@ func (api *ClustersApi) RemoveSnmpTransport(clusterExtId *string, body *import1.
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/$actions/remove-transports"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/$actions/remove-transports"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2347,7 +2406,7 @@ func (api *ClustersApi) UpdateClusterById(extId *string, body *import1.Cluster, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2401,7 +2460,7 @@ func (api *ClustersApi) UpdateRsyslogServerById(clusterExtId *string, extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2460,7 +2519,7 @@ func (api *ClustersApi) UpdateSnmpStatus(clusterExtId *string, body *import1.Snm
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/$actions/update-status"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/$actions/update-status"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2514,7 +2573,7 @@ func (api *ClustersApi) UpdateSnmpTrapById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2573,7 +2632,7 @@ func (api *ClustersApi) UpdateSnmpUserById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2632,7 +2691,7 @@ func (api *ClustersApi) ValidateNode(clusterExtId *string, body *import1.Validat
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/$actions/validate-node"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/validate-node"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {

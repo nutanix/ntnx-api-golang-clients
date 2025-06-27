@@ -39,7 +39,7 @@ func (api *VcenterExtensionsApi) GetVcenterExtensionById(extId *string, args ...
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/vcenter-extensions/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/vcenter-extensions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *VcenterExtensionsApi) ListVcenterExtensions(page_ *int, limit_ *int, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/vcenter-extensions"
+	uri := "/api/clustermgmt/v4.1/config/vcenter-extensions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -145,7 +145,7 @@ func (api *VcenterExtensionsApi) RegisterVcenterExtension(extId *string, body *i
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/vcenter-extensions/{extId}/$actions/register"
+	uri := "/api/clustermgmt/v4.1/config/vcenter-extensions/{extId}/$actions/register"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -199,7 +199,7 @@ func (api *VcenterExtensionsApi) UnregisterVcenterExtension(extId *string, body 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/vcenter-extensions/{extId}/$actions/unregister"
+	uri := "/api/clustermgmt/v4.1/config/vcenter-extensions/{extId}/$actions/unregister"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

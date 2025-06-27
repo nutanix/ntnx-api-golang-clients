@@ -9,8 +9,8 @@ The Go client for Nutanix Cluster Management APIs is designed for Go client appl
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0
-- Package version: v4.0.2
+- API version: v4.1
+- Package version: v4.1.1
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/...@v4.0.2
+$ go get github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/...@v4.1.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4 v4.0.2
+	github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4 v4.1.1
 )
 ```
 
@@ -204,7 +204,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ClustersApiInstance = api.NewClustersApi(ApiClientInstance)
-extId := "cB9E0b6D-D8d3-bfFF-9FCd-dEcbc8d7952a"
+extId := "46daEeCd-Ec4d-151a-BbB3-b3A2B1eD7ABE"
 expand_ := "string_sample_data"
 
 // 
@@ -253,7 +253,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ClustersApiInstance = api.NewClustersApi(ApiClientInstance)
-extId := "cB9E0b6D-D8d3-bfFF-9FCd-dEcbc8d7952a"
+extId := "46daEeCd-Ec4d-151a-BbB3-b3A2B1eD7ABE"
 expand_ := "string_sample_data"
 
 // 
@@ -327,7 +327,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=clustermgmt&version=v4.0&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=clustermgmt&version=v4.1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).

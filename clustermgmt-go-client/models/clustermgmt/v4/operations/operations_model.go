@@ -1,7 +1,7 @@
 /*
  * Generated file models/clustermgmt/v4/operations/operations_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -15,6 +15,7 @@
 package operations
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -25,7 +26,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance Post operation
+REST response for all response codes in API path /clustermgmt/v4.1/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance Post operation
 */
 type EnterHostMaintenanceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -43,11 +44,68 @@ type EnterHostMaintenanceApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *EnterHostMaintenanceApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EnterHostMaintenanceApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EnterHostMaintenanceApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EnterHostMaintenanceApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = EnterHostMaintenanceApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewEnterHostMaintenanceApiResponse() *EnterHostMaintenanceApiResponse {
 	p := new(EnterHostMaintenanceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.EnterHostMaintenanceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -99,11 +157,69 @@ type EnterHostMaintenanceSpec struct {
 	VcenterInfo *import4.VcenterInfo `json:"vcenterInfo,omitempty"`
 }
 
+func (p *EnterHostMaintenanceSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EnterHostMaintenanceSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EnterHostMaintenanceSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EnterHostMaintenanceSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = EnterHostMaintenanceSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "shouldRollbackOnFailure")
+	delete(allFields, "shouldShutdownNonMigratableUvms")
+	delete(allFields, "timeoutSeconds")
+	delete(allFields, "vcenterInfo")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewEnterHostMaintenanceSpec() *EnterHostMaintenanceSpec {
 	p := new(EnterHostMaintenanceSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.EnterHostMaintenanceSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldRollbackOnFailure = new(bool)
@@ -115,7 +231,7 @@ func NewEnterHostMaintenanceSpec() *EnterHostMaintenanceSpec {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.0/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance Post operation
+REST response for all response codes in API path /clustermgmt/v4.1/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance Post operation
 */
 type ExitHostMaintenanceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -133,11 +249,68 @@ type ExitHostMaintenanceApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ExitHostMaintenanceApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ExitHostMaintenanceApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExitHostMaintenanceApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExitHostMaintenanceApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ExitHostMaintenanceApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewExitHostMaintenanceApiResponse() *ExitHostMaintenanceApiResponse {
 	p := new(ExitHostMaintenanceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.ExitHostMaintenanceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -181,11 +354,320 @@ type HostMaintenanceCommonSpec struct {
 	VcenterInfo *import4.VcenterInfo `json:"vcenterInfo,omitempty"`
 }
 
+func (p *HostMaintenanceCommonSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias HostMaintenanceCommonSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *HostMaintenanceCommonSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias HostMaintenanceCommonSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = HostMaintenanceCommonSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "timeoutSeconds")
+	delete(allFields, "vcenterInfo")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewHostMaintenanceCommonSpec() *HostMaintenanceCommonSpec {
 	p := new(HostMaintenanceCommonSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.HostMaintenanceCommonSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The type of the reboot operation to be performed. Possible values are: CONTROLLER_VM, HOST
+*/
+type RebootType int
+
+const (
+	REBOOTTYPE_UNKNOWN       RebootType = 0
+	REBOOTTYPE_REDACTED      RebootType = 1
+	REBOOTTYPE_CONTROLLER_VM RebootType = 2
+	REBOOTTYPE_HOST          RebootType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *RebootType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CONTROLLER_VM",
+		"HOST",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e RebootType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CONTROLLER_VM",
+		"HOST",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *RebootType) index(name string) RebootType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CONTROLLER_VM",
+		"HOST",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return RebootType(idx)
+		}
+	}
+	return REBOOTTYPE_UNKNOWN
+}
+
+func (e *RebootType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for RebootType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *RebootType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e RebootType) Ref() *RebootType {
+	return &e
+}
+
+/*
+The payload to perform a rolling reboot operation.
+*/
+type RollingRebootParams struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of Node UUIDs which are to be rebooted. This includes either Controller VM UUIDs or Host UUIDs.
+	*/
+	NodeExtIdList []string `json:"nodeExtIdList,omitempty"`
+	/*
+	  The description of the reboot operation to be performed.
+	*/
+	RebootDescription *string `json:"rebootDescription,omitempty"`
+
+	RebootType *RebootType `json:"rebootType,omitempty"`
+
+	TargetRebootDomain *TargetRebootDomain `json:"targetRebootDomain,omitempty"`
+}
+
+func (p *RollingRebootParams) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RollingRebootParams
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RollingRebootParams) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RollingRebootParams
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RollingRebootParams(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "nodeExtIdList")
+	delete(allFields, "rebootDescription")
+	delete(allFields, "rebootType")
+	delete(allFields, "targetRebootDomain")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewRollingRebootParams() *RollingRebootParams {
+	p := new(RollingRebootParams)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.operations.RollingRebootParams"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The Fault Domain in which reboot is to be performed. Possible values are NODE, RACK, BLOCK.
+*/
+type TargetRebootDomain struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	DomainType *import4.DomainType `json:"domainType,omitempty"`
+	/*
+	  The maximum number of concurrent reboots of the specified domain which can be tolerated at a time.
+	*/
+	MaxConcurrentDomainRebootsTolerated *int `json:"maxConcurrentDomainRebootsTolerated,omitempty"`
+}
+
+func (p *TargetRebootDomain) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TargetRebootDomain
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TargetRebootDomain) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TargetRebootDomain
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = TargetRebootDomain(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "domainType")
+	delete(allFields, "maxConcurrentDomainRebootsTolerated")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewTargetRebootDomain() *TargetRebootDomain {
+	p := new(TargetRebootDomain)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.operations.TargetRebootDomain"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

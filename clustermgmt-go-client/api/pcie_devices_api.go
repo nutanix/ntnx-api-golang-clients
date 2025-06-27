@@ -39,7 +39,7 @@ func (api *PcieDevicesApi) ListPcieDevices(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/ahv/config/pcie-devices"
+	uri := "/api/clustermgmt/v4.1/ahv/config/pcie-devices"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

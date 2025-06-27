@@ -38,7 +38,7 @@ var (
 	uriCheck                = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
 	contentDispositionCheck = regexp.MustCompile("attachment;\\s*filename=\"(.*)\"")
 	retryStatusList         = []int{408, 429, 503, 504}
-	userAgent               = "Nutanix-clustermgmt/v4.0.2"
+	userAgent               = "Nutanix-clustermgmt/v4.1.1"
 )
 
 /*
@@ -564,7 +564,7 @@ func configureLogger(a *ApiClient) {
 			Formatter: &myFormatter{
 				logrus.TextFormatter{
 					FullTimestamp:          true,
-					TimestampFormat:        "2006-01-02 15:04:05.000",
+					TimestampFormat:        "2006-01-02 15:04:05.000Z",
 					ForceColors:            true,
 					DisableLevelTruncation: true,
 				},
@@ -583,6 +583,9 @@ type myFormatter struct {
 
 // Format function implementation for the Formatter interface of logrus
 func (f *myFormatter) Format(entry *logrus.Entry) ([]byte, error) {
+	// Modify the log entry time to UTC
+	entry.Time = entry.Time.UTC()
+
 	var b *bytes.Buffer
 
 	if entry.Buffer != nil {

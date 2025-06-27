@@ -35,6 +35,59 @@ func NewStorageContainersApi(apiClient *client.ApiClient) *StorageContainersApi 
 	return a
 }
 
+// Clears the thick provisioned space of the provided Storage Container. The location header received in the API response contains the URL of the task object, which can be further used to track the status of the request.
+func (api *StorageContainersApi) ClearThickProvisionedSpace(extId *string, xClusterId *string, args ...map[string]interface{}) (*import1.ClearThickProvisionedSpaceApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}/$actions/clear-thick-provisioned-space"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	if xClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ClearThickProvisionedSpaceApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Creates a new Storage Container with the specified configuration on the cluster identified by cluster’s external identifier. The location header received in the API response contains the URL of the task object, which can be used to further track the status of the request.
 func (api *StorageContainersApi) CreateStorageContainer(body *import1.StorageContainer, xClusterId *string, args ...map[string]interface{}) (*import1.CreateStorageContainerApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -42,7 +95,7 @@ func (api *StorageContainersApi) CreateStorageContainer(body *import1.StorageCon
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/storage-containers"
+	uri := "/api/clustermgmt/v4.1/config/storage-containers"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -95,7 +148,7 @@ func (api *StorageContainersApi) DeleteStorageContainerById(extId *string, ignor
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -149,7 +202,7 @@ func (api *StorageContainersApi) GetStorageContainerById(extId *string, args ...
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -199,7 +252,7 @@ func (api *StorageContainersApi) GetStorageContainerStats(extId *string, startTi
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/stats/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.1/stats/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -267,7 +320,7 @@ func (api *StorageContainersApi) ListDataStoresByClusterId(clusterExtId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/clusters/{clusterExtId}/storage-containers/datastores"
+	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/storage-containers/datastores"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -327,7 +380,7 @@ func (api *StorageContainersApi) ListStorageContainers(page_ *int, limit_ *int, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/storage-containers"
+	uri := "/api/clustermgmt/v4.1/config/storage-containers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -386,7 +439,7 @@ func (api *StorageContainersApi) MountStorageContainer(extId *string, body *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/storage-containers/{extId}/$actions/mount"
+	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}/$actions/mount"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -440,7 +493,7 @@ func (api *StorageContainersApi) UnmountStorageContainer(extId *string, body *im
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/storage-containers/{extId}/$actions/unmount"
+	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}/$actions/unmount"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -494,7 +547,7 @@ func (api *StorageContainersApi) UpdateStorageContainerById(extId *string, body 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.0/config/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
