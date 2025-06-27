@@ -39,7 +39,7 @@ func (api *CategoriesApi) CreateCategory(body *import2.Category, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/config/categories"
+	uri := "/api/prism/v4.1/config/categories"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -68,7 +68,7 @@ func (api *CategoriesApi) CreateCategory(body *import2.Category, args ...map[str
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -87,7 +87,7 @@ func (api *CategoriesApi) DeleteCategoryById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/config/categories/{extId}"
+	uri := "/api/prism/v4.1/config/categories/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -118,7 +118,7 @@ func (api *CategoriesApi) DeleteCategoryById(extId *string, args ...map[string]i
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -137,7 +137,7 @@ func (api *CategoriesApi) GetCategoryById(extId *string, expand_ *string, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/config/categories/{extId}"
+	uri := "/api/prism/v4.1/config/categories/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -172,7 +172,7 @@ func (api *CategoriesApi) GetCategoryById(extId *string, expand_ *string, args .
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -191,7 +191,7 @@ func (api *CategoriesApi) ListCategories(page_ *int, limit_ *int, filter_ *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/config/categories"
+	uri := "/api/prism/v4.1/config/categories"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -234,7 +234,7 @@ func (api *CategoriesApi) ListCategories(page_ *int, limit_ *int, filter_ *strin
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -253,7 +253,7 @@ func (api *CategoriesApi) UpdateCategoryById(extId *string, body *import2.Catego
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/config/categories/{extId}"
+	uri := "/api/prism/v4.1/config/categories/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -288,7 +288,7 @@ func (api *CategoriesApi) UpdateCategoryById(extId *string, body *import2.Catego
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

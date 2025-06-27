@@ -1,11 +1,11 @@
 /*
  * Generated file models/prism/v4/protectpc/protectpc_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Prism APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -19,59 +19,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/common/v1/response"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/error"
 )
-
-/*
-REST response for all response codes in API path /prism/v4.0/protectpc/add-replicas Post operation
-*/
-type AddReplicasApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfAddReplicasApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewAddReplicasApiResponse() *AddReplicasApiResponse {
-	p := new(AddReplicasApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.protectpc.AddReplicasApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *AddReplicasApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *AddReplicasApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfAddReplicasApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
 
 /*
 The error response that we want to return to the user.
@@ -92,11 +40,67 @@ type ApiError struct {
 	ErrorType *string `json:"errorType,omitempty"`
 }
 
+func (p *ApiError) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ApiError
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ApiError) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ApiError
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ApiError(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "errorMessageList")
+	delete(allFields, "errorType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewApiError() *ApiError {
 	p := new(ApiError)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiError"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -121,11 +125,67 @@ type ApiLink struct {
 	Rel *string `json:"rel,omitempty"`
 }
 
+func (p *ApiLink) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ApiLink
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ApiLink) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ApiLink
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ApiLink(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "href")
+	delete(allFields, "rel")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewApiLink() *ApiLink {
 	p := new(ApiLink)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiLink"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -144,11 +204,66 @@ type ApiResponseMetadata struct {
 	Links []ApiLink `json:"links,omitempty"`
 }
 
+func (p *ApiResponseMetadata) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ApiResponseMetadata
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ApiResponseMetadata
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ApiResponseMetadata(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "links")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewApiResponseMetadata() *ApiResponseMetadata {
 	p := new(ApiResponseMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiResponseMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -169,11 +284,66 @@ type ApiSuccess struct {
 	Message *string `json:"message,omitempty"`
 }
 
+func (p *ApiSuccess) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ApiSuccess
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ApiSuccess) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ApiSuccess
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ApiSuccess(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "message")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewApiSuccess() *ApiSuccess {
 	p := new(ApiSuccess)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiSuccess"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -198,11 +368,67 @@ type BackupTargets struct {
 	ObjectStoreEndpointList []PcObjectStoreEndpoint `json:"objectStoreEndpointList,omitempty"`
 }
 
+func (p *BackupTargets) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias BackupTargets
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BackupTargets) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BackupTargets
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BackupTargets(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterUuidList")
+	delete(allFields, "objectStoreEndpointList")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewBackupTargets() *BackupTargets {
 	p := new(BackupTargets)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.BackupTargets"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -223,11 +449,67 @@ type BackupTargetsInfo struct {
 	PeInfoList []PEInfo `json:"peInfoList,omitempty"`
 }
 
+func (p *BackupTargetsInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias BackupTargetsInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BackupTargetsInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BackupTargetsInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BackupTargetsInfo(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "objectStoreEndpointInfoList")
+	delete(allFields, "peInfoList")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewBackupTargetsInfo() *BackupTargetsInfo {
 	p := new(BackupTargetsInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.BackupTargetsInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -261,11 +543,69 @@ type EligibleCluster struct {
 	IsHostingPe *bool `json:"isHostingPe,omitempty"`
 }
 
+func (p *EligibleCluster) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EligibleCluster
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EligibleCluster) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EligibleCluster
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = EligibleCluster(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "backedUpEntitiesCountSupported")
+	delete(allFields, "clusterName")
+	delete(allFields, "clusterUuid")
+	delete(allFields, "isHostingPe")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewEligibleCluster() *EligibleCluster {
 	p := new(EligibleCluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.EligibleCluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -285,11 +625,66 @@ type EligibleClusterList struct {
 	EligibleClusterList []EligibleCluster `json:"eligibleClusterList,omitempty"`
 }
 
+func (p *EligibleClusterList) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EligibleClusterList
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EligibleClusterList) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EligibleClusterList
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = EligibleClusterList(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "eligibleClusterList")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewEligibleClusterList() *EligibleClusterList {
 	p := new(EligibleClusterList)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.EligibleClusterList"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -318,11 +713,68 @@ type FailedRecoveryPointDetails struct {
 	RpoSeconds *int `json:"rpoSeconds,omitempty"`
 }
 
+func (p *FailedRecoveryPointDetails) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias FailedRecoveryPointDetails
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FailedRecoveryPointDetails) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FailedRecoveryPointDetails
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = FailedRecoveryPointDetails(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "message")
+	delete(allFields, "recoveryPointTimestamp")
+	delete(allFields, "rpoSeconds")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewFailedRecoveryPointDetails() *FailedRecoveryPointDetails {
 	p := new(FailedRecoveryPointDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.FailedRecoveryPointDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -345,11 +797,67 @@ type FailedRecoveryPointsStats struct {
 	TotalFailedRecoveryPoints *int64 `json:"totalFailedRecoveryPoints,omitempty"`
 }
 
+func (p *FailedRecoveryPointsStats) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias FailedRecoveryPointsStats
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FailedRecoveryPointsStats) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FailedRecoveryPointsStats
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = FailedRecoveryPointsStats(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "failedRecoveryPoints")
+	delete(allFields, "totalFailedRecoveryPoints")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewFailedRecoveryPointsStats() *FailedRecoveryPointsStats {
 	p := new(FailedRecoveryPointsStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.FailedRecoveryPointsStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -384,11 +892,70 @@ type ObjectStoreEndpointInfo struct {
 	PauseBackupMessage *string `json:"pauseBackupMessage,omitempty"`
 }
 
+func (p *ObjectStoreEndpointInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ObjectStoreEndpointInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ObjectStoreEndpointInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ObjectStoreEndpointInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ObjectStoreEndpointInfo(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "entityId")
+	delete(allFields, "isBackupPaused")
+	delete(allFields, "lastSyncTimestamp")
+	delete(allFields, "objectStoreEndpoint")
+	delete(allFields, "pauseBackupMessage")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewObjectStoreEndpointInfo() *ObjectStoreEndpointInfo {
 	p := new(ObjectStoreEndpointInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ObjectStoreEndpointInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -425,18 +992,77 @@ type PEInfo struct {
 	PeName *string `json:"peName,omitempty"`
 }
 
+func (p *PEInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PEInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PEInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PEInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = PEInfo(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "isBackupPaused")
+	delete(allFields, "lastSyncTimestamp")
+	delete(allFields, "pauseBackupMessage")
+	delete(allFields, "peClusterId")
+	delete(allFields, "peName")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewPEInfo() *PEInfo {
 	p := new(PEInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PEInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-This object consists of accessKey, secretAccessKey for a given entityId.
+This object consists of accessKey, secretAccessKey, certificate for a given entityId.
 */
 type PcEndpointCredentials struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -449,16 +1075,77 @@ type PcEndpointCredentials struct {
 	*/
 	AccessKey *string `json:"accessKey,omitempty"`
 	/*
+	  Certificate which will be used while validating the object store identity
+	*/
+	Certificate *string `json:"certificate,omitempty"`
+	/*
 	  SecretAccessKey for the endpoint flavor.
 	*/
 	SecretAccessKey *string `json:"secretAccessKey,omitempty"`
+}
+
+func (p *PcEndpointCredentials) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PcEndpointCredentials
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PcEndpointCredentials) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PcEndpointCredentials
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = PcEndpointCredentials(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "accessKey")
+	delete(allFields, "certificate")
+	delete(allFields, "secretAccessKey")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewPcEndpointCredentials() *PcEndpointCredentials {
 	p := new(PcEndpointCredentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcEndpointCredentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -467,8 +1154,9 @@ func NewPcEndpointCredentials() *PcEndpointCredentials {
 type PcEndpointFlavour int
 
 const (
-	PCENDPOINTFLAVOUR_KS3     PcEndpointFlavour = 0
-	PCENDPOINTFLAVOUR_UNKNOWN PcEndpointFlavour = 1
+	PCENDPOINTFLAVOUR_KS3      PcEndpointFlavour = 0
+	PCENDPOINTFLAVOUR_KOBJECTS PcEndpointFlavour = 1
+	PCENDPOINTFLAVOUR_UNKNOWN  PcEndpointFlavour = 2
 )
 
 // Returns the name of the enum given an ordinal number
@@ -477,6 +1165,7 @@ const (
 func (e *PcEndpointFlavour) name(index int) string {
 	names := [...]string{
 		"kS3",
+		"kOBJECTS",
 		"$UNKNOWN",
 	}
 	if index < 0 || index >= len(names) {
@@ -490,6 +1179,7 @@ func (e PcEndpointFlavour) GetName() string {
 	index := int(e)
 	names := [...]string{
 		"kS3",
+		"kOBJECTS",
 		"$UNKNOWN",
 	}
 	if index < 0 || index >= len(names) {
@@ -502,6 +1192,7 @@ func (e PcEndpointFlavour) GetName() string {
 func (e *PcEndpointFlavour) index(name string) PcEndpointFlavour {
 	names := [...]string{
 		"kS3",
+		"kOBJECTS",
 		"$UNKNOWN",
 	}
 	for idx := range names {
@@ -561,6 +1252,10 @@ type PcObjectStoreEndpoint struct {
 
 	EndpointFlavour *PcEndpointFlavour `json:"endpointFlavour,omitempty"`
 	/*
+	  Whether custom certificate provided or not.
+	*/
+	HasCustomCertificate *bool `json:"hasCustomCertificate,omitempty"`
+	/*
 	  The ip address or domain of the object store endpoint where backup data of Prism Central
 	is stored.
 	*/
@@ -580,23 +1275,98 @@ type PcObjectStoreEndpoint struct {
 	*/
 	RpoSeconds *int `json:"rpoSeconds,omitempty"`
 	/*
+	  Skip the verification of certificate during communication with object
+	store endpoint
+	*/
+	SkipCertificateValidation *bool `json:"skipCertificateValidation,omitempty"`
+	/*
 	  Skip the verification of TLS certificates during communication with object
 	store endpoint.
 	*/
 	SkipTLS *bool `json:"skipTLS,omitempty"`
 }
 
+func (p *PcObjectStoreEndpoint) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PcObjectStoreEndpoint
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PcObjectStoreEndpoint) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PcObjectStoreEndpoint
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = PcObjectStoreEndpoint(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "backupRetentionDays")
+	delete(allFields, "bucket")
+	delete(allFields, "endpointAddress")
+	delete(allFields, "endpointCredentials")
+	delete(allFields, "endpointFlavour")
+	delete(allFields, "hasCustomCertificate")
+	delete(allFields, "ipAddressOrDomain")
+	delete(allFields, "port")
+	delete(allFields, "region")
+	delete(allFields, "rpoSeconds")
+	delete(allFields, "skipCertificateValidation")
+	delete(allFields, "skipTLS")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewPcObjectStoreEndpoint() *PcObjectStoreEndpoint {
 	p := new(PcObjectStoreEndpoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcObjectStoreEndpoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.BackupRetentionDays = new(int)
 	*p.BackupRetentionDays = 31
+	p.Port = new(string)
+	*p.Port = "443"
 	p.Region = new(string)
 	*p.Region = "us-east-1"
+	p.SkipCertificateValidation = new(bool)
+	*p.SkipCertificateValidation = false
 	p.SkipTLS = new(bool)
 	*p.SkipTLS = false
 
@@ -618,11 +1388,66 @@ type PcRestoreRootTask struct {
 	TaskUuid *string `json:"taskUuid,omitempty"`
 }
 
+func (p *PcRestoreRootTask) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PcRestoreRootTask
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PcRestoreRootTask) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PcRestoreRootTask
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = PcRestoreRootTask(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "taskUuid")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewPcRestoreRootTask() *PcRestoreRootTask {
 	p := new(PcRestoreRootTask)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcRestoreRootTask"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -655,11 +1480,70 @@ type PcvmRestoreFile struct {
 	KeyId *string `json:"keyId,omitempty"`
 }
 
+func (p *PcvmRestoreFile) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PcvmRestoreFile
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PcvmRestoreFile) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PcvmRestoreFile
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = PcvmRestoreFile(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "encryptionVersion")
+	delete(allFields, "fileContent")
+	delete(allFields, "filePath")
+	delete(allFields, "isEncrypted")
+	delete(allFields, "keyId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewPcvmRestoreFile() *PcvmRestoreFile {
 	p := new(PcvmRestoreFile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcvmRestoreFile"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -678,64 +1562,69 @@ type PcvmRestoreFiles struct {
 	FileList []PcvmRestoreFile `json:"fileList,omitempty"`
 }
 
+func (p *PcvmRestoreFiles) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PcvmRestoreFiles
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PcvmRestoreFiles) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PcvmRestoreFiles
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = PcvmRestoreFiles(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "fileList")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewPcvmRestoreFiles() *PcvmRestoreFiles {
 	p := new(PcvmRestoreFiles)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcvmRestoreFiles"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /prism/v4.0/protectpc/recover Post operation
-*/
-type RecoverPcApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfRecoverPcApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewRecoverPcApiResponse() *RecoverPcApiResponse {
-	p := new(RecoverPcApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.protectpc.RecoverPcApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *RecoverPcApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *RecoverPcApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfRecoverPcApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -763,64 +1652,71 @@ type RecoveryStatus struct {
 	RecoveryStateTitle *string `json:"recoveryStateTitle,omitempty"`
 }
 
+func (p *RecoveryStatus) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RecoveryStatus
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RecoveryStatus) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RecoveryStatus
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RecoveryStatus(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "overallCompletionPercentage")
+	delete(allFields, "recoveryState")
+	delete(allFields, "recoveryStateTitle")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewRecoveryStatus() *RecoveryStatus {
 	p := new(RecoveryStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.RecoveryStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /prism/v4.0/protectpc/replica/{backupTargetID} Delete operation
-*/
-type RemoveReplicaResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfRemoveReplicaResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewRemoveReplicaResponse() *RemoveReplicaResponse {
-	p := new(RemoveReplicaResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.protectpc.RemoveReplicaResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *RemoveReplicaResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *RemoveReplicaResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfRemoveReplicaResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -848,64 +1744,72 @@ type ReplicaInfo struct {
 	PeClusterIpList []string `json:"peClusterIpList,omitempty"`
 }
 
+func (p *ReplicaInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ReplicaInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ReplicaInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ReplicaInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ReplicaInfo(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "backupUuid")
+	delete(allFields, "objectStoreEndpoint")
+	delete(allFields, "peClusterId")
+	delete(allFields, "peClusterIpList")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewReplicaInfo() *ReplicaInfo {
 	p := new(ReplicaInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ReplicaInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /prism/v4.0/protectpc/restore-files Post operation
-*/
-type RestoreFilesApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfRestoreFilesApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewRestoreFilesApiResponse() *RestoreFilesApiResponse {
-	p := new(RestoreFilesApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.protectpc.RestoreFilesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *RestoreFilesApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *RestoreFilesApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfRestoreFilesApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -923,1211 +1827,69 @@ type RpoConfig struct {
 	RpoSeconds *int `json:"rpoSeconds,omitempty"`
 }
 
+func (p *RpoConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RpoConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RpoConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RpoConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RpoConfig(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "rpoSeconds")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewRpoConfig() *RpoConfig {
 	p := new(RpoConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.RpoConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /prism/v4.0/protectpc/stop-services Post operation
-*/
-type StopServicesApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfStopServicesApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewStopServicesApiResponse() *StopServicesApiResponse {
-	p := new(StopServicesApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.protectpc.StopServicesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *StopServicesApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *StopServicesApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfStopServicesApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /prism/v4.0/protectpc/objectstore/{entityId}/$actions/update-credentials Post operation
-*/
-type UpdateCredentialApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUpdateCredentialApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUpdateCredentialApiResponse() *UpdateCredentialApiResponse {
-	p := new(UpdateCredentialApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.protectpc.UpdateCredentialApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UpdateCredentialApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UpdateCredentialApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUpdateCredentialApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /prism/v4.0/protectpc/objectstore/{entityId}/$actions/update-rpo Post operation
-*/
-type UpdateRpoApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUpdateRpoApiResponseData `json:"data,omitempty"`
-
-	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUpdateRpoApiResponse() *UpdateRpoApiResponse {
-	p := new(UpdateRpoApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.protectpc.UpdateRpoApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UpdateRpoApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UpdateRpoApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUpdateRpoApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-type OneOfRestoreFilesApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ApiError              `json:"-"`
-	oneOfType2    *interface{}           `json:"-"`
-}
-
-func NewOneOfRestoreFilesApiResponseData() *OneOfRestoreFilesApiResponseData {
-	p := new(OneOfRestoreFilesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRestoreFilesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRestoreFilesApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(interface{})
-		}
-		*p.oneOfType2 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ApiError:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiError)
-		}
-		*p.oneOfType0 = v.(ApiError)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRestoreFilesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType2
-	}
-	return nil
-}
-
-func (p *OneOfRestoreFilesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if nil == *vOneOfType2 {
-			if nil == p.oneOfType2 {
-				p.oneOfType2 = new(interface{})
-			}
-			*p.oneOfType2 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ApiError)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.protectpc.ApiError" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiError)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRestoreFilesApiResponseData"))
-}
-
-func (p *OneOfRestoreFilesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2)
-	}
-	return nil, errors.New("No value to marshal for OneOfRestoreFilesApiResponseData")
-}
-
-type OneOfUpdateCredentialApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ApiSuccess            `json:"-"`
-	oneOfType1    *ApiError              `json:"-"`
-}
-
-func NewOneOfUpdateCredentialApiResponseData() *OneOfUpdateCredentialApiResponseData {
-	p := new(OneOfUpdateCredentialApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateCredentialApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateCredentialApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ApiSuccess:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiSuccess)
-		}
-		*p.oneOfType0 = v.(ApiSuccess)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case ApiError:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(ApiError)
-		}
-		*p.oneOfType1 = v.(ApiError)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateCredentialApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfUpdateCredentialApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ApiSuccess)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.protectpc.ApiSuccess" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiSuccess)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType1 := new(ApiError)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.protectpc.ApiError" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(ApiError)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateCredentialApiResponseData"))
-}
-
-func (p *OneOfUpdateCredentialApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateCredentialApiResponseData")
-}
-
-type OneOfRecoverPcApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *PcRestoreRootTask     `json:"-"`
-	oneOfType1    *ApiError              `json:"-"`
-}
-
-func NewOneOfRecoverPcApiResponseData() *OneOfRecoverPcApiResponseData {
-	p := new(OneOfRecoverPcApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRecoverPcApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRecoverPcApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case PcRestoreRootTask:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(PcRestoreRootTask)
-		}
-		*p.oneOfType0 = v.(PcRestoreRootTask)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case ApiError:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(ApiError)
-		}
-		*p.oneOfType1 = v.(ApiError)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRecoverPcApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfRecoverPcApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(PcRestoreRootTask)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.protectpc.PcRestoreRootTask" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(PcRestoreRootTask)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType1 := new(ApiError)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.protectpc.ApiError" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(ApiError)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRecoverPcApiResponseData"))
-}
-
-func (p *OneOfRecoverPcApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	return nil, errors.New("No value to marshal for OneOfRecoverPcApiResponseData")
-}
-
-type OneOfUpdateRpoApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ApiSuccess            `json:"-"`
-	oneOfType1    *ApiError              `json:"-"`
-}
-
-func NewOneOfUpdateRpoApiResponseData() *OneOfUpdateRpoApiResponseData {
-	p := new(OneOfUpdateRpoApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateRpoApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateRpoApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ApiSuccess:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiSuccess)
-		}
-		*p.oneOfType0 = v.(ApiSuccess)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case ApiError:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(ApiError)
-		}
-		*p.oneOfType1 = v.(ApiError)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateRpoApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfUpdateRpoApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ApiSuccess)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.protectpc.ApiSuccess" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiSuccess)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType1 := new(ApiError)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.protectpc.ApiError" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(ApiError)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateRpoApiResponseData"))
-}
-
-func (p *OneOfUpdateRpoApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateRpoApiResponseData")
-}
-
-type OneOfAddReplicasApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ApiSuccess            `json:"-"`
-	oneOfType1    *ApiError              `json:"-"`
-}
-
-func NewOneOfAddReplicasApiResponseData() *OneOfAddReplicasApiResponseData {
-	p := new(OneOfAddReplicasApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAddReplicasApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAddReplicasApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ApiSuccess:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiSuccess)
-		}
-		*p.oneOfType0 = v.(ApiSuccess)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case ApiError:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(ApiError)
-		}
-		*p.oneOfType1 = v.(ApiError)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAddReplicasApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfAddReplicasApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ApiSuccess)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.protectpc.ApiSuccess" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiSuccess)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType1 := new(ApiError)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.protectpc.ApiError" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(ApiError)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddReplicasApiResponseData"))
-}
-
-func (p *OneOfAddReplicasApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	return nil, errors.New("No value to marshal for OneOfAddReplicasApiResponseData")
-}
-
-type OneOfStopServicesApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ApiSuccess            `json:"-"`
-	oneOfType1    *ApiError              `json:"-"`
-}
-
-func NewOneOfStopServicesApiResponseData() *OneOfStopServicesApiResponseData {
-	p := new(OneOfStopServicesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfStopServicesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfStopServicesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ApiSuccess:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiSuccess)
-		}
-		*p.oneOfType0 = v.(ApiSuccess)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case ApiError:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(ApiError)
-		}
-		*p.oneOfType1 = v.(ApiError)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfStopServicesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	return nil
-}
-
-func (p *OneOfStopServicesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ApiSuccess)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.protectpc.ApiSuccess" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiSuccess)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType1 := new(ApiError)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "prism.v4.protectpc.ApiError" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(ApiError)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfStopServicesApiResponseData"))
-}
-
-func (p *OneOfStopServicesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	return nil, errors.New("No value to marshal for OneOfStopServicesApiResponseData")
-}
-
-type OneOfRemoveReplicaResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *ApiError              `json:"-"`
-	oneOfType2    *interface{}           `json:"-"`
-}
-
-func NewOneOfRemoveReplicaResponseData() *OneOfRemoveReplicaResponseData {
-	p := new(OneOfRemoveReplicaResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfRemoveReplicaResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfRemoveReplicaResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType2 {
-			p.oneOfType2 = new(interface{})
-		}
-		*p.oneOfType2 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case ApiError:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(ApiError)
-		}
-		*p.oneOfType0 = v.(ApiError)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfRemoveReplicaResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType2
-	}
-	return nil
-}
-
-func (p *OneOfRemoveReplicaResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if nil == *vOneOfType2 {
-			if nil == p.oneOfType2 {
-				p.oneOfType2 = new(interface{})
-			}
-			*p.oneOfType2 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(ApiError)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.protectpc.ApiError" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(ApiError)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRemoveReplicaResponseData"))
-}
-
-func (p *OneOfRemoveReplicaResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2)
-	}
-	return nil, errors.New("No value to marshal for OneOfRemoveReplicaResponseData")
 }
 
 type FileDetail struct {

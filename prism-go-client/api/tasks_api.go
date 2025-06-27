@@ -39,7 +39,7 @@ func (api *TasksApi) CancelTask(taskExtId *string, args ...map[string]interface{
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/config/tasks/{taskExtId}/$actions/cancel"
+	uri := "/api/prism/v4.1/config/tasks/{taskExtId}/$actions/cancel"
 
 	// verify the required parameter 'taskExtId' is set
 	if nil == taskExtId {
@@ -70,7 +70,7 @@ func (api *TasksApi) CancelTask(taskExtId *string, args ...map[string]interface{
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -82,14 +82,14 @@ func (api *TasksApi) CancelTask(taskExtId *string, args ...map[string]interface{
 	return unmarshalledResp, err
 }
 
-// Fetch an asynchronous operation called a task for the provided extId.
+// Fetches an asynchronous operation called a task for the provided external identifier.
 func (api *TasksApi) GetTaskById(extId *string, select_ *string, args ...map[string]interface{}) (*import2.GetTaskApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/config/tasks/{extId}"
+	uri := "/api/prism/v4.1/config/tasks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -124,7 +124,7 @@ func (api *TasksApi) GetTaskById(extId *string, select_ *string, args ...map[str
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -136,14 +136,14 @@ func (api *TasksApi) GetTaskById(extId *string, select_ *string, args ...map[str
 	return unmarshalledResp, err
 }
 
-// List tasks in the system. The response can be further filtered / sorted using the filtering and sorting options provided. By default the response would be sorted by 'createdTime' in the descending order.
+// List of tasks in the system. The response can be further filtered/sorted using the filter and sort options provided. By default, the response would be sorted by 'createdTime' in descending order.
 func (api *TasksApi) ListTasks(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListTasksApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/config/tasks"
+	uri := "/api/prism/v4.1/config/tasks"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -183,7 +183,7 @@ func (api *TasksApi) ListTasks(page_ *int, limit_ *int, filter_ *string, orderby
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

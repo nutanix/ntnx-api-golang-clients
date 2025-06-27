@@ -1,11 +1,11 @@
 /*
  * Generated file models/prism/v4/operations/operations_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Prism APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -162,16 +162,82 @@ type Batch struct {
 	*/
 	SuccessCount *int `json:"successCount,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Batch) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Batch
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Batch) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Batch
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Batch(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "completionStatus")
+	delete(allFields, "endTime")
+	delete(allFields, "executionStatus")
+	delete(allFields, "extId")
+	delete(allFields, "failedCount")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "shouldStopOnError")
+	delete(allFields, "size")
+	delete(allFields, "startTime")
+	delete(allFields, "successCount")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewBatch() *Batch {
 	p := new(Batch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.Batch"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -358,11 +424,67 @@ type BatchSpec struct {
 	Payload []BatchSpecPayload `json:"payload,omitempty"`
 }
 
+func (p *BatchSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias BatchSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BatchSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BatchSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BatchSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "metadata")
+	delete(allFields, "payload")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewBatchSpec() *BatchSpec {
 	p := new(BatchSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -399,7 +521,9 @@ type BatchSpecMetadata struct {
 
 func (p *BatchSpecMetadata) MarshalJSON() ([]byte, error) {
 	type BatchSpecMetadataProxy BatchSpecMetadata
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*BatchSpecMetadataProxy
 		Action *ActionType `json:"action,omitempty"`
 		Name   *string     `json:"name,omitempty"`
@@ -409,14 +533,67 @@ func (p *BatchSpecMetadata) MarshalJSON() ([]byte, error) {
 		Action:                 p.Action,
 		Name:                   p.Name,
 		Uri:                    p.Uri,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BatchSpecMetadata) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BatchSpecMetadata
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BatchSpecMetadata(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "action")
+	delete(allFields, "chunkSize")
+	delete(allFields, "name")
+	delete(allFields, "shouldStopOnError")
+	delete(allFields, "uri")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewBatchSpecMetadata() *BatchSpecMetadata {
 	p := new(BatchSpecMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ChunkSize = new(int)
@@ -444,11 +621,67 @@ type BatchSpecPayload struct {
 	Metadata *BatchSpecPayloadMetadata `json:"metadata,omitempty"`
 }
 
+func (p *BatchSpecPayload) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias BatchSpecPayload
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BatchSpecPayload) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BatchSpecPayload
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BatchSpecPayload(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewBatchSpecPayload() *BatchSpecPayload {
 	p := new(BatchSpecPayload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -469,11 +702,67 @@ type BatchSpecPayloadMetadata struct {
 	Path []BatchSpecPayloadMetadataPath `json:"path,omitempty"`
 }
 
+func (p *BatchSpecPayloadMetadata) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias BatchSpecPayloadMetadata
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BatchSpecPayloadMetadata) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BatchSpecPayloadMetadata
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BatchSpecPayloadMetadata(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "headers")
+	delete(allFields, "path")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewBatchSpecPayloadMetadata() *BatchSpecPayloadMetadata {
 	p := new(BatchSpecPayloadMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -500,7 +789,9 @@ type BatchSpecPayloadMetadataHeader struct {
 
 func (p *BatchSpecPayloadMetadataHeader) MarshalJSON() ([]byte, error) {
 	type BatchSpecPayloadMetadataHeaderProxy BatchSpecPayloadMetadataHeader
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*BatchSpecPayloadMetadataHeaderProxy
 		Name  *string `json:"name,omitempty"`
 		Value *string `json:"value,omitempty"`
@@ -508,14 +799,64 @@ func (p *BatchSpecPayloadMetadataHeader) MarshalJSON() ([]byte, error) {
 		BatchSpecPayloadMetadataHeaderProxy: (*BatchSpecPayloadMetadataHeaderProxy)(p),
 		Name:                                p.Name,
 		Value:                               p.Value,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BatchSpecPayloadMetadataHeader) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BatchSpecPayloadMetadataHeader
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BatchSpecPayloadMetadataHeader(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "name")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewBatchSpecPayloadMetadataHeader() *BatchSpecPayloadMetadataHeader {
 	p := new(BatchSpecPayloadMetadataHeader)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataHeader"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -542,7 +883,9 @@ type BatchSpecPayloadMetadataPath struct {
 
 func (p *BatchSpecPayloadMetadataPath) MarshalJSON() ([]byte, error) {
 	type BatchSpecPayloadMetadataPathProxy BatchSpecPayloadMetadataPath
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*BatchSpecPayloadMetadataPathProxy
 		Name  *string `json:"name,omitempty"`
 		Value *string `json:"value,omitempty"`
@@ -550,21 +893,71 @@ func (p *BatchSpecPayloadMetadataPath) MarshalJSON() ([]byte, error) {
 		BatchSpecPayloadMetadataPathProxy: (*BatchSpecPayloadMetadataPathProxy)(p),
 		Name:                              p.Name,
 		Value:                             p.Value,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BatchSpecPayloadMetadataPath) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BatchSpecPayloadMetadataPath
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BatchSpecPayloadMetadataPath(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "name")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewBatchSpecPayloadMetadataPath() *BatchSpecPayloadMetadataPath {
 	p := new(BatchSpecPayloadMetadataPath)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataPath"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0/operations/batches/{extId} Get operation
+REST response for all response codes in API path /prism/v4.1/operations/batches/{extId} Get operation
 */
 type GetBatchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -582,11 +975,68 @@ type GetBatchApiResponse struct {
 	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetBatchApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetBatchApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetBatchApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetBatchApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetBatchApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetBatchApiResponse() *GetBatchApiResponse {
 	p := new(GetBatchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.GetBatchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -614,7 +1064,7 @@ func (p *GetBatchApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0/operations/batches Get operation
+REST response for all response codes in API path /prism/v4.1/operations/batches Get operation
 */
 type ListBatchesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -632,11 +1082,68 @@ type ListBatchesApiResponse struct {
 	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListBatchesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListBatchesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListBatchesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListBatchesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListBatchesApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListBatchesApiResponse() *ListBatchesApiResponse {
 	p := new(ListBatchesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.ListBatchesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -664,7 +1171,7 @@ func (p *ListBatchesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.0/operations/$actions/batch Post operation
+REST response for all response codes in API path /prism/v4.1/operations/$actions/batch Post operation
 */
 type SubmitBatchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -682,11 +1189,68 @@ type SubmitBatchApiResponse struct {
 	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *SubmitBatchApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SubmitBatchApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SubmitBatchApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SubmitBatchApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = SubmitBatchApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewSubmitBatchApiResponse() *SubmitBatchApiResponse {
 	p := new(SubmitBatchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.SubmitBatchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

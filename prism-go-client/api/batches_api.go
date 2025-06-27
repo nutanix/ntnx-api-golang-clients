@@ -39,7 +39,7 @@ func (api *BatchesApi) GetBatchById(extId *string, args ...map[string]interface{
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/operations/batches/{extId}"
+	uri := "/api/prism/v4.1/operations/batches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -70,7 +70,7 @@ func (api *BatchesApi) GetBatchById(extId *string, args ...map[string]interface{
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -89,7 +89,7 @@ func (api *BatchesApi) ListBatches(page_ *int, limit_ *int, filter_ *string, ord
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/operations/batches"
+	uri := "/api/prism/v4.1/operations/batches"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -129,7 +129,7 @@ func (api *BatchesApi) ListBatches(page_ *int, limit_ *int, filter_ *string, ord
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -148,7 +148,7 @@ func (api *BatchesApi) SubmitBatch(body *import1.BatchSpec, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/operations/$actions/batch"
+	uri := "/api/prism/v4.1/operations/$actions/batch"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -177,7 +177,7 @@ func (api *BatchesApi) SubmitBatch(body *import1.BatchSpec, args ...map[string]i
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

@@ -39,7 +39,7 @@ func (api *DomainManagerBackupsApi) CreateBackupTarget(domainManagerExtId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/domain-managers/{domainManagerExtId}/backup-targets"
+	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -74,7 +74,7 @@ func (api *DomainManagerBackupsApi) CreateBackupTarget(domainManagerExtId *strin
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -93,7 +93,7 @@ func (api *DomainManagerBackupsApi) CreateRestoreSource(body *import3.RestoreSou
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/restore-sources"
+	uri := "/api/prism/v4.1/management/restore-sources"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -122,7 +122,7 @@ func (api *DomainManagerBackupsApi) CreateRestoreSource(body *import3.RestoreSou
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -141,7 +141,7 @@ func (api *DomainManagerBackupsApi) DeleteBackupTargetById(domainManagerExtId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -177,7 +177,7 @@ func (api *DomainManagerBackupsApi) DeleteBackupTargetById(domainManagerExtId *s
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -196,7 +196,7 @@ func (api *DomainManagerBackupsApi) DeleteRestoreSourceById(extId *string, args 
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/restore-sources/{extId}"
+	uri := "/api/prism/v4.1/management/restore-sources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -227,7 +227,7 @@ func (api *DomainManagerBackupsApi) DeleteRestoreSourceById(extId *string, args 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -246,7 +246,7 @@ func (api *DomainManagerBackupsApi) GetBackupTargetById(domainManagerExtId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -282,7 +282,7 @@ func (api *DomainManagerBackupsApi) GetBackupTargetById(domainManagerExtId *stri
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -301,7 +301,7 @@ func (api *DomainManagerBackupsApi) GetRestorePointById(restoreSourceExtId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}"
+	uri := "/api/prism/v4.1/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == restoreSourceExtId {
@@ -342,7 +342,7 @@ func (api *DomainManagerBackupsApi) GetRestorePointById(restoreSourceExtId *stri
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -361,7 +361,7 @@ func (api *DomainManagerBackupsApi) GetRestoreSourceById(extId *string, args ...
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/restore-sources/{extId}"
+	uri := "/api/prism/v4.1/management/restore-sources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -392,7 +392,7 @@ func (api *DomainManagerBackupsApi) GetRestoreSourceById(extId *string, args ...
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -411,7 +411,7 @@ func (api *DomainManagerBackupsApi) ListBackupTargets(domainManagerExtId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/domain-managers/{domainManagerExtId}/backup-targets"
+	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -442,7 +442,7 @@ func (api *DomainManagerBackupsApi) ListBackupTargets(domainManagerExtId *string
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -461,7 +461,7 @@ func (api *DomainManagerBackupsApi) ListRestorableDomainManagers(restoreSourceEx
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers"
+	uri := "/api/prism/v4.1/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == restoreSourceExtId {
@@ -502,7 +502,7 @@ func (api *DomainManagerBackupsApi) ListRestorableDomainManagers(restoreSourceEx
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -514,14 +514,14 @@ func (api *DomainManagerBackupsApi) ListRestorableDomainManagers(restoreSourceEx
 	return unmarshalledResp, err
 }
 
-// The list restore points API allows you to retrieve a list of available restore points,  which are snapshots of the domain manager taken at different times. These restore points can be used to revert the domain manager to a previous state. The list response includes the creation time and identifier ID for the configuration data.<br>  1. For cluster-based backups, only the most recent restore point is available, as backups are continuous.<br> 2. For object store-based backups, multiple restore points may be available, depending on the configured  Recovery Point Objective (RPO) and the retention period set on the s3 bucket.
+// The list restore points API allows you to retrieve a list of available restore points,  which are snapshots of the domain manager taken at different times. These restore points can be used to revert the domain manager to a previous state. The list response includes the creation time and identifier ID for the configuration data.<br>  1. For cluster-based backups, only the most recent restore point is available, as backups are continuous.<br> 2. For object store-based backups, multiple restore points may be available, depending on the configured  Recovery Point Objective (RPO) and the retention period set on the bucket.
 func (api *DomainManagerBackupsApi) ListRestorePoints(restoreSourceExtId *string, restorableDomainManagerExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListRestorePointsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points"
+	uri := "/api/prism/v4.1/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == restoreSourceExtId {
@@ -573,7 +573,7 @@ func (api *DomainManagerBackupsApi) ListRestorePoints(restoreSourceExtId *string
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -592,7 +592,7 @@ func (api *DomainManagerBackupsApi) Restore(restoreSourceExtId *string, restorab
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore"
+	uri := "/api/prism/v4.1/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == restoreSourceExtId {
@@ -637,7 +637,7 @@ func (api *DomainManagerBackupsApi) Restore(restoreSourceExtId *string, restorab
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -649,14 +649,14 @@ func (api *DomainManagerBackupsApi) Restore(restoreSourceExtId *string, restorab
 	return unmarshalledResp, err
 }
 
-// Updates the credentials and/or RPO of the given object store.
+// Updates the credentials, RP0, or certificates (for Nutanix Objects only) of the given object store based on the user requirements.  RPO is mandatory to be passed in payload. Credentials and certificates are optional to pass in update backup target api. If credentials or certificates are not passed then these will not be updated for a backup target.
 func (api *DomainManagerBackupsApi) UpdateBackupTargetById(domainManagerExtId *string, extId *string, body *import3.BackupTarget, args ...map[string]interface{}) (*import3.UpdateBackupTargetApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.0/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -696,7 +696,7 @@ func (api *DomainManagerBackupsApi) UpdateBackupTargetById(domainManagerExtId *s
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
