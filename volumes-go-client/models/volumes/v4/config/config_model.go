@@ -1,11 +1,11 @@
 /*
  * Generated file models/volumes/v4/config/config_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Volumes APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -26,7 +26,87 @@ import (
 )
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/associate-category Post operation
+The response contains a JWT token, that needs to be set as a header when invoking the Volume Group endpoint with NTNX_IGW_SESSION='JWT-TOKEN'.
+*/
+type AccessToken struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  JWT token in string format. This token must be set as a session cookie while making V2 API call for Volume Groups.
+	*/
+	JwtToken *string `json:"jwtToken,omitempty"`
+}
+
+func (p *AccessToken) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AccessToken
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AccessToken) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AccessToken
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AccessToken(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "jwtToken")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewAccessToken() *AccessToken {
+	p := new(AccessToken)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "volumes.v4.config.AccessToken"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId}/$actions/associate-category Post operation
 */
 type AssociateCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -44,11 +124,68 @@ type AssociateCategoryApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *AssociateCategoryApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AssociateCategoryApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AssociateCategoryApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AssociateCategoryApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AssociateCategoryApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAssociateCategoryApiResponse() *AssociateCategoryApiResponse {
 	p := new(AssociateCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.AssociateCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -76,7 +213,7 @@ func (p *AssociateCategoryApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/attach-iscsi-client Post operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId}/$actions/attach-iscsi-client Post operation
 */
 type AttachIscsiClientApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -94,11 +231,68 @@ type AttachIscsiClientApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *AttachIscsiClientApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AttachIscsiClientApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AttachIscsiClientApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AttachIscsiClientApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AttachIscsiClientApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAttachIscsiClientApiResponse() *AttachIscsiClientApiResponse {
 	p := new(AttachIscsiClientApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.AttachIscsiClientApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -126,7 +320,7 @@ func (p *AttachIscsiClientApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/attach-nvmf-client Post operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId}/$actions/attach-nvmf-client Post operation
 */
 type AttachNvmfClientApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -144,11 +338,68 @@ type AttachNvmfClientApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *AttachNvmfClientApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AttachNvmfClientApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AttachNvmfClientApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AttachNvmfClientApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AttachNvmfClientApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAttachNvmfClientApiResponse() *AttachNvmfClientApiResponse {
 	p := new(AttachNvmfClientApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.AttachNvmfClientApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -176,7 +427,7 @@ func (p *AttachNvmfClientApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/attach-vm Post operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId}/$actions/attach-vm Post operation
 */
 type AttachVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -194,11 +445,68 @@ type AttachVmApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *AttachVmApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AttachVmApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AttachVmApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AttachVmApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AttachVmApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAttachVmApiResponse() *AttachVmApiResponse {
 	p := new(AttachVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.AttachVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -403,20 +711,78 @@ type CategoryDetails struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
-	  Name of entity that's represented by this reference.
+	  Name of the entity represented by this reference.
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  URI of entities that's represented by this reference.
+	  URI of entity represented by this reference.
 	*/
 	Uris []string `json:"uris,omitempty"`
+}
+
+func (p *CategoryDetails) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CategoryDetails
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CategoryDetails) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CategoryDetails
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = CategoryDetails(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "entityType")
+	delete(allFields, "extId")
+	delete(allFields, "name")
+	delete(allFields, "uris")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewCategoryDetails() *CategoryDetails {
 	p := new(CategoryDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.CategoryDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -437,14 +803,152 @@ type CategoryEntityReferences struct {
 	Categories []import4.EntityReference `json:"categories,omitempty"`
 }
 
+func (p *CategoryEntityReferences) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CategoryEntityReferences
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CategoryEntityReferences) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CategoryEntityReferences
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = CategoryEntityReferences(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "categories")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewCategoryEntityReferences() *CategoryEntityReferences {
 	p := new(CategoryEntityReferences)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.CategoryEntityReferences"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Allows client level access to Volume Group.
+*/
+type ClientAccess int
+
+const (
+	CLIENTACCESS_UNKNOWN      ClientAccess = 0
+	CLIENTACCESS_REDACTED     ClientAccess = 1
+	CLIENTACCESS_NONE         ClientAccess = 2
+	CLIENTACCESS_ISCSI_CLIENT ClientAccess = 3
+	CLIENTACCESS_VM_CLIENT    ClientAccess = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ClientAccess) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"ISCSI_CLIENT",
+		"VM_CLIENT",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ClientAccess) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"ISCSI_CLIENT",
+		"VM_CLIENT",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ClientAccess) index(name string) ClientAccess {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NONE",
+		"ISCSI_CLIENT",
+		"VM_CLIENT",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ClientAccess(idx)
+		}
+	}
+	return CLIENTACCESS_UNKNOWN
+}
+
+func (e *ClientAccess) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ClientAccess:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ClientAccess) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ClientAccess) Ref() *ClientAccess {
+	return &e
 }
 
 type Cluster struct {
@@ -463,11 +967,67 @@ type Cluster struct {
 	ClusterName *string `json:"clusterName,omitempty"`
 }
 
+func (p *Cluster) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Cluster
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Cluster) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Cluster
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Cluster(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "clusterName")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewCluster() *Cluster {
 	p := new(Cluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.Cluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -489,18 +1049,245 @@ type ClusterProjection struct {
 	ClusterName *string `json:"clusterName,omitempty"`
 }
 
+func (p *ClusterProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "clusterName")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewClusterProjection() *ClusterProjection {
 	p := new(ClusterProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.ClusterProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks Post operation
+Allows cluster wide access to Volume Group.
+*/
+type ClusterScope struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Cluster Uuid.
+	*/
+	ClusterExtId *string `json:"clusterExtId"`
+}
+
+func (p *ClusterScope) MarshalJSON() ([]byte, error) {
+	type ClusterScopeProxy ClusterScope
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ClusterScopeProxy
+		ClusterExtId *string `json:"clusterExtId,omitempty"`
+	}{
+		ClusterScopeProxy: (*ClusterScopeProxy)(p),
+		ClusterExtId:      p.ClusterExtId,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterScope) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterScope
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterScope(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewClusterScope() *ClusterScope {
+	p := new(ClusterScope)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "volumes.v4.config.ClusterScope"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type ClusterScopeProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Cluster Uuid.
+	*/
+	ClusterExtId *string `json:"clusterExtId"`
+}
+
+func (p *ClusterScopeProjection) MarshalJSON() ([]byte, error) {
+	type ClusterScopeProjectionProxy ClusterScopeProjection
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ClusterScopeProjectionProxy
+		ClusterExtId *string `json:"clusterExtId,omitempty"`
+	}{
+		ClusterScopeProjectionProxy: (*ClusterScopeProjectionProxy)(p),
+		ClusterExtId:                p.ClusterExtId,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterScopeProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterScopeProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterScopeProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewClusterScopeProjection() *ClusterScopeProjection {
+	p := new(ClusterScopeProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "volumes.v4.config.ClusterScopeProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks Post operation
 */
 type CreateVolumeDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -518,11 +1305,68 @@ type CreateVolumeDiskApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *CreateVolumeDiskApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CreateVolumeDiskApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CreateVolumeDiskApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CreateVolumeDiskApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = CreateVolumeDiskApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewCreateVolumeDiskApiResponse() *CreateVolumeDiskApiResponse {
 	p := new(CreateVolumeDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.CreateVolumeDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -550,7 +1394,7 @@ func (p *CreateVolumeDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups Post operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups Post operation
 */
 type CreateVolumeGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -568,11 +1412,68 @@ type CreateVolumeGroupApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *CreateVolumeGroupApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CreateVolumeGroupApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CreateVolumeGroupApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CreateVolumeGroupApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = CreateVolumeGroupApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewCreateVolumeGroupApiResponse() *CreateVolumeGroupApiResponse {
 	p := new(CreateVolumeGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.CreateVolumeGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -600,7 +1501,7 @@ func (p *CreateVolumeGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks/{extId} Delete operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks/{extId} Delete operation
 */
 type DeleteVolumeDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -618,11 +1519,68 @@ type DeleteVolumeDiskApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *DeleteVolumeDiskApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DeleteVolumeDiskApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DeleteVolumeDiskApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DeleteVolumeDiskApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DeleteVolumeDiskApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDeleteVolumeDiskApiResponse() *DeleteVolumeDiskApiResponse {
 	p := new(DeleteVolumeDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.DeleteVolumeDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -650,7 +1608,7 @@ func (p *DeleteVolumeDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId} Delete operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId} Delete operation
 */
 type DeleteVolumeGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -668,11 +1626,68 @@ type DeleteVolumeGroupApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *DeleteVolumeGroupApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DeleteVolumeGroupApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DeleteVolumeGroupApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DeleteVolumeGroupApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DeleteVolumeGroupApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDeleteVolumeGroupApiResponse() *DeleteVolumeGroupApiResponse {
 	p := new(DeleteVolumeGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.DeleteVolumeGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -700,7 +1715,7 @@ func (p *DeleteVolumeGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/detach-iscsi-client Post operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId}/$actions/detach-iscsi-client Post operation
 */
 type DetachIscsiClientApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -718,11 +1733,68 @@ type DetachIscsiClientApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *DetachIscsiClientApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DetachIscsiClientApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DetachIscsiClientApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DetachIscsiClientApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DetachIscsiClientApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDetachIscsiClientApiResponse() *DetachIscsiClientApiResponse {
 	p := new(DetachIscsiClientApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.DetachIscsiClientApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -750,7 +1822,7 @@ func (p *DetachIscsiClientApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/detach-nvmf-client Post operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId}/$actions/detach-nvmf-client Post operation
 */
 type DetachNvmfClientApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -768,11 +1840,68 @@ type DetachNvmfClientApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *DetachNvmfClientApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DetachNvmfClientApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DetachNvmfClientApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DetachNvmfClientApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DetachNvmfClientApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDetachNvmfClientApiResponse() *DetachNvmfClientApiResponse {
 	p := new(DetachNvmfClientApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.DetachNvmfClientApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -800,7 +1929,7 @@ func (p *DetachNvmfClientApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/detach-vm Post operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId}/$actions/detach-vm Post operation
 */
 type DetachVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -818,11 +1947,68 @@ type DetachVmApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *DetachVmApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DetachVmApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DetachVmApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DetachVmApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DetachVmApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDetachVmApiResponse() *DetachVmApiResponse {
 	p := new(DetachVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.DetachVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -850,7 +2036,7 @@ func (p *DetachVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/disassociate-category Post operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId}/$actions/disassociate-category Post operation
 */
 type DisassociateCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -868,11 +2054,68 @@ type DisassociateCategoryApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *DisassociateCategoryApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DisassociateCategoryApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DisassociateCategoryApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DisassociateCategoryApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DisassociateCategoryApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDisassociateCategoryApiResponse() *DisassociateCategoryApiResponse {
 	p := new(DisassociateCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.DisassociateCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -912,11 +2155,66 @@ type DiskStorageFeatures struct {
 	FlashMode *FlashMode `json:"flashMode,omitempty"`
 }
 
+func (p *DiskStorageFeatures) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DiskStorageFeatures
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DiskStorageFeatures) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DiskStorageFeatures
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DiskStorageFeatures(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "flashMode")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDiskStorageFeatures() *DiskStorageFeatures {
 	p := new(DiskStorageFeatures)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.DiskStorageFeatures"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -937,11 +2235,66 @@ type FlashMode struct {
 	IsEnabled *bool `json:"isEnabled,omitempty"`
 }
 
+func (p *FlashMode) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias FlashMode
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FlashMode) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FlashMode
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = FlashMode(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "isEnabled")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewFlashMode() *FlashMode {
 	p := new(FlashMode)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.FlashMode"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsEnabled = new(bool)
@@ -951,7 +2304,7 @@ func NewFlashMode() *FlashMode {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/iscsi-clients/{extId} Get operation
+REST response for all response codes in API path /volumes/v4.1/config/iscsi-clients/{extId} Get operation
 */
 type GetIscsiClientApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -969,11 +2322,68 @@ type GetIscsiClientApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetIscsiClientApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetIscsiClientApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetIscsiClientApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetIscsiClientApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetIscsiClientApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetIscsiClientApiResponse() *GetIscsiClientApiResponse {
 	p := new(GetIscsiClientApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.GetIscsiClientApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1001,7 +2411,114 @@ func (p *GetIscsiClientApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks/{extId} Get operation
+REST response for all response codes in API path /volumes/v4.1/config/nvmf-clients/{extId} Get operation
+*/
+type GetNvmfClientApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetNvmfClientApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetNvmfClientApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetNvmfClientApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetNvmfClientApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetNvmfClientApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetNvmfClientApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewGetNvmfClientApiResponse() *GetNvmfClientApiResponse {
+	p := new(GetNvmfClientApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "volumes.v4.config.GetNvmfClientApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetNvmfClientApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetNvmfClientApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetNvmfClientApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks/{extId} Get operation
 */
 type GetVolumeDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1019,11 +2536,68 @@ type GetVolumeDiskApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetVolumeDiskApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetVolumeDiskApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetVolumeDiskApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetVolumeDiskApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetVolumeDiskApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetVolumeDiskApiResponse() *GetVolumeDiskApiResponse {
 	p := new(GetVolumeDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.GetVolumeDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1051,7 +2625,7 @@ func (p *GetVolumeDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId} Get operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId} Get operation
 */
 type GetVolumeGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1069,11 +2643,68 @@ type GetVolumeGroupApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetVolumeGroupApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetVolumeGroupApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetVolumeGroupApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetVolumeGroupApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetVolumeGroupApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetVolumeGroupApiResponse() *GetVolumeGroupApiResponse {
 	p := new(GetVolumeGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.GetVolumeGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1101,7 +2732,7 @@ func (p *GetVolumeGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/metadata Get operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/metadata Get operation
 */
 type GetVolumeGroupMetadataApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1119,11 +2750,68 @@ type GetVolumeGroupMetadataApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetVolumeGroupMetadataApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetVolumeGroupMetadataApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetVolumeGroupMetadataApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetVolumeGroupMetadataApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetVolumeGroupMetadataApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetVolumeGroupMetadataApiResponse() *GetVolumeGroupMetadataApiResponse {
 	p := new(GetVolumeGroupMetadataApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.GetVolumeGroupMetadataApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1192,16 +2880,81 @@ type IscsiClient struct {
 	*/
 	NumVirtualTargets *int `json:"numVirtualTargets,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *IscsiClient) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IscsiClient
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IscsiClient) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IscsiClient
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = IscsiClient(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "attachedTargets")
+	delete(allFields, "attachmentSite")
+	delete(allFields, "clientSecret")
+	delete(allFields, "clusterReference")
+	delete(allFields, "enabledAuthentications")
+	delete(allFields, "extId")
+	delete(allFields, "iscsiInitiatorName")
+	delete(allFields, "iscsiInitiatorNetworkId")
+	delete(allFields, "links")
+	delete(allFields, "numVirtualTargets")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewIscsiClient() *IscsiClient {
 	p := new(IscsiClient)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.IscsiClient"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1226,11 +2979,67 @@ type IscsiClientAttachment struct {
 	ExtId *string `json:"extId,omitempty"`
 }
 
+func (p *IscsiClientAttachment) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IscsiClientAttachment
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IscsiClientAttachment) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IscsiClientAttachment
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = IscsiClientAttachment(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterReference")
+	delete(allFields, "extId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewIscsiClientAttachment() *IscsiClientAttachment {
 	p := new(IscsiClientAttachment)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.IscsiClientAttachment"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1254,11 +3063,68 @@ type IscsiClientAttachmentProjection struct {
 	IscsiClientProjection *IscsiClientProjection `json:"iscsiClientProjection,omitempty"`
 }
 
+func (p *IscsiClientAttachmentProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IscsiClientAttachmentProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IscsiClientAttachmentProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IscsiClientAttachmentProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = IscsiClientAttachmentProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterReference")
+	delete(allFields, "extId")
+	delete(allFields, "iscsiClientProjection")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewIscsiClientAttachmentProjection() *IscsiClientAttachmentProjection {
 	p := new(IscsiClientAttachmentProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.IscsiClientAttachmentProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1305,16 +3171,82 @@ type IscsiClientProjection struct {
 	*/
 	NumVirtualTargets *int `json:"numVirtualTargets,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *IscsiClientProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IscsiClientProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IscsiClientProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IscsiClientProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = IscsiClientProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "attachedTargets")
+	delete(allFields, "attachmentSite")
+	delete(allFields, "clientSecret")
+	delete(allFields, "clusterProjection")
+	delete(allFields, "clusterReference")
+	delete(allFields, "enabledAuthentications")
+	delete(allFields, "extId")
+	delete(allFields, "iscsiInitiatorName")
+	delete(allFields, "iscsiInitiatorNetworkId")
+	delete(allFields, "links")
+	delete(allFields, "numVirtualTargets")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewIscsiClientProjection() *IscsiClientProjection {
 	p := new(IscsiClientProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.IscsiClientProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1337,18 +3269,74 @@ type IscsiFeatures struct {
 	TargetSecret *string `json:"targetSecret,omitempty"`
 }
 
+func (p *IscsiFeatures) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IscsiFeatures
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IscsiFeatures) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IscsiFeatures
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = IscsiFeatures(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "enabledAuthentications")
+	delete(allFields, "targetSecret")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewIscsiFeatures() *IscsiFeatures {
 	p := new(IscsiFeatures)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.IscsiFeatures"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/category-associations Get operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/category-associations Get operation
 */
 type ListCategoryAssociationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1366,11 +3354,68 @@ type ListCategoryAssociationsApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListCategoryAssociationsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListCategoryAssociationsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListCategoryAssociationsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListCategoryAssociationsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListCategoryAssociationsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListCategoryAssociationsApiResponse() *ListCategoryAssociationsApiResponse {
 	p := new(ListCategoryAssociationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.ListCategoryAssociationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1398,7 +3443,7 @@ func (p *ListCategoryAssociationsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/external-iscsi-attachments Get operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/external-iscsi-attachments Get operation
 */
 type ListExternalIscsiAttachmentsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1416,11 +3461,68 @@ type ListExternalIscsiAttachmentsApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListExternalIscsiAttachmentsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListExternalIscsiAttachmentsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListExternalIscsiAttachmentsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListExternalIscsiAttachmentsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListExternalIscsiAttachmentsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListExternalIscsiAttachmentsApiResponse() *ListExternalIscsiAttachmentsApiResponse {
 	p := new(ListExternalIscsiAttachmentsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.ListExternalIscsiAttachmentsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1448,7 +3550,114 @@ func (p *ListExternalIscsiAttachmentsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/iscsi-clients Get operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/external-nvmf-attachments Get operation
+*/
+type ListExternalNvmfAttachmentsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListExternalNvmfAttachmentsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListExternalNvmfAttachmentsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListExternalNvmfAttachmentsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListExternalNvmfAttachmentsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListExternalNvmfAttachmentsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListExternalNvmfAttachmentsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewListExternalNvmfAttachmentsApiResponse() *ListExternalNvmfAttachmentsApiResponse {
+	p := new(ListExternalNvmfAttachmentsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "volumes.v4.config.ListExternalNvmfAttachmentsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListExternalNvmfAttachmentsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListExternalNvmfAttachmentsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListExternalNvmfAttachmentsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /volumes/v4.1/config/iscsi-clients Get operation
 */
 type ListIscsiClientsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1466,11 +3675,68 @@ type ListIscsiClientsApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListIscsiClientsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListIscsiClientsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListIscsiClientsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListIscsiClientsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListIscsiClientsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListIscsiClientsApiResponse() *ListIscsiClientsApiResponse {
 	p := new(ListIscsiClientsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.ListIscsiClientsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1498,7 +3764,114 @@ func (p *ListIscsiClientsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/vm-attachments Get operation
+REST response for all response codes in API path /volumes/v4.1/config/nvmf-clients Get operation
+*/
+type ListNvmfClientsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListNvmfClientsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListNvmfClientsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListNvmfClientsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListNvmfClientsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListNvmfClientsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListNvmfClientsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewListNvmfClientsApiResponse() *ListNvmfClientsApiResponse {
+	p := new(ListNvmfClientsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "volumes.v4.config.ListNvmfClientsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListNvmfClientsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListNvmfClientsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListNvmfClientsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/vm-attachments Get operation
 */
 type ListVmAttachmentsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1516,11 +3889,68 @@ type ListVmAttachmentsApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListVmAttachmentsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListVmAttachmentsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListVmAttachmentsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListVmAttachmentsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListVmAttachmentsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListVmAttachmentsApiResponse() *ListVmAttachmentsApiResponse {
 	p := new(ListVmAttachmentsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.ListVmAttachmentsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1548,7 +3978,7 @@ func (p *ListVmAttachmentsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks Get operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks Get operation
 */
 type ListVolumeDisksApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1566,11 +3996,68 @@ type ListVolumeDisksApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListVolumeDisksApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListVolumeDisksApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListVolumeDisksApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListVolumeDisksApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListVolumeDisksApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListVolumeDisksApiResponse() *ListVolumeDisksApiResponse {
 	p := new(ListVolumeDisksApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.ListVolumeDisksApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1598,7 +4085,7 @@ func (p *ListVolumeDisksApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups Get operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups Get operation
 */
 type ListVolumeGroupsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1616,11 +4103,68 @@ type ListVolumeGroupsApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListVolumeGroupsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListVolumeGroupsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListVolumeGroupsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListVolumeGroupsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListVolumeGroupsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListVolumeGroupsApiResponse() *ListVolumeGroupsApiResponse {
 	p := new(ListVolumeGroupsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.ListVolumeGroupsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1648,57 +4192,7 @@ func (p *ListVolumeGroupsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/migrate Post operation
-*/
-type MigrateVolumeGroupApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfMigrateVolumeGroupApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewMigrateVolumeGroupApiResponse() *MigrateVolumeGroupApiResponse {
-	p := new(MigrateVolumeGroupApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "volumes.v4.config.MigrateVolumeGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *MigrateVolumeGroupApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *MigrateVolumeGroupApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfMigrateVolumeGroupApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-A model that represents a NVMf client that can be associated with a Volume Group as an external attachment.
+A model representing a NVMe-TCP client that can be associated with a Volume Group as an external attachment.
 */
 type NvmfClient struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1707,11 +4201,11 @@ type NvmfClient struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of all subsystems connected to a NVMf client.
+	  List of all subsystems connected to a NVMe-TCP client.
 	*/
 	AttachedTargets []string `json:"attachedTargets,omitempty"`
 	/*
-	  The UUID of the cluster that will host the NVMf client.
+	  The UUID of the cluster that hosts the NVMe-TCP client.
 	*/
 	ClusterReference *string `json:"clusterReference,omitempty"`
 	/*
@@ -1723,27 +4217,87 @@ type NvmfClient struct {
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  NVMf client qualified name.
+	  NVMe-TCP client qualified name.
 	*/
 	NvmfInitiatorName *string `json:"nvmfInitiatorName,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *NvmfClient) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias NvmfClient
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *NvmfClient) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias NvmfClient
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = NvmfClient(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "attachedTargets")
+	delete(allFields, "clusterReference")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "nvmfInitiatorName")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewNvmfClient() *NvmfClient {
 	p := new(NvmfClient)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.NvmfClient"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-A model that represents an NVMf client that can be associated with a Volume Group as an external attachment. It contains the minimal properties required for the attachment.
+A model representing an NVMe-TCP client that can be associated with a Volume Group as an external attachment. It contains the minimal properties required for the attachment.
 */
 type NvmfClientAttachment struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1752,7 +4306,7 @@ type NvmfClientAttachment struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  The UUID of the cluster that will host the NVMf client.
+	  The UUID of the cluster that hosts the NVMe-TCP client.
 	*/
 	ClusterReference *string `json:"clusterReference,omitempty"`
 	/*
@@ -1764,16 +4318,74 @@ type NvmfClientAttachment struct {
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *NvmfClientAttachment) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias NvmfClientAttachment
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *NvmfClientAttachment) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias NvmfClientAttachment
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = NvmfClientAttachment(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterReference")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewNvmfClientAttachment() *NvmfClientAttachment {
 	p := new(NvmfClientAttachment)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.NvmfClientAttachment"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1786,7 +4398,7 @@ type NvmfClientAttachmentProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  The UUID of the cluster that will host the NVMf client.
+	  The UUID of the cluster that hosts the NVMe-TCP client.
 	*/
 	ClusterReference *string `json:"clusterReference,omitempty"`
 	/*
@@ -1800,16 +4412,75 @@ type NvmfClientAttachmentProjection struct {
 
 	NvmfClientProjection *NvmfClientProjection `json:"nvmfClientProjection,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *NvmfClientAttachmentProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias NvmfClientAttachmentProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *NvmfClientAttachmentProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias NvmfClientAttachmentProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = NvmfClientAttachmentProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterReference")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "nvmfClientProjection")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewNvmfClientAttachmentProjection() *NvmfClientAttachmentProjection {
 	p := new(NvmfClientAttachmentProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.NvmfClientAttachmentProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1822,13 +4493,13 @@ type NvmfClientProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of all subsystems connected to a NVMf client.
+	  List of all subsystems connected to a NVMe-TCP client.
 	*/
 	AttachedTargets []string `json:"attachedTargets,omitempty"`
 
 	ClusterProjection *ClusterProjection `json:"clusterProjection,omitempty"`
 	/*
-	  The UUID of the cluster that will host the NVMf client.
+	  The UUID of the cluster that hosts the NVMe-TCP client.
 	*/
 	ClusterReference *string `json:"clusterReference,omitempty"`
 	/*
@@ -1840,73 +4511,84 @@ type NvmfClientProjection struct {
 	*/
 	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
-	  NVMf client qualified name.
+	  NVMe-TCP client qualified name.
 	*/
 	NvmfInitiatorName *string `json:"nvmfInitiatorName,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *NvmfClientProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias NvmfClientProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *NvmfClientProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias NvmfClientProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = NvmfClientProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "attachedTargets")
+	delete(allFields, "clusterProjection")
+	delete(allFields, "clusterReference")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "nvmfInitiatorName")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewNvmfClientProjection() *NvmfClientProjection {
 	p := new(NvmfClientProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.NvmfClientProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
-}
-
-/*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/pause-synchronous-replication Post operation
-*/
-type PauseVolumeGroupSynchronousReplicationApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfPauseVolumeGroupSynchronousReplicationApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewPauseVolumeGroupSynchronousReplicationApiResponse() *PauseVolumeGroupSynchronousReplicationApiResponse {
-	p := new(PauseVolumeGroupSynchronousReplicationApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "volumes.v4.config.PauseVolumeGroupSynchronousReplicationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *PauseVolumeGroupSynchronousReplicationApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *PauseVolumeGroupSynchronousReplicationApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfPauseVolumeGroupSynchronousReplicationApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
 }
 
 /*
@@ -1993,56 +4675,6 @@ func (e Protocol) Ref() *Protocol {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/resume-synchronous-replication Post operation
-*/
-type ResumeVolumeGroupSynchronousReplicationApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfResumeVolumeGroupSynchronousReplicationApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewResumeVolumeGroupSynchronousReplicationApiResponse() *ResumeVolumeGroupSynchronousReplicationApiResponse {
-	p := new(ResumeVolumeGroupSynchronousReplicationApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "volumes.v4.config.ResumeVolumeGroupSynchronousReplicationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *ResumeVolumeGroupSynchronousReplicationApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *ResumeVolumeGroupSynchronousReplicationApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfResumeVolumeGroupSynchronousReplicationApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
 Specify the Volume Group recovery point ID to which the Volume Group would be reverted.
 */
 type RevertSpec struct {
@@ -2059,27 +4691,78 @@ type RevertSpec struct {
 
 func (p *RevertSpec) MarshalJSON() ([]byte, error) {
 	type RevertSpecProxy RevertSpec
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*RevertSpecProxy
 		VolumeGroupRecoveryPointExtId *string `json:"volumeGroupRecoveryPointExtId,omitempty"`
 	}{
 		RevertSpecProxy:               (*RevertSpecProxy)(p),
 		VolumeGroupRecoveryPointExtId: p.VolumeGroupRecoveryPointExtId,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RevertSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RevertSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RevertSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "volumeGroupRecoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewRevertSpec() *RevertSpec {
 	p := new(RevertSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.RevertSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/revert Post operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId}/$actions/revert Post operation
 */
 type RevertVolumeGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2097,11 +4780,68 @@ type RevertVolumeGroupApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *RevertVolumeGroupApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RevertVolumeGroupApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RevertVolumeGroupApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RevertVolumeGroupApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RevertVolumeGroupApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewRevertVolumeGroupApiResponse() *RevertVolumeGroupApiResponse {
 	p := new(RevertVolumeGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.RevertVolumeGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2220,11 +4960,66 @@ type StorageFeatures struct {
 	FlashMode *FlashMode `json:"flashMode,omitempty"`
 }
 
+func (p *StorageFeatures) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias StorageFeatures
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StorageFeatures) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StorageFeatures
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = StorageFeatures(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "flashMode")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewStorageFeatures() *StorageFeatures {
 	p := new(StorageFeatures)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.StorageFeatures"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2249,18 +5044,74 @@ type TargetParam struct {
 	NumVirtualTargets *int `json:"numVirtualTargets,omitempty"`
 }
 
+func (p *TargetParam) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TargetParam
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TargetParam) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TargetParam
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = TargetParam(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "iscsiTargetName")
+	delete(allFields, "numVirtualTargets")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewTargetParam() *TargetParam {
 	p := new(TargetParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.TargetParam"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/iscsi-clients/{extId} Put operation
+REST response for all response codes in API path /volumes/v4.1/config/iscsi-clients/{extId} Put operation
 */
 type UpdateIscsiClientApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2278,11 +5129,68 @@ type UpdateIscsiClientApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *UpdateIscsiClientApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateIscsiClientApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateIscsiClientApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateIscsiClientApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = UpdateIscsiClientApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewUpdateIscsiClientApiResponse() *UpdateIscsiClientApiResponse {
 	p := new(UpdateIscsiClientApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.UpdateIscsiClientApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2310,57 +5218,7 @@ func (p *UpdateIscsiClientApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/iscsi-clients/{extId} Patch operation
-*/
-type UpdateIscsiClientByIdApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUpdateIscsiClientByIdApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUpdateIscsiClientByIdApiResponse() *UpdateIscsiClientByIdApiResponse {
-	p := new(UpdateIscsiClientByIdApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "volumes.v4.config.UpdateIscsiClientByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UpdateIscsiClientByIdApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UpdateIscsiClientByIdApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUpdateIscsiClientByIdApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks/{extId} Put operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks/{extId} Put operation
 */
 type UpdateVolumeDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2378,11 +5236,68 @@ type UpdateVolumeDiskApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *UpdateVolumeDiskApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateVolumeDiskApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateVolumeDiskApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateVolumeDiskApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = UpdateVolumeDiskApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewUpdateVolumeDiskApiResponse() *UpdateVolumeDiskApiResponse {
 	p := new(UpdateVolumeDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.UpdateVolumeDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2410,57 +5325,7 @@ func (p *UpdateVolumeDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks/{extId} Patch operation
-*/
-type UpdateVolumeDiskByIdApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUpdateVolumeDiskByIdApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUpdateVolumeDiskByIdApiResponse() *UpdateVolumeDiskByIdApiResponse {
-	p := new(UpdateVolumeDiskByIdApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "volumes.v4.config.UpdateVolumeDiskByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UpdateVolumeDiskByIdApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UpdateVolumeDiskByIdApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUpdateVolumeDiskByIdApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId} Put operation
+REST response for all response codes in API path /volumes/v4.1/config/volume-groups/{extId} Put operation
 */
 type UpdateVolumeGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2478,11 +5343,68 @@ type UpdateVolumeGroupApiResponse struct {
 	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *UpdateVolumeGroupApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateVolumeGroupApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateVolumeGroupApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateVolumeGroupApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = UpdateVolumeGroupApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewUpdateVolumeGroupApiResponse() *UpdateVolumeGroupApiResponse {
 	p := new(UpdateVolumeGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.UpdateVolumeGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2498,156 +5420,6 @@ func (p *UpdateVolumeGroupApiResponse) GetData() interface{} {
 func (p *UpdateVolumeGroupApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfUpdateVolumeGroupApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId} Patch operation
-*/
-type UpdateVolumeGroupByIdApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUpdateVolumeGroupByIdApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUpdateVolumeGroupByIdApiResponse() *UpdateVolumeGroupByIdApiResponse {
-	p := new(UpdateVolumeGroupByIdApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "volumes.v4.config.UpdateVolumeGroupByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UpdateVolumeGroupByIdApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UpdateVolumeGroupByIdApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUpdateVolumeGroupByIdApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/update-metadata Post operation
-*/
-type UpdateVolumeGroupMetadataApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUpdateVolumeGroupMetadataApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUpdateVolumeGroupMetadataApiResponse() *UpdateVolumeGroupMetadataApiResponse {
-	p := new(UpdateVolumeGroupMetadataApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "volumes.v4.config.UpdateVolumeGroupMetadataApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UpdateVolumeGroupMetadataApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UpdateVolumeGroupMetadataApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUpdateVolumeGroupMetadataApiResponseData()
-	}
-	e := p.Data.SetValue(v)
-	if nil == e {
-		if nil == p.DataItemDiscriminator_ {
-			p.DataItemDiscriminator_ = new(string)
-		}
-		*p.DataItemDiscriminator_ = *p.Data.Discriminator
-	}
-	return e
-}
-
-/*
-REST response for all response codes in API path /volumes/v4.0/config/volume-groups/{extId}/$actions/update-metadata-info Post operation
-*/
-type UpdateVolumeGroupMetadataInfoApiResponse struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-
-	 */
-	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
-
-	Data *OneOfUpdateVolumeGroupMetadataInfoApiResponseData `json:"data,omitempty"`
-
-	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
-}
-
-func NewUpdateVolumeGroupMetadataInfoApiResponse() *UpdateVolumeGroupMetadataInfoApiResponse {
-	p := new(UpdateVolumeGroupMetadataInfoApiResponse)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "volumes.v4.config.UpdateVolumeGroupMetadataInfoApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-func (p *UpdateVolumeGroupMetadataInfoApiResponse) GetData() interface{} {
-	if nil == p.Data {
-		return nil
-	}
-	return p.Data.GetValue()
-}
-
-func (p *UpdateVolumeGroupMetadataInfoApiResponse) SetData(v interface{}) error {
-	if nil == p.Data {
-		p.Data = NewOneOfUpdateVolumeGroupMetadataInfoApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2747,6 +5519,110 @@ func (e UsageType) Ref() *UsageType {
 }
 
 /*
+Volume Group attachment. It contains iSCSI, NVMe-TCP or direct attachment of a Volume Group.
+*/
+type VGAttachment struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	AttachmentItemDiscriminator_ *string `json:"$attachmentItemDiscriminator,omitempty"`
+
+	Attachment *OneOfVGAttachmentAttachment `json:"attachment,omitempty"`
+}
+
+func (p *VGAttachment) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VGAttachment
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VGAttachment) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VGAttachment
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VGAttachment(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$attachmentItemDiscriminator")
+	delete(allFields, "attachment")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewVGAttachment() *VGAttachment {
+	p := new(VGAttachment)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "volumes.v4.config.VGAttachment"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VGAttachment) GetAttachment() interface{} {
+	if nil == p.Attachment {
+		return nil
+	}
+	return p.Attachment.GetValue()
+}
+
+func (p *VGAttachment) SetAttachment(v interface{}) error {
+	if nil == p.Attachment {
+		p.Attachment = NewOneOfVGAttachmentAttachment()
+	}
+	e := p.Attachment.SetValue(v)
+	if nil == e {
+		if nil == p.AttachmentItemDiscriminator_ {
+			p.AttachmentItemDiscriminator_ = new(string)
+		}
+		*p.AttachmentItemDiscriminator_ = *p.Attachment.Discriminator
+	}
+	return e
+}
+
+/*
 A model that represents a VM reference that can be associated with a Volume Group as an AHV hypervisor attachment.
 */
 type VmAttachment struct {
@@ -2767,20 +5643,72 @@ type VmAttachment struct {
 
 func (p *VmAttachment) MarshalJSON() ([]byte, error) {
 	type VmAttachmentProxy VmAttachment
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*VmAttachmentProxy
 		ExtId *string `json:"extId,omitempty"`
 	}{
 		VmAttachmentProxy: (*VmAttachmentProxy)(p),
 		ExtId:             p.ExtId,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmAttachment) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmAttachment
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VmAttachment(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "index")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVmAttachment() *VmAttachment {
 	p := new(VmAttachment)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.VmAttachment"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2804,20 +5732,72 @@ type VmAttachmentProjection struct {
 
 func (p *VmAttachmentProjection) MarshalJSON() ([]byte, error) {
 	type VmAttachmentProjectionProxy VmAttachmentProjection
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*VmAttachmentProjectionProxy
 		ExtId *string `json:"extId,omitempty"`
 	}{
 		VmAttachmentProjectionProxy: (*VmAttachmentProjectionProxy)(p),
 		ExtId:                       p.ExtId,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmAttachmentProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmAttachmentProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VmAttachmentProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "index")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVmAttachmentProjection() *VmAttachmentProjection {
 	p := new(VmAttachmentProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.VmAttachmentProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2861,16 +5841,79 @@ type VolumeDisk struct {
 	*/
 	StorageContainerId *string `json:"storageContainerId,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *VolumeDisk) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeDisk
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeDisk) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeDisk
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeDisk(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "description")
+	delete(allFields, "diskDataSourceReference")
+	delete(allFields, "diskSizeBytes")
+	delete(allFields, "diskStorageFeatures")
+	delete(allFields, "extId")
+	delete(allFields, "index")
+	delete(allFields, "links")
+	delete(allFields, "storageContainerId")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVolumeDisk() *VolumeDisk {
 	p := new(VolumeDisk)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.VolumeDisk"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2911,16 +5954,79 @@ type VolumeDiskProjection struct {
 	*/
 	StorageContainerId *string `json:"storageContainerId,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *VolumeDiskProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeDiskProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeDiskProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeDiskProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeDiskProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "description")
+	delete(allFields, "diskDataSourceReference")
+	delete(allFields, "diskSizeBytes")
+	delete(allFields, "diskStorageFeatures")
+	delete(allFields, "extId")
+	delete(allFields, "index")
+	delete(allFields, "links")
+	delete(allFields, "storageContainerId")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVolumeDiskProjection() *VolumeDiskProjection {
 	p := new(VolumeDiskProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.VolumeDiskProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2937,6 +6043,10 @@ type VolumeGroup struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	AttachmentType *AttachmentType `json:"attachmentType,omitempty"`
+	/*
+	  List of attachments for a Volume Group.
+	*/
+	Attachments []VGAttachment `json:"attachments,omitempty"`
 	/*
 	  The UUID of the cluster that will host the Volume Group. This is a mandatory field for creating a Volume Group on Prism Central.
 	*/
@@ -2992,18 +6102,92 @@ type VolumeGroup struct {
 	*/
 	TargetPrefix *string `json:"targetPrefix,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	UsageType *UsageType `json:"usageType,omitempty"`
 }
 
+func (p *VolumeGroup) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroup
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroup) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroup
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroup(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "attachmentType")
+	delete(allFields, "attachments")
+	delete(allFields, "clusterReference")
+	delete(allFields, "createdBy")
+	delete(allFields, "description")
+	delete(allFields, "disks")
+	delete(allFields, "enabledAuthentications")
+	delete(allFields, "extId")
+	delete(allFields, "isHidden")
+	delete(allFields, "iscsiFeatures")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "protocol")
+	delete(allFields, "sharingStatus")
+	delete(allFields, "shouldLoadBalanceVmAttachments")
+	delete(allFields, "storageFeatures")
+	delete(allFields, "targetName")
+	delete(allFields, "targetPrefix")
+	delete(allFields, "tenantId")
+	delete(allFields, "usageType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVolumeGroup() *VolumeGroup {
 	p := new(VolumeGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.VolumeGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsHidden = new(bool)
@@ -3093,6 +6277,87 @@ func (e VolumeGroupAttachmentSite) Ref() *VolumeGroupAttachmentSite {
 	return &e
 }
 
+/*
+Delegates access to Volume Group so that the VG may be directly accessed from PE.
+*/
+type VolumeGroupDelegateAccessSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	ClientAccess *ClientAccess `json:"clientAccess,omitempty"`
+
+	Cluster *ClusterScope `json:"cluster,omitempty"`
+}
+
+func (p *VolumeGroupDelegateAccessSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroupDelegateAccessSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroupDelegateAccessSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroupDelegateAccessSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroupDelegateAccessSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clientAccess")
+	delete(allFields, "cluster")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewVolumeGroupDelegateAccessSpec() *VolumeGroupDelegateAccessSpec {
+	p := new(VolumeGroupDelegateAccessSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "volumes.v4.config.VolumeGroupDelegateAccessSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
 type VolumeGroupMetadata struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -3109,11 +6374,67 @@ type VolumeGroupMetadata struct {
 	OwnerReference *string `json:"ownerReference,omitempty"`
 }
 
+func (p *VolumeGroupMetadata) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroupMetadata
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroupMetadata) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroupMetadata
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroupMetadata(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "categoryIds")
+	delete(allFields, "ownerReference")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVolumeGroupMetadata() *VolumeGroupMetadata {
 	p := new(VolumeGroupMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.VolumeGroupMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3135,11 +6456,67 @@ type VolumeGroupMetadataProjection struct {
 	OwnerReference *string `json:"ownerReference,omitempty"`
 }
 
+func (p *VolumeGroupMetadataProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroupMetadataProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroupMetadataProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroupMetadataProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroupMetadataProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "categoryIds")
+	delete(allFields, "ownerReference")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVolumeGroupMetadataProjection() *VolumeGroupMetadataProjection {
 	p := new(VolumeGroupMetadataProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.VolumeGroupMetadataProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3153,6 +6530,10 @@ type VolumeGroupProjection struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	AttachmentType *AttachmentType `json:"attachmentType,omitempty"`
+	/*
+	  List of attachments for a Volume Group.
+	*/
+	Attachments []VGAttachment `json:"attachments,omitempty"`
 
 	ClusterProjection *ClusterProjection `json:"clusterProjection,omitempty"`
 	/*
@@ -3210,7 +6591,7 @@ type VolumeGroupProjection struct {
 	*/
 	TargetPrefix *string `json:"targetPrefix,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -3219,11 +6600,87 @@ type VolumeGroupProjection struct {
 	VolumeGroupMetadataProjection *VolumeGroupMetadataProjection `json:"volumeGroupMetadataProjection,omitempty"`
 }
 
+func (p *VolumeGroupProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroupProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroupProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroupProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroupProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "attachmentType")
+	delete(allFields, "attachments")
+	delete(allFields, "clusterProjection")
+	delete(allFields, "clusterReference")
+	delete(allFields, "createdBy")
+	delete(allFields, "description")
+	delete(allFields, "disks")
+	delete(allFields, "enabledAuthentications")
+	delete(allFields, "extId")
+	delete(allFields, "isHidden")
+	delete(allFields, "iscsiFeatures")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "protocol")
+	delete(allFields, "sharingStatus")
+	delete(allFields, "shouldLoadBalanceVmAttachments")
+	delete(allFields, "storageFeatures")
+	delete(allFields, "targetName")
+	delete(allFields, "targetPrefix")
+	delete(allFields, "tenantId")
+	delete(allFields, "usageType")
+	delete(allFields, "volumeGroupMetadataProjection")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVolumeGroupProjection() *VolumeGroupProjection {
 	p := new(VolumeGroupProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.config.VolumeGroupProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsHidden = new(bool)
@@ -3343,117 +6800,6 @@ func (p *OneOfUpdateVolumeDiskApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfUpdateVolumeDiskApiResponseData")
-}
-
-type OneOfUpdateVolumeDiskByIdApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateVolumeDiskByIdApiResponseData() *OneOfUpdateVolumeDiskByIdApiResponseData {
-	p := new(OneOfUpdateVolumeDiskByIdApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateVolumeDiskByIdApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateVolumeDiskByIdApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateVolumeDiskByIdApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateVolumeDiskByIdApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateVolumeDiskByIdApiResponseData"))
-}
-
-func (p *OneOfUpdateVolumeDiskByIdApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateVolumeDiskByIdApiResponseData")
 }
 
 type OneOfUpdateVolumeGroupApiResponseData struct {
@@ -3676,117 +7022,6 @@ func (p *OneOfDisassociateCategoryApiResponseData) MarshalJSON() ([]byte, error)
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfDisassociateCategoryApiResponseData")
-}
-
-type OneOfPauseVolumeGroupSynchronousReplicationApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfPauseVolumeGroupSynchronousReplicationApiResponseData() *OneOfPauseVolumeGroupSynchronousReplicationApiResponseData {
-	p := new(OneOfPauseVolumeGroupSynchronousReplicationApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfPauseVolumeGroupSynchronousReplicationApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfPauseVolumeGroupSynchronousReplicationApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfPauseVolumeGroupSynchronousReplicationApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfPauseVolumeGroupSynchronousReplicationApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPauseVolumeGroupSynchronousReplicationApiResponseData"))
-}
-
-func (p *OneOfPauseVolumeGroupSynchronousReplicationApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfPauseVolumeGroupSynchronousReplicationApiResponseData")
 }
 
 type OneOfGetVolumeGroupMetadataApiResponseData struct {
@@ -4481,6 +7716,143 @@ func (p *OneOfListExternalIscsiAttachmentsApiResponseData) MarshalJSON() ([]byte
 	return nil, errors.New("No value to marshal for OneOfListExternalIscsiAttachmentsApiResponseData")
 }
 
+type OneOfListExternalNvmfAttachmentsApiResponseData struct {
+	Discriminator *string                          `json:"-"`
+	ObjectType_   *string                          `json:"-"`
+	oneOfType401  []NvmfClientAttachmentProjection `json:"-"`
+	oneOfType400  *import2.ErrorResponse           `json:"-"`
+	oneOfType0    []NvmfClientAttachment           `json:"-"`
+}
+
+func NewOneOfListExternalNvmfAttachmentsApiResponseData() *OneOfListExternalNvmfAttachmentsApiResponseData {
+	p := new(OneOfListExternalNvmfAttachmentsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListExternalNvmfAttachmentsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListExternalNvmfAttachmentsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []NvmfClientAttachmentProjection:
+		p.oneOfType401 = v.([]NvmfClientAttachmentProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<volumes.v4.config.NvmfClientAttachmentProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<volumes.v4.config.NvmfClientAttachmentProjection>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []NvmfClientAttachment:
+		p.oneOfType0 = v.([]NvmfClientAttachment)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<volumes.v4.config.NvmfClientAttachment>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<volumes.v4.config.NvmfClientAttachment>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListExternalNvmfAttachmentsApiResponseData) GetValue() interface{} {
+	if "List<volumes.v4.config.NvmfClientAttachmentProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<volumes.v4.config.NvmfClientAttachment>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfListExternalNvmfAttachmentsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType401 := new([]NvmfClientAttachmentProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "volumes.v4.config.NvmfClientAttachmentProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<volumes.v4.config.NvmfClientAttachmentProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<volumes.v4.config.NvmfClientAttachmentProjection>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new([]NvmfClientAttachment)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "volumes.v4.config.NvmfClientAttachment" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<volumes.v4.config.NvmfClientAttachment>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<volumes.v4.config.NvmfClientAttachment>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListExternalNvmfAttachmentsApiResponseData"))
+}
+
+func (p *OneOfListExternalNvmfAttachmentsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<volumes.v4.config.NvmfClientAttachmentProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<volumes.v4.config.NvmfClientAttachment>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListExternalNvmfAttachmentsApiResponseData")
+}
+
 type OneOfCreateVolumeGroupApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -4840,119 +8212,6 @@ func (p *OneOfAttachNvmfClientApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfAttachNvmfClientApiResponseData")
 }
 
-type OneOfResumeVolumeGroupSynchronousReplicationApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfResumeVolumeGroupSynchronousReplicationApiResponseData() *OneOfResumeVolumeGroupSynchronousReplicationApiResponseData {
-	p := new(OneOfResumeVolumeGroupSynchronousReplicationApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfResumeVolumeGroupSynchronousReplicationApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfResumeVolumeGroupSynchronousReplicationApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfResumeVolumeGroupSynchronousReplicationApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfResumeVolumeGroupSynchronousReplicationApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfResumeVolumeGroupSynchronousReplicationApiResponseData"))
-}
-
-func (p *OneOfResumeVolumeGroupSynchronousReplicationApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfResumeVolumeGroupSynchronousReplicationApiResponseData")
-}
-
 type OneOfDetachIscsiClientApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -5064,6 +8323,155 @@ func (p *OneOfDetachIscsiClientApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDetachIscsiClientApiResponseData")
 }
 
+type OneOfVGAttachmentAttachment struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType1    *IscsiClientAttachment `json:"-"`
+	oneOfType2    *NvmfClientAttachment  `json:"-"`
+	oneOfType0    *VmAttachment          `json:"-"`
+}
+
+func NewOneOfVGAttachmentAttachment() *OneOfVGAttachmentAttachment {
+	p := new(OneOfVGAttachmentAttachment)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVGAttachmentAttachment) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVGAttachmentAttachment is nil"))
+	}
+	switch v.(type) {
+	case IscsiClientAttachment:
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(IscsiClientAttachment)
+		}
+		*p.oneOfType1 = v.(IscsiClientAttachment)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType1.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+	case NvmfClientAttachment:
+		if nil == p.oneOfType2 {
+			p.oneOfType2 = new(NvmfClientAttachment)
+		}
+		*p.oneOfType2 = v.(NvmfClientAttachment)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2.ObjectType_
+	case VmAttachment:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(VmAttachment)
+		}
+		*p.oneOfType0 = v.(VmAttachment)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVGAttachmentAttachment) GetValue() interface{} {
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	return nil
+}
+
+func (p *OneOfVGAttachmentAttachment) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(IscsiClientAttachment)
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if "volumes.v4.config.IscsiClientAttachment" == *vOneOfType1.ObjectType_ {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(IscsiClientAttachment)
+			}
+			*p.oneOfType1 = *vOneOfType1
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType1.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2 := new(NvmfClientAttachment)
+	if err := json.Unmarshal(b, vOneOfType2); err == nil {
+		if "volumes.v4.config.NvmfClientAttachment" == *vOneOfType2.ObjectType_ {
+			if nil == p.oneOfType2 {
+				p.oneOfType2 = new(NvmfClientAttachment)
+			}
+			*p.oneOfType2 = *vOneOfType2
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType0 := new(VmAttachment)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "volumes.v4.config.VmAttachment" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(VmAttachment)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVGAttachmentAttachment"))
+}
+
+func (p *OneOfVGAttachmentAttachment) MarshalJSON() ([]byte, error) {
+	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType2 != nil && *p.oneOfType2.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2)
+	}
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfVGAttachmentAttachment")
+}
+
 type OneOfListCategoryAssociationsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -5167,119 +8575,6 @@ func (p *OneOfListCategoryAssociationsApiResponseData) MarshalJSON() ([]byte, er
 		return json.Marshal(p.oneOfType0)
 	}
 	return nil, errors.New("No value to marshal for OneOfListCategoryAssociationsApiResponseData")
-}
-
-type OneOfUpdateVolumeGroupMetadataApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateVolumeGroupMetadataApiResponseData() *OneOfUpdateVolumeGroupMetadataApiResponseData {
-	p := new(OneOfUpdateVolumeGroupMetadataApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateVolumeGroupMetadataApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateVolumeGroupMetadataApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateVolumeGroupMetadataApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateVolumeGroupMetadataApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateVolumeGroupMetadataApiResponseData"))
-}
-
-func (p *OneOfUpdateVolumeGroupMetadataApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateVolumeGroupMetadataApiResponseData")
 }
 
 type OneOfAttachVmApiResponseData struct {
@@ -5502,6 +8797,117 @@ func (p *OneOfUpdateIscsiClientApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfUpdateIscsiClientApiResponseData")
+}
+
+type OneOfGetNvmfClientApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *NvmfClient            `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetNvmfClientApiResponseData() *OneOfGetNvmfClientApiResponseData {
+	p := new(OneOfGetNvmfClientApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetNvmfClientApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetNvmfClientApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case NvmfClient:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(NvmfClient)
+		}
+		*p.oneOfType0 = v.(NvmfClient)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetNvmfClientApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetNvmfClientApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(NvmfClient)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "volumes.v4.config.NvmfClient" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(NvmfClient)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetNvmfClientApiResponseData"))
+}
+
+func (p *OneOfGetNvmfClientApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetNvmfClientApiResponseData")
 }
 
 type OneOfGetVolumeGroupApiResponseData struct {
@@ -6085,119 +9491,6 @@ func (p *OneOfDetachVmApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDetachVmApiResponseData")
 }
 
-type OneOfUpdateVolumeGroupMetadataInfoApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateVolumeGroupMetadataInfoApiResponseData() *OneOfUpdateVolumeGroupMetadataInfoApiResponseData {
-	p := new(OneOfUpdateVolumeGroupMetadataInfoApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateVolumeGroupMetadataInfoApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateVolumeGroupMetadataInfoApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateVolumeGroupMetadataInfoApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateVolumeGroupMetadataInfoApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateVolumeGroupMetadataInfoApiResponseData"))
-}
-
-func (p *OneOfUpdateVolumeGroupMetadataInfoApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateVolumeGroupMetadataInfoApiResponseData")
-}
-
 type OneOfListVolumeDisksApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -6335,117 +9628,6 @@ func (p *OneOfListVolumeDisksApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfListVolumeDisksApiResponseData")
 }
 
-type OneOfMigrateVolumeGroupApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfMigrateVolumeGroupApiResponseData() *OneOfMigrateVolumeGroupApiResponseData {
-	p := new(OneOfMigrateVolumeGroupApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfMigrateVolumeGroupApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfMigrateVolumeGroupApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfMigrateVolumeGroupApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfMigrateVolumeGroupApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMigrateVolumeGroupApiResponseData"))
-}
-
-func (p *OneOfMigrateVolumeGroupApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfMigrateVolumeGroupApiResponseData")
-}
-
 type OneOfGetVolumeDiskApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -6557,38 +9739,36 @@ func (p *OneOfGetVolumeDiskApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGetVolumeDiskApiResponseData")
 }
 
-type OneOfUpdateVolumeGroupByIdApiResponseData struct {
+type OneOfListNvmfClientsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
+	oneOfType401  []NvmfClientProjection `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType0    []NvmfClient           `json:"-"`
 }
 
-func NewOneOfUpdateVolumeGroupByIdApiResponseData() *OneOfUpdateVolumeGroupByIdApiResponseData {
-	p := new(OneOfUpdateVolumeGroupByIdApiResponseData)
+func NewOneOfListNvmfClientsApiResponseData() *OneOfListNvmfClientsApiResponseData {
+	p := new(OneOfListNvmfClientsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfUpdateVolumeGroupByIdApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListNvmfClientsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateVolumeGroupByIdApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListNvmfClientsApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
+	case []NvmfClientProjection:
+		p.oneOfType401 = v.([]NvmfClientProjection)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = "List<volumes.v4.config.NvmfClientProjection>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+		*p.ObjectType_ = "List<volumes.v4.config.NvmfClientProjection>"
 	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import2.ErrorResponse)
@@ -6602,38 +9782,48 @@ func (p *OneOfUpdateVolumeGroupByIdApiResponseData) SetValue(v interface{}) erro
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []NvmfClient:
+		p.oneOfType0 = v.([]NvmfClient)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<volumes.v4.config.NvmfClient>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<volumes.v4.config.NvmfClient>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfUpdateVolumeGroupByIdApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+func (p *OneOfListNvmfClientsApiResponseData) GetValue() interface{} {
+	if "List<volumes.v4.config.NvmfClientProjection>" == *p.Discriminator {
+		return p.oneOfType401
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
+	if "List<volumes.v4.config.NvmfClient>" == *p.Discriminator {
+		return p.oneOfType0
+	}
 	return nil
 }
 
-func (p *OneOfUpdateVolumeGroupByIdApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
+func (p *OneOfListNvmfClientsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType401 := new([]NvmfClientProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "volumes.v4.config.NvmfClientProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = "List<volumes.v4.config.NvmfClientProjection>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = "List<volumes.v4.config.NvmfClientProjection>"
 			return nil
 		}
 	}
@@ -6655,17 +9845,35 @@ func (p *OneOfUpdateVolumeGroupByIdApiResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateVolumeGroupByIdApiResponseData"))
+	vOneOfType0 := new([]NvmfClient)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "volumes.v4.config.NvmfClient" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<volumes.v4.config.NvmfClient>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<volumes.v4.config.NvmfClient>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListNvmfClientsApiResponseData"))
 }
 
-func (p *OneOfUpdateVolumeGroupByIdApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+func (p *OneOfListNvmfClientsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<volumes.v4.config.NvmfClientProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateVolumeGroupByIdApiResponseData")
+	if "List<volumes.v4.config.NvmfClient>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	return nil, errors.New("No value to marshal for OneOfListNvmfClientsApiResponseData")
 }
 
 type OneOfAssociateCategoryApiResponseData struct {
@@ -7025,117 +10233,6 @@ func (p *OneOfListVmAttachmentsApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfListVmAttachmentsApiResponseData")
-}
-
-type OneOfUpdateIscsiClientByIdApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateIscsiClientByIdApiResponseData() *OneOfUpdateIscsiClientByIdApiResponseData {
-	p := new(OneOfUpdateIscsiClientByIdApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateIscsiClientByIdApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateIscsiClientByIdApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import1.TaskReference)
-		}
-		*p.oneOfType0 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateIscsiClientByIdApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateIscsiClientByIdApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import1.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateIscsiClientByIdApiResponseData"))
-}
-
-func (p *OneOfUpdateIscsiClientByIdApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateIscsiClientByIdApiResponseData")
 }
 
 type FileDetail struct {

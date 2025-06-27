@@ -1,11 +1,11 @@
 /*
  * Generated file models/volumes/v4/stats/stats_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Volumes APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -24,7 +24,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /volumes/v4.0/stats/volume-groups/{volumeGroupExtId}/disks/{extId} Get operation
+REST response for all response codes in API path /volumes/v4.1/stats/volume-groups/{volumeGroupExtId}/disks/{extId} Get operation
 */
 type GetVolumeDiskStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -42,11 +42,68 @@ type GetVolumeDiskStatsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetVolumeDiskStatsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetVolumeDiskStatsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetVolumeDiskStatsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetVolumeDiskStatsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetVolumeDiskStatsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetVolumeDiskStatsApiResponse() *GetVolumeDiskStatsApiResponse {
 	p := new(GetVolumeDiskStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.GetVolumeDiskStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -74,7 +131,7 @@ func (p *GetVolumeDiskStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.0/stats/volume-groups/{extId} Get operation
+REST response for all response codes in API path /volumes/v4.1/stats/volume-groups/{extId} Get operation
 */
 type GetVolumeGroupStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -92,11 +149,68 @@ type GetVolumeGroupStatsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetVolumeGroupStatsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetVolumeGroupStatsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetVolumeGroupStatsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetVolumeGroupStatsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetVolumeGroupStatsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetVolumeGroupStatsApiResponse() *GetVolumeGroupStatsApiResponse {
 	p := new(GetVolumeGroupStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.GetVolumeGroupStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -139,11 +253,67 @@ type TimeValuePair struct {
 	Value *int64 `json:"value,omitempty"`
 }
 
+func (p *TimeValuePair) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TimeValuePair
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TimeValuePair) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TimeValuePair
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = TimeValuePair(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "timestamp")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewTimeValuePair() *TimeValuePair {
 	p := new(TimeValuePair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.TimeValuePair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -207,7 +377,7 @@ type VolumeDiskStats struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -216,11 +386,79 @@ type VolumeDiskStats struct {
 	VolumeDiskExtId *string `json:"volumeDiskExtId,omitempty"`
 }
 
+func (p *VolumeDiskStats) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeDiskStats
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeDiskStats) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeDiskStats
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeDiskStats(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "controllerAvgIOLatencyUsecs")
+	delete(allFields, "controllerAvgReadIOLatencyUsecs")
+	delete(allFields, "controllerAvgWriteIOLatencyUsecs")
+	delete(allFields, "controllerIOBandwidthKBps")
+	delete(allFields, "controllerNumIOPS")
+	delete(allFields, "controllerNumReadIOPS")
+	delete(allFields, "controllerNumWriteIOPS")
+	delete(allFields, "controllerReadIOBandwidthKBps")
+	delete(allFields, "controllerUserBytes")
+	delete(allFields, "controllerWriteIOBandwidthKBps")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+	delete(allFields, "volumeDiskExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVolumeDiskStats() *VolumeDiskStats {
 	p := new(VolumeDiskStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeDiskStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -281,7 +519,7 @@ type VolumeDiskStatsProjection struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -290,11 +528,79 @@ type VolumeDiskStatsProjection struct {
 	VolumeDiskExtId *string `json:"volumeDiskExtId,omitempty"`
 }
 
+func (p *VolumeDiskStatsProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeDiskStatsProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeDiskStatsProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeDiskStatsProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeDiskStatsProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "controllerAvgIOLatencyUsecs")
+	delete(allFields, "controllerAvgReadIOLatencyUsecs")
+	delete(allFields, "controllerAvgWriteIOLatencyUsecs")
+	delete(allFields, "controllerIOBandwidthKBps")
+	delete(allFields, "controllerNumIOPS")
+	delete(allFields, "controllerNumReadIOPS")
+	delete(allFields, "controllerNumWriteIOPS")
+	delete(allFields, "controllerReadIOBandwidthKBps")
+	delete(allFields, "controllerUserBytes")
+	delete(allFields, "controllerWriteIOBandwidthKBps")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+	delete(allFields, "volumeDiskExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVolumeDiskStatsProjection() *VolumeDiskStatsProjection {
 	p := new(VolumeDiskStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeDiskStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -358,7 +664,7 @@ type VolumeGroupStats struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -367,11 +673,79 @@ type VolumeGroupStats struct {
 	VolumeGroupExtId *string `json:"volumeGroupExtId,omitempty"`
 }
 
+func (p *VolumeGroupStats) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroupStats
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroupStats) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroupStats
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroupStats(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "controllerAvgIOLatencyUsecs")
+	delete(allFields, "controllerAvgReadIOLatencyUsecs")
+	delete(allFields, "controllerAvgWriteIOLatencyUsecs")
+	delete(allFields, "controllerIOBandwidthKBps")
+	delete(allFields, "controllerNumIOPS")
+	delete(allFields, "controllerNumReadIOPS")
+	delete(allFields, "controllerNumWriteIOPS")
+	delete(allFields, "controllerReadIOBandwidthKBps")
+	delete(allFields, "controllerUserBytes")
+	delete(allFields, "controllerWriteIOBandwidthKBps")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+	delete(allFields, "volumeGroupExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVolumeGroupStats() *VolumeGroupStats {
 	p := new(VolumeGroupStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeGroupStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -432,7 +806,7 @@ type VolumeGroupStatsProjection struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -441,11 +815,79 @@ type VolumeGroupStatsProjection struct {
 	VolumeGroupExtId *string `json:"volumeGroupExtId,omitempty"`
 }
 
+func (p *VolumeGroupStatsProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroupStatsProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroupStatsProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroupStatsProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroupStatsProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "controllerAvgIOLatencyUsecs")
+	delete(allFields, "controllerAvgReadIOLatencyUsecs")
+	delete(allFields, "controllerAvgWriteIOLatencyUsecs")
+	delete(allFields, "controllerIOBandwidthKBps")
+	delete(allFields, "controllerNumIOPS")
+	delete(allFields, "controllerNumReadIOPS")
+	delete(allFields, "controllerNumWriteIOPS")
+	delete(allFields, "controllerReadIOBandwidthKBps")
+	delete(allFields, "controllerUserBytes")
+	delete(allFields, "controllerWriteIOBandwidthKBps")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+	delete(allFields, "volumeGroupExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVolumeGroupStatsProjection() *VolumeGroupStatsProjection {
 	p := new(VolumeGroupStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeGroupStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

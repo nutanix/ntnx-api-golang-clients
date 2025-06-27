@@ -42,7 +42,7 @@ func (api *VolumeGroupsApi) AssociateCategory(extId *string, body *import1.Categ
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}/$actions/associate-category"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}/$actions/associate-category"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -96,7 +96,7 @@ func (api *VolumeGroupsApi) AttachIscsiClient(extId *string, body *import1.Iscsi
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}/$actions/attach-iscsi-client"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}/$actions/attach-iscsi-client"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -143,6 +143,60 @@ func (api *VolumeGroupsApi) AttachIscsiClient(extId *string, body *import1.Iscsi
 	return unmarshalledResp, err
 }
 
+// Attaches a NVMe-TCP client/initiator to a Volume Group identified by its external identifier.
+func (api *VolumeGroupsApi) AttachNvmfClient(extId *string, body *import1.NvmfClient, args ...map[string]interface{}) (*import1.AttachNvmfClientApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}/$actions/attach-nvmf-client"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.AttachNvmfClientApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Attaches VM to a Volume Group identified by {extId}.
 func (api *VolumeGroupsApi) AttachVm(extId *string, body *import1.VmAttachment, args ...map[string]interface{}) (*import1.AttachVmApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -150,7 +204,7 @@ func (api *VolumeGroupsApi) AttachVm(extId *string, body *import1.VmAttachment, 
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}/$actions/attach-vm"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}/$actions/attach-vm"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -204,7 +258,7 @@ func (api *VolumeGroupsApi) CreateVolumeDisk(volumeGroupExtId *string, body *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks"
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -258,7 +312,7 @@ func (api *VolumeGroupsApi) CreateVolumeGroup(body *import1.VolumeGroup, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups"
+	uri := "/api/volumes/v4.1/config/volume-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -306,7 +360,7 @@ func (api *VolumeGroupsApi) DeleteVolumeDiskById(volumeGroupExtId *string, extId
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -361,7 +415,7 @@ func (api *VolumeGroupsApi) DeleteVolumeGroupById(extId *string, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -411,7 +465,7 @@ func (api *VolumeGroupsApi) DetachIscsiClient(extId *string, body *import1.Iscsi
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}/$actions/detach-iscsi-client"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}/$actions/detach-iscsi-client"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -458,6 +512,60 @@ func (api *VolumeGroupsApi) DetachIscsiClient(extId *string, body *import1.Iscsi
 	return unmarshalledResp, err
 }
 
+// Detaches a NVMe-TCP client/initiator from a Volume Group identified by its external identifier.
+func (api *VolumeGroupsApi) DetachNvmfClient(extId *string, body *import1.NvmfClient, args ...map[string]interface{}) (*import1.DetachNvmfClientApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}/$actions/detach-nvmf-client"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.DetachNvmfClientApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Detaches VM identified by {extId} from a Volume Group identified by {volumeGroupExtId}.
 func (api *VolumeGroupsApi) DetachVm(extId *string, body *import1.VmAttachment, args ...map[string]interface{}) (*import1.DetachVmApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -465,7 +573,7 @@ func (api *VolumeGroupsApi) DetachVm(extId *string, body *import1.VmAttachment, 
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}/$actions/detach-vm"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}/$actions/detach-vm"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -519,7 +627,7 @@ func (api *VolumeGroupsApi) DisassociateCategory(extId *string, body *import1.Ca
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}/$actions/disassociate-category"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}/$actions/disassociate-category"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -573,7 +681,7 @@ func (api *VolumeGroupsApi) GetVolumeDiskById(volumeGroupExtId *string, extId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -628,7 +736,7 @@ func (api *VolumeGroupsApi) GetVolumeDiskStats(volumeGroupExtId *string, extId *
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/stats/volume-groups/{volumeGroupExtId}/disks/{extId}"
+	uri := "/api/volumes/v4.1/stats/volume-groups/{volumeGroupExtId}/disks/{extId}"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -704,7 +812,7 @@ func (api *VolumeGroupsApi) GetVolumeGroupById(extId *string, args ...map[string
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -756,7 +864,7 @@ func (api *VolumeGroupsApi) GetVolumeGroupMetadataById(volumeGroupExtId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{volumeGroupExtId}/metadata"
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/metadata"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -806,7 +914,7 @@ func (api *VolumeGroupsApi) GetVolumeGroupStats(extId *string, startTime_ *time.
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/stats/volume-groups/{extId}"
+	uri := "/api/volumes/v4.1/stats/volume-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -879,7 +987,7 @@ func (api *VolumeGroupsApi) ListCategoryAssociationsByVolumeGroupId(volumeGroupE
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{volumeGroupExtId}/category-associations"
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/category-associations"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -938,7 +1046,7 @@ func (api *VolumeGroupsApi) ListExternalIscsiAttachmentsByVolumeGroupId(volumeGr
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{volumeGroupExtId}/external-iscsi-attachments"
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/external-iscsi-attachments"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -1000,6 +1108,77 @@ func (api *VolumeGroupsApi) ListExternalIscsiAttachmentsByVolumeGroupId(volumeGr
 	return unmarshalledResp, err
 }
 
+// Fetches a list of all external NVMe-TCP attachments for a Volume Group identified by its external identifier.
+//
+// Deprecated: This API has been deprecated.
+func (api *VolumeGroupsApi) ListExternalNvmfAttachmentsByVolumeGroupId(volumeGroupExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListExternalNvmfAttachmentsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/external-nvmf-attachments"
+
+	// verify the required parameter 'volumeGroupExtId' is set
+	if nil == volumeGroupExtId {
+		return nil, client.ReportError("volumeGroupExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"volumeGroupExtId"+"}", url.PathEscape(client.ParameterToString(*volumeGroupExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	if expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ListExternalNvmfAttachmentsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Query the list of VM attachments for a Volume Group identified by {extId}.
 //
 // Deprecated: This API has been deprecated.
@@ -1009,7 +1188,7 @@ func (api *VolumeGroupsApi) ListVmAttachmentsByVolumeGroupId(volumeGroupExtId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{volumeGroupExtId}/vm-attachments"
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/vm-attachments"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -1072,7 +1251,7 @@ func (api *VolumeGroupsApi) ListVolumeDisksByVolumeGroupId(volumeGroupExtId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks"
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -1138,7 +1317,7 @@ func (api *VolumeGroupsApi) ListVolumeGroups(page_ *int, limit_ *int, filter_ *s
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups"
+	uri := "/api/volumes/v4.1/config/volume-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1200,7 +1379,7 @@ func (api *VolumeGroupsApi) RevertVolumeGroup(extId *string, body *import1.Rever
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}/$actions/revert"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}/$actions/revert"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1254,7 +1433,7 @@ func (api *VolumeGroupsApi) UpdateVolumeDiskById(volumeGroupExtId *string, extId
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
+	uri := "/api/volumes/v4.1/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == volumeGroupExtId {
@@ -1313,7 +1492,7 @@ func (api *VolumeGroupsApi) UpdateVolumeGroupById(extId *string, body *import1.V
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.0/config/volume-groups/{extId}"
+	uri := "/api/volumes/v4.1/config/volume-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
