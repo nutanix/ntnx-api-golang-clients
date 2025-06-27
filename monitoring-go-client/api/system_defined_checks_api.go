@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type ManageAlertsApi struct {
+type SystemDefinedChecksApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewManageAlertsApi(apiClient *client.ApiClient) *ManageAlertsApi {
+func NewSystemDefinedChecksApi(apiClient *client.ApiClient) *SystemDefinedChecksApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ManageAlertsApi{
+	a := &SystemDefinedChecksApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,18 +32,18 @@ func NewManageAlertsApi(apiClient *client.ApiClient) *ManageAlertsApi {
 	return a
 }
 
-// Acknowledges or resolves the alert identified by external identifier.
-func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertActionSpec, args ...map[string]interface{}) (*import1.ManageAlertApiResponse, error) {
+// Run System-Defined Checks on a cluster.
+func (api *SystemDefinedChecksApi) RunSystemDefinedChecks(clusterExtId *string, body *import1.RunSystemDefinedChecksSpec, args ...map[string]interface{}) (*import1.RunSystemDefinedChecksApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/alerts/{extId}/$actions/manage-alert"
+	uri := "/api/monitoring/v4.1/serviceability/clusters/{clusterExtId}/$actions/run-system-defined-checks"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -51,7 +51,7 @@ func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertAction
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -81,7 +81,7 @@ func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertAction
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ManageAlertApiResponse)
+	unmarshalledResp := new(import1.RunSystemDefinedChecksApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

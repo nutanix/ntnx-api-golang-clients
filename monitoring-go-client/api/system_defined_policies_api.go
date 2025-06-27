@@ -39,7 +39,7 @@ func (api *SystemDefinedPoliciesApi) GetClusterConfigById(systemDefinedPolicyExt
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId}"
+	uri := "/api/monitoring/v4.1/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId}"
 
 	// verify the required parameter 'systemDefinedPolicyExtId' is set
 	if nil == systemDefinedPolicyExtId {
@@ -75,7 +75,7 @@ func (api *SystemDefinedPoliciesApi) GetClusterConfigById(systemDefinedPolicyExt
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -94,7 +94,7 @@ func (api *SystemDefinedPoliciesApi) GetSdaPolicyById(extId *string, args ...map
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/alerts/system-defined-policies/{extId}"
+	uri := "/api/monitoring/v4.1/serviceability/alerts/system-defined-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -125,7 +125,7 @@ func (api *SystemDefinedPoliciesApi) GetSdaPolicyById(extId *string, args ...map
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -144,7 +144,7 @@ func (api *SystemDefinedPoliciesApi) ListClusterConfigsBySdaId(systemDefinedPoli
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs"
+	uri := "/api/monitoring/v4.1/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs"
 
 	// verify the required parameter 'systemDefinedPolicyExtId' is set
 	if nil == systemDefinedPolicyExtId {
@@ -191,7 +191,7 @@ func (api *SystemDefinedPoliciesApi) ListClusterConfigsBySdaId(systemDefinedPoli
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -210,7 +210,7 @@ func (api *SystemDefinedPoliciesApi) ListSdaPolicies(page_ *int, limit_ *int, fi
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/alerts/system-defined-policies"
+	uri := "/api/monitoring/v4.1/serviceability/alerts/system-defined-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -250,7 +250,7 @@ func (api *SystemDefinedPoliciesApi) ListSdaPolicies(page_ *int, limit_ *int, fi
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -269,7 +269,7 @@ func (api *SystemDefinedPoliciesApi) UpdateClusterConfigById(systemDefinedPolicy
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId}"
+	uri := "/api/monitoring/v4.1/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId}"
 
 	// verify the required parameter 'systemDefinedPolicyExtId' is set
 	if nil == systemDefinedPolicyExtId {
@@ -309,7 +309,7 @@ func (api *SystemDefinedPoliciesApi) UpdateClusterConfigById(systemDefinedPolicy
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

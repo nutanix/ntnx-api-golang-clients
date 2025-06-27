@@ -1,11 +1,11 @@
 /*
  * Generated file models/monitoring/v4/serviceability/serviceability_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Monitoring APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -213,7 +213,7 @@ type Alert struct {
 
 	SourceEntity *import1.AlertEntityReference `json:"sourceEntity,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -222,11 +222,93 @@ type Alert struct {
 	Title *string `json:"title,omitempty"`
 }
 
+func (p *Alert) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Alert
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Alert) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Alert
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Alert(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "acknowledgedByUsername")
+	delete(allFields, "acknowledgedTime")
+	delete(allFields, "affectedEntities")
+	delete(allFields, "alertType")
+	delete(allFields, "classifications")
+	delete(allFields, "clusterUUID")
+	delete(allFields, "creationTime")
+	delete(allFields, "extId")
+	delete(allFields, "impactTypes")
+	delete(allFields, "isAcknowledged")
+	delete(allFields, "isAutoResolved")
+	delete(allFields, "isResolved")
+	delete(allFields, "isUserDefined")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "links")
+	delete(allFields, "message")
+	delete(allFields, "metricDetails")
+	delete(allFields, "originatingClusterUUID")
+	delete(allFields, "parameters")
+	delete(allFields, "resolvedByUsername")
+	delete(allFields, "resolvedTime")
+	delete(allFields, "rootCauseAnalysis")
+	delete(allFields, "serviceName")
+	delete(allFields, "severity")
+	delete(allFields, "severityTrails")
+	delete(allFields, "sourceEntity")
+	delete(allFields, "tenantId")
+	delete(allFields, "title")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAlert() *Alert {
 	p := new(Alert)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Alert"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsAcknowledged = new(bool)
@@ -256,20 +338,71 @@ type AlertActionSpec struct {
 
 func (p *AlertActionSpec) MarshalJSON() ([]byte, error) {
 	type AlertActionSpecProxy AlertActionSpec
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*AlertActionSpecProxy
 		ActionType *ActionType `json:"actionType,omitempty"`
 	}{
 		AlertActionSpecProxy: (*AlertActionSpecProxy)(p),
 		ActionType:           p.ActionType,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AlertActionSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AlertActionSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AlertActionSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "actionType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewAlertActionSpec() *AlertActionSpec {
 	p := new(AlertActionSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AlertActionSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -294,11 +427,69 @@ type AlertConfig struct {
 	WarningSeverity *SeverityConfig `json:"warningSeverity,omitempty"`
 }
 
+func (p *AlertConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AlertConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AlertConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AlertConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AlertConfig(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "autoResolve")
+	delete(allFields, "criticalSeverity")
+	delete(allFields, "infoSeverity")
+	delete(allFields, "warningSeverity")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAlertConfig() *AlertConfig {
 	p := new(AlertConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AlertConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -357,18 +548,86 @@ type AlertEmailConfiguration struct {
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	TunnelDetails *RemoteTunnelDetails `json:"tunnelDetails,omitempty"`
 }
 
+func (p *AlertEmailConfiguration) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AlertEmailConfiguration
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AlertEmailConfiguration) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AlertEmailConfiguration
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AlertEmailConfiguration(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "alertEmailDigestSendTime")
+	delete(allFields, "alertEmailDigestSendTimezone")
+	delete(allFields, "defaultNutanixEmail")
+	delete(allFields, "emailConfigRules")
+	delete(allFields, "emailContactList")
+	delete(allFields, "emailTemplate")
+	delete(allFields, "extId")
+	delete(allFields, "hasDefaultNutanixEmail")
+	delete(allFields, "isEmailDigestEnabled")
+	delete(allFields, "isEmptyAlertEmailDigestSkipped")
+	delete(allFields, "isEnabled")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+	delete(allFields, "tunnelDetails")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAlertEmailConfiguration() *AlertEmailConfiguration {
 	p := new(AlertEmailConfiguration)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AlertEmailConfiguration"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HasDefaultNutanixEmail = new(bool)
@@ -416,7 +675,9 @@ type AlertPolicyConfigurableParameter struct {
 
 func (p *AlertPolicyConfigurableParameter) MarshalJSON() ([]byte, error) {
 	type AlertPolicyConfigurableParameterProxy AlertPolicyConfigurableParameter
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*AlertPolicyConfigurableParameterProxy
 		Name       *string                                          `json:"name,omitempty"`
 		ParamValue *OneOfAlertPolicyConfigurableParameterParamValue `json:"paramValue,omitempty"`
@@ -424,14 +685,67 @@ func (p *AlertPolicyConfigurableParameter) MarshalJSON() ([]byte, error) {
 		AlertPolicyConfigurableParameterProxy: (*AlertPolicyConfigurableParameterProxy)(p),
 		Name:                                  p.Name,
 		ParamValue:                            p.ParamValue,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AlertPolicyConfigurableParameter) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AlertPolicyConfigurableParameter
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AlertPolicyConfigurableParameter(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "displayName")
+	delete(allFields, "name")
+	delete(allFields, "$paramValueItemDiscriminator")
+	delete(allFields, "paramValue")
+	delete(allFields, "unit")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewAlertPolicyConfigurableParameter() *AlertPolicyConfigurableParameter {
 	p := new(AlertPolicyConfigurableParameter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AlertPolicyConfigurableParameter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -489,20 +803,73 @@ type ArchiveOpts struct {
 
 func (p *ArchiveOpts) MarshalJSON() ([]byte, error) {
 	type ArchiveOptsProxy ArchiveOpts
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*ArchiveOptsProxy
 		UploadParams *OneOfArchiveOptsUploadParams `json:"uploadParams,omitempty"`
 	}{
 		ArchiveOptsProxy: (*ArchiveOptsProxy)(p),
 		UploadParams:     p.UploadParams,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ArchiveOpts) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ArchiveOpts
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ArchiveOpts(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "archiveName")
+	delete(allFields, "$uploadParamsItemDiscriminator")
+	delete(allFields, "uploadParams")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewArchiveOpts() *ArchiveOpts {
 	p := new(ArchiveOpts)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ArchiveOpts"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ArchiveName = new(string)
@@ -587,18 +954,88 @@ type Audit struct {
 
 	Status *Status `json:"status,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
 	UserReference *UserReference `json:"userReference,omitempty"`
 }
 
+func (p *Audit) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Audit
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Audit) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Audit
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Audit(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "affectedEntities")
+	delete(allFields, "auditType")
+	delete(allFields, "clusterReference")
+	delete(allFields, "creationTime")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "message")
+	delete(allFields, "operationEndTime")
+	delete(allFields, "operationStartTime")
+	delete(allFields, "operationType")
+	delete(allFields, "parameters")
+	delete(allFields, "serviceName")
+	delete(allFields, "sourceEntity")
+	delete(allFields, "status")
+	delete(allFields, "tenantId")
+	delete(allFields, "userReference")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAudit() *Audit {
 	p := new(Audit)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Audit"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -627,11 +1064,68 @@ type AuditEntityReference struct {
 	Type *string `json:"type,omitempty"`
 }
 
+func (p *AuditEntityReference) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AuditEntityReference
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AuditEntityReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AuditEntityReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = AuditEntityReference(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "name")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewAuditEntityReference() *AuditEntityReference {
 	p := new(AuditEntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AuditEntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -741,20 +1235,72 @@ type BooleanConfigurableParamValue struct {
 
 func (p *BooleanConfigurableParamValue) MarshalJSON() ([]byte, error) {
 	type BooleanConfigurableParamValueProxy BooleanConfigurableParamValue
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*BooleanConfigurableParamValueProxy
 		CurrentBoolValue *bool `json:"currentBoolValue,omitempty"`
 	}{
 		BooleanConfigurableParamValueProxy: (*BooleanConfigurableParamValueProxy)(p),
 		CurrentBoolValue:                   p.CurrentBoolValue,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BooleanConfigurableParamValue) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BooleanConfigurableParamValue
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BooleanConfigurableParamValue(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "currentBoolValue")
+	delete(allFields, "defaultBoolValue")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewBooleanConfigurableParamValue() *BooleanConfigurableParamValue {
 	p := new(BooleanConfigurableParamValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.BooleanConfigurableParamValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -800,16 +1346,79 @@ type ClusterConfig struct {
 	*/
 	ScheduleIntervalSeconds *int `json:"scheduleIntervalSeconds,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ClusterConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterConfig(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "alertConfig")
+	delete(allFields, "configurableParameters")
+	delete(allFields, "extId")
+	delete(allFields, "isEnabled")
+	delete(allFields, "lastModifiedByUser")
+	delete(allFields, "lastModifiedTime")
+	delete(allFields, "links")
+	delete(allFields, "scheduleIntervalSeconds")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewClusterConfig() *ClusterConfig {
 	p := new(ClusterConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ClusterConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -852,16 +1461,79 @@ type ClusterConfigProjection struct {
 	*/
 	ScheduleIntervalSeconds *int `json:"scheduleIntervalSeconds,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ClusterConfigProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterConfigProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterConfigProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterConfigProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterConfigProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "alertConfig")
+	delete(allFields, "configurableParameters")
+	delete(allFields, "extId")
+	delete(allFields, "isEnabled")
+	delete(allFields, "lastModifiedByUser")
+	delete(allFields, "lastModifiedTime")
+	delete(allFields, "links")
+	delete(allFields, "scheduleIntervalSeconds")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewClusterConfigProjection() *ClusterConfigProjection {
 	p := new(ClusterConfigProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ClusterConfigProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -947,7 +1619,7 @@ func (e ClusterType) Ref() *ClusterType {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/clusters/{extId}/$actions/collect-logs Post operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/clusters/{extId}/$actions/collect-logs Post operation
 */
 type CollectLogsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -965,11 +1637,68 @@ type CollectLogsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *CollectLogsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CollectLogsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CollectLogsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CollectLogsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = CollectLogsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewCollectLogsApiResponse() *CollectLogsApiResponse {
 	p := new(CollectLogsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.CollectLogsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1023,11 +1752,70 @@ type CommunicationStatus struct {
 	Status *ConnectionStatus `json:"status,omitempty"`
 }
 
+func (p *CommunicationStatus) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CommunicationStatus
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CommunicationStatus) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CommunicationStatus
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = CommunicationStatus(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "lastChangedTime")
+	delete(allFields, "lastCheckedTime")
+	delete(allFields, "lastSuccessfulTransmissionTime")
+	delete(allFields, "message")
+	delete(allFields, "status")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewCommunicationStatus() *CommunicationStatus {
 	p := new(CommunicationStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.CommunicationStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1060,7 +1848,9 @@ type Condition struct {
 
 func (p *Condition) MarshalJSON() ([]byte, error) {
 	type ConditionProxy Condition
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*ConditionProxy
 		MetricName     *string                       `json:"metricName,omitempty"`
 		Operator       *import1.ComparisonOperator   `json:"operator,omitempty"`
@@ -1070,14 +1860,66 @@ func (p *Condition) MarshalJSON() ([]byte, error) {
 		MetricName:     p.MetricName,
 		Operator:       p.Operator,
 		ThresholdValue: p.ThresholdValue,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Condition) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Condition
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Condition(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "metricName")
+	delete(allFields, "operator")
+	delete(allFields, "$thresholdValueItemDiscriminator")
+	delete(allFields, "thresholdValue")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewCondition() *Condition {
 	p := new(Condition)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Condition"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1133,7 +1975,9 @@ type ConfigurableParamValueRange struct {
 
 func (p *ConfigurableParamValueRange) MarshalJSON() ([]byte, error) {
 	type ConfigurableParamValueRangeProxy ConfigurableParamValueRange
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*ConfigurableParamValueRangeProxy
 		MaximumValue *OneOfConfigurableParamValueRangeMaximumValue `json:"maximumValue,omitempty"`
 		MinimumValue *OneOfConfigurableParamValueRangeMinimumValue `json:"minimumValue,omitempty"`
@@ -1141,14 +1985,66 @@ func (p *ConfigurableParamValueRange) MarshalJSON() ([]byte, error) {
 		ConfigurableParamValueRangeProxy: (*ConfigurableParamValueRangeProxy)(p),
 		MaximumValue:                     p.MaximumValue,
 		MinimumValue:                     p.MinimumValue,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ConfigurableParamValueRange) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ConfigurableParamValueRange
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ConfigurableParamValueRange(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$maximumValueItemDiscriminator")
+	delete(allFields, "maximumValue")
+	delete(allFields, "$minimumValueItemDiscriminator")
+	delete(allFields, "minimumValue")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewConfigurableParamValueRange() *ConfigurableParamValueRange {
 	p := new(ConfigurableParamValueRange)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ConfigurableParamValueRange"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1192,20 +2088,71 @@ type ConflictingPolicy struct {
 
 func (p *ConflictingPolicy) MarshalJSON() ([]byte, error) {
 	type ConflictingPolicyProxy ConflictingPolicy
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*ConflictingPolicyProxy
 		ExtId *string `json:"extId,omitempty"`
 	}{
 		ConflictingPolicyProxy: (*ConflictingPolicyProxy)(p),
 		ExtId:                  p.ExtId,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ConflictingPolicy) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ConflictingPolicy
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ConflictingPolicy(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewConflictingPolicy() *ConflictingPolicy {
 	p := new(ConflictingPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ConflictingPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1299,7 +2246,7 @@ func (e ConnectionStatus) Ref() *ConnectionStatus {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/user-defined-policies Post operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies Post operation
 */
 type CreateUdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1317,11 +2264,68 @@ type CreateUdaPolicyApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *CreateUdaPolicyApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CreateUdaPolicyApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CreateUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CreateUdaPolicyApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = CreateUdaPolicyApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewCreateUdaPolicyApiResponse() *CreateUdaPolicyApiResponse {
 	p := new(CreateUdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.CreateUdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1373,20 +2377,73 @@ type Credential struct {
 
 func (p *Credential) MarshalJSON() ([]byte, error) {
 	type CredentialProxy Credential
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*CredentialProxy
 		UserName *string `json:"userName,omitempty"`
 	}{
 		CredentialProxy: (*CredentialProxy)(p),
 		UserName:        p.UserName,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Credential) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Credential
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Credential(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "keyFilePath")
+	delete(allFields, "password")
+	delete(allFields, "userName")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewCredential() *Credential {
 	p := new(Credential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Credential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1419,7 +2476,9 @@ type CustomServerUploadParams struct {
 
 func (p *CustomServerUploadParams) MarshalJSON() ([]byte, error) {
 	type CustomServerUploadParamsProxy CustomServerUploadParams
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*CustomServerUploadParamsProxy
 		Credential    *Credential              `json:"credential,omitempty"`
 		Protocol      *ServerUploadProtocol    `json:"protocol,omitempty"`
@@ -1429,21 +2488,74 @@ func (p *CustomServerUploadParams) MarshalJSON() ([]byte, error) {
 		Credential:                    p.Credential,
 		Protocol:                      p.Protocol,
 		ServerAddress:                 p.ServerAddress,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CustomServerUploadParams) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CustomServerUploadParams
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = CustomServerUploadParams(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "credential")
+	delete(allFields, "path")
+	delete(allFields, "port")
+	delete(allFields, "protocol")
+	delete(allFields, "serverAddress")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewCustomServerUploadParams() *CustomServerUploadParams {
 	p := new(CustomServerUploadParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.CustomServerUploadParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/user-defined-policies/{extId} Delete operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies/{extId} Delete operation
 */
 type DeleteUdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1461,11 +2573,68 @@ type DeleteUdaPolicyApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *DeleteUdaPolicyApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DeleteUdaPolicyApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DeleteUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DeleteUdaPolicyApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DeleteUdaPolicyApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDeleteUdaPolicyApiResponse() *DeleteUdaPolicyApiResponse {
 	p := new(DeleteUdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.DeleteUdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1527,11 +2696,72 @@ type EmailConfigurationRule struct {
 	Severities []import1.Severity `json:"severities,omitempty"`
 }
 
+func (p *EmailConfigurationRule) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EmailConfigurationRule
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EmailConfigurationRule) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EmailConfigurationRule
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = EmailConfigurationRule(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterUuids")
+	delete(allFields, "hasGlobalEmailContactList")
+	delete(allFields, "impactTypes")
+	delete(allFields, "isEnabled")
+	delete(allFields, "matchPhrases")
+	delete(allFields, "recipients")
+	delete(allFields, "severities")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewEmailConfigurationRule() *EmailConfigurationRule {
 	p := new(EmailConfigurationRule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.EmailConfigurationRule"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HasGlobalEmailContactList = new(bool)
@@ -1561,11 +2791,67 @@ type EmailTemplate struct {
 	SubjectPrefix *string `json:"subjectPrefix,omitempty"`
 }
 
+func (p *EmailTemplate) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EmailTemplate
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EmailTemplate) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EmailTemplate
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = EmailTemplate(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "bodySuffix")
+	delete(allFields, "subjectPrefix")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewEmailTemplate() *EmailTemplate {
 	p := new(EmailTemplate)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.EmailTemplate"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1588,20 +2874,71 @@ type EntityFilter struct {
 
 func (p *EntityFilter) MarshalJSON() ([]byte, error) {
 	type EntityFilterProxy EntityFilter
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*EntityFilterProxy
 		ExtId *string `json:"extId,omitempty"`
 	}{
 		EntityFilterProxy: (*EntityFilterProxy)(p),
 		ExtId:             p.ExtId,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EntityFilter) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EntityFilter
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = EntityFilter(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewEntityFilter() *EntityFilter {
 	p := new(EntityFilter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.EntityFilter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1855,16 +3192,84 @@ type Event struct {
 
 	SourceEntity *EventEntityReference `json:"sourceEntity,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Event) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Event
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Event) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Event
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Event(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "affectedEntities")
+	delete(allFields, "classifications")
+	delete(allFields, "clusterUUID")
+	delete(allFields, "creationTime")
+	delete(allFields, "eventType")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "message")
+	delete(allFields, "metricDetails")
+	delete(allFields, "parameters")
+	delete(allFields, "serviceName")
+	delete(allFields, "sourceClusterUUID")
+	delete(allFields, "sourceEntity")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewEvent() *Event {
 	p := new(Event)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Event"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1893,18 +3298,75 @@ type EventEntityReference struct {
 	Type *string `json:"type,omitempty"`
 }
 
+func (p *EventEntityReference) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EventEntityReference
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EventEntityReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EventEntityReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = EventEntityReference(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "name")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewEventEntityReference() *EventEntityReference {
 	p := new(EventEntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.EventEntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/user-defined-policies/$actions/find-conflicts Post operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies/$actions/find-conflicts Post operation
 */
 type FindConflictingUdaPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1922,11 +3384,68 @@ type FindConflictingUdaPoliciesApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *FindConflictingUdaPoliciesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias FindConflictingUdaPoliciesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FindConflictingUdaPoliciesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FindConflictingUdaPoliciesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = FindConflictingUdaPoliciesApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewFindConflictingUdaPoliciesApiResponse() *FindConflictingUdaPoliciesApiResponse {
 	p := new(FindConflictingUdaPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.FindConflictingUdaPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1978,27 +3497,80 @@ type FloatConfigurableParamValue struct {
 
 func (p *FloatConfigurableParamValue) MarshalJSON() ([]byte, error) {
 	type FloatConfigurableParamValueProxy FloatConfigurableParamValue
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*FloatConfigurableParamValueProxy
 		CurrentFloatValue *float32 `json:"currentFloatValue,omitempty"`
 	}{
 		FloatConfigurableParamValueProxy: (*FloatConfigurableParamValueProxy)(p),
 		CurrentFloatValue:                p.CurrentFloatValue,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FloatConfigurableParamValue) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FloatConfigurableParamValue
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = FloatConfigurableParamValue(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "currentFloatValue")
+	delete(allFields, "defaultFloatValue")
+	delete(allFields, "validValueRanges")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewFloatConfigurableParamValue() *FloatConfigurableParamValue {
 	p := new(FloatConfigurableParamValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.FloatConfigurableParamValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/{extId} Get operation
 */
 type GetAlertApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2016,11 +3588,68 @@ type GetAlertApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetAlertApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetAlertApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetAlertApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetAlertApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetAlertApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetAlertApiResponse() *GetAlertApiResponse {
 	p := new(GetAlertApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetAlertApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2048,7 +3677,7 @@ func (p *GetAlertApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/email-config Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/email-config Get operation
 */
 type GetAlertEmailConfigurationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2066,11 +3695,68 @@ type GetAlertEmailConfigurationApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetAlertEmailConfigurationApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetAlertEmailConfigurationApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetAlertEmailConfigurationApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetAlertEmailConfigurationApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetAlertEmailConfigurationApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetAlertEmailConfigurationApiResponse() *GetAlertEmailConfigurationApiResponse {
 	p := new(GetAlertEmailConfigurationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetAlertEmailConfigurationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2098,7 +3784,7 @@ func (p *GetAlertEmailConfigurationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/audits/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/audits/{extId} Get operation
 */
 type GetAuditApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2116,11 +3802,68 @@ type GetAuditApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetAuditApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetAuditApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetAuditApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetAuditApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetAuditApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetAuditApiResponse() *GetAuditApiResponse {
 	p := new(GetAuditApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetAuditApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2148,7 +3891,7 @@ func (p *GetAuditApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId} Get operation
 */
 type GetClusterConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2166,11 +3909,68 @@ type GetClusterConfigApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetClusterConfigApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetClusterConfigApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetClusterConfigApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetClusterConfigApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetClusterConfigApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetClusterConfigApiResponse() *GetClusterConfigApiResponse {
 	p := new(GetClusterConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetClusterConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2198,7 +3998,7 @@ func (p *GetClusterConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/events/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/events/{extId} Get operation
 */
 type GetEventApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2216,11 +4016,68 @@ type GetEventApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetEventApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetEventApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetEventApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetEventApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetEventApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetEventApiResponse() *GetEventApiResponse {
 	p := new(GetEventApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetEventApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2248,7 +4105,7 @@ func (p *GetEventApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/system-defined-policies/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies/{extId} Get operation
 */
 type GetSdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2266,11 +4123,68 @@ type GetSdaPolicyApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetSdaPolicyApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetSdaPolicyApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetSdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetSdaPolicyApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetSdaPolicyApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetSdaPolicyApiResponse() *GetSdaPolicyApiResponse {
 	p := new(GetSdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetSdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2298,7 +4212,7 @@ func (p *GetSdaPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/user-defined-policies/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies/{extId} Get operation
 */
 type GetUdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2316,11 +4230,68 @@ type GetUdaPolicyApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetUdaPolicyApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetUdaPolicyApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetUdaPolicyApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetUdaPolicyApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetUdaPolicyApiResponse() *GetUdaPolicyApiResponse {
 	p := new(GetUdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetUdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2445,7 +4416,9 @@ type GroupFilter struct {
 
 func (p *GroupFilter) MarshalJSON() ([]byte, error) {
 	type GroupFilterProxy GroupFilter
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*GroupFilterProxy
 		ExtId *string          `json:"extId,omitempty"`
 		Type  *GroupEntityType `json:"type,omitempty"`
@@ -2453,14 +4426,64 @@ func (p *GroupFilter) MarshalJSON() ([]byte, error) {
 		GroupFilterProxy: (*GroupFilterProxy)(p),
 		ExtId:            p.ExtId,
 		Type:             p.Type,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GroupFilter) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GroupFilter
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GroupFilter(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewGroupFilter() *GroupFilter {
 	p := new(GroupFilter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GroupFilter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2499,11 +4522,71 @@ type HttpProxy struct {
 	Username *string `json:"username,omitempty"`
 }
 
+func (p *HttpProxy) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias HttpProxy
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *HttpProxy) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias HttpProxy
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = HttpProxy(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "addressValue")
+	delete(allFields, "name")
+	delete(allFields, "password")
+	delete(allFields, "port")
+	delete(allFields, "proxyTypes")
+	delete(allFields, "username")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewHttpProxy() *HttpProxy {
 	p := new(HttpProxy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.HttpProxy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2534,27 +4617,80 @@ type IntConfigurableParamValue struct {
 
 func (p *IntConfigurableParamValue) MarshalJSON() ([]byte, error) {
 	type IntConfigurableParamValueProxy IntConfigurableParamValue
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*IntConfigurableParamValueProxy
 		CurrentIntValue *int64 `json:"currentIntValue,omitempty"`
 	}{
 		IntConfigurableParamValueProxy: (*IntConfigurableParamValueProxy)(p),
 		CurrentIntValue:                p.CurrentIntValue,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IntConfigurableParamValue) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IntConfigurableParamValue
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = IntConfigurableParamValue(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "currentIntValue")
+	delete(allFields, "defaultIntValue")
+	delete(allFields, "validValueRanges")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewIntConfigurableParamValue() *IntConfigurableParamValue {
 	p := new(IntConfigurableParamValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.IntConfigurableParamValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts Get operation
 */
 type ListAlertsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2572,11 +4708,68 @@ type ListAlertsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListAlertsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListAlertsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListAlertsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListAlertsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListAlertsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListAlertsApiResponse() *ListAlertsApiResponse {
 	p := new(ListAlertsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListAlertsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2604,7 +4797,7 @@ func (p *ListAlertsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/audits Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/audits Get operation
 */
 type ListAuditsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2622,11 +4815,68 @@ type ListAuditsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListAuditsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListAuditsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListAuditsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListAuditsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListAuditsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListAuditsApiResponse() *ListAuditsApiResponse {
 	p := new(ListAuditsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListAuditsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2654,7 +4904,7 @@ func (p *ListAuditsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs Get operation
 */
 type ListClusterConfigsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2672,11 +4922,68 @@ type ListClusterConfigsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListClusterConfigsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListClusterConfigsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListClusterConfigsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListClusterConfigsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListClusterConfigsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListClusterConfigsApiResponse() *ListClusterConfigsApiResponse {
 	p := new(ListClusterConfigsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListClusterConfigsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2704,7 +5011,7 @@ func (p *ListClusterConfigsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/events Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/events Get operation
 */
 type ListEventsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2722,11 +5029,68 @@ type ListEventsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListEventsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListEventsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListEventsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListEventsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListEventsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListEventsApiResponse() *ListEventsApiResponse {
 	p := new(ListEventsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListEventsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2754,7 +5118,7 @@ func (p *ListEventsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/system-defined-policies Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies Get operation
 */
 type ListSdaPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2772,11 +5136,68 @@ type ListSdaPoliciesApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListSdaPoliciesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListSdaPoliciesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListSdaPoliciesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListSdaPoliciesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListSdaPoliciesApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListSdaPoliciesApiResponse() *ListSdaPoliciesApiResponse {
 	p := new(ListSdaPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListSdaPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2804,7 +5225,7 @@ func (p *ListSdaPoliciesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/clusters/{clusterExtId}/tags Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/clusters/{clusterExtId}/tags Get operation
 */
 type ListTagsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2822,11 +5243,68 @@ type ListTagsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListTagsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListTagsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListTagsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListTagsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListTagsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListTagsApiResponse() *ListTagsApiResponse {
 	p := new(ListTagsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListTagsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2854,7 +5332,7 @@ func (p *ListTagsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/user-defined-policies Get operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies Get operation
 */
 type ListUdaPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2872,11 +5350,68 @@ type ListUdaPoliciesApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListUdaPoliciesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListUdaPoliciesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListUdaPoliciesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListUdaPoliciesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListUdaPoliciesApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListUdaPoliciesApiResponse() *ListUdaPoliciesApiResponse {
 	p := new(ListUdaPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListUdaPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2918,11 +5453,66 @@ type LocalUploadParams struct {
 	Path *string `json:"path,omitempty"`
 }
 
+func (p *LocalUploadParams) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias LocalUploadParams
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *LocalUploadParams) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias LocalUploadParams
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = LocalUploadParams(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "path")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewLocalUploadParams() *LocalUploadParams {
 	p := new(LocalUploadParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.LocalUploadParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Path = new(string)
@@ -2998,7 +5588,9 @@ type LogCollectionSpec struct {
 
 func (p *LogCollectionSpec) MarshalJSON() ([]byte, error) {
 	type LogCollectionSpecProxy LogCollectionSpec
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*LogCollectionSpecProxy
 		ArchiveOpts *ArchiveOpts `json:"archiveOpts,omitempty"`
 		EndTime     *time.Time   `json:"endTime,omitempty"`
@@ -3008,14 +5600,71 @@ func (p *LogCollectionSpec) MarshalJSON() ([]byte, error) {
 		ArchiveOpts:            p.ArchiveOpts,
 		EndTime:                p.EndTime,
 		StartTime:              p.StartTime,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *LogCollectionSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias LogCollectionSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = LogCollectionSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "archiveOpts")
+	delete(allFields, "description")
+	delete(allFields, "endTime")
+	delete(allFields, "excludeTags")
+	delete(allFields, "includeTags")
+	delete(allFields, "nodeIpList")
+	delete(allFields, "shouldAnonymize")
+	delete(allFields, "shouldCollectFromDisabledNode")
+	delete(allFields, "startTime")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewLogCollectionSpec() *LogCollectionSpec {
 	p := new(LogCollectionSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.LogCollectionSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Description = new(string)
@@ -3029,7 +5678,7 @@ func NewLogCollectionSpec() *LogCollectionSpec {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/{extId}/$actions/manage-alert Post operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/{extId}/$actions/manage-alert Post operation
 */
 type ManageAlertApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3047,11 +5696,68 @@ type ManageAlertApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ManageAlertApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ManageAlertApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ManageAlertApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ManageAlertApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ManageAlertApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewManageAlertApiResponse() *ManageAlertApiResponse {
 	p := new(ManageAlertApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ManageAlertApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3097,20 +5803,72 @@ type NtnxServerUploadParams struct {
 
 func (p *NtnxServerUploadParams) MarshalJSON() ([]byte, error) {
 	type NtnxServerUploadParamsProxy NtnxServerUploadParams
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*NtnxServerUploadParamsProxy
 		CaseNumber *int64 `json:"caseNumber,omitempty"`
 	}{
 		NtnxServerUploadParamsProxy: (*NtnxServerUploadParamsProxy)(p),
 		CaseNumber:                  p.CaseNumber,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *NtnxServerUploadParams) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias NtnxServerUploadParams
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = NtnxServerUploadParams(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "caseNumber")
+	delete(allFields, "protocol")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewNtnxServerUploadParams() *NtnxServerUploadParams {
 	p := new(NtnxServerUploadParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.NtnxServerUploadParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3135,11 +5893,67 @@ type ParameterizedMessage struct {
 	Message *string `json:"message,omitempty"`
 }
 
+func (p *ParameterizedMessage) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ParameterizedMessage
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ParameterizedMessage) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ParameterizedMessage
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ParameterizedMessage(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "attributes")
+	delete(allFields, "message")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewParameterizedMessage() *ParameterizedMessage {
 	p := new(ParameterizedMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ParameterizedMessage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3408,7 +6222,9 @@ type RelatedPolicy struct {
 
 func (p *RelatedPolicy) MarshalJSON() ([]byte, error) {
 	type RelatedPolicyProxy RelatedPolicy
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*RelatedPolicyProxy
 		EntityUuid *string  `json:"entityUuid,omitempty"`
 		PolicyIds  []string `json:"policyIds,omitempty"`
@@ -3416,14 +6232,64 @@ func (p *RelatedPolicy) MarshalJSON() ([]byte, error) {
 		RelatedPolicyProxy: (*RelatedPolicyProxy)(p),
 		EntityUuid:         p.EntityUuid,
 		PolicyIds:          p.PolicyIds,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RelatedPolicy) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RelatedPolicy
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RelatedPolicy(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "entityUuid")
+	delete(allFields, "policyIds")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewRelatedPolicy() *RelatedPolicy {
 	p := new(RelatedPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RelatedPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3448,11 +6314,69 @@ type RemoteTunnelDetails struct {
 	TransportStatus *CommunicationStatus `json:"transportStatus,omitempty"`
 }
 
+func (p *RemoteTunnelDetails) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RemoteTunnelDetails
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RemoteTunnelDetails) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RemoteTunnelDetails
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RemoteTunnelDetails(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "connectionStatus")
+	delete(allFields, "httpProxy")
+	delete(allFields, "serviceCenter")
+	delete(allFields, "transportStatus")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewRemoteTunnelDetails() *RemoteTunnelDetails {
 	p := new(RemoteTunnelDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RemoteTunnelDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3478,11 +6402,68 @@ type RootCauseAnalysis struct {
 	Resolution *string `json:"resolution,omitempty"`
 }
 
+func (p *RootCauseAnalysis) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RootCauseAnalysis
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RootCauseAnalysis) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RootCauseAnalysis
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RootCauseAnalysis(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "cause")
+	delete(allFields, "detail")
+	delete(allFields, "resolution")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewRootCauseAnalysis() *RootCauseAnalysis {
 	p := new(RootCauseAnalysis)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RootCauseAnalysis"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3508,12 +6489,288 @@ type RootCauseAnalysisProjection struct {
 	Resolution *string `json:"resolution,omitempty"`
 }
 
+func (p *RootCauseAnalysisProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RootCauseAnalysisProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RootCauseAnalysisProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RootCauseAnalysisProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RootCauseAnalysisProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "cause")
+	delete(allFields, "detail")
+	delete(allFields, "resolution")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewRootCauseAnalysisProjection() *RootCauseAnalysisProjection {
 	p := new(RootCauseAnalysisProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RootCauseAnalysisProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /monitoring/v4.1/serviceability/clusters/{clusterExtId}/$actions/run-system-defined-checks Post operation
+*/
+type RunSystemDefinedChecksApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfRunSystemDefinedChecksApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *RunSystemDefinedChecksApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RunSystemDefinedChecksApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RunSystemDefinedChecksApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RunSystemDefinedChecksApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RunSystemDefinedChecksApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewRunSystemDefinedChecksApiResponse() *RunSystemDefinedChecksApiResponse {
+	p := new(RunSystemDefinedChecksApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "monitoring.v4.serviceability.RunSystemDefinedChecksApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *RunSystemDefinedChecksApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *RunSystemDefinedChecksApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfRunSystemDefinedChecksApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Required parameters for running the System-Defined Checks.
+*/
+type RunSystemDefinedChecksSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A list of additional email addresses for sending the check run summary.
+	*/
+	AdditionalRecipients []string `json:"additionalRecipients,omitempty"`
+	/*
+	  List of node IP addresses where the Check will run. This field will be ignored if the check scope is a cluster.
+	*/
+	NodeIps []import5.IPv4Address `json:"nodeIps,omitempty"`
+	/*
+	  List of Check IDs to be executed. This field cannot be set simultaneously with shouldRunAllChecks; only one of them should be specified.
+	*/
+	SdaExtIds []string `json:"sdaExtIds,omitempty"`
+	/*
+	  Indicates whether to mask sensitive data in the check run summary.
+	*/
+	ShouldAnonymize *bool `json:"shouldAnonymize,omitempty"`
+	/*
+	  Indicates whether all System-Defined Checks applicable to the specified cluster should be executed. This field is mutually exclusive with the sdaExtIds parameter, meaning that only one of these should be set at a time. Please use this field with caution, as it is resource-intensive.
+	*/
+	ShouldRunAllChecks *bool `json:"shouldRunAllChecks,omitempty"`
+	/*
+	  Determines if the run summary should be sent to the configured email address associated with the cluster.
+	*/
+	ShouldSendReportToConfiguredRecipients *bool `json:"shouldSendReportToConfiguredRecipients,omitempty"`
+}
+
+func (p *RunSystemDefinedChecksSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RunSystemDefinedChecksSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RunSystemDefinedChecksSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RunSystemDefinedChecksSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = RunSystemDefinedChecksSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "additionalRecipients")
+	delete(allFields, "nodeIps")
+	delete(allFields, "sdaExtIds")
+	delete(allFields, "shouldAnonymize")
+	delete(allFields, "shouldRunAllChecks")
+	delete(allFields, "shouldSendReportToConfiguredRecipients")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
+func NewRunSystemDefinedChecksSpec() *RunSystemDefinedChecksSpec {
+	p := new(RunSystemDefinedChecksSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "monitoring.v4.serviceability.RunSystemDefinedChecksSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.ShouldAnonymize = new(bool)
+	*p.ShouldAnonymize = true
+	p.ShouldRunAllChecks = new(bool)
+	*p.ShouldRunAllChecks = false
+	p.ShouldSendReportToConfiguredRecipients = new(bool)
+	*p.ShouldSendReportToConfiguredRecipients = true
 
 	return p
 }
@@ -3865,11 +7122,69 @@ type ServiceCenter struct {
 	Username *string `json:"username,omitempty"`
 }
 
+func (p *ServiceCenter) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ServiceCenter
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ServiceCenter) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ServiceCenter
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ServiceCenter(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "ipAddress")
+	delete(allFields, "name")
+	delete(allFields, "port")
+	delete(allFields, "username")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewServiceCenter() *ServiceCenter {
 	p := new(ServiceCenter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ServiceCenter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3892,11 +7207,67 @@ type SeverityConfig struct {
 	ThresholdParameters []AlertPolicyConfigurableParameter `json:"thresholdParameters,omitempty"`
 }
 
+func (p *SeverityConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SeverityConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SeverityConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SeverityConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = SeverityConfig(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "state")
+	delete(allFields, "thresholdParameters")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewSeverityConfig() *SeverityConfig {
 	p := new(SeverityConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.SeverityConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3919,11 +7290,67 @@ type SeverityTrail struct {
 	SeverityChangeTime *time.Time `json:"severityChangeTime,omitempty"`
 }
 
+func (p *SeverityTrail) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SeverityTrail
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SeverityTrail) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SeverityTrail
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = SeverityTrail(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "severity")
+	delete(allFields, "severityChangeTime")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewSeverityTrail() *SeverityTrail {
 	p := new(SeverityTrail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.SeverityTrail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4038,7 +7465,9 @@ type StorageContainerUploadParams struct {
 
 func (p *StorageContainerUploadParams) MarshalJSON() ([]byte, error) {
 	type StorageContainerUploadParamsProxy StorageContainerUploadParams
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*StorageContainerUploadParamsProxy
 		Credential *Credential `json:"credential,omitempty"`
 		Path       *string     `json:"path,omitempty"`
@@ -4046,14 +7475,66 @@ func (p *StorageContainerUploadParams) MarshalJSON() ([]byte, error) {
 		StorageContainerUploadParamsProxy: (*StorageContainerUploadParamsProxy)(p),
 		Credential:                        p.Credential,
 		Path:                              p.Path,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StorageContainerUploadParams) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StorageContainerUploadParams
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = StorageContainerUploadParams(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "credential")
+	delete(allFields, "ipAddress")
+	delete(allFields, "path")
+	delete(allFields, "port")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewStorageContainerUploadParams() *StorageContainerUploadParams {
 	p := new(StorageContainerUploadParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.StorageContainerUploadParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Port = new(int)
@@ -4083,20 +7564,72 @@ type StringConfigurableParamValue struct {
 
 func (p *StringConfigurableParamValue) MarshalJSON() ([]byte, error) {
 	type StringConfigurableParamValueProxy StringConfigurableParamValue
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*StringConfigurableParamValueProxy
 		CurrentStrValue *string `json:"currentStrValue,omitempty"`
 	}{
 		StringConfigurableParamValueProxy: (*StringConfigurableParamValueProxy)(p),
 		CurrentStrValue:                   p.CurrentStrValue,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StringConfigurableParamValue) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StringConfigurableParamValue
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = StringConfigurableParamValue(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "currentStrValue")
+	delete(allFields, "defaultStrValue")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewStringConfigurableParamValue() *StringConfigurableParamValue {
 	p := new(StringConfigurableParamValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.StringConfigurableParamValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4162,7 +7695,7 @@ type SystemDefinedPolicy struct {
 	*/
 	TargetClusters []ClusterType `json:"targetClusters,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -4173,11 +7706,82 @@ type SystemDefinedPolicy struct {
 	Type *SdaType `json:"type,omitempty"`
 }
 
+func (p *SystemDefinedPolicy) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SystemDefinedPolicy
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SystemDefinedPolicy) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SystemDefinedPolicy
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = SystemDefinedPolicy(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "classifications")
+	delete(allFields, "clusterConfigs")
+	delete(allFields, "description")
+	delete(allFields, "entityType")
+	delete(allFields, "extId")
+	delete(allFields, "impactTypes")
+	delete(allFields, "kbArticles")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "policyId")
+	delete(allFields, "publisher")
+	delete(allFields, "scope")
+	delete(allFields, "subType")
+	delete(allFields, "targetClusters")
+	delete(allFields, "tenantId")
+	delete(allFields, "title")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewSystemDefinedPolicy() *SystemDefinedPolicy {
 	p := new(SystemDefinedPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.SystemDefinedPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Publisher = new(string)
@@ -4212,16 +7816,75 @@ type Tag struct {
 	*/
 	Name *string `json:"name,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Tag) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Tag
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Tag) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Tag
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Tag(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "description")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewTag() *Tag {
 	p := new(Tag)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Tag"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4243,7 +7906,9 @@ type TriggerCondition struct {
 
 func (p *TriggerCondition) MarshalJSON() ([]byte, error) {
 	type TriggerConditionProxy TriggerCondition
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*TriggerConditionProxy
 		Condition     *Condition             `json:"condition,omitempty"`
 		ConditionType *import1.ConditionType `json:"conditionType,omitempty"`
@@ -4253,21 +7918,72 @@ func (p *TriggerCondition) MarshalJSON() ([]byte, error) {
 		Condition:             p.Condition,
 		ConditionType:         p.ConditionType,
 		SeverityLevel:         p.SeverityLevel,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TriggerCondition) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TriggerCondition
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = TriggerCondition(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "condition")
+	delete(allFields, "conditionType")
+	delete(allFields, "severityLevel")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewTriggerCondition() *TriggerCondition {
 	p := new(TriggerCondition)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.TriggerCondition"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/email-config Put operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/email-config Put operation
 */
 type UpdateAlertEmailConfigurationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4285,11 +8001,68 @@ type UpdateAlertEmailConfigurationApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *UpdateAlertEmailConfigurationApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateAlertEmailConfigurationApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateAlertEmailConfigurationApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateAlertEmailConfigurationApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = UpdateAlertEmailConfigurationApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewUpdateAlertEmailConfigurationApiResponse() *UpdateAlertEmailConfigurationApiResponse {
 	p := new(UpdateAlertEmailConfigurationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UpdateAlertEmailConfigurationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4317,7 +8090,7 @@ func (p *UpdateAlertEmailConfigurationApiResponse) SetData(v interface{}) error 
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId} Put operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId} Put operation
 */
 type UpdateClusterConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4335,11 +8108,68 @@ type UpdateClusterConfigApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *UpdateClusterConfigApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateClusterConfigApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateClusterConfigApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateClusterConfigApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = UpdateClusterConfigApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewUpdateClusterConfigApiResponse() *UpdateClusterConfigApiResponse {
 	p := new(UpdateClusterConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UpdateClusterConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4367,7 +8197,7 @@ func (p *UpdateClusterConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.0/serviceability/alerts/user-defined-policies/{extId} Put operation
+REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies/{extId} Put operation
 */
 type UpdateUdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4385,11 +8215,68 @@ type UpdateUdaPolicyApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *UpdateUdaPolicyApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateUdaPolicyApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateUdaPolicyApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = UpdateUdaPolicyApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewUpdateUdaPolicyApiResponse() *UpdateUdaPolicyApiResponse {
 	p := new(UpdateUdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UpdateUdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4477,7 +8364,7 @@ type UserDefinedPolicy struct {
 	*/
 	RelatedPolicies []RelatedPolicy `json:"relatedPolicies,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -4496,7 +8383,9 @@ type UserDefinedPolicy struct {
 
 func (p *UserDefinedPolicy) MarshalJSON() ([]byte, error) {
 	type UserDefinedPolicyProxy UserDefinedPolicy
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*UserDefinedPolicyProxy
 		EntityType        *string            `json:"entityType,omitempty"`
 		Title             *string            `json:"title,omitempty"`
@@ -4506,14 +8395,80 @@ func (p *UserDefinedPolicy) MarshalJSON() ([]byte, error) {
 		EntityType:             p.EntityType,
 		Title:                  p.Title,
 		TriggerConditions:      p.TriggerConditions,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UserDefinedPolicy) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UserDefinedPolicy
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = UserDefinedPolicy(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "createdBy")
+	delete(allFields, "description")
+	delete(allFields, "entityType")
+	delete(allFields, "extId")
+	delete(allFields, "$filtersItemDiscriminator")
+	delete(allFields, "filters")
+	delete(allFields, "impactTypes")
+	delete(allFields, "isAutoResolved")
+	delete(allFields, "isEnabled")
+	delete(allFields, "isExpectedToErrorOnConflict")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "links")
+	delete(allFields, "policiesToOverride")
+	delete(allFields, "relatedPolicies")
+	delete(allFields, "tenantId")
+	delete(allFields, "title")
+	delete(allFields, "triggerConditions")
+	delete(allFields, "triggerWaitPeriod")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewUserDefinedPolicy() *UserDefinedPolicy {
 	p := new(UserDefinedPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UserDefinedPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsAutoResolved = new(bool)
@@ -4570,11 +8525,68 @@ type UserReference struct {
 	Name *string `json:"name,omitempty"`
 }
 
+func (p *UserReference) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UserReference
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UserReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UserReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = UserReference(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "ipAddress")
+	delete(allFields, "name")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewUserReference() *UserReference {
 	p := new(UserReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UserReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5302,6 +9314,117 @@ func (p *OneOfAlertPolicyConfigurableParameterParamValue) MarshalJSON() ([]byte,
 		return json.Marshal(p.oneOfType1)
 	}
 	return nil, errors.New("No value to marshal for OneOfAlertPolicyConfigurableParameterParamValue")
+}
+
+type OneOfRunSystemDefinedChecksApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfRunSystemDefinedChecksApiResponseData() *OneOfRunSystemDefinedChecksApiResponseData {
+	p := new(OneOfRunSystemDefinedChecksApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRunSystemDefinedChecksApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRunSystemDefinedChecksApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRunSystemDefinedChecksApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfRunSystemDefinedChecksApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import3.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "monitoring.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRunSystemDefinedChecksApiResponseData"))
+}
+
+func (p *OneOfRunSystemDefinedChecksApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfRunSystemDefinedChecksApiResponseData")
 }
 
 type OneOfGetAlertApiResponseData struct {

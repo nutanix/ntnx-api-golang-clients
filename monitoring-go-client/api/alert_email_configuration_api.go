@@ -39,7 +39,7 @@ func (api *AlertEmailConfigurationApi) GetAlertEmailConfiguration(args ...map[st
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/alerts/email-config"
+	uri := "/api/monitoring/v4.1/serviceability/alerts/email-config"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -63,7 +63,7 @@ func (api *AlertEmailConfigurationApi) GetAlertEmailConfiguration(args ...map[st
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -82,7 +82,7 @@ func (api *AlertEmailConfigurationApi) UpdateAlertEmailConfiguration(body *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/alerts/email-config"
+	uri := "/api/monitoring/v4.1/serviceability/alerts/email-config"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -111,7 +111,7 @@ func (api *AlertEmailConfigurationApi) UpdateAlertEmailConfiguration(body *impor
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

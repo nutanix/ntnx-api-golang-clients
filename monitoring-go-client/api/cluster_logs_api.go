@@ -39,7 +39,7 @@ func (api *ClusterLogsApi) CollectLogs(extId *string, body *import1.LogCollectio
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/clusters/{extId}/$actions/collect-logs"
+	uri := "/api/monitoring/v4.1/serviceability/clusters/{extId}/$actions/collect-logs"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -74,7 +74,7 @@ func (api *ClusterLogsApi) CollectLogs(extId *string, body *import1.LogCollectio
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -93,7 +93,7 @@ func (api *ClusterLogsApi) ListTags(clusterExtId *string, page_ *int, limit_ *in
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.0/serviceability/clusters/{clusterExtId}/tags"
+	uri := "/api/monitoring/v4.1/serviceability/clusters/{clusterExtId}/tags"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -140,7 +140,7 @@ func (api *ClusterLogsApi) ListTags(clusterExtId *string, page_ *int, limit_ *in
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
