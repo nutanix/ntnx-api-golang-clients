@@ -37,13 +37,13 @@ func NewNetworkSecurityPoliciesApi(apiClient *client.ApiClient) *NetworkSecurity
 }
 
 // Imports all the Network Security Policies specified by the data file.
-func (api *NetworkSecurityPoliciesApi) ApplyNetworkSecurityPolicyImport(path *string, dryrun_ *bool, args ...map[string]interface{}) (*import1.CreateNetworkSecurityPolicyImportApiResponse, error) {
+func (api *NetworkSecurityPoliciesApi) ApplyNetworkSecurityPolicyImport(path *string, nTNXPurgePolicies *bool, dryrun_ *bool, args ...map[string]interface{}) (*import1.CreateNetworkSecurityPolicyImportApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/policies/$actions/import"
+	uri := "/api/microseg/v4.1/config/policies/$actions/import"
 
 	// verify the required parameter 'path' is set
 	if nil == path {
@@ -63,6 +63,9 @@ func (api *NetworkSecurityPoliciesApi) ApplyNetworkSecurityPolicyImport(path *st
 	// Query Params
 	if dryrun_ != nil {
 		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
+	}
+	if nTNXPurgePolicies != nil {
+		headerParams["NTNX-Purge-Policies"] = client.ParameterToString(*nTNXPurgePolicies, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -107,7 +110,7 @@ func (api *NetworkSecurityPoliciesApi) CreateNetworkSecurityPolicy(body *import1
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/policies"
+	uri := "/api/microseg/v4.1/config/policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -155,7 +158,7 @@ func (api *NetworkSecurityPoliciesApi) DeleteNetworkSecurityPolicyById(extId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/policies/{extId}"
+	uri := "/api/microseg/v4.1/config/policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -199,20 +202,20 @@ func (api *NetworkSecurityPoliciesApi) DeleteNetworkSecurityPolicyById(extId *st
 }
 
 // Prepares and exports all the Network Security Policies in the system. Export is achieved using two APIs. 1. POST /policies/$actions/prepare-export (ASYNC) - Serializes Network Security Policies and stores in DB. 2. GET /policies, Accept: application/octet-stream (SYNC) - Retrieves from DB and flushes to response.
-func (api *NetworkSecurityPoliciesApi) ExportNetworkSecurityPolicy(args ...map[string]interface{}) (*import1.CreateNetworkSecurityPolicyExportApiResponse, error) {
+func (api *NetworkSecurityPoliciesApi) ExportNetworkSecurityPolicy(body *import1.NetworkSecurityPolicyExportSpec, args ...map[string]interface{}) (*import1.CreateNetworkSecurityPolicyExportApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/policies/$actions/prepare-export"
+	uri := "/api/microseg/v4.1/config/policies/$actions/prepare-export"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{}
+	contentTypes := []string{"application/json"}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
@@ -231,7 +234,7 @@ func (api *NetworkSecurityPoliciesApi) ExportNetworkSecurityPolicy(args ...map[s
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -248,7 +251,7 @@ func (api *NetworkSecurityPoliciesApi) GetNetworkSecurityPolicyById(extId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/policies/{extId}"
+	uri := "/api/microseg/v4.1/config/policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -298,7 +301,7 @@ func (api *NetworkSecurityPoliciesApi) ListNetworkSecurityPolicies(page_ *int, l
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/policies"
+	uri := "/api/microseg/v4.1/config/policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -386,7 +389,7 @@ func (api *NetworkSecurityPoliciesApi) ListNetworkSecurityPolicyRules(policyExtI
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/policies/{policyExtId}/rules"
+	uri := "/api/microseg/v4.1/config/policies/{policyExtId}/rules"
 
 	// verify the required parameter 'policyExtId' is set
 	if nil == policyExtId {
@@ -452,7 +455,7 @@ func (api *NetworkSecurityPoliciesApi) UpdateNetworkSecurityPolicyById(extId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/policies/{extId}"
+	uri := "/api/microseg/v4.1/config/policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

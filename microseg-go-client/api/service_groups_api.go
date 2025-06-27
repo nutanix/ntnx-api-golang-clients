@@ -39,7 +39,7 @@ func (api *ServiceGroupsApi) CreateServiceGroup(body *import1.ServiceGroup, args
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/service-groups"
+	uri := "/api/microseg/v4.1/config/service-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *ServiceGroupsApi) DeleteServiceGroupById(extId *string, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.1/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *ServiceGroupsApi) GetServiceGroupById(extId *string, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.1/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *ServiceGroupsApi) ListServiceGroups(page_ *int, limit_ *int, filter_ 
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/service-groups"
+	uri := "/api/microseg/v4.1/config/service-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *ServiceGroupsApi) UpdateServiceGroupById(extId *string, body *import1
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/service-groups/{extId}"
+	uri := "/api/microseg/v4.1/config/service-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

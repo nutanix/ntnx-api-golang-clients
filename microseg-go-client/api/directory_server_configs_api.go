@@ -39,7 +39,7 @@ func (api *DirectoryServerConfigsApi) CreateCategoryMapping(body *import1.Catego
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/category-mappings"
+	uri := "/api/microseg/v4.1/config/category-mappings"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *DirectoryServerConfigsApi) CreateDirectoryServerConfig(body *import1.
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/directory-server-configs"
+	uri := "/api/microseg/v4.1/config/directory-server-configs"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -135,7 +135,7 @@ func (api *DirectoryServerConfigsApi) DeleteDirectoryServerConfigById(extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/directory-server-configs/{extId}"
+	uri := "/api/microseg/v4.1/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -185,7 +185,7 @@ func (api *DirectoryServerConfigsApi) DeleteDsCategoryMappingById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.1/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -235,7 +235,7 @@ func (api *DirectoryServerConfigsApi) GetDirectoryServerConfigById(extId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/directory-server-configs/{extId}"
+	uri := "/api/microseg/v4.1/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -285,7 +285,7 @@ func (api *DirectoryServerConfigsApi) GetDsCategoryMappingById(extId *string, ar
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.1/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -335,7 +335,7 @@ func (api *DirectoryServerConfigsApi) ListCategoryMappings(page_ *int, limit_ *i
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/category-mappings"
+	uri := "/api/microseg/v4.1/config/category-mappings"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -394,7 +394,7 @@ func (api *DirectoryServerConfigsApi) ListDirectoryServerConfigs(select_ *string
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/directory-server-configs"
+	uri := "/api/microseg/v4.1/config/directory-server-configs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -441,7 +441,7 @@ func (api *DirectoryServerConfigsApi) UpdateDirectoryServerConfigById(extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/directory-server-configs/{extId}"
+	uri := "/api/microseg/v4.1/config/directory-server-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -495,7 +495,7 @@ func (api *DirectoryServerConfigsApi) UpdateDsCategoryMappingById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.0/config/category-mappings/{extId}"
+	uri := "/api/microseg/v4.1/config/category-mappings/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
