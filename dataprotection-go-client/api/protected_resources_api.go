@@ -32,14 +32,14 @@ func NewProtectedResourcesApi(apiClient *client.ApiClient) *ProtectedResourcesAp
 	return a
 }
 
-// Get the details of the specified protected resource such as the restorable time ranges available on the local Prism Central and the state of replication to the targets specified in the applied protection policies. This applies only if the entity is protected in a minutely or synchronous schedule. Other protection schedules are not served by this endpoint yet, and are considered not protected.
+// Retrieves the details of the specified protection resource, including available restorable time ranges on the local Prism Central and the replication status to targets defined in the applied protection policies. This is applicable only if the entity is protected with a minutely or synchronous schedule. Other protection schedules are not currently supported by this endpoint and are considered unprotected.
 func (api *ProtectedResourcesApi) GetProtectedResourceById(extId *string, args ...map[string]interface{}) (*import1.GetProtectedResourceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.0/config/protected-resources/{extId}"
+	uri := "/api/dataprotection/v4.1/config/protected-resources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -82,14 +82,14 @@ func (api *ProtectedResourcesApi) GetProtectedResourceById(extId *string, args .
 	return unmarshalledResp, err
 }
 
-// Promotes the specified synced entity at the target site. This is only relevant if the synced entity is protected in a synchronous schedule.
+// Promotes a specified synced entity at the target site. This is only relevant if the synced entity is protected in a synchronous schedule.
 func (api *ProtectedResourcesApi) PromoteProtectedResource(extId *string, args ...map[string]interface{}) (*import1.ProtectedResourcePromoteApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.0/config/protected-resources/{extId}/$actions/promote"
+	uri := "/api/dataprotection/v4.1/config/protected-resources/{extId}/$actions/promote"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -132,14 +132,14 @@ func (api *ProtectedResourcesApi) PromoteProtectedResource(extId *string, args .
 	return unmarshalledResp, err
 }
 
-// Restore the specified protected resource from its state at the given timestamp on the given cluster. This is only relevant if the entity is protected in a minutely schedule at the given timestamp.
+// Restores the specified protected resource from its state at the given timestamp on the given cluster. This is only relevant if the entity is protected in a minutely schedule at the given timestamp.
 func (api *ProtectedResourcesApi) RestoreProtectedResource(extId *string, body *import1.ProtectedResourceRestoreSpec, args ...map[string]interface{}) (*import1.ProtectedResourceRestoreApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.0/config/protected-resources/{extId}/$actions/restore"
+	uri := "/api/dataprotection/v4.1/config/protected-resources/{extId}/$actions/restore"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

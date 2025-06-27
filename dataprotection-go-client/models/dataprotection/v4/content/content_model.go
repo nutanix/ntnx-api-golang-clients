@@ -1,11 +1,11 @@
 /*
  * Generated file models/dataprotection/v4/content/content_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Data Protection APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -39,11 +39,67 @@ type BaseRecoveryPointSpec struct {
 	ReferenceRecoveryPointExtId *string `json:"referenceRecoveryPointExtId,omitempty"`
 }
 
+func (p *BaseRecoveryPointSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias BaseRecoveryPointSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BaseRecoveryPointSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BaseRecoveryPointSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = BaseRecoveryPointSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "referenceDiskRecoveryPointExtId")
+	delete(allFields, "referenceRecoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewBaseRecoveryPointSpec() *BaseRecoveryPointSpec {
 	p := new(BaseRecoveryPointSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.BaseRecoveryPointSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -72,7 +128,9 @@ type ChangedRegion struct {
 
 func (p *ChangedRegion) MarshalJSON() ([]byte, error) {
 	type ChangedRegionProxy ChangedRegion
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*ChangedRegionProxy
 		Length     *int64      `json:"length,omitempty"`
 		Offset     *int64      `json:"offset,omitempty"`
@@ -82,21 +140,72 @@ func (p *ChangedRegion) MarshalJSON() ([]byte, error) {
 		Length:             p.Length,
 		Offset:             p.Offset,
 		RegionType:         p.RegionType,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ChangedRegion) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ChangedRegion
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ChangedRegion(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "length")
+	delete(allFields, "offset")
+	delete(allFields, "regionType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewChangedRegion() *ChangedRegion {
 	p := new(ChangedRegion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedRegion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
+REST response for all response codes in API path /dataprotection/v4.1/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
 */
 type ChangedVmRegionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -114,11 +223,68 @@ type ChangedVmRegionsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ChangedVmRegionsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ChangedVmRegionsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ChangedVmRegionsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ChangedVmRegionsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ChangedVmRegionsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewChangedVmRegionsApiResponse() *ChangedVmRegionsApiResponse {
 	p := new(ChangedVmRegionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedVmRegionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -146,7 +312,7 @@ func (p *ChangedVmRegionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
+REST response for all response codes in API path /dataprotection/v4.1/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
 */
 type ChangedVolumeGroupRegionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -164,11 +330,68 @@ type ChangedVolumeGroupRegionsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ChangedVolumeGroupRegionsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ChangedVolumeGroupRegionsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ChangedVolumeGroupRegionsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ChangedVolumeGroupRegionsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ChangedVolumeGroupRegionsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewChangedVolumeGroupRegionsApiResponse() *ChangedVolumeGroupRegionsApiResponse {
 	p := new(ChangedVolumeGroupRegionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedVolumeGroupRegionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -196,7 +419,7 @@ func (p *ChangedVolumeGroupRegionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Represents operation for which discover cluster api is being called.
+Represents the operation for which discover cluster API is being called.
 */
 type ClusterDiscoverOperation int
 
@@ -275,7 +498,7 @@ func (e ClusterDiscoverOperation) Ref() *ClusterDiscoverOperation {
 }
 
 /*
-Request body for discover cluster api containing recovery point details.
+Request body containing recovery point specifications for discovering the cluster.
 */
 type ClusterDiscoverSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -297,7 +520,9 @@ type ClusterDiscoverSpec struct {
 
 func (p *ClusterDiscoverSpec) MarshalJSON() ([]byte, error) {
 	type ClusterDiscoverSpecProxy ClusterDiscoverSpec
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*ClusterDiscoverSpecProxy
 		Operation *ClusterDiscoverOperation     `json:"operation,omitempty"`
 		Spec      *OneOfClusterDiscoverSpecSpec `json:"spec,omitempty"`
@@ -305,14 +530,65 @@ func (p *ClusterDiscoverSpec) MarshalJSON() ([]byte, error) {
 		ClusterDiscoverSpecProxy: (*ClusterDiscoverSpecProxy)(p),
 		Operation:                p.Operation,
 		Spec:                     p.Spec,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClusterDiscoverSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ClusterDiscoverSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "operation")
+	delete(allFields, "$specItemDiscriminator")
+	delete(allFields, "spec")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewClusterDiscoverSpec() *ClusterDiscoverSpec {
 	p := new(ClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -353,7 +629,7 @@ type ComputeChangedRegionsClusterDiscoverSpec struct {
 	 */
 	DiskRecoveryPointItemDiscriminator_ *string `json:"$diskRecoveryPointItemDiscriminator,omitempty"`
 	/*
-	  Disk recovery point reference for compute changed regions operation.
+	  Disk recovery point for compute changed regions operation.
 	*/
 	DiskRecoveryPoint *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint `json:"diskRecoveryPoint"`
 	/*
@@ -361,27 +637,81 @@ type ComputeChangedRegionsClusterDiscoverSpec struct {
 	 */
 	ReferenceDiskRecoveryPointItemDiscriminator_ *string `json:"$referenceDiskRecoveryPointItemDiscriminator,omitempty"`
 	/*
-	  The disk recovery point reference to compute the changed regions.
+	  Reference disk recovery point for compute changed regions operation.
 	*/
 	ReferenceDiskRecoveryPoint *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint `json:"referenceDiskRecoveryPoint,omitempty"`
 }
 
 func (p *ComputeChangedRegionsClusterDiscoverSpec) MarshalJSON() ([]byte, error) {
 	type ComputeChangedRegionsClusterDiscoverSpecProxy ComputeChangedRegionsClusterDiscoverSpec
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*ComputeChangedRegionsClusterDiscoverSpecProxy
 		DiskRecoveryPoint *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint `json:"diskRecoveryPoint,omitempty"`
 	}{
 		ComputeChangedRegionsClusterDiscoverSpecProxy: (*ComputeChangedRegionsClusterDiscoverSpecProxy)(p),
 		DiskRecoveryPoint: p.DiskRecoveryPoint,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ComputeChangedRegionsClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ComputeChangedRegionsClusterDiscoverSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ComputeChangedRegionsClusterDiscoverSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$diskRecoveryPointItemDiscriminator")
+	delete(allFields, "diskRecoveryPoint")
+	delete(allFields, "$referenceDiskRecoveryPointItemDiscriminator")
+	delete(allFields, "referenceDiskRecoveryPoint")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewComputeChangedRegionsClusterDiscoverSpec() *ComputeChangedRegionsClusterDiscoverSpec {
 	p := new(ComputeChangedRegionsClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ComputeChangedRegionsClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -427,18 +757,74 @@ type DiskRecoveryPointReference struct {
 	RecoveryPointExtId *string `json:"recoveryPointExtId,omitempty"`
 }
 
+func (p *DiskRecoveryPointReference) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DiskRecoveryPointReference
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DiskRecoveryPointReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = DiskRecoveryPointReference(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "diskRecoveryPointExtId")
+	delete(allFields, "recoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewDiskRecoveryPointReference() *DiskRecoveryPointReference {
 	p := new(DiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.DiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.0/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata Get operation
+REST response for all response codes in API path /dataprotection/v4.1/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata Get operation
 */
 type GetVssMetadataApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -456,11 +842,68 @@ type GetVssMetadataApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetVssMetadataApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetVssMetadataApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetVssMetadataApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetVssMetadataApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetVssMetadataApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewGetVssMetadataApiResponse() *GetVssMetadataApiResponse {
 	p := new(GetVssMetadataApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.GetVssMetadataApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -488,7 +931,7 @@ func (p *GetVssMetadataApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Specification of get vss metadata operation.
+Specification of get VSS metadata operation.
 */
 type GetVssMetadataClusterDiscoverSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -504,20 +947,71 @@ type GetVssMetadataClusterDiscoverSpec struct {
 
 func (p *GetVssMetadataClusterDiscoverSpec) MarshalJSON() ([]byte, error) {
 	type GetVssMetadataClusterDiscoverSpecProxy GetVssMetadataClusterDiscoverSpec
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*GetVssMetadataClusterDiscoverSpecProxy
 		VmRecoveryPointExtId *string `json:"vmRecoveryPointExtId,omitempty"`
 	}{
 		GetVssMetadataClusterDiscoverSpecProxy: (*GetVssMetadataClusterDiscoverSpecProxy)(p),
 		VmRecoveryPointExtId:                   p.VmRecoveryPointExtId,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetVssMetadataClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetVssMetadataClusterDiscoverSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = GetVssMetadataClusterDiscoverSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "vmRecoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewGetVssMetadataClusterDiscoverSpec() *GetVssMetadataClusterDiscoverSpec {
 	p := new(GetVssMetadataClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.GetVssMetadataClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -625,18 +1119,75 @@ type VmDiskRecoveryPointClusterDiscoverSpec struct {
 	ReferenceVmRecoveryPointExtId *string `json:"referenceVmRecoveryPointExtId,omitempty"`
 }
 
+func (p *VmDiskRecoveryPointClusterDiscoverSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmDiskRecoveryPointClusterDiscoverSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmDiskRecoveryPointClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmDiskRecoveryPointClusterDiscoverSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VmDiskRecoveryPointClusterDiscoverSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "referenceDiskRecoveryPointExtId")
+	delete(allFields, "referenceRecoveryPointExtId")
+	delete(allFields, "referenceVmRecoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVmDiskRecoveryPointClusterDiscoverSpec() *VmDiskRecoveryPointClusterDiscoverSpec {
 	p := new(VmDiskRecoveryPointClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmDiskRecoveryPointClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Reference to the disk recovery point that's part of a vm recovery point.
+Reference to the disk recovery point that is a part of a VM recovery point.
 */
 type VmDiskRecoveryPointReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -658,11 +1209,68 @@ type VmDiskRecoveryPointReference struct {
 	VmRecoveryPointExtId *string `json:"vmRecoveryPointExtId,omitempty"`
 }
 
+func (p *VmDiskRecoveryPointReference) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmDiskRecoveryPointReference
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmDiskRecoveryPointReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VmDiskRecoveryPointReference(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "diskRecoveryPointExtId")
+	delete(allFields, "recoveryPointExtId")
+	delete(allFields, "vmRecoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVmDiskRecoveryPointReference() *VmDiskRecoveryPointReference {
 	p := new(VmDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -678,15 +1286,15 @@ type VmRecoveryPointChangedRegionsComputeSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  When blockSizeByte is set, all returned ranges will start and end at blockSize addresses, and the changed blocks will match the block size. Supported values of blockSizeByte are [32768, 65536, 131072, 262144]. Example: if blockSizeByte is set to 32768 (i.e 32KB), all ranges will start at multiple of 32KB and end at multiple of 32KB value. Default blockSizeByte is set to 32KB
+	  When blockSizeByte is set, all returned ranges will start and end at blockSize addresses, and the changed blocks will match the block size. Supported values of blockSizeByte are [32768, 65536, 131072, 262144]. Example: if blockSizeByte is set to 32768 (i.e 32KB), all ranges will start at multiple of 32KB and end at multiple of 32KB value.
 	*/
 	BlockSizeByte *int64 `json:"blockSizeByte,omitempty"`
 	/*
-	  The length to compute the changed region. If the value is not provided, the difference is performed from the start offset to the end of the disk. Note: the end offset might automatically align to a system-defined block boundary.
+	  The length to compute the changed region. If the value is not provided, then the difference is performed from the start offset to the end of the disk. Note: the end offset might automatically align to a system-defined block boundary.
 	*/
 	Length *int64 `json:"length,omitempty"`
 	/*
-	  The start offset value to compute the changed region. If the value is not provided, the difference is executed from the offset of 0. Note: the start offset might automatically align to a system-defined block boundary.
+	  The start offset value to compute the changed region. If the value is not provided, then the difference is executed from the offset of 0. Note: the start offset might automatically align to a system-defined block boundary.
 	*/
 	Offset *int64 `json:"offset,omitempty"`
 	/*
@@ -703,11 +1311,71 @@ type VmRecoveryPointChangedRegionsComputeSpec struct {
 	ReferenceVmRecoveryPointExtId *string `json:"referenceVmRecoveryPointExtId,omitempty"`
 }
 
+func (p *VmRecoveryPointChangedRegionsComputeSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmRecoveryPointChangedRegionsComputeSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmRecoveryPointChangedRegionsComputeSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmRecoveryPointChangedRegionsComputeSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VmRecoveryPointChangedRegionsComputeSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "blockSizeByte")
+	delete(allFields, "length")
+	delete(allFields, "offset")
+	delete(allFields, "referenceDiskRecoveryPointExtId")
+	delete(allFields, "referenceRecoveryPointExtId")
+	delete(allFields, "referenceVmRecoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewVmRecoveryPointChangedRegionsComputeSpec() *VmRecoveryPointChangedRegionsComputeSpec {
 	p := new(VmRecoveryPointChangedRegionsComputeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmRecoveryPointChangedRegionsComputeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -731,23 +1399,80 @@ type VolumeGroupDiskRecoveryPointClusterDiscoverSpec struct {
 	*/
 	ReferenceRecoveryPointExtId *string `json:"referenceRecoveryPointExtId,omitempty"`
 	/*
-	  The external identifier that can be used to retrieve the volume group recovery point using its URL (Note: This attribute will be removed in future releases; therefore use the volume group recovery point external identifier instead).
+	  The external identifier that can be used to retrieve the volume group recovery point using its URL (Note: This attribute will be removed in future releases; therefore, use the volume group recovery point external identifier instead).
 	*/
 	ReferenceVolumeGroupRecoveryPointExtId *string `json:"referenceVolumeGroupRecoveryPointExtId,omitempty"`
+}
+
+func (p *VolumeGroupDiskRecoveryPointClusterDiscoverSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroupDiskRecoveryPointClusterDiscoverSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroupDiskRecoveryPointClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroupDiskRecoveryPointClusterDiscoverSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroupDiskRecoveryPointClusterDiscoverSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "referenceDiskRecoveryPointExtId")
+	delete(allFields, "referenceRecoveryPointExtId")
+	delete(allFields, "referenceVolumeGroupRecoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVolumeGroupDiskRecoveryPointClusterDiscoverSpec() *VolumeGroupDiskRecoveryPointClusterDiscoverSpec {
 	p := new(VolumeGroupDiskRecoveryPointClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupDiskRecoveryPointClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Specs containing vm disk recovery point information used to discover the cluster.
+Specs containing VM disk recovery point information used to discover the cluster.
 */
 type VolumeGroupDiskRecoveryPointReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -764,16 +1489,73 @@ type VolumeGroupDiskRecoveryPointReference struct {
 	*/
 	RecoveryPointExtId *string `json:"recoveryPointExtId,omitempty"`
 	/*
-	  The external identifier that can be used to retrieve the volume group recovery point using its URL (Note: This attribute will be removed in future releases; therefore use the volume group recovery point external identifier instead).
+	  The external identifier that can be used to retrieve the volume group recovery point using its URL (Note: This attribute will be removed in future releases; therefore, use the volume group recovery point external identifier instead).
 	*/
 	VolumeGroupRecoveryPointExtId *string `json:"volumeGroupRecoveryPointExtId,omitempty"`
+}
+
+func (p *VolumeGroupDiskRecoveryPointReference) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroupDiskRecoveryPointReference
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroupDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroupDiskRecoveryPointReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroupDiskRecoveryPointReference(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "diskRecoveryPointExtId")
+	delete(allFields, "recoveryPointExtId")
+	delete(allFields, "volumeGroupRecoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVolumeGroupDiskRecoveryPointReference() *VolumeGroupDiskRecoveryPointReference {
 	p := new(VolumeGroupDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -789,15 +1571,15 @@ type VolumeGroupRecoveryPointChangedRegionsComputeSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  When blockSizeByte is set, all returned ranges will start and end at blockSize addresses, and the changed blocks will match the block size. Supported values of blockSizeByte are [32768, 65536, 131072, 262144]. Example: if blockSizeByte is set to 32768 (i.e 32KB), all ranges will start at multiple of 32KB and end at multiple of 32KB value. Default blockSizeByte is set to 32KB
+	  When blockSizeByte is set, all returned ranges will start and end at blockSize addresses, and the changed blocks will match the block size. Supported values of blockSizeByte are [32768, 65536, 131072, 262144]. Example: if blockSizeByte is set to 32768 (i.e 32KB), all ranges will start at multiple of 32KB and end at multiple of 32KB value.
 	*/
 	BlockSizeByte *int64 `json:"blockSizeByte,omitempty"`
 	/*
-	  The length to compute the changed region. If the value is not provided, the difference is performed from the start offset to the end of the disk. Note: the end offset might automatically align to a system-defined block boundary.
+	  The length to compute the changed region. If the value is not provided, then the difference is performed from the start offset to the end of the disk. Note: the end offset might automatically align to a system-defined block boundary.
 	*/
 	Length *int64 `json:"length,omitempty"`
 	/*
-	  The start offset value to compute the changed region. If the value is not provided, the difference is executed from the offset of 0. Note: the start offset might automatically align to a system-defined block boundary.
+	  The start offset value to compute the changed region. If the value is not provided, then the difference is executed from the offset of 0. Note: the start offset might automatically align to a system-defined block boundary.
 	*/
 	Offset *int64 `json:"offset,omitempty"`
 	/*
@@ -809,16 +1591,76 @@ type VolumeGroupRecoveryPointChangedRegionsComputeSpec struct {
 	*/
 	ReferenceRecoveryPointExtId *string `json:"referenceRecoveryPointExtId,omitempty"`
 	/*
-	  The external identifier that can be used to retrieve the volume group recovery point using its URL (Note: This attribute will be removed in future releases; therefore use the volume group recovery point external identifier instead).
+	  The external identifier that can be used to retrieve the volume group recovery point using its URL (Note: This attribute will be removed in future releases; therefore, use the volume group recovery point external identifier instead).
 	*/
 	ReferenceVolumeGroupRecoveryPointExtId *string `json:"referenceVolumeGroupRecoveryPointExtId,omitempty"`
+}
+
+func (p *VolumeGroupRecoveryPointChangedRegionsComputeSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VolumeGroupRecoveryPointChangedRegionsComputeSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VolumeGroupRecoveryPointChangedRegionsComputeSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VolumeGroupRecoveryPointChangedRegionsComputeSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VolumeGroupRecoveryPointChangedRegionsComputeSpec(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "blockSizeByte")
+	delete(allFields, "length")
+	delete(allFields, "offset")
+	delete(allFields, "referenceDiskRecoveryPointExtId")
+	delete(allFields, "referenceRecoveryPointExtId")
+	delete(allFields, "referenceVolumeGroupRecoveryPointExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVolumeGroupRecoveryPointChangedRegionsComputeSpec() *VolumeGroupRecoveryPointChangedRegionsComputeSpec {
 	p := new(VolumeGroupRecoveryPointChangedRegionsComputeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupRecoveryPointChangedRegionsComputeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
