@@ -40,7 +40,7 @@ func (api *NotificationsApi) ComputeNotifications(body *import1.NotificationsSpe
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/operations/$actions/compute-notifications"
+	uri := "/api/lifecycle/v4.1/operations/$actions/compute-notifications"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -91,7 +91,7 @@ func (api *NotificationsApi) GetNotificationById(extId *string, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/resources/notifications/{extId}"
+	uri := "/api/lifecycle/v4.1/resources/notifications/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

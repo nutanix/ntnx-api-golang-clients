@@ -39,7 +39,7 @@ func (api *BundlesApi) CreateBundle(body *import1.Bundle, args ...map[string]int
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/resources/bundles"
+	uri := "/api/lifecycle/v4.1/resources/bundles"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *BundlesApi) DeleteBundleById(extId *string, args ...map[string]interf
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/resources/bundles/{extId}"
+	uri := "/api/lifecycle/v4.1/resources/bundles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *BundlesApi) GetBundleById(extId *string, args ...map[string]interface
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/resources/bundles/{extId}"
+	uri := "/api/lifecycle/v4.1/resources/bundles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *BundlesApi) ListBundles(page_ *int, limit_ *int, filter_ *string, ord
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/resources/bundles"
+	uri := "/api/lifecycle/v4.1/resources/bundles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

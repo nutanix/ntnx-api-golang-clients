@@ -5,9 +5,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/tls"
-	"crypto/x509"
 	"encoding/json"
-	"encoding/pem"
 	"encoding/xml"
 	"errors"
 	"fmt"
@@ -40,7 +38,7 @@ var (
 	uriCheck                = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
 	contentDispositionCheck = regexp.MustCompile("attachment;\\s*filename=\"(.*)\"")
 	retryStatusList         = []int{408, 429, 503, 504}
-	userAgent               = "Nutanix-lifecycle/v4.0.1"
+	userAgent               = "Nutanix-lifecycle/v4.1.1"
 )
 
 /*
@@ -60,44 +58,35 @@ var (
     RetryInterval (optional) : Interval between successive retry attempts (default: 3 sec)
     DownloadDirectory (optional) : Directory location on local for files to download (default: Current Directory)
     DownloadChunkSize (optional) : Chunk size in bytes for files to download (default: 8*1024 bytes)
-    RootCACertificateFile (string) : PEM encoded Root CA certificate file path
-    ClientCertificateFile (string) : PEM encoded client certificate file path
-    ClientKeyFile (string) : PEM encoded client key file path
     LoggerFile (optional) : Log file to write activity logs
 */
 type ApiClient struct {
-	Scheme                string `json:"scheme,omitempty"`
-	Host                  string `json:"host,omitempty"`
-	Port                  int    `json:"port,omitempty"`
-	Username              string `json:"username,omitempty"`
-	Password              string `json:"password,omitempty"`
-	Debug                 bool   `json:"debug,omitempty"`
-	VerifySSL             bool
-	Proxy                 *Proxy
-	MaxRetryAttempts      int           `json:"maxRetryAttempts,omitempty"`
-	MaxRedirects          int           `json:"maxRedirects,omitempty"`
-	ReadTimeout           time.Duration `json:"readTimeout,omitempty"`
-	ConnectTimeout        time.Duration `json:"connectTimeout,omitempty"`
-	RetryInterval         time.Duration `json:"retryInterval,omitempty"`
-	DownloadDirectory     string        `json:"downloadDirectory,omitempty"`
-	DownloadChunkSize     int           `json:"downloadChunkSize,omitempty"`
-	RootCACertificateFile string
-	ClientCertificateFile string
-	ClientKeyFile         string
-	LoggerFile            string `json:"loggerFile,omitempty"`
-	defaultHeaders        map[string]string
-	retryClient           *retryablehttp.Client
-	httpClient            *http.Client
-	dialer                *net.Dialer
-	authentication        map[string]interface{}
-	cookie                string
-	refreshCookie         bool
-	previousAuth          string
-	basicAuth             *BasicAuth
-	previousRootCA        string
-	previousClientCert    string
-	previousClientKey     string
-	logger                *logrus.Logger
+	Scheme            string `json:"scheme,omitempty"`
+	Host              string `json:"host,omitempty"`
+	Port              int    `json:"port,omitempty"`
+	Username          string `json:"username,omitempty"`
+	Password          string `json:"password,omitempty"`
+	Debug             bool   `json:"debug,omitempty"`
+	VerifySSL         bool
+	Proxy             *Proxy
+	MaxRetryAttempts  int           `json:"maxRetryAttempts,omitempty"`
+	MaxRedirects      int           `json:"maxRedirects,omitempty"`
+	ReadTimeout       time.Duration `json:"readTimeout,omitempty"`
+	ConnectTimeout    time.Duration `json:"connectTimeout,omitempty"`
+	RetryInterval     time.Duration `json:"retryInterval,omitempty"`
+	DownloadDirectory string        `json:"downloadDirectory,omitempty"`
+	DownloadChunkSize int           `json:"downloadChunkSize,omitempty"`
+	LoggerFile        string        `json:"loggerFile,omitempty"`
+	defaultHeaders    map[string]string
+	retryClient       *retryablehttp.Client
+	httpClient        *http.Client
+	dialer            *net.Dialer
+	authentication    map[string]interface{}
+	cookie            string
+	refreshCookie     bool
+	previousAuth      string
+	basicAuth         *BasicAuth
+	logger            *logrus.Logger
 
 	// maxIdleConns controls the maximum number of idle (keep-alive)
 	// connections across all hosts. Zero means no limit.
@@ -224,11 +213,6 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	}
 
 	a.setupClient()
-	// Remove Authorization header and reset cookie if we are establishing a mTLS connection
-	if a.previousRootCA != "" && a.previousClientKey != "" && a.previousClientCert != "" {
-		delete(request.Header, "Authorization")
-		a.cookie = ""
-	}
 
 	if a.Debug {
 		printBody := true
@@ -492,7 +476,7 @@ func (a *ApiClient) setupClient() {
 	// Initialize/modify retryable http client's transport based on current configuration
 	var transport = a.retryClient.HTTPClient.Transport.(*http.Transport)
 	if isRetryClientModified || transport.TLSClientConfig == nil || transport.TLSClientConfig.InsecureSkipVerify != !a.VerifySSL ||
-		a.dialer == nil || a.dialer.Timeout != a.ConnectTimeout || shouldConfigureMutualTLS(a) {
+		a.dialer == nil || a.dialer.Timeout != a.ConnectTimeout {
 		a.dialer = &net.Dialer{
 			Timeout: getValidTimeout(a.ConnectTimeout, a),
 		}
@@ -519,9 +503,6 @@ func (a *ApiClient) setupClient() {
 				Host:   path,
 			})
 		}
-
-		// Configure mTLS to retryable http client's transport
-		configureMutualTLS(a, transport)
 
 		a.retryClient.HTTPClient.Transport = transport
 		isRetryClientModified = true
@@ -558,66 +539,6 @@ func (a *ApiClient) setupClient() {
 	}
 }
 
-func shouldConfigureMutualTLS(a *ApiClient) bool {
-	return a.RootCACertificateFile != a.previousRootCA || a.ClientCertificateFile != a.previousClientCert || a.ClientKeyFile != a.previousClientKey
-}
-
-// Configure mTLS for the http transport
-func configureMutualTLS(a *ApiClient, transport *http.Transport) {
-	// Only configure if any of the current file paths have been changed
-	if shouldConfigureMutualTLS(a) {
-		a.previousRootCA = a.RootCACertificateFile
-		a.previousClientCert = a.ClientCertificateFile
-		a.previousClientKey = a.ClientKeyFile
-
-		rootCACert, err := os.ReadFile(a.RootCACertificateFile)
-		if err != nil {
-			a.logger.Errorf("Failed to open root certificate file: %v", err)
-			return
-		}
-
-		caCertPool := x509.NewCertPool()
-		caCertPool.AppendCertsFromPEM(rootCACert)
-		x509RootCerts, err := decodePemToCerts(a, rootCACert)
-		if err != nil {
-			a.logger.Errorf("Unable to extract certificate chains from root CA pem file: %v", err)
-			return
-		}
-
-		clientCertificate, err := tls.LoadX509KeyPair(a.ClientCertificateFile, a.ClientKeyFile)
-		if err != nil {
-			a.logger.Errorf("Failed to load client certificate: %v", err)
-			return
-		}
-		// Add CA chain to client cert
-		for _, x509Cert := range x509RootCerts {
-			clientCertificate.Certificate = append(clientCertificate.Certificate, x509Cert.Raw)
-		}
-
-		transport.TLSClientConfig = &tls.Config{
-			RootCAs:      caCertPool,
-			Certificates: []tls.Certificate{clientCertificate},
-		}
-	}
-}
-
-// Decode a PEM encoded file and extract certificate chain
-func decodePemToCerts(a *ApiClient, encodedPem []byte) ([]x509.Certificate, error) {
-	certs := []x509.Certificate{}
-
-	for block, rest := pem.Decode(encodedPem); block != nil; block, rest = pem.Decode(rest) {
-		if block.Type == "CERTIFICATE" {
-			// Extract cert chain
-			cert, err := x509.ParseCertificate(block.Bytes)
-			if err != nil {
-				return nil, errors.New("Unable to parse a certificate in provided pem and it seems to be corrupted...")
-			}
-			certs = append(certs, *cert)
-		}
-	}
-	return certs, nil
-}
-
 func configureLogger(a *ApiClient) {
 	if a.retryClient != nil {
 		a.retryClient.Logger = nil
@@ -643,7 +564,7 @@ func configureLogger(a *ApiClient) {
 			Formatter: &myFormatter{
 				logrus.TextFormatter{
 					FullTimestamp:          true,
-					TimestampFormat:        "2006-01-02 15:04:05.000",
+					TimestampFormat:        "2006-01-02 15:04:05.000Z",
 					ForceColors:            true,
 					DisableLevelTruncation: true,
 				},
@@ -662,6 +583,9 @@ type myFormatter struct {
 
 // Format function implementation for the Formatter interface of logrus
 func (f *myFormatter) Format(entry *logrus.Entry) ([]byte, error) {
+	// Modify the log entry time to UTC
+	entry.Time = entry.Time.UTC()
+
 	var b *bytes.Buffer
 
 	if entry.Buffer != nil {

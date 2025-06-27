@@ -34,13 +34,13 @@ func NewPrechecksApi(apiClient *client.ApiClient) *PrechecksApi {
 }
 
 // Perform LCM prechecks for the intended update operation.
-func (api *PrechecksApi) PerformPrechecks(body *import2.PrechecksSpec, xClusterId *string, args ...map[string]interface{}) (*import3.PrechecksApiResponse, error) {
+func (api *PrechecksApi) PerformPrechecks(body *import2.PrechecksSpec, xClusterId *string, dryrun_ *bool, args ...map[string]interface{}) (*import3.PrechecksApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/operations/$actions/prechecks"
+	uri := "/api/lifecycle/v4.1/operations/$actions/prechecks"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -57,6 +57,10 @@ func (api *PrechecksApi) PerformPrechecks(body *import2.PrechecksSpec, xClusterI
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
+	}
 	if xClusterId != nil {
 		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	}

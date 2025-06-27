@@ -1,5 +1,5 @@
 /*
- * Generated file models/prism/v4/config/config_model.go.
+ * Generated file models/clustermgmt/v4/config/config_model.go.
  *
  * Product version: 4.1.1
  *
@@ -10,32 +10,43 @@
  */
 
 /*
-  Module prism.v4.config of Nutanix Lifecycle Management APIs
+  Module clustermgmt.v4.config of Nutanix Lifecycle Management APIs
 */
 package config
 
 import (
 	"encoding/json"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/common/v1/config"
 )
 
 /*
-A reference to a task tracking an asynchronous operation. The status of the task can be queried by making a GET request to the task URI provided in the metadata section of the API response.
+Non-migratable VM details.
 */
-type TaskReference struct {
+type NonMigratableVmInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	HostIp *import1.IPAddress `json:"hostIp,omitempty"`
 	/*
-	  A globally unique identifier for a task.
+	  Reason for a VM to be non-migratable.
 	*/
-	ExtId *string `json:"extId,omitempty"`
+	NonMigratableVmReason *string `json:"nonMigratableVmReason,omitempty"`
+	/*
+	  Name of the VM.
+	*/
+	VmName *string `json:"vmName,omitempty"`
+	/*
+	  UUID of the VM.
+	*/
+	VmUuid *string `json:"vmUuid,omitempty"`
 }
 
-func (p *TaskReference) MarshalJSON() ([]byte, error) {
+func (p *NonMigratableVmInfo) MarshalJSON() ([]byte, error) {
 	// Create Alias to avoid infinite recursion
-	type Alias TaskReference
+	type Alias NonMigratableVmInfo
 
 	// Step 1: Marshal the known fields
 	known, err := json.Marshal(Alias(*p))
@@ -59,7 +70,7 @@ func (p *TaskReference) MarshalJSON() ([]byte, error) {
 	return json.Marshal(knownMap)
 }
 
-func (p *TaskReference) UnmarshalJSON(b []byte) error {
+func (p *NonMigratableVmInfo) UnmarshalJSON(b []byte) error {
 	// Step 1: Unmarshal into a generic map to capture all fields
 	var allFields map[string]interface{}
 	if err := json.Unmarshal(b, &allFields); err != nil {
@@ -67,20 +78,23 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias TaskReference
+	type Alias NonMigratableVmInfo
 	known := &Alias{}
 	if err := json.Unmarshal(b, known); err != nil {
 		return err
 	}
 
 	// Step 3: Assign known fields
-	*p = TaskReference(*known)
+	*p = NonMigratableVmInfo(*known)
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "extId")
+	delete(allFields, "hostIp")
+	delete(allFields, "nonMigratableVmReason")
+	delete(allFields, "vmName")
+	delete(allFields, "vmUuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	p.UnknownFields_ = allFields
@@ -88,10 +102,10 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func NewTaskReference() *TaskReference {
-	p := new(TaskReference)
+func NewNonMigratableVmInfo() *NonMigratableVmInfo {
+	p := new(NonMigratableVmInfo)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.config.TaskReference"
+	*p.ObjectType_ = "clustermgmt.v4.config.NonMigratableVmInfo"
 	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 

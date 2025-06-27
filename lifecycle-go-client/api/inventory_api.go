@@ -33,24 +33,28 @@ func NewInventoryApi(apiClient *client.ApiClient) *InventoryApi {
 }
 
 // Perform an LCM inventory operation.
-func (api *InventoryApi) PerformInventory(xClusterId *string, args ...map[string]interface{}) (*import3.InventoryApiResponse, error) {
+func (api *InventoryApi) PerformInventory(body *import3.InventorySpec, xClusterId *string, dryrun_ *bool, args ...map[string]interface{}) (*import3.InventoryApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/operations/$actions/inventory"
+	uri := "/api/lifecycle/v4.1/operations/$actions/inventory"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
 
 	// to determine the Content-Type header
-	contentTypes := []string{}
+	contentTypes := []string{"application/json"}
 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
+	}
 	if xClusterId != nil {
 		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	}
@@ -68,7 +72,7 @@ func (api *InventoryApi) PerformInventory(xClusterId *string, args ...map[string
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}

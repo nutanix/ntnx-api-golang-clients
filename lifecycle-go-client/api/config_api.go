@@ -39,7 +39,7 @@ func (api *ConfigApi) GetConfig(xClusterId *string, args ...map[string]interface
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/resources/config"
+	uri := "/api/lifecycle/v4.1/resources/config"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -85,7 +85,7 @@ func (api *ConfigApi) UpdateConfig(body *import1.Config, xClusterId *string, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/resources/config"
+	uri := "/api/lifecycle/v4.1/resources/config"
 
 	// verify the required parameter 'body' is set
 	if nil == body {

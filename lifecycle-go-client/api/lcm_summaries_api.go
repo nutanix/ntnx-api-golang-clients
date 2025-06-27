@@ -39,7 +39,7 @@ func (api *LcmSummariesApi) GetLcmSummaryById(extId *string, args ...map[string]
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/resources/lcm-summaries/{extId}"
+	uri := "/api/lifecycle/v4.1/resources/lcm-summaries/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *LcmSummariesApi) ListLcmSummaries(page_ *int, limit_ *int, filter_ *s
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/resources/lcm-summaries"
+	uri := "/api/lifecycle/v4.1/resources/lcm-summaries"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

@@ -34,13 +34,13 @@ func NewUpgradesApi(apiClient *client.ApiClient) *UpgradesApi {
 }
 
 // Perform upgrade operation to a specific target version for discovered LCM entity/entities.
-func (api *UpgradesApi) PerformUpgrade(body *import2.UpgradeSpec, xClusterId *string, args ...map[string]interface{}) (*import3.UpgradeApiResponse, error) {
+func (api *UpgradesApi) PerformUpgrade(body *import2.UpgradeSpec, xClusterId *string, dryrun_ *bool, args ...map[string]interface{}) (*import3.UpgradeApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.0/operations/$actions/upgrade"
+	uri := "/api/lifecycle/v4.1/operations/$actions/upgrade"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -57,6 +57,10 @@ func (api *UpgradesApi) PerformUpgrade(body *import2.UpgradeSpec, xClusterId *st
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
+	}
 	if xClusterId != nil {
 		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
 	}
