@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/report"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/report"
 	"net/http"
 	"net/url"
 	"strings"
@@ -33,13 +33,13 @@ func NewSTIGsApi(apiClient *client.ApiClient) *STIGsApi {
 }
 
 // Fetch the current number of issues found by STIG for each cluster.
-func (api *STIGsApi) ListStigSummaries(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListStigSummariesApiResponse, error) {
+func (api *STIGsApi) ListStigSummaries(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListStigSummariesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0.b1/report/stig-summaries"
+	uri := "/api/security/v4.0/report/stig-summaries"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -89,19 +89,19 @@ func (api *STIGsApi) ListStigSummaries(page_ *int, limit_ *int, filter_ *string,
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListStigSummariesApiResponse)
+	unmarshalledResp := new(import3.ListStigSummariesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Fetch the STIG controls details for STIG rules on each cluster.
-func (api *STIGsApi) ListStigs(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListStigsApiResponse, error) {
+func (api *STIGsApi) ListStigs(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListStigsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0.b1/report/stigs"
+	uri := "/api/security/v4.0/report/stigs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -148,7 +148,7 @@ func (api *STIGsApi) ListStigs(page_ *int, limit_ *int, filter_ *string, orderby
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListStigsApiResponse)
+	unmarshalledResp := new(import3.ListStigsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

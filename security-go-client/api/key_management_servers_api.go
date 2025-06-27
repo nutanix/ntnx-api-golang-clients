@@ -3,23 +3,23 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/management"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/models/security/v4/config"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type ApprovalPoliciesApi struct {
+type KeyManagementServersApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewApprovalPoliciesApi(apiClient *client.ApiClient) *ApprovalPoliciesApi {
+func NewKeyManagementServersApi(apiClient *client.ApiClient) *KeyManagementServersApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ApprovalPoliciesApi{
+	a := &KeyManagementServersApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,68 +32,14 @@ func NewApprovalPoliciesApi(apiClient *client.ApiClient) *ApprovalPoliciesApi {
 	return a
 }
 
-// Update the list of secured policies linked to an approval policy with particular external identifier.
-func (api *ApprovalPoliciesApi) AssociatePolicies(extId *string, body *import1.AssociatePoliciesSpec, args ...map[string]interface{}) (*import1.AssociatePoliciesApiResponse, error) {
+// Creates a new key management server with the specified access credentials.
+func (api *KeyManagementServersApi) CreateKeyManagementServer(body *import2.KeyManagementServer, args ...map[string]interface{}) (*import2.CreateKeyManagementServerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/management/approval-policies/{extId}/$actions/associate-policies"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.AssociatePoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Create an approval policy for secure snapshots.
-func (api *ApprovalPoliciesApi) CreateApprovalPolicy(body *import1.ApprovalPolicy, args ...map[string]interface{}) (*import1.CreateApprovalPolicyApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/security/v4.0/management/approval-policies"
+	uri := "/api/security/v4.0/config/key-management-servers"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -129,19 +75,19 @@ func (api *ApprovalPoliciesApi) CreateApprovalPolicy(body *import1.ApprovalPolic
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.CreateApprovalPolicyApiResponse)
+	unmarshalledResp := new(import2.CreateKeyManagementServerApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Fetches the details of a specific approval policy by its external identifier.
-func (api *ApprovalPoliciesApi) GetApprovalPolicyByExtId(extId *string, select_ *string, args ...map[string]interface{}) (*import1.GetApprovalPolicyApiResponse, error) {
+// Deletes a key management server identified by its unique identifier.
+func (api *KeyManagementServersApi) DeleteKeyManagementServerById(extId *string, args ...map[string]interface{}) (*import2.DeleteKeyManagementServerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/management/approval-policies/{extId}"
+	uri := "/api/security/v4.0/config/key-management-servers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -160,10 +106,56 @@ func (api *ApprovalPoliciesApi) GetApprovalPolicyByExtId(extId *string, select_ 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Query Params
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
 	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.DeleteKeyManagementServerApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Fetches the details of a key management server identified by its unique identifier.
+func (api *KeyManagementServersApi) GetKeyManagementServerById(extId *string, args ...map[string]interface{}) (*import2.GetKeyManagementServerApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/security/v4.0/config/key-management-servers/{extId}"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -183,19 +175,19 @@ func (api *ApprovalPoliciesApi) GetApprovalPolicyByExtId(extId *string, select_ 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetApprovalPolicyApiResponse)
+	unmarshalledResp := new(import2.GetKeyManagementServerApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Fetches a list of approval policies for secure snapshots.
-func (api *ApprovalPoliciesApi) ListApprovalPolicies(filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListApprovalPoliciesApiResponse, error) {
+// Provide a comprehensive list of all key management servers, including their access details and relevant attributes.
+func (api *KeyManagementServersApi) ListKeyManagementServers(args ...map[string]interface{}) (*import2.ListKeyManagementServersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/management/approval-policies"
+	uri := "/api/security/v4.0/config/key-management-servers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -207,16 +199,6 @@ func (api *ApprovalPoliciesApi) ListApprovalPolicies(filter_ *string, orderby_ *
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Query Params
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
-	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
-	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -236,19 +218,19 @@ func (api *ApprovalPoliciesApi) ListApprovalPolicies(filter_ *string, orderby_ *
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ListApprovalPoliciesApiResponse)
+	unmarshalledResp := new(import2.ListKeyManagementServersApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Updates the details of a specific approval policy by its external identifier.
-func (api *ApprovalPoliciesApi) UpdateApprovalPolicyByExtId(extId *string, body *import1.ApprovalPolicy, args ...map[string]interface{}) (*import1.UpdateApprovalPolicyApiResponse, error) {
+// Updates a key management server with a new set of access credentials.
+func (api *KeyManagementServersApi) UpdateKeyManagementServerById(extId *string, body *import2.KeyManagementServer, args ...map[string]interface{}) (*import2.UpdateKeyManagementServerApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/management/approval-policies/{extId}"
+	uri := "/api/security/v4.0/config/key-management-servers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -290,7 +272,7 @@ func (api *ApprovalPoliciesApi) UpdateApprovalPolicyByExtId(extId *string, body 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.UpdateApprovalPolicyApiResponse)
+	unmarshalledResp := new(import2.UpdateKeyManagementServerApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

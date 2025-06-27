@@ -1,11 +1,11 @@
 /*
  * Generated file models/security/v4/report/report_model.go.
  *
- * Product version: 4.0.1-beta-1
+ * Product version: 4.0.1
  *
  * Part of the Nutanix Security APIs
  *
- * (c) 2024 Nutanix Inc.  All rights reserved
+ * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -44,18 +44,74 @@ type IssueSummary struct {
 	Trend []TrendValue `json:"trend,omitempty"`
 }
 
+func (p *IssueSummary) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IssueSummary
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IssueSummary) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IssueSummary
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = IssueSummary(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "currentIssueCount")
+	delete(allFields, "trend")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewIssueSummary() *IssueSummary {
 	p := new(IssueSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.IssueSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /security/v4.0.b1/report/stig-summaries Get operation
+REST response for all response codes in API path /security/v4.0/report/stig-summaries Get operation
 */
 type ListStigSummariesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -73,11 +129,68 @@ type ListStigSummariesApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListStigSummariesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListStigSummariesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListStigSummariesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListStigSummariesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListStigSummariesApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListStigSummariesApiResponse() *ListStigSummariesApiResponse {
 	p := new(ListStigSummariesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.ListStigSummariesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -105,7 +218,7 @@ func (p *ListStigSummariesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.0.b1/report/stigs Get operation
+REST response for all response codes in API path /security/v4.0/report/stigs Get operation
 */
 type ListStigsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -123,11 +236,68 @@ type ListStigsApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListStigsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListStigsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListStigsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListStigsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = ListStigsApiResponse(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewListStigsApiResponse() *ListStigsApiResponse {
 	p := new(ListStigsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.ListStigsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -374,7 +544,7 @@ type Stig struct {
 	*/
 	StigVersion *string `json:"stigVersion,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -383,11 +553,78 @@ type Stig struct {
 	Title *string `json:"title,omitempty"`
 }
 
+func (p *Stig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Stig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Stig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Stig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Stig(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "affectedClusters")
+	delete(allFields, "benchmarkId")
+	delete(allFields, "comments")
+	delete(allFields, "extId")
+	delete(allFields, "fixText")
+	delete(allFields, "identifiers")
+	delete(allFields, "links")
+	delete(allFields, "ruleId")
+	delete(allFields, "severity")
+	delete(allFields, "status")
+	delete(allFields, "stigVersion")
+	delete(allFields, "tenantId")
+	delete(allFields, "title")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewStig() *Stig {
 	p := new(Stig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.Stig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -440,7 +677,7 @@ type StigProjection struct {
 	*/
 	StigVersion *string `json:"stigVersion,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -449,11 +686,78 @@ type StigProjection struct {
 	Title *string `json:"title,omitempty"`
 }
 
+func (p *StigProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias StigProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StigProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StigProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = StigProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "affectedClusters")
+	delete(allFields, "benchmarkId")
+	delete(allFields, "comments")
+	delete(allFields, "extId")
+	delete(allFields, "fixText")
+	delete(allFields, "identifiers")
+	delete(allFields, "links")
+	delete(allFields, "ruleId")
+	delete(allFields, "severity")
+	delete(allFields, "status")
+	delete(allFields, "stigVersion")
+	delete(allFields, "tenantId")
+	delete(allFields, "title")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewStigProjection() *StigProjection {
 	p := new(StigProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.StigProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -552,7 +856,7 @@ type StigSummary struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  UUID for the cluster.
+	  UUID of the cluster.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
@@ -576,16 +880,77 @@ type StigSummary struct {
 	*/
 	PassedCount *int `json:"passedCount,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *StigSummary) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias StigSummary
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StigSummary) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StigSummary
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = StigSummary(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "extId")
+	delete(allFields, "failedCount")
+	delete(allFields, "links")
+	delete(allFields, "notApplicableCount")
+	delete(allFields, "passedCount")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewStigSummary() *StigSummary {
 	p := new(StigSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.StigSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -598,7 +963,7 @@ type StigSummaryProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  UUID for the cluster.
+	  UUID of the cluster.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 
@@ -624,16 +989,78 @@ type StigSummaryProjection struct {
 	*/
 	PassedCount *int `json:"passedCount,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *StigSummaryProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias StigSummaryProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StigSummaryProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StigSummaryProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = StigSummaryProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "clusterProjection")
+	delete(allFields, "extId")
+	delete(allFields, "failedCount")
+	delete(allFields, "links")
+	delete(allFields, "notApplicableCount")
+	delete(allFields, "passedCount")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewStigSummaryProjection() *StigSummaryProjection {
 	p := new(StigSummaryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.StigSummaryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -649,7 +1076,7 @@ type Summary struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  UUID for the cluster.
+	  UUID of the cluster.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
@@ -667,11 +1094,11 @@ type Summary struct {
 
 	PasswordSummary *IssueSummary `json:"passwordSummary,omitempty"`
 
-	SecurityHardeningSummary *IssueSummary `json:"securityHardeningSummary,omitempty"`
+	SecurityConfigSummary *IssueSummary `json:"securityConfigSummary,omitempty"`
 
 	StigSummary *IssueSummary `json:"stigSummary,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -680,11 +1107,75 @@ type Summary struct {
 	VulnerabilitiesSummary *IssueSummary `json:"vulnerabilitiesSummary,omitempty"`
 }
 
+func (p *Summary) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Summary
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Summary) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Summary
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Summary(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "extId")
+	delete(allFields, "lastRefreshTime")
+	delete(allFields, "links")
+	delete(allFields, "passwordSummary")
+	delete(allFields, "securityConfigSummary")
+	delete(allFields, "stigSummary")
+	delete(allFields, "tenantId")
+	delete(allFields, "trendType")
+	delete(allFields, "vulnerabilitiesSummary")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewSummary() *Summary {
 	p := new(Summary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.Summary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -697,7 +1188,7 @@ type SummaryProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  UUID for the cluster.
+	  UUID of the cluster.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 
@@ -717,11 +1208,11 @@ type SummaryProjection struct {
 
 	PasswordSummary *IssueSummary `json:"passwordSummary,omitempty"`
 
-	SecurityHardeningSummary *IssueSummary `json:"securityHardeningSummary,omitempty"`
+	SecurityConfigSummary *IssueSummary `json:"securityConfigSummary,omitempty"`
 
 	StigSummary *IssueSummary `json:"stigSummary,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 
@@ -730,11 +1221,76 @@ type SummaryProjection struct {
 	VulnerabilitiesSummary *IssueSummary `json:"vulnerabilitiesSummary,omitempty"`
 }
 
+func (p *SummaryProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SummaryProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SummaryProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SummaryProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = SummaryProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "clusterProjection")
+	delete(allFields, "extId")
+	delete(allFields, "lastRefreshTime")
+	delete(allFields, "links")
+	delete(allFields, "passwordSummary")
+	delete(allFields, "securityConfigSummary")
+	delete(allFields, "stigSummary")
+	delete(allFields, "tenantId")
+	delete(allFields, "trendType")
+	delete(allFields, "vulnerabilitiesSummary")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewSummaryProjection() *SummaryProjection {
 	p := new(SummaryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.SummaryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -759,11 +1315,67 @@ type TrendValue struct {
 	TrendDate *time.Time `json:"trendDate,omitempty"`
 }
 
+func (p *TrendValue) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TrendValue
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TrendValue) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TrendValue
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = TrendValue(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "trend")
+	delete(allFields, "trendDate")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
+}
+
 func NewTrendValue() *TrendValue {
 	p := new(TrendValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.TrendValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -782,7 +1394,9 @@ type Vulnerability struct {
 	  The CESA id
 	*/
 	CesaId *string `json:"cesaId,omitempty"`
-
+	/*
+	  The CVE ids associated with this CESA
+	*/
 	CveIds []string `json:"cveIds,omitempty"`
 	/*
 	  The short description of the vulnerability
@@ -792,7 +1406,9 @@ type Vulnerability struct {
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-
+	/*
+	  The AOS versions where the vulnerability was fixed
+	*/
 	FixVersions []string `json:"fixVersions,omitempty"`
 	/*
 	  If the vulnerability is critical or not
@@ -813,16 +1429,81 @@ type Vulnerability struct {
 
 	Severity *Severity `json:"severity,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Vulnerability) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Vulnerability
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Vulnerability) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Vulnerability
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = Vulnerability(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "cesaId")
+	delete(allFields, "cveIds")
+	delete(allFields, "description")
+	delete(allFields, "extId")
+	delete(allFields, "fixVersions")
+	delete(allFields, "isCritical")
+	delete(allFields, "links")
+	delete(allFields, "nxvdCreatedTime")
+	delete(allFields, "nxvdVersion")
+	delete(allFields, "severity")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVulnerability() *Vulnerability {
 	p := new(Vulnerability)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.Vulnerability"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -838,7 +1519,9 @@ type VulnerabilityProjection struct {
 	  The CESA id
 	*/
 	CesaId *string `json:"cesaId,omitempty"`
-
+	/*
+	  The CVE ids associated with this CESA
+	*/
 	CveIds []string `json:"cveIds,omitempty"`
 	/*
 	  The short description of the vulnerability
@@ -848,7 +1531,9 @@ type VulnerabilityProjection struct {
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
-
+	/*
+	  The AOS versions where the vulnerability was fixed
+	*/
 	FixVersions []string `json:"fixVersions,omitempty"`
 	/*
 	  If the vulnerability is critical or not
@@ -869,16 +1554,81 @@ type VulnerabilityProjection struct {
 
 	Severity *Severity `json:"severity,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *VulnerabilityProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VulnerabilityProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VulnerabilityProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VulnerabilityProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VulnerabilityProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "cesaId")
+	delete(allFields, "cveIds")
+	delete(allFields, "description")
+	delete(allFields, "extId")
+	delete(allFields, "fixVersions")
+	delete(allFields, "isCritical")
+	delete(allFields, "links")
+	delete(allFields, "nxvdCreatedTime")
+	delete(allFields, "nxvdVersion")
+	delete(allFields, "severity")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVulnerabilityProjection() *VulnerabilityProjection {
 	p := new(VulnerabilityProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.VulnerabilityProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -894,7 +1644,7 @@ type VulnerabilitySummary struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  UUID for the cluster.
+	  UUID of the cluster.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
@@ -916,16 +1666,77 @@ type VulnerabilitySummary struct {
 
 	SoftwareType *SoftwareType `json:"softwareType,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *VulnerabilitySummary) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VulnerabilitySummary
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VulnerabilitySummary) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VulnerabilitySummary
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VulnerabilitySummary(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "cveIds")
+	delete(allFields, "extId")
+	delete(allFields, "installedVersion")
+	delete(allFields, "links")
+	delete(allFields, "softwareType")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVulnerabilitySummary() *VulnerabilitySummary {
 	p := new(VulnerabilitySummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.VulnerabilitySummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -938,7 +1749,7 @@ type VulnerabilitySummaryProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  UUID for the cluster.
+	  UUID of the cluster.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
@@ -960,16 +1771,77 @@ type VulnerabilitySummaryProjection struct {
 
 	SoftwareType *SoftwareType `json:"softwareType,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *VulnerabilitySummaryProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VulnerabilitySummaryProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VulnerabilitySummaryProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VulnerabilitySummaryProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = VulnerabilitySummaryProjection(*known)
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "cveIds")
+	delete(allFields, "extId")
+	delete(allFields, "installedVersion")
+	delete(allFields, "links")
+	delete(allFields, "softwareType")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	p.UnknownFields_ = allFields
+
+	return nil
 }
 
 func NewVulnerabilitySummaryProjection() *VulnerabilitySummaryProjection {
 	p := new(VulnerabilitySummaryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.report.VulnerabilitySummaryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

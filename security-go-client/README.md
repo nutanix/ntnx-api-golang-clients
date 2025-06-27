@@ -9,8 +9,8 @@ The Go client for Nutanix Security APIs is designed for Go client application de
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0.b1
-- Package version: v4.0.1-beta.1
+- API version: v4.0
+- Package version: v4.0.1
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/...@v4.0.1-beta.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/...@v4.0.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4 v4.0.1-beta.1
+	github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4 v4.0.1
 )
 ```
 
@@ -85,9 +85,6 @@ The Go client for Nutanix Security APIs can be configured with the following par
 | ReadTimeout | Read timeout (in time.Duration) for all operations                             | No       | 30 * time.Second |
 | DownloadDirectory | Directory location for files to download                                 | No       | Current Directory |
 | DownloadChunkSize | Chunk size in bytes for files to download                                | No       | 8*1024 bytes |
-| RootCACertificateFile | PEM encoded Root CA certificate file path                            | No       | N/A          |
-| ClientCertificateFile | PEM encoded client certificate file path                             | No       | N/A          |
-| ClientKeyFile | PEM encoded client key file path                                             | No       | N/A          |
 
 A Proxy can be configured with the following parameters
 
@@ -139,24 +136,7 @@ ApiClientInstance.Proxy.Port = 1080
 
 ```
 
-### mTLS Configuration
-```go
-import (
-	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/client"
-)
-var (
-	ApiClientInstance *client.ApiClient
-)
 
-ApiClientInstance = client.NewApiClient()
-// Configure the client as shown in the previous step
-// ...
-
-ApiClientInstance.RootCACertificateFile = "/home/certs/ca.pem"
-ApiClientInstance.ClientCertificateFile = "/home/certs/YourService/YourService.crt"
-ApiClientInstance.ClientKeyFile = "/home/certs/YourService/YourService.key"
-
-```
 
 ### Authentication
 Nutanix APIs currently support two type of authentication schemes:
@@ -207,7 +187,7 @@ ApiClientInstance.RetryInterval = 5 * time.Second // Interval (in time.Duration)
 
 ### Invoking an operation
 ```go
-// The following sample code is an example and does not reflect the real APIs provided by this client.
+
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/api"
@@ -215,7 +195,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	SampleApiInstance *api.SampleApi
+	CredentialsApiInstance *api.CredentialsApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -223,11 +203,11 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-SampleApiInstance = api.SampleApi(ApiClientInstance)
-var extId string = '8a17d0bb-3147-4f3a-bbbd-48ad2a4c19fc' // UUID.
+CredentialsApiInstance = api.NewCredentialsApi(ApiClientInstance)
+extId := "FB79cCf0-d5c0-ba6d-C8Ec-fcAE8C5AAaBB"
 
-// Get sample entity by ID
-response, err := SampleApiInstance.GetSampleEntityById(&extId)
+// 
+getResponse, err := CredentialsApiInstance.GetCredentialById(&extId)
 if err != nil {
 ....
 }
@@ -255,15 +235,15 @@ You can also modify the headers sent with each individual operation:
 #### Operation specific headers
 Nutanix APIs require that concurrent updates are protected using [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) headers. This would mean that the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header received in the response of a fetch (GET) operation should be used as an [If-Match](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match) header for the modification (PUT) operation.
 ```go
-// The following sample code is an example and does not reflect the real APIs provided by this client.
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/api"
+    // import request body DTO for put api
 )
 
 var (
 	ApiClientInstance *client.ApiClient
-	SampleApiInstance *api.SampleApi
+	CredentialsApiInstance *api.CredentialsApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -271,27 +251,30 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-SampleApiInstance = api.SampleApi(ApiClientInstance)
-var extId string = '8a17d0bb-3147-4f3a-bbbd-48ad2a4c19fc' // UUID.
+CredentialsApiInstance = api.NewCredentialsApi(ApiClientInstance)
+extId := "FB79cCf0-d5c0-ba6d-C8Ec-fcAE8C5AAaBB"
 
-// Get sample entity by ID
-response, err := SampleApiInstance.GetSampleEntityById(&extId)
+// 
+getResponse, err := CredentialsApiInstance.GetCredentialById(&extId)
 if err != nil {
-....
+    ....
 }
 
 // Extract E-Tag Header
-etagValue := ApiClientInstance.GetEtag(response)
-    
-// The following sample code is an example and does not reflect the real APIs provided by this client.
+etagValue := ApiClientInstance.GetEtag(getResponse)
 
-// Update sample entity by ID
 args := make(map[string] interface {})
 args["If-Match"] = etagValue
+// ...
+// Perform update call with received E-Tag reference
+// initialize/change parameters for update
+// ...
+credential := getResponse.GetData().(import1.Credential)
+
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := SampleApiInstance.UpdateSampleEntityById(&body, &extId, args)
+response, err := CredentialsApiInstance.UpdateCredentialById(&credential&extId, , args)
 if err != nil {
-    ....
+....
 }
 ```
 
@@ -308,14 +291,13 @@ List Operations for Nutanix APIs support pagination, filtering, sorting and proj
 | _expand   | allows clients to request related resources when a resource that satisfies a particular request is retrieved. Each expanded item is evaluated relative to the entity containing the property being expanded. Other query options can be applied to an expanded property by appending a semicolon-separated list of query options, enclosed in parentheses, to the property name. Permissible system query options are $filter,$select and $orderby. |
 
 ```go
-// The following sample code is an example and does not reflect the real APIs provided by this client.
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/api"
 )
 var (
 	ApiClientInstance *client.ApiClient
-	SampleApiInstance *api.SampleApi
+	CredentialsApiInstance *api.CredentialsApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -323,27 +305,26 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-SampleApiInstance = api.SampleApi(ApiClientInstance)
+CredentialsApiInstance = api.NewCredentialsApi(ApiClientInstance)
+page_ := 0
+limit_ := 50
+filter_ := "string_sample_data"
+orderby_ := "string_sample_data"
+select_ := "string_sample_data"
 
-// Get sample entities list
-response, err := SampleApiInstance.GetSampleEntitiesList(
-			pageValue,    /*if page_ parameter is present*/
-			limitValue,   /*if limit_ parameter is present*/
-			filterValue,  /*if filter_ parameter is present*/
-			orderbyValue, /*if orderby_ parameter is present*/
-			selectValue,  /*if select_ parameter is present*/
-			expandValue   /*if expand_ parameter is present*/
-			)
+// 
+response, err := CredentialsApiInstance.ListCredentials(&page_, &limit_, &filter_, &orderby_, &select_)
 if err != nil {
-....
+    ....
 }
+
 
 ```
 The list of filterable and sortable fields with expansion keys can be found in the documentation [here](https://developers.nutanix.com/).
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=security&version=v4.0.b1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=security&version=v4.0&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).
