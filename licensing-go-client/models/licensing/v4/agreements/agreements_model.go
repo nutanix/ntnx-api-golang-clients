@@ -1,7 +1,7 @@
 /*
  * Generated file models/licensing/v4/agreements/agreements_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Licensing APIs
  *
@@ -88,7 +88,23 @@ func (p *Acceptance) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Acceptance(*known)
+	*p = *NewAcceptance()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AcceptanceTime != nil {
+		p.AcceptanceTime = known.AcceptanceTime
+	}
+	if known.AcceptedBy != nil {
+		p.AcceptedBy = known.AcceptedBy
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -98,7 +114,9 @@ func (p *Acceptance) UnmarshalJSON(b []byte) error {
 	delete(allFields, "acceptedBy")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -107,14 +125,14 @@ func NewAcceptance() *Acceptance {
 	p := new(Acceptance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.Acceptance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.1/agreements/eula/$actions/add-user Post operation
+REST response for all response codes in API path /licensing/v4.2/agreements/eula/$actions/add-user Post operation
 */
 type AddUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -173,7 +191,26 @@ func (p *AddUserApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AddUserApiResponse(*known)
+	*p = *NewAddUserApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -184,7 +221,9 @@ func (p *AddUserApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -193,7 +232,7 @@ func NewAddUserApiResponse() *AddUserApiResponse {
 	p := new(AddUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.AddUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -301,7 +340,29 @@ func (p *EndUser) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EndUser(*known)
+	*p = *NewEndUser()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CompanyName != nil {
+		p.CompanyName = known.CompanyName
+	}
+	if known.JobTitle != nil {
+		p.JobTitle = known.JobTitle
+	}
+	if known.LoginId != nil {
+		p.LoginId = known.LoginId
+	}
+	if known.UserName != nil {
+		p.UserName = known.UserName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -313,7 +374,9 @@ func (p *EndUser) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -322,7 +385,7 @@ func NewEndUser() *EndUser {
 	p := new(EndUser)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.EndUser"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -421,7 +484,41 @@ func (p *Eula) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Eula(*known)
+	*p = *NewEula()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Acceptances != nil {
+		p.Acceptances = known.Acceptances
+	}
+	if known.Content != nil {
+		p.Content = known.Content
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpdatedTime != nil {
+		p.UpdatedTime = known.UpdatedTime
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -437,7 +534,9 @@ func (p *Eula) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -446,14 +545,14 @@ func NewEula() *Eula {
 	p := new(Eula)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.Eula"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.1/agreements/eula Get operation
+REST response for all response codes in API path /licensing/v4.2/agreements/eula Get operation
 */
 type GetEulaApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -512,7 +611,26 @@ func (p *GetEulaApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetEulaApiResponse(*known)
+	*p = *NewGetEulaApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -523,7 +641,9 @@ func (p *GetEulaApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -532,7 +652,7 @@ func NewGetEulaApiResponse() *GetEulaApiResponse {
 	p := new(GetEulaApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.GetEulaApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

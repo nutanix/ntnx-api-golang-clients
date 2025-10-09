@@ -1,6 +1,6 @@
 # Go Client For Nutanix Licensing APIs
 
-The Go client for Nutanix Licensing APIs is designed for Go client application developers offering them simple and flexible access to APIs that licensing desc placeholder.
+The Go client for Nutanix Licensing APIs is designed for Go client application developers offering them simple and flexible access to APIs that manage licenses for your clusters and Prism Central, get information on applied licenses, license compliance details and feature entitlements.
 
 ## Features
 - Invoke Nutanix APIs with a simple interface.
@@ -9,8 +9,8 @@ The Go client for Nutanix Licensing APIs is designed for Go client application d
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.1
-- Package version: v4.1.1
+- API version: v4.2
+- Package version: v4.2.1
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +31,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/...@v4.1.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/...@v4.2.1
 ```
 
 #### Using go modules
@@ -60,7 +60,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4 v4.1.1
+	github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4 v4.2.1
 )
 ```
 
@@ -322,7 +322,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=licensing&version=v4.1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=licensing&version=v4.2&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).
