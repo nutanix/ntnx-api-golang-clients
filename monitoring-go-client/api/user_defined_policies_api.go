@@ -39,7 +39,7 @@ func (api *UserDefinedPoliciesApi) CreateUdaPolicy(body *import1.UserDefinedPoli
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/alerts/user-defined-policies"
+	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -68,7 +68,7 @@ func (api *UserDefinedPoliciesApi) CreateUdaPolicy(body *import1.UserDefinedPoli
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -87,7 +87,7 @@ func (api *UserDefinedPoliciesApi) DeleteUdaPolicyById(extId *string, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/alerts/user-defined-policies/{extId}"
+	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -118,7 +118,7 @@ func (api *UserDefinedPoliciesApi) DeleteUdaPolicyById(extId *string, args ...ma
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -137,7 +137,7 @@ func (api *UserDefinedPoliciesApi) FindConflictingUdaPolicies(body *import1.User
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/alerts/user-defined-policies/$actions/find-conflicts"
+	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies/$actions/find-conflicts"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -166,7 +166,7 @@ func (api *UserDefinedPoliciesApi) FindConflictingUdaPolicies(body *import1.User
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -185,7 +185,7 @@ func (api *UserDefinedPoliciesApi) GetUdaPolicyById(extId *string, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/alerts/user-defined-policies/{extId}"
+	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -216,7 +216,7 @@ func (api *UserDefinedPoliciesApi) GetUdaPolicyById(extId *string, args ...map[s
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -235,7 +235,7 @@ func (api *UserDefinedPoliciesApi) ListUdaPolicies(page_ *int, limit_ *int, filt
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/alerts/user-defined-policies"
+	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -275,7 +275,7 @@ func (api *UserDefinedPoliciesApi) ListUdaPolicies(page_ *int, limit_ *int, filt
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -294,7 +294,7 @@ func (api *UserDefinedPoliciesApi) UpdateUdaPolicyById(extId *string, body *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/alerts/user-defined-policies/{extId}"
+	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -329,7 +329,7 @@ func (api *UserDefinedPoliciesApi) UpdateUdaPolicyById(extId *string, body *impo
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

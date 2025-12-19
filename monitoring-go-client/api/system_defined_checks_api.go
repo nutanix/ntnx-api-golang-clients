@@ -39,7 +39,7 @@ func (api *SystemDefinedChecksApi) RunSystemDefinedChecks(clusterExtId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/clusters/{clusterExtId}/$actions/run-system-defined-checks"
+	uri := "/api/monitoring/v4.2/serviceability/clusters/{clusterExtId}/$actions/run-system-defined-checks"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -74,7 +74,7 @@ func (api *SystemDefinedChecksApi) RunSystemDefinedChecks(clusterExtId *string, 
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

@@ -39,7 +39,7 @@ func (api *AuditsApi) GetAuditById(extId *string, args ...map[string]interface{}
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/audits/{extId}"
+	uri := "/api/monitoring/v4.2/serviceability/audits/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -70,7 +70,7 @@ func (api *AuditsApi) GetAuditById(extId *string, args ...map[string]interface{}
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -89,7 +89,7 @@ func (api *AuditsApi) ListAudits(page_ *int, limit_ *int, filter_ *string, order
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/audits"
+	uri := "/api/monitoring/v4.2/serviceability/audits"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -129,7 +129,7 @@ func (api *AuditsApi) ListAudits(page_ *int, limit_ *int, filter_ *string, order
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

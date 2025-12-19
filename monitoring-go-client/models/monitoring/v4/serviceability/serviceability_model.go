@@ -1,7 +1,7 @@
 /*
  * Generated file models/monitoring/v4/serviceability/serviceability_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Monitoring APIs
  *
@@ -133,6 +133,10 @@ type Alert struct {
 	*/
 	Classifications []string `json:"classifications,omitempty"`
 	/*
+	  Name of the cluster associated with the entity.
+	*/
+	ClusterName *string `json:"clusterName,omitempty"`
+	/*
 	  Cluster UUID associated with the source entity of the alert.
 	*/
 	ClusterUUID *string `json:"clusterUUID,omitempty"`
@@ -161,9 +165,17 @@ type Alert struct {
 	*/
 	IsResolved *bool `json:"isResolved,omitempty"`
 	/*
+	  Indicates whether the policy associated with the alert is runnable or not.
+	*/
+	IsRunnable *bool `json:"isRunnable,omitempty"`
+	/*
 	  Flag to indicate if the alert was generated from a User-Defined Alert policy.
 	*/
 	IsUserDefined *bool `json:"isUserDefined,omitempty"`
+	/*
+	  List of knowledge base article links.
+	*/
+	KbArticles []string `json:"kbArticles,omitempty"`
 	/*
 	  Time in ISO 8601 format when the alert was last updated.
 	*/
@@ -263,7 +275,110 @@ func (p *Alert) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Alert(*known)
+	*p = *NewAlert()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AcknowledgedByUsername != nil {
+		p.AcknowledgedByUsername = known.AcknowledgedByUsername
+	}
+	if known.AcknowledgedTime != nil {
+		p.AcknowledgedTime = known.AcknowledgedTime
+	}
+	if known.AffectedEntities != nil {
+		p.AffectedEntities = known.AffectedEntities
+	}
+	if known.AlertType != nil {
+		p.AlertType = known.AlertType
+	}
+	if known.Classifications != nil {
+		p.Classifications = known.Classifications
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
+	if known.ClusterUUID != nil {
+		p.ClusterUUID = known.ClusterUUID
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.ImpactTypes != nil {
+		p.ImpactTypes = known.ImpactTypes
+	}
+	if known.IsAcknowledged != nil {
+		p.IsAcknowledged = known.IsAcknowledged
+	}
+	if known.IsAutoResolved != nil {
+		p.IsAutoResolved = known.IsAutoResolved
+	}
+	if known.IsResolved != nil {
+		p.IsResolved = known.IsResolved
+	}
+	if known.IsRunnable != nil {
+		p.IsRunnable = known.IsRunnable
+	}
+	if known.IsUserDefined != nil {
+		p.IsUserDefined = known.IsUserDefined
+	}
+	if known.KbArticles != nil {
+		p.KbArticles = known.KbArticles
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
+	if known.MetricDetails != nil {
+		p.MetricDetails = known.MetricDetails
+	}
+	if known.OriginatingClusterUUID != nil {
+		p.OriginatingClusterUUID = known.OriginatingClusterUUID
+	}
+	if known.Parameters != nil {
+		p.Parameters = known.Parameters
+	}
+	if known.ResolvedByUsername != nil {
+		p.ResolvedByUsername = known.ResolvedByUsername
+	}
+	if known.ResolvedTime != nil {
+		p.ResolvedTime = known.ResolvedTime
+	}
+	if known.RootCauseAnalysis != nil {
+		p.RootCauseAnalysis = known.RootCauseAnalysis
+	}
+	if known.ServiceName != nil {
+		p.ServiceName = known.ServiceName
+	}
+	if known.Severity != nil {
+		p.Severity = known.Severity
+	}
+	if known.SeverityTrails != nil {
+		p.SeverityTrails = known.SeverityTrails
+	}
+	if known.SourceEntity != nil {
+		p.SourceEntity = known.SourceEntity
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Title != nil {
+		p.Title = known.Title
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -274,6 +389,7 @@ func (p *Alert) UnmarshalJSON(b []byte) error {
 	delete(allFields, "affectedEntities")
 	delete(allFields, "alertType")
 	delete(allFields, "classifications")
+	delete(allFields, "clusterName")
 	delete(allFields, "clusterUUID")
 	delete(allFields, "creationTime")
 	delete(allFields, "extId")
@@ -281,7 +397,9 @@ func (p *Alert) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isAcknowledged")
 	delete(allFields, "isAutoResolved")
 	delete(allFields, "isResolved")
+	delete(allFields, "isRunnable")
 	delete(allFields, "isUserDefined")
+	delete(allFields, "kbArticles")
 	delete(allFields, "lastUpdatedTime")
 	delete(allFields, "links")
 	delete(allFields, "message")
@@ -299,7 +417,9 @@ func (p *Alert) UnmarshalJSON(b []byte) error {
 	delete(allFields, "title")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -308,7 +428,7 @@ func NewAlert() *Alert {
 	p := new(Alert)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Alert"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsAcknowledged = new(bool)
@@ -317,6 +437,8 @@ func NewAlert() *Alert {
 	*p.IsAutoResolved = false
 	p.IsResolved = new(bool)
 	*p.IsResolved = false
+	p.IsRunnable = new(bool)
+	*p.IsRunnable = false
 	p.IsUserDefined = new(bool)
 	*p.IsUserDefined = false
 
@@ -384,7 +506,20 @@ func (p *AlertActionSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AlertActionSpec(*known)
+	*p = *NewAlertActionSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ActionType != nil {
+		p.ActionType = known.ActionType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -393,7 +528,9 @@ func (p *AlertActionSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "actionType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -402,7 +539,7 @@ func NewAlertActionSpec() *AlertActionSpec {
 	p := new(AlertActionSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AlertActionSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -468,7 +605,29 @@ func (p *AlertConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AlertConfig(*known)
+	*p = *NewAlertConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AutoResolve != nil {
+		p.AutoResolve = known.AutoResolve
+	}
+	if known.CriticalSeverity != nil {
+		p.CriticalSeverity = known.CriticalSeverity
+	}
+	if known.InfoSeverity != nil {
+		p.InfoSeverity = known.InfoSeverity
+	}
+	if known.WarningSeverity != nil {
+		p.WarningSeverity = known.WarningSeverity
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -480,7 +639,9 @@ func (p *AlertConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "warningSeverity")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -489,7 +650,7 @@ func NewAlertConfig() *AlertConfig {
 	p := new(AlertConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AlertConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -596,7 +757,59 @@ func (p *AlertEmailConfiguration) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AlertEmailConfiguration(*known)
+	*p = *NewAlertEmailConfiguration()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AlertEmailDigestSendTime != nil {
+		p.AlertEmailDigestSendTime = known.AlertEmailDigestSendTime
+	}
+	if known.AlertEmailDigestSendTimezone != nil {
+		p.AlertEmailDigestSendTimezone = known.AlertEmailDigestSendTimezone
+	}
+	if known.DefaultNutanixEmail != nil {
+		p.DefaultNutanixEmail = known.DefaultNutanixEmail
+	}
+	if known.EmailConfigRules != nil {
+		p.EmailConfigRules = known.EmailConfigRules
+	}
+	if known.EmailContactList != nil {
+		p.EmailContactList = known.EmailContactList
+	}
+	if known.EmailTemplate != nil {
+		p.EmailTemplate = known.EmailTemplate
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HasDefaultNutanixEmail != nil {
+		p.HasDefaultNutanixEmail = known.HasDefaultNutanixEmail
+	}
+	if known.IsEmailDigestEnabled != nil {
+		p.IsEmailDigestEnabled = known.IsEmailDigestEnabled
+	}
+	if known.IsEmptyAlertEmailDigestSkipped != nil {
+		p.IsEmptyAlertEmailDigestSkipped = known.IsEmptyAlertEmailDigestSkipped
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TunnelDetails != nil {
+		p.TunnelDetails = known.TunnelDetails
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -618,7 +831,9 @@ func (p *AlertEmailConfiguration) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tunnelDetails")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -627,7 +842,7 @@ func NewAlertEmailConfiguration() *AlertEmailConfiguration {
 	p := new(AlertEmailConfiguration)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AlertEmailConfiguration"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HasDefaultNutanixEmail = new(bool)
@@ -723,7 +938,32 @@ func (p *AlertPolicyConfigurableParameter) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AlertPolicyConfigurableParameter(*known)
+	*p = *NewAlertPolicyConfigurableParameter()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ParamValueItemDiscriminator_ != nil {
+		p.ParamValueItemDiscriminator_ = known.ParamValueItemDiscriminator_
+	}
+	if known.ParamValue != nil {
+		p.ParamValue = known.ParamValue
+	}
+	if known.Unit != nil {
+		p.Unit = known.Unit
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -736,7 +976,9 @@ func (p *AlertPolicyConfigurableParameter) UnmarshalJSON(b []byte) error {
 	delete(allFields, "unit")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -745,7 +987,7 @@ func NewAlertPolicyConfigurableParameter() *AlertPolicyConfigurableParameter {
 	p := new(AlertPolicyConfigurableParameter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AlertPolicyConfigurableParameter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -849,7 +1091,26 @@ func (p *ArchiveOpts) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ArchiveOpts(*known)
+	*p = *NewArchiveOpts()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ArchiveName != nil {
+		p.ArchiveName = known.ArchiveName
+	}
+	if known.UploadParamsItemDiscriminator_ != nil {
+		p.UploadParamsItemDiscriminator_ = known.UploadParamsItemDiscriminator_
+	}
+	if known.UploadParams != nil {
+		p.UploadParams = known.UploadParams
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -860,7 +1121,9 @@ func (p *ArchiveOpts) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uploadParams")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -869,7 +1132,7 @@ func NewArchiveOpts() *ArchiveOpts {
 	p := new(ArchiveOpts)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ArchiveOpts"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ArchiveName = new(string)
@@ -1002,7 +1265,65 @@ func (p *Audit) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Audit(*known)
+	*p = *NewAudit()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AffectedEntities != nil {
+		p.AffectedEntities = known.AffectedEntities
+	}
+	if known.AuditType != nil {
+		p.AuditType = known.AuditType
+	}
+	if known.ClusterReference != nil {
+		p.ClusterReference = known.ClusterReference
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
+	if known.OperationEndTime != nil {
+		p.OperationEndTime = known.OperationEndTime
+	}
+	if known.OperationStartTime != nil {
+		p.OperationStartTime = known.OperationStartTime
+	}
+	if known.OperationType != nil {
+		p.OperationType = known.OperationType
+	}
+	if known.Parameters != nil {
+		p.Parameters = known.Parameters
+	}
+	if known.ServiceName != nil {
+		p.ServiceName = known.ServiceName
+	}
+	if known.SourceEntity != nil {
+		p.SourceEntity = known.SourceEntity
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UserReference != nil {
+		p.UserReference = known.UserReference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1026,7 +1347,9 @@ func (p *Audit) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userReference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1035,7 +1358,7 @@ func NewAudit() *Audit {
 	p := new(Audit)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Audit"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1105,7 +1428,26 @@ func (p *AuditEntityReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AuditEntityReference(*known)
+	*p = *NewAuditEntityReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1116,7 +1458,9 @@ func (p *AuditEntityReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1125,7 +1469,7 @@ func NewAuditEntityReference() *AuditEntityReference {
 	p := new(AuditEntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.AuditEntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1281,7 +1625,23 @@ func (p *BooleanConfigurableParamValue) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BooleanConfigurableParamValue(*known)
+	*p = *NewBooleanConfigurableParamValue()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CurrentBoolValue != nil {
+		p.CurrentBoolValue = known.CurrentBoolValue
+	}
+	if known.DefaultBoolValue != nil {
+		p.DefaultBoolValue = known.DefaultBoolValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1291,7 +1651,9 @@ func (p *BooleanConfigurableParamValue) UnmarshalJSON(b []byte) error {
 	delete(allFields, "defaultBoolValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1300,7 +1662,7 @@ func NewBooleanConfigurableParamValue() *BooleanConfigurableParamValue {
 	p := new(BooleanConfigurableParamValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.BooleanConfigurableParamValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1392,7 +1754,44 @@ func (p *ClusterConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterConfig(*known)
+	*p = *NewClusterConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AlertConfig != nil {
+		p.AlertConfig = known.AlertConfig
+	}
+	if known.ConfigurableParameters != nil {
+		p.ConfigurableParameters = known.ConfigurableParameters
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.LastModifiedByUser != nil {
+		p.LastModifiedByUser = known.LastModifiedByUser
+	}
+	if known.LastModifiedTime != nil {
+		p.LastModifiedTime = known.LastModifiedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.ScheduleIntervalSeconds != nil {
+		p.ScheduleIntervalSeconds = known.ScheduleIntervalSeconds
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1409,7 +1808,9 @@ func (p *ClusterConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1418,7 +1819,7 @@ func NewClusterConfig() *ClusterConfig {
 	p := new(ClusterConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ClusterConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1507,7 +1908,44 @@ func (p *ClusterConfigProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterConfigProjection(*known)
+	*p = *NewClusterConfigProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AlertConfig != nil {
+		p.AlertConfig = known.AlertConfig
+	}
+	if known.ConfigurableParameters != nil {
+		p.ConfigurableParameters = known.ConfigurableParameters
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.LastModifiedByUser != nil {
+		p.LastModifiedByUser = known.LastModifiedByUser
+	}
+	if known.LastModifiedTime != nil {
+		p.LastModifiedTime = known.LastModifiedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.ScheduleIntervalSeconds != nil {
+		p.ScheduleIntervalSeconds = known.ScheduleIntervalSeconds
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1524,7 +1962,9 @@ func (p *ClusterConfigProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1533,7 +1973,7 @@ func NewClusterConfigProjection() *ClusterConfigProjection {
 	p := new(ClusterConfigProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ClusterConfigProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1619,7 +2059,7 @@ func (e ClusterType) Ref() *ClusterType {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/clusters/{extId}/$actions/collect-logs Post operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/clusters/{extId}/$actions/collect-logs Post operation
 */
 type CollectLogsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1678,7 +2118,26 @@ func (p *CollectLogsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CollectLogsApiResponse(*known)
+	*p = *NewCollectLogsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1689,7 +2148,9 @@ func (p *CollectLogsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1698,7 +2159,7 @@ func NewCollectLogsApiResponse() *CollectLogsApiResponse {
 	p := new(CollectLogsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.CollectLogsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1793,7 +2254,32 @@ func (p *CommunicationStatus) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CommunicationStatus(*known)
+	*p = *NewCommunicationStatus()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.LastChangedTime != nil {
+		p.LastChangedTime = known.LastChangedTime
+	}
+	if known.LastCheckedTime != nil {
+		p.LastCheckedTime = known.LastCheckedTime
+	}
+	if known.LastSuccessfulTransmissionTime != nil {
+		p.LastSuccessfulTransmissionTime = known.LastSuccessfulTransmissionTime
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1806,7 +2292,9 @@ func (p *CommunicationStatus) UnmarshalJSON(b []byte) error {
 	delete(allFields, "status")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1815,7 +2303,7 @@ func NewCommunicationStatus() *CommunicationStatus {
 	p := new(CommunicationStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.CommunicationStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1898,7 +2386,29 @@ func (p *Condition) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Condition(*known)
+	*p = *NewCondition()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MetricName != nil {
+		p.MetricName = known.MetricName
+	}
+	if known.Operator != nil {
+		p.Operator = known.Operator
+	}
+	if known.ThresholdValueItemDiscriminator_ != nil {
+		p.ThresholdValueItemDiscriminator_ = known.ThresholdValueItemDiscriminator_
+	}
+	if known.ThresholdValue != nil {
+		p.ThresholdValue = known.ThresholdValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1910,7 +2420,9 @@ func (p *Condition) UnmarshalJSON(b []byte) error {
 	delete(allFields, "thresholdValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1919,7 +2431,7 @@ func NewCondition() *Condition {
 	p := new(Condition)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Condition"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2023,7 +2535,29 @@ func (p *ConfigurableParamValueRange) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ConfigurableParamValueRange(*known)
+	*p = *NewConfigurableParamValueRange()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MaximumValueItemDiscriminator_ != nil {
+		p.MaximumValueItemDiscriminator_ = known.MaximumValueItemDiscriminator_
+	}
+	if known.MaximumValue != nil {
+		p.MaximumValue = known.MaximumValue
+	}
+	if known.MinimumValueItemDiscriminator_ != nil {
+		p.MinimumValueItemDiscriminator_ = known.MinimumValueItemDiscriminator_
+	}
+	if known.MinimumValue != nil {
+		p.MinimumValue = known.MinimumValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2035,7 +2569,9 @@ func (p *ConfigurableParamValueRange) UnmarshalJSON(b []byte) error {
 	delete(allFields, "minimumValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2044,7 +2580,7 @@ func NewConfigurableParamValueRange() *ConfigurableParamValueRange {
 	p := new(ConfigurableParamValueRange)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ConfigurableParamValueRange"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2134,7 +2670,20 @@ func (p *ConflictingPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ConflictingPolicy(*known)
+	*p = *NewConflictingPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2143,7 +2692,9 @@ func (p *ConflictingPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2152,7 +2703,7 @@ func NewConflictingPolicy() *ConflictingPolicy {
 	p := new(ConflictingPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ConflictingPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2246,7 +2797,7 @@ func (e ConnectionStatus) Ref() *ConnectionStatus {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies Post operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/user-defined-policies Post operation
 */
 type CreateUdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2305,7 +2856,26 @@ func (p *CreateUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateUdaPolicyApiResponse(*known)
+	*p = *NewCreateUdaPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2316,7 +2886,9 @@ func (p *CreateUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2325,7 +2897,7 @@ func NewCreateUdaPolicyApiResponse() *CreateUdaPolicyApiResponse {
 	p := new(CreateUdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.CreateUdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2423,7 +2995,26 @@ func (p *Credential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Credential(*known)
+	*p = *NewCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.KeyFilePath != nil {
+		p.KeyFilePath = known.KeyFilePath
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.UserName != nil {
+		p.UserName = known.UserName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2434,7 +3025,9 @@ func (p *Credential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2443,7 +3036,7 @@ func NewCredential() *Credential {
 	p := new(Credential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Credential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2526,7 +3119,32 @@ func (p *CustomServerUploadParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CustomServerUploadParams(*known)
+	*p = *NewCustomServerUploadParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credential != nil {
+		p.Credential = known.Credential
+	}
+	if known.Path != nil {
+		p.Path = known.Path
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.Protocol != nil {
+		p.Protocol = known.Protocol
+	}
+	if known.ServerAddress != nil {
+		p.ServerAddress = known.ServerAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2539,7 +3157,9 @@ func (p *CustomServerUploadParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "serverAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2548,14 +3168,14 @@ func NewCustomServerUploadParams() *CustomServerUploadParams {
 	p := new(CustomServerUploadParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.CustomServerUploadParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies/{extId} Delete operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/user-defined-policies/{extId} Delete operation
 */
 type DeleteUdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2614,7 +3234,26 @@ func (p *DeleteUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteUdaPolicyApiResponse(*known)
+	*p = *NewDeleteUdaPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2625,7 +3264,9 @@ func (p *DeleteUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2634,7 +3275,7 @@ func NewDeleteUdaPolicyApiResponse() *DeleteUdaPolicyApiResponse {
 	p := new(DeleteUdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.DeleteUdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2737,7 +3378,38 @@ func (p *EmailConfigurationRule) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EmailConfigurationRule(*known)
+	*p = *NewEmailConfigurationRule()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterUuids != nil {
+		p.ClusterUuids = known.ClusterUuids
+	}
+	if known.HasGlobalEmailContactList != nil {
+		p.HasGlobalEmailContactList = known.HasGlobalEmailContactList
+	}
+	if known.ImpactTypes != nil {
+		p.ImpactTypes = known.ImpactTypes
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.MatchPhrases != nil {
+		p.MatchPhrases = known.MatchPhrases
+	}
+	if known.Recipients != nil {
+		p.Recipients = known.Recipients
+	}
+	if known.Severities != nil {
+		p.Severities = known.Severities
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2752,7 +3424,9 @@ func (p *EmailConfigurationRule) UnmarshalJSON(b []byte) error {
 	delete(allFields, "severities")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2761,7 +3435,7 @@ func NewEmailConfigurationRule() *EmailConfigurationRule {
 	p := new(EmailConfigurationRule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.EmailConfigurationRule"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HasGlobalEmailContactList = new(bool)
@@ -2832,7 +3506,23 @@ func (p *EmailTemplate) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EmailTemplate(*known)
+	*p = *NewEmailTemplate()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BodySuffix != nil {
+		p.BodySuffix = known.BodySuffix
+	}
+	if known.SubjectPrefix != nil {
+		p.SubjectPrefix = known.SubjectPrefix
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2842,7 +3532,9 @@ func (p *EmailTemplate) UnmarshalJSON(b []byte) error {
 	delete(allFields, "subjectPrefix")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2851,7 +3543,7 @@ func NewEmailTemplate() *EmailTemplate {
 	p := new(EmailTemplate)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.EmailTemplate"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2920,7 +3612,20 @@ func (p *EntityFilter) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityFilter(*known)
+	*p = *NewEntityFilter()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2929,7 +3634,9 @@ func (p *EntityFilter) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2938,7 +3645,7 @@ func NewEntityFilter() *EntityFilter {
 	p := new(EntityFilter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.EntityFilter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3150,6 +3857,10 @@ type Event struct {
 	*/
 	Classifications []string `json:"classifications,omitempty"`
 	/*
+	  Name of the cluster associated with the entity.
+	*/
+	ClusterName *string `json:"clusterName,omitempty"`
+	/*
 	  Cluster UUID associated with the cluster where the event was first raised.
 	*/
 	ClusterUUID *string `json:"clusterUUID,omitempty"`
@@ -3177,6 +3888,8 @@ type Event struct {
 	  Details of the metric for a metric-based event.
 	*/
 	MetricDetails []import1.MetricDetail `json:"metricDetails,omitempty"`
+
+	OperationType *import1.OperationType `json:"operationType,omitempty"`
 	/*
 	  Additional parameters associated with the event. These parameters can be used to indicate custom key-value pairs for a given event instance. For example, a service down event in Prism Central can have the service name as a parameter.
 	*/
@@ -3238,7 +3951,65 @@ func (p *Event) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Event(*known)
+	*p = *NewEvent()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AffectedEntities != nil {
+		p.AffectedEntities = known.AffectedEntities
+	}
+	if known.Classifications != nil {
+		p.Classifications = known.Classifications
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
+	if known.ClusterUUID != nil {
+		p.ClusterUUID = known.ClusterUUID
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.EventType != nil {
+		p.EventType = known.EventType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
+	if known.MetricDetails != nil {
+		p.MetricDetails = known.MetricDetails
+	}
+	if known.OperationType != nil {
+		p.OperationType = known.OperationType
+	}
+	if known.Parameters != nil {
+		p.Parameters = known.Parameters
+	}
+	if known.ServiceName != nil {
+		p.ServiceName = known.ServiceName
+	}
+	if known.SourceClusterUUID != nil {
+		p.SourceClusterUUID = known.SourceClusterUUID
+	}
+	if known.SourceEntity != nil {
+		p.SourceEntity = known.SourceEntity
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3246,6 +4017,7 @@ func (p *Event) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "affectedEntities")
 	delete(allFields, "classifications")
+	delete(allFields, "clusterName")
 	delete(allFields, "clusterUUID")
 	delete(allFields, "creationTime")
 	delete(allFields, "eventType")
@@ -3253,6 +4025,7 @@ func (p *Event) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 	delete(allFields, "message")
 	delete(allFields, "metricDetails")
+	delete(allFields, "operationType")
 	delete(allFields, "parameters")
 	delete(allFields, "serviceName")
 	delete(allFields, "sourceClusterUUID")
@@ -3260,7 +4033,9 @@ func (p *Event) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3269,7 +4044,7 @@ func NewEvent() *Event {
 	p := new(Event)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Event"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3339,7 +4114,26 @@ func (p *EventEntityReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EventEntityReference(*known)
+	*p = *NewEventEntityReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3350,7 +4144,9 @@ func (p *EventEntityReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3359,14 +4155,14 @@ func NewEventEntityReference() *EventEntityReference {
 	p := new(EventEntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.EventEntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies/$actions/find-conflicts Post operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/user-defined-policies/$actions/find-conflicts Post operation
 */
 type FindConflictingUdaPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3425,7 +4221,26 @@ func (p *FindConflictingUdaPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FindConflictingUdaPoliciesApiResponse(*known)
+	*p = *NewFindConflictingUdaPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3436,7 +4251,9 @@ func (p *FindConflictingUdaPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3445,7 +4262,7 @@ func NewFindConflictingUdaPoliciesApiResponse() *FindConflictingUdaPoliciesApiRe
 	p := new(FindConflictingUdaPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.FindConflictingUdaPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3543,7 +4360,26 @@ func (p *FloatConfigurableParamValue) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FloatConfigurableParamValue(*known)
+	*p = *NewFloatConfigurableParamValue()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CurrentFloatValue != nil {
+		p.CurrentFloatValue = known.CurrentFloatValue
+	}
+	if known.DefaultFloatValue != nil {
+		p.DefaultFloatValue = known.DefaultFloatValue
+	}
+	if known.ValidValueRanges != nil {
+		p.ValidValueRanges = known.ValidValueRanges
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3554,7 +4390,9 @@ func (p *FloatConfigurableParamValue) UnmarshalJSON(b []byte) error {
 	delete(allFields, "validValueRanges")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3563,14 +4401,14 @@ func NewFloatConfigurableParamValue() *FloatConfigurableParamValue {
 	p := new(FloatConfigurableParamValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.FloatConfigurableParamValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/{extId} Get operation
 */
 type GetAlertApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3629,7 +4467,26 @@ func (p *GetAlertApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetAlertApiResponse(*known)
+	*p = *NewGetAlertApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3640,7 +4497,9 @@ func (p *GetAlertApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3649,7 +4508,7 @@ func NewGetAlertApiResponse() *GetAlertApiResponse {
 	p := new(GetAlertApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetAlertApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3677,7 +4536,7 @@ func (p *GetAlertApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/email-config Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/email-config Get operation
 */
 type GetAlertEmailConfigurationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3736,7 +4595,26 @@ func (p *GetAlertEmailConfigurationApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetAlertEmailConfigurationApiResponse(*known)
+	*p = *NewGetAlertEmailConfigurationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3747,7 +4625,9 @@ func (p *GetAlertEmailConfigurationApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3756,7 +4636,7 @@ func NewGetAlertEmailConfigurationApiResponse() *GetAlertEmailConfigurationApiRe
 	p := new(GetAlertEmailConfigurationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetAlertEmailConfigurationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3784,7 +4664,7 @@ func (p *GetAlertEmailConfigurationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/audits/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/audits/{extId} Get operation
 */
 type GetAuditApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3843,7 +4723,26 @@ func (p *GetAuditApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetAuditApiResponse(*known)
+	*p = *NewGetAuditApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3854,7 +4753,9 @@ func (p *GetAuditApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3863,7 +4764,7 @@ func NewGetAuditApiResponse() *GetAuditApiResponse {
 	p := new(GetAuditApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetAuditApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3891,7 +4792,7 @@ func (p *GetAuditApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId} Get operation
 */
 type GetClusterConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3950,7 +4851,26 @@ func (p *GetClusterConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetClusterConfigApiResponse(*known)
+	*p = *NewGetClusterConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3961,7 +4881,9 @@ func (p *GetClusterConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3970,7 +4892,7 @@ func NewGetClusterConfigApiResponse() *GetClusterConfigApiResponse {
 	p := new(GetClusterConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetClusterConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3998,7 +4920,7 @@ func (p *GetClusterConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/events/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/events/{extId} Get operation
 */
 type GetEventApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4057,7 +4979,26 @@ func (p *GetEventApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetEventApiResponse(*known)
+	*p = *NewGetEventApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4068,7 +5009,9 @@ func (p *GetEventApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4077,7 +5020,7 @@ func NewGetEventApiResponse() *GetEventApiResponse {
 	p := new(GetEventApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetEventApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4105,7 +5048,7 @@ func (p *GetEventApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/system-defined-policies/{extId} Get operation
 */
 type GetSdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4164,7 +5107,26 @@ func (p *GetSdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetSdaPolicyApiResponse(*known)
+	*p = *NewGetSdaPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4175,7 +5137,9 @@ func (p *GetSdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4184,7 +5148,7 @@ func NewGetSdaPolicyApiResponse() *GetSdaPolicyApiResponse {
 	p := new(GetSdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetSdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4212,7 +5176,7 @@ func (p *GetSdaPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies/{extId} Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/user-defined-policies/{extId} Get operation
 */
 type GetUdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4271,7 +5235,26 @@ func (p *GetUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetUdaPolicyApiResponse(*known)
+	*p = *NewGetUdaPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4282,7 +5265,9 @@ func (p *GetUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4291,7 +5276,7 @@ func NewGetUdaPolicyApiResponse() *GetUdaPolicyApiResponse {
 	p := new(GetUdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GetUdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4464,7 +5449,23 @@ func (p *GroupFilter) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GroupFilter(*known)
+	*p = *NewGroupFilter()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4474,7 +5475,9 @@ func (p *GroupFilter) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4483,7 +5486,7 @@ func NewGroupFilter() *GroupFilter {
 	p := new(GroupFilter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.GroupFilter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4563,7 +5566,35 @@ func (p *HttpProxy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HttpProxy(*known)
+	*p = *NewHttpProxy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AddressValue != nil {
+		p.AddressValue = known.AddressValue
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.ProxyTypes != nil {
+		p.ProxyTypes = known.ProxyTypes
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4577,7 +5608,9 @@ func (p *HttpProxy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4586,7 +5619,7 @@ func NewHttpProxy() *HttpProxy {
 	p := new(HttpProxy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.HttpProxy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4663,7 +5696,26 @@ func (p *IntConfigurableParamValue) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IntConfigurableParamValue(*known)
+	*p = *NewIntConfigurableParamValue()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CurrentIntValue != nil {
+		p.CurrentIntValue = known.CurrentIntValue
+	}
+	if known.DefaultIntValue != nil {
+		p.DefaultIntValue = known.DefaultIntValue
+	}
+	if known.ValidValueRanges != nil {
+		p.ValidValueRanges = known.ValidValueRanges
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4674,7 +5726,9 @@ func (p *IntConfigurableParamValue) UnmarshalJSON(b []byte) error {
 	delete(allFields, "validValueRanges")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4683,14 +5737,14 @@ func NewIntConfigurableParamValue() *IntConfigurableParamValue {
 	p := new(IntConfigurableParamValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.IntConfigurableParamValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts Get operation
 */
 type ListAlertsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4749,7 +5803,26 @@ func (p *ListAlertsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListAlertsApiResponse(*known)
+	*p = *NewListAlertsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4760,7 +5833,9 @@ func (p *ListAlertsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4769,7 +5844,7 @@ func NewListAlertsApiResponse() *ListAlertsApiResponse {
 	p := new(ListAlertsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListAlertsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4797,7 +5872,7 @@ func (p *ListAlertsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/audits Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/audits Get operation
 */
 type ListAuditsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4856,7 +5931,26 @@ func (p *ListAuditsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListAuditsApiResponse(*known)
+	*p = *NewListAuditsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4867,7 +5961,9 @@ func (p *ListAuditsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4876,7 +5972,7 @@ func NewListAuditsApiResponse() *ListAuditsApiResponse {
 	p := new(ListAuditsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListAuditsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4904,7 +6000,7 @@ func (p *ListAuditsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs Get operation
 */
 type ListClusterConfigsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4963,7 +6059,26 @@ func (p *ListClusterConfigsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListClusterConfigsApiResponse(*known)
+	*p = *NewListClusterConfigsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4974,7 +6089,9 @@ func (p *ListClusterConfigsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4983,7 +6100,7 @@ func NewListClusterConfigsApiResponse() *ListClusterConfigsApiResponse {
 	p := new(ListClusterConfigsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListClusterConfigsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5011,7 +6128,7 @@ func (p *ListClusterConfigsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/events Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/events Get operation
 */
 type ListEventsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5070,7 +6187,26 @@ func (p *ListEventsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListEventsApiResponse(*known)
+	*p = *NewListEventsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5081,7 +6217,9 @@ func (p *ListEventsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5090,7 +6228,7 @@ func NewListEventsApiResponse() *ListEventsApiResponse {
 	p := new(ListEventsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListEventsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5118,7 +6256,7 @@ func (p *ListEventsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/system-defined-policies Get operation
 */
 type ListSdaPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5177,7 +6315,26 @@ func (p *ListSdaPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListSdaPoliciesApiResponse(*known)
+	*p = *NewListSdaPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5188,7 +6345,9 @@ func (p *ListSdaPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5197,7 +6356,7 @@ func NewListSdaPoliciesApiResponse() *ListSdaPoliciesApiResponse {
 	p := new(ListSdaPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListSdaPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5225,7 +6384,7 @@ func (p *ListSdaPoliciesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/clusters/{clusterExtId}/tags Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/clusters/{clusterExtId}/tags Get operation
 */
 type ListTagsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5284,7 +6443,26 @@ func (p *ListTagsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListTagsApiResponse(*known)
+	*p = *NewListTagsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5295,7 +6473,9 @@ func (p *ListTagsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5304,7 +6484,7 @@ func NewListTagsApiResponse() *ListTagsApiResponse {
 	p := new(ListTagsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListTagsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5332,7 +6512,7 @@ func (p *ListTagsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies Get operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/user-defined-policies Get operation
 */
 type ListUdaPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5391,7 +6571,26 @@ func (p *ListUdaPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListUdaPoliciesApiResponse(*known)
+	*p = *NewListUdaPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5402,7 +6601,9 @@ func (p *ListUdaPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5411,7 +6612,7 @@ func NewListUdaPoliciesApiResponse() *ListUdaPoliciesApiResponse {
 	p := new(ListUdaPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ListUdaPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5494,7 +6695,20 @@ func (p *LocalUploadParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LocalUploadParams(*known)
+	*p = *NewLocalUploadParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Path != nil {
+		p.Path = known.Path
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5503,7 +6717,9 @@ func (p *LocalUploadParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "path")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5512,7 +6728,7 @@ func NewLocalUploadParams() *LocalUploadParams {
 	p := new(LocalUploadParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.LocalUploadParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Path = new(string)
@@ -5584,6 +6800,8 @@ type LogCollectionSpec struct {
 	  Note that this is equivalent to 1996-12-20T00:39:57Z in UTC.
 	*/
 	StartTime *time.Time `json:"startTime"`
+
+	TagOpts *TagOpts `json:"tagOpts,omitempty"`
 }
 
 func (p *LogCollectionSpec) MarshalJSON() ([]byte, error) {
@@ -5638,7 +6856,47 @@ func (p *LogCollectionSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LogCollectionSpec(*known)
+	*p = *NewLogCollectionSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ArchiveOpts != nil {
+		p.ArchiveOpts = known.ArchiveOpts
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.EndTime != nil {
+		p.EndTime = known.EndTime
+	}
+	if known.ExcludeTags != nil {
+		p.ExcludeTags = known.ExcludeTags
+	}
+	if known.IncludeTags != nil {
+		p.IncludeTags = known.IncludeTags
+	}
+	if known.NodeIpList != nil {
+		p.NodeIpList = known.NodeIpList
+	}
+	if known.ShouldAnonymize != nil {
+		p.ShouldAnonymize = known.ShouldAnonymize
+	}
+	if known.ShouldCollectFromDisabledNode != nil {
+		p.ShouldCollectFromDisabledNode = known.ShouldCollectFromDisabledNode
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
+	if known.TagOpts != nil {
+		p.TagOpts = known.TagOpts
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5653,9 +6911,12 @@ func (p *LogCollectionSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldAnonymize")
 	delete(allFields, "shouldCollectFromDisabledNode")
 	delete(allFields, "startTime")
+	delete(allFields, "tagOpts")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5664,7 +6925,7 @@ func NewLogCollectionSpec() *LogCollectionSpec {
 	p := new(LogCollectionSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.LogCollectionSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Description = new(string)
@@ -5678,7 +6939,7 @@ func NewLogCollectionSpec() *LogCollectionSpec {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/{extId}/$actions/manage-alert Post operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/{extId}/$actions/manage-alert Post operation
 */
 type ManageAlertApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5737,7 +6998,26 @@ func (p *ManageAlertApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ManageAlertApiResponse(*known)
+	*p = *NewManageAlertApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5748,7 +7028,9 @@ func (p *ManageAlertApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5757,7 +7039,7 @@ func NewManageAlertApiResponse() *ManageAlertApiResponse {
 	p := new(ManageAlertApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ManageAlertApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5782,6 +7064,101 @@ func (p *ManageAlertApiResponse) SetData(v interface{}) error {
 		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
 	return e
+}
+
+/*
+Additional arguments that are applicable only for MSP tag.
+*/
+type MspOpts struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of MSP cluster UUID from where logs would be collected.
+	*/
+	ClusterExtIds []string `json:"clusterExtIds,omitempty"`
+}
+
+func (p *MspOpts) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias MspOpts
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *MspOpts) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias MspOpts
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewMspOpts()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtIds != nil {
+		p.ClusterExtIds = known.ClusterExtIds
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtIds")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewMspOpts() *MspOpts {
+	p := new(MspOpts)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "monitoring.v4.serviceability.MspOpts"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -5849,7 +7226,23 @@ func (p *NtnxServerUploadParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NtnxServerUploadParams(*known)
+	*p = *NewNtnxServerUploadParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CaseNumber != nil {
+		p.CaseNumber = known.CaseNumber
+	}
+	if known.Protocol != nil {
+		p.Protocol = known.Protocol
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5859,7 +7252,9 @@ func (p *NtnxServerUploadParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "protocol")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5868,7 +7263,7 @@ func NewNtnxServerUploadParams() *NtnxServerUploadParams {
 	p := new(NtnxServerUploadParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.NtnxServerUploadParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5934,7 +7329,23 @@ func (p *ParameterizedMessage) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ParameterizedMessage(*known)
+	*p = *NewParameterizedMessage()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Attributes != nil {
+		p.Attributes = known.Attributes
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5944,7 +7355,9 @@ func (p *ParameterizedMessage) UnmarshalJSON(b []byte) error {
 	delete(allFields, "message")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5953,7 +7366,7 @@ func NewParameterizedMessage() *ParameterizedMessage {
 	p := new(ParameterizedMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ParameterizedMessage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6270,7 +7683,23 @@ func (p *RelatedPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RelatedPolicy(*known)
+	*p = *NewRelatedPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityUuid != nil {
+		p.EntityUuid = known.EntityUuid
+	}
+	if known.PolicyIds != nil {
+		p.PolicyIds = known.PolicyIds
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6280,7 +7709,9 @@ func (p *RelatedPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "policyIds")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6289,7 +7720,7 @@ func NewRelatedPolicy() *RelatedPolicy {
 	p := new(RelatedPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RelatedPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6355,7 +7786,29 @@ func (p *RemoteTunnelDetails) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RemoteTunnelDetails(*known)
+	*p = *NewRemoteTunnelDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConnectionStatus != nil {
+		p.ConnectionStatus = known.ConnectionStatus
+	}
+	if known.HttpProxy != nil {
+		p.HttpProxy = known.HttpProxy
+	}
+	if known.ServiceCenter != nil {
+		p.ServiceCenter = known.ServiceCenter
+	}
+	if known.TransportStatus != nil {
+		p.TransportStatus = known.TransportStatus
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6367,7 +7820,9 @@ func (p *RemoteTunnelDetails) UnmarshalJSON(b []byte) error {
 	delete(allFields, "transportStatus")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6376,7 +7831,7 @@ func NewRemoteTunnelDetails() *RemoteTunnelDetails {
 	p := new(RemoteTunnelDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RemoteTunnelDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6443,7 +7898,26 @@ func (p *RootCauseAnalysis) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RootCauseAnalysis(*known)
+	*p = *NewRootCauseAnalysis()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Cause != nil {
+		p.Cause = known.Cause
+	}
+	if known.Detail != nil {
+		p.Detail = known.Detail
+	}
+	if known.Resolution != nil {
+		p.Resolution = known.Resolution
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6454,7 +7928,9 @@ func (p *RootCauseAnalysis) UnmarshalJSON(b []byte) error {
 	delete(allFields, "resolution")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6463,7 +7939,7 @@ func NewRootCauseAnalysis() *RootCauseAnalysis {
 	p := new(RootCauseAnalysis)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RootCauseAnalysis"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6530,7 +8006,26 @@ func (p *RootCauseAnalysisProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RootCauseAnalysisProjection(*known)
+	*p = *NewRootCauseAnalysisProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Cause != nil {
+		p.Cause = known.Cause
+	}
+	if known.Detail != nil {
+		p.Detail = known.Detail
+	}
+	if known.Resolution != nil {
+		p.Resolution = known.Resolution
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6541,7 +8036,9 @@ func (p *RootCauseAnalysisProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "resolution")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6550,14 +8047,14 @@ func NewRootCauseAnalysisProjection() *RootCauseAnalysisProjection {
 	p := new(RootCauseAnalysisProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RootCauseAnalysisProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/clusters/{clusterExtId}/$actions/run-system-defined-checks Post operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/clusters/{clusterExtId}/$actions/run-system-defined-checks Post operation
 */
 type RunSystemDefinedChecksApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6616,7 +8113,26 @@ func (p *RunSystemDefinedChecksApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RunSystemDefinedChecksApiResponse(*known)
+	*p = *NewRunSystemDefinedChecksApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6627,7 +8143,9 @@ func (p *RunSystemDefinedChecksApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6636,7 +8154,7 @@ func NewRunSystemDefinedChecksApiResponse() *RunSystemDefinedChecksApiResponse {
 	p := new(RunSystemDefinedChecksApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RunSystemDefinedChecksApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6673,7 +8191,7 @@ type RunSystemDefinedChecksSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  A list of additional email addresses for sending the check run summary.
+	  A list of additional email addresses for sending the run summary. Either this should be set or shouldSendReportToConfiguredRecipients should be true. If both are set then email would be sent to all the recipients.
 	*/
 	AdditionalRecipients []string `json:"additionalRecipients,omitempty"`
 	/*
@@ -6693,7 +8211,7 @@ type RunSystemDefinedChecksSpec struct {
 	*/
 	ShouldRunAllChecks *bool `json:"shouldRunAllChecks,omitempty"`
 	/*
-	  Determines if the run summary should be sent to the configured email address associated with the cluster.
+	  Determines if the run summary should be sent to the configured email address associated with the cluster. Either this should be true or additionalRecipients should be provided. If both are set then email would be sent to all the recipients.
 	*/
 	ShouldSendReportToConfiguredRecipients *bool `json:"shouldSendReportToConfiguredRecipients,omitempty"`
 }
@@ -6739,7 +8257,35 @@ func (p *RunSystemDefinedChecksSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RunSystemDefinedChecksSpec(*known)
+	*p = *NewRunSystemDefinedChecksSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AdditionalRecipients != nil {
+		p.AdditionalRecipients = known.AdditionalRecipients
+	}
+	if known.NodeIps != nil {
+		p.NodeIps = known.NodeIps
+	}
+	if known.SdaExtIds != nil {
+		p.SdaExtIds = known.SdaExtIds
+	}
+	if known.ShouldAnonymize != nil {
+		p.ShouldAnonymize = known.ShouldAnonymize
+	}
+	if known.ShouldRunAllChecks != nil {
+		p.ShouldRunAllChecks = known.ShouldRunAllChecks
+	}
+	if known.ShouldSendReportToConfiguredRecipients != nil {
+		p.ShouldSendReportToConfiguredRecipients = known.ShouldSendReportToConfiguredRecipients
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6753,7 +8299,9 @@ func (p *RunSystemDefinedChecksSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldSendReportToConfiguredRecipients")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6762,7 +8310,7 @@ func NewRunSystemDefinedChecksSpec() *RunSystemDefinedChecksSpec {
 	p := new(RunSystemDefinedChecksSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.RunSystemDefinedChecksSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldAnonymize = new(bool)
@@ -7163,7 +8711,29 @@ func (p *ServiceCenter) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ServiceCenter(*known)
+	*p = *NewServiceCenter()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7175,7 +8745,9 @@ func (p *ServiceCenter) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7184,7 +8756,7 @@ func NewServiceCenter() *ServiceCenter {
 	p := new(ServiceCenter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.ServiceCenter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7248,7 +8820,23 @@ func (p *SeverityConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SeverityConfig(*known)
+	*p = *NewSeverityConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.State != nil {
+		p.State = known.State
+	}
+	if known.ThresholdParameters != nil {
+		p.ThresholdParameters = known.ThresholdParameters
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7258,7 +8846,9 @@ func (p *SeverityConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "thresholdParameters")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7267,7 +8857,7 @@ func NewSeverityConfig() *SeverityConfig {
 	p := new(SeverityConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.SeverityConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7331,7 +8921,23 @@ func (p *SeverityTrail) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SeverityTrail(*known)
+	*p = *NewSeverityTrail()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Severity != nil {
+		p.Severity = known.Severity
+	}
+	if known.SeverityChangeTime != nil {
+		p.SeverityChangeTime = known.SeverityChangeTime
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7341,7 +8947,9 @@ func (p *SeverityTrail) UnmarshalJSON(b []byte) error {
 	delete(allFields, "severityChangeTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7350,7 +8958,7 @@ func NewSeverityTrail() *SeverityTrail {
 	p := new(SeverityTrail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.SeverityTrail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7513,7 +9121,29 @@ func (p *StorageContainerUploadParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StorageContainerUploadParams(*known)
+	*p = *NewStorageContainerUploadParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credential != nil {
+		p.Credential = known.Credential
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.Path != nil {
+		p.Path = known.Path
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7525,7 +9155,9 @@ func (p *StorageContainerUploadParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "port")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7534,7 +9166,7 @@ func NewStorageContainerUploadParams() *StorageContainerUploadParams {
 	p := new(StorageContainerUploadParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.StorageContainerUploadParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Port = new(int)
@@ -7610,7 +9242,23 @@ func (p *StringConfigurableParamValue) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StringConfigurableParamValue(*known)
+	*p = *NewStringConfigurableParamValue()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CurrentStrValue != nil {
+		p.CurrentStrValue = known.CurrentStrValue
+	}
+	if known.DefaultStrValue != nil {
+		p.DefaultStrValue = known.DefaultStrValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7620,7 +9268,9 @@ func (p *StringConfigurableParamValue) UnmarshalJSON(b []byte) error {
 	delete(allFields, "defaultStrValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7629,7 +9279,7 @@ func NewStringConfigurableParamValue() *StringConfigurableParamValue {
 	p := new(StringConfigurableParamValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.StringConfigurableParamValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7667,7 +9317,7 @@ type SystemDefinedPolicy struct {
 	*/
 	ImpactTypes []import1.ImpactType `json:"impactTypes,omitempty"`
 	/*
-	  List of knowledge base article numbers.
+	  List of knowledge base article links.
 	*/
 	KbArticles []string `json:"kbArticles,omitempty"`
 	/*
@@ -7747,7 +9397,68 @@ func (p *SystemDefinedPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SystemDefinedPolicy(*known)
+	*p = *NewSystemDefinedPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Classifications != nil {
+		p.Classifications = known.Classifications
+	}
+	if known.ClusterConfigs != nil {
+		p.ClusterConfigs = known.ClusterConfigs
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.ImpactTypes != nil {
+		p.ImpactTypes = known.ImpactTypes
+	}
+	if known.KbArticles != nil {
+		p.KbArticles = known.KbArticles
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.PolicyId != nil {
+		p.PolicyId = known.PolicyId
+	}
+	if known.Publisher != nil {
+		p.Publisher = known.Publisher
+	}
+	if known.Scope != nil {
+		p.Scope = known.Scope
+	}
+	if known.SubType != nil {
+		p.SubType = known.SubType
+	}
+	if known.TargetClusters != nil {
+		p.TargetClusters = known.TargetClusters
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Title != nil {
+		p.Title = known.Title
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7772,7 +9483,9 @@ func (p *SystemDefinedPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7781,7 +9494,7 @@ func NewSystemDefinedPolicy() *SystemDefinedPolicy {
 	p := new(SystemDefinedPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.SystemDefinedPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Publisher = new(string)
@@ -7862,7 +9575,32 @@ func (p *Tag) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Tag(*known)
+	*p = *NewTag()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7875,7 +9613,9 @@ func (p *Tag) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7884,7 +9624,100 @@ func NewTag() *Tag {
 	p := new(Tag)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.Tag"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+This parameter allows the user to pass additional arguments that are specific to a particular tag.
+*/
+type TagOpts struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	MspOpts *MspOpts `json:"mspOpts,omitempty"`
+}
+
+func (p *TagOpts) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TagOpts
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TagOpts) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TagOpts
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewTagOpts()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MspOpts != nil {
+		p.MspOpts = known.MspOpts
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "mspOpts")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewTagOpts() *TagOpts {
+	p := new(TagOpts)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "monitoring.v4.serviceability.TagOpts"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7956,7 +9789,26 @@ func (p *TriggerCondition) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TriggerCondition(*known)
+	*p = *NewTriggerCondition()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Condition != nil {
+		p.Condition = known.Condition
+	}
+	if known.ConditionType != nil {
+		p.ConditionType = known.ConditionType
+	}
+	if known.SeverityLevel != nil {
+		p.SeverityLevel = known.SeverityLevel
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7967,7 +9819,9 @@ func (p *TriggerCondition) UnmarshalJSON(b []byte) error {
 	delete(allFields, "severityLevel")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7976,14 +9830,14 @@ func NewTriggerCondition() *TriggerCondition {
 	p := new(TriggerCondition)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.TriggerCondition"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/email-config Put operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/email-config Put operation
 */
 type UpdateAlertEmailConfigurationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8042,7 +9896,26 @@ func (p *UpdateAlertEmailConfigurationApiResponse) UnmarshalJSON(b []byte) error
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateAlertEmailConfigurationApiResponse(*known)
+	*p = *NewUpdateAlertEmailConfigurationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8053,7 +9926,9 @@ func (p *UpdateAlertEmailConfigurationApiResponse) UnmarshalJSON(b []byte) error
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8062,7 +9937,7 @@ func NewUpdateAlertEmailConfigurationApiResponse() *UpdateAlertEmailConfiguratio
 	p := new(UpdateAlertEmailConfigurationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UpdateAlertEmailConfigurationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8090,7 +9965,7 @@ func (p *UpdateAlertEmailConfigurationApiResponse) SetData(v interface{}) error 
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId} Put operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId} Put operation
 */
 type UpdateClusterConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8149,7 +10024,26 @@ func (p *UpdateClusterConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateClusterConfigApiResponse(*known)
+	*p = *NewUpdateClusterConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8160,7 +10054,9 @@ func (p *UpdateClusterConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8169,7 +10065,7 @@ func NewUpdateClusterConfigApiResponse() *UpdateClusterConfigApiResponse {
 	p := new(UpdateClusterConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UpdateClusterConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8197,7 +10093,7 @@ func (p *UpdateClusterConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /monitoring/v4.1/serviceability/alerts/user-defined-policies/{extId} Put operation
+REST response for all response codes in API path /monitoring/v4.2/serviceability/alerts/user-defined-policies/{extId} Put operation
 */
 type UpdateUdaPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8256,7 +10152,26 @@ func (p *UpdateUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateUdaPolicyApiResponse(*known)
+	*p = *NewUpdateUdaPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8267,7 +10182,9 @@ func (p *UpdateUdaPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8276,7 +10193,7 @@ func NewUpdateUdaPolicyApiResponse() *UpdateUdaPolicyApiResponse {
 	p := new(UpdateUdaPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UpdateUdaPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8433,7 +10350,71 @@ func (p *UserDefinedPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UserDefinedPolicy(*known)
+	*p = *NewUserDefinedPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FiltersItemDiscriminator_ != nil {
+		p.FiltersItemDiscriminator_ = known.FiltersItemDiscriminator_
+	}
+	if known.Filters != nil {
+		p.Filters = known.Filters
+	}
+	if known.ImpactTypes != nil {
+		p.ImpactTypes = known.ImpactTypes
+	}
+	if known.IsAutoResolved != nil {
+		p.IsAutoResolved = known.IsAutoResolved
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.IsExpectedToErrorOnConflict != nil {
+		p.IsExpectedToErrorOnConflict = known.IsExpectedToErrorOnConflict
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.PoliciesToOverride != nil {
+		p.PoliciesToOverride = known.PoliciesToOverride
+	}
+	if known.RelatedPolicies != nil {
+		p.RelatedPolicies = known.RelatedPolicies
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Title != nil {
+		p.Title = known.Title
+	}
+	if known.TriggerConditions != nil {
+		p.TriggerConditions = known.TriggerConditions
+	}
+	if known.TriggerWaitPeriod != nil {
+		p.TriggerWaitPeriod = known.TriggerWaitPeriod
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8459,7 +10440,9 @@ func (p *UserDefinedPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "triggerWaitPeriod")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8468,7 +10451,7 @@ func NewUserDefinedPolicy() *UserDefinedPolicy {
 	p := new(UserDefinedPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UserDefinedPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsAutoResolved = new(bool)
@@ -8566,7 +10549,26 @@ func (p *UserReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UserReference(*known)
+	*p = *NewUserReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8577,7 +10579,9 @@ func (p *UserReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8586,7 +10590,7 @@ func NewUserReference() *UserReference {
 	p := new(UserReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.serviceability.UserReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

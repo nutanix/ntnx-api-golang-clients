@@ -39,7 +39,7 @@ func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertAction
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.1/serviceability/alerts/{extId}/$actions/manage-alert"
+	uri := "/api/monitoring/v4.2/serviceability/alerts/{extId}/$actions/manage-alert"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -74,7 +74,7 @@ func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertAction
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

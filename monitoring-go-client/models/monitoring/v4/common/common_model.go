@@ -1,7 +1,7 @@
 /*
  * Generated file models/monitoring/v4/common/common_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Monitoring APIs
  *
@@ -86,7 +86,26 @@ func (p *AlertEntityReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AlertEntityReference(*known)
+	*p = *NewAlertEntityReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -97,7 +116,9 @@ func (p *AlertEntityReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -106,7 +127,7 @@ func NewAlertEntityReference() *AlertEntityReference {
 	p := new(AlertEntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.AlertEntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -175,7 +196,20 @@ func (p *BoolValue) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BoolValue(*known)
+	*p = *NewBoolValue()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BoolValue != nil {
+		p.BoolValue = known.BoolValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -184,7 +218,9 @@ func (p *BoolValue) UnmarshalJSON(b []byte) error {
 	delete(allFields, "boolValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -193,7 +229,7 @@ func NewBoolValue() *BoolValue {
 	p := new(BoolValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.BoolValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -259,7 +295,23 @@ func (p *CauseAndResolution) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CauseAndResolution(*known)
+	*p = *NewCauseAndResolution()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Cause != nil {
+		p.Cause = known.Cause
+	}
+	if known.Resolution != nil {
+		p.Resolution = known.Resolution
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -269,7 +321,9 @@ func (p *CauseAndResolution) UnmarshalJSON(b []byte) error {
 	delete(allFields, "resolution")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -278,7 +332,7 @@ func NewCauseAndResolution() *CauseAndResolution {
 	p := new(CauseAndResolution)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.CauseAndResolution"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -600,7 +654,20 @@ func (p *DoubleValue) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DoubleValue(*known)
+	*p = *NewDoubleValue()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DoubleValue != nil {
+		p.DoubleValue = known.DoubleValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -609,7 +676,9 @@ func (p *DoubleValue) UnmarshalJSON(b []byte) error {
 	delete(allFields, "doubleValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -618,7 +687,7 @@ func NewDoubleValue() *DoubleValue {
 	p := new(DoubleValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.DoubleValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -688,7 +757,26 @@ func (p *EntityReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityReference(*known)
+	*p = *NewEntityReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -699,7 +787,9 @@ func (p *EntityReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -708,7 +798,7 @@ func NewEntityReference() *EntityReference {
 	p := new(EntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.EntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -777,7 +867,20 @@ func (p *FloatValue) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FloatValue(*known)
+	*p = *NewFloatValue()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.FloatValue != nil {
+		p.FloatValue = known.FloatValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -786,7 +889,9 @@ func (p *FloatValue) UnmarshalJSON(b []byte) error {
 	delete(allFields, "floatValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -795,7 +900,7 @@ func NewFloatValue() *FloatValue {
 	p := new(FloatValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.FloatValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -967,7 +1072,20 @@ func (p *IntValue) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IntValue(*known)
+	*p = *NewIntValue()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IntValue != nil {
+		p.IntValue = known.IntValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -976,7 +1094,9 @@ func (p *IntValue) UnmarshalJSON(b []byte) error {
 	delete(allFields, "intValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -985,7 +1105,7 @@ func NewIntValue() *IntValue {
 	p := new(IntValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.IntValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1082,7 +1202,56 @@ func (p *MetricDetail) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MetricDetail(*known)
+	*p = *NewMetricDetail()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ComparisonOperator != nil {
+		p.ComparisonOperator = known.ComparisonOperator
+	}
+	if known.ConditionType != nil {
+		p.ConditionType = known.ConditionType
+	}
+	if known.DataType != nil {
+		p.DataType = known.DataType
+	}
+	if known.MetricCategory != nil {
+		p.MetricCategory = known.MetricCategory
+	}
+	if known.MetricDisplayName != nil {
+		p.MetricDisplayName = known.MetricDisplayName
+	}
+	if known.MetricName != nil {
+		p.MetricName = known.MetricName
+	}
+	if known.MetricValueItemDiscriminator_ != nil {
+		p.MetricValueItemDiscriminator_ = known.MetricValueItemDiscriminator_
+	}
+	if known.MetricValue != nil {
+		p.MetricValue = known.MetricValue
+	}
+	if known.ThresholdValueItemDiscriminator_ != nil {
+		p.ThresholdValueItemDiscriminator_ = known.ThresholdValueItemDiscriminator_
+	}
+	if known.ThresholdValue != nil {
+		p.ThresholdValue = known.ThresholdValue
+	}
+	if known.TriggerTime != nil {
+		p.TriggerTime = known.TriggerTime
+	}
+	if known.TriggerWaitTimeSeconds != nil {
+		p.TriggerWaitTimeSeconds = known.TriggerWaitTimeSeconds
+	}
+	if known.Unit != nil {
+		p.Unit = known.Unit
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1103,7 +1272,9 @@ func (p *MetricDetail) UnmarshalJSON(b []byte) error {
 	delete(allFields, "unit")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1112,7 +1283,7 @@ func NewMetricDetail() *MetricDetail {
 	p := new(MetricDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.MetricDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1190,6 +1361,7 @@ const (
 	OPERATIONTYPE_RESUME                      OperationType = 42
 	OPERATIONTYPE_GENERATEURL                 OperationType = 43
 	OPERATIONTYPE_DOWNLOAD                    OperationType = 44
+	OPERATIONTYPE_IMAGEMIGRATETOCR            OperationType = 45
 )
 
 // Returns the name of the enum given an ordinal number
@@ -1242,6 +1414,7 @@ func (e *OperationType) name(index int) string {
 		"RESUME",
 		"GENERATEURL",
 		"DOWNLOAD",
+		"IMAGEMIGRATETOCR",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1298,6 +1471,7 @@ func (e OperationType) GetName() string {
 		"RESUME",
 		"GENERATEURL",
 		"DOWNLOAD",
+		"IMAGEMIGRATETOCR",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1353,6 +1527,7 @@ func (e *OperationType) index(name string) OperationType {
 		"RESUME",
 		"GENERATEURL",
 		"DOWNLOAD",
+		"IMAGEMIGRATETOCR",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -1441,7 +1616,26 @@ func (p *Parameter) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Parameter(*known)
+	*p = *NewParameter()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ParamName != nil {
+		p.ParamName = known.ParamName
+	}
+	if known.ParamValueItemDiscriminator_ != nil {
+		p.ParamValueItemDiscriminator_ = known.ParamValueItemDiscriminator_
+	}
+	if known.ParamValue != nil {
+		p.ParamValue = known.ParamValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1452,7 +1646,9 @@ func (p *Parameter) UnmarshalJSON(b []byte) error {
 	delete(allFields, "paramValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1461,7 +1657,7 @@ func NewParameter() *Parameter {
 	p := new(Parameter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.Parameter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1634,7 +1830,20 @@ func (p *StringValue) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StringValue(*known)
+	*p = *NewStringValue()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StringValue != nil {
+		p.StringValue = known.StringValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1643,7 +1852,9 @@ func (p *StringValue) UnmarshalJSON(b []byte) error {
 	delete(allFields, "stringValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1652,7 +1863,7 @@ func NewStringValue() *StringValue {
 	p := new(StringValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.StringValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
