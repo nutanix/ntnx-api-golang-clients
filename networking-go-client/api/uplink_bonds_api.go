@@ -39,7 +39,7 @@ func (api *UplinkBondsApi) GetUplinkBondById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/uplink-bonds/{extId}"
+	uri := "/api/networking/v4.2/config/uplink-bonds/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *UplinkBondsApi) ListUplinkBonds(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/uplink-bonds"
+	uri := "/api/networking/v4.2/config/uplink-bonds"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

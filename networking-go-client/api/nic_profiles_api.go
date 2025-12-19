@@ -39,7 +39,7 @@ func (api *NicProfilesApi) AssociateHostNicToNicProfile(extId *string, body *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/nic-profiles/{extId}/$actions/associate-host-nic"
+	uri := "/api/networking/v4.2/config/nic-profiles/{extId}/$actions/associate-host-nic"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -93,7 +93,7 @@ func (api *NicProfilesApi) CreateNicProfile(body *import2.NicProfile, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/nic-profiles"
+	uri := "/api/networking/v4.2/config/nic-profiles"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -141,7 +141,7 @@ func (api *NicProfilesApi) DeleteNicProfileById(extId *string, args ...map[strin
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/nic-profiles/{extId}"
+	uri := "/api/networking/v4.2/config/nic-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -191,7 +191,7 @@ func (api *NicProfilesApi) DisassociateHostNicFromNicProfile(extId *string, body
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/nic-profiles/{extId}/$actions/disassociate-host-nic"
+	uri := "/api/networking/v4.2/config/nic-profiles/{extId}/$actions/disassociate-host-nic"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -245,7 +245,7 @@ func (api *NicProfilesApi) GetNicProfileById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/nic-profiles/{extId}"
+	uri := "/api/networking/v4.2/config/nic-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -295,7 +295,7 @@ func (api *NicProfilesApi) ListNicProfiles(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/nic-profiles"
+	uri := "/api/networking/v4.2/config/nic-profiles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -354,7 +354,7 @@ func (api *NicProfilesApi) UpdateNicProfileById(extId *string, body *import2.Nic
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/nic-profiles/{extId}"
+	uri := "/api/networking/v4.2/config/nic-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

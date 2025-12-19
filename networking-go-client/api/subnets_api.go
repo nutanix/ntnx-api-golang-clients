@@ -39,7 +39,7 @@ func (api *SubnetsApi) CreateSubnet(body *import2.Subnet, args ...map[string]int
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/subnets"
+	uri := "/api/networking/v4.2/config/subnets"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *SubnetsApi) DeleteSubnetById(extId *string, args ...map[string]interf
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/subnets/{extId}"
+	uri := "/api/networking/v4.2/config/subnets/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *SubnetsApi) GetSubnetById(extId *string, args ...map[string]interface
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/subnets/{extId}"
+	uri := "/api/networking/v4.2/config/subnets/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *SubnetsApi) ListSubnets(page_ *int, limit_ *int, filter_ *string, ord
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/subnets"
+	uri := "/api/networking/v4.2/config/subnets"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -249,7 +249,7 @@ func (api *SubnetsApi) ListVnicsBySubnetId(subnetExtId *string, page_ *int, limi
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/subnets/{subnetExtId}/vnics"
+	uri := "/api/networking/v4.2/config/subnets/{subnetExtId}/vnics"
 
 	// verify the required parameter 'subnetExtId' is set
 	if nil == subnetExtId {
@@ -315,7 +315,7 @@ func (api *SubnetsApi) UpdateSubnetById(extId *string, body *import2.Subnet, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/subnets/{extId}"
+	uri := "/api/networking/v4.2/config/subnets/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

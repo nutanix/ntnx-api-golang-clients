@@ -39,7 +39,7 @@ func (api *BridgesApi) MigrateBridge(body *import2.Bridge, xClusterId *string, a
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/virtual-switches/$actions/migrate"
+	uri := "/api/networking/v4.2/config/virtual-switches/$actions/migrate"
 
 	// verify the required parameter 'body' is set
 	if nil == body {

@@ -1,7 +1,7 @@
 /*
  * Generated file models/networking/v4/stats/stats_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Networking APIs
  *
@@ -25,7 +25,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /networking/v4.1/stats/layer2-stretches/{extId} Get operation
+REST response for all response codes in API path /networking/v4.2/stats/layer2-stretches/{extId} Get operation
 */
 type GetLayer2StretchStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -84,7 +84,26 @@ func (p *GetLayer2StretchStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetLayer2StretchStatsApiResponse(*known)
+	*p = *NewGetLayer2StretchStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -95,7 +114,9 @@ func (p *GetLayer2StretchStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -104,7 +125,7 @@ func NewGetLayer2StretchStatsApiResponse() *GetLayer2StretchStatsApiResponse {
 	p := new(GetLayer2StretchStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.GetLayer2StretchStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -132,7 +153,7 @@ func (p *GetLayer2StretchStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.1/stats/traffic-mirrors/{extId} Get operation
+REST response for all response codes in API path /networking/v4.2/stats/traffic-mirrors/{extId} Get operation
 */
 type GetTrafficMirrorStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -191,7 +212,26 @@ func (p *GetTrafficMirrorStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetTrafficMirrorStatsApiResponse(*known)
+	*p = *NewGetTrafficMirrorStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -202,7 +242,9 @@ func (p *GetTrafficMirrorStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -211,7 +253,7 @@ func NewGetTrafficMirrorStatsApiResponse() *GetTrafficMirrorStatsApiResponse {
 	p := new(GetTrafficMirrorStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.GetTrafficMirrorStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -239,7 +281,7 @@ func (p *GetTrafficMirrorStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.1/stats/vpc/{vpcExtId}/external-subnets/{extId} Get operation
+REST response for all response codes in API path /networking/v4.2/stats/vpc/{vpcExtId}/external-subnets/{extId} Get operation
 */
 type GetVpcNsStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -298,7 +340,26 @@ func (p *GetVpcNsStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVpcNsStatsApiResponse(*known)
+	*p = *NewGetVpcNsStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -309,7 +370,9 @@ func (p *GetVpcNsStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -318,7 +381,7 @@ func NewGetVpcNsStatsApiResponse() *GetVpcNsStatsApiResponse {
 	p := new(GetVpcNsStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.GetVpcNsStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -346,7 +409,7 @@ func (p *GetVpcNsStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.1/stats/vpn-connections/{extId} Get operation
+REST response for all response codes in API path /networking/v4.2/stats/vpn-connections/{extId} Get operation
 */
 type GetVpnConnectionStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -405,7 +468,26 @@ func (p *GetVpnConnectionStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVpnConnectionStatsApiResponse(*known)
+	*p = *NewGetVpnConnectionStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -416,7 +498,9 @@ func (p *GetVpnConnectionStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -425,7 +509,7 @@ func NewGetVpnConnectionStatsApiResponse() *GetVpnConnectionStatsApiResponse {
 	p := new(GetVpnConnectionStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.GetVpnConnectionStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -530,7 +614,38 @@ func (p *Layer2StretchStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Layer2StretchStats(*known)
+	*p = *NewLayer2StretchStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Rtt != nil {
+		p.Rtt = known.Rtt
+	}
+	if known.StatType != nil {
+		p.StatType = known.StatType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.ThroughputRxKbps != nil {
+		p.ThroughputRxKbps = known.ThroughputRxKbps
+	}
+	if known.ThroughputTxKbps != nil {
+		p.ThroughputTxKbps = known.ThroughputTxKbps
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -545,7 +660,9 @@ func (p *Layer2StretchStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "throughputTxKbps")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -554,7 +671,7 @@ func NewLayer2StretchStats() *Layer2StretchStats {
 	p := new(Layer2StretchStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.Layer2StretchStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -625,7 +742,29 @@ func (p *ListenerStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListenerStats(*known)
+	*p = *NewListenerStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NumBytes != nil {
+		p.NumBytes = known.NumBytes
+	}
+	if known.NumPackets != nil {
+		p.NumPackets = known.NumPackets
+	}
+	if known.NumRequests != nil {
+		p.NumRequests = known.NumRequests
+	}
+	if known.VirtualIpAddress != nil {
+		p.VirtualIpAddress = known.VirtualIpAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -637,7 +776,9 @@ func (p *ListenerStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "virtualIpAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -646,7 +787,7 @@ func NewListenerStats() *ListenerStats {
 	p := new(ListenerStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.ListenerStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -726,7 +867,35 @@ func (p *LoadBalancerSessionStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LoadBalancerSessionStats(*known)
+	*p = *NewLoadBalancerSessionStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.ListenerStats != nil {
+		p.ListenerStats = known.ListenerStats
+	}
+	if known.StatType != nil {
+		p.StatType = known.StatType
+	}
+	if known.TargetStats != nil {
+		p.TargetStats = known.TargetStats
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -740,7 +909,9 @@ func (p *LoadBalancerSessionStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -749,14 +920,14 @@ func NewLoadBalancerSessionStats() *LoadBalancerSessionStats {
 	p := new(LoadBalancerSessionStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.LoadBalancerSessionStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /networking/v4.1/stats/load-balancer-sessions/{extId} Get operation
+REST response for all response codes in API path /networking/v4.2/stats/load-balancer-sessions/{extId} Get operation
 */
 type LoadBalancerSessionStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -815,7 +986,26 @@ func (p *LoadBalancerSessionStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LoadBalancerSessionStatsApiResponse(*known)
+	*p = *NewLoadBalancerSessionStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -826,7 +1016,9 @@ func (p *LoadBalancerSessionStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -835,7 +1027,7 @@ func NewLoadBalancerSessionStatsApiResponse() *LoadBalancerSessionStatsApiRespon
 	p := new(LoadBalancerSessionStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.LoadBalancerSessionStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -929,7 +1121,23 @@ func (p *RoutingPolicyClearCountersSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RoutingPolicyClearCountersSpec(*known)
+	*p = *NewRoutingPolicyClearCountersSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.RoutingPolicyExtId != nil {
+		p.RoutingPolicyExtId = known.RoutingPolicyExtId
+	}
+	if known.VpcExtId != nil {
+		p.VpcExtId = known.VpcExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -939,7 +1147,9 @@ func (p *RoutingPolicyClearCountersSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vpcExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -948,7 +1158,7 @@ func NewRoutingPolicyClearCountersSpec() *RoutingPolicyClearCountersSpec {
 	p := new(RoutingPolicyClearCountersSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.RoutingPolicyClearCountersSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1020,7 +1230,29 @@ func (p *StatsQueryResponseBase) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StatsQueryResponseBase(*known)
+	*p = *NewStatsQueryResponseBase()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.StatType != nil {
+		p.StatType = known.StatType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1032,7 +1264,9 @@ func (p *StatsQueryResponseBase) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1041,7 +1275,7 @@ func NewStatsQueryResponseBase() *StatsQueryResponseBase {
 	p := new(StatsQueryResponseBase)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.StatsQueryResponseBase"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1112,7 +1346,29 @@ func (p *TargetStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TargetStats(*known)
+	*p = *NewTargetStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NumBytes != nil {
+		p.NumBytes = known.NumBytes
+	}
+	if known.NumPackets != nil {
+		p.NumPackets = known.NumPackets
+	}
+	if known.NumRequests != nil {
+		p.NumRequests = known.NumRequests
+	}
+	if known.VirtualNicReference != nil {
+		p.VirtualNicReference = known.VirtualNicReference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1124,7 +1380,9 @@ func (p *TargetStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "virtualNicReference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1133,14 +1391,14 @@ func NewTargetStats() *TargetStats {
 	p := new(TargetStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.TargetStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /networking/v4.1/stats/routing-policies/$actions/clear Post operation
+REST response for all response codes in API path /networking/v4.2/stats/routing-policies/$actions/clear Post operation
 */
 type TaskReferenceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1199,7 +1457,26 @@ func (p *TaskReferenceApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TaskReferenceApiResponse(*known)
+	*p = *NewTaskReferenceApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1210,7 +1487,9 @@ func (p *TaskReferenceApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1219,7 +1498,7 @@ func NewTaskReferenceApiResponse() *TaskReferenceApiResponse {
 	p := new(TaskReferenceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.TaskReferenceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1320,7 +1599,35 @@ func (p *TrafficMirrorStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TrafficMirrorStats(*known)
+	*p = *NewTrafficMirrorStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.StatType != nil {
+		p.StatType = known.StatType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TransmitByteCount != nil {
+		p.TransmitByteCount = known.TransmitByteCount
+	}
+	if known.TransmitPacketCount != nil {
+		p.TransmitPacketCount = known.TransmitPacketCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1334,7 +1641,9 @@ func (p *TrafficMirrorStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "transmitPacketCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1343,7 +1652,7 @@ func NewTrafficMirrorStats() *TrafficMirrorStats {
 	p := new(TrafficMirrorStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.TrafficMirrorStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1447,7 +1756,53 @@ func (p *VpcNsStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VpcNsStats(*known)
+	*p = *NewVpcNsStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.NorthSouthEgressBytesAbs != nil {
+		p.NorthSouthEgressBytesAbs = known.NorthSouthEgressBytesAbs
+	}
+	if known.NorthSouthEgressBytesPerSec != nil {
+		p.NorthSouthEgressBytesPerSec = known.NorthSouthEgressBytesPerSec
+	}
+	if known.NorthSouthEgressPacketsAbs != nil {
+		p.NorthSouthEgressPacketsAbs = known.NorthSouthEgressPacketsAbs
+	}
+	if known.NorthSouthEgressPacketsPerSec != nil {
+		p.NorthSouthEgressPacketsPerSec = known.NorthSouthEgressPacketsPerSec
+	}
+	if known.NorthSouthIngressBytesAbs != nil {
+		p.NorthSouthIngressBytesAbs = known.NorthSouthIngressBytesAbs
+	}
+	if known.NorthSouthIngressBytesPerSec != nil {
+		p.NorthSouthIngressBytesPerSec = known.NorthSouthIngressBytesPerSec
+	}
+	if known.NorthSouthIngressPacketsAbs != nil {
+		p.NorthSouthIngressPacketsAbs = known.NorthSouthIngressPacketsAbs
+	}
+	if known.NorthSouthIngressPacketsPerSec != nil {
+		p.NorthSouthIngressPacketsPerSec = known.NorthSouthIngressPacketsPerSec
+	}
+	if known.StatType != nil {
+		p.StatType = known.StatType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1467,7 +1822,9 @@ func (p *VpcNsStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1476,7 +1833,7 @@ func NewVpcNsStats() *VpcNsStats {
 	p := new(VpcNsStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.VpcNsStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1556,7 +1913,35 @@ func (p *VpnConnectionStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VpnConnectionStats(*known)
+	*p = *NewVpnConnectionStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.StatType != nil {
+		p.StatType = known.StatType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.ThroughputRxKbps != nil {
+		p.ThroughputRxKbps = known.ThroughputRxKbps
+	}
+	if known.ThroughputTxKbps != nil {
+		p.ThroughputTxKbps = known.ThroughputTxKbps
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1570,7 +1955,9 @@ func (p *VpnConnectionStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "throughputTxKbps")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1579,7 +1966,7 @@ func NewVpnConnectionStats() *VpnConnectionStats {
 	p := new(VpnConnectionStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.VpnConnectionStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

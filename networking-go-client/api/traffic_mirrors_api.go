@@ -39,7 +39,7 @@ func (api *TrafficMirrorsApi) CreateTrafficMirror(body *import2.TrafficMirror, a
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/traffic-mirrors"
+	uri := "/api/networking/v4.2/config/traffic-mirrors"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *TrafficMirrorsApi) DeleteTrafficMirrorById(extId *string, args ...map
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/traffic-mirrors/{extId}"
+	uri := "/api/networking/v4.2/config/traffic-mirrors/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *TrafficMirrorsApi) GetTrafficMirrorById(extId *string, args ...map[st
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/traffic-mirrors/{extId}"
+	uri := "/api/networking/v4.2/config/traffic-mirrors/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *TrafficMirrorsApi) ListTrafficMirrors(page_ *int, limit_ *int, filter
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/traffic-mirrors"
+	uri := "/api/networking/v4.2/config/traffic-mirrors"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -243,7 +243,7 @@ func (api *TrafficMirrorsApi) UpdateTrafficMirrorById(extId *string, body *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/traffic-mirrors/{extId}"
+	uri := "/api/networking/v4.2/config/traffic-mirrors/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

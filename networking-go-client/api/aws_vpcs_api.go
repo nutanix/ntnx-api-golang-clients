@@ -39,7 +39,7 @@ func (api *AwsVpcsApi) ListAwsVpcs(xClusterId *string, args ...map[string]interf
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/aws/config/vpcs"
+	uri := "/api/networking/v4.2/aws/config/vpcs"
 
 	// verify the required parameter 'xClusterId' is set
 	if nil == xClusterId {

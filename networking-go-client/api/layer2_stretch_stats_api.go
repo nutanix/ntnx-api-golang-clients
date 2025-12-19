@@ -41,7 +41,7 @@ func (api *Layer2StretchStatsApi) GetLayer2StretchStats(extId *string, startTime
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/stats/layer2-stretches/{extId}"
+	uri := "/api/networking/v4.2/stats/layer2-stretches/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

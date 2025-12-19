@@ -39,7 +39,7 @@ func (api *NetworkFunctionsApi) CreateNetworkFunction(body *import2.NetworkFunct
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/network-functions"
+	uri := "/api/networking/v4.2/config/network-functions"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *NetworkFunctionsApi) DeleteNetworkFunctionById(extId *string, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/network-functions/{extId}"
+	uri := "/api/networking/v4.2/config/network-functions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *NetworkFunctionsApi) GetNetworkFunctionById(extId *string, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/network-functions/{extId}"
+	uri := "/api/networking/v4.2/config/network-functions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *NetworkFunctionsApi) ListNetworkFunctions(page_ *int, limit_ *int, fi
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/network-functions"
+	uri := "/api/networking/v4.2/config/network-functions"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -243,7 +243,7 @@ func (api *NetworkFunctionsApi) UpdateNetworkFunctionById(extId *string, body *i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/network-functions/{extId}"
+	uri := "/api/networking/v4.2/config/network-functions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

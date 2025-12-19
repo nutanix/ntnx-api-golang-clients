@@ -39,7 +39,7 @@ func (api *ClusterCapabilitiesApi) ListClusterCapabilities(page_ *int, limit_ *i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/capabilities"
+	uri := "/api/networking/v4.2/config/capabilities"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

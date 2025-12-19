@@ -39,7 +39,7 @@ func (api *RoutingPolicyStatsApi) ClearRoutingPolicyCounters(body *import4.Routi
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/stats/routing-policies/$actions/clear"
+	uri := "/api/networking/v4.2/stats/routing-policies/$actions/clear"
 
 	// verify the required parameter 'body' is set
 	if nil == body {

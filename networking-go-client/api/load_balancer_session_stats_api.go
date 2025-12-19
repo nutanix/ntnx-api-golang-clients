@@ -41,7 +41,7 @@ func (api *LoadBalancerSessionStatsApi) GetLoadBalancerSessionStats(extId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/stats/load-balancer-sessions/{extId}"
+	uri := "/api/networking/v4.2/stats/load-balancer-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

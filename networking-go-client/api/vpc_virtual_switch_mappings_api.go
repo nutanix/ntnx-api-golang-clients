@@ -39,7 +39,7 @@ func (api *VpcVirtualSwitchMappingsApi) CreateVpcVirtualSwitchMapping(body *[]im
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpc-virtual-switch-mappings"
+	uri := "/api/networking/v4.2/config/vpc-virtual-switch-mappings"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *VpcVirtualSwitchMappingsApi) ListVpcVirtualSwitchMappings(page_ *int,
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpc-virtual-switch-mappings"
+	uri := "/api/networking/v4.2/config/vpc-virtual-switch-mappings"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

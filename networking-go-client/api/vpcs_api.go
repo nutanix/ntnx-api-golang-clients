@@ -39,7 +39,7 @@ func (api *VpcsApi) CreateVpc(body *import2.Vpc, args ...map[string]interface{})
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs"
+	uri := "/api/networking/v4.2/config/vpcs"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *VpcsApi) DeleteVpcById(extId *string, args ...map[string]interface{})
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs/{extId}"
+	uri := "/api/networking/v4.2/config/vpcs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *VpcsApi) GetVpcById(extId *string, args ...map[string]interface{}) (*
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs/{extId}"
+	uri := "/api/networking/v4.2/config/vpcs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *VpcsApi) ListVpcs(page_ *int, limit_ *int, filter_ *string, orderby_ 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs"
+	uri := "/api/networking/v4.2/config/vpcs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *VpcsApi) UpdateVpcById(extId *string, body *import2.Vpc, args ...map[
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/vpcs/{extId}"
+	uri := "/api/networking/v4.2/config/vpcs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

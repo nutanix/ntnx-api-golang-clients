@@ -1,7 +1,7 @@
 /*
  * Generated file models/networking/v4/aws/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Networking APIs
  *
@@ -130,7 +130,47 @@ func (p *AwsSubnet) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AwsSubnet(*known)
+	*p = *NewAwsSubnet()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Annotation != nil {
+		p.Annotation = known.Annotation
+	}
+	if known.AvailabilityZone != nil {
+		p.AvailabilityZone = known.AvailabilityZone
+	}
+	if known.Cidr != nil {
+		p.Cidr = known.Cidr
+	}
+	if known.CloudType != nil {
+		p.CloudType = known.CloudType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.GatewayIp != nil {
+		p.GatewayIp = known.GatewayIp
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.SubnetId != nil {
+		p.SubnetId = known.SubnetId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VpcId != nil {
+		p.VpcId = known.VpcId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -148,7 +188,9 @@ func (p *AwsSubnet) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vpcId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -157,7 +199,7 @@ func NewAwsSubnet() *AwsSubnet {
 	p := new(AwsSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.AwsSubnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -252,7 +294,38 @@ func (p *AwsVpc) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AwsVpc(*known)
+	*p = *NewAwsVpc()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Annotation != nil {
+		p.Annotation = known.Annotation
+	}
+	if known.Cidrs != nil {
+		p.Cidrs = known.Cidrs
+	}
+	if known.CloudType != nil {
+		p.CloudType = known.CloudType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VpcId != nil {
+		p.VpcId = known.VpcId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -267,7 +340,9 @@ func (p *AwsVpc) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vpcId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -276,7 +351,7 @@ func NewAwsVpc() *AwsVpc {
 	p := new(AwsVpc)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.AwsVpc"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -355,7 +430,29 @@ func (p *Capabilities) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Capabilities(*known)
+	*p = *NewCapabilities()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Subnet != nil {
+		p.Subnet = known.Subnet
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -367,7 +464,9 @@ func (p *Capabilities) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -376,7 +475,7 @@ func NewCapabilities() *Capabilities {
 	p := new(Capabilities)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.Capabilities"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -462,7 +561,7 @@ func (e CloudType) Ref() *CloudType {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.1/aws/config/subnets Get operation
+REST response for all response codes in API path /networking/v4.2/aws/config/subnets Get operation
 */
 type ListAwsSubnetsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -521,7 +620,26 @@ func (p *ListAwsSubnetsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListAwsSubnetsApiResponse(*known)
+	*p = *NewListAwsSubnetsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -532,7 +650,9 @@ func (p *ListAwsSubnetsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -541,7 +661,7 @@ func NewListAwsSubnetsApiResponse() *ListAwsSubnetsApiResponse {
 	p := new(ListAwsSubnetsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.ListAwsSubnetsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -569,7 +689,7 @@ func (p *ListAwsSubnetsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.1/aws/config/vpcs Get operation
+REST response for all response codes in API path /networking/v4.2/aws/config/vpcs Get operation
 */
 type ListAwsVpcsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -628,7 +748,26 @@ func (p *ListAwsVpcsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListAwsVpcsApiResponse(*known)
+	*p = *NewListAwsVpcsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -639,7 +778,9 @@ func (p *ListAwsVpcsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -648,7 +789,7 @@ func NewListAwsVpcsApiResponse() *ListAwsVpcsApiResponse {
 	p := new(ListAwsVpcsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.ListAwsVpcsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -743,7 +884,29 @@ func (p *SubnetCapabilities) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SubnetCapabilities(*known)
+	*p = *NewSubnetCapabilities()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Crud != nil {
+		p.Crud = known.Crud
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -755,7 +918,9 @@ func (p *SubnetCapabilities) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -764,7 +929,7 @@ func NewSubnetCapabilities() *SubnetCapabilities {
 	p := new(SubnetCapabilities)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.SubnetCapabilities"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

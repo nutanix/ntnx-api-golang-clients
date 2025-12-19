@@ -39,7 +39,7 @@ func (api *MacAddressesApi) GetLearnedMacAddressForLayer2StretchById(layer2Stret
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses/{extId}"
+	uri := "/api/networking/v4.2/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses/{extId}"
 
 	// verify the required parameter 'layer2StretchExtId' is set
 	if nil == layer2StretchExtId {
@@ -94,7 +94,7 @@ func (api *MacAddressesApi) ListLearnedMacAddressesByLayer2StretchId(layer2Stret
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses"
+	uri := "/api/networking/v4.2/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses"
 
 	// verify the required parameter 'layer2StretchExtId' is set
 	if nil == layer2StretchExtId {

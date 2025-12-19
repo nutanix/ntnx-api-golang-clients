@@ -39,7 +39,7 @@ func (api *RemoteEntitiesApi) GetRemoteSubnetForClusterById(clusterExtId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/clusters/{clusterExtId}/remote-subnets/{extId}"
+	uri := "/api/networking/v4.2/config/clusters/{clusterExtId}/remote-subnets/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -94,7 +94,7 @@ func (api *RemoteEntitiesApi) GetRemoteVpnConnectionForClusterById(clusterExtId 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/clusters/{clusterExtId}/remote-vpn-connections/{extId}"
+	uri := "/api/networking/v4.2/config/clusters/{clusterExtId}/remote-vpn-connections/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -149,7 +149,7 @@ func (api *RemoteEntitiesApi) GetRemoteVtepGatewayForClusterById(clusterExtId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/clusters/{clusterExtId}/remote-vtep-gateways/{extId}"
+	uri := "/api/networking/v4.2/config/clusters/{clusterExtId}/remote-vtep-gateways/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -204,7 +204,7 @@ func (api *RemoteEntitiesApi) ListRemoteSubnetsByClusterId(clusterExtId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/clusters/{clusterExtId}/remote-subnets"
+	uri := "/api/networking/v4.2/config/clusters/{clusterExtId}/remote-subnets"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -267,7 +267,7 @@ func (api *RemoteEntitiesApi) ListRemoteVpnConnectionsByClusterId(clusterExtId *
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/clusters/{clusterExtId}/remote-vpn-connections"
+	uri := "/api/networking/v4.2/config/clusters/{clusterExtId}/remote-vpn-connections"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -330,7 +330,7 @@ func (api *RemoteEntitiesApi) ListRemoteVtepGatewaysByClusterId(clusterExtId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/clusters/{clusterExtId}/remote-vtep-gateways"
+	uri := "/api/networking/v4.2/config/clusters/{clusterExtId}/remote-vtep-gateways"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {

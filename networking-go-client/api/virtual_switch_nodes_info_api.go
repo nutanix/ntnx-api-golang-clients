@@ -39,7 +39,7 @@ func (api *VirtualSwitchNodesInfoApi) ListNodeSchedulableStatus(xClusterId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/node-schedulable-statuses"
+	uri := "/api/networking/v4.2/config/node-schedulable-statuses"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

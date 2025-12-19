@@ -39,7 +39,7 @@ func (api *GatewaysApi) CreateGateway(body *import2.Gateway, args ...map[string]
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/gateways"
+	uri := "/api/networking/v4.2/config/gateways"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *GatewaysApi) DeleteGatewayById(extId *string, args ...map[string]inte
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/gateways/{extId}"
+	uri := "/api/networking/v4.2/config/gateways/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *GatewaysApi) GetGatewayById(extId *string, args ...map[string]interfa
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/gateways/{extId}"
+	uri := "/api/networking/v4.2/config/gateways/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *GatewaysApi) ListGateways(page_ *int, limit_ *int, filter_ *string, o
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/gateways"
+	uri := "/api/networking/v4.2/config/gateways"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -249,7 +249,7 @@ func (api *GatewaysApi) UpdateGatewayById(extId *string, body *import2.Gateway, 
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/gateways/{extId}"
+	uri := "/api/networking/v4.2/config/gateways/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -303,7 +303,7 @@ func (api *GatewaysApi) UpgradeGatewayById(extId *string, args ...map[string]int
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/gateways/{extId}/$actions/upgrade"
+	uri := "/api/networking/v4.2/config/gateways/{extId}/$actions/upgrade"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

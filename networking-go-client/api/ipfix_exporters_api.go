@@ -39,7 +39,7 @@ func (api *IPFIXExportersApi) CreateIpfixExporter(body *import2.IPFIXExporter, a
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/ipfix-exporters"
+	uri := "/api/networking/v4.2/config/ipfix-exporters"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *IPFIXExportersApi) DeleteIpfixExporterById(extId *string, args ...map
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/ipfix-exporters/{extId}"
+	uri := "/api/networking/v4.2/config/ipfix-exporters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *IPFIXExportersApi) GetIpfixExporterById(extId *string, args ...map[st
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/ipfix-exporters/{extId}"
+	uri := "/api/networking/v4.2/config/ipfix-exporters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *IPFIXExportersApi) ListIpfixExporters(page_ *int, limit_ *int, filter
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/ipfix-exporters"
+	uri := "/api/networking/v4.2/config/ipfix-exporters"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -243,7 +243,7 @@ func (api *IPFIXExportersApi) UpdateIpfixExporterById(extId *string, body *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/ipfix-exporters/{extId}"
+	uri := "/api/networking/v4.2/config/ipfix-exporters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

@@ -41,7 +41,7 @@ func (api *VpcNsStatsApi) GetVpcNsStats(vpcExtId *string, extId *string, startTi
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/stats/vpc/{vpcExtId}/external-subnets/{extId}"
+	uri := "/api/networking/v4.2/stats/vpc/{vpcExtId}/external-subnets/{extId}"
 
 	// verify the required parameter 'vpcExtId' is set
 	if nil == vpcExtId {

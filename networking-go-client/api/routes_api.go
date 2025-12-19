@@ -39,7 +39,7 @@ func (api *RoutesApi) CreateRouteForRouteTable(routeTableExtId *string, body *im
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes"
+	uri := "/api/networking/v4.2/config/route-tables/{routeTableExtId}/routes"
 
 	// verify the required parameter 'routeTableExtId' is set
 	if nil == routeTableExtId {
@@ -93,7 +93,7 @@ func (api *RoutesApi) DeleteRouteForRouteTableById(extId *string, routeTableExtI
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes/{extId}"
+	uri := "/api/networking/v4.2/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -148,7 +148,7 @@ func (api *RoutesApi) GetRouteForRouteTableById(extId *string, routeTableExtId *
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes/{extId}"
+	uri := "/api/networking/v4.2/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -203,7 +203,7 @@ func (api *RoutesApi) ListRoutesByRouteTableId(routeTableExtId *string, page_ *i
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes"
+	uri := "/api/networking/v4.2/config/route-tables/{routeTableExtId}/routes"
 
 	// verify the required parameter 'routeTableExtId' is set
 	if nil == routeTableExtId {
@@ -266,7 +266,7 @@ func (api *RoutesApi) UpdateRouteForRouteTableById(extId *string, routeTableExtI
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/route-tables/{routeTableExtId}/routes/{extId}"
+	uri := "/api/networking/v4.2/config/route-tables/{routeTableExtId}/routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

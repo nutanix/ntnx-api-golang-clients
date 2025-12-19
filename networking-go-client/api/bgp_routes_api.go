@@ -39,7 +39,7 @@ func (api *BgpRoutesApi) GetRouteForBgpSessionById(extId *string, bgpSessionExtI
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId}"
+	uri := "/api/networking/v4.2/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -94,7 +94,7 @@ func (api *BgpRoutesApi) ListRoutesByBgpSessionId(bgpSessionExtId *string, page_
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.1/config/bgp-sessions/{bgpSessionExtId}/bgp-routes"
+	uri := "/api/networking/v4.2/config/bgp-sessions/{bgpSessionExtId}/bgp-routes"
 
 	// verify the required parameter 'bgpSessionExtId' is set
 	if nil == bgpSessionExtId {
