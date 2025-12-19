@@ -1,7 +1,7 @@
 /*
  * Generated file models/security/v4/common/common_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Security APIs
  *
@@ -78,7 +78,23 @@ func (p *Cluster) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Cluster(*known)
+	*p = *NewCluster()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -88,7 +104,9 @@ func (p *Cluster) UnmarshalJSON(b []byte) error {
 	delete(allFields, "clusterName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -97,7 +115,7 @@ func NewCluster() *Cluster {
 	p := new(Cluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.common.Cluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -160,7 +178,23 @@ func (p *ClusterProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterProjection(*known)
+	*p = *NewClusterProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -170,7 +204,9 @@ func (p *ClusterProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "clusterName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -179,7 +215,7 @@ func NewClusterProjection() *ClusterProjection {
 	p := new(ClusterProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.common.ClusterProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -195,9 +231,6 @@ const (
 	TIMESCALE_REDACTED Timescale = 1
 	TIMESCALE_DAY      Timescale = 2
 	TIMESCALE_WEEK     Timescale = 3
-	TIMESCALE_MONTH    Timescale = 4
-	TIMESCALE_QUARTER  Timescale = 5
-	TIMESCALE_YEAR     Timescale = 6
 )
 
 // Returns the name of the enum given an ordinal number
@@ -209,9 +242,6 @@ func (e *Timescale) name(index int) string {
 		"$REDACTED",
 		"DAY",
 		"WEEK",
-		"MONTH",
-		"QUARTER",
-		"YEAR",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -227,9 +257,6 @@ func (e Timescale) GetName() string {
 		"$REDACTED",
 		"DAY",
 		"WEEK",
-		"MONTH",
-		"QUARTER",
-		"YEAR",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -244,9 +271,6 @@ func (e *Timescale) index(name string) Timescale {
 		"$REDACTED",
 		"DAY",
 		"WEEK",
-		"MONTH",
-		"QUARTER",
-		"YEAR",
 	}
 	for idx := range names {
 		if names[idx] == name {

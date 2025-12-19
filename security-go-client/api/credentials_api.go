@@ -39,7 +39,7 @@ func (api *CredentialsApi) CreateCredential(body *import2.Credential, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/credentials"
+	uri := "/api/security/v4.1/config/credentials"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -68,7 +68,7 @@ func (api *CredentialsApi) CreateCredential(body *import2.Credential, args ...ma
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -87,7 +87,7 @@ func (api *CredentialsApi) DeleteCredentialById(extId *string, args ...map[strin
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/credentials/{extId}"
+	uri := "/api/security/v4.1/config/credentials/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -118,7 +118,7 @@ func (api *CredentialsApi) DeleteCredentialById(extId *string, args ...map[strin
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -137,7 +137,7 @@ func (api *CredentialsApi) GetCredentialById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/credentials/{extId}"
+	uri := "/api/security/v4.1/config/credentials/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -168,7 +168,7 @@ func (api *CredentialsApi) GetCredentialById(extId *string, args ...map[string]i
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -187,7 +187,7 @@ func (api *CredentialsApi) ListCredentials(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/credentials"
+	uri := "/api/security/v4.1/config/credentials"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -227,7 +227,7 @@ func (api *CredentialsApi) ListCredentials(page_ *int, limit_ *int, filter_ *str
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -246,7 +246,7 @@ func (api *CredentialsApi) UpdateCredentialById(extId *string, body *import2.Cre
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/credentials/{extId}"
+	uri := "/api/security/v4.1/config/credentials/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -281,7 +281,7 @@ func (api *CredentialsApi) UpdateCredentialById(extId *string, body *import2.Cre
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

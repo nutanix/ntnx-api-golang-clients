@@ -39,7 +39,7 @@ func (api *ApprovalPoliciesApi) AssociatePolicies(extId *string, body *import1.A
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/management/approval-policies/{extId}/$actions/associate-policies"
+	uri := "/api/security/v4.1/management/approval-policies/{extId}/$actions/associate-policies"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -74,7 +74,7 @@ func (api *ApprovalPoliciesApi) AssociatePolicies(extId *string, body *import1.A
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -93,7 +93,7 @@ func (api *ApprovalPoliciesApi) CreateApprovalPolicy(body *import1.ApprovalPolic
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/management/approval-policies"
+	uri := "/api/security/v4.1/management/approval-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -122,7 +122,7 @@ func (api *ApprovalPoliciesApi) CreateApprovalPolicy(body *import1.ApprovalPolic
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -141,7 +141,7 @@ func (api *ApprovalPoliciesApi) GetApprovalPolicyByExtId(extId *string, select_ 
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/management/approval-policies/{extId}"
+	uri := "/api/security/v4.1/management/approval-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -176,7 +176,7 @@ func (api *ApprovalPoliciesApi) GetApprovalPolicyByExtId(extId *string, select_ 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -195,7 +195,7 @@ func (api *ApprovalPoliciesApi) ListApprovalPolicies(filter_ *string, orderby_ *
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/management/approval-policies"
+	uri := "/api/security/v4.1/management/approval-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -229,7 +229,7 @@ func (api *ApprovalPoliciesApi) ListApprovalPolicies(filter_ *string, orderby_ *
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -248,7 +248,7 @@ func (api *ApprovalPoliciesApi) UpdateApprovalPolicyByExtId(extId *string, body 
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/management/approval-policies/{extId}"
+	uri := "/api/security/v4.1/management/approval-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -283,7 +283,7 @@ func (api *ApprovalPoliciesApi) UpdateApprovalPolicyByExtId(extId *string, body 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

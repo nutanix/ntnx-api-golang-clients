@@ -1,7 +1,7 @@
 /*
  * Generated file models/iam/v4/authn/authn_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Security APIs
  *
@@ -135,7 +135,59 @@ func (p *BucketsAccessKey) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BucketsAccessKey(*known)
+	*p = *NewBucketsAccessKey()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AccessKeyName != nil {
+		p.AccessKeyName = known.AccessKeyName
+	}
+	if known.AssignedTo != nil {
+		p.AssignedTo = known.AssignedTo
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.CreationType != nil {
+		p.CreationType = known.CreationType
+	}
+	if known.ExpiryTime != nil {
+		p.ExpiryTime = known.ExpiryTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdatedBy != nil {
+		p.LastUpdatedBy = known.LastUpdatedBy
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.SecretAccessKey != nil {
+		p.SecretAccessKey = known.SecretAccessKey
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UserId != nil {
+		p.UserId = known.UserId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -157,7 +209,9 @@ func (p *BucketsAccessKey) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -166,7 +220,7 @@ func NewBucketsAccessKey() *BucketsAccessKey {
 	p := new(BucketsAccessKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.BucketsAccessKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -484,7 +538,92 @@ func (p *User) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = User(*known)
+	*p = *NewUser()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AdditionalAttributes != nil {
+		p.AdditionalAttributes = known.AdditionalAttributes
+	}
+	if known.BucketsAccessKeys != nil {
+		p.BucketsAccessKeys = known.BucketsAccessKeys
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.CreationType != nil {
+		p.CreationType = known.CreationType
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.EmailId != nil {
+		p.EmailId = known.EmailId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FirstName != nil {
+		p.FirstName = known.FirstName
+	}
+	if known.IdpId != nil {
+		p.IdpId = known.IdpId
+	}
+	if known.IsForceResetPasswordEnabled != nil {
+		p.IsForceResetPasswordEnabled = known.IsForceResetPasswordEnabled
+	}
+	if known.LastLoginTime != nil {
+		p.LastLoginTime = known.LastLoginTime
+	}
+	if known.LastName != nil {
+		p.LastName = known.LastName
+	}
+	if known.LastUpdatedBy != nil {
+		p.LastUpdatedBy = known.LastUpdatedBy
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Locale != nil {
+		p.Locale = known.Locale
+	}
+	if known.MiddleInitial != nil {
+		p.MiddleInitial = known.MiddleInitial
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Region != nil {
+		p.Region = known.Region
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UserType != nil {
+		p.UserType = known.UserType
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -517,7 +656,9 @@ func (p *User) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -526,7 +667,7 @@ func NewUser() *User {
 	p := new(User)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authn.User"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

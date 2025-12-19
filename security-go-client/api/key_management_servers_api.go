@@ -39,7 +39,7 @@ func (api *KeyManagementServersApi) CreateKeyManagementServer(body *import2.KeyM
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/key-management-servers"
+	uri := "/api/security/v4.1/config/key-management-servers"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -68,7 +68,7 @@ func (api *KeyManagementServersApi) CreateKeyManagementServer(body *import2.KeyM
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -87,7 +87,7 @@ func (api *KeyManagementServersApi) DeleteKeyManagementServerById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/key-management-servers/{extId}"
+	uri := "/api/security/v4.1/config/key-management-servers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -118,7 +118,7 @@ func (api *KeyManagementServersApi) DeleteKeyManagementServerById(extId *string,
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -137,7 +137,7 @@ func (api *KeyManagementServersApi) GetKeyManagementServerById(extId *string, ar
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/key-management-servers/{extId}"
+	uri := "/api/security/v4.1/config/key-management-servers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -168,7 +168,7 @@ func (api *KeyManagementServersApi) GetKeyManagementServerById(extId *string, ar
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -187,7 +187,7 @@ func (api *KeyManagementServersApi) ListKeyManagementServers(args ...map[string]
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/key-management-servers"
+	uri := "/api/security/v4.1/config/key-management-servers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -211,7 +211,7 @@ func (api *KeyManagementServersApi) ListKeyManagementServers(args ...map[string]
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -230,7 +230,7 @@ func (api *KeyManagementServersApi) UpdateKeyManagementServerById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.0/config/key-management-servers/{extId}"
+	uri := "/api/security/v4.1/config/key-management-servers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -265,7 +265,7 @@ func (api *KeyManagementServersApi) UpdateKeyManagementServerById(extId *string,
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

@@ -1,7 +1,7 @@
 /*
  * Generated file models/security/v4/management/management_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Security APIs
  *
@@ -127,7 +127,47 @@ func (p *ApprovalPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApprovalPolicy(*known)
+	*p = *NewApprovalPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ApproverGroups != nil {
+		p.ApproverGroups = known.ApproverGroups
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsUpdatePending != nil {
+		p.IsUpdatePending = known.IsUpdatePending
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.LastUpdatedBy != nil {
+		p.LastUpdatedBy = known.LastUpdatedBy
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SecuredPolicies != nil {
+		p.SecuredPolicies = known.SecuredPolicies
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -145,7 +185,9 @@ func (p *ApprovalPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -154,7 +196,180 @@ func NewApprovalPolicy() *ApprovalPolicy {
 	p := new(ApprovalPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.ApprovalPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type ApprovalPolicyProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of approver sets.
+	*/
+	ApproverGroups []ApproverGroup `json:"approverGroups"`
+	/*
+	  Description of the approval policy.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Current update status of the approval request update.
+	*/
+	IsUpdatePending *bool `json:"isUpdatePending,omitempty"`
+	/*
+	  The timestamp of the last update of the approval policy.
+	*/
+	LastUpdateTime *time.Time `json:"lastUpdateTime,omitempty"`
+	/*
+	  The user who last updated the approval policy.
+	*/
+	LastUpdatedBy *string `json:"lastUpdatedBy,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  Name of the approval policy.
+	*/
+	Name *string `json:"name"`
+	/*
+	  List of secured policies.
+	*/
+	SecuredPolicies []SecuredPolicy `json:"securedPolicies,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ApprovalPolicyProjection) MarshalJSON() ([]byte, error) {
+	type ApprovalPolicyProjectionProxy ApprovalPolicyProjection
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ApprovalPolicyProjectionProxy
+		ApproverGroups []ApproverGroup `json:"approverGroups,omitempty"`
+		Name           *string         `json:"name,omitempty"`
+	}{
+		ApprovalPolicyProjectionProxy: (*ApprovalPolicyProjectionProxy)(p),
+		ApproverGroups:                p.ApproverGroups,
+		Name:                          p.Name,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ApprovalPolicyProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ApprovalPolicyProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewApprovalPolicyProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ApproverGroups != nil {
+		p.ApproverGroups = known.ApproverGroups
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsUpdatePending != nil {
+		p.IsUpdatePending = known.IsUpdatePending
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.LastUpdatedBy != nil {
+		p.LastUpdatedBy = known.LastUpdatedBy
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SecuredPolicies != nil {
+		p.SecuredPolicies = known.SecuredPolicies
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "approverGroups")
+	delete(allFields, "description")
+	delete(allFields, "extId")
+	delete(allFields, "isUpdatePending")
+	delete(allFields, "lastUpdateTime")
+	delete(allFields, "lastUpdatedBy")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "securedPolicies")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewApprovalPolicyProjection() *ApprovalPolicyProjection {
+	p := new(ApprovalPolicyProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "security.v4.management.ApprovalPolicyProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -235,7 +450,26 @@ func (p *ApproverGroup) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApproverGroup(*known)
+	*p = *NewApproverGroup()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Approvers != nil {
+		p.Approvers = known.Approvers
+	}
+	if known.ExpiryHours != nil {
+		p.ExpiryHours = known.ExpiryHours
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -246,7 +480,9 @@ func (p *ApproverGroup) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -255,14 +491,14 @@ func NewApproverGroup() *ApproverGroup {
 	p := new(ApproverGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.ApproverGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /security/v4.0/management/approval-policies/{extId}/$actions/associate-policies Post operation
+REST response for all response codes in API path /security/v4.1/management/approval-policies/{extId}/$actions/associate-policies Post operation
 */
 type AssociatePoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -321,7 +557,26 @@ func (p *AssociatePoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociatePoliciesApiResponse(*known)
+	*p = *NewAssociatePoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -332,7 +587,9 @@ func (p *AssociatePoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -341,7 +598,7 @@ func NewAssociatePoliciesApiResponse() *AssociatePoliciesApiResponse {
 	p := new(AssociatePoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.AssociatePoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -431,7 +688,20 @@ func (p *AssociatePoliciesSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociatePoliciesSpec(*known)
+	*p = *NewAssociatePoliciesSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SecuredPolicies != nil {
+		p.SecuredPolicies = known.SecuredPolicies
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -440,7 +710,9 @@ func (p *AssociatePoliciesSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "securedPolicies")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -449,14 +721,14 @@ func NewAssociatePoliciesSpec() *AssociatePoliciesSpec {
 	p := new(AssociatePoliciesSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.AssociatePoliciesSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /security/v4.0/management/approval-policies Post operation
+REST response for all response codes in API path /security/v4.1/management/approval-policies Post operation
 */
 type CreateApprovalPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -515,7 +787,26 @@ func (p *CreateApprovalPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateApprovalPolicyApiResponse(*known)
+	*p = *NewCreateApprovalPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -526,7 +817,9 @@ func (p *CreateApprovalPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -535,7 +828,7 @@ func NewCreateApprovalPolicyApiResponse() *CreateApprovalPolicyApiResponse {
 	p := new(CreateApprovalPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.CreateApprovalPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -642,7 +935,7 @@ func (e EventType) Ref() *EventType {
 }
 
 /*
-REST response for all response codes in API path /security/v4.0/management/approval-policies/{extId} Get operation
+REST response for all response codes in API path /security/v4.1/management/approval-policies/{extId} Get operation
 */
 type GetApprovalPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -701,7 +994,26 @@ func (p *GetApprovalPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetApprovalPolicyApiResponse(*known)
+	*p = *NewGetApprovalPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -712,7 +1024,9 @@ func (p *GetApprovalPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -721,7 +1035,7 @@ func NewGetApprovalPolicyApiResponse() *GetApprovalPolicyApiResponse {
 	p := new(GetApprovalPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.GetApprovalPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -749,7 +1063,7 @@ func (p *GetApprovalPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /security/v4.0/management/approval-policies Get operation
+REST response for all response codes in API path /security/v4.1/management/approval-policies Get operation
 */
 type ListApprovalPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -808,7 +1122,26 @@ func (p *ListApprovalPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListApprovalPoliciesApiResponse(*known)
+	*p = *NewListApprovalPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -819,7 +1152,9 @@ func (p *ListApprovalPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -828,7 +1163,7 @@ func NewListApprovalPoliciesApiResponse() *ListApprovalPoliciesApiResponse {
 	p := new(ListApprovalPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.ListApprovalPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1076,7 +1411,23 @@ func (p *SecuredPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SecuredPolicy(*known)
+	*p = *NewSecuredPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.PolicyExtId != nil {
+		p.PolicyExtId = known.PolicyExtId
+	}
+	if known.PolicyType != nil {
+		p.PolicyType = known.PolicyType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1086,7 +1437,9 @@ func (p *SecuredPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "policyType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1095,7 +1448,7 @@ func NewSecuredPolicy() *SecuredPolicy {
 	p := new(SecuredPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.SecuredPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1196,7 +1549,41 @@ func (p *SecurityValidationSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SecurityValidationSpec(*known)
+	*p = *NewSecurityValidationSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EventType != nil {
+		p.EventType = known.EventType
+	}
+	if known.FullyQualifiedSecuredEntityName != nil {
+		p.FullyQualifiedSecuredEntityName = known.FullyQualifiedSecuredEntityName
+	}
+	if known.RequesterExtId != nil {
+		p.RequesterExtId = known.RequesterExtId
+	}
+	if known.SecuredEntityExtId != nil {
+		p.SecuredEntityExtId = known.SecuredEntityExtId
+	}
+	if known.SecuredEntityLocation != nil {
+		p.SecuredEntityLocation = known.SecuredEntityLocation
+	}
+	if known.SecuredEntityName != nil {
+		p.SecuredEntityName = known.SecuredEntityName
+	}
+	if known.SecuredEntityType != nil {
+		p.SecuredEntityType = known.SecuredEntityType
+	}
+	if known.SecuredPolicyExtId != nil {
+		p.SecuredPolicyExtId = known.SecuredPolicyExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1212,7 +1599,9 @@ func (p *SecurityValidationSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "securedPolicyExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1221,14 +1610,14 @@ func NewSecurityValidationSpec() *SecurityValidationSpec {
 	p := new(SecurityValidationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.SecurityValidationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /security/v4.0/management/approval-policies/{extId} Put operation
+REST response for all response codes in API path /security/v4.1/management/approval-policies/{extId} Put operation
 */
 type UpdateApprovalPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1287,7 +1676,26 @@ func (p *UpdateApprovalPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateApprovalPolicyApiResponse(*known)
+	*p = *NewUpdateApprovalPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1298,7 +1706,9 @@ func (p *UpdateApprovalPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1307,7 +1717,7 @@ func NewUpdateApprovalPolicyApiResponse() *UpdateApprovalPolicyApiResponse {
 	p := new(UpdateApprovalPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.management.UpdateApprovalPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1556,6 +1966,143 @@ func (p *OneOfUpdateApprovalPolicyApiResponseData) MarshalJSON() ([]byte, error)
 	return nil, errors.New("No value to marshal for OneOfUpdateApprovalPolicyApiResponseData")
 }
 
+type OneOfListApprovalPoliciesApiResponseData struct {
+	Discriminator *string                    `json:"-"`
+	ObjectType_   *string                    `json:"-"`
+	oneOfType2001 []ApprovalPolicy           `json:"-"`
+	oneOfType400  *import4.ErrorResponse     `json:"-"`
+	oneOfType401  []ApprovalPolicyProjection `json:"-"`
+}
+
+func NewOneOfListApprovalPoliciesApiResponseData() *OneOfListApprovalPoliciesApiResponseData {
+	p := new(OneOfListApprovalPoliciesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListApprovalPoliciesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListApprovalPoliciesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []ApprovalPolicy:
+		p.oneOfType2001 = v.([]ApprovalPolicy)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<security.v4.management.ApprovalPolicy>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<security.v4.management.ApprovalPolicy>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []ApprovalPolicyProjection:
+		p.oneOfType401 = v.([]ApprovalPolicyProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<security.v4.management.ApprovalPolicyProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<security.v4.management.ApprovalPolicyProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListApprovalPoliciesApiResponseData) GetValue() interface{} {
+	if "List<security.v4.management.ApprovalPolicy>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<security.v4.management.ApprovalPolicyProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfListApprovalPoliciesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]ApprovalPolicy)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "security.v4.management.ApprovalPolicy" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<security.v4.management.ApprovalPolicy>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<security.v4.management.ApprovalPolicy>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]ApprovalPolicyProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "security.v4.management.ApprovalPolicyProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<security.v4.management.ApprovalPolicyProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<security.v4.management.ApprovalPolicyProjection>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListApprovalPoliciesApiResponseData"))
+}
+
+func (p *OneOfListApprovalPoliciesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<security.v4.management.ApprovalPolicy>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<security.v4.management.ApprovalPolicyProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfListApprovalPoliciesApiResponseData")
+}
+
 type OneOfAssociatePoliciesApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -1776,111 +2323,6 @@ func (p *OneOfCreateApprovalPolicyApiResponseData) MarshalJSON() ([]byte, error)
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfCreateApprovalPolicyApiResponseData")
-}
-
-type OneOfListApprovalPoliciesApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 []ApprovalPolicy       `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-}
-
-func NewOneOfListApprovalPoliciesApiResponseData() *OneOfListApprovalPoliciesApiResponseData {
-	p := new(OneOfListApprovalPoliciesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListApprovalPoliciesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListApprovalPoliciesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []ApprovalPolicy:
-		p.oneOfType2001 = v.([]ApprovalPolicy)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<security.v4.management.ApprovalPolicy>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<security.v4.management.ApprovalPolicy>"
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListApprovalPoliciesApiResponseData) GetValue() interface{} {
-	if "List<security.v4.management.ApprovalPolicy>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfListApprovalPoliciesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new([]ApprovalPolicy)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "security.v4.management.ApprovalPolicy" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<security.v4.management.ApprovalPolicy>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<security.v4.management.ApprovalPolicy>"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "security.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListApprovalPoliciesApiResponseData"))
-}
-
-func (p *OneOfListApprovalPoliciesApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<security.v4.management.ApprovalPolicy>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfListApprovalPoliciesApiResponseData")
 }
 
 type FileDetail struct {

@@ -1,7 +1,7 @@
 /*
  * Generated file models/security/v4/error/error_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.1.1
  *
  * Part of the Nutanix Security APIs
  *
@@ -96,7 +96,35 @@ func (p *AppMessage) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AppMessage(*known)
+	*p = *NewAppMessage()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ArgumentsMap != nil {
+		p.ArgumentsMap = known.ArgumentsMap
+	}
+	if known.Code != nil {
+		p.Code = known.Code
+	}
+	if known.ErrorGroup != nil {
+		p.ErrorGroup = known.ErrorGroup
+	}
+	if known.Locale != nil {
+		p.Locale = known.Locale
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
+	if known.Severity != nil {
+		p.Severity = known.Severity
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -110,7 +138,9 @@ func (p *AppMessage) UnmarshalJSON(b []byte) error {
 	delete(allFields, "severity")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -119,7 +149,7 @@ func NewAppMessage() *AppMessage {
 	p := new(AppMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.error.AppMessage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Locale = new(string)
@@ -186,7 +216,23 @@ func (p *ErrorResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ErrorResponse(*known)
+	*p = *NewErrorResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ErrorItemDiscriminator_ != nil {
+		p.ErrorItemDiscriminator_ = known.ErrorItemDiscriminator_
+	}
+	if known.Error != nil {
+		p.Error = known.Error
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -196,7 +242,9 @@ func (p *ErrorResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "error")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -205,7 +253,7 @@ func NewErrorResponse() *ErrorResponse {
 	p := new(ErrorResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.error.ErrorResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -304,7 +352,32 @@ func (p *SchemaValidationError) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SchemaValidationError(*known)
+	*p = *NewSchemaValidationError()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Error != nil {
+		p.Error = known.Error
+	}
+	if known.Path != nil {
+		p.Path = known.Path
+	}
+	if known.StatusCode != nil {
+		p.StatusCode = known.StatusCode
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
+	if known.ValidationErrorMessages != nil {
+		p.ValidationErrorMessages = known.ValidationErrorMessages
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -317,7 +390,9 @@ func (p *SchemaValidationError) UnmarshalJSON(b []byte) error {
 	delete(allFields, "validationErrorMessages")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -326,7 +401,7 @@ func NewSchemaValidationError() *SchemaValidationError {
 	p := new(SchemaValidationError)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.error.SchemaValidationError"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -396,7 +471,26 @@ func (p *SchemaValidationErrorMessage) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SchemaValidationErrorMessage(*known)
+	*p = *NewSchemaValidationErrorMessage()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AttributePath != nil {
+		p.AttributePath = known.AttributePath
+	}
+	if known.Location != nil {
+		p.Location = known.Location
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -407,7 +501,9 @@ func (p *SchemaValidationErrorMessage) UnmarshalJSON(b []byte) error {
 	delete(allFields, "message")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -416,7 +512,7 @@ func NewSchemaValidationErrorMessage() *SchemaValidationErrorMessage {
 	p := new(SchemaValidationErrorMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.error.SchemaValidationErrorMessage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

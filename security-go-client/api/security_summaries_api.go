@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type STIGsApi struct {
+type SecuritySummariesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewSTIGsApi(apiClient *client.ApiClient) *STIGsApi {
+func NewSecuritySummariesApi(apiClient *client.ApiClient) *SecuritySummariesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &STIGsApi{
+	a := &SecuritySummariesApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,16 +32,14 @@ func NewSTIGsApi(apiClient *client.ApiClient) *STIGsApi {
 	return a
 }
 
-// Fetch the current number of issues found by STIG for each cluster.
-//
-// Deprecated: This API has been deprecated.
-func (api *STIGsApi) ListStigSummaries(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListStigSummariesApiResponse, error) {
+// Get the current number of 'issues' and their trend for each cluster.
+func (api *SecuritySummariesApi) ListSecuritySummaries(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListSecuritySummariesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/report/stig-summaries"
+	uri := "/api/security/v4.1/report/security-summaries"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -91,19 +89,19 @@ func (api *STIGsApi) ListStigSummaries(page_ *int, limit_ *int, filter_ *string,
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.ListStigSummariesApiResponse)
+	unmarshalledResp := new(import3.ListSecuritySummariesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Fetch the STIG controls details for STIG rules on each cluster.
-func (api *STIGsApi) ListStigs(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListStigsApiResponse, error) {
+// Triggers a refresh operation for updating security stats on Prism Central and Prism Element.
+func (api *SecuritySummariesApi) RefreshSecuritySummaries(args ...map[string]interface{}) (*import3.RefreshSecuritySummariesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/security/v4.1/report/stigs"
+	uri := "/api/security/v4.1/report/security-summaries/$actions/refresh"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -115,22 +113,6 @@ func (api *STIGsApi) ListStigs(page_ *int, limit_ *int, filter_ *string, orderby
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
-	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
-	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
-	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
-	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
-	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -145,12 +127,12 @@ func (api *STIGsApi) ListStigs(page_ *int, limit_ *int, filter_ *string, orderby
 
 	authNames := []string{"basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.ListStigsApiResponse)
+	unmarshalledResp := new(import3.RefreshSecuritySummariesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
