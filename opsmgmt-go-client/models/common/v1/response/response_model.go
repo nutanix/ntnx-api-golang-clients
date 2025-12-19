@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/response/response_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.0.3
  *
  * Part of the Nutanix Cloud Management Platform APIs
  *
@@ -79,7 +79,23 @@ func (p *ApiLink) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApiLink(*known)
+	*p = *NewApiLink()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Href != nil {
+		p.Href = known.Href
+	}
+	if known.Rel != nil {
+		p.Rel = known.Rel
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -89,7 +105,9 @@ func (p *ApiLink) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rel")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -176,7 +194,32 @@ func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApiResponseMetadata(*known)
+	*p = *NewApiResponseMetadata()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtraInfo != nil {
+		p.ExtraInfo = known.ExtraInfo
+	}
+	if known.Flags != nil {
+		p.Flags = known.Flags
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Messages != nil {
+		p.Messages = known.Messages
+	}
+	if known.TotalAvailableResults != nil {
+		p.TotalAvailableResults = known.TotalAvailableResults
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -189,7 +232,9 @@ func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
 	delete(allFields, "totalAvailableResults")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -268,7 +313,26 @@ func (p *ExternalizableAbstractModel) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ExternalizableAbstractModel(*known)
+	*p = *NewExternalizableAbstractModel()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -279,7 +343,9 @@ func (p *ExternalizableAbstractModel) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }

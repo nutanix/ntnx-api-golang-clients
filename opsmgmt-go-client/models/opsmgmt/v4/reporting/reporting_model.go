@@ -1,7 +1,7 @@
 /*
  * Generated file models/opsmgmt/v4/reporting/reporting_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.0.3
  *
  * Part of the Nutanix Cloud Management Platform APIs
  *
@@ -119,7 +119,47 @@ func (p *CustomView) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CustomView(*known)
+	*p = *NewCustomView()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityIds != nil {
+		p.EntityIds = known.EntityIds
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.Fields != nil {
+		p.Fields = known.Fields
+	}
+	if known.FilterCriteria != nil {
+		p.FilterCriteria = known.FilterCriteria
+	}
+	if known.Format != nil {
+		p.Format = known.Format
+	}
+	if known.GroupByColumn != nil {
+		p.GroupByColumn = known.GroupByColumn
+	}
+	if known.Limit != nil {
+		p.Limit = known.Limit
+	}
+	if known.Offset != nil {
+		p.Offset = known.Offset
+	}
+	if known.SortColumn != nil {
+		p.SortColumn = known.SortColumn
+	}
+	if known.SortOrder != nil {
+		p.SortOrder = known.SortOrder
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -137,7 +177,9 @@ func (p *CustomView) UnmarshalJSON(b []byte) error {
 	delete(allFields, "sortOrder")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -221,7 +263,26 @@ func (p *Field) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Field(*known)
+	*p = *NewField()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AggregationOperator != nil {
+		p.AggregationOperator = known.AggregationOperator
+	}
+	if known.Label != nil {
+		p.Label = known.Label
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -232,7 +293,9 @@ func (p *Field) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -310,7 +373,20 @@ func (p *FileWrapper) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FileWrapper(*known)
+	*p = *NewFileWrapper()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.File != nil {
+		p.File = known.File
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -319,7 +395,9 @@ func (p *FileWrapper) UnmarshalJSON(b []byte) error {
 	delete(allFields, "file")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -397,7 +475,20 @@ func (p *ImportExportParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ImportExportParams(*known)
+	*p = *NewImportExportParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ReportConfigIds != nil {
+		p.ReportConfigIds = known.ReportConfigIds
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -406,7 +497,9 @@ func (p *ImportExportParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "reportConfigIds")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -492,7 +585,26 @@ func (p *NotificationPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NotificationPolicy(*known)
+	*p = *NewNotificationPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EmailBody != nil {
+		p.EmailBody = known.EmailBody
+	}
+	if known.EmailSubject != nil {
+		p.EmailSubject = known.EmailSubject
+	}
+	if known.Recipients != nil {
+		p.Recipients = known.Recipients
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -503,7 +615,9 @@ func (p *NotificationPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recipients")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -819,7 +933,20 @@ func (p *PredefinedView) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PredefinedView(*known)
+	*p = *NewPredefinedView()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.PredefinedView != nil {
+		p.PredefinedView = known.PredefinedView
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -828,7 +955,9 @@ func (p *PredefinedView) UnmarshalJSON(b []byte) error {
 	delete(allFields, "predefinedView")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -910,7 +1039,23 @@ func (p *Recipient) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Recipient(*known)
+	*p = *NewRecipient()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EmailAddress != nil {
+		p.EmailAddress = known.EmailAddress
+	}
+	if known.RecipientName != nil {
+		p.RecipientName = known.RecipientName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -920,7 +1065,9 @@ func (p *Recipient) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recipientName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1003,7 +1150,29 @@ func (p *ReportCustomization) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ReportCustomization(*known)
+	*p = *NewReportCustomization()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CssStyleSheet != nil {
+		p.CssStyleSheet = known.CssStyleSheet
+	}
+	if known.FooterHtml != nil {
+		p.FooterHtml = known.FooterHtml
+	}
+	if known.HeaderHtml != nil {
+		p.HeaderHtml = known.HeaderHtml
+	}
+	if known.LogoImageExtId != nil {
+		p.LogoImageExtId = known.LogoImageExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1015,7 +1184,9 @@ func (p *ReportCustomization) UnmarshalJSON(b []byte) error {
 	delete(allFields, "logoImageExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1277,7 +1448,38 @@ func (p *View) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = View(*known)
+	*p = *NewView()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Heading != nil {
+		p.Heading = known.Heading
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TypeItemDiscriminator_ != nil {
+		p.TypeItemDiscriminator_ = known.TypeItemDiscriminator_
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1292,7 +1494,9 @@ func (p *View) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1518,7 +1722,44 @@ func (p *ViewReport) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ViewReport(*known)
+	*p = *NewViewReport()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EndTime != nil {
+		p.EndTime = known.EndTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NotificationPolicy != nil {
+		p.NotificationPolicy = known.NotificationPolicy
+	}
+	if known.ReportFormat != nil {
+		p.ReportFormat = known.ReportFormat
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Views != nil {
+		p.Views = known.Views
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1535,7 +1776,9 @@ func (p *ViewReport) UnmarshalJSON(b []byte) error {
 	delete(allFields, "views")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }

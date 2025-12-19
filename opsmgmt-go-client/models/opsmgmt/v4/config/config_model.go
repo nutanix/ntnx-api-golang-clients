@@ -1,7 +1,7 @@
 /*
  * Generated file models/opsmgmt/v4/config/config_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.0.3
  *
  * Part of the Nutanix Cloud Management Platform APIs
  *
@@ -181,7 +181,26 @@ func (p *CreateReportApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateReportApiResponse(*known)
+	*p = *NewCreateReportApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -192,7 +211,9 @@ func (p *CreateReportApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -288,7 +309,26 @@ func (p *CreateReportConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateReportConfigApiResponse(*known)
+	*p = *NewCreateReportConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -299,7 +339,9 @@ func (p *CreateReportConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -407,7 +449,35 @@ func (p *DataCriteria) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DataCriteria(*known)
+	*p = *NewDataCriteria()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CustomParameters != nil {
+		p.CustomParameters = known.CustomParameters
+	}
+	if known.FilterCriteria != nil {
+		p.FilterCriteria = known.FilterCriteria
+	}
+	if known.Limit != nil {
+		p.Limit = known.Limit
+	}
+	if known.SortColumn != nil {
+		p.SortColumn = known.SortColumn
+	}
+	if known.SortKey != nil {
+		p.SortKey = known.SortKey
+	}
+	if known.SortOrder != nil {
+		p.SortOrder = known.SortOrder
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -421,7 +491,9 @@ func (p *DataCriteria) UnmarshalJSON(b []byte) error {
 	delete(allFields, "sortOrder")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -496,7 +568,26 @@ func (p *DeleteReportApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteReportApiResponse(*known)
+	*p = *NewDeleteReportApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -507,7 +598,9 @@ func (p *DeleteReportApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -603,7 +696,26 @@ func (p *DeleteReportConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteReportConfigApiResponse(*known)
+	*p = *NewDeleteReportConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -614,7 +726,9 @@ func (p *DeleteReportConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -717,7 +831,23 @@ func (p *EntitySelection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntitySelection(*known)
+	*p = *NewEntitySelection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityExtId != nil {
+		p.EntityExtId = known.EntityExtId
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -727,7 +857,9 @@ func (p *EntitySelection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "entityType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -937,7 +1069,26 @@ func (p *GetGlobalReportSettingApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetGlobalReportSettingApiResponse(*known)
+	*p = *NewGetGlobalReportSettingApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -948,7 +1099,9 @@ func (p *GetGlobalReportSettingApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1044,7 +1197,26 @@ func (p *GetReportApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetReportApiResponse(*known)
+	*p = *NewGetReportApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1055,7 +1227,9 @@ func (p *GetReportApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1151,7 +1325,26 @@ func (p *GetReportConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetReportConfigApiResponse(*known)
+	*p = *NewGetReportConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1162,7 +1355,9 @@ func (p *GetReportConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1276,7 +1471,38 @@ func (p *GlobalReportSetting) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GlobalReportSetting(*known)
+	*p = *NewGlobalReportSetting()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NotificationPolicy != nil {
+		p.NotificationPolicy = known.NotificationPolicy
+	}
+	if known.ReportCustomization != nil {
+		p.ReportCustomization = known.ReportCustomization
+	}
+	if known.RetentionConfig != nil {
+		p.RetentionConfig = known.RetentionConfig
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1291,7 +1517,9 @@ func (p *GlobalReportSetting) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1366,7 +1594,26 @@ func (p *ListReportConfigsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListReportConfigsApiResponse(*known)
+	*p = *NewListReportConfigsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1377,7 +1624,9 @@ func (p *ListReportConfigsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1473,7 +1722,26 @@ func (p *ListReportsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListReportsApiResponse(*known)
+	*p = *NewListReportsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1484,7 +1752,9 @@ func (p *ListReportsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1595,7 +1865,29 @@ func (p *NotificationPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NotificationPolicy(*known)
+	*p = *NewNotificationPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EmailBody != nil {
+		p.EmailBody = known.EmailBody
+	}
+	if known.EmailSubject != nil {
+		p.EmailSubject = known.EmailSubject
+	}
+	if known.RecipientFormats != nil {
+		p.RecipientFormats = known.RecipientFormats
+	}
+	if known.Recipients != nil {
+		p.Recipients = known.Recipients
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1607,7 +1899,9 @@ func (p *NotificationPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recipients")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1682,7 +1976,26 @@ func (p *NotifyReportApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NotifyReportApiResponse(*known)
+	*p = *NewNotifyReportApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1693,7 +2006,9 @@ func (p *NotifyReportApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1796,7 +2111,23 @@ func (p *Recipient) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Recipient(*known)
+	*p = *NewRecipient()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EmailAddress != nil {
+		p.EmailAddress = known.EmailAddress
+	}
+	if known.RecipientName != nil {
+		p.RecipientName = known.RecipientName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1806,7 +2137,9 @@ func (p *Recipient) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recipientName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1886,7 +2219,23 @@ func (p *RepeatCriteria) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RepeatCriteria(*known)
+	*p = *NewRepeatCriteria()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.RepetitionRule != nil {
+		p.RepetitionRule = known.RepetitionRule
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1896,7 +2245,9 @@ func (p *RepeatCriteria) UnmarshalJSON(b []byte) error {
 	delete(allFields, "repetitionRule")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2039,7 +2390,68 @@ func (p *Report) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Report(*known)
+	*p = *NewReport()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AvailableFormats != nil {
+		p.AvailableFormats = known.AvailableFormats
+	}
+	if known.ConfigExtId != nil {
+		p.ConfigExtId = known.ConfigExtId
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.EndTime != nil {
+		p.EndTime = known.EndTime
+	}
+	if known.EntitySelection != nil {
+		p.EntitySelection = known.EntitySelection
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsPersistent != nil {
+		p.IsPersistent = known.IsPersistent
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.OverrideSupportedFormats != nil {
+		p.OverrideSupportedFormats = known.OverrideSupportedFormats
+	}
+	if known.OwnerExtId != nil {
+		p.OwnerExtId = known.OwnerExtId
+	}
+	if known.RecipientFormats != nil {
+		p.RecipientFormats = known.RecipientFormats
+	}
+	if known.Recipients != nil {
+		p.Recipients = known.Recipients
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Timezone != nil {
+		p.Timezone = known.Timezone
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2064,7 +2476,9 @@ func (p *Report) UnmarshalJSON(b []byte) error {
 	delete(allFields, "timezone")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2203,7 +2617,74 @@ func (p *ReportConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ReportConfig(*known)
+	*p = *NewReportConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.DefaultSectionEntityType != nil {
+		p.DefaultSectionEntityType = known.DefaultSectionEntityType
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.EndTimeOffsetSecs != nil {
+		p.EndTimeOffsetSecs = known.EndTimeOffsetSecs
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsImported != nil {
+		p.IsImported = known.IsImported
+	}
+	if known.IsPrivate != nil {
+		p.IsPrivate = known.IsPrivate
+	}
+	if known.IsSystemDefined != nil {
+		p.IsSystemDefined = known.IsSystemDefined
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NotificationPolicy != nil {
+		p.NotificationPolicy = known.NotificationPolicy
+	}
+	if known.ReportCustomization != nil {
+		p.ReportCustomization = known.ReportCustomization
+	}
+	if known.RetentionConfig != nil {
+		p.RetentionConfig = known.RetentionConfig
+	}
+	if known.Schedule != nil {
+		p.Schedule = known.Schedule
+	}
+	if known.Sections != nil {
+		p.Sections = known.Sections
+	}
+	if known.StartTimeOffsetSecs != nil {
+		p.StartTimeOffsetSecs = known.StartTimeOffsetSecs
+	}
+	if known.SupportedFormats != nil {
+		p.SupportedFormats = known.SupportedFormats
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Timezone != nil {
+		p.Timezone = known.Timezone
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2230,7 +2711,9 @@ func (p *ReportConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "timezone")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2313,7 +2796,29 @@ func (p *ReportCustomization) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ReportCustomization(*known)
+	*p = *NewReportCustomization()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CssStyleSheet != nil {
+		p.CssStyleSheet = known.CssStyleSheet
+	}
+	if known.FooterHtml != nil {
+		p.FooterHtml = known.FooterHtml
+	}
+	if known.HeaderHtml != nil {
+		p.HeaderHtml = known.HeaderHtml
+	}
+	if known.LogoImageExtId != nil {
+		p.LogoImageExtId = known.LogoImageExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2325,7 +2830,9 @@ func (p *ReportCustomization) UnmarshalJSON(b []byte) error {
 	delete(allFields, "logoImageExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2497,7 +3004,32 @@ func (p *ReportNotificationSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ReportNotificationSpec(*known)
+	*p = *NewReportNotificationSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.RecipientFormats != nil {
+		p.RecipientFormats = known.RecipientFormats
+	}
+	if known.Recipients != nil {
+		p.Recipients = known.Recipients
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2510,7 +3042,9 @@ func (p *ReportNotificationSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2602,7 +3136,29 @@ func (p *ReportSchedule) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ReportSchedule(*known)
+	*p = *NewReportSchedule()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EndTime != nil {
+		p.EndTime = known.EndTime
+	}
+	if known.Frequency != nil {
+		p.Frequency = known.Frequency
+	}
+	if known.ScheduleInterval != nil {
+		p.ScheduleInterval = known.ScheduleInterval
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2614,7 +3170,9 @@ func (p *ReportSchedule) UnmarshalJSON(b []byte) error {
 	delete(allFields, "startTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2689,7 +3247,23 @@ func (p *RetentionConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RetentionConfig(*known)
+	*p = *NewRetentionConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.RetentionCount != nil {
+		p.RetentionCount = known.RetentionCount
+	}
+	if known.RetentionPeriodSeconds != nil {
+		p.RetentionPeriodSeconds = known.RetentionPeriodSeconds
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2699,7 +3273,9 @@ func (p *RetentionConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "retentionPeriodSeconds")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2777,7 +3353,20 @@ func (p *Row) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Row(*known)
+	*p = *NewRow()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Widgets != nil {
+		p.Widgets = known.Widgets
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2786,7 +3375,9 @@ func (p *Row) UnmarshalJSON(b []byte) error {
 	delete(allFields, "widgets")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2969,7 +3560,32 @@ func (p *Section) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Section(*known)
+	*p = *NewSection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.RepeatCriteria != nil {
+		p.RepeatCriteria = known.RepeatCriteria
+	}
+	if known.Rows != nil {
+		p.Rows = known.Rows
+	}
+	if known.TimeFilter != nil {
+		p.TimeFilter = known.TimeFilter
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2982,7 +3598,9 @@ func (p *Section) UnmarshalJSON(b []byte) error {
 	delete(allFields, "timeFilter")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3306,7 +3924,26 @@ func (p *UpdateGlobalReportSettingsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateGlobalReportSettingsApiResponse(*known)
+	*p = *NewUpdateGlobalReportSettingsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3317,7 +3954,9 @@ func (p *UpdateGlobalReportSettingsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3413,7 +4052,26 @@ func (p *UpdateReportConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateReportConfigApiResponse(*known)
+	*p = *NewUpdateReportConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3424,7 +4082,9 @@ func (p *UpdateReportConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3527,7 +4187,23 @@ func (p *Widget) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Widget(*known)
+	*p = *NewWidget()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.WidgetInfoItemDiscriminator_ != nil {
+		p.WidgetInfoItemDiscriminator_ = known.WidgetInfoItemDiscriminator_
+	}
+	if known.WidgetInfo != nil {
+		p.WidgetInfo = known.WidgetInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3537,7 +4213,9 @@ func (p *Widget) UnmarshalJSON(b []byte) error {
 	delete(allFields, "widgetInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3658,7 +4336,44 @@ func (p *WidgetConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = WidgetConfig(*known)
+	*p = *NewWidgetConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataCriteria != nil {
+		p.DataCriteria = known.DataCriteria
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.Fields != nil {
+		p.Fields = known.Fields
+	}
+	if known.Heading != nil {
+		p.Heading = known.Heading
+	}
+	if known.RepeatCriteria != nil {
+		p.RepeatCriteria = known.RepeatCriteria
+	}
+	if known.Size != nil {
+		p.Size = known.Size
+	}
+	if known.TimeFilter != nil {
+		p.TimeFilter = known.TimeFilter
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3675,7 +4390,9 @@ func (p *WidgetConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3761,7 +4478,26 @@ func (p *WidgetField) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = WidgetField(*known)
+	*p = *NewWidgetField()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AggregateFunction != nil {
+		p.AggregateFunction = known.AggregateFunction
+	}
+	if known.Label != nil {
+		p.Label = known.Label
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3772,7 +4508,9 @@ func (p *WidgetField) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3924,7 +4662,20 @@ func (p *WidgetTemplate) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = WidgetTemplate(*known)
+	*p = *NewWidgetTemplate()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.WidgetTemplate != nil {
+		p.WidgetTemplate = known.WidgetTemplate
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3933,7 +4684,9 @@ func (p *WidgetTemplate) UnmarshalJSON(b []byte) error {
 	delete(allFields, "widgetTemplate")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }

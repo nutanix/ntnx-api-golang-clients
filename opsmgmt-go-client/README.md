@@ -10,7 +10,28 @@ The Go client for Nutanix Cloud Management Platform APIs is designed for Go clie
 
 ## Version
 - API version: v4.0
-- Package version: v4.0.2
+- Package version: v4.0.3
+## Version Negotiation
+
+By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/client"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+ApiClientInstance.Host = "10.19.50.27"
+ApiClientInstance.Username = "admin"
+ApiClientInstance.Password = "password"
+ApiClientInstance.AllowVersionNegotiation = false // Disables automatic version negotiation
+```
+
+When version negotiation is disabled, the client will use the SDK's default API version.
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...@v4.0.2
+$ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...@v4.0.3
 ```
 
 #### Using go modules
@@ -60,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4 v4.0.2
+	github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4 v4.0.3
 )
 ```
 
@@ -204,7 +225,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ReportConfigApiInstance = api.NewReportConfigApi(ApiClientInstance)
-extId := "ccCb792C-B0EB-EacC-55b6-FAE8c7B9eaC3"
+extId := "1Da7Fd42-B26D-dDFF-2cAa-AdDAF9cCB37d"
 
 // 
 getResponse, err := ReportConfigApiInstance.GetReportConfigById(&extId)
@@ -252,7 +273,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ReportConfigApiInstance = api.NewReportConfigApi(ApiClientInstance)
-extId := "ccCb792C-B0EB-EacC-55b6-FAE8c7B9eaC3"
+extId := "1Da7Fd42-B26D-dDFF-2cAa-AdDAF9cCB37d"
 
 // 
 getResponse, err := ReportConfigApiInstance.GetReportConfigById(&extId)
