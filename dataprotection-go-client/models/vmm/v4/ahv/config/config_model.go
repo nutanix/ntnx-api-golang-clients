@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/ahv/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Data Protection APIs
  *
@@ -77,7 +77,20 @@ func (p *CategoryReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryReference(*known)
+	*p = *NewCategoryReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -86,7 +99,9 @@ func (p *CategoryReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -95,7 +110,105 @@ func NewCategoryReference() *CategoryReference {
 	p := new(CategoryReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CategoryReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type GuestStaticIpSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of gateway IPv4 addresses to override for the guest NIC's particular static IP.
+	*/
+	GatewayIpv4AddressList []import1.IPv4Address `json:"gatewayIpv4AddressList,omitempty"`
+
+	Ipv4Address *import1.IPv4Address `json:"ipv4Address,omitempty"`
+}
+
+func (p *GuestStaticIpSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GuestStaticIpSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GuestStaticIpSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GuestStaticIpSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGuestStaticIpSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.GatewayIpv4AddressList != nil {
+		p.GatewayIpv4AddressList = known.GatewayIpv4AddressList
+	}
+	if known.Ipv4Address != nil {
+		p.Ipv4Address = known.Ipv4Address
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "gatewayIpv4AddressList")
+	delete(allFields, "ipv4Address")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGuestStaticIpSpec() *GuestStaticIpSpec {
+	p := new(GuestStaticIpSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.GuestStaticIpSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -157,7 +270,20 @@ func (p *OwnerReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = OwnerReference(*known)
+	*p = *NewOwnerReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -166,7 +292,9 @@ func (p *OwnerReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -175,7 +303,7 @@ func NewOwnerReference() *OwnerReference {
 	p := new(OwnerReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.OwnerReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -235,7 +363,20 @@ func (p *OwnershipInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = OwnershipInfo(*known)
+	*p = *NewOwnershipInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Owner != nil {
+		p.Owner = known.Owner
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -244,7 +385,9 @@ func (p *OwnershipInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "owner")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -253,7 +396,7 @@ func NewOwnershipInfo() *OwnershipInfo {
 	p := new(OwnershipInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.OwnershipInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -315,7 +458,20 @@ func (p *SubnetReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SubnetReference(*known)
+	*p = *NewSubnetReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -324,7 +480,9 @@ func (p *SubnetReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -333,7 +491,7 @@ func NewSubnetReference() *SubnetReference {
 	p := new(SubnetReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.SubnetReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -356,6 +514,8 @@ type VmConfigOverrideSpecification struct {
 	  VM description.
 	*/
 	Description *string `json:"description,omitempty"`
+
+	GuestToolsSpec *VmRestoreGuestToolsSpecification `json:"guestToolsSpec,omitempty"`
 	/*
 	  Name of the VM to override with. If not specified, a name is chosen by the system and returned to the task entities when complete.
 	*/
@@ -407,7 +567,35 @@ func (p *VmConfigOverrideSpecification) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmConfigOverrideSpecification(*known)
+	*p = *NewVmConfigOverrideSpecification()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.GuestToolsSpec != nil {
+		p.GuestToolsSpec = known.GuestToolsSpec
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NicSpec != nil {
+		p.NicSpec = known.NicSpec
+	}
+	if known.OwnershipInfo != nil {
+		p.OwnershipInfo = known.OwnershipInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -415,12 +603,15 @@ func (p *VmConfigOverrideSpecification) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "categories")
 	delete(allFields, "description")
+	delete(allFields, "guestToolsSpec")
 	delete(allFields, "name")
 	delete(allFields, "nicSpec")
 	delete(allFields, "ownershipInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -429,8 +620,201 @@ func NewVmConfigOverrideSpecification() *VmConfigOverrideSpecification {
 	p := new(VmConfigOverrideSpecification)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmConfigOverrideSpecification"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Guest NIC information object containing fields that can be overridden for a given VM NIC when restoring a VM.
+*/
+type VmRestoreGuestNicInfoOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of static IP addresses to override for the guest NIC.
+	*/
+	GuestStaticIpList []GuestStaticIpSpec `json:"guestStaticIpList,omitempty"`
+}
+
+func (p *VmRestoreGuestNicInfoOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmRestoreGuestNicInfoOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmRestoreGuestNicInfoOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmRestoreGuestNicInfoOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmRestoreGuestNicInfoOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.GuestStaticIpList != nil {
+		p.GuestStaticIpList = known.GuestStaticIpList
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "guestStaticIpList")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmRestoreGuestNicInfoOverrideSpec() *VmRestoreGuestNicInfoOverrideSpec {
+	p := new(VmRestoreGuestNicInfoOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreGuestNicInfoOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Guest tools parameters to override with. Currently, this is only applicable to VMs with NGT installed.
+*/
+type VmRestoreGuestToolsSpecification struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  If set to true, the VM will be restored with clearing all of the in-guest volume group attachments captured in the VM recovery point. Currently, this is only applicable to VMs with NGT installed.
+	*/
+	ShouldClearInGuestVolumeGroupAttachments *bool `json:"shouldClearInGuestVolumeGroupAttachments,omitempty"`
+}
+
+func (p *VmRestoreGuestToolsSpecification) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmRestoreGuestToolsSpecification
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmRestoreGuestToolsSpecification) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmRestoreGuestToolsSpecification
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmRestoreGuestToolsSpecification()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ShouldClearInGuestVolumeGroupAttachments != nil {
+		p.ShouldClearInGuestVolumeGroupAttachments = known.ShouldClearInGuestVolumeGroupAttachments
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "shouldClearInGuestVolumeGroupAttachments")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmRestoreGuestToolsSpecification() *VmRestoreGuestToolsSpecification {
+	p := new(VmRestoreGuestToolsSpecification)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreGuestToolsSpecification"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.ShouldClearInGuestVolumeGroupAttachments = new(bool)
+	*p.ShouldClearInGuestVolumeGroupAttachments = false
 
 	return p
 }
@@ -493,7 +877,23 @@ func (p *VmRestoreIpv4ConfigOverrideSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreIpv4ConfigOverrideSpec(*known)
+	*p = *NewVmRestoreIpv4ConfigOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.SecondaryIpAddressList != nil {
+		p.SecondaryIpAddressList = known.SecondaryIpAddressList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -503,7 +903,9 @@ func (p *VmRestoreIpv4ConfigOverrideSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "secondaryIpAddressList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -512,7 +914,7 @@ func NewVmRestoreIpv4ConfigOverrideSpec() *VmRestoreIpv4ConfigOverrideSpec {
 	p := new(VmRestoreIpv4ConfigOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreIpv4ConfigOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -527,6 +929,8 @@ type VmRestoreNicConfigOverrideParams struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	GuestNicInfo *VmRestoreGuestNicInfoOverrideSpec `json:"guestNicInfo,omitempty"`
 	/*
 
 	 */
@@ -597,12 +1001,41 @@ func (p *VmRestoreNicConfigOverrideParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreNicConfigOverrideParams(*known)
+	*p = *NewVmRestoreNicConfigOverrideParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.GuestNicInfo != nil {
+		p.GuestNicInfo = known.GuestNicInfo
+	}
+	if known.NicBackingInfoItemDiscriminator_ != nil {
+		p.NicBackingInfoItemDiscriminator_ = known.NicBackingInfoItemDiscriminator_
+	}
+	if known.NicBackingInfo != nil {
+		p.NicBackingInfo = known.NicBackingInfo
+	}
+	if known.NicExtId != nil {
+		p.NicExtId = known.NicExtId
+	}
+	if known.NicNetworkInfoItemDiscriminator_ != nil {
+		p.NicNetworkInfoItemDiscriminator_ = known.NicNetworkInfoItemDiscriminator_
+	}
+	if known.NicNetworkInfo != nil {
+		p.NicNetworkInfo = known.NicNetworkInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "guestNicInfo")
 	delete(allFields, "$nicBackingInfoItemDiscriminator")
 	delete(allFields, "nicBackingInfo")
 	delete(allFields, "nicExtId")
@@ -610,7 +1043,9 @@ func (p *VmRestoreNicConfigOverrideParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nicNetworkInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -619,7 +1054,7 @@ func NewVmRestoreNicConfigOverrideParams() *VmRestoreNicConfigOverrideParams {
 	p := new(VmRestoreNicConfigOverrideParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreNicConfigOverrideParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -706,7 +1141,23 @@ func (p *VmRestoreNicConfigSpecification) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreNicConfigSpecification(*known)
+	*p = *NewVmRestoreNicConfigSpecification()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NicOverrideList != nil {
+		p.NicOverrideList = known.NicOverrideList
+	}
+	if known.NicRemoveList != nil {
+		p.NicRemoveList = known.NicRemoveList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -716,7 +1167,9 @@ func (p *VmRestoreNicConfigSpecification) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nicRemoveList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -725,7 +1178,7 @@ func NewVmRestoreNicConfigSpecification() *VmRestoreNicConfigSpecification {
 	p := new(VmRestoreNicConfigSpecification)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreNicConfigSpecification"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -787,7 +1240,23 @@ func (p *VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec) UnmarshalJSON(b []b
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec(*known)
+	*p = *NewVmRestoreVirtualEthernetNicNetworkInfoOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4Config != nil {
+		p.Ipv4Config = known.Ipv4Config
+	}
+	if known.Subnet != nil {
+		p.Subnet = known.Subnet
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -797,7 +1266,9 @@ func (p *VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec) UnmarshalJSON(b []b
 	delete(allFields, "subnet")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -806,7 +1277,7 @@ func NewVmRestoreVirtualEthernetNicNetworkInfoOverrideSpec() *VmRestoreVirtualEt
 	p := new(VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -868,7 +1339,20 @@ func (p *VmRestoreVirtualEthernetNicOverrideSpec) UnmarshalJSON(b []byte) error 
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreVirtualEthernetNicOverrideSpec(*known)
+	*p = *NewVmRestoreVirtualEthernetNicOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -877,7 +1361,9 @@ func (p *VmRestoreVirtualEthernetNicOverrideSpec) UnmarshalJSON(b []byte) error 
 	delete(allFields, "macAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -886,7 +1372,7 @@ func NewVmRestoreVirtualEthernetNicOverrideSpec() *VmRestoreVirtualEthernetNicOv
 	p := new(VmRestoreVirtualEthernetNicOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreVirtualEthernetNicOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

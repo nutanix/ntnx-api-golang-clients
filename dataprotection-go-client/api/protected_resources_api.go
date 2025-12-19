@@ -39,7 +39,7 @@ func (api *ProtectedResourcesApi) GetProtectedResourceById(extId *string, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/protected-resources/{extId}"
+	uri := "/api/dataprotection/v4.2/config/protected-resources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *ProtectedResourcesApi) PromoteProtectedResource(extId *string, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/protected-resources/{extId}/$actions/promote"
+	uri := "/api/dataprotection/v4.2/config/protected-resources/{extId}/$actions/promote"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -139,7 +139,7 @@ func (api *ProtectedResourcesApi) RestoreProtectedResource(extId *string, body *
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/protected-resources/{extId}/$actions/restore"
+	uri := "/api/dataprotection/v4.2/config/protected-resources/{extId}/$actions/restore"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

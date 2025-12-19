@@ -1,7 +1,7 @@
 /*
  * Generated file models/dataprotection/v4/content/content_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Data Protection APIs
  *
@@ -80,7 +80,23 @@ func (p *BaseRecoveryPointSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BaseRecoveryPointSpec(*known)
+	*p = *NewBaseRecoveryPointSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ReferenceDiskRecoveryPointExtId != nil {
+		p.ReferenceDiskRecoveryPointExtId = known.ReferenceDiskRecoveryPointExtId
+	}
+	if known.ReferenceRecoveryPointExtId != nil {
+		p.ReferenceRecoveryPointExtId = known.ReferenceRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -90,7 +106,9 @@ func (p *BaseRecoveryPointSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "referenceRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -99,7 +117,7 @@ func NewBaseRecoveryPointSpec() *BaseRecoveryPointSpec {
 	p := new(BaseRecoveryPointSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.BaseRecoveryPointSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -178,7 +196,26 @@ func (p *ChangedRegion) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ChangedRegion(*known)
+	*p = *NewChangedRegion()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Length != nil {
+		p.Length = known.Length
+	}
+	if known.Offset != nil {
+		p.Offset = known.Offset
+	}
+	if known.RegionType != nil {
+		p.RegionType = known.RegionType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -189,7 +226,9 @@ func (p *ChangedRegion) UnmarshalJSON(b []byte) error {
 	delete(allFields, "regionType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -198,14 +237,14 @@ func NewChangedRegion() *ChangedRegion {
 	p := new(ChangedRegion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedRegion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.1/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
+REST response for all response codes in API path /dataprotection/v4.2/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
 */
 type ChangedVmRegionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -264,7 +303,26 @@ func (p *ChangedVmRegionsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ChangedVmRegionsApiResponse(*known)
+	*p = *NewChangedVmRegionsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -275,7 +333,9 @@ func (p *ChangedVmRegionsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -284,7 +344,7 @@ func NewChangedVmRegionsApiResponse() *ChangedVmRegionsApiResponse {
 	p := new(ChangedVmRegionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedVmRegionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -312,7 +372,7 @@ func (p *ChangedVmRegionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.1/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
+REST response for all response codes in API path /dataprotection/v4.2/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
 */
 type ChangedVolumeGroupRegionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -371,7 +431,26 @@ func (p *ChangedVolumeGroupRegionsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ChangedVolumeGroupRegionsApiResponse(*known)
+	*p = *NewChangedVolumeGroupRegionsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -382,7 +461,9 @@ func (p *ChangedVolumeGroupRegionsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -391,7 +472,7 @@ func NewChangedVolumeGroupRegionsApiResponse() *ChangedVolumeGroupRegionsApiResp
 	p := new(ChangedVolumeGroupRegionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedVolumeGroupRegionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -568,7 +649,26 @@ func (p *ClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterDiscoverSpec(*known)
+	*p = *NewClusterDiscoverSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Operation != nil {
+		p.Operation = known.Operation
+	}
+	if known.SpecItemDiscriminator_ != nil {
+		p.SpecItemDiscriminator_ = known.SpecItemDiscriminator_
+	}
+	if known.Spec != nil {
+		p.Spec = known.Spec
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -579,7 +679,9 @@ func (p *ClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "spec")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -588,7 +690,7 @@ func NewClusterDiscoverSpec() *ClusterDiscoverSpec {
 	p := new(ClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -616,7 +718,7 @@ func (p *ClusterDiscoverSpec) SetSpec(v interface{}) error {
 }
 
 /*
-Specs required to fetch the cluster information for compute change region operation.
+Specifications required to fetch the cluster information for compute change region operation.
 */
 type ComputeChangedRegionsClusterDiscoverSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -690,7 +792,29 @@ func (p *ComputeChangedRegionsClusterDiscoverSpec) UnmarshalJSON(b []byte) error
 	}
 
 	// Step 3: Assign known fields
-	*p = ComputeChangedRegionsClusterDiscoverSpec(*known)
+	*p = *NewComputeChangedRegionsClusterDiscoverSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskRecoveryPointItemDiscriminator_ != nil {
+		p.DiskRecoveryPointItemDiscriminator_ = known.DiskRecoveryPointItemDiscriminator_
+	}
+	if known.DiskRecoveryPoint != nil {
+		p.DiskRecoveryPoint = known.DiskRecoveryPoint
+	}
+	if known.ReferenceDiskRecoveryPointItemDiscriminator_ != nil {
+		p.ReferenceDiskRecoveryPointItemDiscriminator_ = known.ReferenceDiskRecoveryPointItemDiscriminator_
+	}
+	if known.ReferenceDiskRecoveryPoint != nil {
+		p.ReferenceDiskRecoveryPoint = known.ReferenceDiskRecoveryPoint
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -702,7 +826,9 @@ func (p *ComputeChangedRegionsClusterDiscoverSpec) UnmarshalJSON(b []byte) error
 	delete(allFields, "referenceDiskRecoveryPoint")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -711,7 +837,7 @@ func NewComputeChangedRegionsClusterDiscoverSpec() *ComputeChangedRegionsCluster
 	p := new(ComputeChangedRegionsClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ComputeChangedRegionsClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -739,7 +865,7 @@ func (p *ComputeChangedRegionsClusterDiscoverSpec) SetReferenceDiskRecoveryPoint
 }
 
 /*
-Specs containing disk recovery point information used to discover the cluster.
+Specifications containing disk recovery point information used to discover the cluster.
 */
 type DiskRecoveryPointReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -798,7 +924,23 @@ func (p *DiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskRecoveryPointReference(*known)
+	*p = *NewDiskRecoveryPointReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskRecoveryPointExtId != nil {
+		p.DiskRecoveryPointExtId = known.DiskRecoveryPointExtId
+	}
+	if known.RecoveryPointExtId != nil {
+		p.RecoveryPointExtId = known.RecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -808,7 +950,9 @@ func (p *DiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -817,14 +961,98 @@ func NewDiskRecoveryPointReference() *DiskRecoveryPointReference {
 	p := new(DiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.DiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type FileWrapper struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+}
+
+func (p *FileWrapper) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias FileWrapper
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *FileWrapper) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias FileWrapper
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewFileWrapper()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewFileWrapper() *FileWrapper {
+	p := new(FileWrapper)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "dataprotection.v4.content.FileWrapper"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.1/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata Get operation
+REST response for all response codes in API path /dataprotection/v4.2/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata Get operation
 */
 type GetVssMetadataApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -883,7 +1111,26 @@ func (p *GetVssMetadataApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVssMetadataApiResponse(*known)
+	*p = *NewGetVssMetadataApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -894,7 +1141,9 @@ func (p *GetVssMetadataApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -903,7 +1152,7 @@ func NewGetVssMetadataApiResponse() *GetVssMetadataApiResponse {
 	p := new(GetVssMetadataApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.GetVssMetadataApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -931,7 +1180,7 @@ func (p *GetVssMetadataApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Specification of get VSS metadata operation.
+Specification of the get VSS metadata operation.
 */
 type GetVssMetadataClusterDiscoverSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -993,7 +1242,20 @@ func (p *GetVssMetadataClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVssMetadataClusterDiscoverSpec(*known)
+	*p = *NewGetVssMetadataClusterDiscoverSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.VmRecoveryPointExtId != nil {
+		p.VmRecoveryPointExtId = known.VmRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1002,7 +1264,9 @@ func (p *GetVssMetadataClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1011,7 +1275,7 @@ func NewGetVssMetadataClusterDiscoverSpec() *GetVssMetadataClusterDiscoverSpec {
 	p := new(GetVssMetadataClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.GetVssMetadataClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1160,7 +1424,26 @@ func (p *VmDiskRecoveryPointClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskRecoveryPointClusterDiscoverSpec(*known)
+	*p = *NewVmDiskRecoveryPointClusterDiscoverSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ReferenceDiskRecoveryPointExtId != nil {
+		p.ReferenceDiskRecoveryPointExtId = known.ReferenceDiskRecoveryPointExtId
+	}
+	if known.ReferenceRecoveryPointExtId != nil {
+		p.ReferenceRecoveryPointExtId = known.ReferenceRecoveryPointExtId
+	}
+	if known.ReferenceVmRecoveryPointExtId != nil {
+		p.ReferenceVmRecoveryPointExtId = known.ReferenceVmRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1171,7 +1454,9 @@ func (p *VmDiskRecoveryPointClusterDiscoverSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "referenceVmRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1180,7 +1465,7 @@ func NewVmDiskRecoveryPointClusterDiscoverSpec() *VmDiskRecoveryPointClusterDisc
 	p := new(VmDiskRecoveryPointClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmDiskRecoveryPointClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1250,7 +1535,26 @@ func (p *VmDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskRecoveryPointReference(*known)
+	*p = *NewVmDiskRecoveryPointReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskRecoveryPointExtId != nil {
+		p.DiskRecoveryPointExtId = known.DiskRecoveryPointExtId
+	}
+	if known.RecoveryPointExtId != nil {
+		p.RecoveryPointExtId = known.RecoveryPointExtId
+	}
+	if known.VmRecoveryPointExtId != nil {
+		p.VmRecoveryPointExtId = known.VmRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1261,7 +1565,9 @@ func (p *VmDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1270,7 +1576,7 @@ func NewVmDiskRecoveryPointReference() *VmDiskRecoveryPointReference {
 	p := new(VmDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1286,7 +1592,7 @@ type VmRecoveryPointChangedRegionsComputeSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  When blockSizeByte is set, all returned ranges will start and end at blockSize addresses, and the changed blocks will match the block size. Supported values of blockSizeByte are [32768, 65536, 131072, 262144]. Example: if blockSizeByte is set to 32768 (i.e 32KB), all ranges will start at multiple of 32KB and end at multiple of 32KB value.
+	  When blockSizeByte is set, all returned ranges start and end at blockSize addresses, and the changed blocks match the block size. Supported values of blockSizeByte are [32768, 65536, 131072, 262144]. Example: if blockSizeByte is set to 32768 (i.e 32KB), all ranges start at multiple of 32KB and end at multiple of 32KB value.
 	*/
 	BlockSizeByte *int64 `json:"blockSizeByte,omitempty"`
 	/*
@@ -1352,7 +1658,35 @@ func (p *VmRecoveryPointChangedRegionsComputeSpec) UnmarshalJSON(b []byte) error
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRecoveryPointChangedRegionsComputeSpec(*known)
+	*p = *NewVmRecoveryPointChangedRegionsComputeSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockSizeByte != nil {
+		p.BlockSizeByte = known.BlockSizeByte
+	}
+	if known.Length != nil {
+		p.Length = known.Length
+	}
+	if known.Offset != nil {
+		p.Offset = known.Offset
+	}
+	if known.ReferenceDiskRecoveryPointExtId != nil {
+		p.ReferenceDiskRecoveryPointExtId = known.ReferenceDiskRecoveryPointExtId
+	}
+	if known.ReferenceRecoveryPointExtId != nil {
+		p.ReferenceRecoveryPointExtId = known.ReferenceRecoveryPointExtId
+	}
+	if known.ReferenceVmRecoveryPointExtId != nil {
+		p.ReferenceVmRecoveryPointExtId = known.ReferenceVmRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1366,7 +1700,9 @@ func (p *VmRecoveryPointChangedRegionsComputeSpec) UnmarshalJSON(b []byte) error
 	delete(allFields, "referenceVmRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1375,7 +1711,7 @@ func NewVmRecoveryPointChangedRegionsComputeSpec() *VmRecoveryPointChangedRegion
 	p := new(VmRecoveryPointChangedRegionsComputeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmRecoveryPointChangedRegionsComputeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1445,7 +1781,26 @@ func (p *VolumeGroupDiskRecoveryPointClusterDiscoverSpec) UnmarshalJSON(b []byte
 	}
 
 	// Step 3: Assign known fields
-	*p = VolumeGroupDiskRecoveryPointClusterDiscoverSpec(*known)
+	*p = *NewVolumeGroupDiskRecoveryPointClusterDiscoverSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ReferenceDiskRecoveryPointExtId != nil {
+		p.ReferenceDiskRecoveryPointExtId = known.ReferenceDiskRecoveryPointExtId
+	}
+	if known.ReferenceRecoveryPointExtId != nil {
+		p.ReferenceRecoveryPointExtId = known.ReferenceRecoveryPointExtId
+	}
+	if known.ReferenceVolumeGroupRecoveryPointExtId != nil {
+		p.ReferenceVolumeGroupRecoveryPointExtId = known.ReferenceVolumeGroupRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1456,7 +1811,9 @@ func (p *VolumeGroupDiskRecoveryPointClusterDiscoverSpec) UnmarshalJSON(b []byte
 	delete(allFields, "referenceVolumeGroupRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1465,14 +1822,14 @@ func NewVolumeGroupDiskRecoveryPointClusterDiscoverSpec() *VolumeGroupDiskRecove
 	p := new(VolumeGroupDiskRecoveryPointClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupDiskRecoveryPointClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Specs containing VM disk recovery point information used to discover the cluster.
+Specifications containing VM disk recovery point information used to discover the cluster.
 */
 type VolumeGroupDiskRecoveryPointReference struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1535,7 +1892,26 @@ func (p *VolumeGroupDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VolumeGroupDiskRecoveryPointReference(*known)
+	*p = *NewVolumeGroupDiskRecoveryPointReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskRecoveryPointExtId != nil {
+		p.DiskRecoveryPointExtId = known.DiskRecoveryPointExtId
+	}
+	if known.RecoveryPointExtId != nil {
+		p.RecoveryPointExtId = known.RecoveryPointExtId
+	}
+	if known.VolumeGroupRecoveryPointExtId != nil {
+		p.VolumeGroupRecoveryPointExtId = known.VolumeGroupRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1546,7 +1922,9 @@ func (p *VolumeGroupDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "volumeGroupRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1555,7 +1933,7 @@ func NewVolumeGroupDiskRecoveryPointReference() *VolumeGroupDiskRecoveryPointRef
 	p := new(VolumeGroupDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1571,7 +1949,7 @@ type VolumeGroupRecoveryPointChangedRegionsComputeSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  When blockSizeByte is set, all returned ranges will start and end at blockSize addresses, and the changed blocks will match the block size. Supported values of blockSizeByte are [32768, 65536, 131072, 262144]. Example: if blockSizeByte is set to 32768 (i.e 32KB), all ranges will start at multiple of 32KB and end at multiple of 32KB value.
+	  When blockSizeByte is set, all returned ranges start and end at blockSize addresses, and the changed blocks match the block size. Supported values of blockSizeByte are [32768, 65536, 131072, 262144]. Example: if blockSizeByte is set to 32768 (i.e 32KB), all ranges start at multiple of 32KB and end at multiple of 32KB value.
 	*/
 	BlockSizeByte *int64 `json:"blockSizeByte,omitempty"`
 	/*
@@ -1637,7 +2015,35 @@ func (p *VolumeGroupRecoveryPointChangedRegionsComputeSpec) UnmarshalJSON(b []by
 	}
 
 	// Step 3: Assign known fields
-	*p = VolumeGroupRecoveryPointChangedRegionsComputeSpec(*known)
+	*p = *NewVolumeGroupRecoveryPointChangedRegionsComputeSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockSizeByte != nil {
+		p.BlockSizeByte = known.BlockSizeByte
+	}
+	if known.Length != nil {
+		p.Length = known.Length
+	}
+	if known.Offset != nil {
+		p.Offset = known.Offset
+	}
+	if known.ReferenceDiskRecoveryPointExtId != nil {
+		p.ReferenceDiskRecoveryPointExtId = known.ReferenceDiskRecoveryPointExtId
+	}
+	if known.ReferenceRecoveryPointExtId != nil {
+		p.ReferenceRecoveryPointExtId = known.ReferenceRecoveryPointExtId
+	}
+	if known.ReferenceVolumeGroupRecoveryPointExtId != nil {
+		p.ReferenceVolumeGroupRecoveryPointExtId = known.ReferenceVolumeGroupRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1651,7 +2057,9 @@ func (p *VolumeGroupRecoveryPointChangedRegionsComputeSpec) UnmarshalJSON(b []by
 	delete(allFields, "referenceVolumeGroupRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1660,16 +2068,127 @@ func NewVolumeGroupRecoveryPointChangedRegionsComputeSpec() *VolumeGroupRecovery
 	p := new(VolumeGroupRecoveryPointChangedRegionsComputeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupRecoveryPointChangedRegionsComputeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
+type OneOfClusterDiscoverSpecSpec struct {
+	Discriminator *string                                   `json:"-"`
+	ObjectType_   *string                                   `json:"-"`
+	oneOfType2102 *ComputeChangedRegionsClusterDiscoverSpec `json:"-"`
+	oneOfType2101 *GetVssMetadataClusterDiscoverSpec        `json:"-"`
+}
+
+func NewOneOfClusterDiscoverSpecSpec() *OneOfClusterDiscoverSpecSpec {
+	p := new(OneOfClusterDiscoverSpecSpec)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfClusterDiscoverSpecSpec) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfClusterDiscoverSpecSpec is nil"))
+	}
+	switch v.(type) {
+	case ComputeChangedRegionsClusterDiscoverSpec:
+		if nil == p.oneOfType2102 {
+			p.oneOfType2102 = new(ComputeChangedRegionsClusterDiscoverSpec)
+		}
+		*p.oneOfType2102 = v.(ComputeChangedRegionsClusterDiscoverSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2102.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2102.ObjectType_
+	case GetVssMetadataClusterDiscoverSpec:
+		if nil == p.oneOfType2101 {
+			p.oneOfType2101 = new(GetVssMetadataClusterDiscoverSpec)
+		}
+		*p.oneOfType2101 = v.(GetVssMetadataClusterDiscoverSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2101.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2101.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfClusterDiscoverSpecSpec) GetValue() interface{} {
+	if p.oneOfType2102 != nil && *p.oneOfType2102.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2102
+	}
+	if p.oneOfType2101 != nil && *p.oneOfType2101.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2101
+	}
+	return nil
+}
+
+func (p *OneOfClusterDiscoverSpecSpec) UnmarshalJSON(b []byte) error {
+	vOneOfType2102 := new(ComputeChangedRegionsClusterDiscoverSpec)
+	if err := json.Unmarshal(b, vOneOfType2102); err == nil {
+		if "dataprotection.v4.content.ComputeChangedRegionsClusterDiscoverSpec" == *vOneOfType2102.ObjectType_ {
+			if nil == p.oneOfType2102 {
+				p.oneOfType2102 = new(ComputeChangedRegionsClusterDiscoverSpec)
+			}
+			*p.oneOfType2102 = *vOneOfType2102
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2102.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2102.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2101 := new(GetVssMetadataClusterDiscoverSpec)
+	if err := json.Unmarshal(b, vOneOfType2101); err == nil {
+		if "dataprotection.v4.content.GetVssMetadataClusterDiscoverSpec" == *vOneOfType2101.ObjectType_ {
+			if nil == p.oneOfType2101 {
+				p.oneOfType2101 = new(GetVssMetadataClusterDiscoverSpec)
+			}
+			*p.oneOfType2101 = *vOneOfType2101
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2101.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2101.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterDiscoverSpecSpec"))
+}
+
+func (p *OneOfClusterDiscoverSpecSpec) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2102 != nil && *p.oneOfType2102.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2102)
+	}
+	if p.oneOfType2101 != nil && *p.oneOfType2101.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2101)
+	}
+	return nil, errors.New("No value to marshal for OneOfClusterDiscoverSpecSpec")
+}
+
 type OneOfChangedVmRegionsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    []ChangedRegion        `json:"-"`
+	oneOfType2001 []ChangedRegion        `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 }
 
@@ -1686,7 +2205,7 @@ func (p *OneOfChangedVmRegionsApiResponseData) SetValue(v interface{}) error {
 	}
 	switch v.(type) {
 	case []ChangedRegion:
-		p.oneOfType0 = v.([]ChangedRegion)
+		p.oneOfType2001 = v.([]ChangedRegion)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -1716,7 +2235,7 @@ func (p *OneOfChangedVmRegionsApiResponseData) SetValue(v interface{}) error {
 
 func (p *OneOfChangedVmRegionsApiResponseData) GetValue() interface{} {
 	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
-		return p.oneOfType0
+		return p.oneOfType2001
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -1725,10 +2244,10 @@ func (p *OneOfChangedVmRegionsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfChangedVmRegionsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]ChangedRegion)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
+	vOneOfType2001 := new([]ChangedRegion)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
@@ -1763,7 +2282,7 @@ func (p *OneOfChangedVmRegionsApiResponseData) UnmarshalJSON(b []byte) error {
 
 func (p *OneOfChangedVmRegionsApiResponseData) MarshalJSON() ([]byte, error) {
 	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
@@ -1771,11 +2290,122 @@ func (p *OneOfChangedVmRegionsApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfChangedVmRegionsApiResponseData")
 }
 
+type OneOfGetVssMetadataApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	oneOfType2001 *FileWrapper           `json:"-"`
+}
+
+func NewOneOfGetVssMetadataApiResponseData() *OneOfGetVssMetadataApiResponseData {
+	p := new(OneOfGetVssMetadataApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetVssMetadataApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetVssMetadataApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case FileWrapper:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(FileWrapper)
+		}
+		*p.oneOfType2001 = v.(FileWrapper)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetVssMetadataApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetVssMetadataApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(FileWrapper)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "dataprotection.v4.content.FileWrapper" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(FileWrapper)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVssMetadataApiResponseData"))
+}
+
+func (p *OneOfGetVssMetadataApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetVssMetadataApiResponseData")
+}
+
 type OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint struct {
 	Discriminator *string                                `json:"-"`
 	ObjectType_   *string                                `json:"-"`
-	oneOfType0    *VmDiskRecoveryPointReference          `json:"-"`
-	oneOfType1    *VolumeGroupDiskRecoveryPointReference `json:"-"`
+	oneOfType2102 *VolumeGroupDiskRecoveryPointReference `json:"-"`
+	oneOfType2101 *VmDiskRecoveryPointReference          `json:"-"`
 }
 
 func NewOneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint() *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint {
@@ -1790,32 +2420,32 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) SetValu
 		return errors.New(fmt.Sprintf("OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint is nil"))
 	}
 	switch v.(type) {
-	case VmDiskRecoveryPointReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(VmDiskRecoveryPointReference)
-		}
-		*p.oneOfType0 = v.(VmDiskRecoveryPointReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
 	case VolumeGroupDiskRecoveryPointReference:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(VolumeGroupDiskRecoveryPointReference)
+		if nil == p.oneOfType2102 {
+			p.oneOfType2102 = new(VolumeGroupDiskRecoveryPointReference)
 		}
-		*p.oneOfType1 = v.(VolumeGroupDiskRecoveryPointReference)
+		*p.oneOfType2102 = v.(VolumeGroupDiskRecoveryPointReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
+		*p.Discriminator = *p.oneOfType2102.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2102.ObjectType_
+	case VmDiskRecoveryPointReference:
+		if nil == p.oneOfType2101 {
+			p.oneOfType2101 = new(VmDiskRecoveryPointReference)
+		}
+		*p.oneOfType2101 = v.(VmDiskRecoveryPointReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2101.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2101.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -1823,49 +2453,49 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) SetValu
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+	if p.oneOfType2102 != nil && *p.oneOfType2102.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2102
 	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
+	if p.oneOfType2101 != nil && *p.oneOfType2101.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2101
 	}
 	return nil
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(VmDiskRecoveryPointReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(VmDiskRecoveryPointReference)
+	vOneOfType2102 := new(VolumeGroupDiskRecoveryPointReference)
+	if err := json.Unmarshal(b, vOneOfType2102); err == nil {
+		if "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType2102.ObjectType_ {
+			if nil == p.oneOfType2102 {
+				p.oneOfType2102 = new(VolumeGroupDiskRecoveryPointReference)
 			}
-			*p.oneOfType0 = *vOneOfType0
+			*p.oneOfType2102 = *vOneOfType2102
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = *p.oneOfType2102.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2102.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType1 := new(VolumeGroupDiskRecoveryPointReference)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(VolumeGroupDiskRecoveryPointReference)
+	vOneOfType2101 := new(VmDiskRecoveryPointReference)
+	if err := json.Unmarshal(b, vOneOfType2101); err == nil {
+		if "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType2101.ObjectType_ {
+			if nil == p.oneOfType2101 {
+				p.oneOfType2101 = new(VmDiskRecoveryPointReference)
 			}
-			*p.oneOfType1 = *vOneOfType1
+			*p.oneOfType2101 = *vOneOfType2101
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
+			*p.Discriminator = *p.oneOfType2101.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2101.ObjectType_
 			return nil
 		}
 	}
@@ -1873,130 +2503,19 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) Unmarsh
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+	if p.oneOfType2102 != nil && *p.oneOfType2102.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2102)
 	}
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
+	if p.oneOfType2101 != nil && *p.oneOfType2101.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2101)
 	}
 	return nil, errors.New("No value to marshal for OneOfComputeChangedRegionsClusterDiscoverSpecDiskRecoveryPoint")
-}
-
-type OneOfClusterDiscoverSpecSpec struct {
-	Discriminator *string                                   `json:"-"`
-	ObjectType_   *string                                   `json:"-"`
-	oneOfType1    *ComputeChangedRegionsClusterDiscoverSpec `json:"-"`
-	oneOfType0    *GetVssMetadataClusterDiscoverSpec        `json:"-"`
-}
-
-func NewOneOfClusterDiscoverSpecSpec() *OneOfClusterDiscoverSpecSpec {
-	p := new(OneOfClusterDiscoverSpecSpec)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfClusterDiscoverSpecSpec) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfClusterDiscoverSpecSpec is nil"))
-	}
-	switch v.(type) {
-	case ComputeChangedRegionsClusterDiscoverSpec:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(ComputeChangedRegionsClusterDiscoverSpec)
-		}
-		*p.oneOfType1 = v.(ComputeChangedRegionsClusterDiscoverSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
-	case GetVssMetadataClusterDiscoverSpec:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(GetVssMetadataClusterDiscoverSpec)
-		}
-		*p.oneOfType0 = v.(GetVssMetadataClusterDiscoverSpec)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfClusterDiscoverSpecSpec) GetValue() interface{} {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	return nil
-}
-
-func (p *OneOfClusterDiscoverSpecSpec) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(ComputeChangedRegionsClusterDiscoverSpec)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "dataprotection.v4.content.ComputeChangedRegionsClusterDiscoverSpec" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(ComputeChangedRegionsClusterDiscoverSpec)
-			}
-			*p.oneOfType1 = *vOneOfType1
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType0 := new(GetVssMetadataClusterDiscoverSpec)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "dataprotection.v4.content.GetVssMetadataClusterDiscoverSpec" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(GetVssMetadataClusterDiscoverSpec)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfClusterDiscoverSpecSpec"))
-}
-
-func (p *OneOfClusterDiscoverSpecSpec) MarshalJSON() ([]byte, error) {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	return nil, errors.New("No value to marshal for OneOfClusterDiscoverSpecSpec")
 }
 
 type OneOfChangedVolumeGroupRegionsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    []ChangedRegion        `json:"-"`
+	oneOfType2001 []ChangedRegion        `json:"-"`
 	oneOfType400  *import1.ErrorResponse `json:"-"`
 }
 
@@ -2013,7 +2532,7 @@ func (p *OneOfChangedVolumeGroupRegionsApiResponseData) SetValue(v interface{}) 
 	}
 	switch v.(type) {
 	case []ChangedRegion:
-		p.oneOfType0 = v.([]ChangedRegion)
+		p.oneOfType2001 = v.([]ChangedRegion)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -2043,7 +2562,7 @@ func (p *OneOfChangedVolumeGroupRegionsApiResponseData) SetValue(v interface{}) 
 
 func (p *OneOfChangedVolumeGroupRegionsApiResponseData) GetValue() interface{} {
 	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
-		return p.oneOfType0
+		return p.oneOfType2001
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -2052,10 +2571,10 @@ func (p *OneOfChangedVolumeGroupRegionsApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfChangedVolumeGroupRegionsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]ChangedRegion)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
+	vOneOfType2001 := new([]ChangedRegion)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "dataprotection.v4.content.ChangedRegion" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
@@ -2090,7 +2609,7 @@ func (p *OneOfChangedVolumeGroupRegionsApiResponseData) UnmarshalJSON(b []byte) 
 
 func (p *OneOfChangedVolumeGroupRegionsApiResponseData) MarshalJSON() ([]byte, error) {
 	if "List<dataprotection.v4.content.ChangedRegion>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
@@ -2101,8 +2620,8 @@ func (p *OneOfChangedVolumeGroupRegionsApiResponseData) MarshalJSON() ([]byte, e
 type OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint struct {
 	Discriminator *string                                `json:"-"`
 	ObjectType_   *string                                `json:"-"`
-	oneOfType1    *VolumeGroupDiskRecoveryPointReference `json:"-"`
-	oneOfType0    *VmDiskRecoveryPointReference          `json:"-"`
+	oneOfType2104 *VolumeGroupDiskRecoveryPointReference `json:"-"`
+	oneOfType2103 *VmDiskRecoveryPointReference          `json:"-"`
 }
 
 func NewOneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint() *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint {
@@ -2118,31 +2637,31 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint
 	}
 	switch v.(type) {
 	case VolumeGroupDiskRecoveryPointReference:
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(VolumeGroupDiskRecoveryPointReference)
+		if nil == p.oneOfType2104 {
+			p.oneOfType2104 = new(VolumeGroupDiskRecoveryPointReference)
 		}
-		*p.oneOfType1 = v.(VolumeGroupDiskRecoveryPointReference)
+		*p.oneOfType2104 = v.(VolumeGroupDiskRecoveryPointReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType1.ObjectType_
+		*p.Discriminator = *p.oneOfType2104.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType1.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2104.ObjectType_
 	case VmDiskRecoveryPointReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(VmDiskRecoveryPointReference)
+		if nil == p.oneOfType2103 {
+			p.oneOfType2103 = new(VmDiskRecoveryPointReference)
 		}
-		*p.oneOfType0 = v.(VmDiskRecoveryPointReference)
+		*p.oneOfType2103 = v.(VmDiskRecoveryPointReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = *p.oneOfType2103.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2103.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -2150,49 +2669,49 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint) GetValue() interface{} {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType1
+	if p.oneOfType2104 != nil && *p.oneOfType2104.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2104
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+	if p.oneOfType2103 != nil && *p.oneOfType2103.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2103
 	}
 	return nil
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(VolumeGroupDiskRecoveryPointReference)
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType1.ObjectType_ {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(VolumeGroupDiskRecoveryPointReference)
+	vOneOfType2104 := new(VolumeGroupDiskRecoveryPointReference)
+	if err := json.Unmarshal(b, vOneOfType2104); err == nil {
+		if "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference" == *vOneOfType2104.ObjectType_ {
+			if nil == p.oneOfType2104 {
+				p.oneOfType2104 = new(VolumeGroupDiskRecoveryPointReference)
 			}
-			*p.oneOfType1 = *vOneOfType1
+			*p.oneOfType2104 = *vOneOfType2104
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType1.ObjectType_
+			*p.Discriminator = *p.oneOfType2104.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType1.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2104.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType0 := new(VmDiskRecoveryPointReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(VmDiskRecoveryPointReference)
+	vOneOfType2103 := new(VmDiskRecoveryPointReference)
+	if err := json.Unmarshal(b, vOneOfType2103); err == nil {
+		if "dataprotection.v4.content.VmDiskRecoveryPointReference" == *vOneOfType2103.ObjectType_ {
+			if nil == p.oneOfType2103 {
+				p.oneOfType2103 = new(VmDiskRecoveryPointReference)
 			}
-			*p.oneOfType0 = *vOneOfType0
+			*p.oneOfType2103 = *vOneOfType2103
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = *p.oneOfType2103.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2103.ObjectType_
 			return nil
 		}
 	}
@@ -2200,122 +2719,13 @@ func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint
 }
 
 func (p *OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint) MarshalJSON() ([]byte, error) {
-	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
+	if p.oneOfType2104 != nil && *p.oneOfType2104.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2104)
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+	if p.oneOfType2103 != nil && *p.oneOfType2103.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2103)
 	}
 	return nil, errors.New("No value to marshal for OneOfComputeChangedRegionsClusterDiscoverSpecReferenceDiskRecoveryPoint")
-}
-
-type OneOfGetVssMetadataApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *FileDetail            `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetVssMetadataApiResponseData() *OneOfGetVssMetadataApiResponseData {
-	p := new(OneOfGetVssMetadataApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetVssMetadataApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetVssMetadataApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case FileDetail:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(FileDetail)
-		}
-		*p.oneOfType0 = v.(FileDetail)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "FileDetail"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "FileDetail"
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetVssMetadataApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && "FileDetail" == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetVssMetadataApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(FileDetail)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(FileDetail)
-		}
-		*p.oneOfType0 = *vOneOfType0
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "FileDetail"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "FileDetail"
-		return nil
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "dataprotection.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVssMetadataApiResponseData"))
-}
-
-func (p *OneOfGetVssMetadataApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && "FileDetail" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetVssMetadataApiResponseData")
 }
 
 type FileDetail struct {

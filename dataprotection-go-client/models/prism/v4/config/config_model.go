@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Data Protection APIs
  *
@@ -74,7 +74,20 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TaskReference(*known)
+	*p = *NewTaskReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -83,7 +96,9 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -92,7 +107,7 @@ func NewTaskReference() *TaskReference {
 	p := new(TaskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.TaskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

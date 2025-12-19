@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Data Protection APIs
  *
@@ -20,6 +20,306 @@ import (
 	"errors"
 	"fmt"
 )
+
+/*
+Represents another entity that has been referenced by this entity.
+*/
+type EntityReference struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	EntityType *EntityType `json:"entityType,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Name of the entity represented by this reference.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  URI of entity represented by this reference.
+	*/
+	Uris []string `json:"uris,omitempty"`
+}
+
+func (p *EntityReference) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EntityReference
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EntityReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EntityReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewEntityReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Uris != nil {
+		p.Uris = known.Uris
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "entityType")
+	delete(allFields, "extId")
+	delete(allFields, "name")
+	delete(allFields, "uris")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewEntityReference() *EntityReference {
+	p := new(EntityReference)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "common.v1.config.EntityReference"
+	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Type of entity represented by this reference, e.g., VPC.
+*/
+type EntityType int
+
+const (
+	ENTITYTYPE_UNKNOWN             EntityType = 0
+	ENTITYTYPE_REDACTED            EntityType = 1
+	ENTITYTYPE_CLUSTER             EntityType = 2
+	ENTITYTYPE_VM                  EntityType = 3
+	ENTITYTYPE_STORAGE_CONTAINER   EntityType = 4
+	ENTITYTYPE_VOLUME_GROUP        EntityType = 5
+	ENTITYTYPE_TASK                EntityType = 6
+	ENTITYTYPE_IMAGE               EntityType = 7
+	ENTITYTYPE_CATEGORY            EntityType = 8
+	ENTITYTYPE_NODE                EntityType = 9
+	ENTITYTYPE_VPC                 EntityType = 10
+	ENTITYTYPE_SUBNET              EntityType = 11
+	ENTITYTYPE_ROUTING_POLICY      EntityType = 12
+	ENTITYTYPE_FLOATING_IP         EntityType = 13
+	ENTITYTYPE_VPN_GATEWAY         EntityType = 14
+	ENTITYTYPE_VPN_CONNECTION      EntityType = 15
+	ENTITYTYPE_DIRECT_CONNECT      EntityType = 16
+	ENTITYTYPE_DIRECT_CONNECT_VIF  EntityType = 17
+	ENTITYTYPE_VIRTUAL_NIC         EntityType = 18
+	ENTITYTYPE_VIRTUAL_SWITCH      EntityType = 19
+	ENTITYTYPE_VM_DISK             EntityType = 20
+	ENTITYTYPE_VOLUME_DISK         EntityType = 21
+	ENTITYTYPE_DISK_RECOVERY_POINT EntityType = 22
+	ENTITYTYPE_VTEP_GATEWAY        EntityType = 23
+	ENTITYTYPE_RECOVERY_PLAN       EntityType = 24
+	ENTITYTYPE_RECOVERY_PLAN_JOB   EntityType = 25
+	ENTITYTYPE_AVAILABILITY_ZONE   EntityType = 26
+	ENTITYTYPE_VIRTUAL_NETWORK     EntityType = 27
+	ENTITYTYPE_CONSISTENCY_GROUP   EntityType = 28
+	ENTITYTYPE_SUBNET_EXTENSION    EntityType = 29
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *EntityType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CLUSTER",
+		"VM",
+		"STORAGE_CONTAINER",
+		"VOLUME_GROUP",
+		"TASK",
+		"IMAGE",
+		"CATEGORY",
+		"NODE",
+		"VPC",
+		"SUBNET",
+		"ROUTING_POLICY",
+		"FLOATING_IP",
+		"VPN_GATEWAY",
+		"VPN_CONNECTION",
+		"DIRECT_CONNECT",
+		"DIRECT_CONNECT_VIF",
+		"VIRTUAL_NIC",
+		"VIRTUAL_SWITCH",
+		"VM_DISK",
+		"VOLUME_DISK",
+		"DISK_RECOVERY_POINT",
+		"VTEP_GATEWAY",
+		"RECOVERY_PLAN",
+		"RECOVERY_PLAN_JOB",
+		"AVAILABILITY_ZONE",
+		"VIRTUAL_NETWORK",
+		"CONSISTENCY_GROUP",
+		"SUBNET_EXTENSION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e EntityType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CLUSTER",
+		"VM",
+		"STORAGE_CONTAINER",
+		"VOLUME_GROUP",
+		"TASK",
+		"IMAGE",
+		"CATEGORY",
+		"NODE",
+		"VPC",
+		"SUBNET",
+		"ROUTING_POLICY",
+		"FLOATING_IP",
+		"VPN_GATEWAY",
+		"VPN_CONNECTION",
+		"DIRECT_CONNECT",
+		"DIRECT_CONNECT_VIF",
+		"VIRTUAL_NIC",
+		"VIRTUAL_SWITCH",
+		"VM_DISK",
+		"VOLUME_DISK",
+		"DISK_RECOVERY_POINT",
+		"VTEP_GATEWAY",
+		"RECOVERY_PLAN",
+		"RECOVERY_PLAN_JOB",
+		"AVAILABILITY_ZONE",
+		"VIRTUAL_NETWORK",
+		"CONSISTENCY_GROUP",
+		"SUBNET_EXTENSION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *EntityType) index(name string) EntityType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CLUSTER",
+		"VM",
+		"STORAGE_CONTAINER",
+		"VOLUME_GROUP",
+		"TASK",
+		"IMAGE",
+		"CATEGORY",
+		"NODE",
+		"VPC",
+		"SUBNET",
+		"ROUTING_POLICY",
+		"FLOATING_IP",
+		"VPN_GATEWAY",
+		"VPN_CONNECTION",
+		"DIRECT_CONNECT",
+		"DIRECT_CONNECT_VIF",
+		"VIRTUAL_NIC",
+		"VIRTUAL_SWITCH",
+		"VM_DISK",
+		"VOLUME_DISK",
+		"DISK_RECOVERY_POINT",
+		"VTEP_GATEWAY",
+		"RECOVERY_PLAN",
+		"RECOVERY_PLAN_JOB",
+		"AVAILABILITY_ZONE",
+		"VIRTUAL_NETWORK",
+		"CONSISTENCY_GROUP",
+		"SUBNET_EXTENSION",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return EntityType(idx)
+		}
+	}
+	return ENTITYTYPE_UNKNOWN
+}
+
+func (e *EntityType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for EntityType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *EntityType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e EntityType) Ref() *EntityType {
+	return &e
+}
 
 /*
 Many entities in the Nutanix APIs carry flags.  This object captures all the flags associated with that entity through this object.  The field that hosts this type of object must have an attribute called x-bounded-map-keys that tells which flags are actually present for that entity.
@@ -81,7 +381,23 @@ func (p *Flag) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Flag(*known)
+	*p = *NewFlag()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -91,7 +407,9 @@ func (p *Flag) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -165,7 +483,23 @@ func (p *IPAddress) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IPAddress(*known)
+	*p = *NewIPAddress()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4 != nil {
+		p.Ipv4 = known.Ipv4
+	}
+	if known.Ipv6 != nil {
+		p.Ipv6 = known.Ipv6
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -175,7 +509,9 @@ func (p *IPAddress) UnmarshalJSON(b []byte) error {
 	delete(allFields, "ipv6")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -268,7 +604,23 @@ func (p *IPv4Address) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IPv4Address(*known)
+	*p = *NewIPv4Address()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.PrefixLength != nil {
+		p.PrefixLength = known.PrefixLength
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -278,7 +630,9 @@ func (p *IPv4Address) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -363,7 +717,23 @@ func (p *IPv6Address) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IPv6Address(*known)
+	*p = *NewIPv6Address()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.PrefixLength != nil {
+		p.PrefixLength = known.PrefixLength
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -373,7 +743,9 @@ func (p *IPv6Address) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -455,7 +827,26 @@ func (p *KVPair) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = KVPair(*known)
+	*p = *NewKVPair()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ValueItemDiscriminator_ != nil {
+		p.ValueItemDiscriminator_ = known.ValueItemDiscriminator_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -466,7 +857,9 @@ func (p *KVPair) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -558,7 +951,20 @@ func (p *MapOfStringWrapper) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MapOfStringWrapper(*known)
+	*p = *NewMapOfStringWrapper()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Map != nil {
+		p.Map = known.Map
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -567,7 +973,9 @@ func (p *MapOfStringWrapper) UnmarshalJSON(b []byte) error {
 	delete(allFields, "map")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -645,7 +1053,29 @@ func (p *Message) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Message(*known)
+	*p = *NewMessage()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Code != nil {
+		p.Code = known.Code
+	}
+	if known.Locale != nil {
+		p.Locale = known.Locale
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
+	if known.Severity != nil {
+		p.Severity = known.Severity
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -657,7 +1087,9 @@ func (p *Message) UnmarshalJSON(b []byte) error {
 	delete(allFields, "severity")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -814,7 +1246,20 @@ func (p *TenantAwareModel) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TenantAwareModel(*known)
+	*p = *NewTenantAwareModel()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -823,7 +1268,9 @@ func (p *TenantAwareModel) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }

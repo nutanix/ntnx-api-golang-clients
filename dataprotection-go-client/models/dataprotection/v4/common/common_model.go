@@ -1,7 +1,7 @@
 /*
  * Generated file models/dataprotection/v4/common/common_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Data Protection APIs
  *
@@ -146,6 +146,10 @@ type BaseRecoveryPoint struct {
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Indicates the total exclusive usage of this recovery point, which is the total space that could be reclaimed after deleting this recovery point.
+	*/
+	TotalExclusiveUsageBytes *int64 `json:"totalExclusiveUsageBytes,omitempty"`
 }
 
 func (p *BaseRecoveryPoint) MarshalJSON() ([]byte, error) {
@@ -189,7 +193,47 @@ func (p *BaseRecoveryPoint) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BaseRecoveryPoint(*known)
+	*p = *NewBaseRecoveryPoint()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.ExpirationTime != nil {
+		p.ExpirationTime = known.ExpirationTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocationAgnosticId != nil {
+		p.LocationAgnosticId = known.LocationAgnosticId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.RecoveryPointType != nil {
+		p.RecoveryPointType = known.RecoveryPointType
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TotalExclusiveUsageBytes != nil {
+		p.TotalExclusiveUsageBytes = known.TotalExclusiveUsageBytes
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -204,9 +248,12 @@ func (p *BaseRecoveryPoint) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recoveryPointType")
 	delete(allFields, "status")
 	delete(allFields, "tenantId")
+	delete(allFields, "totalExclusiveUsageBytes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -277,6 +324,10 @@ type BaseVmRecoveryPoint struct {
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
+	  Indicates the total exclusive usage of this recovery point, which is the total space that could be reclaimed after deleting this recovery point.
+	*/
+	TotalExclusiveUsageBytes *int64 `json:"totalExclusiveUsageBytes,omitempty"`
+	/*
 	  Category key-value pairs associated with the VM at the time of recovery point creation. The category key and value are separated by '/'. For example, a category with key 'dept' and value 'hr' is displayed as 'dept/hr'.
 	*/
 	VmCategories []string `json:"vmCategories,omitempty"`
@@ -327,7 +378,65 @@ func (p *BaseVmRecoveryPoint) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BaseVmRecoveryPoint(*known)
+	*p = *NewBaseVmRecoveryPoint()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ApplicationConsistentPropertiesItemDiscriminator_ != nil {
+		p.ApplicationConsistentPropertiesItemDiscriminator_ = known.ApplicationConsistentPropertiesItemDiscriminator_
+	}
+	if known.ApplicationConsistentProperties != nil {
+		p.ApplicationConsistentProperties = known.ApplicationConsistentProperties
+	}
+	if known.ConsistencyGroupExtId != nil {
+		p.ConsistencyGroupExtId = known.ConsistencyGroupExtId
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.DiskRecoveryPoints != nil {
+		p.DiskRecoveryPoints = known.DiskRecoveryPoints
+	}
+	if known.ExpirationTime != nil {
+		p.ExpirationTime = known.ExpirationTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocationAgnosticId != nil {
+		p.LocationAgnosticId = known.LocationAgnosticId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.RecoveryPointType != nil {
+		p.RecoveryPointType = known.RecoveryPointType
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TotalExclusiveUsageBytes != nil {
+		p.TotalExclusiveUsageBytes = known.TotalExclusiveUsageBytes
+	}
+	if known.VmCategories != nil {
+		p.VmCategories = known.VmCategories
+	}
+	if known.VmExtId != nil {
+		p.VmExtId = known.VmExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -346,11 +455,14 @@ func (p *BaseVmRecoveryPoint) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recoveryPointType")
 	delete(allFields, "status")
 	delete(allFields, "tenantId")
+	delete(allFields, "totalExclusiveUsageBytes")
 	delete(allFields, "vmCategories")
 	delete(allFields, "vmExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -387,7 +499,7 @@ func (p *BaseVmRecoveryPoint) SetApplicationConsistentProperties(v interface{}) 
 }
 
 /*
-It will contain a redirect IP and a certificate. Use the certificate to invoke the compute changed regions endpoint. Set the certificate as a header when invoking the CBT endpoint with NTNX_IGW_SESSION='CERTIFICATE'.
+It contains a redirect IP and a certificate. Use the certificate to invoke the compute changed regions endpoint. Set the certificate as a header when invoking the CBT endpoint with NTNX_IGW_SESSION='CERTIFICATE'.
 */
 type ClusterInfo struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -398,7 +510,7 @@ type ClusterInfo struct {
 
 	ClusterIp *import2.IPAddress `json:"clusterIp,omitempty"`
 	/*
-	  JWT token in string format. This token must be set as a session cookie while making second call for CBT/VSS.
+	  JWT token in string format. This token must be set as a session cookie while making the second call for CBT/VSS.
 	*/
 	JwtToken *string `json:"jwtToken,omitempty"`
 }
@@ -444,7 +556,23 @@ func (p *ClusterInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterInfo(*known)
+	*p = *NewClusterInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterIp != nil {
+		p.ClusterIp = known.ClusterIp
+	}
+	if known.JwtToken != nil {
+		p.JwtToken = known.JwtToken
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -454,7 +582,9 @@ func (p *ClusterInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "jwtToken")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -463,7 +593,7 @@ func NewClusterInfo() *ClusterInfo {
 	p := new(ClusterInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.common.ClusterInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -529,7 +659,23 @@ func (p *DiskRecoveryPoint) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskRecoveryPoint(*known)
+	*p = *NewDiskRecoveryPoint()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskExtId != nil {
+		p.DiskExtId = known.DiskExtId
+	}
+	if known.DiskRecoveryPointExtId != nil {
+		p.DiskRecoveryPointExtId = known.DiskRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -539,7 +685,9 @@ func (p *DiskRecoveryPoint) UnmarshalJSON(b []byte) error {
 	delete(allFields, "diskRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -781,7 +929,29 @@ func (p *VssProperties) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VssProperties(*known)
+	*p = *NewVssProperties()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackupType != nil {
+		p.BackupType = known.BackupType
+	}
+	if known.ShouldIncludeWriters != nil {
+		p.ShouldIncludeWriters = known.ShouldIncludeWriters
+	}
+	if known.ShouldStoreVssMetadata != nil {
+		p.ShouldStoreVssMetadata = known.ShouldStoreVssMetadata
+	}
+	if known.Writers != nil {
+		p.Writers = known.Writers
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -793,7 +963,9 @@ func (p *VssProperties) UnmarshalJSON(b []byte) error {
 	delete(allFields, "writers")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }

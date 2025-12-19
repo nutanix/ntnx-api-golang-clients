@@ -3,10 +3,10 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/common/v1/config"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/common/v1/response"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/common/v1/config"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/common/v1/response"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/dataprotection/v4/config"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/dataprotection/v4/content"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/dataprotection/v4/content"
 	"net/http"
 	"net/url"
 	"strings"
@@ -42,7 +42,7 @@ func (api *RecoveryPointsApi) CreateRecoveryPoint(body *import1.RecoveryPoint, a
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/recovery-points"
+	uri := "/api/dataprotection/v4.2/config/recovery-points"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -90,7 +90,7 @@ func (api *RecoveryPointsApi) DeleteRecoveryPointById(extId *string, args ...map
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/recovery-points/{extId}"
+	uri := "/api/dataprotection/v4.2/config/recovery-points/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -134,13 +134,13 @@ func (api *RecoveryPointsApi) DeleteRecoveryPointById(extId *string, args ...map
 }
 
 // It returns cluster details where the given recovery point is located, and a certificate to access the endpoint. The certificate must be set as a NTNX_IGW_SESSION cookie in the header. For example, Cookie: NTNX_IGW_SESSION='certificate'
-func (api *RecoveryPointsApi) DiscoverClusterForRecoveryPointId(extId *string, body *import2.ClusterDiscoverSpec, args ...map[string]interface{}) (*import1.ClusterInfoApiResponse, error) {
+func (api *RecoveryPointsApi) DiscoverClusterForRecoveryPointId(extId *string, body *import3.ClusterDiscoverSpec, args ...map[string]interface{}) (*import1.ClusterInfoApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/recovery-points/{extId}/$actions/discover-cluster"
+	uri := "/api/dataprotection/v4.2/config/recovery-points/{extId}/$actions/discover-cluster"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -194,7 +194,7 @@ func (api *RecoveryPointsApi) GetRecoveryPointById(extId *string, args ...map[st
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/recovery-points/{extId}"
+	uri := "/api/dataprotection/v4.2/config/recovery-points/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -244,7 +244,7 @@ func (api *RecoveryPointsApi) GetVmRecoveryPointById(recoveryPointExtId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/recovery-points/{recoveryPointExtId}/vm-recovery-points/{extId}"
+	uri := "/api/dataprotection/v4.2/config/recovery-points/{recoveryPointExtId}/vm-recovery-points/{extId}"
 
 	// verify the required parameter 'recoveryPointExtId' is set
 	if nil == recoveryPointExtId {
@@ -292,14 +292,14 @@ func (api *RecoveryPointsApi) GetVmRecoveryPointById(recoveryPointExtId *string,
 	return unmarshalledResp, err
 }
 
-// The metadata documents of Volume Shadow Copy Service (VSS) writers and requesters are called VSS metadata. During a VSS backup operation, the VSS metadata is compressed into a cabinet file, which is in a .cab file format designed to store compressed files. This cabinet file must be saved to the backup media during a backup operation, as it will be required during a restore operation. This API returns the VSS metadata (cabinet file) of a VM recovery point under a composite recovery point that is identified by an external identifier. This external identifier was saved during the recovery point creation operation.
-func (api *RecoveryPointsApi) GetVssMetadataByVmRecoveryPointId(recoveryPointExtId *string, vmRecoveryPointExtId *string, args ...map[string]interface{}) (*import2.GetVssMetadataApiResponse, error) {
+// The metadata documents of Volume Shadow Copy Service (VSS) writers and requesters are called VSS metadata. During a VSS backup operation, the VSS metadata is compressed into a cabinet file, which is in a .cab file format designed to store compressed files. This cabinet file must be saved to the backup media during a backup operation, as it is required during a restore operation. This API returns the VSS metadata (cabinet file) of a VM recovery point under a composite recovery point that is identified by an external identifier. This external identifier was saved during the recovery point creation operation.
+func (api *RecoveryPointsApi) GetVssMetadataByVmRecoveryPointId(recoveryPointExtId *string, vmRecoveryPointExtId *string, args ...map[string]interface{}) (*import3.GetVssMetadataApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata"
+	uri := "/api/dataprotection/v4.2/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata"
 
 	// verify the required parameter 'recoveryPointExtId' is set
 	if nil == recoveryPointExtId {
@@ -351,15 +351,15 @@ func (api *RecoveryPointsApi) GetVssMetadataByVmRecoveryPointId(recoveryPointExt
 				return nil, err
 			}
 
-			response := import2.NewGetVssMetadataApiResponse()
-			fileDetail := import2.NewFileDetail()
+			response := import3.NewGetVssMetadataApiResponse()
+			fileDetail := import3.NewFileDetail()
 			fileDetail.Path = filePath
 
 			flagName := "hasError"
 			flagValue := false
-			var flags []import3.Flag
-			flags = append(flags, import3.Flag{Name: &flagName, Value: &flagValue})
-			metadata := import4.NewApiResponseMetadata()
+			var flags []import4.Flag
+			flags = append(flags, import4.Flag{Name: &flagName, Value: &flagValue})
+			metadata := import5.NewApiResponseMetadata()
 			metadata.Flags = flags
 			response.Metadata = metadata
 			err = response.SetData(*fileDetail)
@@ -371,7 +371,7 @@ func (api *RecoveryPointsApi) GetVssMetadataByVmRecoveryPointId(recoveryPointExt
 		}
 	}
 
-	unmarshalledResp := new(import2.GetVssMetadataApiResponse)
+	unmarshalledResp := new(import3.GetVssMetadataApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
@@ -383,7 +383,7 @@ func (api *RecoveryPointsApi) ListRecoveryPoints(xClusterId *string, page_ *int,
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/recovery-points"
+	uri := "/api/dataprotection/v4.2/config/recovery-points"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -445,7 +445,7 @@ func (api *RecoveryPointsApi) ReplicateRecoveryPoint(extId *string, body *import
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/recovery-points/{extId}/$actions/replicate"
+	uri := "/api/dataprotection/v4.2/config/recovery-points/{extId}/$actions/replicate"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -499,7 +499,7 @@ func (api *RecoveryPointsApi) RestoreRecoveryPoint(extId *string, body *import1.
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/recovery-points/{extId}/$actions/restore"
+	uri := "/api/dataprotection/v4.2/config/recovery-points/{extId}/$actions/restore"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -549,7 +549,7 @@ func (api *RecoveryPointsApi) SetRecoveryPointExpirationTime(extId *string, body
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/config/recovery-points/{extId}/$actions/set-expiration-time"
+	uri := "/api/dataprotection/v4.2/config/recovery-points/{extId}/$actions/set-expiration-time"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -597,13 +597,13 @@ func (api *RecoveryPointsApi) SetRecoveryPointExpirationTime(extId *string, body
 }
 
 // Displays the calculated metadata with the changed region details between any two VM disk recovery points of a file. This API can be used for incremental and differential backups, as well as for a full backup, because it indicates the regions that are zeros, helping to avoid copying zero regions.
-func (api *RecoveryPointsApi) VmRecoveryPointComputeChangedRegions(recoveryPointExtId *string, vmRecoveryPointExtId *string, extId *string, body *import2.VmRecoveryPointChangedRegionsComputeSpec, args ...map[string]interface{}) (*import2.ChangedVmRegionsApiResponse, error) {
+func (api *RecoveryPointsApi) VmRecoveryPointComputeChangedRegions(recoveryPointExtId *string, vmRecoveryPointExtId *string, extId *string, body *import3.VmRecoveryPointChangedRegionsComputeSpec, args ...map[string]interface{}) (*import3.ChangedVmRegionsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions"
+	uri := "/api/dataprotection/v4.2/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions"
 
 	// verify the required parameter 'recoveryPointExtId' is set
 	if nil == recoveryPointExtId {
@@ -655,19 +655,19 @@ func (api *RecoveryPointsApi) VmRecoveryPointComputeChangedRegions(recoveryPoint
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ChangedVmRegionsApiResponse)
+	unmarshalledResp := new(import3.ChangedVmRegionsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Displays the calculated metadata with the changed region details between any two volume group disk recovery points of a file. This API can be used for incremental and differential backups, as well as for a full backup, because it indicates the regions that are zeros, helping to avoid copying zero regions.
-func (api *RecoveryPointsApi) VolumeGroupRecoveryPointComputeChangedRegions(recoveryPointExtId *string, volumeGroupRecoveryPointExtId *string, extId *string, body *import2.VolumeGroupRecoveryPointChangedRegionsComputeSpec, args ...map[string]interface{}) (*import2.ChangedVolumeGroupRegionsApiResponse, error) {
+func (api *RecoveryPointsApi) VolumeGroupRecoveryPointComputeChangedRegions(recoveryPointExtId *string, volumeGroupRecoveryPointExtId *string, extId *string, body *import3.VolumeGroupRecoveryPointChangedRegionsComputeSpec, args ...map[string]interface{}) (*import3.ChangedVolumeGroupRegionsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.1/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions"
+	uri := "/api/dataprotection/v4.2/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions"
 
 	// verify the required parameter 'recoveryPointExtId' is set
 	if nil == recoveryPointExtId {
@@ -719,7 +719,7 @@ func (api *RecoveryPointsApi) VolumeGroupRecoveryPointComputeChangedRegions(reco
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ChangedVolumeGroupRegionsApiResponse)
+	unmarshalledResp := new(import3.ChangedVolumeGroupRegionsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
