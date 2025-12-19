@@ -1,7 +1,7 @@
 /*
  * Generated file models/clustermgmt/v4/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -107,7 +107,7 @@ func (e AcropolisConnectionState) Ref() *AcropolisConnectionState {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{extId}/$actions/add-disk Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{extId}/$actions/add-disk Post operation
 */
 type AddDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -166,7 +166,26 @@ func (p *AddDiskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AddDiskApiResponse(*known)
+	*p = *NewAddDiskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -177,7 +196,9 @@ func (p *AddDiskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -186,7 +207,7 @@ func NewAddDiskApiResponse() *AddDiskApiResponse {
 	p := new(AddDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.AddDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -214,7 +235,7 @@ func (p *AddDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/$actions/add-transports Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/$actions/add-transports Post operation
 */
 type AddSnmpTransportsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -273,7 +294,26 @@ func (p *AddSnmpTransportsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AddSnmpTransportsApiResponse(*known)
+	*p = *NewAddSnmpTransportsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -284,7 +324,9 @@ func (p *AddSnmpTransportsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -293,7 +335,7 @@ func NewAddSnmpTransportsApiResponse() *AddSnmpTransportsApiResponse {
 	p := new(AddSnmpTransportsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.AddSnmpTransportsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -400,7 +442,7 @@ func (e AddressType) Ref() *AddressType {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/cluster-profiles/{extId}/$actions/apply Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/cluster-profiles/{extId}/$actions/apply Post operation
 */
 type ApplyClusterProfileApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -459,7 +501,26 @@ func (p *ApplyClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApplyClusterProfileApiResponse(*known)
+	*p = *NewApplyClusterProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -470,7 +531,9 @@ func (p *ApplyClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -479,7 +542,7 @@ func NewApplyClusterProfileApiResponse() *ApplyClusterProfileApiResponse {
 	p := new(ApplyClusterProfileApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ApplyClusterProfileApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -507,7 +570,7 @@ func (p *ApplyClusterProfileApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/associate-categories Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/associate-categories Post operation
 */
 type AssociateCategoriesToClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -566,7 +629,26 @@ func (p *AssociateCategoriesToClusterApiResponse) UnmarshalJSON(b []byte) error 
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociateCategoriesToClusterApiResponse(*known)
+	*p = *NewAssociateCategoriesToClusterApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -577,7 +659,9 @@ func (p *AssociateCategoriesToClusterApiResponse) UnmarshalJSON(b []byte) error 
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -586,7 +670,7 @@ func NewAssociateCategoriesToClusterApiResponse() *AssociateCategoriesToClusterA
 	p := new(AssociateCategoriesToClusterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.AssociateCategoriesToClusterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -673,7 +757,23 @@ func (p *AttributeItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AttributeItem(*known)
+	*p = *NewAttributeItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Attribute != nil {
+		p.Attribute = known.Attribute
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -683,7 +783,9 @@ func (p *AttributeItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -692,7 +794,7 @@ func NewAttributeItem() *AttributeItem {
 	p := new(AttributeItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.AttributeItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -758,7 +860,23 @@ func (p *AuthorizedPublicKey) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AuthorizedPublicKey(*known)
+	*p = *NewAuthorizedPublicKey()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Key != nil {
+		p.Key = known.Key
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -768,7 +886,9 @@ func (p *AuthorizedPublicKey) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -777,7 +897,7 @@ func NewAuthorizedPublicKey() *AuthorizedPublicKey {
 	p := new(AuthorizedPublicKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.AuthorizedPublicKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -847,7 +967,29 @@ func (p *BackplaneNetworkParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BackplaneNetworkParams(*known)
+	*p = *NewBackplaneNetworkParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsSegmentationEnabled != nil {
+		p.IsSegmentationEnabled = known.IsSegmentationEnabled
+	}
+	if known.Netmask != nil {
+		p.Netmask = known.Netmask
+	}
+	if known.Subnet != nil {
+		p.Subnet = known.Subnet
+	}
+	if known.VlanTag != nil {
+		p.VlanTag = known.VlanTag
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -859,7 +1001,9 @@ func (p *BackplaneNetworkParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vlanTag")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -868,7 +1012,7 @@ func NewBackplaneNetworkParams() *BackplaneNetworkParams {
 	p := new(BackplaneNetworkParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BackplaneNetworkParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -934,7 +1078,23 @@ func (p *BlockItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BlockItem(*known)
+	*p = *NewBlockItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockId != nil {
+		p.BlockId = known.BlockId
+	}
+	if known.RackName != nil {
+		p.RackName = known.RackName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -944,7 +1104,9 @@ func (p *BlockItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rackName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -953,7 +1115,7 @@ func NewBlockItem() *BlockItem {
 	p := new(BlockItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BlockItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1017,7 +1179,26 @@ func (p *BmcInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BmcInfo(*known)
+	*p = *NewBmcInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credential != nil {
+		p.Credential = known.Credential
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1028,7 +1209,9 @@ func (p *BmcInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "status")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1037,10 +1220,97 @@ func NewBmcInfo() *BmcInfo {
 	p := new(BmcInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BmcInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Bonding mode of the vswitch.
+*/
+type BondingMode int
+
+const (
+	BONDINGMODE_UNKNOWN                        BondingMode = 0
+	BONDINGMODE_REDACTED                       BondingMode = 1
+	BONDINGMODE_NO_BOND                        BondingMode = 2
+	BONDINGMODE_ACTIVE_BACKUP                  BondingMode = 3
+	BONDINGMODE_ACTIVE_ACTIVE                  BondingMode = 4
+	BONDINGMODE_ACTIVE_ACTIVE_WITH_MAC_PINNING BondingMode = 5
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *BondingMode) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NO_BOND",
+		"ACTIVE_BACKUP",
+		"ACTIVE_ACTIVE",
+		"ACTIVE_ACTIVE_WITH_MAC_PINNING",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e BondingMode) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NO_BOND",
+		"ACTIVE_BACKUP",
+		"ACTIVE_ACTIVE",
+		"ACTIVE_ACTIVE_WITH_MAC_PINNING",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *BondingMode) index(name string) BondingMode {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NO_BOND",
+		"ACTIVE_BACKUP",
+		"ACTIVE_ACTIVE",
+		"ACTIVE_ACTIVE_WITH_MAC_PINNING",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return BondingMode(idx)
+		}
+	}
+	return BONDINGMODE_UNKNOWN
+}
+
+func (e *BondingMode) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for BondingMode:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *BondingMode) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e BondingMode) Ref() *BondingMode {
+	return &e
 }
 
 /*
@@ -1099,7 +1369,20 @@ func (p *BuildInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BuildInfo(*known)
+	*p = *NewBuildInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1108,7 +1391,9 @@ func (p *BuildInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1117,7 +1402,7 @@ func NewBuildInfo() *BuildInfo {
 	p := new(BuildInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BuildInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1195,7 +1480,32 @@ func (p *BuildReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BuildReference(*known)
+	*p = *NewBuildReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BuildType != nil {
+		p.BuildType = known.BuildType
+	}
+	if known.CommitId != nil {
+		p.CommitId = known.CommitId
+	}
+	if known.FullVersion != nil {
+		p.FullVersion = known.FullVersion
+	}
+	if known.ShortCommitId != nil {
+		p.ShortCommitId = known.ShortCommitId
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1208,7 +1518,9 @@ func (p *BuildReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1217,7 +1529,7 @@ func NewBuildReference() *BuildReference {
 	p := new(BuildReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BuildReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1279,7 +1591,20 @@ func (p *BundleInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BundleInfo(*known)
+	*p = *NewBundleInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1288,7 +1613,9 @@ func (p *BundleInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1297,7 +1624,7 @@ func NewBundleInfo() *BundleInfo {
 	p := new(BundleInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BundleInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1370,7 +1697,23 @@ func (p *BundleParam) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BundleParam(*known)
+	*p = *NewBundleParam()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BundleInfo != nil {
+		p.BundleInfo = known.BundleInfo
+	}
+	if known.NodeList != nil {
+		p.NodeList = known.NodeList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1380,7 +1723,9 @@ func (p *BundleParam) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nodeList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1389,7 +1734,7 @@ func NewBundleParam() *BundleParam {
 	p := new(BundleParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.BundleParam"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1541,7 +1886,20 @@ func (p *CategoryEntityReferences) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryEntityReferences(*known)
+	*p = *NewCategoryEntityReferences()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1550,7 +1908,9 @@ func (p *CategoryEntityReferences) UnmarshalJSON(b []byte) error {
 	delete(allFields, "categories")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1559,7 +1919,7 @@ func NewCategoryEntityReferences() *CategoryEntityReferences {
 	p := new(CategoryEntityReferences)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.CategoryEntityReferences"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1632,7 +1992,23 @@ func (p *ChangePasswordSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ChangePasswordSpec(*known)
+	*p = *NewChangePasswordSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CurrentPassword != nil {
+		p.CurrentPassword = known.CurrentPassword
+	}
+	if known.NewPassword != nil {
+		p.NewPassword = known.NewPassword
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1642,7 +2018,9 @@ func (p *ChangePasswordSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "newPassword")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1651,14 +2029,14 @@ func NewChangePasswordSpec() *ChangePasswordSpec {
 	p := new(ChangePasswordSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ChangePasswordSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/system-user-passwords/{extId}/$actions/change-password Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/system-user-passwords/{extId}/$actions/change-password Post operation
 */
 type ChangeSystemUserPasswordApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1717,7 +2095,26 @@ func (p *ChangeSystemUserPasswordApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ChangeSystemUserPasswordApiResponse(*known)
+	*p = *NewChangeSystemUserPasswordApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1728,7 +2125,9 @@ func (p *ChangeSystemUserPasswordApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1737,7 +2136,7 @@ func NewChangeSystemUserPasswordApiResponse() *ChangeSystemUserPasswordApiRespon
 	p := new(ChangeSystemUserPasswordApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ChangeSystemUserPasswordApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1765,7 +2164,7 @@ func (p *ChangeSystemUserPasswordApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/check-hypervisor-requirements Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/check-hypervisor-requirements Post operation
 */
 type CheckHypervisorRequirementsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1824,7 +2223,26 @@ func (p *CheckHypervisorRequirementsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CheckHypervisorRequirementsApiResponse(*known)
+	*p = *NewCheckHypervisorRequirementsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1835,7 +2253,9 @@ func (p *CheckHypervisorRequirementsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1844,7 +2264,7 @@ func NewCheckHypervisorRequirementsApiResponse() *CheckHypervisorRequirementsApi
 	p := new(CheckHypervisorRequirementsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.CheckHypervisorRequirementsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1872,7 +2292,7 @@ func (p *CheckHypervisorRequirementsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/storage-containers/{extId}/$actions/clear-thick-provisioned-space Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/storage-containers/{extId}/$actions/clear-thick-provisioned-space Post operation
 */
 type ClearThickProvisionedSpaceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1931,7 +2351,26 @@ func (p *ClearThickProvisionedSpaceApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClearThickProvisionedSpaceApiResponse(*known)
+	*p = *NewClearThickProvisionedSpaceApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1942,7 +2381,9 @@ func (p *ClearThickProvisionedSpaceApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1951,7 +2392,7 @@ func NewClearThickProvisionedSpaceApiResponse() *ClearThickProvisionedSpaceApiRe
 	p := new(ClearThickProvisionedSpaceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClearThickProvisionedSpaceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2078,7 +2519,59 @@ func (p *Cluster) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Cluster(*known)
+	*p = *NewCluster()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackupEligibilityScore != nil {
+		p.BackupEligibilityScore = known.BackupEligibilityScore
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
+	if known.ClusterProfileExtId != nil {
+		p.ClusterProfileExtId = known.ClusterProfileExtId
+	}
+	if known.Config != nil {
+		p.Config = known.Config
+	}
+	if known.ContainerName != nil {
+		p.ContainerName = known.ContainerName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.InefficientVmCount != nil {
+		p.InefficientVmCount = known.InefficientVmCount
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Network != nil {
+		p.Network = known.Network
+	}
+	if known.Nodes != nil {
+		p.Nodes = known.Nodes
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpgradeStatus != nil {
+		p.UpgradeStatus = known.UpgradeStatus
+	}
+	if known.VmCount != nil {
+		p.VmCount = known.VmCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2100,7 +2593,9 @@ func (p *Cluster) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2109,7 +2604,7 @@ func NewCluster() *Cluster {
 	p := new(Cluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.Cluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2252,7 +2747,23 @@ func (p *ClusterConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterConfig(*known)
+	*p = *NewClusterConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BuildInfo != nil {
+		p.BuildInfo = known.BuildInfo
+	}
+	if known.ShouldEnableLockdownMode != nil {
+		p.ShouldEnableLockdownMode = known.ShouldEnableLockdownMode
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2262,7 +2773,9 @@ func (p *ClusterConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldEnableLockdownMode")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2271,7 +2784,7 @@ func NewClusterConfig() *ClusterConfig {
 	p := new(ClusterConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2302,6 +2815,8 @@ type ClusterConfigReference struct {
 	  Cluster software version details.
 	*/
 	ClusterSoftwareMap []SoftwareMapReference `json:"clusterSoftwareMap,omitempty"`
+
+	ClusterType *ClusterType `json:"clusterType,omitempty"`
 
 	EncryptionInTransitStatus *EncryptionStatus `json:"encryptionInTransitStatus,omitempty"`
 	/*
@@ -2393,7 +2908,77 @@ func (p *ClusterConfigReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterConfigReference(*known)
+	*p = *NewClusterConfigReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AuthorizedPublicKeyList != nil {
+		p.AuthorizedPublicKeyList = known.AuthorizedPublicKeyList
+	}
+	if known.BuildInfo != nil {
+		p.BuildInfo = known.BuildInfo
+	}
+	if known.ClusterArch != nil {
+		p.ClusterArch = known.ClusterArch
+	}
+	if known.ClusterFunction != nil {
+		p.ClusterFunction = known.ClusterFunction
+	}
+	if known.ClusterSoftwareMap != nil {
+		p.ClusterSoftwareMap = known.ClusterSoftwareMap
+	}
+	if known.ClusterType != nil {
+		p.ClusterType = known.ClusterType
+	}
+	if known.EncryptionInTransitStatus != nil {
+		p.EncryptionInTransitStatus = known.EncryptionInTransitStatus
+	}
+	if known.EncryptionOption != nil {
+		p.EncryptionOption = known.EncryptionOption
+	}
+	if known.EncryptionScope != nil {
+		p.EncryptionScope = known.EncryptionScope
+	}
+	if known.FaultToleranceState != nil {
+		p.FaultToleranceState = known.FaultToleranceState
+	}
+	if known.HypervisorTypes != nil {
+		p.HypervisorTypes = known.HypervisorTypes
+	}
+	if known.IncarnationId != nil {
+		p.IncarnationId = known.IncarnationId
+	}
+	if known.IsAvailable != nil {
+		p.IsAvailable = known.IsAvailable
+	}
+	if known.IsLts != nil {
+		p.IsLts = known.IsLts
+	}
+	if known.IsPasswordRemoteLoginEnabled != nil {
+		p.IsPasswordRemoteLoginEnabled = known.IsPasswordRemoteLoginEnabled
+	}
+	if known.IsRemoteSupportEnabled != nil {
+		p.IsRemoteSupportEnabled = known.IsRemoteSupportEnabled
+	}
+	if known.OperationMode != nil {
+		p.OperationMode = known.OperationMode
+	}
+	if known.PulseStatus != nil {
+		p.PulseStatus = known.PulseStatus
+	}
+	if known.RedundancyFactor != nil {
+		p.RedundancyFactor = known.RedundancyFactor
+	}
+	if known.Timezone != nil {
+		p.Timezone = known.Timezone
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2404,6 +2989,7 @@ func (p *ClusterConfigReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "clusterArch")
 	delete(allFields, "clusterFunction")
 	delete(allFields, "clusterSoftwareMap")
+	delete(allFields, "clusterType")
 	delete(allFields, "encryptionInTransitStatus")
 	delete(allFields, "encryptionOption")
 	delete(allFields, "encryptionScope")
@@ -2420,7 +3006,9 @@ func (p *ClusterConfigReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "timezone")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2429,7 +3017,7 @@ func NewClusterConfigReference() *ClusterConfigReference {
 	p := new(ClusterConfigReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterConfigReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2441,12 +3029,14 @@ Cluster Fault tolerance. Set desiredClusterFaultTolerance for cluster create and
 type ClusterFaultToleranceRef int
 
 const (
-	CLUSTERFAULTTOLERANCEREF_UNKNOWN       ClusterFaultToleranceRef = 0
-	CLUSTERFAULTTOLERANCEREF_REDACTED      ClusterFaultToleranceRef = 1
-	CLUSTERFAULTTOLERANCEREF_CFT_0N_AND_0D ClusterFaultToleranceRef = 2
-	CLUSTERFAULTTOLERANCEREF_CFT_1N_OR_1D  ClusterFaultToleranceRef = 3
-	CLUSTERFAULTTOLERANCEREF_CFT_2N_OR_2D  ClusterFaultToleranceRef = 4
-	CLUSTERFAULTTOLERANCEREF_CFT_1N_AND_1D ClusterFaultToleranceRef = 5
+	CLUSTERFAULTTOLERANCEREF_UNKNOWN             ClusterFaultToleranceRef = 0
+	CLUSTERFAULTTOLERANCEREF_REDACTED            ClusterFaultToleranceRef = 1
+	CLUSTERFAULTTOLERANCEREF_CFT_0N_AND_0D       ClusterFaultToleranceRef = 2
+	CLUSTERFAULTTOLERANCEREF_CFT_1N_OR_1D        ClusterFaultToleranceRef = 3
+	CLUSTERFAULTTOLERANCEREF_CFT_2N_OR_2D        ClusterFaultToleranceRef = 4
+	CLUSTERFAULTTOLERANCEREF_CFT_1N_AND_1D       ClusterFaultToleranceRef = 5
+	CLUSTERFAULTTOLERANCEREF_CFT_1N_OR_1D_STRICT ClusterFaultToleranceRef = 6
+	CLUSTERFAULTTOLERANCEREF_CFT_2N_OR_2D_STRICT ClusterFaultToleranceRef = 7
 )
 
 // Returns the name of the enum given an ordinal number
@@ -2460,6 +3050,8 @@ func (e *ClusterFaultToleranceRef) name(index int) string {
 		"CFT_1N_OR_1D",
 		"CFT_2N_OR_2D",
 		"CFT_1N_AND_1D",
+		"CFT_1N_OR_1D_STRICT",
+		"CFT_2N_OR_2D_STRICT",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2477,6 +3069,8 @@ func (e ClusterFaultToleranceRef) GetName() string {
 		"CFT_1N_OR_1D",
 		"CFT_2N_OR_2D",
 		"CFT_1N_AND_1D",
+		"CFT_1N_OR_1D_STRICT",
+		"CFT_2N_OR_2D_STRICT",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -2493,6 +3087,8 @@ func (e *ClusterFaultToleranceRef) index(name string) ClusterFaultToleranceRef {
 		"CFT_1N_OR_1D",
 		"CFT_2N_OR_2D",
 		"CFT_1N_AND_1D",
+		"CFT_1N_OR_1D_STRICT",
+		"CFT_2N_OR_2D_STRICT",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -2637,6 +3233,14 @@ type ClusterNetwork struct {
 	*/
 	Fqdn *string `json:"fqdn,omitempty"`
 	/*
+	  List of HTTP Proxy server configuration needed to access a cluster which is hosted behind a HTTP Proxy to not reveal its identity.
+	*/
+	HttpProxyConfig []HttpProxyConfig `json:"httpProxyConfig,omitempty"`
+	/*
+	  Targets HTTP traffic to which is exempted from going through the configured HTTP Proxy.
+	*/
+	HttpProxyWhiteListConfig []HttpProxyWhiteListConfig `json:"httpProxyWhiteListConfig,omitempty"`
+	/*
 	  List of name servers on a cluster. This is a part of payload for both clusters create and update operations. Currently, only IPv4 address and FQDN (fully qualified domain name) values are supported for the create operation.
 	*/
 	NameServers []import4.IPAddressOrFQDN `json:"nameServers,omitempty"`
@@ -2687,7 +3291,35 @@ func (p *ClusterNetwork) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterNetwork(*known)
+	*p = *NewClusterNetwork()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExternalAddress != nil {
+		p.ExternalAddress = known.ExternalAddress
+	}
+	if known.Fqdn != nil {
+		p.Fqdn = known.Fqdn
+	}
+	if known.HttpProxyConfig != nil {
+		p.HttpProxyConfig = known.HttpProxyConfig
+	}
+	if known.HttpProxyWhiteListConfig != nil {
+		p.HttpProxyWhiteListConfig = known.HttpProxyWhiteListConfig
+	}
+	if known.NameServers != nil {
+		p.NameServers = known.NameServers
+	}
+	if known.NtpServers != nil {
+		p.NtpServers = known.NtpServers
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2695,11 +3327,15 @@ func (p *ClusterNetwork) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "externalAddress")
 	delete(allFields, "fqdn")
+	delete(allFields, "httpProxyConfig")
+	delete(allFields, "httpProxyWhiteListConfig")
 	delete(allFields, "nameServers")
 	delete(allFields, "ntpServers")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2708,7 +3344,7 @@ func NewClusterNetwork() *ClusterNetwork {
 	p := new(ClusterNetwork)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterNetwork"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2768,6 +3404,10 @@ type ClusterNetworkReference struct {
 	*/
 	NfsSubnetWhitelist []string `json:"nfsSubnetWhitelist,omitempty"`
 	/*
+	  List of NTP server configurations.
+	*/
+	NtpServerConfigList []NtpServerConfig `json:"ntpServerConfigList,omitempty"`
+	/*
 	  List of NTP servers on a cluster. This is a part of payload for both cluster create and update operations. Currently, only IPv4 address and FQDN (fully qualified domain name) values are supported for the create operation.
 	*/
 	NtpServerIpList []import4.IPAddressOrFQDN `json:"ntpServerIpList,omitempty"`
@@ -2816,7 +3456,68 @@ func (p *ClusterNetworkReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterNetworkReference(*known)
+	*p = *NewClusterNetworkReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Backplane != nil {
+		p.Backplane = known.Backplane
+	}
+	if known.ExternalAddress != nil {
+		p.ExternalAddress = known.ExternalAddress
+	}
+	if known.ExternalDataServiceIp != nil {
+		p.ExternalDataServiceIp = known.ExternalDataServiceIp
+	}
+	if known.ExternalSubnet != nil {
+		p.ExternalSubnet = known.ExternalSubnet
+	}
+	if known.Fqdn != nil {
+		p.Fqdn = known.Fqdn
+	}
+	if known.HttpProxyList != nil {
+		p.HttpProxyList = known.HttpProxyList
+	}
+	if known.HttpProxyWhiteList != nil {
+		p.HttpProxyWhiteList = known.HttpProxyWhiteList
+	}
+	if known.InternalSubnet != nil {
+		p.InternalSubnet = known.InternalSubnet
+	}
+	if known.KeyManagementServerType != nil {
+		p.KeyManagementServerType = known.KeyManagementServerType
+	}
+	if known.ManagementServer != nil {
+		p.ManagementServer = known.ManagementServer
+	}
+	if known.MasqueradingIp != nil {
+		p.MasqueradingIp = known.MasqueradingIp
+	}
+	if known.MasqueradingPort != nil {
+		p.MasqueradingPort = known.MasqueradingPort
+	}
+	if known.NameServerIpList != nil {
+		p.NameServerIpList = known.NameServerIpList
+	}
+	if known.NfsSubnetWhitelist != nil {
+		p.NfsSubnetWhitelist = known.NfsSubnetWhitelist
+	}
+	if known.NtpServerConfigList != nil {
+		p.NtpServerConfigList = known.NtpServerConfigList
+	}
+	if known.NtpServerIpList != nil {
+		p.NtpServerIpList = known.NtpServerIpList
+	}
+	if known.SmtpServer != nil {
+		p.SmtpServer = known.SmtpServer
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2836,11 +3537,14 @@ func (p *ClusterNetworkReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "masqueradingPort")
 	delete(allFields, "nameServerIpList")
 	delete(allFields, "nfsSubnetWhitelist")
+	delete(allFields, "ntpServerConfigList")
 	delete(allFields, "ntpServerIpList")
 	delete(allFields, "smtpServer")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2849,7 +3553,7 @@ func NewClusterNetworkReference() *ClusterNetworkReference {
 	p := new(ClusterNetworkReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterNetworkReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2918,6 +3622,10 @@ type ClusterProfile struct {
 	*/
 	NfsSubnetWhitelist []string `json:"nfsSubnetWhitelist,omitempty"`
 	/*
+	  List of NTP server configurations.
+	*/
+	NtpServerConfigList []NtpServerConfig `json:"ntpServerConfigList,omitempty"`
+	/*
 	  List of NTP servers on a cluster. This is a part of payload for both cluster create and update operations. Currently, only IPv4 address and FQDN (fully qualified domain name) values are supported for the create operation.
 	*/
 	NtpServerIpList []import4.IPAddressOrFQDN `json:"ntpServerIpList,omitempty"`
@@ -2985,7 +3693,80 @@ func (p *ClusterProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterProfile(*known)
+	*p = *NewClusterProfile()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AllowedOverrides != nil {
+		p.AllowedOverrides = known.AllowedOverrides
+	}
+	if known.ClusterCount != nil {
+		p.ClusterCount = known.ClusterCount
+	}
+	if known.Clusters != nil {
+		p.Clusters = known.Clusters
+	}
+	if known.CreateTime != nil {
+		p.CreateTime = known.CreateTime
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DriftedClusterCount != nil {
+		p.DriftedClusterCount = known.DriftedClusterCount
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.LastUpdatedBy != nil {
+		p.LastUpdatedBy = known.LastUpdatedBy
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NameServerIpList != nil {
+		p.NameServerIpList = known.NameServerIpList
+	}
+	if known.NfsSubnetWhitelist != nil {
+		p.NfsSubnetWhitelist = known.NfsSubnetWhitelist
+	}
+	if known.NtpServerConfigList != nil {
+		p.NtpServerConfigList = known.NtpServerConfigList
+	}
+	if known.NtpServerIpList != nil {
+		p.NtpServerIpList = known.NtpServerIpList
+	}
+	if known.PulseStatus != nil {
+		p.PulseStatus = known.PulseStatus
+	}
+	if known.RsyslogServerList != nil {
+		p.RsyslogServerList = known.RsyslogServerList
+	}
+	if known.SmtpServer != nil {
+		p.SmtpServer = known.SmtpServer
+	}
+	if known.SnmpConfig != nil {
+		p.SnmpConfig = known.SnmpConfig
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3005,6 +3786,7 @@ func (p *ClusterProfile) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 	delete(allFields, "nameServerIpList")
 	delete(allFields, "nfsSubnetWhitelist")
+	delete(allFields, "ntpServerConfigList")
 	delete(allFields, "ntpServerIpList")
 	delete(allFields, "pulseStatus")
 	delete(allFields, "rsyslogServerList")
@@ -3013,7 +3795,9 @@ func (p *ClusterProfile) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3022,7 +3806,7 @@ func NewClusterProfile() *ClusterProfile {
 	p := new(ClusterProfile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterProfile"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3091,6 +3875,10 @@ type ClusterProfileProjection struct {
 	*/
 	NfsSubnetWhitelist []string `json:"nfsSubnetWhitelist,omitempty"`
 	/*
+	  List of NTP server configurations.
+	*/
+	NtpServerConfigList []NtpServerConfig `json:"ntpServerConfigList,omitempty"`
+	/*
 	  List of NTP servers on a cluster. This is a part of payload for both cluster create and update operations. Currently, only IPv4 address and FQDN (fully qualified domain name) values are supported for the create operation.
 	*/
 	NtpServerIpList []import4.IPAddressOrFQDN `json:"ntpServerIpList,omitempty"`
@@ -3158,7 +3946,80 @@ func (p *ClusterProfileProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterProfileProjection(*known)
+	*p = *NewClusterProfileProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AllowedOverrides != nil {
+		p.AllowedOverrides = known.AllowedOverrides
+	}
+	if known.ClusterCount != nil {
+		p.ClusterCount = known.ClusterCount
+	}
+	if known.Clusters != nil {
+		p.Clusters = known.Clusters
+	}
+	if known.CreateTime != nil {
+		p.CreateTime = known.CreateTime
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DriftedClusterCount != nil {
+		p.DriftedClusterCount = known.DriftedClusterCount
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.LastUpdatedBy != nil {
+		p.LastUpdatedBy = known.LastUpdatedBy
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NameServerIpList != nil {
+		p.NameServerIpList = known.NameServerIpList
+	}
+	if known.NfsSubnetWhitelist != nil {
+		p.NfsSubnetWhitelist = known.NfsSubnetWhitelist
+	}
+	if known.NtpServerConfigList != nil {
+		p.NtpServerConfigList = known.NtpServerConfigList
+	}
+	if known.NtpServerIpList != nil {
+		p.NtpServerIpList = known.NtpServerIpList
+	}
+	if known.PulseStatus != nil {
+		p.PulseStatus = known.PulseStatus
+	}
+	if known.RsyslogServerList != nil {
+		p.RsyslogServerList = known.RsyslogServerList
+	}
+	if known.SmtpServer != nil {
+		p.SmtpServer = known.SmtpServer
+	}
+	if known.SnmpConfig != nil {
+		p.SnmpConfig = known.SnmpConfig
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3178,6 +4039,7 @@ func (p *ClusterProfileProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 	delete(allFields, "nameServerIpList")
 	delete(allFields, "nfsSubnetWhitelist")
+	delete(allFields, "ntpServerConfigList")
 	delete(allFields, "ntpServerIpList")
 	delete(allFields, "pulseStatus")
 	delete(allFields, "rsyslogServerList")
@@ -3186,7 +4048,9 @@ func (p *ClusterProfileProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3195,7 +4059,7 @@ func NewClusterProfileProjection() *ClusterProfileProjection {
 	p := new(ClusterProfileProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterProfileProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3302,7 +4166,65 @@ func (p *ClusterProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterProjection(*known)
+	*p = *NewClusterProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackupEligibilityScore != nil {
+		p.BackupEligibilityScore = known.BackupEligibilityScore
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
+	if known.ClusterProfileExtId != nil {
+		p.ClusterProfileExtId = known.ClusterProfileExtId
+	}
+	if known.ClusterProfileProjection != nil {
+		p.ClusterProfileProjection = known.ClusterProfileProjection
+	}
+	if known.Config != nil {
+		p.Config = known.Config
+	}
+	if known.ContainerName != nil {
+		p.ContainerName = known.ContainerName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.InefficientVmCount != nil {
+		p.InefficientVmCount = known.InefficientVmCount
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Network != nil {
+		p.Network = known.Network
+	}
+	if known.Nodes != nil {
+		p.Nodes = known.Nodes
+	}
+	if known.StorageSummaryProjection != nil {
+		p.StorageSummaryProjection = known.StorageSummaryProjection
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpgradeStatus != nil {
+		p.UpgradeStatus = known.UpgradeStatus
+	}
+	if known.VmCount != nil {
+		p.VmCount = known.VmCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3326,7 +4248,9 @@ func (p *ClusterProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3335,7 +4259,7 @@ func NewClusterProjection() *ClusterProjection {
 	p := new(ClusterProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3401,7 +4325,23 @@ func (p *ClusterReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterReference(*known)
+	*p = *NewClusterReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Uuid != nil {
+		p.Uuid = known.Uuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3411,7 +4351,9 @@ func (p *ClusterReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3420,7 +4362,7 @@ func NewClusterReference() *ClusterReference {
 	p := new(ClusterReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3486,7 +4428,20 @@ func (p *ClusterReferenceListSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterReferenceListSpec(*known)
+	*p = *NewClusterReferenceListSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Clusters != nil {
+		p.Clusters = known.Clusters
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3495,7 +4450,9 @@ func (p *ClusterReferenceListSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "clusters")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3504,10 +4461,89 @@ func NewClusterReferenceListSpec() *ClusterReferenceListSpec {
 	p := new(ClusterReferenceListSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ClusterReferenceListSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Type of the cluster
+*/
+type ClusterType int
+
+const (
+	CLUSTERTYPE_UNKNOWN         ClusterType = 0
+	CLUSTERTYPE_REDACTED        ClusterType = 1
+	CLUSTERTYPE_HYPER_CONVERGED ClusterType = 2
+	CLUSTERTYPE_COMPUTE         ClusterType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ClusterType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HYPER_CONVERGED",
+		"COMPUTE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ClusterType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HYPER_CONVERGED",
+		"COMPUTE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ClusterType) index(name string) ClusterType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"HYPER_CONVERGED",
+		"COMPUTE",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ClusterType(idx)
+		}
+	}
+	return CLUSTERTYPE_UNKNOWN
+}
+
+func (e *ClusterType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ClusterType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ClusterType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ClusterType) Ref() *ClusterType {
+	return &e
 }
 
 /*
@@ -3578,7 +4614,32 @@ func (p *ComponentFaultTolerance) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ComponentFaultTolerance(*known)
+	*p = *NewComponentFaultTolerance()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DetailMessage != nil {
+		p.DetailMessage = known.DetailMessage
+	}
+	if known.IsUnderComputation != nil {
+		p.IsUnderComputation = known.IsUnderComputation
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.MaxFaultsTolerated != nil {
+		p.MaxFaultsTolerated = known.MaxFaultsTolerated
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3591,7 +4652,9 @@ func (p *ComponentFaultTolerance) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3600,7 +4663,7 @@ func NewComponentFaultTolerance() *ComponentFaultTolerance {
 	p := new(ComponentFaultTolerance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ComponentFaultTolerance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3789,7 +4852,41 @@ func (p *ComputeNodeItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ComputeNodeItem(*known)
+	*p = *NewComputeNodeItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockId != nil {
+		p.BlockId = known.BlockId
+	}
+	if known.DigitalCertificateMapList != nil {
+		p.DigitalCertificateMapList = known.DigitalCertificateMapList
+	}
+	if known.HypervisorHostname != nil {
+		p.HypervisorHostname = known.HypervisorHostname
+	}
+	if known.HypervisorIp != nil {
+		p.HypervisorIp = known.HypervisorIp
+	}
+	if known.IpmiIp != nil {
+		p.IpmiIp = known.IpmiIp
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.NodePosition != nil {
+		p.NodePosition = known.NodePosition
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3805,7 +4902,9 @@ func (p *ComputeNodeItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nodeUuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3814,7 +4913,7 @@ func NewComputeNodeItem() *ComputeNodeItem {
 	p := new(ComputeNodeItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ComputeNodeItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3885,7 +4984,23 @@ func (p *ComputeNonMigratableVmsSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ComputeNonMigratableVmsSpec(*known)
+	*p = *NewComputeNonMigratableVmsSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Hosts != nil {
+		p.Hosts = known.Hosts
+	}
+	if known.VcenterInfo != nil {
+		p.VcenterInfo = known.VcenterInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3895,7 +5010,9 @@ func (p *ComputeNonMigratableVmsSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vcenterInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3904,7 +5021,7 @@ func NewComputeNonMigratableVmsSpec() *ComputeNonMigratableVmsSpec {
 	p := new(ComputeNonMigratableVmsSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ComputeNonMigratableVmsSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3992,7 +5109,41 @@ func (p *ConfigParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ConfigParams(*known)
+	*p = *NewConfigParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Hyperv != nil {
+		p.Hyperv = known.Hyperv
+	}
+	if known.IsComputeOnly != nil {
+		p.IsComputeOnly = known.IsComputeOnly
+	}
+	if known.IsNeverScheduleable != nil {
+		p.IsNeverScheduleable = known.IsNeverScheduleable
+	}
+	if known.IsNosCompatible != nil {
+		p.IsNosCompatible = known.IsNosCompatible
+	}
+	if known.ShouldSkipDiscovery != nil {
+		p.ShouldSkipDiscovery = known.ShouldSkipDiscovery
+	}
+	if known.ShouldSkipImaging != nil {
+		p.ShouldSkipImaging = known.ShouldSkipImaging
+	}
+	if known.ShouldValidateRackAwareness != nil {
+		p.ShouldValidateRackAwareness = known.ShouldValidateRackAwareness
+	}
+	if known.TargetHypervisor != nil {
+		p.TargetHypervisor = known.TargetHypervisor
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4008,7 +5159,9 @@ func (p *ConfigParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "targetHypervisor")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4017,7 +5170,7 @@ func NewConfigParams() *ConfigParams {
 	p := new(ConfigParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ConfigParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4189,7 +5342,35 @@ func (p *ControllerVmReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ControllerVmReference(*known)
+	*p = *NewControllerVmReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackplaneAddress != nil {
+		p.BackplaneAddress = known.BackplaneAddress
+	}
+	if known.ExternalAddress != nil {
+		p.ExternalAddress = known.ExternalAddress
+	}
+	if known.IsInMaintenanceMode != nil {
+		p.IsInMaintenanceMode = known.IsInMaintenanceMode
+	}
+	if known.NatIp != nil {
+		p.NatIp = known.NatIp
+	}
+	if known.NatPort != nil {
+		p.NatPort = known.NatPort
+	}
+	if known.RdmaBackplaneAddress != nil {
+		p.RdmaBackplaneAddress = known.RdmaBackplaneAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4203,7 +5384,9 @@ func (p *ControllerVmReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rdmaBackplaneAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4212,14 +5395,14 @@ func NewControllerVmReference() *ControllerVmReference {
 	p := new(ControllerVmReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ControllerVmReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters Post operation
 */
 type CreateClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4278,7 +5461,26 @@ func (p *CreateClusterApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateClusterApiResponse(*known)
+	*p = *NewCreateClusterApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4289,7 +5491,9 @@ func (p *CreateClusterApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4298,7 +5502,7 @@ func NewCreateClusterApiResponse() *CreateClusterApiResponse {
 	p := new(CreateClusterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.CreateClusterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4326,7 +5530,7 @@ func (p *CreateClusterApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/cluster-profiles Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/cluster-profiles Post operation
 */
 type CreateClusterProfileApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4385,7 +5589,26 @@ func (p *CreateClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateClusterProfileApiResponse(*known)
+	*p = *NewCreateClusterProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4396,7 +5619,9 @@ func (p *CreateClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4405,7 +5630,7 @@ func NewCreateClusterProfileApiResponse() *CreateClusterProfileApiResponse {
 	p := new(CreateClusterProfileApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.CreateClusterProfileApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4433,7 +5658,7 @@ func (p *CreateClusterProfileApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers Post operation
 */
 type CreateRsyslogServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4492,7 +5717,26 @@ func (p *CreateRsyslogServerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateRsyslogServerApiResponse(*known)
+	*p = *NewCreateRsyslogServerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4503,7 +5747,9 @@ func (p *CreateRsyslogServerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4512,7 +5758,7 @@ func NewCreateRsyslogServerApiResponse() *CreateRsyslogServerApiResponse {
 	p := new(CreateRsyslogServerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.CreateRsyslogServerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4540,7 +5786,7 @@ func (p *CreateRsyslogServerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps Post operation
 */
 type CreateSnmpTrapApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4599,7 +5845,26 @@ func (p *CreateSnmpTrapApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateSnmpTrapApiResponse(*known)
+	*p = *NewCreateSnmpTrapApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4610,7 +5875,9 @@ func (p *CreateSnmpTrapApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4619,7 +5886,7 @@ func NewCreateSnmpTrapApiResponse() *CreateSnmpTrapApiResponse {
 	p := new(CreateSnmpTrapApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.CreateSnmpTrapApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4647,7 +5914,7 @@ func (p *CreateSnmpTrapApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users Post operation
 */
 type CreateSnmpUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4706,7 +5973,26 @@ func (p *CreateSnmpUserApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateSnmpUserApiResponse(*known)
+	*p = *NewCreateSnmpUserApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4717,7 +6003,9 @@ func (p *CreateSnmpUserApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4726,7 +6014,7 @@ func NewCreateSnmpUserApiResponse() *CreateSnmpUserApiResponse {
 	p := new(CreateSnmpUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.CreateSnmpUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4754,7 +6042,7 @@ func (p *CreateSnmpUserApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/storage-containers Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/storage-containers Post operation
 */
 type CreateStorageContainerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4813,7 +6101,26 @@ func (p *CreateStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateStorageContainerApiResponse(*known)
+	*p = *NewCreateStorageContainerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4824,7 +6131,9 @@ func (p *CreateStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4833,7 +6142,7 @@ func NewCreateStorageContainerApiResponse() *CreateStorageContainerApiResponse {
 	p := new(CreateStorageContainerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.CreateStorageContainerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4943,6 +6252,444 @@ func (e CredentialStatus) Ref() *CredentialStatus {
 	return &e
 }
 
+/*
+Reference to a CVM entity.
+*/
+type Cvm struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	BackplaneIpAddress *import4.IPAddress `json:"backplaneIpAddress,omitempty"`
+	/*
+	  UUID of the cluster.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+
+	HypervisorType *HypervisorType `json:"hypervisorType,omitempty"`
+
+	IpAddress *import4.IPAddress `json:"ipAddress,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  Memory for a given CVM in cluster.
+	*/
+	MemorySizeBytes *int64 `json:"memorySizeBytes,omitempty"`
+	/*
+	  Name of the CVM.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  UUID of the host.
+	*/
+	NodeExtId *string `json:"nodeExtId,omitempty"`
+	/*
+	  Number of vCPUs assigned to the CVM.
+	*/
+	NumVcpus *int64 `json:"numVcpus,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Cvm) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Cvm
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Cvm) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Cvm
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewCvm()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackplaneIpAddress != nil {
+		p.BackplaneIpAddress = known.BackplaneIpAddress
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NodeExtId != nil {
+		p.NodeExtId = known.NodeExtId
+	}
+	if known.NumVcpus != nil {
+		p.NumVcpus = known.NumVcpus
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "backplaneIpAddress")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "extId")
+	delete(allFields, "hypervisorType")
+	delete(allFields, "ipAddress")
+	delete(allFields, "links")
+	delete(allFields, "memorySizeBytes")
+	delete(allFields, "name")
+	delete(allFields, "nodeExtId")
+	delete(allFields, "numVcpus")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewCvm() *Cvm {
+	p := new(Cvm)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.Cvm"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type CvmProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	BackplaneIpAddress *import4.IPAddress `json:"backplaneIpAddress,omitempty"`
+	/*
+	  UUID of the cluster.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+
+	HypervisorType *HypervisorType `json:"hypervisorType,omitempty"`
+
+	IpAddress *import4.IPAddress `json:"ipAddress,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  Memory for a given CVM in cluster.
+	*/
+	MemorySizeBytes *int64 `json:"memorySizeBytes,omitempty"`
+	/*
+	  Name of the CVM.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  UUID of the host.
+	*/
+	NodeExtId *string `json:"nodeExtId,omitempty"`
+	/*
+	  Number of vCPUs assigned to the CVM.
+	*/
+	NumVcpus *int64 `json:"numVcpus,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *CvmProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CvmProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CvmProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CvmProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewCvmProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackplaneIpAddress != nil {
+		p.BackplaneIpAddress = known.BackplaneIpAddress
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NodeExtId != nil {
+		p.NodeExtId = known.NodeExtId
+	}
+	if known.NumVcpus != nil {
+		p.NumVcpus = known.NumVcpus
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "backplaneIpAddress")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "extId")
+	delete(allFields, "hypervisorType")
+	delete(allFields, "ipAddress")
+	delete(allFields, "links")
+	delete(allFields, "memorySizeBytes")
+	delete(allFields, "name")
+	delete(allFields, "nodeExtId")
+	delete(allFields, "numVcpus")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewCvmProjection() *CvmProjection {
+	p := new(CvmProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.CvmProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Details for reconfiguring the CVM.
+*/
+type CvmReconfigurationSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Memory for a given CVM in cluster.
+	*/
+	MemorySizeBytes *int64 `json:"memorySizeBytes,omitempty"`
+	/*
+	  Number of vCPUs assigned to the CVM.
+	*/
+	NumVcpus *int64 `json:"numVcpus,omitempty"`
+}
+
+func (p *CvmReconfigurationSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CvmReconfigurationSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CvmReconfigurationSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CvmReconfigurationSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewCvmReconfigurationSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.NumVcpus != nil {
+		p.NumVcpus = known.NumVcpus
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "memorySizeBytes")
+	delete(allFields, "numVcpus")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewCvmReconfigurationSpec() *CvmReconfigurationSpec {
+	p := new(CvmReconfigurationSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.CvmReconfigurationSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
 type DataStore struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -5036,7 +6783,50 @@ func (p *DataStore) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DataStore(*known)
+	*p = *NewDataStore()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CapacityBytes != nil {
+		p.CapacityBytes = known.CapacityBytes
+	}
+	if known.ContainerExtId != nil {
+		p.ContainerExtId = known.ContainerExtId
+	}
+	if known.ContainerName != nil {
+		p.ContainerName = known.ContainerName
+	}
+	if known.DatastoreName != nil {
+		p.DatastoreName = known.DatastoreName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FreeSpaceBytes != nil {
+		p.FreeSpaceBytes = known.FreeSpaceBytes
+	}
+	if known.HostExtId != nil {
+		p.HostExtId = known.HostExtId
+	}
+	if known.HostIpAddress != nil {
+		p.HostIpAddress = known.HostIpAddress
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VmNames != nil {
+		p.VmNames = known.VmNames
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5055,7 +6845,9 @@ func (p *DataStore) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmNames")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5064,7 +6856,7 @@ func NewDataStore() *DataStore {
 	p := new(DataStore)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DataStore"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5158,7 +6950,41 @@ func (p *DataStoreMount) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DataStoreMount(*known)
+	*p = *NewDataStoreMount()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ContainerName != nil {
+		p.ContainerName = known.ContainerName
+	}
+	if known.DatastoreName != nil {
+		p.DatastoreName = known.DatastoreName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsReadOnly != nil {
+		p.IsReadOnly = known.IsReadOnly
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.NodeExtIds != nil {
+		p.NodeExtIds = known.NodeExtIds
+	}
+	if known.TargetPath != nil {
+		p.TargetPath = known.TargetPath
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5174,7 +7000,9 @@ func (p *DataStoreMount) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5183,7 +7011,7 @@ func NewDataStoreMount() *DataStoreMount {
 	p := new(DataStoreMount)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DataStoreMount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5265,7 +7093,32 @@ func (p *DataStoreUnmount) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DataStoreUnmount(*known)
+	*p = *NewDataStoreUnmount()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DatastoreName != nil {
+		p.DatastoreName = known.DatastoreName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.NodeExtIds != nil {
+		p.NodeExtIds = known.NodeExtIds
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5278,7 +7131,9 @@ func (p *DataStoreUnmount) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5287,14 +7142,14 @@ func NewDataStoreUnmount() *DataStoreUnmount {
 	p := new(DataStoreUnmount)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DataStoreUnmount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{extId} Delete operation
 */
 type DeleteClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5353,7 +7208,26 @@ func (p *DeleteClusterApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteClusterApiResponse(*known)
+	*p = *NewDeleteClusterApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5364,7 +7238,9 @@ func (p *DeleteClusterApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5373,7 +7249,7 @@ func NewDeleteClusterApiResponse() *DeleteClusterApiResponse {
 	p := new(DeleteClusterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DeleteClusterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5401,7 +7277,7 @@ func (p *DeleteClusterApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/cluster-profiles/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/cluster-profiles/{extId} Delete operation
 */
 type DeleteClusterProfileApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5460,7 +7336,26 @@ func (p *DeleteClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteClusterProfileApiResponse(*known)
+	*p = *NewDeleteClusterProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5471,7 +7366,9 @@ func (p *DeleteClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5480,7 +7377,7 @@ func NewDeleteClusterProfileApiResponse() *DeleteClusterProfileApiResponse {
 	p := new(DeleteClusterProfileApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DeleteClusterProfileApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5508,7 +7405,7 @@ func (p *DeleteClusterProfileApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/disks/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/disks/{extId} Delete operation
 */
 type DeleteDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5567,7 +7464,26 @@ func (p *DeleteDiskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteDiskApiResponse(*known)
+	*p = *NewDeleteDiskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5578,7 +7494,9 @@ func (p *DeleteDiskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5587,7 +7505,7 @@ func NewDeleteDiskApiResponse() *DeleteDiskApiResponse {
 	p := new(DeleteDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DeleteDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5615,7 +7533,7 @@ func (p *DeleteDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Delete operation
 */
 type DeleteRsyslogServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5674,7 +7592,26 @@ func (p *DeleteRsyslogServerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteRsyslogServerApiResponse(*known)
+	*p = *NewDeleteRsyslogServerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5685,7 +7622,9 @@ func (p *DeleteRsyslogServerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5694,7 +7633,7 @@ func NewDeleteRsyslogServerApiResponse() *DeleteRsyslogServerApiResponse {
 	p := new(DeleteRsyslogServerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DeleteRsyslogServerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5722,7 +7661,7 @@ func (p *DeleteRsyslogServerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps/{extId} Delete operation
 */
 type DeleteSnmpTrapApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5781,7 +7720,26 @@ func (p *DeleteSnmpTrapApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteSnmpTrapApiResponse(*known)
+	*p = *NewDeleteSnmpTrapApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5792,7 +7750,9 @@ func (p *DeleteSnmpTrapApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5801,7 +7761,7 @@ func NewDeleteSnmpTrapApiResponse() *DeleteSnmpTrapApiResponse {
 	p := new(DeleteSnmpTrapApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DeleteSnmpTrapApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5829,7 +7789,7 @@ func (p *DeleteSnmpTrapApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users/{extId} Delete operation
 */
 type DeleteSnmpUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5888,7 +7848,26 @@ func (p *DeleteSnmpUserApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteSnmpUserApiResponse(*known)
+	*p = *NewDeleteSnmpUserApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5899,7 +7878,9 @@ func (p *DeleteSnmpUserApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5908,7 +7889,7 @@ func NewDeleteSnmpUserApiResponse() *DeleteSnmpUserApiResponse {
 	p := new(DeleteSnmpUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DeleteSnmpUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5936,7 +7917,7 @@ func (p *DeleteSnmpUserApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/storage-containers/{extId} Delete operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/storage-containers/{extId} Delete operation
 */
 type DeleteStorageContainerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5995,7 +7976,26 @@ func (p *DeleteStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteStorageContainerApiResponse(*known)
+	*p = *NewDeleteStorageContainerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6006,7 +8006,9 @@ func (p *DeleteStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6015,7 +8017,7 @@ func NewDeleteStorageContainerApiResponse() *DeleteStorageContainerApiResponse {
 	p := new(DeleteStorageContainerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DeleteStorageContainerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6102,7 +8104,23 @@ func (p *DigitalCertificateMapReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DigitalCertificateMapReference(*known)
+	*p = *NewDigitalCertificateMapReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Key != nil {
+		p.Key = known.Key
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6112,7 +8130,9 @@ func (p *DigitalCertificateMapReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6121,14 +8141,14 @@ func NewDigitalCertificateMapReference() *DigitalCertificateMapReference {
 	p := new(DigitalCertificateMapReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DigitalCertificateMapReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/disassociate-categories Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/disassociate-categories Post operation
 */
 type DisassociateCategoriesFromClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6187,7 +8207,26 @@ func (p *DisassociateCategoriesFromClusterApiResponse) UnmarshalJSON(b []byte) e
 	}
 
 	// Step 3: Assign known fields
-	*p = DisassociateCategoriesFromClusterApiResponse(*known)
+	*p = *NewDisassociateCategoriesFromClusterApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6198,7 +8237,9 @@ func (p *DisassociateCategoriesFromClusterApiResponse) UnmarshalJSON(b []byte) e
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6207,7 +8248,7 @@ func NewDisassociateCategoriesFromClusterApiResponse() *DisassociateCategoriesFr
 	p := new(DisassociateCategoriesFromClusterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DisassociateCategoriesFromClusterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6235,7 +8276,7 @@ func (p *DisassociateCategoriesFromClusterApiResponse) SetData(v interface{}) er
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/cluster-profiles/{extId}/$actions/disassociate-cluster Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/cluster-profiles/{extId}/$actions/disassociate-cluster Post operation
 */
 type DisassociateClusterFromClusterProfileApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6294,7 +8335,26 @@ func (p *DisassociateClusterFromClusterProfileApiResponse) UnmarshalJSON(b []byt
 	}
 
 	// Step 3: Assign known fields
-	*p = DisassociateClusterFromClusterProfileApiResponse(*known)
+	*p = *NewDisassociateClusterFromClusterProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6305,7 +8365,9 @@ func (p *DisassociateClusterFromClusterProfileApiResponse) UnmarshalJSON(b []byt
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6314,7 +8376,7 @@ func NewDisassociateClusterFromClusterProfileApiResponse() *DisassociateClusterF
 	p := new(DisassociateClusterFromClusterProfileApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DisassociateClusterFromClusterProfileApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6342,7 +8404,7 @@ func (p *DisassociateClusterFromClusterProfileApiResponse) SetData(v interface{}
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/discover-unconfigured-nodes Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/discover-unconfigured-nodes Post operation
 */
 type DiscoverUnconfiguredNodesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6401,7 +8463,26 @@ func (p *DiscoverUnconfiguredNodesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiscoverUnconfiguredNodesApiResponse(*known)
+	*p = *NewDiscoverUnconfiguredNodesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6412,7 +8493,9 @@ func (p *DiscoverUnconfiguredNodesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6421,7 +8504,7 @@ func NewDiscoverUnconfiguredNodesApiResponse() *DiscoverUnconfiguredNodesApiResp
 	p := new(DiscoverUnconfiguredNodesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DiscoverUnconfiguredNodesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6586,7 +8669,89 @@ func (p *Disk) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Disk(*known)
+	*p = *NewDisk()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
+	if known.CvmIpAddress != nil {
+		p.CvmIpAddress = known.CvmIpAddress
+	}
+	if known.DiskAdvanceConfig != nil {
+		p.DiskAdvanceConfig = known.DiskAdvanceConfig
+	}
+	if known.DiskSizeBytes != nil {
+		p.DiskSizeBytes = known.DiskSizeBytes
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FirmwareVersion != nil {
+		p.FirmwareVersion = known.FirmwareVersion
+	}
+	if known.HostName != nil {
+		p.HostName = known.HostName
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Location != nil {
+		p.Location = known.Location
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.MountPath != nil {
+		p.MountPath = known.MountPath
+	}
+	if known.NodeExtId != nil {
+		p.NodeExtId = known.NodeExtId
+	}
+	if known.NodeIpAddress != nil {
+		p.NodeIpAddress = known.NodeIpAddress
+	}
+	if known.NvmePciePath != nil {
+		p.NvmePciePath = known.NvmePciePath
+	}
+	if known.PhysicalCapacityBytes != nil {
+		p.PhysicalCapacityBytes = known.PhysicalCapacityBytes
+	}
+	if known.SerialNumber != nil {
+		p.SerialNumber = known.SerialNumber
+	}
+	if known.ServiceVMId != nil {
+		p.ServiceVMId = known.ServiceVMId
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.StoragePoolExtId != nil {
+		p.StoragePoolExtId = known.StoragePoolExtId
+	}
+	if known.StorageTier != nil {
+		p.StorageTier = known.StorageTier
+	}
+	if known.TargetFirmwareVersion != nil {
+		p.TargetFirmwareVersion = known.TargetFirmwareVersion
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Vendor != nil {
+		p.Vendor = known.Vendor
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6618,7 +8783,9 @@ func (p *Disk) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendor")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6627,7 +8794,7 @@ func NewDisk() *Disk {
 	p := new(Disk)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.Disk"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6698,7 +8865,23 @@ func (p *DiskAdditionSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskAdditionSpec(*known)
+	*p = *NewDiskAdditionSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskPartitionInfo != nil {
+		p.DiskPartitionInfo = known.DiskPartitionInfo
+	}
+	if known.SerialNumber != nil {
+		p.SerialNumber = known.SerialNumber
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6708,7 +8891,9 @@ func (p *DiskAdditionSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "serialNumber")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6717,7 +8902,7 @@ func NewDiskAdditionSpec() *DiskAdditionSpec {
 	p := new(DiskAdditionSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DiskAdditionSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6839,7 +9024,65 @@ func (p *DiskAdvanceConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskAdvanceConfig(*known)
+	*p = *NewDiskAdvanceConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HasBootPartitionsOnly != nil {
+		p.HasBootPartitionsOnly = known.HasBootPartitionsOnly
+	}
+	if known.IsBootDisk != nil {
+		p.IsBootDisk = known.IsBootDisk
+	}
+	if known.IsDataMigrated != nil {
+		p.IsDataMigrated = known.IsDataMigrated
+	}
+	if known.IsDiagnosticInfoAvailable != nil {
+		p.IsDiagnosticInfoAvailable = known.IsDiagnosticInfoAvailable
+	}
+	if known.IsErrorFoundInLog != nil {
+		p.IsErrorFoundInLog = known.IsErrorFoundInLog
+	}
+	if known.IsMarkedForRemoval != nil {
+		p.IsMarkedForRemoval = known.IsMarkedForRemoval
+	}
+	if known.IsMounted != nil {
+		p.IsMounted = known.IsMounted
+	}
+	if known.IsOnline != nil {
+		p.IsOnline = known.IsOnline
+	}
+	if known.IsPasswordProtected != nil {
+		p.IsPasswordProtected = known.IsPasswordProtected
+	}
+	if known.IsPlannedOutage != nil {
+		p.IsPlannedOutage = known.IsPlannedOutage
+	}
+	if known.IsSelfEncryptingDrive != nil {
+		p.IsSelfEncryptingDrive = known.IsSelfEncryptingDrive
+	}
+	if known.IsSelfManagedNvme != nil {
+		p.IsSelfManagedNvme = known.IsSelfManagedNvme
+	}
+	if known.IsSpdkManaged != nil {
+		p.IsSpdkManaged = known.IsSpdkManaged
+	}
+	if known.IsSuspectedUnhealthy != nil {
+		p.IsSuspectedUnhealthy = known.IsSuspectedUnhealthy
+	}
+	if known.IsUnderDiagnosis != nil {
+		p.IsUnderDiagnosis = known.IsUnderDiagnosis
+	}
+	if known.IsUnhealthy != nil {
+		p.IsUnhealthy = known.IsUnhealthy
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6863,7 +9106,9 @@ func (p *DiskAdvanceConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isUnhealthy")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6872,7 +9117,7 @@ func NewDiskAdvanceConfig() *DiskAdvanceConfig {
 	p := new(DiskAdvanceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DiskAdvanceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6934,7 +9179,23 @@ func (p *DiskPartitionInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskPartitionInfo(*known)
+	*p = *NewDiskPartitionInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DriveReplacementOption != nil {
+		p.DriveReplacementOption = known.DriveReplacementOption
+	}
+	if known.PartitionType != nil {
+		p.PartitionType = known.PartitionType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6944,7 +9205,9 @@ func (p *DiskPartitionInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "partitionType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6953,7 +9216,7 @@ func NewDiskPartitionInfo() *DiskPartitionInfo {
 	p := new(DiskPartitionInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DiskPartitionInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7029,7 +9292,32 @@ func (p *DiskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskReference(*known)
+	*p = *NewDiskReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MountPath != nil {
+		p.MountPath = known.MountPath
+	}
+	if known.SerialId != nil {
+		p.SerialId = known.SerialId
+	}
+	if known.SizeInBytes != nil {
+		p.SizeInBytes = known.SizeInBytes
+	}
+	if known.StorageTier != nil {
+		p.StorageTier = known.StorageTier
+	}
+	if known.Uuid != nil {
+		p.Uuid = known.Uuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7042,7 +9330,9 @@ func (p *DiskReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7051,7 +9341,7 @@ func NewDiskReference() *DiskReference {
 	p := new(DiskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DiskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7289,7 +9579,23 @@ func (p *DomainFaultTolerance) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DomainFaultTolerance(*known)
+	*p = *NewDomainFaultTolerance()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ComponentStatus != nil {
+		p.ComponentStatus = known.ComponentStatus
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7299,7 +9605,9 @@ func (p *DomainFaultTolerance) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7308,7 +9616,7 @@ func NewDomainFaultTolerance() *DomainFaultTolerance {
 	p := new(DomainFaultTolerance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.DomainFaultTolerance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7485,6 +9793,89 @@ func (e *DriveReplacementOption) MarshalJSON() ([]byte, error) {
 }
 
 func (e DriveReplacementOption) Ref() *DriveReplacementOption {
+	return &e
+}
+
+/*
+Encryption algorithm used for NTP server authentication.
+*/
+type EncryptionAlgorithm int
+
+const (
+	ENCRYPTIONALGORITHM_UNKNOWN  EncryptionAlgorithm = 0
+	ENCRYPTIONALGORITHM_REDACTED EncryptionAlgorithm = 1
+	ENCRYPTIONALGORITHM_SHA256   EncryptionAlgorithm = 2
+	ENCRYPTIONALGORITHM_SHA384   EncryptionAlgorithm = 3
+	ENCRYPTIONALGORITHM_SHA512   EncryptionAlgorithm = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *EncryptionAlgorithm) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SHA256",
+		"SHA384",
+		"SHA512",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e EncryptionAlgorithm) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SHA256",
+		"SHA384",
+		"SHA512",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *EncryptionAlgorithm) index(name string) EncryptionAlgorithm {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SHA256",
+		"SHA384",
+		"SHA512",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return EncryptionAlgorithm(idx)
+		}
+	}
+	return ENCRYPTIONALGORITHM_UNKNOWN
+}
+
+func (e *EncryptionAlgorithm) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for EncryptionAlgorithm:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *EncryptionAlgorithm) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e EncryptionAlgorithm) Ref() *EncryptionAlgorithm {
 	return &e
 }
 
@@ -7813,7 +10204,7 @@ func (e ErasureCodeStatus) Ref() *ErasureCodeStatus {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/expand-cluster Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/expand-cluster Post operation
 */
 type ExpandClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7872,7 +10263,26 @@ func (p *ExpandClusterApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ExpandClusterApiResponse(*known)
+	*p = *NewExpandClusterApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7883,7 +10293,9 @@ func (p *ExpandClusterApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7892,7 +10304,7 @@ func NewExpandClusterApiResponse() *ExpandClusterApiResponse {
 	p := new(ExpandClusterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ExpandClusterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7990,7 +10402,29 @@ func (p *ExpandClusterParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ExpandClusterParams(*known)
+	*p = *NewExpandClusterParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConfigParams != nil {
+		p.ConfigParams = known.ConfigParams
+	}
+	if known.NodeParams != nil {
+		p.NodeParams = known.NodeParams
+	}
+	if known.ShouldSkipAddNode != nil {
+		p.ShouldSkipAddNode = known.ShouldSkipAddNode
+	}
+	if known.ShouldSkipPreExpandChecks != nil {
+		p.ShouldSkipPreExpandChecks = known.ShouldSkipPreExpandChecks
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8002,7 +10436,9 @@ func (p *ExpandClusterParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldSkipPreExpandChecks")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8011,7 +10447,7 @@ func NewExpandClusterParams() *ExpandClusterParams {
 	p := new(ExpandClusterParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ExpandClusterParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8085,7 +10521,35 @@ func (p *FaultToleranceState) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FaultToleranceState(*known)
+	*p = *NewFaultToleranceState()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CurrentClusterFaultTolerance != nil {
+		p.CurrentClusterFaultTolerance = known.CurrentClusterFaultTolerance
+	}
+	if known.CurrentMaxFaultTolerance != nil {
+		p.CurrentMaxFaultTolerance = known.CurrentMaxFaultTolerance
+	}
+	if known.DesiredClusterFaultTolerance != nil {
+		p.DesiredClusterFaultTolerance = known.DesiredClusterFaultTolerance
+	}
+	if known.DesiredMaxFaultTolerance != nil {
+		p.DesiredMaxFaultTolerance = known.DesiredMaxFaultTolerance
+	}
+	if known.DomainAwarenessLevel != nil {
+		p.DomainAwarenessLevel = known.DomainAwarenessLevel
+	}
+	if known.RedundancyStatus != nil {
+		p.RedundancyStatus = known.RedundancyStatus
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8099,7 +10563,9 @@ func (p *FaultToleranceState) UnmarshalJSON(b []byte) error {
 	delete(allFields, "redundancyStatus")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8108,14 +10574,14 @@ func NewFaultToleranceState() *FaultToleranceState {
 	p := new(FaultToleranceState)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.FaultToleranceState"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/fetch-node-networking-details Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/fetch-node-networking-details Post operation
 */
 type FetchNodeNetworkingDetailsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8174,7 +10640,26 @@ func (p *FetchNodeNetworkingDetailsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FetchNodeNetworkingDetailsApiResponse(*known)
+	*p = *NewFetchNodeNetworkingDetailsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8185,7 +10670,9 @@ func (p *FetchNodeNetworkingDetailsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8194,7 +10681,7 @@ func NewFetchNodeNetworkingDetailsApiResponse() *FetchNodeNetworkingDetailsApiRe
 	p := new(FetchNodeNetworkingDetailsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.FetchNodeNetworkingDetailsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8222,7 +10709,7 @@ func (p *FetchNodeNetworkingDetailsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/task-response/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/task-response/{extId} Get operation
 */
 type FetchTaskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8281,7 +10768,26 @@ func (p *FetchTaskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FetchTaskApiResponse(*known)
+	*p = *NewFetchTaskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8292,7 +10798,9 @@ func (p *FetchTaskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8301,7 +10809,7 @@ func NewFetchTaskApiResponse() *FetchTaskApiResponse {
 	p := new(FetchTaskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.FetchTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8329,7 +10837,7 @@ func (p *FetchTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info Get operation
 */
 type GetBmcInfoResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8388,7 +10896,26 @@ func (p *GetBmcInfoResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetBmcInfoResponse(*known)
+	*p = *NewGetBmcInfoResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8399,7 +10926,9 @@ func (p *GetBmcInfoResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8408,7 +10937,7 @@ func NewGetBmcInfoResponse() *GetBmcInfoResponse {
 	p := new(GetBmcInfoResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetBmcInfoResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8436,7 +10965,7 @@ func (p *GetBmcInfoResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{extId} Get operation
 */
 type GetClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8495,7 +11024,26 @@ func (p *GetClusterApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetClusterApiResponse(*known)
+	*p = *NewGetClusterApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8506,7 +11054,9 @@ func (p *GetClusterApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8515,7 +11065,7 @@ func NewGetClusterApiResponse() *GetClusterApiResponse {
 	p := new(GetClusterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetClusterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8543,7 +11093,7 @@ func (p *GetClusterApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/cluster-profiles/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/cluster-profiles/{extId} Get operation
 */
 type GetClusterProfileApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8602,7 +11152,26 @@ func (p *GetClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetClusterProfileApiResponse(*known)
+	*p = *NewGetClusterProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8613,7 +11182,9 @@ func (p *GetClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8622,7 +11193,7 @@ func NewGetClusterProfileApiResponse() *GetClusterProfileApiResponse {
 	p := new(GetClusterProfileApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetClusterProfileApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8650,7 +11221,135 @@ func (p *GetClusterProfileApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/disks/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/cvms/{extId} Get operation
+*/
+type GetCvmApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetCvmApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetCvmApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetCvmApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetCvmApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetCvmApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetCvmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetCvmApiResponse() *GetCvmApiResponse {
+	p := new(GetCvmApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.GetCvmApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetCvmApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetCvmApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetCvmApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.2/config/disks/{extId} Get operation
 */
 type GetDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8709,7 +11408,26 @@ func (p *GetDiskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetDiskApiResponse(*known)
+	*p = *NewGetDiskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8720,7 +11438,9 @@ func (p *GetDiskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8729,7 +11449,7 @@ func NewGetDiskApiResponse() *GetDiskApiResponse {
 	p := new(GetDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8757,7 +11477,7 @@ func (p *GetDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{extId} Get operation
 */
 type GetHostApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8816,7 +11536,26 @@ func (p *GetHostApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetHostApiResponse(*known)
+	*p = *NewGetHostApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8827,7 +11566,9 @@ func (p *GetHostApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8836,7 +11577,7 @@ func NewGetHostApiResponse() *GetHostApiResponse {
 	p := new(GetHostApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetHostApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8864,7 +11605,7 @@ func (p *GetHostApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId} Get operation
 */
 type GetHostNicApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8923,7 +11664,26 @@ func (p *GetHostNicApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetHostNicApiResponse(*known)
+	*p = *NewGetHostNicApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8934,7 +11694,9 @@ func (p *GetHostNicApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8943,7 +11705,7 @@ func NewGetHostNicApiResponse() *GetHostNicApiResponse {
 	p := new(GetHostNicApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetHostNicApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8971,7 +11733,7 @@ func (p *GetHostNicApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/rackable-units/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/rackable-units/{extId} Get operation
 */
 type GetRackableUnitApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9030,7 +11792,26 @@ func (p *GetRackableUnitApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetRackableUnitApiResponse(*known)
+	*p = *NewGetRackableUnitApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9041,7 +11822,9 @@ func (p *GetRackableUnitApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9050,7 +11833,7 @@ func NewGetRackableUnitApiResponse() *GetRackableUnitApiResponse {
 	p := new(GetRackableUnitApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetRackableUnitApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9078,7 +11861,7 @@ func (p *GetRackableUnitApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Get operation
 */
 type GetRsyslogServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9137,7 +11920,26 @@ func (p *GetRsyslogServerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetRsyslogServerApiResponse(*known)
+	*p = *NewGetRsyslogServerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9148,7 +11950,9 @@ func (p *GetRsyslogServerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9157,7 +11961,7 @@ func NewGetRsyslogServerApiResponse() *GetRsyslogServerApiResponse {
 	p := new(GetRsyslogServerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetRsyslogServerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9185,7 +11989,7 @@ func (p *GetRsyslogServerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/ssl-certificate Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/ssl-certificate Get operation
 */
 type GetSSLCertificateApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9244,7 +12048,26 @@ func (p *GetSSLCertificateApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetSSLCertificateApiResponse(*known)
+	*p = *NewGetSSLCertificateApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9255,7 +12078,9 @@ func (p *GetSSLCertificateApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9264,7 +12089,7 @@ func NewGetSSLCertificateApiResponse() *GetSSLCertificateApiResponse {
 	p := new(GetSSLCertificateApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetSSLCertificateApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9292,7 +12117,7 @@ func (p *GetSSLCertificateApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp Get operation
 */
 type GetSnmpConfigByClusterIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9351,7 +12176,26 @@ func (p *GetSnmpConfigByClusterIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetSnmpConfigByClusterIdApiResponse(*known)
+	*p = *NewGetSnmpConfigByClusterIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9362,7 +12206,9 @@ func (p *GetSnmpConfigByClusterIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9371,7 +12217,7 @@ func NewGetSnmpConfigByClusterIdApiResponse() *GetSnmpConfigByClusterIdApiRespon
 	p := new(GetSnmpConfigByClusterIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetSnmpConfigByClusterIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9399,7 +12245,7 @@ func (p *GetSnmpConfigByClusterIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps/{extId} Get operation
 */
 type GetSnmpTrapApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9458,7 +12304,26 @@ func (p *GetSnmpTrapApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetSnmpTrapApiResponse(*known)
+	*p = *NewGetSnmpTrapApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9469,7 +12334,9 @@ func (p *GetSnmpTrapApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9478,7 +12345,7 @@ func NewGetSnmpTrapApiResponse() *GetSnmpTrapApiResponse {
 	p := new(GetSnmpTrapApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetSnmpTrapApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9506,7 +12373,7 @@ func (p *GetSnmpTrapApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users/{extId} Get operation
 */
 type GetSnmpUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9565,7 +12432,26 @@ func (p *GetSnmpUserApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetSnmpUserApiResponse(*known)
+	*p = *NewGetSnmpUserApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9576,7 +12462,9 @@ func (p *GetSnmpUserApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9585,7 +12473,7 @@ func NewGetSnmpUserApiResponse() *GetSnmpUserApiResponse {
 	p := new(GetSnmpUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetSnmpUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9613,7 +12501,7 @@ func (p *GetSnmpUserApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/storage-containers/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/storage-containers/{extId} Get operation
 */
 type GetStorageContainerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9672,7 +12560,26 @@ func (p *GetStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetStorageContainerApiResponse(*known)
+	*p = *NewGetStorageContainerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9683,7 +12590,9 @@ func (p *GetStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9692,7 +12601,7 @@ func NewGetStorageContainerApiResponse() *GetStorageContainerApiResponse {
 	p := new(GetStorageContainerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetStorageContainerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9720,7 +12629,7 @@ func (p *GetStorageContainerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/vcenter-extensions/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/vcenter-extensions/{extId} Get operation
 */
 type GetVcenterExtensionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9779,7 +12688,26 @@ func (p *GetVcenterExtensionApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVcenterExtensionApiResponse(*known)
+	*p = *NewGetVcenterExtensionApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9790,7 +12718,9 @@ func (p *GetVcenterExtensionApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9799,7 +12729,7 @@ func NewGetVcenterExtensionApiResponse() *GetVcenterExtensionApiResponse {
 	p := new(GetVcenterExtensionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetVcenterExtensionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9827,7 +12757,7 @@ func (p *GetVcenterExtensionApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId} Get operation
 */
 type GetVirtualNicApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9886,7 +12816,26 @@ func (p *GetVirtualNicApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVirtualNicApiResponse(*known)
+	*p = *NewGetVirtualNicApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9897,7 +12846,9 @@ func (p *GetVirtualNicApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9906,7 +12857,7 @@ func NewGetVirtualNicApiResponse() *GetVirtualNicApiResponse {
 	p := new(GetVirtualNicApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.GetVirtualNicApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10291,7 +13242,131 @@ func (p *Host) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Host(*known)
+	*p = *NewHost()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockModel != nil {
+		p.BlockModel = known.BlockModel
+	}
+	if known.BlockSerial != nil {
+		p.BlockSerial = known.BlockSerial
+	}
+	if known.BootTimeUsecs != nil {
+		p.BootTimeUsecs = known.BootTimeUsecs
+	}
+	if known.Cluster != nil {
+		p.Cluster = known.Cluster
+	}
+	if known.ControllerVm != nil {
+		p.ControllerVm = known.ControllerVm
+	}
+	if known.CpuCapacityHz != nil {
+		p.CpuCapacityHz = known.CpuCapacityHz
+	}
+	if known.CpuFrequencyHz != nil {
+		p.CpuFrequencyHz = known.CpuFrequencyHz
+	}
+	if known.CpuModel != nil {
+		p.CpuModel = known.CpuModel
+	}
+	if known.DefaultVhdContainerUuid != nil {
+		p.DefaultVhdContainerUuid = known.DefaultVhdContainerUuid
+	}
+	if known.DefaultVhdLocation != nil {
+		p.DefaultVhdLocation = known.DefaultVhdLocation
+	}
+	if known.DefaultVmContainerUuid != nil {
+		p.DefaultVmContainerUuid = known.DefaultVmContainerUuid
+	}
+	if known.DefaultVmLocation != nil {
+		p.DefaultVmLocation = known.DefaultVmLocation
+	}
+	if known.Disk != nil {
+		p.Disk = known.Disk
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FailoverClusterFqdn != nil {
+		p.FailoverClusterFqdn = known.FailoverClusterFqdn
+	}
+	if known.FailoverClusterNodeStatus != nil {
+		p.FailoverClusterNodeStatus = known.FailoverClusterNodeStatus
+	}
+	if known.GpuDriverVersion != nil {
+		p.GpuDriverVersion = known.GpuDriverVersion
+	}
+	if known.GpuList != nil {
+		p.GpuList = known.GpuList
+	}
+	if known.HasCsr != nil {
+		p.HasCsr = known.HasCsr
+	}
+	if known.HostName != nil {
+		p.HostName = known.HostName
+	}
+	if known.HostType != nil {
+		p.HostType = known.HostType
+	}
+	if known.Hypervisor != nil {
+		p.Hypervisor = known.Hypervisor
+	}
+	if known.Ipmi != nil {
+		p.Ipmi = known.Ipmi
+	}
+	if known.IsDegraded != nil {
+		p.IsDegraded = known.IsDegraded
+	}
+	if known.IsHardwareVirtualized != nil {
+		p.IsHardwareVirtualized = known.IsHardwareVirtualized
+	}
+	if known.IsRebootPending != nil {
+		p.IsRebootPending = known.IsRebootPending
+	}
+	if known.IsSecureBooted != nil {
+		p.IsSecureBooted = known.IsSecureBooted
+	}
+	if known.KeyManagementDeviceToCertStatus != nil {
+		p.KeyManagementDeviceToCertStatus = known.KeyManagementDeviceToCertStatus
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MaintenanceState != nil {
+		p.MaintenanceState = known.MaintenanceState
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.NodeSerial != nil {
+		p.NodeSerial = known.NodeSerial
+	}
+	if known.NodeStatus != nil {
+		p.NodeStatus = known.NodeStatus
+	}
+	if known.NumberOfCpuCores != nil {
+		p.NumberOfCpuCores = known.NumberOfCpuCores
+	}
+	if known.NumberOfCpuSockets != nil {
+		p.NumberOfCpuSockets = known.NumberOfCpuSockets
+	}
+	if known.NumberOfCpuThreads != nil {
+		p.NumberOfCpuThreads = known.NumberOfCpuThreads
+	}
+	if known.RackableUnitUuid != nil {
+		p.RackableUnitUuid = known.RackableUnitUuid
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10337,7 +13412,9 @@ func (p *Host) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10346,7 +13423,7 @@ func NewHost() *Host {
 	p := new(Host)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.Host"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10432,7 +13509,41 @@ func (p *HostGpu) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostGpu(*known)
+	*p = *NewHostGpu()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Cluster != nil {
+		p.Cluster = known.Cluster
+	}
+	if known.Config != nil {
+		p.Config = known.Config
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.NodeId != nil {
+		p.NodeId = known.NodeId
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.NumberOfVgpusAllocated != nil {
+		p.NumberOfVgpusAllocated = known.NumberOfVgpusAllocated
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10448,7 +13559,9 @@ func (p *HostGpu) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10457,7 +13570,7 @@ func NewHostGpu() *HostGpu {
 	p := new(HostGpu)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HostGpu"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10526,7 +13639,20 @@ func (p *HostNameParam) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostNameParam(*known)
+	*p = *NewHostNameParam()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10535,7 +13661,9 @@ func (p *HostNameParam) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10544,7 +13672,7 @@ func NewHostNameParam() *HostNameParam {
 	p := new(HostNameParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HostNameParam"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10681,6 +13809,10 @@ type HostNic struct {
 	  List of virtual NICs UUIDs associated with the host NIC.
 	*/
 	VirtualNicExtIds []string `json:"virtualNicExtIds,omitempty"`
+	/*
+	  UUID of Virtual Switch to which host NIC is attached.
+	*/
+	VirtualSwitchExtId *string `json:"virtualSwitchExtId,omitempty"`
 }
 
 func (p *HostNic) MarshalJSON() ([]byte, error) {
@@ -10724,7 +13856,113 @@ func (p *HostNic) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostNic(*known)
+	*p = *NewHostNic()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AttachedSwitchInterfaceList != nil {
+		p.AttachedSwitchInterfaceList = known.AttachedSwitchInterfaceList
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.DiscoveryProtocol != nil {
+		p.DiscoveryProtocol = known.DiscoveryProtocol
+	}
+	if known.DriverVersion != nil {
+		p.DriverVersion = known.DriverVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FirmwareVersion != nil {
+		p.FirmwareVersion = known.FirmwareVersion
+	}
+	if known.HostDescription != nil {
+		p.HostDescription = known.HostDescription
+	}
+	if known.InterfaceStatus != nil {
+		p.InterfaceStatus = known.InterfaceStatus
+	}
+	if known.Ipv4Addresses != nil {
+		p.Ipv4Addresses = known.Ipv4Addresses
+	}
+	if known.Ipv6Addresses != nil {
+		p.Ipv6Addresses = known.Ipv6Addresses
+	}
+	if known.IsDhcpEnabled != nil {
+		p.IsDhcpEnabled = known.IsDhcpEnabled
+	}
+	if known.LinkCapacityInMbps != nil {
+		p.LinkCapacityInMbps = known.LinkCapacityInMbps
+	}
+	if known.LinkSpeedInKbps != nil {
+		p.LinkSpeedInKbps = known.LinkSpeedInKbps
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
+	if known.MtuInBytes != nil {
+		p.MtuInBytes = known.MtuInBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NicProfileExtId != nil {
+		p.NicProfileExtId = known.NicProfileExtId
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.PciModelId != nil {
+		p.PciModelId = known.PciModelId
+	}
+	if known.RxRingSizeInBytes != nil {
+		p.RxRingSizeInBytes = known.RxRingSizeInBytes
+	}
+	if known.SupportedCapabilities != nil {
+		p.SupportedCapabilities = known.SupportedCapabilities
+	}
+	if known.SwitchDeviceId != nil {
+		p.SwitchDeviceId = known.SwitchDeviceId
+	}
+	if known.SwitchMacAddress != nil {
+		p.SwitchMacAddress = known.SwitchMacAddress
+	}
+	if known.SwitchManagementIp != nil {
+		p.SwitchManagementIp = known.SwitchManagementIp
+	}
+	if known.SwitchPortId != nil {
+		p.SwitchPortId = known.SwitchPortId
+	}
+	if known.SwitchVendorInfo != nil {
+		p.SwitchVendorInfo = known.SwitchVendorInfo
+	}
+	if known.SwitchVlanId != nil {
+		p.SwitchVlanId = known.SwitchVlanId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TxRingSizeInBytes != nil {
+		p.TxRingSizeInBytes = known.TxRingSizeInBytes
+	}
+	if known.VirtualNicExtIds != nil {
+		p.VirtualNicExtIds = known.VirtualNicExtIds
+	}
+	if known.VirtualSwitchExtId != nil {
+		p.VirtualSwitchExtId = known.VirtualSwitchExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10761,9 +13999,12 @@ func (p *HostNic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 	delete(allFields, "txRingSizeInBytes")
 	delete(allFields, "virtualNicExtIds")
+	delete(allFields, "virtualSwitchExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10772,7 +14013,7 @@ func NewHostNic() *HostNic {
 	p := new(HostNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HostNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10906,6 +14147,10 @@ type HostNicProjection struct {
 	  List of virtual NICs UUIDs associated with the host NIC.
 	*/
 	VirtualNicExtIds []string `json:"virtualNicExtIds,omitempty"`
+	/*
+	  UUID of Virtual Switch to which host NIC is attached.
+	*/
+	VirtualSwitchExtId *string `json:"virtualSwitchExtId,omitempty"`
 }
 
 func (p *HostNicProjection) MarshalJSON() ([]byte, error) {
@@ -10949,7 +14194,113 @@ func (p *HostNicProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostNicProjection(*known)
+	*p = *NewHostNicProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AttachedSwitchInterfaceList != nil {
+		p.AttachedSwitchInterfaceList = known.AttachedSwitchInterfaceList
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.DiscoveryProtocol != nil {
+		p.DiscoveryProtocol = known.DiscoveryProtocol
+	}
+	if known.DriverVersion != nil {
+		p.DriverVersion = known.DriverVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FirmwareVersion != nil {
+		p.FirmwareVersion = known.FirmwareVersion
+	}
+	if known.HostDescription != nil {
+		p.HostDescription = known.HostDescription
+	}
+	if known.InterfaceStatus != nil {
+		p.InterfaceStatus = known.InterfaceStatus
+	}
+	if known.Ipv4Addresses != nil {
+		p.Ipv4Addresses = known.Ipv4Addresses
+	}
+	if known.Ipv6Addresses != nil {
+		p.Ipv6Addresses = known.Ipv6Addresses
+	}
+	if known.IsDhcpEnabled != nil {
+		p.IsDhcpEnabled = known.IsDhcpEnabled
+	}
+	if known.LinkCapacityInMbps != nil {
+		p.LinkCapacityInMbps = known.LinkCapacityInMbps
+	}
+	if known.LinkSpeedInKbps != nil {
+		p.LinkSpeedInKbps = known.LinkSpeedInKbps
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
+	if known.MtuInBytes != nil {
+		p.MtuInBytes = known.MtuInBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NicProfileExtId != nil {
+		p.NicProfileExtId = known.NicProfileExtId
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.PciModelId != nil {
+		p.PciModelId = known.PciModelId
+	}
+	if known.RxRingSizeInBytes != nil {
+		p.RxRingSizeInBytes = known.RxRingSizeInBytes
+	}
+	if known.SupportedCapabilities != nil {
+		p.SupportedCapabilities = known.SupportedCapabilities
+	}
+	if known.SwitchDeviceId != nil {
+		p.SwitchDeviceId = known.SwitchDeviceId
+	}
+	if known.SwitchMacAddress != nil {
+		p.SwitchMacAddress = known.SwitchMacAddress
+	}
+	if known.SwitchManagementIp != nil {
+		p.SwitchManagementIp = known.SwitchManagementIp
+	}
+	if known.SwitchPortId != nil {
+		p.SwitchPortId = known.SwitchPortId
+	}
+	if known.SwitchVendorInfo != nil {
+		p.SwitchVendorInfo = known.SwitchVendorInfo
+	}
+	if known.SwitchVlanId != nil {
+		p.SwitchVlanId = known.SwitchVlanId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TxRingSizeInBytes != nil {
+		p.TxRingSizeInBytes = known.TxRingSizeInBytes
+	}
+	if known.VirtualNicExtIds != nil {
+		p.VirtualNicExtIds = known.VirtualNicExtIds
+	}
+	if known.VirtualSwitchExtId != nil {
+		p.VirtualSwitchExtId = known.VirtualSwitchExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10986,9 +14337,12 @@ func (p *HostNicProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 	delete(allFields, "txRingSizeInBytes")
 	delete(allFields, "virtualNicExtIds")
+	delete(allFields, "virtualSwitchExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10997,7 +14351,7 @@ func NewHostNicProjection() *HostNicProjection {
 	p := new(HostNicProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HostNicProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11167,7 +14521,35 @@ func (p *HttpProxyConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HttpProxyConfig(*known)
+	*p = *NewHttpProxyConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.ProxyTypes != nil {
+		p.ProxyTypes = known.ProxyTypes
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11181,7 +14563,9 @@ func (p *HttpProxyConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11190,7 +14574,7 @@ func NewHttpProxyConfig() *HttpProxyConfig {
 	p := new(HttpProxyConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HttpProxyConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11346,7 +14730,23 @@ func (p *HttpProxyWhiteListConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HttpProxyWhiteListConfig(*known)
+	*p = *NewHttpProxyWhiteListConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Target != nil {
+		p.Target = known.Target
+	}
+	if known.TargetType != nil {
+		p.TargetType = known.TargetType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11356,7 +14756,9 @@ func (p *HttpProxyWhiteListConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "targetType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11365,7 +14767,7 @@ func NewHttpProxyWhiteListConfig() *HttpProxyWhiteListConfig {
 	p := new(HttpProxyWhiteListConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HttpProxyWhiteListConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11518,7 +14920,23 @@ func (p *HypervCredentials) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HypervCredentials(*known)
+	*p = *NewHypervCredentials()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DomainDetails != nil {
+		p.DomainDetails = known.DomainDetails
+	}
+	if known.FailoverClusterDetails != nil {
+		p.FailoverClusterDetails = known.FailoverClusterDetails
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11528,7 +14946,9 @@ func (p *HypervCredentials) UnmarshalJSON(b []byte) error {
 	delete(allFields, "failoverClusterDetails")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11537,7 +14957,7 @@ func NewHypervCredentials() *HypervCredentials {
 	p := new(HypervCredentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervCredentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11601,7 +15021,23 @@ func (p *HypervisorIsoMap) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HypervisorIsoMap(*known)
+	*p = *NewHypervisorIsoMap()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Md5Sum != nil {
+		p.Md5Sum = known.Md5Sum
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11611,7 +15047,9 @@ func (p *HypervisorIsoMap) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11620,7 +15058,7 @@ func NewHypervisorIsoMap() *HypervisorIsoMap {
 	p := new(HypervisorIsoMap)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorIsoMap"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11698,7 +15136,38 @@ func (p *HypervisorReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HypervisorReference(*known)
+	*p = *NewHypervisorReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AcropolisConnectionState != nil {
+		p.AcropolisConnectionState = known.AcropolisConnectionState
+	}
+	if known.ExternalAddress != nil {
+		p.ExternalAddress = known.ExternalAddress
+	}
+	if known.FullName != nil {
+		p.FullName = known.FullName
+	}
+	if known.NumberOfVms != nil {
+		p.NumberOfVms = known.NumberOfVms
+	}
+	if known.State != nil {
+		p.State = known.State
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.UserName != nil {
+		p.UserName = known.UserName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11713,7 +15182,9 @@ func (p *HypervisorReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11722,7 +15193,7 @@ func NewHypervisorReference() *HypervisorReference {
 	p := new(HypervisorReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11990,7 +15461,23 @@ func (p *HypervisorUploadInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HypervisorUploadInfo(*known)
+	*p = *NewHypervisorUploadInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ErrorMessage != nil {
+		p.ErrorMessage = known.ErrorMessage
+	}
+	if known.UploadInfoNodeList != nil {
+		p.UploadInfoNodeList = known.UploadInfoNodeList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12000,7 +15487,9 @@ func (p *HypervisorUploadInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uploadInfoNodeList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12009,7 +15498,7 @@ func NewHypervisorUploadInfo() *HypervisorUploadInfo {
 	p := new(HypervisorUploadInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorUploadInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12103,7 +15592,47 @@ func (p *HypervisorUploadNodeListItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HypervisorUploadNodeListItem(*known)
+	*p = *NewHypervisorUploadNodeListItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockId != nil {
+		p.BlockId = known.BlockId
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.HypervisorVersion != nil {
+		p.HypervisorVersion = known.HypervisorVersion
+	}
+	if known.IsLightCompute != nil {
+		p.IsLightCompute = known.IsLightCompute
+	}
+	if known.IsMinimumComputeNode != nil {
+		p.IsMinimumComputeNode = known.IsMinimumComputeNode
+	}
+	if known.IsRoboMixedHypervisor != nil {
+		p.IsRoboMixedHypervisor = known.IsRoboMixedHypervisor
+	}
+	if known.LuksStatus != nil {
+		p.LuksStatus = known.LuksStatus
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.NosVersion != nil {
+		p.NosVersion = known.NosVersion
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12121,7 +15650,9 @@ func (p *HypervisorUploadNodeListItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nosVersion")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12130,7 +15661,7 @@ func NewHypervisorUploadNodeListItem() *HypervisorUploadNodeListItem {
 	p := new(HypervisorUploadNodeListItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorUploadNodeListItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12199,7 +15730,20 @@ func (p *HypervisorUploadParam) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HypervisorUploadParam(*known)
+	*p = *NewHypervisorUploadParam()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NodeList != nil {
+		p.NodeList = known.NodeList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12208,7 +15752,9 @@ func (p *HypervisorUploadParam) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nodeList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12217,7 +15763,7 @@ func NewHypervisorUploadParam() *HypervisorUploadParam {
 	p := new(HypervisorUploadParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.HypervisorUploadParam"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12281,7 +15827,23 @@ func (p *IpmiReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IpmiReference(*known)
+	*p = *NewIpmiReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ip != nil {
+		p.Ip = known.Ip
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12291,7 +15853,9 @@ func (p *IpmiReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12300,7 +15864,7 @@ func NewIpmiReference() *IpmiReference {
 	p := new(IpmiReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.IpmiReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12366,7 +15930,23 @@ func (p *KeyManagementDeviceToCertStatusInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = KeyManagementDeviceToCertStatusInfo(*known)
+	*p = *NewKeyManagementDeviceToCertStatusInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsCertificatePresent != nil {
+		p.IsCertificatePresent = known.IsCertificatePresent
+	}
+	if known.KeyManagementServerName != nil {
+		p.KeyManagementServerName = known.KeyManagementServerName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12376,7 +15956,9 @@ func (p *KeyManagementDeviceToCertStatusInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "keyManagementServerName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12385,7 +15967,7 @@ func NewKeyManagementDeviceToCertStatusInfo() *KeyManagementDeviceToCertStatusIn
 	p := new(KeyManagementDeviceToCertStatusInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.KeyManagementDeviceToCertStatusInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12537,7 +16119,20 @@ func (p *LEDStateUpdationSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LEDStateUpdationSpec(*known)
+	*p = *NewLEDStateUpdationSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsEngaged != nil {
+		p.IsEngaged = known.IsEngaged
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12546,7 +16141,9 @@ func (p *LEDStateUpdationSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isEngaged")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12555,14 +16152,14 @@ func NewLEDStateUpdationSpec() *LEDStateUpdationSpec {
 	p := new(LEDStateUpdationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.LEDStateUpdationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/cluster-profiles Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/cluster-profiles Get operation
 */
 type ListClusterProfilesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -12621,7 +16218,26 @@ func (p *ListClusterProfilesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListClusterProfilesApiResponse(*known)
+	*p = *NewListClusterProfilesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12632,7 +16248,9 @@ func (p *ListClusterProfilesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12641,7 +16259,7 @@ func NewListClusterProfilesApiResponse() *ListClusterProfilesApiResponse {
 	p := new(ListClusterProfilesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListClusterProfilesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12669,7 +16287,7 @@ func (p *ListClusterProfilesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters Get operation
 */
 type ListClustersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -12728,7 +16346,26 @@ func (p *ListClustersApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListClustersApiResponse(*known)
+	*p = *NewListClustersApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12739,7 +16376,9 @@ func (p *ListClustersApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12748,7 +16387,7 @@ func NewListClustersApiResponse() *ListClustersApiResponse {
 	p := new(ListClustersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListClustersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12776,7 +16415,135 @@ func (p *ListClustersApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/storage-containers/datastores Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/cvms Get operation
+*/
+type ListCvmsByClusterIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListCvmsByClusterIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListCvmsByClusterIdApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListCvmsByClusterIdApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListCvmsByClusterIdApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListCvmsByClusterIdApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListCvmsByClusterIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewListCvmsByClusterIdApiResponse() *ListCvmsByClusterIdApiResponse {
+	p := new(ListCvmsByClusterIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ListCvmsByClusterIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListCvmsByClusterIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListCvmsByClusterIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListCvmsByClusterIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/storage-containers/datastores Get operation
 */
 type ListDataStoresByClusterIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -12835,7 +16602,26 @@ func (p *ListDataStoresByClusterIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListDataStoresByClusterIdApiResponse(*known)
+	*p = *NewListDataStoresByClusterIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12846,7 +16632,9 @@ func (p *ListDataStoresByClusterIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12855,7 +16643,7 @@ func NewListDataStoresByClusterIdApiResponse() *ListDataStoresByClusterIdApiResp
 	p := new(ListDataStoresByClusterIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListDataStoresByClusterIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12883,7 +16671,7 @@ func (p *ListDataStoresByClusterIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/disks Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/disks Get operation
 */
 type ListDisksApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -12942,7 +16730,26 @@ func (p *ListDisksApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListDisksApiResponse(*known)
+	*p = *NewListDisksApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12953,7 +16760,9 @@ func (p *ListDisksApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12962,7 +16771,7 @@ func NewListDisksApiResponse() *ListDisksApiResponse {
 	p := new(ListDisksApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListDisksApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12990,7 +16799,7 @@ func (p *ListDisksApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/host-nics Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/host-nics Get operation
 */
 type ListHostNicsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13049,7 +16858,26 @@ func (p *ListHostNicsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListHostNicsApiResponse(*known)
+	*p = *NewListHostNicsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13060,7 +16888,9 @@ func (p *ListHostNicsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13069,7 +16899,7 @@ func NewListHostNicsApiResponse() *ListHostNicsApiResponse {
 	p := new(ListHostNicsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListHostNicsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13097,7 +16927,7 @@ func (p *ListHostNicsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics Get operation
 */
 type ListHostNicsByHostIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13156,7 +16986,26 @@ func (p *ListHostNicsByHostIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListHostNicsByHostIdApiResponse(*known)
+	*p = *NewListHostNicsByHostIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13167,7 +17016,9 @@ func (p *ListHostNicsByHostIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13176,7 +17027,7 @@ func NewListHostNicsByHostIdApiResponse() *ListHostNicsByHostIdApiResponse {
 	p := new(ListHostNicsByHostIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListHostNicsByHostIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13204,7 +17055,7 @@ func (p *ListHostNicsByHostIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/hosts Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/hosts Get operation
 */
 type ListHostsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13263,7 +17114,26 @@ func (p *ListHostsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListHostsApiResponse(*known)
+	*p = *NewListHostsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13274,7 +17144,9 @@ func (p *ListHostsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13283,7 +17155,7 @@ func NewListHostsApiResponse() *ListHostsApiResponse {
 	p := new(ListHostsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListHostsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13311,7 +17183,7 @@ func (p *ListHostsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts Get operation
 */
 type ListHostsByClusterIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13370,7 +17242,26 @@ func (p *ListHostsByClusterIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListHostsByClusterIdApiResponse(*known)
+	*p = *NewListHostsByClusterIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13381,7 +17272,9 @@ func (p *ListHostsByClusterIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13390,7 +17283,7 @@ func NewListHostsByClusterIdApiResponse() *ListHostsByClusterIdApiResponse {
 	p := new(ListHostsByClusterIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListHostsByClusterIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13418,7 +17311,7 @@ func (p *ListHostsByClusterIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/physical-gpu-profiles Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/physical-gpu-profiles Get operation
 */
 type ListPhysicalGpuProfilesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13477,7 +17370,26 @@ func (p *ListPhysicalGpuProfilesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListPhysicalGpuProfilesApiResponse(*known)
+	*p = *NewListPhysicalGpuProfilesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13488,7 +17400,9 @@ func (p *ListPhysicalGpuProfilesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13497,7 +17411,7 @@ func NewListPhysicalGpuProfilesApiResponse() *ListPhysicalGpuProfilesApiResponse
 	p := new(ListPhysicalGpuProfilesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListPhysicalGpuProfilesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13525,7 +17439,7 @@ func (p *ListPhysicalGpuProfilesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/rackable-units Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/rackable-units Get operation
 */
 type ListRackableUnitsByClusterIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13584,7 +17498,26 @@ func (p *ListRackableUnitsByClusterIdApiResponse) UnmarshalJSON(b []byte) error 
 	}
 
 	// Step 3: Assign known fields
-	*p = ListRackableUnitsByClusterIdApiResponse(*known)
+	*p = *NewListRackableUnitsByClusterIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13595,7 +17528,9 @@ func (p *ListRackableUnitsByClusterIdApiResponse) UnmarshalJSON(b []byte) error 
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13604,7 +17539,7 @@ func NewListRackableUnitsByClusterIdApiResponse() *ListRackableUnitsByClusterIdA
 	p := new(ListRackableUnitsByClusterIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListRackableUnitsByClusterIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13632,7 +17567,7 @@ func (p *ListRackableUnitsByClusterIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers Get operation
 */
 type ListRsyslogServersByClusterIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13691,7 +17626,26 @@ func (p *ListRsyslogServersByClusterIdApiResponse) UnmarshalJSON(b []byte) error
 	}
 
 	// Step 3: Assign known fields
-	*p = ListRsyslogServersByClusterIdApiResponse(*known)
+	*p = *NewListRsyslogServersByClusterIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13702,7 +17656,9 @@ func (p *ListRsyslogServersByClusterIdApiResponse) UnmarshalJSON(b []byte) error
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13711,7 +17667,7 @@ func NewListRsyslogServersByClusterIdApiResponse() *ListRsyslogServersByClusterI
 	p := new(ListRsyslogServersByClusterIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListRsyslogServersByClusterIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13739,7 +17695,7 @@ func (p *ListRsyslogServersByClusterIdApiResponse) SetData(v interface{}) error 
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/storage-containers Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/storage-containers Get operation
 */
 type ListStorageContainersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13798,7 +17754,26 @@ func (p *ListStorageContainersApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListStorageContainersApiResponse(*known)
+	*p = *NewListStorageContainersApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13809,7 +17784,9 @@ func (p *ListStorageContainersApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13818,7 +17795,7 @@ func NewListStorageContainersApiResponse() *ListStorageContainersApiResponse {
 	p := new(ListStorageContainersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListStorageContainersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13846,7 +17823,7 @@ func (p *ListStorageContainersApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/system-user-passwords Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/system-user-passwords Get operation
 */
 type ListSystemUserPasswordsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13905,7 +17882,26 @@ func (p *ListSystemUserPasswordsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListSystemUserPasswordsApiResponse(*known)
+	*p = *NewListSystemUserPasswordsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13916,7 +17912,9 @@ func (p *ListSystemUserPasswordsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13925,7 +17923,7 @@ func NewListSystemUserPasswordsApiResponse() *ListSystemUserPasswordsApiResponse
 	p := new(ListSystemUserPasswordsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListSystemUserPasswordsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13953,7 +17951,7 @@ func (p *ListSystemUserPasswordsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/vcenter-extensions Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/vcenter-extensions Get operation
 */
 type ListVcenterExtensionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14012,7 +18010,26 @@ func (p *ListVcenterExtensionsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListVcenterExtensionsApiResponse(*known)
+	*p = *NewListVcenterExtensionsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14023,7 +18040,9 @@ func (p *ListVcenterExtensionsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14032,7 +18051,7 @@ func NewListVcenterExtensionsApiResponse() *ListVcenterExtensionsApiResponse {
 	p := new(ListVcenterExtensionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListVcenterExtensionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14060,7 +18079,7 @@ func (p *ListVcenterExtensionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/virtual-gpu-profiles Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/virtual-gpu-profiles Get operation
 */
 type ListVirtualGpuProfilesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14119,7 +18138,26 @@ func (p *ListVirtualGpuProfilesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListVirtualGpuProfilesApiResponse(*known)
+	*p = *NewListVirtualGpuProfilesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14130,7 +18168,9 @@ func (p *ListVirtualGpuProfilesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14139,7 +18179,7 @@ func NewListVirtualGpuProfilesApiResponse() *ListVirtualGpuProfilesApiResponse {
 	p := new(ListVirtualGpuProfilesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListVirtualGpuProfilesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14167,7 +18207,7 @@ func (p *ListVirtualGpuProfilesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics Get operation
 */
 type ListVirtualNicsByHostIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14226,7 +18266,26 @@ func (p *ListVirtualNicsByHostIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListVirtualNicsByHostIdApiResponse(*known)
+	*p = *NewListVirtualNicsByHostIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14237,7 +18296,9 @@ func (p *ListVirtualNicsByHostIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14246,7 +18307,7 @@ func NewListVirtualNicsByHostIdApiResponse() *ListVirtualNicsByHostIdApiResponse
 	p := new(ListVirtualNicsByHostIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ListVirtualNicsByHostIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14271,6 +18332,147 @@ func (p *ListVirtualNicsByHostIdApiResponse) SetData(v interface{}) error {
 		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
 	return e
+}
+
+/*
+LLDP configuration for the host NIC.
+*/
+type LldpConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Switch hardware platform.
+	*/
+	SwitchHardwarePlatformDescription *string `json:"switchHardwarePlatformDescription,omitempty"`
+	/*
+	  Switch MAC address.
+	*/
+	SwitchMacAddress *string `json:"switchMacAddress,omitempty"`
+
+	SwitchManagementAddress *import4.IPAddress `json:"switchManagementAddress,omitempty"`
+	/*
+	  Switch name.
+	*/
+	SwitchName *string `json:"switchName,omitempty"`
+	/*
+	  Switch port description.
+	*/
+	SwitchPortDescription *string `json:"switchPortDescription,omitempty"`
+	/*
+	  Switch port name.
+	*/
+	SwitchPortName *string `json:"switchPortName,omitempty"`
+	/*
+	  Switch port native VLAN ID.
+	*/
+	SwitchPortNativeVlanId *int `json:"switchPortNativeVlanId,omitempty"`
+}
+
+func (p *LldpConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias LldpConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *LldpConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias LldpConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewLldpConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SwitchHardwarePlatformDescription != nil {
+		p.SwitchHardwarePlatformDescription = known.SwitchHardwarePlatformDescription
+	}
+	if known.SwitchMacAddress != nil {
+		p.SwitchMacAddress = known.SwitchMacAddress
+	}
+	if known.SwitchManagementAddress != nil {
+		p.SwitchManagementAddress = known.SwitchManagementAddress
+	}
+	if known.SwitchName != nil {
+		p.SwitchName = known.SwitchName
+	}
+	if known.SwitchPortDescription != nil {
+		p.SwitchPortDescription = known.SwitchPortDescription
+	}
+	if known.SwitchPortName != nil {
+		p.SwitchPortName = known.SwitchPortName
+	}
+	if known.SwitchPortNativeVlanId != nil {
+		p.SwitchPortNativeVlanId = known.SwitchPortNativeVlanId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "switchHardwarePlatformDescription")
+	delete(allFields, "switchMacAddress")
+	delete(allFields, "switchManagementAddress")
+	delete(allFields, "switchName")
+	delete(allFields, "switchPortDescription")
+	delete(allFields, "switchPortName")
+	delete(allFields, "switchPortNativeVlanId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewLldpConfig() *LldpConfig {
+	p := new(LldpConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.LldpConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -14348,7 +18550,29 @@ func (p *ManagedCluster) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ManagedCluster(*known)
+	*p = *NewManagedCluster()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConfigDrifts != nil {
+		p.ConfigDrifts = known.ConfigDrifts
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsCompliant != nil {
+		p.IsCompliant = known.IsCompliant
+	}
+	if known.LastSyncedTime != nil {
+		p.LastSyncedTime = known.LastSyncedTime
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14360,7 +18584,9 @@ func (p *ManagedCluster) UnmarshalJSON(b []byte) error {
 	delete(allFields, "lastSyncedTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14369,7 +18595,7 @@ func NewManagedCluster() *ManagedCluster {
 	p := new(ManagedCluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ManagedCluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14443,7 +18669,32 @@ func (p *ManagementServerRef) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ManagementServerRef(*known)
+	*p = *NewManagementServerRef()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ip != nil {
+		p.Ip = known.Ip
+	}
+	if known.IsDrsEnabled != nil {
+		p.IsDrsEnabled = known.IsDrsEnabled
+	}
+	if known.IsInUse != nil {
+		p.IsInUse = known.IsInUse
+	}
+	if known.IsRegistered != nil {
+		p.IsRegistered = known.IsRegistered
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14456,7 +18707,9 @@ func (p *ManagementServerRef) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14465,7 +18718,7 @@ func NewManagementServerRef() *ManagementServerRef {
 	p := new(ManagementServerRef)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ManagementServerRef"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14547,7 +18800,7 @@ func (e ManagementServerType) Ref() *ManagementServerType {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/storage-containers/{extId}/$actions/mount Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/storage-containers/{extId}/$actions/mount Post operation
 */
 type MountStorageContainerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14606,7 +18859,26 @@ func (p *MountStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MountStorageContainerApiResponse(*known)
+	*p = *NewMountStorageContainerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14617,7 +18889,9 @@ func (p *MountStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14626,7 +18900,7 @@ func NewMountStorageContainerApiResponse() *MountStorageContainerApiResponse {
 	p := new(MountStorageContainerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.MountStorageContainerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14718,7 +18992,29 @@ func (p *MultiDomainFaultToleranceStatus) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MultiDomainFaultToleranceStatus(*known)
+	*p = *NewMultiDomainFaultToleranceStatus()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MultiDomainFaultToleranceStatus != nil {
+		p.MultiDomainFaultToleranceStatus = known.MultiDomainFaultToleranceStatus
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14730,7 +19026,9 @@ func (p *MultiDomainFaultToleranceStatus) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14739,7 +19037,7 @@ func NewMultiDomainFaultToleranceStatus() *MultiDomainFaultToleranceStatus {
 	p := new(MultiDomainFaultToleranceStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.MultiDomainFaultToleranceStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14755,6 +19053,16 @@ type NameMacRef struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
+	  Label of the host NIC.
+	*/
+	HostNicLabel *string `json:"hostNicLabel,omitempty"`
+	/*
+	  Interface speed in Kbps.
+	*/
+	InterfaceSpeedKbps *int64 `json:"interfaceSpeedKbps,omitempty"`
+
+	LldpConfig *LldpConfig `json:"lldpConfig,omitempty"`
+	/*
 	  Mac address.
 	*/
 	Mac *string `json:"mac,omitempty"`
@@ -14762,6 +19070,8 @@ type NameMacRef struct {
 	  Interface name.
 	*/
 	Name *string `json:"name,omitempty"`
+
+	Status *UplinkStatus `json:"status,omitempty"`
 }
 
 func (p *NameMacRef) MarshalJSON() ([]byte, error) {
@@ -14805,17 +19115,51 @@ func (p *NameMacRef) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NameMacRef(*known)
+	*p = *NewNameMacRef()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HostNicLabel != nil {
+		p.HostNicLabel = known.HostNicLabel
+	}
+	if known.InterfaceSpeedKbps != nil {
+		p.InterfaceSpeedKbps = known.InterfaceSpeedKbps
+	}
+	if known.LldpConfig != nil {
+		p.LldpConfig = known.LldpConfig
+	}
+	if known.Mac != nil {
+		p.Mac = known.Mac
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "hostNicLabel")
+	delete(allFields, "interfaceSpeedKbps")
+	delete(allFields, "lldpConfig")
 	delete(allFields, "mac")
 	delete(allFields, "name")
+	delete(allFields, "status")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14824,7 +19168,7 @@ func NewNameMacRef() *NameMacRef {
 	p := new(NameMacRef)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NameMacRef"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14840,6 +19184,8 @@ type NameNetworkRef struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
+	BondingMode *BondingMode `json:"bondingMode,omitempty"`
+
 	HypervisorType *HypervisorType `json:"hypervisorType,omitempty"`
 	/*
 	  Interface name.
@@ -14849,6 +19195,16 @@ type NameNetworkRef struct {
 	  List of networks for interface.
 	*/
 	Networks []string `json:"networks,omitempty"`
+	/*
+	  External ID of the vswitch.
+	*/
+	VswitchExtId *string `json:"vswitchExtId,omitempty"`
+	/*
+	  Name of the vswitch.
+	*/
+	VswitchName *string `json:"vswitchName,omitempty"`
+
+	VswitchOwnerType *VSwitchOwnerType `json:"vswitchOwnerType,omitempty"`
 }
 
 func (p *NameNetworkRef) MarshalJSON() ([]byte, error) {
@@ -14892,18 +19248,55 @@ func (p *NameNetworkRef) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NameNetworkRef(*known)
+	*p = *NewNameNetworkRef()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BondingMode != nil {
+		p.BondingMode = known.BondingMode
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Networks != nil {
+		p.Networks = known.Networks
+	}
+	if known.VswitchExtId != nil {
+		p.VswitchExtId = known.VswitchExtId
+	}
+	if known.VswitchName != nil {
+		p.VswitchName = known.VswitchName
+	}
+	if known.VswitchOwnerType != nil {
+		p.VswitchOwnerType = known.VswitchOwnerType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "bondingMode")
 	delete(allFields, "hypervisorType")
 	delete(allFields, "name")
 	delete(allFields, "networks")
+	delete(allFields, "vswitchExtId")
+	delete(allFields, "vswitchName")
+	delete(allFields, "vswitchOwnerType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14912,7 +19305,7 @@ func NewNameNetworkRef() *NameNetworkRef {
 	p := new(NameNetworkRef)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NameNetworkRef"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14978,7 +19371,23 @@ func (p *NetworkInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NetworkInfo(*known)
+	*p = *NewNetworkInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Hci != nil {
+		p.Hci = known.Hci
+	}
+	if known.So != nil {
+		p.So = known.So
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14988,7 +19397,9 @@ func (p *NetworkInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "so")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14997,7 +19408,7 @@ func NewNetworkInfo() *NetworkInfo {
 	p := new(NetworkInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NetworkInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15117,7 +19528,65 @@ func (p *NetworkSwitchInterface) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NetworkSwitchInterface(*known)
+	*p = *NewNetworkSwitchInterface()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AttachedHostNicUuids != nil {
+		p.AttachedHostNicUuids = known.AttachedHostNicUuids
+	}
+	if known.AttachedHostUuid != nil {
+		p.AttachedHostUuid = known.AttachedHostUuid
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Index != nil {
+		p.Index = known.Index
+	}
+	if known.LastChangeTime != nil {
+		p.LastChangeTime = known.LastChangeTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
+	if known.MtuInBytes != nil {
+		p.MtuInBytes = known.MtuInBytes
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.SpeedInKbps != nil {
+		p.SpeedInKbps = known.SpeedInKbps
+	}
+	if known.SwitchInterfaceDescription != nil {
+		p.SwitchInterfaceDescription = known.SwitchInterfaceDescription
+	}
+	if known.SwitchInterfaceName != nil {
+		p.SwitchInterfaceName = known.SwitchInterfaceName
+	}
+	if known.SwitchInterfaceType != nil {
+		p.SwitchInterfaceType = known.SwitchInterfaceType
+	}
+	if known.SwitchManagementAddress != nil {
+		p.SwitchManagementAddress = known.SwitchManagementAddress
+	}
+	if known.SwitchUuid != nil {
+		p.SwitchUuid = known.SwitchUuid
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15141,7 +19610,9 @@ func (p *NetworkSwitchInterface) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15150,7 +19621,7 @@ func NewNetworkSwitchInterface() *NetworkSwitchInterface {
 	p := new(NetworkSwitchInterface)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NetworkSwitchInterface"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15223,7 +19694,23 @@ func (p *NodeDetails) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeDetails(*known)
+	*p = *NewNodeDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NodeList != nil {
+		p.NodeList = known.NodeList
+	}
+	if known.RequestType != nil {
+		p.RequestType = known.RequestType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15233,7 +19720,9 @@ func (p *NodeDetails) UnmarshalJSON(b []byte) error {
 	delete(allFields, "requestType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15242,7 +19731,7 @@ func NewNodeDetails() *NodeDetails {
 	p := new(NodeDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15322,7 +19811,35 @@ func (p *NodeDiscoveryParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeDiscoveryParams(*known)
+	*p = *NewNodeDiscoveryParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AddressType != nil {
+		p.AddressType = known.AddressType
+	}
+	if known.InterfaceFilterList != nil {
+		p.InterfaceFilterList = known.InterfaceFilterList
+	}
+	if known.IpFilterList != nil {
+		p.IpFilterList = known.IpFilterList
+	}
+	if known.IsManualDiscovery != nil {
+		p.IsManualDiscovery = known.IsManualDiscovery
+	}
+	if known.Timeout != nil {
+		p.Timeout = known.Timeout
+	}
+	if known.UuidFilterList != nil {
+		p.UuidFilterList = known.UuidFilterList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15336,7 +19853,9 @@ func (p *NodeDiscoveryParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uuidFilterList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15345,7 +19864,7 @@ func NewNodeDiscoveryParams() *NodeDiscoveryParams {
 	p := new(NodeDiscoveryParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeDiscoveryParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15455,7 +19974,62 @@ func (p *NodeInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeInfo(*known)
+	*p = *NewNodeInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockId != nil {
+		p.BlockId = known.BlockId
+	}
+	if known.CurrentNetworkInterface != nil {
+		p.CurrentNetworkInterface = known.CurrentNetworkInterface
+	}
+	if known.CvmIp != nil {
+		p.CvmIp = known.CvmIp
+	}
+	if known.DigitalCertificateMapList != nil {
+		p.DigitalCertificateMapList = known.DigitalCertificateMapList
+	}
+	if known.HypervisorHostname != nil {
+		p.HypervisorHostname = known.HypervisorHostname
+	}
+	if known.HypervisorIp != nil {
+		p.HypervisorIp = known.HypervisorIp
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.HypervisorVersion != nil {
+		p.HypervisorVersion = known.HypervisorVersion
+	}
+	if known.IpmiIp != nil {
+		p.IpmiIp = known.IpmiIp
+	}
+	if known.IsLightCompute != nil {
+		p.IsLightCompute = known.IsLightCompute
+	}
+	if known.IsRoboMixedHypervisor != nil {
+		p.IsRoboMixedHypervisor = known.IsRoboMixedHypervisor
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.NodePosition != nil {
+		p.NodePosition = known.NodePosition
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.NosVersion != nil {
+		p.NosVersion = known.NosVersion
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15478,7 +20052,9 @@ func (p *NodeInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nosVersion")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15487,7 +20063,7 @@ func NewNodeInfo() *NodeInfo {
 	p := new(NodeInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15603,7 +20179,68 @@ func (p *NodeItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeItem(*known)
+	*p = *NewNodeItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockId != nil {
+		p.BlockId = known.BlockId
+	}
+	if known.CurrentNetworkInterface != nil {
+		p.CurrentNetworkInterface = known.CurrentNetworkInterface
+	}
+	if known.CvmIp != nil {
+		p.CvmIp = known.CvmIp
+	}
+	if known.DigitalCertificateMapList != nil {
+		p.DigitalCertificateMapList = known.DigitalCertificateMapList
+	}
+	if known.HypervisorHostname != nil {
+		p.HypervisorHostname = known.HypervisorHostname
+	}
+	if known.HypervisorIp != nil {
+		p.HypervisorIp = known.HypervisorIp
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.HypervisorVersion != nil {
+		p.HypervisorVersion = known.HypervisorVersion
+	}
+	if known.IpmiIp != nil {
+		p.IpmiIp = known.IpmiIp
+	}
+	if known.IsLightCompute != nil {
+		p.IsLightCompute = known.IsLightCompute
+	}
+	if known.IsRoboMixedHypervisor != nil {
+		p.IsRoboMixedHypervisor = known.IsRoboMixedHypervisor
+	}
+	if known.LuksStatus != nil {
+		p.LuksStatus = known.LuksStatus
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.Networks != nil {
+		p.Networks = known.Networks
+	}
+	if known.NodePosition != nil {
+		p.NodePosition = known.NodePosition
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.NosVersion != nil {
+		p.NosVersion = known.NosVersion
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15628,7 +20265,9 @@ func (p *NodeItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nosVersion")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15637,7 +20276,7 @@ func NewNodeItem() *NodeItem {
 	p := new(NodeItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15703,7 +20342,26 @@ func (p *NodeListItemReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeListItemReference(*known)
+	*p = *NewNodeListItemReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ControllerVmIp != nil {
+		p.ControllerVmIp = known.ControllerVmIp
+	}
+	if known.HostIp != nil {
+		p.HostIp = known.HostIp
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15714,7 +20372,9 @@ func (p *NodeListItemReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nodeUuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15723,7 +20383,7 @@ func NewNodeListItemReference() *NodeListItemReference {
 	p := new(NodeListItemReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeListItemReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15833,7 +20493,62 @@ func (p *NodeListNetworkingDetails) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeListNetworkingDetails(*known)
+	*p = *NewNodeListNetworkingDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockId != nil {
+		p.BlockId = known.BlockId
+	}
+	if known.CurrentNetworkInterface != nil {
+		p.CurrentNetworkInterface = known.CurrentNetworkInterface
+	}
+	if known.CvmIp != nil {
+		p.CvmIp = known.CvmIp
+	}
+	if known.DigitalCertificateMapList != nil {
+		p.DigitalCertificateMapList = known.DigitalCertificateMapList
+	}
+	if known.HypervisorIp != nil {
+		p.HypervisorIp = known.HypervisorIp
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.HypervisorVersion != nil {
+		p.HypervisorVersion = known.HypervisorVersion
+	}
+	if known.IpmiIp != nil {
+		p.IpmiIp = known.IpmiIp
+	}
+	if known.IsComputeOnly != nil {
+		p.IsComputeOnly = known.IsComputeOnly
+	}
+	if known.IsLightCompute != nil {
+		p.IsLightCompute = known.IsLightCompute
+	}
+	if known.IsRoboMixedHypervisor != nil {
+		p.IsRoboMixedHypervisor = known.IsRoboMixedHypervisor
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.NodePosition != nil {
+		p.NodePosition = known.NodePosition
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.NosVersion != nil {
+		p.NosVersion = known.NosVersion
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15856,7 +20571,9 @@ func (p *NodeListNetworkingDetails) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nosVersion")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15865,7 +20582,7 @@ func NewNodeListNetworkingDetails() *NodeListNetworkingDetails {
 	p := new(NodeListNetworkingDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeListNetworkingDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16012,7 +20729,20 @@ func (p *NodeNetworkConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeNetworkConfig(*known)
+	*p = *NewNodeNetworkConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipaddress != nil {
+		p.Ipaddress = known.Ipaddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16021,7 +20751,9 @@ func (p *NodeNetworkConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "ipaddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16030,7 +20762,7 @@ func NewNodeNetworkConfig() *NodeNetworkConfig {
 	p := new(NodeNetworkConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeNetworkConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16098,7 +20830,26 @@ func (p *NodeNetworkingDetails) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeNetworkingDetails(*known)
+	*p = *NewNodeNetworkingDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NetworkInfo != nil {
+		p.NetworkInfo = known.NetworkInfo
+	}
+	if known.Uplinks != nil {
+		p.Uplinks = known.Uplinks
+	}
+	if known.Warnings != nil {
+		p.Warnings = known.Warnings
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16109,7 +20860,9 @@ func (p *NodeNetworkingDetails) UnmarshalJSON(b []byte) error {
 	delete(allFields, "warnings")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16118,7 +20871,7 @@ func NewNodeNetworkingDetails() *NodeNetworkingDetails {
 	p := new(NodeNetworkingDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeNetworkingDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16202,7 +20955,38 @@ func (p *NodeParam) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeParam(*known)
+	*p = *NewNodeParam()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BlockList != nil {
+		p.BlockList = known.BlockList
+	}
+	if known.BundleInfo != nil {
+		p.BundleInfo = known.BundleInfo
+	}
+	if known.ComputeNodeList != nil {
+		p.ComputeNodeList = known.ComputeNodeList
+	}
+	if known.HypervSku != nil {
+		p.HypervSku = known.HypervSku
+	}
+	if known.HypervisorIsos != nil {
+		p.HypervisorIsos = known.HypervisorIsos
+	}
+	if known.NodeList != nil {
+		p.NodeList = known.NodeList
+	}
+	if known.ShouldSkipHostNetworking != nil {
+		p.ShouldSkipHostNetworking = known.ShouldSkipHostNetworking
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16217,7 +21001,9 @@ func (p *NodeParam) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldSkipHostNetworking")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16226,7 +21012,7 @@ func NewNodeParam() *NodeParam {
 	p := new(NodeParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeParam"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16292,7 +21078,23 @@ func (p *NodeReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeReference(*known)
+	*p = *NewNodeReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NodeList != nil {
+		p.NodeList = known.NodeList
+	}
+	if known.NumberOfNodes != nil {
+		p.NumberOfNodes = known.NumberOfNodes
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16302,7 +21104,9 @@ func (p *NodeReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "numberOfNodes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16311,7 +21115,7 @@ func NewNodeReference() *NodeReference {
 	p := new(NodeReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16381,7 +21185,26 @@ func (p *NodeRemovalExtraParam) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeRemovalExtraParam(*known)
+	*p = *NewNodeRemovalExtraParam()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ShouldSkipAddCheck != nil {
+		p.ShouldSkipAddCheck = known.ShouldSkipAddCheck
+	}
+	if known.ShouldSkipSpaceCheck != nil {
+		p.ShouldSkipSpaceCheck = known.ShouldSkipSpaceCheck
+	}
+	if known.ShouldSkipUpgradeCheck != nil {
+		p.ShouldSkipUpgradeCheck = known.ShouldSkipUpgradeCheck
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16392,7 +21215,9 @@ func (p *NodeRemovalExtraParam) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldSkipUpgradeCheck")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16401,7 +21226,7 @@ func NewNodeRemovalExtraParam() *NodeRemovalExtraParam {
 	p := new(NodeRemovalExtraParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeRemovalExtraParam"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16480,7 +21305,29 @@ func (p *NodeRemovalParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeRemovalParams(*known)
+	*p = *NewNodeRemovalParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtraParams != nil {
+		p.ExtraParams = known.ExtraParams
+	}
+	if known.NodeUuids != nil {
+		p.NodeUuids = known.NodeUuids
+	}
+	if known.ShouldSkipPrechecks != nil {
+		p.ShouldSkipPrechecks = known.ShouldSkipPrechecks
+	}
+	if known.ShouldSkipRemove != nil {
+		p.ShouldSkipRemove = known.ShouldSkipRemove
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16492,7 +21339,9 @@ func (p *NodeRemovalParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldSkipRemove")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16501,7 +21350,7 @@ func NewNodeRemovalParams() *NodeRemovalParams {
 	p := new(NodeRemovalParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeRemovalParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16525,11 +21374,11 @@ type NodeResourceConfig struct {
 	*/
 	DataDiskSizeBytes *int64 `json:"dataDiskSizeBytes,omitempty"`
 	/*
-	  Memory for a given node in cluster.
+	  Memory for a given CVM in cluster.
 	*/
 	MemorySizeBytes *int64 `json:"memorySizeBytes,omitempty"`
 	/*
-	  Number of Vcpus for a given node in cluster.
+	  Number of VCPUs for a given node in cluster.
 	*/
 	NumVcpus *int `json:"numVcpus,omitempty"`
 }
@@ -16575,7 +21424,29 @@ func (p *NodeResourceConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeResourceConfig(*known)
+	*p = *NewNodeResourceConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ContainerExtId != nil {
+		p.ContainerExtId = known.ContainerExtId
+	}
+	if known.DataDiskSizeBytes != nil {
+		p.DataDiskSizeBytes = known.DataDiskSizeBytes
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.NumVcpus != nil {
+		p.NumVcpus = known.NumVcpus
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16587,7 +21458,9 @@ func (p *NodeResourceConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "numVcpus")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16596,7 +21469,7 @@ func NewNodeResourceConfig() *NodeResourceConfig {
 	p := new(NodeResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NodeResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16757,7 +21630,23 @@ func (p *NonCompatibleClusterReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NonCompatibleClusterReference(*known)
+	*p = *NewNonCompatibleClusterReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ConfigDrifts != nil {
+		p.ConfigDrifts = known.ConfigDrifts
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16767,7 +21656,9 @@ func (p *NonCompatibleClusterReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "configDrifts")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16776,7 +21667,7 @@ func NewNonCompatibleClusterReference() *NonCompatibleClusterReference {
 	p := new(NonCompatibleClusterReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NonCompatibleClusterReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16848,7 +21739,29 @@ func (p *NonMigratableVmInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NonMigratableVmInfo(*known)
+	*p = *NewNonMigratableVmInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HostIp != nil {
+		p.HostIp = known.HostIp
+	}
+	if known.NonMigratableVmReason != nil {
+		p.NonMigratableVmReason = known.NonMigratableVmReason
+	}
+	if known.VmName != nil {
+		p.VmName = known.VmName
+	}
+	if known.VmUuid != nil {
+		p.VmUuid = known.VmUuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16860,7 +21773,9 @@ func (p *NonMigratableVmInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmUuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16869,7 +21784,7 @@ func NewNonMigratableVmInfo() *NonMigratableVmInfo {
 	p := new(NonMigratableVmInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NonMigratableVmInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16940,7 +21855,29 @@ func (p *NonMigratableVmsResult) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NonMigratableVmsResult(*known)
+	*p = *NewNonMigratableVmsResult()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Vms != nil {
+		p.Vms = known.Vms
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16952,7 +21889,9 @@ func (p *NonMigratableVmsResult) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vms")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16961,7 +21900,7 @@ func NewNonMigratableVmsResult() *NonMigratableVmsResult {
 	p := new(NonMigratableVmsResult)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.NonMigratableVmsResult"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17301,6 +22240,128 @@ func (e *NsServiceStateEnum) MarshalJSON() ([]byte, error) {
 
 func (e NsServiceStateEnum) Ref() *NsServiceStateEnum {
 	return &e
+}
+
+/*
+NTP server configuration details.
+*/
+type NtpServerConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	EncryptionAlgorithm *EncryptionAlgorithm `json:"encryptionAlgorithm,omitempty"`
+	/*
+	  Encryption key in hexadecimal format used for NTP server authentication.
+	*/
+	EncryptionKey *string `json:"encryptionKey,omitempty"`
+	/*
+	  Encryption key Id used for NTP server authentication.
+	*/
+	EncryptionKeyId *int `json:"encryptionKeyId,omitempty"`
+
+	NtpServerAddress *import4.IPAddressOrFQDN `json:"ntpServerAddress"`
+}
+
+func (p *NtpServerConfig) MarshalJSON() ([]byte, error) {
+	type NtpServerConfigProxy NtpServerConfig
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*NtpServerConfigProxy
+		NtpServerAddress *import4.IPAddressOrFQDN `json:"ntpServerAddress,omitempty"`
+	}{
+		NtpServerConfigProxy: (*NtpServerConfigProxy)(p),
+		NtpServerAddress:     p.NtpServerAddress,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *NtpServerConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias NtpServerConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewNtpServerConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EncryptionAlgorithm != nil {
+		p.EncryptionAlgorithm = known.EncryptionAlgorithm
+	}
+	if known.EncryptionKey != nil {
+		p.EncryptionKey = known.EncryptionKey
+	}
+	if known.EncryptionKeyId != nil {
+		p.EncryptionKeyId = known.EncryptionKeyId
+	}
+	if known.NtpServerAddress != nil {
+		p.NtpServerAddress = known.NtpServerAddress
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "encryptionAlgorithm")
+	delete(allFields, "encryptionKey")
+	delete(allFields, "encryptionKeyId")
+	delete(allFields, "ntpServerAddress")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewNtpServerConfig() *NtpServerConfig {
+	p := new(NtpServerConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.NtpServerConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -17810,7 +22871,47 @@ func (p *PhysicalGpuConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PhysicalGpuConfig(*known)
+	*p = *NewPhysicalGpuConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Assignable != nil {
+		p.Assignable = known.Assignable
+	}
+	if known.DeviceId != nil {
+		p.DeviceId = known.DeviceId
+	}
+	if known.DeviceName != nil {
+		p.DeviceName = known.DeviceName
+	}
+	if known.FrameBufferSizeBytes != nil {
+		p.FrameBufferSizeBytes = known.FrameBufferSizeBytes
+	}
+	if known.IsInUse != nil {
+		p.IsInUse = known.IsInUse
+	}
+	if known.Mode != nil {
+		p.Mode = known.Mode
+	}
+	if known.NumaNode != nil {
+		p.NumaNode = known.NumaNode
+	}
+	if known.Sbdf != nil {
+		p.Sbdf = known.Sbdf
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.VendorName != nil {
+		p.VendorName = known.VendorName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -17828,7 +22929,9 @@ func (p *PhysicalGpuConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendorName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -17837,7 +22940,7 @@ func NewPhysicalGpuConfig() *PhysicalGpuConfig {
 	p := new(PhysicalGpuConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.PhysicalGpuConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsInUse = new(bool)
@@ -17916,7 +23019,32 @@ func (p *PhysicalGpuProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PhysicalGpuProfile(*known)
+	*p = *NewPhysicalGpuProfile()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AllocatedVmExtIds != nil {
+		p.AllocatedVmExtIds = known.AllocatedVmExtIds
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.PhysicalGpuConfig != nil {
+		p.PhysicalGpuConfig = known.PhysicalGpuConfig
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -17929,7 +23057,9 @@ func (p *PhysicalGpuProfile) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -17938,7 +23068,7 @@ func NewPhysicalGpuProfile() *PhysicalGpuProfile {
 	p := new(PhysicalGpuProfile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.PhysicalGpuProfile"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18115,7 +23245,26 @@ func (p *ProtectedEntity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ProtectedEntity(*known)
+	*p = *NewProtectedEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ProtectedCount != nil {
+		p.ProtectedCount = known.ProtectedCount
+	}
+	if known.UnprotectedCount != nil {
+		p.UnprotectedCount = known.UnprotectedCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -18126,7 +23275,9 @@ func (p *ProtectedEntity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "unprotectedCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -18135,7 +23286,7 @@ func NewProtectedEntity() *ProtectedEntity {
 	p := new(ProtectedEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ProtectedEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18211,7 +23362,38 @@ func (p *ProtectionInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ProtectionInfo(*known)
+	*p = *NewProtectionInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.FailureReason != nil {
+		p.FailureReason = known.FailureReason
+	}
+	if known.ProtectedEntities != nil {
+		p.ProtectedEntities = known.ProtectedEntities
+	}
+	if known.ProtectionRpoMinutes != nil {
+		p.ProtectionRpoMinutes = known.ProtectionRpoMinutes
+	}
+	if known.ProtectionState != nil {
+		p.ProtectionState = known.ProtectionState
+	}
+	if known.ProtectionTarget != nil {
+		p.ProtectionTarget = known.ProtectionTarget
+	}
+	if known.TargetProtectionState != nil {
+		p.TargetProtectionState = known.TargetProtectionState
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -18226,7 +23408,9 @@ func (p *ProtectionInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "targetProtectionState")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -18235,7 +23419,7 @@ func NewProtectionInfo() *ProtectionInfo {
 	p := new(ProtectionInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ProtectionInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18303,7 +23487,26 @@ func (p *ProtectionSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ProtectionSpec(*known)
+	*p = *NewProtectionSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.LocalSnapshotRetentionPolicy != nil {
+		p.LocalSnapshotRetentionPolicy = known.LocalSnapshotRetentionPolicy
+	}
+	if known.ProtectionRpoMinutes != nil {
+		p.ProtectionRpoMinutes = known.ProtectionRpoMinutes
+	}
+	if known.ProtectionTarget != nil {
+		p.ProtectionTarget = known.ProtectionTarget
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -18314,7 +23517,9 @@ func (p *ProtectionSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "protectionTarget")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -18323,7 +23528,7 @@ func NewProtectionSpec() *ProtectionSpec {
 	p := new(ProtectionSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ProtectionSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.LocalSnapshotRetentionPolicy = new(int)
@@ -18585,7 +23790,23 @@ func (p *PublicKey) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PublicKey(*known)
+	*p = *NewPublicKey()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Key != nil {
+		p.Key = known.Key
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -18595,7 +23816,9 @@ func (p *PublicKey) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -18604,7 +23827,7 @@ func NewPublicKey() *PublicKey {
 	p := new(PublicKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.PublicKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18668,7 +23891,23 @@ func (p *PulseStatus) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PulseStatus(*known)
+	*p = *NewPulseStatus()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.PiiScrubbingLevel != nil {
+		p.PiiScrubbingLevel = known.PiiScrubbingLevel
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -18678,7 +23917,9 @@ func (p *PulseStatus) UnmarshalJSON(b []byte) error {
 	delete(allFields, "piiScrubbingLevel")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -18687,7 +23928,7 @@ func NewPulseStatus() *PulseStatus {
 	p := new(PulseStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.PulseStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18753,7 +23994,23 @@ func (p *RackReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RackReference(*known)
+	*p = *NewRackReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Id != nil {
+		p.Id = known.Id
+	}
+	if known.Uuid != nil {
+		p.Uuid = known.Uuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -18763,7 +24020,9 @@ func (p *RackReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -18772,7 +24031,7 @@ func NewRackReference() *RackReference {
 	p := new(RackReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RackReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18862,7 +24121,44 @@ func (p *RackableUnit) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RackableUnit(*known)
+	*p = *NewRackableUnit()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Id != nil {
+		p.Id = known.Id
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.ModelName != nil {
+		p.ModelName = known.ModelName
+	}
+	if known.Nodes != nil {
+		p.Nodes = known.Nodes
+	}
+	if known.Rack != nil {
+		p.Rack = known.Rack
+	}
+	if known.Serial != nil {
+		p.Serial = known.Serial
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -18879,7 +24175,9 @@ func (p *RackableUnit) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -18888,7 +24186,7 @@ func NewRackableUnit() *RackableUnit {
 	p := new(RackableUnit)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RackableUnit"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19093,7 +24391,26 @@ func (p *RackableUnitNode) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RackableUnitNode(*known)
+	*p = *NewRackableUnitNode()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Position != nil {
+		p.Position = known.Position
+	}
+	if known.SvmId != nil {
+		p.SvmId = known.SvmId
+	}
+	if known.Uuid != nil {
+		p.Uuid = known.Uuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -19104,7 +24421,9 @@ func (p *RackableUnitNode) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -19113,10 +24432,138 @@ func NewRackableUnitNode() *RackableUnitNode {
 	p := new(RackableUnitNode)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RackableUnitNode"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/cvms/$actions/reconfigure Post operation
+*/
+type ReconfigureCvmsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfReconfigureCvmsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ReconfigureCvmsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ReconfigureCvmsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ReconfigureCvmsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ReconfigureCvmsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewReconfigureCvmsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewReconfigureCvmsApiResponse() *ReconfigureCvmsApiResponse {
+	p := new(ReconfigureCvmsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "clustermgmt.v4.config.ReconfigureCvmsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ReconfigureCvmsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ReconfigureCvmsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfReconfigureCvmsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
 }
 
 /*
@@ -19175,7 +24622,23 @@ func (p *RecoveryInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RecoveryInfo(*known)
+	*p = *NewRecoveryInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.RecoveryStatus != nil {
+		p.RecoveryStatus = known.RecoveryStatus
+	}
+	if known.Subnets != nil {
+		p.Subnets = known.Subnets
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -19185,7 +24648,9 @@ func (p *RecoveryInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "subnets")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -19194,7 +24659,7 @@ func NewRecoveryInfo() *RecoveryInfo {
 	p := new(RecoveryInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RecoveryInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19256,7 +24721,20 @@ func (p *RecoverySpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RecoverySpec(*known)
+	*p = *NewRecoverySpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DestinationClusterExtId != nil {
+		p.DestinationClusterExtId = known.DestinationClusterExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -19265,7 +24743,9 @@ func (p *RecoverySpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "destinationClusterExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -19274,7 +24754,7 @@ func NewRecoverySpec() *RecoverySpec {
 	p := new(RecoverySpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RecoverySpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19342,7 +24822,26 @@ func (p *RecoveryStatus) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RecoveryStatus(*known)
+	*p = *NewRecoveryStatus()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DestinationClusterExtId != nil {
+		p.DestinationClusterExtId = known.DestinationClusterExtId
+	}
+	if known.RecoveryState != nil {
+		p.RecoveryState = known.RecoveryState
+	}
+	if known.SourceClusterExtId != nil {
+		p.SourceClusterExtId = known.SourceClusterExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -19353,7 +24852,9 @@ func (p *RecoveryStatus) UnmarshalJSON(b []byte) error {
 	delete(allFields, "sourceClusterExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -19362,7 +24863,7 @@ func NewRecoveryStatus() *RecoveryStatus {
 	p := new(RecoveryStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RecoveryStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19428,7 +24929,23 @@ func (p *RedundancyStatusDetails) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RedundancyStatusDetails(*known)
+	*p = *NewRedundancyStatusDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsCassandraPreparationDone != nil {
+		p.IsCassandraPreparationDone = known.IsCassandraPreparationDone
+	}
+	if known.IsZookeeperPreparationDone != nil {
+		p.IsZookeeperPreparationDone = known.IsZookeeperPreparationDone
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -19438,7 +24955,9 @@ func (p *RedundancyStatusDetails) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isZookeeperPreparationDone")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -19447,14 +24966,14 @@ func NewRedundancyStatusDetails() *RedundancyStatusDetails {
 	p := new(RedundancyStatusDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RedundancyStatusDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/vcenter-extensions/{extId}/$actions/register Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/vcenter-extensions/{extId}/$actions/register Post operation
 */
 type RegisterVcenterExtensionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -19513,7 +25032,26 @@ func (p *RegisterVcenterExtensionApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RegisterVcenterExtensionApiResponse(*known)
+	*p = *NewRegisterVcenterExtensionApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -19524,7 +25062,9 @@ func (p *RegisterVcenterExtensionApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -19533,7 +25073,7 @@ func NewRegisterVcenterExtensionApiResponse() *RegisterVcenterExtensionApiRespon
 	p := new(RegisterVcenterExtensionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RegisterVcenterExtensionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19561,7 +25101,7 @@ func (p *RegisterVcenterExtensionApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/remove-node Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/remove-node Post operation
 */
 type RemoveNodeApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -19620,7 +25160,26 @@ func (p *RemoveNodeApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RemoveNodeApiResponse(*known)
+	*p = *NewRemoveNodeApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -19631,7 +25190,9 @@ func (p *RemoveNodeApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -19640,7 +25201,7 @@ func NewRemoveNodeApiResponse() *RemoveNodeApiResponse {
 	p := new(RemoveNodeApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RemoveNodeApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19668,7 +25229,7 @@ func (p *RemoveNodeApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/$actions/remove-transports Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/$actions/remove-transports Post operation
 */
 type RemoveSnmpTransportsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -19727,7 +25288,26 @@ func (p *RemoveSnmpTransportsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RemoveSnmpTransportsApiResponse(*known)
+	*p = *NewRemoveSnmpTransportsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -19738,7 +25318,9 @@ func (p *RemoveSnmpTransportsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -19747,7 +25329,7 @@ func NewRemoveSnmpTransportsApiResponse() *RemoveSnmpTransportsApiResponse {
 	p := new(RemoveSnmpTransportsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RemoveSnmpTransportsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19843,7 +25425,26 @@ func (p *RsyslogModuleItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RsyslogModuleItem(*known)
+	*p = *NewRsyslogModuleItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.LogSeverityLevel != nil {
+		p.LogSeverityLevel = known.LogSeverityLevel
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ShouldLogMonitorFiles != nil {
+		p.ShouldLogMonitorFiles = known.ShouldLogMonitorFiles
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -19854,7 +25455,9 @@ func (p *RsyslogModuleItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldLogMonitorFiles")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -19863,7 +25466,7 @@ func NewRsyslogModuleItem() *RsyslogModuleItem {
 	p := new(RsyslogModuleItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RsyslogModuleItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldLogMonitorFiles = new(bool)
@@ -20306,7 +25909,41 @@ func (p *RsyslogServer) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RsyslogServer(*known)
+	*p = *NewRsyslogServer()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Modules != nil {
+		p.Modules = known.Modules
+	}
+	if known.NetworkProtocol != nil {
+		p.NetworkProtocol = known.NetworkProtocol
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.ServerName != nil {
+		p.ServerName = known.ServerName
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -20322,7 +25959,9 @@ func (p *RsyslogServer) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -20331,7 +25970,7 @@ func NewRsyslogServer() *RsyslogServer {
 	p := new(RsyslogServer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.RsyslogServer"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20414,7 +26053,32 @@ func (p *SSLCertificate) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SSLCertificate(*known)
+	*p = *NewSSLCertificate()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CaChain != nil {
+		p.CaChain = known.CaChain
+	}
+	if known.Passphrase != nil {
+		p.Passphrase = known.Passphrase
+	}
+	if known.PrivateKey != nil {
+		p.PrivateKey = known.PrivateKey
+	}
+	if known.PrivateKeyAlgorithm != nil {
+		p.PrivateKeyAlgorithm = known.PrivateKeyAlgorithm
+	}
+	if known.PublicCertificate != nil {
+		p.PublicCertificate = known.PublicCertificate
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -20427,7 +26091,9 @@ func (p *SSLCertificate) UnmarshalJSON(b []byte) error {
 	delete(allFields, "publicCertificate")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -20436,7 +26102,7 @@ func NewSSLCertificate() *SSLCertificate {
 	p := new(SSLCertificate)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SSLCertificate"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20515,7 +26181,29 @@ func (p *SmtpNetwork) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SmtpNetwork(*known)
+	*p = *NewSmtpNetwork()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -20527,7 +26215,9 @@ func (p *SmtpNetwork) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -20536,7 +26226,7 @@ func NewSmtpNetwork() *SmtpNetwork {
 	p := new(SmtpNetwork)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SmtpNetwork"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20611,7 +26301,26 @@ func (p *SmtpServerRef) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SmtpServerRef(*known)
+	*p = *NewSmtpServerRef()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EmailAddress != nil {
+		p.EmailAddress = known.EmailAddress
+	}
+	if known.Server != nil {
+		p.Server = known.Server
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -20622,7 +26331,9 @@ func (p *SmtpServerRef) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -20631,7 +26342,7 @@ func NewSmtpServerRef() *SmtpServerRef {
 	p := new(SmtpServerRef)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SmtpServerRef"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20879,7 +26590,38 @@ func (p *SnmpConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SnmpConfig(*known)
+	*p = *NewSnmpConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Transports != nil {
+		p.Transports = known.Transports
+	}
+	if known.Traps != nil {
+		p.Traps = known.Traps
+	}
+	if known.Users != nil {
+		p.Users = known.Users
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -20894,7 +26636,9 @@ func (p *SnmpConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "users")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -20903,7 +26647,7 @@ func NewSnmpConfig() *SnmpConfig {
 	p := new(SnmpConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21138,7 +26882,20 @@ func (p *SnmpStatusParam) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SnmpStatusParam(*known)
+	*p = *NewSnmpStatusParam()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -21147,7 +26904,9 @@ func (p *SnmpStatusParam) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isEnabled")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -21156,7 +26915,7 @@ func NewSnmpStatusParam() *SnmpStatusParam {
 	p := new(SnmpStatusParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpStatusParam"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21229,7 +26988,23 @@ func (p *SnmpTransport) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SnmpTransport(*known)
+	*p = *NewSnmpTransport()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.Protocol != nil {
+		p.Protocol = known.Protocol
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -21239,7 +27014,9 @@ func (p *SnmpTransport) UnmarshalJSON(b []byte) error {
 	delete(allFields, "protocol")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -21248,7 +27025,7 @@ func NewSnmpTransport() *SnmpTransport {
 	p := new(SnmpTransport)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpTransport"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21357,7 +27134,53 @@ func (p *SnmpTrap) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SnmpTrap(*known)
+	*p = *NewSnmpTrap()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Address != nil {
+		p.Address = known.Address
+	}
+	if known.CommunityString != nil {
+		p.CommunityString = known.CommunityString
+	}
+	if known.EngineId != nil {
+		p.EngineId = known.EngineId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.Protocol != nil {
+		p.Protocol = known.Protocol
+	}
+	if known.RecieverName != nil {
+		p.RecieverName = known.RecieverName
+	}
+	if known.ShouldInform != nil {
+		p.ShouldInform = known.ShouldInform
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -21377,7 +27200,9 @@ func (p *SnmpTrap) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -21386,7 +27211,7 @@ func NewSnmpTrap() *SnmpTrap {
 	p := new(SnmpTrap)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpTrap"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21562,7 +27387,41 @@ func (p *SnmpUser) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SnmpUser(*known)
+	*p = *NewSnmpUser()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AuthKey != nil {
+		p.AuthKey = known.AuthKey
+	}
+	if known.AuthType != nil {
+		p.AuthType = known.AuthType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.PrivKey != nil {
+		p.PrivKey = known.PrivKey
+	}
+	if known.PrivType != nil {
+		p.PrivType = known.PrivType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -21578,7 +27437,9 @@ func (p *SnmpUser) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -21587,7 +27448,7 @@ func NewSnmpUser() *SnmpUser {
 	p := new(SnmpUser)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SnmpUser"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21651,7 +27512,23 @@ func (p *SoftwareMapReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SoftwareMapReference(*known)
+	*p = *NewSoftwareMapReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SoftwareType != nil {
+		p.SoftwareType = known.SoftwareType
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -21661,7 +27538,9 @@ func (p *SoftwareMapReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -21670,7 +27549,7 @@ func NewSoftwareMapReference() *SoftwareMapReference {
 	p := new(SoftwareMapReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SoftwareMapReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21798,6 +27677,10 @@ type StorageContainer struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  The external identifier of the external storage where this storage container is hosted.
+	*/
+	ExternalStorageExtId *string `json:"externalStorageExtId,omitempty"`
+	/*
 	  Indicates whether to prefer a higher Erasure Code fault domain.
 	*/
 	HasHigherEcFaultDomainPreference *bool `json:"hasHigherEcFaultDomainPreference,omitempty"`
@@ -21825,6 +27708,10 @@ type StorageContainer struct {
 	  Indicates whether the NFS whitelist is inherited from the global configuration.
 	*/
 	IsNfsWhitelistInherited *bool `json:"isNfsWhitelistInherited,omitempty"`
+	/*
+	  Indicates whether the Storage Container is shared. When shared, all PEs registered under the same PC can access and utilize its storage. Once the field is set during the creation, it is immutable except in the case of SelfServiceContainer. Even for SelfServiceContainer only FALSE to TRUE is allowed.
+	*/
+	IsShared *bool `json:"isShared,omitempty"`
 	/*
 	  Indicates whether the Storage Container instance has software encryption enabled.
 	*/
@@ -21925,7 +27812,110 @@ func (p *StorageContainer) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StorageContainer(*known)
+	*p = *NewStorageContainer()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AffinityHostExtId != nil {
+		p.AffinityHostExtId = known.AffinityHostExtId
+	}
+	if known.CacheDeduplication != nil {
+		p.CacheDeduplication = known.CacheDeduplication
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
+	if known.CompressionDelaySecs != nil {
+		p.CompressionDelaySecs = known.CompressionDelaySecs
+	}
+	if known.ContainerExtId != nil {
+		p.ContainerExtId = known.ContainerExtId
+	}
+	if known.ErasureCode != nil {
+		p.ErasureCode = known.ErasureCode
+	}
+	if known.ErasureCodeDelaySecs != nil {
+		p.ErasureCodeDelaySecs = known.ErasureCodeDelaySecs
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.ExternalStorageExtId != nil {
+		p.ExternalStorageExtId = known.ExternalStorageExtId
+	}
+	if known.HasHigherEcFaultDomainPreference != nil {
+		p.HasHigherEcFaultDomainPreference = known.HasHigherEcFaultDomainPreference
+	}
+	if known.IsCompressionEnabled != nil {
+		p.IsCompressionEnabled = known.IsCompressionEnabled
+	}
+	if known.IsEncrypted != nil {
+		p.IsEncrypted = known.IsEncrypted
+	}
+	if known.IsInlineEcEnabled != nil {
+		p.IsInlineEcEnabled = known.IsInlineEcEnabled
+	}
+	if known.IsInternal != nil {
+		p.IsInternal = known.IsInternal
+	}
+	if known.IsMarkedForRemoval != nil {
+		p.IsMarkedForRemoval = known.IsMarkedForRemoval
+	}
+	if known.IsNfsWhitelistInherited != nil {
+		p.IsNfsWhitelistInherited = known.IsNfsWhitelistInherited
+	}
+	if known.IsShared != nil {
+		p.IsShared = known.IsShared
+	}
+	if known.IsSoftwareEncryptionEnabled != nil {
+		p.IsSoftwareEncryptionEnabled = known.IsSoftwareEncryptionEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LogicalAdvertisedCapacityBytes != nil {
+		p.LogicalAdvertisedCapacityBytes = known.LogicalAdvertisedCapacityBytes
+	}
+	if known.LogicalExplicitReservedCapacityBytes != nil {
+		p.LogicalExplicitReservedCapacityBytes = known.LogicalExplicitReservedCapacityBytes
+	}
+	if known.LogicalImplicitReservedCapacityBytes != nil {
+		p.LogicalImplicitReservedCapacityBytes = known.LogicalImplicitReservedCapacityBytes
+	}
+	if known.MaxCapacityBytes != nil {
+		p.MaxCapacityBytes = known.MaxCapacityBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NfsWhitelistAddress != nil {
+		p.NfsWhitelistAddress = known.NfsWhitelistAddress
+	}
+	if known.OnDiskDedup != nil {
+		p.OnDiskDedup = known.OnDiskDedup
+	}
+	if known.OwnerExtId != nil {
+		p.OwnerExtId = known.OwnerExtId
+	}
+	if known.ReplicationFactor != nil {
+		p.ReplicationFactor = known.ReplicationFactor
+	}
+	if known.StoragePoolExtId != nil {
+		p.StoragePoolExtId = known.StoragePoolExtId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -21940,6 +27930,7 @@ func (p *StorageContainer) UnmarshalJSON(b []byte) error {
 	delete(allFields, "erasureCode")
 	delete(allFields, "erasureCodeDelaySecs")
 	delete(allFields, "extId")
+	delete(allFields, "externalStorageExtId")
 	delete(allFields, "hasHigherEcFaultDomainPreference")
 	delete(allFields, "isCompressionEnabled")
 	delete(allFields, "isEncrypted")
@@ -21947,6 +27938,7 @@ func (p *StorageContainer) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isInternal")
 	delete(allFields, "isMarkedForRemoval")
 	delete(allFields, "isNfsWhitelistInherited")
+	delete(allFields, "isShared")
 	delete(allFields, "isSoftwareEncryptionEnabled")
 	delete(allFields, "links")
 	delete(allFields, "logicalAdvertisedCapacityBytes")
@@ -21962,7 +27954,9 @@ func (p *StorageContainer) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -21971,7 +27965,7 @@ func NewStorageContainer() *StorageContainer {
 	p := new(StorageContainer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.StorageContainer"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22016,6 +28010,10 @@ type StorageContainerProjection struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  The external identifier of the external storage where this storage container is hosted.
+	*/
+	ExternalStorageExtId *string `json:"externalStorageExtId,omitempty"`
+	/*
 	  Indicates whether to prefer a higher Erasure Code fault domain.
 	*/
 	HasHigherEcFaultDomainPreference *bool `json:"hasHigherEcFaultDomainPreference,omitempty"`
@@ -22043,6 +28041,10 @@ type StorageContainerProjection struct {
 	  Indicates whether the NFS whitelist is inherited from the global configuration.
 	*/
 	IsNfsWhitelistInherited *bool `json:"isNfsWhitelistInherited,omitempty"`
+	/*
+	  Indicates whether the Storage Container is shared. When shared, all PEs registered under the same PC can access and utilize its storage. Once the field is set during the creation, it is immutable except in the case of SelfServiceContainer. Even for SelfServiceContainer only FALSE to TRUE is allowed.
+	*/
+	IsShared *bool `json:"isShared,omitempty"`
 	/*
 	  Indicates whether the Storage Container instance has software encryption enabled.
 	*/
@@ -22143,7 +28145,110 @@ func (p *StorageContainerProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StorageContainerProjection(*known)
+	*p = *NewStorageContainerProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AffinityHostExtId != nil {
+		p.AffinityHostExtId = known.AffinityHostExtId
+	}
+	if known.CacheDeduplication != nil {
+		p.CacheDeduplication = known.CacheDeduplication
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
+	if known.CompressionDelaySecs != nil {
+		p.CompressionDelaySecs = known.CompressionDelaySecs
+	}
+	if known.ContainerExtId != nil {
+		p.ContainerExtId = known.ContainerExtId
+	}
+	if known.ErasureCode != nil {
+		p.ErasureCode = known.ErasureCode
+	}
+	if known.ErasureCodeDelaySecs != nil {
+		p.ErasureCodeDelaySecs = known.ErasureCodeDelaySecs
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.ExternalStorageExtId != nil {
+		p.ExternalStorageExtId = known.ExternalStorageExtId
+	}
+	if known.HasHigherEcFaultDomainPreference != nil {
+		p.HasHigherEcFaultDomainPreference = known.HasHigherEcFaultDomainPreference
+	}
+	if known.IsCompressionEnabled != nil {
+		p.IsCompressionEnabled = known.IsCompressionEnabled
+	}
+	if known.IsEncrypted != nil {
+		p.IsEncrypted = known.IsEncrypted
+	}
+	if known.IsInlineEcEnabled != nil {
+		p.IsInlineEcEnabled = known.IsInlineEcEnabled
+	}
+	if known.IsInternal != nil {
+		p.IsInternal = known.IsInternal
+	}
+	if known.IsMarkedForRemoval != nil {
+		p.IsMarkedForRemoval = known.IsMarkedForRemoval
+	}
+	if known.IsNfsWhitelistInherited != nil {
+		p.IsNfsWhitelistInherited = known.IsNfsWhitelistInherited
+	}
+	if known.IsShared != nil {
+		p.IsShared = known.IsShared
+	}
+	if known.IsSoftwareEncryptionEnabled != nil {
+		p.IsSoftwareEncryptionEnabled = known.IsSoftwareEncryptionEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LogicalAdvertisedCapacityBytes != nil {
+		p.LogicalAdvertisedCapacityBytes = known.LogicalAdvertisedCapacityBytes
+	}
+	if known.LogicalExplicitReservedCapacityBytes != nil {
+		p.LogicalExplicitReservedCapacityBytes = known.LogicalExplicitReservedCapacityBytes
+	}
+	if known.LogicalImplicitReservedCapacityBytes != nil {
+		p.LogicalImplicitReservedCapacityBytes = known.LogicalImplicitReservedCapacityBytes
+	}
+	if known.MaxCapacityBytes != nil {
+		p.MaxCapacityBytes = known.MaxCapacityBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NfsWhitelistAddress != nil {
+		p.NfsWhitelistAddress = known.NfsWhitelistAddress
+	}
+	if known.OnDiskDedup != nil {
+		p.OnDiskDedup = known.OnDiskDedup
+	}
+	if known.OwnerExtId != nil {
+		p.OwnerExtId = known.OwnerExtId
+	}
+	if known.ReplicationFactor != nil {
+		p.ReplicationFactor = known.ReplicationFactor
+	}
+	if known.StoragePoolExtId != nil {
+		p.StoragePoolExtId = known.StoragePoolExtId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -22158,6 +28263,7 @@ func (p *StorageContainerProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "erasureCode")
 	delete(allFields, "erasureCodeDelaySecs")
 	delete(allFields, "extId")
+	delete(allFields, "externalStorageExtId")
 	delete(allFields, "hasHigherEcFaultDomainPreference")
 	delete(allFields, "isCompressionEnabled")
 	delete(allFields, "isEncrypted")
@@ -22165,6 +28271,7 @@ func (p *StorageContainerProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isInternal")
 	delete(allFields, "isMarkedForRemoval")
 	delete(allFields, "isNfsWhitelistInherited")
+	delete(allFields, "isShared")
 	delete(allFields, "isSoftwareEncryptionEnabled")
 	delete(allFields, "links")
 	delete(allFields, "logicalAdvertisedCapacityBytes")
@@ -22180,7 +28287,9 @@ func (p *StorageContainerProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -22189,7 +28298,7 @@ func NewStorageContainerProjection() *StorageContainerProjection {
 	p := new(StorageContainerProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.StorageContainerProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22251,7 +28360,20 @@ func (p *StorageSummary) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StorageSummary(*known)
+	*p = *NewStorageSummary()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterFaultTolerantCapacityInBytes != nil {
+		p.ClusterFaultTolerantCapacityInBytes = known.ClusterFaultTolerantCapacityInBytes
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -22260,7 +28382,9 @@ func (p *StorageSummary) UnmarshalJSON(b []byte) error {
 	delete(allFields, "clusterFaultTolerantCapacityInBytes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -22269,7 +28393,7 @@ func NewStorageSummary() *StorageSummary {
 	p := new(StorageSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.StorageSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22328,7 +28452,20 @@ func (p *StorageSummaryProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StorageSummaryProjection(*known)
+	*p = *NewStorageSummaryProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterFaultTolerantCapacityInBytes != nil {
+		p.ClusterFaultTolerantCapacityInBytes = known.ClusterFaultTolerantCapacityInBytes
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -22337,7 +28474,9 @@ func (p *StorageSummaryProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "clusterFaultTolerantCapacityInBytes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -22346,7 +28485,7 @@ func NewStorageSummaryProjection() *StorageSummaryProjection {
 	p := new(StorageSummaryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.StorageSummaryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22645,7 +28784,56 @@ func (p *Subnet) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Subnet(*known)
+	*p = *NewSubnet()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Annotation != nil {
+		p.Annotation = known.Annotation
+	}
+	if known.AvailabilityZone != nil {
+		p.AvailabilityZone = known.AvailabilityZone
+	}
+	if known.Cidr != nil {
+		p.Cidr = known.Cidr
+	}
+	if known.CloudType != nil {
+		p.CloudType = known.CloudType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.GatewayIp != nil {
+		p.GatewayIp = known.GatewayIp
+	}
+	if known.IpPoolRanges != nil {
+		p.IpPoolRanges = known.IpPoolRanges
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SubnetId != nil {
+		p.SubnetId = known.SubnetId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.VpcId != nil {
+		p.VpcId = known.VpcId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -22666,7 +28854,9 @@ func (p *Subnet) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vpcId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -22675,7 +28865,7 @@ func NewSubnet() *Subnet {
 	p := new(Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.Subnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22858,7 +29048,50 @@ func (p *SystemUserPassword) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SystemUserPassword(*known)
+	*p = *NewSystemUserPassword()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ExpiryTime != nil {
+		p.ExpiryTime = known.ExpiryTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HasHspInUse != nil {
+		p.HasHspInUse = known.HasHspInUse
+	}
+	if known.HostIp != nil {
+		p.HostIp = known.HostIp
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.SystemType != nil {
+		p.SystemType = known.SystemType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -22877,7 +29110,9 @@ func (p *SystemUserPassword) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -22886,7 +29121,7 @@ func NewSystemUserPassword() *SystemUserPassword {
 	p := new(SystemUserPassword)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SystemUserPassword"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22981,7 +29216,53 @@ func (p *SystemUserPasswordProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SystemUserPasswordProjection(*known)
+	*p = *NewSystemUserPasswordProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ClusterProjection != nil {
+		p.ClusterProjection = known.ClusterProjection
+	}
+	if known.ExpiryTime != nil {
+		p.ExpiryTime = known.ExpiryTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HasHspInUse != nil {
+		p.HasHspInUse = known.HasHspInUse
+	}
+	if known.HostIp != nil {
+		p.HostIp = known.HostIp
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.SystemType != nil {
+		p.SystemType = known.SystemType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -23001,7 +29282,9 @@ func (p *SystemUserPasswordProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -23010,7 +29293,7 @@ func NewSystemUserPasswordProjection() *SystemUserPasswordProjection {
 	p := new(SystemUserPasswordProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.SystemUserPasswordProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23085,7 +29368,35 @@ func (p *TaskResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TaskResponse(*known)
+	*p = *NewTaskResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.ResponseItemDiscriminator_ != nil {
+		p.ResponseItemDiscriminator_ = known.ResponseItemDiscriminator_
+	}
+	if known.Response != nil {
+		p.Response = known.Response
+	}
+	if known.TaskResponseType != nil {
+		p.TaskResponseType = known.TaskResponseType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -23099,7 +29410,9 @@ func (p *TaskResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -23108,7 +29421,7 @@ func NewTaskResponse() *TaskResponse {
 	p := new(TaskResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.TaskResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23286,7 +29599,23 @@ func (p *ToleranceMessage) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ToleranceMessage(*known)
+	*p = *NewToleranceMessage()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AttributeList != nil {
+		p.AttributeList = known.AttributeList
+	}
+	if known.Id != nil {
+		p.Id = known.Id
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -23296,7 +29625,9 @@ func (p *ToleranceMessage) UnmarshalJSON(b []byte) error {
 	delete(allFields, "id")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -23305,7 +29636,7 @@ func NewToleranceMessage() *ToleranceMessage {
 	p := new(ToleranceMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ToleranceMessage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23367,7 +29698,20 @@ func (p *UnconfigureNodeDetails) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UnconfigureNodeDetails(*known)
+	*p = *NewUnconfigureNodeDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NodeList != nil {
+		p.NodeList = known.NodeList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -23376,7 +29720,9 @@ func (p *UnconfigureNodeDetails) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nodeList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -23385,7 +29731,7 @@ func NewUnconfigureNodeDetails() *UnconfigureNodeDetails {
 	p := new(UnconfigureNodeDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UnconfigureNodeDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23463,7 +29809,32 @@ func (p *UnconfiguredNodeAttributeMap) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UnconfiguredNodeAttributeMap(*known)
+	*p = *NewUnconfiguredNodeAttributeMap()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DefaultWorkload != nil {
+		p.DefaultWorkload = known.DefaultWorkload
+	}
+	if known.IsModelSupported != nil {
+		p.IsModelSupported = known.IsModelSupported
+	}
+	if known.IsRoboMixedHypervisor != nil {
+		p.IsRoboMixedHypervisor = known.IsRoboMixedHypervisor
+	}
+	if known.LcmFamily != nil {
+		p.LcmFamily = known.LcmFamily
+	}
+	if known.ShouldWorkWith1GNic != nil {
+		p.ShouldWorkWith1GNic = known.ShouldWorkWith1GNic
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -23476,7 +29847,9 @@ func (p *UnconfiguredNodeAttributeMap) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldWorkWith1GNic")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -23485,7 +29858,7 @@ func NewUnconfiguredNodeAttributeMap() *UnconfiguredNodeAttributeMap {
 	p := new(UnconfiguredNodeAttributeMap)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UnconfiguredNodeAttributeMap"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23617,7 +29990,83 @@ func (p *UnconfiguredNodeListItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UnconfiguredNodeListItem(*known)
+	*p = *NewUnconfiguredNodeListItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Arch != nil {
+		p.Arch = known.Arch
+	}
+	if known.Attributes != nil {
+		p.Attributes = known.Attributes
+	}
+	if known.ClusterId != nil {
+		p.ClusterId = known.ClusterId
+	}
+	if known.CpuType != nil {
+		p.CpuType = known.CpuType
+	}
+	if known.CurrentCvmVlanTag != nil {
+		p.CurrentCvmVlanTag = known.CurrentCvmVlanTag
+	}
+	if known.CurrentNetworkInterface != nil {
+		p.CurrentNetworkInterface = known.CurrentNetworkInterface
+	}
+	if known.CvmIp != nil {
+		p.CvmIp = known.CvmIp
+	}
+	if known.FoundationVersion != nil {
+		p.FoundationVersion = known.FoundationVersion
+	}
+	if known.HostType != nil {
+		p.HostType = known.HostType
+	}
+	if known.HypervisorIp != nil {
+		p.HypervisorIp = known.HypervisorIp
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.HypervisorVersion != nil {
+		p.HypervisorVersion = known.HypervisorVersion
+	}
+	if known.InterfaceIpv6 != nil {
+		p.InterfaceIpv6 = known.InterfaceIpv6
+	}
+	if known.IpmiIp != nil {
+		p.IpmiIp = known.IpmiIp
+	}
+	if known.IsSecureBooted != nil {
+		p.IsSecureBooted = known.IsSecureBooted
+	}
+	if known.LuksStatus != nil {
+		p.LuksStatus = known.LuksStatus
+	}
+	if known.NodePosition != nil {
+		p.NodePosition = known.NodePosition
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.NosVersion != nil {
+		p.NosVersion = known.NosVersion
+	}
+	if known.RackableUnitMaxNodes != nil {
+		p.RackableUnitMaxNodes = known.RackableUnitMaxNodes
+	}
+	if known.RackableUnitModel != nil {
+		p.RackableUnitModel = known.RackableUnitModel
+	}
+	if known.RackableUnitSerial != nil {
+		p.RackableUnitSerial = known.RackableUnitSerial
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -23647,7 +30096,9 @@ func (p *UnconfiguredNodeListItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rackableUnitSerial")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -23656,14 +30107,14 @@ func NewUnconfiguredNodeListItem() *UnconfiguredNodeListItem {
 	p := new(UnconfiguredNodeListItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UnconfiguredNodeListItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/storage-containers/{extId}/$actions/unmount Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/storage-containers/{extId}/$actions/unmount Post operation
 */
 type UnmountStorageContainerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -23722,7 +30173,26 @@ func (p *UnmountStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UnmountStorageContainerApiResponse(*known)
+	*p = *NewUnmountStorageContainerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -23733,7 +30203,9 @@ func (p *UnmountStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -23742,7 +30214,7 @@ func NewUnmountStorageContainerApiResponse() *UnmountStorageContainerApiResponse
 	p := new(UnmountStorageContainerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UnmountStorageContainerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23770,7 +30242,7 @@ func (p *UnmountStorageContainerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/vcenter-extensions/{extId}/$actions/unregister Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/vcenter-extensions/{extId}/$actions/unregister Post operation
 */
 type UnregisterVcenterExtensionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -23829,7 +30301,26 @@ func (p *UnregisterVcenterExtensionApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UnregisterVcenterExtensionApiResponse(*known)
+	*p = *NewUnregisterVcenterExtensionApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -23840,7 +30331,9 @@ func (p *UnregisterVcenterExtensionApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -23849,7 +30342,7 @@ func NewUnregisterVcenterExtensionApiResponse() *UnregisterVcenterExtensionApiRe
 	p := new(UnregisterVcenterExtensionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UnregisterVcenterExtensionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23877,7 +30370,7 @@ func (p *UnregisterVcenterExtensionApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info Put operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info Put operation
 */
 type UpdateBmcInfoResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -23936,7 +30429,26 @@ func (p *UpdateBmcInfoResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateBmcInfoResponse(*known)
+	*p = *NewUpdateBmcInfoResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -23947,7 +30459,9 @@ func (p *UpdateBmcInfoResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -23956,7 +30470,7 @@ func NewUpdateBmcInfoResponse() *UpdateBmcInfoResponse {
 	p := new(UpdateBmcInfoResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateBmcInfoResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23984,7 +30498,7 @@ func (p *UpdateBmcInfoResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{extId} Put operation
 */
 type UpdateClusterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24043,7 +30557,26 @@ func (p *UpdateClusterApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateClusterApiResponse(*known)
+	*p = *NewUpdateClusterApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -24054,7 +30587,9 @@ func (p *UpdateClusterApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -24063,7 +30598,7 @@ func NewUpdateClusterApiResponse() *UpdateClusterApiResponse {
 	p := new(UpdateClusterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateClusterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24091,7 +30626,7 @@ func (p *UpdateClusterApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/cluster-profiles/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/cluster-profiles/{extId} Put operation
 */
 type UpdateClusterProfileApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24150,7 +30685,26 @@ func (p *UpdateClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateClusterProfileApiResponse(*known)
+	*p = *NewUpdateClusterProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -24161,7 +30715,9 @@ func (p *UpdateClusterProfileApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -24170,7 +30726,7 @@ func NewUpdateClusterProfileApiResponse() *UpdateClusterProfileApiResponse {
 	p := new(UpdateClusterProfileApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateClusterProfileApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24198,7 +30754,7 @@ func (p *UpdateClusterProfileApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/disks/{extId}/$actions/update-led-state Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/disks/{extId}/$actions/update-led-state Post operation
 */
 type UpdateDiskLEDStateTaskResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24257,7 +30813,26 @@ func (p *UpdateDiskLEDStateTaskResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateDiskLEDStateTaskResponse(*known)
+	*p = *NewUpdateDiskLEDStateTaskResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -24268,7 +30843,9 @@ func (p *UpdateDiskLEDStateTaskResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -24277,7 +30854,7 @@ func NewUpdateDiskLEDStateTaskResponse() *UpdateDiskLEDStateTaskResponse {
 	p := new(UpdateDiskLEDStateTaskResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateDiskLEDStateTaskResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24305,7 +30882,7 @@ func (p *UpdateDiskLEDStateTaskResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers/{extId} Put operation
 */
 type UpdateRsyslogServerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24364,7 +30941,26 @@ func (p *UpdateRsyslogServerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateRsyslogServerApiResponse(*known)
+	*p = *NewUpdateRsyslogServerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -24375,7 +30971,9 @@ func (p *UpdateRsyslogServerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -24384,7 +30982,7 @@ func NewUpdateRsyslogServerApiResponse() *UpdateRsyslogServerApiResponse {
 	p := new(UpdateRsyslogServerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateRsyslogServerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24412,7 +31010,7 @@ func (p *UpdateRsyslogServerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/ssl-certificate Put operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/ssl-certificate Put operation
 */
 type UpdateSSLCertificateApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24471,7 +31069,26 @@ func (p *UpdateSSLCertificateApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateSSLCertificateApiResponse(*known)
+	*p = *NewUpdateSSLCertificateApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -24482,7 +31099,9 @@ func (p *UpdateSSLCertificateApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -24491,7 +31110,7 @@ func NewUpdateSSLCertificateApiResponse() *UpdateSSLCertificateApiResponse {
 	p := new(UpdateSSLCertificateApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSSLCertificateApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24519,7 +31138,7 @@ func (p *UpdateSSLCertificateApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/$actions/update-status Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/$actions/update-status Post operation
 */
 type UpdateSnmpStatusApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24578,7 +31197,26 @@ func (p *UpdateSnmpStatusApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateSnmpStatusApiResponse(*known)
+	*p = *NewUpdateSnmpStatusApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -24589,7 +31227,9 @@ func (p *UpdateSnmpStatusApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -24598,7 +31238,7 @@ func NewUpdateSnmpStatusApiResponse() *UpdateSnmpStatusApiResponse {
 	p := new(UpdateSnmpStatusApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSnmpStatusApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24626,7 +31266,7 @@ func (p *UpdateSnmpStatusApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps/{extId} Put operation
 */
 type UpdateSnmpTrapApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24685,7 +31325,26 @@ func (p *UpdateSnmpTrapApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateSnmpTrapApiResponse(*known)
+	*p = *NewUpdateSnmpTrapApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -24696,7 +31355,9 @@ func (p *UpdateSnmpTrapApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -24705,7 +31366,7 @@ func NewUpdateSnmpTrapApiResponse() *UpdateSnmpTrapApiResponse {
 	p := new(UpdateSnmpTrapApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSnmpTrapApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24733,7 +31394,7 @@ func (p *UpdateSnmpTrapApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users/{extId} Put operation
 */
 type UpdateSnmpUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24792,7 +31453,26 @@ func (p *UpdateSnmpUserApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateSnmpUserApiResponse(*known)
+	*p = *NewUpdateSnmpUserApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -24803,7 +31483,9 @@ func (p *UpdateSnmpUserApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -24812,7 +31494,7 @@ func NewUpdateSnmpUserApiResponse() *UpdateSnmpUserApiResponse {
 	p := new(UpdateSnmpUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateSnmpUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24840,7 +31522,7 @@ func (p *UpdateSnmpUserApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/storage-containers/{extId} Put operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/storage-containers/{extId} Put operation
 */
 type UpdateStorageContainerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24899,7 +31581,26 @@ func (p *UpdateStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateStorageContainerApiResponse(*known)
+	*p = *NewUpdateStorageContainerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -24910,7 +31611,9 @@ func (p *UpdateStorageContainerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -24919,7 +31622,7 @@ func NewUpdateStorageContainerApiResponse() *UpdateStorageContainerApiResponse {
 	p := new(UpdateStorageContainerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UpdateStorageContainerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25111,7 +31814,23 @@ func (p *UplinkInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UplinkInfo(*known)
+	*p = *NewUplinkInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CvmIp != nil {
+		p.CvmIp = known.CvmIp
+	}
+	if known.UplinkList != nil {
+		p.UplinkList = known.UplinkList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25121,7 +31840,9 @@ func (p *UplinkInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uplinkList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25130,7 +31851,7 @@ func NewUplinkInfo() *UplinkInfo {
 	p := new(UplinkInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UplinkInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25155,6 +31876,10 @@ type UplinkNetworkItem struct {
 	Networks []string `json:"networks,omitempty"`
 
 	Uplinks *Uplinks `json:"uplinks,omitempty"`
+	/*
+	  External ID of the vswitch.
+	*/
+	VswitchExtId *string `json:"vswitchExtId,omitempty"`
 }
 
 func (p *UplinkNetworkItem) MarshalJSON() ([]byte, error) {
@@ -25198,7 +31923,29 @@ func (p *UplinkNetworkItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UplinkNetworkItem(*known)
+	*p = *NewUplinkNetworkItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Networks != nil {
+		p.Networks = known.Networks
+	}
+	if known.Uplinks != nil {
+		p.Uplinks = known.Uplinks
+	}
+	if known.VswitchExtId != nil {
+		p.VswitchExtId = known.VswitchExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25207,9 +31954,12 @@ func (p *UplinkNetworkItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 	delete(allFields, "networks")
 	delete(allFields, "uplinks")
+	delete(allFields, "vswitchExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25218,7 +31968,7 @@ func NewUplinkNetworkItem() *UplinkNetworkItem {
 	p := new(UplinkNetworkItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UplinkNetworkItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25293,7 +32043,26 @@ func (p *UplinkNode) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UplinkNode(*known)
+	*p = *NewUplinkNode()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CvmIp != nil {
+		p.CvmIp = known.CvmIp
+	}
+	if known.HypervisorIp != nil {
+		p.HypervisorIp = known.HypervisorIp
+	}
+	if known.Networks != nil {
+		p.Networks = known.Networks
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25304,7 +32073,9 @@ func (p *UplinkNode) UnmarshalJSON(b []byte) error {
 	delete(allFields, "networks")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25313,10 +32084,89 @@ func NewUplinkNode() *UplinkNode {
 	p := new(UplinkNode)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UplinkNode"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Uplink status of interface.
+*/
+type UplinkStatus int
+
+const (
+	UPLINKSTATUS_UNKNOWN  UplinkStatus = 0
+	UPLINKSTATUS_REDACTED UplinkStatus = 1
+	UPLINKSTATUS_UP       UplinkStatus = 2
+	UPLINKSTATUS_DOWN     UplinkStatus = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *UplinkStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"UP",
+		"DOWN",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e UplinkStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"UP",
+		"DOWN",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *UplinkStatus) index(name string) UplinkStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"UP",
+		"DOWN",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return UplinkStatus(idx)
+		}
+	}
+	return UPLINKSTATUS_UNKNOWN
+}
+
+func (e *UplinkStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for UplinkStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *UplinkStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e UplinkStatus) Ref() *UplinkStatus {
+	return &e
 }
 
 /*
@@ -25379,7 +32229,23 @@ func (p *Uplinks) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Uplinks(*known)
+	*p = *NewUplinks()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Active != nil {
+		p.Active = known.Active
+	}
+	if known.Standby != nil {
+		p.Standby = known.Standby
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25389,7 +32255,9 @@ func (p *Uplinks) UnmarshalJSON(b []byte) error {
 	delete(allFields, "standby")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25398,7 +32266,7 @@ func NewUplinks() *Uplinks {
 	p := new(Uplinks)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.Uplinks"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25468,7 +32336,26 @@ func (p *UplinksField) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UplinksField(*known)
+	*p = *NewUplinksField()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Mac != nil {
+		p.Mac = known.Mac
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25479,7 +32366,9 @@ func (p *UplinksField) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25488,7 +32377,7 @@ func NewUplinksField() *UplinksField {
 	p := new(UplinksField)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UplinksField"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25576,7 +32465,41 @@ func (p *UploadInfoNodeItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UploadInfoNodeItem(*known)
+	*p = *NewUploadInfoNodeItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AvailableHypervisorIsoError != nil {
+		p.AvailableHypervisorIsoError = known.AvailableHypervisorIsoError
+	}
+	if known.BundleName != nil {
+		p.BundleName = known.BundleName
+	}
+	if known.IsHypervisorUploadRequired != nil {
+		p.IsHypervisorUploadRequired = known.IsHypervisorUploadRequired
+	}
+	if known.IsImagingMandatory != nil {
+		p.IsImagingMandatory = known.IsImagingMandatory
+	}
+	if known.IsNodeCompatible != nil {
+		p.IsNodeCompatible = known.IsNodeCompatible
+	}
+	if known.Md5Sum != nil {
+		p.Md5Sum = known.Md5Sum
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.RequiredHypervisorType != nil {
+		p.RequiredHypervisorType = known.RequiredHypervisorType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25592,7 +32515,9 @@ func (p *UploadInfoNodeItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "requiredHypervisorType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25601,7 +32526,7 @@ func NewUploadInfoNodeItem() *UploadInfoNodeItem {
 	p := new(UploadInfoNodeItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UploadInfoNodeItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25671,7 +32596,26 @@ func (p *UserInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UserInfo(*known)
+	*p = *NewUserInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.UserName != nil {
+		p.UserName = known.UserName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25682,7 +32626,9 @@ func (p *UserInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25691,10 +32637,89 @@ func NewUserInfo() *UserInfo {
 	p := new(UserInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.UserInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Vswitch owner type enumeration.
+*/
+type VSwitchOwnerType int
+
+const (
+	VSWITCHOWNERTYPE_UNKNOWN       VSwitchOwnerType = 0
+	VSWITCHOWNERTYPE_REDACTED      VSwitchOwnerType = 1
+	VSWITCHOWNERTYPE_PRISM_ELEMENT VSwitchOwnerType = 2
+	VSWITCHOWNERTYPE_PRISM_CENTRAL VSwitchOwnerType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *VSwitchOwnerType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRISM_ELEMENT",
+		"PRISM_CENTRAL",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e VSwitchOwnerType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRISM_ELEMENT",
+		"PRISM_CENTRAL",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *VSwitchOwnerType) index(name string) VSwitchOwnerType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRISM_ELEMENT",
+		"PRISM_CENTRAL",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return VSwitchOwnerType(idx)
+		}
+	}
+	return VSWITCHOWNERTYPE_UNKNOWN
+}
+
+func (e *VSwitchOwnerType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for VSwitchOwnerType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *VSwitchOwnerType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e VSwitchOwnerType) Ref() *VSwitchOwnerType {
+	return &e
 }
 
 /*
@@ -25753,7 +32778,20 @@ func (p *ValidateBundleInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ValidateBundleInfo(*known)
+	*p = *NewValidateBundleInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Md5Sum != nil {
+		p.Md5Sum = known.Md5Sum
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25762,7 +32800,9 @@ func (p *ValidateBundleInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "md5Sum")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25771,14 +32811,14 @@ func NewValidateBundleInfo() *ValidateBundleInfo {
 	p := new(ValidateBundleInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ValidateBundleInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/validate-node Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/validate-node Post operation
 */
 type ValidateNodeApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -25837,7 +32877,26 @@ func (p *ValidateNodeApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ValidateNodeApiResponse(*known)
+	*p = *NewValidateNodeApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25848,7 +32907,9 @@ func (p *ValidateNodeApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25857,7 +32918,7 @@ func NewValidateNodeApiResponse() *ValidateNodeApiResponse {
 	p := new(ValidateNodeApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ValidateNodeApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25951,7 +33012,23 @@ func (p *ValidateNodeParam) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ValidateNodeParam(*known)
+	*p = *NewValidateNodeParam()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SpecItemDiscriminator_ != nil {
+		p.SpecItemDiscriminator_ = known.SpecItemDiscriminator_
+	}
+	if known.Spec != nil {
+		p.Spec = known.Spec
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -25961,7 +33038,9 @@ func (p *ValidateNodeParam) UnmarshalJSON(b []byte) error {
 	delete(allFields, "spec")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -25970,7 +33049,7 @@ func NewValidateNodeParam() *ValidateNodeParam {
 	p := new(ValidateNodeParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.ValidateNodeParam"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -26070,7 +33149,26 @@ func (p *VcenterCredentials) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VcenterCredentials(*known)
+	*p = *NewVcenterCredentials()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -26081,7 +33179,9 @@ func (p *VcenterCredentials) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -26090,7 +33190,7 @@ func NewVcenterCredentials() *VcenterCredentials {
 	p := new(VcenterCredentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.VcenterCredentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Port = new(int)
@@ -26175,7 +33275,35 @@ func (p *VcenterExtension) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VcenterExtension(*known)
+	*p = *NewVcenterExtension()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.IsRegistered != nil {
+		p.IsRegistered = known.IsRegistered
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -26189,7 +33317,9 @@ func (p *VcenterExtension) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -26198,7 +33328,7 @@ func NewVcenterExtension() *VcenterExtension {
 	p := new(VcenterExtension)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.VcenterExtension"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -26269,7 +33399,23 @@ func (p *VcenterInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VcenterInfo(*known)
+	*p = *NewVcenterInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Address != nil {
+		p.Address = known.Address
+	}
+	if known.Credentials != nil {
+		p.Credentials = known.Credentials
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -26279,7 +33425,9 @@ func (p *VcenterInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "credentials")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -26288,7 +33436,7 @@ func NewVcenterInfo() *VcenterInfo {
 	p := new(VcenterInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.VcenterInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -26404,7 +33552,62 @@ func (p *VirtualGpuConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VirtualGpuConfig(*known)
+	*p = *NewVirtualGpuConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Assignable != nil {
+		p.Assignable = known.Assignable
+	}
+	if known.DeviceId != nil {
+		p.DeviceId = known.DeviceId
+	}
+	if known.DeviceName != nil {
+		p.DeviceName = known.DeviceName
+	}
+	if known.Fraction != nil {
+		p.Fraction = known.Fraction
+	}
+	if known.FrameBufferSizeBytes != nil {
+		p.FrameBufferSizeBytes = known.FrameBufferSizeBytes
+	}
+	if known.GuestDriverVersion != nil {
+		p.GuestDriverVersion = known.GuestDriverVersion
+	}
+	if known.IsInUse != nil {
+		p.IsInUse = known.IsInUse
+	}
+	if known.Licenses != nil {
+		p.Licenses = known.Licenses
+	}
+	if known.MaxInstancesPerVm != nil {
+		p.MaxInstancesPerVm = known.MaxInstancesPerVm
+	}
+	if known.MaxResolution != nil {
+		p.MaxResolution = known.MaxResolution
+	}
+	if known.NumaNode != nil {
+		p.NumaNode = known.NumaNode
+	}
+	if known.NumberOfVirtualDisplayHeads != nil {
+		p.NumberOfVirtualDisplayHeads = known.NumberOfVirtualDisplayHeads
+	}
+	if known.Sbdf != nil {
+		p.Sbdf = known.Sbdf
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.VendorName != nil {
+		p.VendorName = known.VendorName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -26427,7 +33630,9 @@ func (p *VirtualGpuConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendorName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -26436,7 +33641,7 @@ func NewVirtualGpuConfig() *VirtualGpuConfig {
 	p := new(VirtualGpuConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.VirtualGpuConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsInUse = new(bool)
@@ -26515,7 +33720,32 @@ func (p *VirtualGpuProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VirtualGpuProfile(*known)
+	*p = *NewVirtualGpuProfile()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AllocatedVmExtIds != nil {
+		p.AllocatedVmExtIds = known.AllocatedVmExtIds
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VirtualGpuConfig != nil {
+		p.VirtualGpuConfig = known.VirtualGpuConfig
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -26528,7 +33758,9 @@ func (p *VirtualGpuProfile) UnmarshalJSON(b []byte) error {
 	delete(allFields, "virtualGpuConfig")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -26537,7 +33769,7 @@ func NewVirtualGpuProfile() *VirtualGpuProfile {
 	p := new(VirtualGpuProfile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.VirtualGpuProfile"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -26655,7 +33887,62 @@ func (p *VirtualNic) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VirtualNic(*known)
+	*p = *NewVirtualNic()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HostDescription != nil {
+		p.HostDescription = known.HostDescription
+	}
+	if known.HostNicsUuids != nil {
+		p.HostNicsUuids = known.HostNicsUuids
+	}
+	if known.InterfaceStatus != nil {
+		p.InterfaceStatus = known.InterfaceStatus
+	}
+	if known.Ipv4Addresses != nil {
+		p.Ipv4Addresses = known.Ipv4Addresses
+	}
+	if known.Ipv6Addresses != nil {
+		p.Ipv6Addresses = known.Ipv6Addresses
+	}
+	if known.IsDhcpEnabled != nil {
+		p.IsDhcpEnabled = known.IsDhcpEnabled
+	}
+	if known.LinkSpeedInKbps != nil {
+		p.LinkSpeedInKbps = known.LinkSpeedInKbps
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
+	if known.MtuInBytes != nil {
+		p.MtuInBytes = known.MtuInBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VlanId != nil {
+		p.VlanId = known.VlanId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -26678,7 +33965,9 @@ func (p *VirtualNic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vlanId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -26687,7 +33976,7 @@ func NewVirtualNic() *VirtualNic {
 	p := new(VirtualNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.config.VirtualNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -29602,6 +36891,117 @@ func (p *OneOfGetRackableUnitApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType2001)
 	}
 	return nil, errors.New("No value to marshal for OneOfGetRackableUnitApiResponseData")
+}
+
+type OneOfReconfigureCvmsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfReconfigureCvmsApiResponseData() *OneOfReconfigureCvmsApiResponseData {
+	p := new(OneOfReconfigureCvmsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfReconfigureCvmsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfReconfigureCvmsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfReconfigureCvmsApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfReconfigureCvmsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfReconfigureCvmsApiResponseData"))
+}
+
+func (p *OneOfReconfigureCvmsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfReconfigureCvmsApiResponseData")
 }
 
 type OneOfGetSnmpConfigByClusterIdApiResponseData struct {
@@ -33838,6 +41238,143 @@ func (p *OneOfDeleteSnmpTrapApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDeleteSnmpTrapApiResponseData")
 }
 
+type OneOfListCvmsByClusterIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 []Cvm                  `json:"-"`
+	oneOfType401  []CvmProjection        `json:"-"`
+}
+
+func NewOneOfListCvmsByClusterIdApiResponseData() *OneOfListCvmsByClusterIdApiResponseData {
+	p := new(OneOfListCvmsByClusterIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListCvmsByClusterIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListCvmsByClusterIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Cvm:
+		p.oneOfType2001 = v.([]Cvm)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.Cvm>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.Cvm>"
+	case []CvmProjection:
+		p.oneOfType401 = v.([]CvmProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<clustermgmt.v4.config.CvmProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<clustermgmt.v4.config.CvmProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListCvmsByClusterIdApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<clustermgmt.v4.config.Cvm>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if "List<clustermgmt.v4.config.CvmProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfListCvmsByClusterIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]Cvm)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "clustermgmt.v4.config.Cvm" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.Cvm>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.Cvm>"
+			return nil
+		}
+	}
+	vOneOfType401 := new([]CvmProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "clustermgmt.v4.config.CvmProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<clustermgmt.v4.config.CvmProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<clustermgmt.v4.config.CvmProjection>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListCvmsByClusterIdApiResponseData"))
+}
+
+func (p *OneOfListCvmsByClusterIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<clustermgmt.v4.config.Cvm>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if "List<clustermgmt.v4.config.CvmProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfListCvmsByClusterIdApiResponseData")
+}
+
 type OneOfUpdateClusterApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -34861,6 +42398,117 @@ func (p *OneOfListClusterProfilesApiResponseData) MarshalJSON() ([]byte, error) 
 		return json.Marshal(p.oneOfType401)
 	}
 	return nil, errors.New("No value to marshal for OneOfListClusterProfilesApiResponseData")
+}
+
+type OneOfGetCvmApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *Cvm                   `json:"-"`
+}
+
+func NewOneOfGetCvmApiResponseData() *OneOfGetCvmApiResponseData {
+	p := new(OneOfGetCvmApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetCvmApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetCvmApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Cvm:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Cvm)
+		}
+		*p.oneOfType2001 = v.(Cvm)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetCvmApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetCvmApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "clustermgmt.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(Cvm)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "clustermgmt.v4.config.Cvm" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Cvm)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCvmApiResponseData"))
+}
+
+func (p *OneOfGetCvmApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetCvmApiResponseData")
 }
 
 type OneOfListDataStoresByClusterIdApiResponseData struct {

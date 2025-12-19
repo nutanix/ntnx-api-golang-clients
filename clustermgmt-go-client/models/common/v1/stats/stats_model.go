@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/stats/stats_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -10,7 +10,7 @@
  */
 
 /*
-  Nutanix Stats Configuration
+  Module common.v1.stats of Nutanix Cluster Management APIs
 */
 package stats
 
@@ -177,7 +177,23 @@ func (p *TimeIntValuePair) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TimeIntValuePair(*known)
+	*p = *NewTimeIntValuePair()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -187,7 +203,9 @@ func (p *TimeIntValuePair) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }

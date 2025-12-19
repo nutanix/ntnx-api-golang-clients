@@ -32,14 +32,14 @@ func NewPasswordManagerApi(apiClient *client.ApiClient) *PasswordManagerApi {
 	return a
 }
 
-// Initiate change password request for a system user on a supported product.
+// This API allows you to start a password change for a system user on Nutanix products, including AOS, Prism Central (PC), and AHV. For AOS and PC, the password change affects the cluster-wide system accounts nutanix and admin. For AHV, it operates at the node level for the root and admin accounts (admin only if a password exists; by default, admin is locked). Use this API to securely update credentials in alignment with your cluster or node configuration.
 func (api *PasswordManagerApi) ChangeSystemUserPasswordById(extId *string, body *import1.ChangePasswordSpec, args ...map[string]interface{}) (*import1.ChangeSystemUserPasswordApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/system-user-passwords/{extId}/$actions/change-password"
+	uri := "/api/clustermgmt/v4.2/config/system-user-passwords/{extId}/$actions/change-password"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -74,7 +74,7 @@ func (api *PasswordManagerApi) ChangeSystemUserPasswordById(extId *string, body 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -86,14 +86,14 @@ func (api *PasswordManagerApi) ChangeSystemUserPasswordById(extId *string, body 
 	return unmarshalledResp, err
 }
 
-// Lists password status of system user accounts on supported products.
+// This API allows you to view password status for a system user on Nutanix products, including AOS, Prism Central (PC), and AHV.
 func (api *PasswordManagerApi) ListSystemUserPasswords(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListSystemUserPasswordsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/system-user-passwords"
+	uri := "/api/clustermgmt/v4.2/config/system-user-passwords"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -136,7 +136,7 @@ func (api *PasswordManagerApi) ListSystemUserPasswords(page_ *int, limit_ *int, 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

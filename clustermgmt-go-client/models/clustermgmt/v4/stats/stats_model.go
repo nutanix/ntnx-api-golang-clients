@@ -1,7 +1,7 @@
 /*
  * Generated file models/clustermgmt/v4/stats/stats_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -210,6 +210,10 @@ type ClusterStats struct {
 	*/
 	OverallSavingsRatio []TimeValuePair `json:"overallSavingsRatio,omitempty"`
 	/*
+	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs
+	*/
+	OvercommittedVmsReclaimableMemoryBytes []TimeValuePair `json:"overcommittedVmsReclaimableMemoryBytes,omitempty"`
+	/*
 	  Power instant consumption (watt)
 	*/
 	PowerConsumptionInstantWatt []TimeValuePair `json:"powerConsumptionInstantWatt,omitempty"`
@@ -276,7 +280,170 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterStats(*known)
+	*p = *NewClusterStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AggregateHypervisorMemoryUsagePpm != nil {
+		p.AggregateHypervisorMemoryUsagePpm = known.AggregateHypervisorMemoryUsagePpm
+	}
+	if known.AggregateHypervisorMemoryUsagePpmLowerBuf != nil {
+		p.AggregateHypervisorMemoryUsagePpmLowerBuf = known.AggregateHypervisorMemoryUsagePpmLowerBuf
+	}
+	if known.AggregateHypervisorMemoryUsagePpmUpperBuf != nil {
+		p.AggregateHypervisorMemoryUsagePpmUpperBuf = known.AggregateHypervisorMemoryUsagePpmUpperBuf
+	}
+	if known.ControllerAvgIoLatencyUsecs != nil {
+		p.ControllerAvgIoLatencyUsecs = known.ControllerAvgIoLatencyUsecs
+	}
+	if known.ControllerAvgIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgIoLatencyUsecsLowerBuf = known.ControllerAvgIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgIoLatencyUsecsUpperBuf = known.ControllerAvgIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerAvgReadIoLatencyUsecs != nil {
+		p.ControllerAvgReadIoLatencyUsecs = known.ControllerAvgReadIoLatencyUsecs
+	}
+	if known.ControllerAvgReadIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgReadIoLatencyUsecsLowerBuf = known.ControllerAvgReadIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgReadIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgReadIoLatencyUsecsUpperBuf = known.ControllerAvgReadIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerAvgWriteIoLatencyUsecs != nil {
+		p.ControllerAvgWriteIoLatencyUsecs = known.ControllerAvgWriteIoLatencyUsecs
+	}
+	if known.ControllerAvgWriteIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgWriteIoLatencyUsecsLowerBuf = known.ControllerAvgWriteIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgWriteIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgWriteIoLatencyUsecsUpperBuf = known.ControllerAvgWriteIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumIopsLowerBuf != nil {
+		p.ControllerNumIopsLowerBuf = known.ControllerNumIopsLowerBuf
+	}
+	if known.ControllerNumIopsUpperBuf != nil {
+		p.ControllerNumIopsUpperBuf = known.ControllerNumIopsUpperBuf
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumReadIopsLowerBuf != nil {
+		p.ControllerNumReadIopsLowerBuf = known.ControllerNumReadIopsLowerBuf
+	}
+	if known.ControllerNumReadIopsUpperBuf != nil {
+		p.ControllerNumReadIopsUpperBuf = known.ControllerNumReadIopsUpperBuf
+	}
+	if known.ControllerNumWriteIops != nil {
+		p.ControllerNumWriteIops = known.ControllerNumWriteIops
+	}
+	if known.ControllerNumWriteIopsLowerBuf != nil {
+		p.ControllerNumWriteIopsLowerBuf = known.ControllerNumWriteIopsLowerBuf
+	}
+	if known.ControllerNumWriteIopsUpperBuf != nil {
+		p.ControllerNumWriteIopsUpperBuf = known.ControllerNumWriteIopsUpperBuf
+	}
+	if known.ControllerReadIoBandwidthKbps != nil {
+		p.ControllerReadIoBandwidthKbps = known.ControllerReadIoBandwidthKbps
+	}
+	if known.ControllerReadIoBandwidthKbpsLowerBuf != nil {
+		p.ControllerReadIoBandwidthKbpsLowerBuf = known.ControllerReadIoBandwidthKbpsLowerBuf
+	}
+	if known.ControllerReadIoBandwidthKbpsUpperBuf != nil {
+		p.ControllerReadIoBandwidthKbpsUpperBuf = known.ControllerReadIoBandwidthKbpsUpperBuf
+	}
+	if known.ControllerWriteIoBandwidthKbps != nil {
+		p.ControllerWriteIoBandwidthKbps = known.ControllerWriteIoBandwidthKbps
+	}
+	if known.ControllerWriteIoBandwidthKbpsLowerBuf != nil {
+		p.ControllerWriteIoBandwidthKbpsLowerBuf = known.ControllerWriteIoBandwidthKbpsLowerBuf
+	}
+	if known.ControllerWriteIoBandwidthKbpsUpperBuf != nil {
+		p.ControllerWriteIoBandwidthKbpsUpperBuf = known.ControllerWriteIoBandwidthKbpsUpperBuf
+	}
+	if known.CpuCapacityHz != nil {
+		p.CpuCapacityHz = known.CpuCapacityHz
+	}
+	if known.CpuUsageHz != nil {
+		p.CpuUsageHz = known.CpuUsageHz
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FreePhysicalStorageBytes != nil {
+		p.FreePhysicalStorageBytes = known.FreePhysicalStorageBytes
+	}
+	if known.HealthCheckScore != nil {
+		p.HealthCheckScore = known.HealthCheckScore
+	}
+	if known.HypervisorCpuUsagePpm != nil {
+		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
+	}
+	if known.HypervisorCpuUsagePpmLowerBuf != nil {
+		p.HypervisorCpuUsagePpmLowerBuf = known.HypervisorCpuUsagePpmLowerBuf
+	}
+	if known.HypervisorCpuUsagePpmUpperBuf != nil {
+		p.HypervisorCpuUsagePpmUpperBuf = known.HypervisorCpuUsagePpmUpperBuf
+	}
+	if known.IoBandwidthKbps != nil {
+		p.IoBandwidthKbps = known.IoBandwidthKbps
+	}
+	if known.IoBandwidthKbpsLowerBuf != nil {
+		p.IoBandwidthKbpsLowerBuf = known.IoBandwidthKbpsLowerBuf
+	}
+	if known.IoBandwidthKbpsUpperBuf != nil {
+		p.IoBandwidthKbpsUpperBuf = known.IoBandwidthKbpsUpperBuf
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LogicalStorageUsageBytes != nil {
+		p.LogicalStorageUsageBytes = known.LogicalStorageUsageBytes
+	}
+	if known.MemoryCapacityBytes != nil {
+		p.MemoryCapacityBytes = known.MemoryCapacityBytes
+	}
+	if known.OverallMemoryUsageBytes != nil {
+		p.OverallMemoryUsageBytes = known.OverallMemoryUsageBytes
+	}
+	if known.OverallSavingsBytes != nil {
+		p.OverallSavingsBytes = known.OverallSavingsBytes
+	}
+	if known.OverallSavingsRatio != nil {
+		p.OverallSavingsRatio = known.OverallSavingsRatio
+	}
+	if known.OvercommittedVmsReclaimableMemoryBytes != nil {
+		p.OvercommittedVmsReclaimableMemoryBytes = known.OvercommittedVmsReclaimableMemoryBytes
+	}
+	if known.PowerConsumptionInstantWatt != nil {
+		p.PowerConsumptionInstantWatt = known.PowerConsumptionInstantWatt
+	}
+	if known.RecycleBinUsageBytes != nil {
+		p.RecycleBinUsageBytes = known.RecycleBinUsageBytes
+	}
+	if known.SnapshotCapacityBytes != nil {
+		p.SnapshotCapacityBytes = known.SnapshotCapacityBytes
+	}
+	if known.StorageCapacityBytes != nil {
+		p.StorageCapacityBytes = known.StorageCapacityBytes
+	}
+	if known.StorageUsageBytes != nil {
+		p.StorageUsageBytes = known.StorageUsageBytes
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -326,6 +493,7 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "overallMemoryUsageBytes")
 	delete(allFields, "overallSavingsBytes")
 	delete(allFields, "overallSavingsRatio")
+	delete(allFields, "overcommittedVmsReclaimableMemoryBytes")
 	delete(allFields, "powerConsumptionInstantWatt")
 	delete(allFields, "recycleBinUsageBytes")
 	delete(allFields, "snapshotCapacityBytes")
@@ -334,7 +502,9 @@ func (p *ClusterStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -343,14 +513,14 @@ func NewClusterStats() *ClusterStats {
 	p := new(ClusterStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/stats/clusters/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/stats/clusters/{extId} Get operation
 */
 type ClusterStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -409,7 +579,26 @@ func (p *ClusterStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterStatsApiResponse(*known)
+	*p = *NewClusterStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -420,7 +609,9 @@ func (p *ClusterStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -429,7 +620,7 @@ func NewClusterStatsApiResponse() *ClusterStatsApiResponse {
 	p := new(ClusterStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -639,6 +830,10 @@ type ClusterStatsProjection struct {
 	*/
 	OverallSavingsRatio []TimeValuePair `json:"overallSavingsRatio,omitempty"`
 	/*
+	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs
+	*/
+	OvercommittedVmsReclaimableMemoryBytes []TimeValuePair `json:"overcommittedVmsReclaimableMemoryBytes,omitempty"`
+	/*
 	  Power instant consumption (watt)
 	*/
 	PowerConsumptionInstantWatt []TimeValuePair `json:"powerConsumptionInstantWatt,omitempty"`
@@ -705,7 +900,170 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterStatsProjection(*known)
+	*p = *NewClusterStatsProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AggregateHypervisorMemoryUsagePpm != nil {
+		p.AggregateHypervisorMemoryUsagePpm = known.AggregateHypervisorMemoryUsagePpm
+	}
+	if known.AggregateHypervisorMemoryUsagePpmLowerBuf != nil {
+		p.AggregateHypervisorMemoryUsagePpmLowerBuf = known.AggregateHypervisorMemoryUsagePpmLowerBuf
+	}
+	if known.AggregateHypervisorMemoryUsagePpmUpperBuf != nil {
+		p.AggregateHypervisorMemoryUsagePpmUpperBuf = known.AggregateHypervisorMemoryUsagePpmUpperBuf
+	}
+	if known.ControllerAvgIoLatencyUsecs != nil {
+		p.ControllerAvgIoLatencyUsecs = known.ControllerAvgIoLatencyUsecs
+	}
+	if known.ControllerAvgIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgIoLatencyUsecsLowerBuf = known.ControllerAvgIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgIoLatencyUsecsUpperBuf = known.ControllerAvgIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerAvgReadIoLatencyUsecs != nil {
+		p.ControllerAvgReadIoLatencyUsecs = known.ControllerAvgReadIoLatencyUsecs
+	}
+	if known.ControllerAvgReadIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgReadIoLatencyUsecsLowerBuf = known.ControllerAvgReadIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgReadIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgReadIoLatencyUsecsUpperBuf = known.ControllerAvgReadIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerAvgWriteIoLatencyUsecs != nil {
+		p.ControllerAvgWriteIoLatencyUsecs = known.ControllerAvgWriteIoLatencyUsecs
+	}
+	if known.ControllerAvgWriteIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgWriteIoLatencyUsecsLowerBuf = known.ControllerAvgWriteIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgWriteIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgWriteIoLatencyUsecsUpperBuf = known.ControllerAvgWriteIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumIopsLowerBuf != nil {
+		p.ControllerNumIopsLowerBuf = known.ControllerNumIopsLowerBuf
+	}
+	if known.ControllerNumIopsUpperBuf != nil {
+		p.ControllerNumIopsUpperBuf = known.ControllerNumIopsUpperBuf
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumReadIopsLowerBuf != nil {
+		p.ControllerNumReadIopsLowerBuf = known.ControllerNumReadIopsLowerBuf
+	}
+	if known.ControllerNumReadIopsUpperBuf != nil {
+		p.ControllerNumReadIopsUpperBuf = known.ControllerNumReadIopsUpperBuf
+	}
+	if known.ControllerNumWriteIops != nil {
+		p.ControllerNumWriteIops = known.ControllerNumWriteIops
+	}
+	if known.ControllerNumWriteIopsLowerBuf != nil {
+		p.ControllerNumWriteIopsLowerBuf = known.ControllerNumWriteIopsLowerBuf
+	}
+	if known.ControllerNumWriteIopsUpperBuf != nil {
+		p.ControllerNumWriteIopsUpperBuf = known.ControllerNumWriteIopsUpperBuf
+	}
+	if known.ControllerReadIoBandwidthKbps != nil {
+		p.ControllerReadIoBandwidthKbps = known.ControllerReadIoBandwidthKbps
+	}
+	if known.ControllerReadIoBandwidthKbpsLowerBuf != nil {
+		p.ControllerReadIoBandwidthKbpsLowerBuf = known.ControllerReadIoBandwidthKbpsLowerBuf
+	}
+	if known.ControllerReadIoBandwidthKbpsUpperBuf != nil {
+		p.ControllerReadIoBandwidthKbpsUpperBuf = known.ControllerReadIoBandwidthKbpsUpperBuf
+	}
+	if known.ControllerWriteIoBandwidthKbps != nil {
+		p.ControllerWriteIoBandwidthKbps = known.ControllerWriteIoBandwidthKbps
+	}
+	if known.ControllerWriteIoBandwidthKbpsLowerBuf != nil {
+		p.ControllerWriteIoBandwidthKbpsLowerBuf = known.ControllerWriteIoBandwidthKbpsLowerBuf
+	}
+	if known.ControllerWriteIoBandwidthKbpsUpperBuf != nil {
+		p.ControllerWriteIoBandwidthKbpsUpperBuf = known.ControllerWriteIoBandwidthKbpsUpperBuf
+	}
+	if known.CpuCapacityHz != nil {
+		p.CpuCapacityHz = known.CpuCapacityHz
+	}
+	if known.CpuUsageHz != nil {
+		p.CpuUsageHz = known.CpuUsageHz
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FreePhysicalStorageBytes != nil {
+		p.FreePhysicalStorageBytes = known.FreePhysicalStorageBytes
+	}
+	if known.HealthCheckScore != nil {
+		p.HealthCheckScore = known.HealthCheckScore
+	}
+	if known.HypervisorCpuUsagePpm != nil {
+		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
+	}
+	if known.HypervisorCpuUsagePpmLowerBuf != nil {
+		p.HypervisorCpuUsagePpmLowerBuf = known.HypervisorCpuUsagePpmLowerBuf
+	}
+	if known.HypervisorCpuUsagePpmUpperBuf != nil {
+		p.HypervisorCpuUsagePpmUpperBuf = known.HypervisorCpuUsagePpmUpperBuf
+	}
+	if known.IoBandwidthKbps != nil {
+		p.IoBandwidthKbps = known.IoBandwidthKbps
+	}
+	if known.IoBandwidthKbpsLowerBuf != nil {
+		p.IoBandwidthKbpsLowerBuf = known.IoBandwidthKbpsLowerBuf
+	}
+	if known.IoBandwidthKbpsUpperBuf != nil {
+		p.IoBandwidthKbpsUpperBuf = known.IoBandwidthKbpsUpperBuf
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LogicalStorageUsageBytes != nil {
+		p.LogicalStorageUsageBytes = known.LogicalStorageUsageBytes
+	}
+	if known.MemoryCapacityBytes != nil {
+		p.MemoryCapacityBytes = known.MemoryCapacityBytes
+	}
+	if known.OverallMemoryUsageBytes != nil {
+		p.OverallMemoryUsageBytes = known.OverallMemoryUsageBytes
+	}
+	if known.OverallSavingsBytes != nil {
+		p.OverallSavingsBytes = known.OverallSavingsBytes
+	}
+	if known.OverallSavingsRatio != nil {
+		p.OverallSavingsRatio = known.OverallSavingsRatio
+	}
+	if known.OvercommittedVmsReclaimableMemoryBytes != nil {
+		p.OvercommittedVmsReclaimableMemoryBytes = known.OvercommittedVmsReclaimableMemoryBytes
+	}
+	if known.PowerConsumptionInstantWatt != nil {
+		p.PowerConsumptionInstantWatt = known.PowerConsumptionInstantWatt
+	}
+	if known.RecycleBinUsageBytes != nil {
+		p.RecycleBinUsageBytes = known.RecycleBinUsageBytes
+	}
+	if known.SnapshotCapacityBytes != nil {
+		p.SnapshotCapacityBytes = known.SnapshotCapacityBytes
+	}
+	if known.StorageCapacityBytes != nil {
+		p.StorageCapacityBytes = known.StorageCapacityBytes
+	}
+	if known.StorageUsageBytes != nil {
+		p.StorageUsageBytes = known.StorageUsageBytes
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -755,6 +1113,7 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "overallMemoryUsageBytes")
 	delete(allFields, "overallSavingsBytes")
 	delete(allFields, "overallSavingsRatio")
+	delete(allFields, "overcommittedVmsReclaimableMemoryBytes")
 	delete(allFields, "powerConsumptionInstantWatt")
 	delete(allFields, "recycleBinUsageBytes")
 	delete(allFields, "snapshotCapacityBytes")
@@ -763,7 +1122,9 @@ func (p *ClusterStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -772,7 +1133,7 @@ func NewClusterStatsProjection() *ClusterStatsProjection {
 	p := new(ClusterStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.ClusterStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -971,7 +1332,125 @@ func (p *DiskStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskStats(*known)
+	*p = *NewDiskStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskAvgIoLatencyMicrosec != nil {
+		p.DiskAvgIoLatencyMicrosec = known.DiskAvgIoLatencyMicrosec
+	}
+	if known.DiskBaseIoBandwidthkbps != nil {
+		p.DiskBaseIoBandwidthkbps = known.DiskBaseIoBandwidthkbps
+	}
+	if known.DiskBaseIoLatencyMicrosec != nil {
+		p.DiskBaseIoLatencyMicrosec = known.DiskBaseIoLatencyMicrosec
+	}
+	if known.DiskBaseNumIops != nil {
+		p.DiskBaseNumIops = known.DiskBaseNumIops
+	}
+	if known.DiskBaseReadIoAvgLatencyMicrosec != nil {
+		p.DiskBaseReadIoAvgLatencyMicrosec = known.DiskBaseReadIoAvgLatencyMicrosec
+	}
+	if known.DiskBaseReadIoBandwidthkbps != nil {
+		p.DiskBaseReadIoBandwidthkbps = known.DiskBaseReadIoBandwidthkbps
+	}
+	if known.DiskBaseReadIops != nil {
+		p.DiskBaseReadIops = known.DiskBaseReadIops
+	}
+	if known.DiskBaseWriteIoAvgLatencyMicrosec != nil {
+		p.DiskBaseWriteIoAvgLatencyMicrosec = known.DiskBaseWriteIoAvgLatencyMicrosec
+	}
+	if known.DiskBaseWriteIoBandwidthkbps != nil {
+		p.DiskBaseWriteIoBandwidthkbps = known.DiskBaseWriteIoBandwidthkbps
+	}
+	if known.DiskBaseWriteIops != nil {
+		p.DiskBaseWriteIops = known.DiskBaseWriteIops
+	}
+	if known.DiskCapacityBytes != nil {
+		p.DiskCapacityBytes = known.DiskCapacityBytes
+	}
+	if known.DiskFreeBytes != nil {
+		p.DiskFreeBytes = known.DiskFreeBytes
+	}
+	if known.DiskIoBandwidthkbps != nil {
+		p.DiskIoBandwidthkbps = known.DiskIoBandwidthkbps
+	}
+	if known.DiskNumIops != nil {
+		p.DiskNumIops = known.DiskNumIops
+	}
+	if known.DiskPeakIoBandwidthkbps != nil {
+		p.DiskPeakIoBandwidthkbps = known.DiskPeakIoBandwidthkbps
+	}
+	if known.DiskPeakIoLatencyMicrosec != nil {
+		p.DiskPeakIoLatencyMicrosec = known.DiskPeakIoLatencyMicrosec
+	}
+	if known.DiskPeakNumIops != nil {
+		p.DiskPeakNumIops = known.DiskPeakNumIops
+	}
+	if known.DiskPeakReadIoAvgLatencyMicrosec != nil {
+		p.DiskPeakReadIoAvgLatencyMicrosec = known.DiskPeakReadIoAvgLatencyMicrosec
+	}
+	if known.DiskPeakReadIoBandwidthkbps != nil {
+		p.DiskPeakReadIoBandwidthkbps = known.DiskPeakReadIoBandwidthkbps
+	}
+	if known.DiskPeakReadIops != nil {
+		p.DiskPeakReadIops = known.DiskPeakReadIops
+	}
+	if known.DiskPeakWriteIoAvgLatencyMicrosec != nil {
+		p.DiskPeakWriteIoAvgLatencyMicrosec = known.DiskPeakWriteIoAvgLatencyMicrosec
+	}
+	if known.DiskPeakWriteIoBandwidthkbps != nil {
+		p.DiskPeakWriteIoBandwidthkbps = known.DiskPeakWriteIoBandwidthkbps
+	}
+	if known.DiskPeakWriteIops != nil {
+		p.DiskPeakWriteIops = known.DiskPeakWriteIops
+	}
+	if known.DiskReadIoAvgLatencyMicrosec != nil {
+		p.DiskReadIoAvgLatencyMicrosec = known.DiskReadIoAvgLatencyMicrosec
+	}
+	if known.DiskReadIoBandwidthkbps != nil {
+		p.DiskReadIoBandwidthkbps = known.DiskReadIoBandwidthkbps
+	}
+	if known.DiskReadIoPpm != nil {
+		p.DiskReadIoPpm = known.DiskReadIoPpm
+	}
+	if known.DiskReadIops != nil {
+		p.DiskReadIops = known.DiskReadIops
+	}
+	if known.DiskUsageBytes != nil {
+		p.DiskUsageBytes = known.DiskUsageBytes
+	}
+	if known.DiskUsagePpm != nil {
+		p.DiskUsagePpm = known.DiskUsagePpm
+	}
+	if known.DiskWriteIoAvgLatencyMicrosec != nil {
+		p.DiskWriteIoAvgLatencyMicrosec = known.DiskWriteIoAvgLatencyMicrosec
+	}
+	if known.DiskWriteIoBandwidthkbps != nil {
+		p.DiskWriteIoBandwidthkbps = known.DiskWriteIoBandwidthkbps
+	}
+	if known.DiskWriteIoPpm != nil {
+		p.DiskWriteIoPpm = known.DiskWriteIoPpm
+	}
+	if known.DiskWriteIops != nil {
+		p.DiskWriteIops = known.DiskWriteIops
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1015,7 +1494,9 @@ func (p *DiskStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1024,14 +1505,14 @@ func NewDiskStats() *DiskStats {
 	p := new(DiskStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.DiskStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/stats/disks/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/stats/disks/{extId} Get operation
 */
 type GetDiskStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1090,7 +1571,26 @@ func (p *GetDiskStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetDiskStatsApiResponse(*known)
+	*p = *NewGetDiskStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1101,7 +1601,9 @@ func (p *GetDiskStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1110,7 +1612,7 @@ func NewGetDiskStatsApiResponse() *GetDiskStatsApiResponse {
 	p := new(GetDiskStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.GetDiskStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1138,7 +1640,7 @@ func (p *GetDiskStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/stats/storage-containers/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/stats/storage-containers/{extId} Get operation
 */
 type GetStorageContainerStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1197,7 +1699,26 @@ func (p *GetStorageContainerStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetStorageContainerStatsApiResponse(*known)
+	*p = *NewGetStorageContainerStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1208,7 +1729,9 @@ func (p *GetStorageContainerStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1217,7 +1740,7 @@ func NewGetStorageContainerStatsApiResponse() *GetStorageContainerStatsApiRespon
 	p := new(GetStorageContainerStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.GetStorageContainerStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1418,6 +1941,10 @@ type HostStats struct {
 	*/
 	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
 	/*
+	  Physical memory available to Overcommit enabled VMs in the Host
+	*/
+	MemoryOvercommitPoolSizePpm []TimeValuePair `json:"memoryOvercommitPoolSizePpm,omitempty"`
+	/*
 	  Overall memory usage(bytes).
 	*/
 	OverallMemoryUsageBytes []TimeValuePair `json:"overallMemoryUsageBytes,omitempty"`
@@ -1433,6 +1960,10 @@ type HostStats struct {
 	  Upper Buf value of overall memory usage(ppm).
 	*/
 	OverallMemoryUsagePpmUpperBuf []TimeValuePair `json:"overallMemoryUsagePpmUpperBuf,omitempty"`
+	/*
+	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs
+	*/
+	OvercommittedVmsReclaimableMemoryBytes []TimeValuePair `json:"overcommittedVmsReclaimableMemoryBytes,omitempty"`
 	/*
 	  Power instant consumption (watt)
 	*/
@@ -1492,7 +2023,170 @@ func (p *HostStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostStats(*known)
+	*p = *NewHostStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AggregateHypervisorMemoryUsagePpm != nil {
+		p.AggregateHypervisorMemoryUsagePpm = known.AggregateHypervisorMemoryUsagePpm
+	}
+	if known.AggregateHypervisorMemoryUsagePpmLowerBuf != nil {
+		p.AggregateHypervisorMemoryUsagePpmLowerBuf = known.AggregateHypervisorMemoryUsagePpmLowerBuf
+	}
+	if known.AggregateHypervisorMemoryUsagePpmUpperBuf != nil {
+		p.AggregateHypervisorMemoryUsagePpmUpperBuf = known.AggregateHypervisorMemoryUsagePpmUpperBuf
+	}
+	if known.ControllerAvgIoLatencyUsecs != nil {
+		p.ControllerAvgIoLatencyUsecs = known.ControllerAvgIoLatencyUsecs
+	}
+	if known.ControllerAvgIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgIoLatencyUsecsLowerBuf = known.ControllerAvgIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgIoLatencyUsecsUpperBuf = known.ControllerAvgIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerAvgReadIoLatencyUsecs != nil {
+		p.ControllerAvgReadIoLatencyUsecs = known.ControllerAvgReadIoLatencyUsecs
+	}
+	if known.ControllerAvgReadIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgReadIoLatencyUsecsLowerBuf = known.ControllerAvgReadIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgReadIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgReadIoLatencyUsecsUpperBuf = known.ControllerAvgReadIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerAvgWriteIoLatencyUsecs != nil {
+		p.ControllerAvgWriteIoLatencyUsecs = known.ControllerAvgWriteIoLatencyUsecs
+	}
+	if known.ControllerAvgWriteIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgWriteIoLatencyUsecsLowerBuf = known.ControllerAvgWriteIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgWriteIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgWriteIoLatencyUsecsUpperBuf = known.ControllerAvgWriteIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumIopsLowerBuf != nil {
+		p.ControllerNumIopsLowerBuf = known.ControllerNumIopsLowerBuf
+	}
+	if known.ControllerNumIopsUpperBuf != nil {
+		p.ControllerNumIopsUpperBuf = known.ControllerNumIopsUpperBuf
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumReadIopsLowerBuf != nil {
+		p.ControllerNumReadIopsLowerBuf = known.ControllerNumReadIopsLowerBuf
+	}
+	if known.ControllerNumReadIopsUpperBuf != nil {
+		p.ControllerNumReadIopsUpperBuf = known.ControllerNumReadIopsUpperBuf
+	}
+	if known.ControllerNumWriteIops != nil {
+		p.ControllerNumWriteIops = known.ControllerNumWriteIops
+	}
+	if known.ControllerNumWriteIopsLowerBuf != nil {
+		p.ControllerNumWriteIopsLowerBuf = known.ControllerNumWriteIopsLowerBuf
+	}
+	if known.ControllerNumWriteIopsUpperBuf != nil {
+		p.ControllerNumWriteIopsUpperBuf = known.ControllerNumWriteIopsUpperBuf
+	}
+	if known.ControllerReadIoBandwidthKbps != nil {
+		p.ControllerReadIoBandwidthKbps = known.ControllerReadIoBandwidthKbps
+	}
+	if known.ControllerReadIoBandwidthKbpsLowerBuf != nil {
+		p.ControllerReadIoBandwidthKbpsLowerBuf = known.ControllerReadIoBandwidthKbpsLowerBuf
+	}
+	if known.ControllerReadIoBandwidthKbpsUpperBuf != nil {
+		p.ControllerReadIoBandwidthKbpsUpperBuf = known.ControllerReadIoBandwidthKbpsUpperBuf
+	}
+	if known.ControllerWriteIoBandwidthKbps != nil {
+		p.ControllerWriteIoBandwidthKbps = known.ControllerWriteIoBandwidthKbps
+	}
+	if known.ControllerWriteIoBandwidthKbpsLowerBuf != nil {
+		p.ControllerWriteIoBandwidthKbpsLowerBuf = known.ControllerWriteIoBandwidthKbpsLowerBuf
+	}
+	if known.ControllerWriteIoBandwidthKbpsUpperBuf != nil {
+		p.ControllerWriteIoBandwidthKbpsUpperBuf = known.ControllerWriteIoBandwidthKbpsUpperBuf
+	}
+	if known.CpuCapacityHz != nil {
+		p.CpuCapacityHz = known.CpuCapacityHz
+	}
+	if known.CpuUsageHz != nil {
+		p.CpuUsageHz = known.CpuUsageHz
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FreePhysicalStorageBytes != nil {
+		p.FreePhysicalStorageBytes = known.FreePhysicalStorageBytes
+	}
+	if known.HealthCheckScore != nil {
+		p.HealthCheckScore = known.HealthCheckScore
+	}
+	if known.HypervisorCpuUsagePpm != nil {
+		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
+	}
+	if known.HypervisorCpuUsagePpmLowerBuf != nil {
+		p.HypervisorCpuUsagePpmLowerBuf = known.HypervisorCpuUsagePpmLowerBuf
+	}
+	if known.HypervisorCpuUsagePpmUpperBuf != nil {
+		p.HypervisorCpuUsagePpmUpperBuf = known.HypervisorCpuUsagePpmUpperBuf
+	}
+	if known.IoBandwidthKbps != nil {
+		p.IoBandwidthKbps = known.IoBandwidthKbps
+	}
+	if known.IoBandwidthKbpsLowerBuf != nil {
+		p.IoBandwidthKbpsLowerBuf = known.IoBandwidthKbpsLowerBuf
+	}
+	if known.IoBandwidthKbpsUpperBuf != nil {
+		p.IoBandwidthKbpsUpperBuf = known.IoBandwidthKbpsUpperBuf
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LogicalStorageUsageBytes != nil {
+		p.LogicalStorageUsageBytes = known.LogicalStorageUsageBytes
+	}
+	if known.MemoryCapacityBytes != nil {
+		p.MemoryCapacityBytes = known.MemoryCapacityBytes
+	}
+	if known.MemoryOvercommitPoolSizePpm != nil {
+		p.MemoryOvercommitPoolSizePpm = known.MemoryOvercommitPoolSizePpm
+	}
+	if known.OverallMemoryUsageBytes != nil {
+		p.OverallMemoryUsageBytes = known.OverallMemoryUsageBytes
+	}
+	if known.OverallMemoryUsagePpm != nil {
+		p.OverallMemoryUsagePpm = known.OverallMemoryUsagePpm
+	}
+	if known.OverallMemoryUsagePpmLowerBuf != nil {
+		p.OverallMemoryUsagePpmLowerBuf = known.OverallMemoryUsagePpmLowerBuf
+	}
+	if known.OverallMemoryUsagePpmUpperBuf != nil {
+		p.OverallMemoryUsagePpmUpperBuf = known.OverallMemoryUsagePpmUpperBuf
+	}
+	if known.OvercommittedVmsReclaimableMemoryBytes != nil {
+		p.OvercommittedVmsReclaimableMemoryBytes = known.OvercommittedVmsReclaimableMemoryBytes
+	}
+	if known.PowerConsumptionInstantWatt != nil {
+		p.PowerConsumptionInstantWatt = known.PowerConsumptionInstantWatt
+	}
+	if known.StorageCapacityBytes != nil {
+		p.StorageCapacityBytes = known.StorageCapacityBytes
+	}
+	if known.StorageUsageBytes != nil {
+		p.StorageUsageBytes = known.StorageUsageBytes
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1539,17 +2233,21 @@ func (p *HostStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 	delete(allFields, "logicalStorageUsageBytes")
 	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "memoryOvercommitPoolSizePpm")
 	delete(allFields, "overallMemoryUsageBytes")
 	delete(allFields, "overallMemoryUsagePpm")
 	delete(allFields, "overallMemoryUsagePpmLowerBuf")
 	delete(allFields, "overallMemoryUsagePpmUpperBuf")
+	delete(allFields, "overcommittedVmsReclaimableMemoryBytes")
 	delete(allFields, "powerConsumptionInstantWatt")
 	delete(allFields, "storageCapacityBytes")
 	delete(allFields, "storageUsageBytes")
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1558,14 +2256,14 @@ func NewHostStats() *HostStats {
 	p := new(HostStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/stats/clusters/{clusterExtId}/hosts/{extId} Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/stats/clusters/{clusterExtId}/hosts/{extId} Get operation
 */
 type HostStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1624,7 +2322,26 @@ func (p *HostStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostStatsApiResponse(*known)
+	*p = *NewHostStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1635,7 +2352,9 @@ func (p *HostStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1644,7 +2363,7 @@ func NewHostStatsApiResponse() *HostStatsApiResponse {
 	p := new(HostStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1842,6 +2561,10 @@ type HostStatsProjection struct {
 	*/
 	MemoryCapacityBytes []TimeValuePair `json:"memoryCapacityBytes,omitempty"`
 	/*
+	  Physical memory available to Overcommit enabled VMs in the Host
+	*/
+	MemoryOvercommitPoolSizePpm []TimeValuePair `json:"memoryOvercommitPoolSizePpm,omitempty"`
+	/*
 	  Overall memory usage(bytes).
 	*/
 	OverallMemoryUsageBytes []TimeValuePair `json:"overallMemoryUsageBytes,omitempty"`
@@ -1857,6 +2580,10 @@ type HostStatsProjection struct {
 	  Upper Buf value of overall memory usage(ppm).
 	*/
 	OverallMemoryUsagePpmUpperBuf []TimeValuePair `json:"overallMemoryUsagePpmUpperBuf,omitempty"`
+	/*
+	  Maximum amount of physical memory reclaimable from Overcommit enabled VMs
+	*/
+	OvercommittedVmsReclaimableMemoryBytes []TimeValuePair `json:"overcommittedVmsReclaimableMemoryBytes,omitempty"`
 	/*
 	  Power instant consumption (watt)
 	*/
@@ -1916,7 +2643,170 @@ func (p *HostStatsProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostStatsProjection(*known)
+	*p = *NewHostStatsProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AggregateHypervisorMemoryUsagePpm != nil {
+		p.AggregateHypervisorMemoryUsagePpm = known.AggregateHypervisorMemoryUsagePpm
+	}
+	if known.AggregateHypervisorMemoryUsagePpmLowerBuf != nil {
+		p.AggregateHypervisorMemoryUsagePpmLowerBuf = known.AggregateHypervisorMemoryUsagePpmLowerBuf
+	}
+	if known.AggregateHypervisorMemoryUsagePpmUpperBuf != nil {
+		p.AggregateHypervisorMemoryUsagePpmUpperBuf = known.AggregateHypervisorMemoryUsagePpmUpperBuf
+	}
+	if known.ControllerAvgIoLatencyUsecs != nil {
+		p.ControllerAvgIoLatencyUsecs = known.ControllerAvgIoLatencyUsecs
+	}
+	if known.ControllerAvgIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgIoLatencyUsecsLowerBuf = known.ControllerAvgIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgIoLatencyUsecsUpperBuf = known.ControllerAvgIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerAvgReadIoLatencyUsecs != nil {
+		p.ControllerAvgReadIoLatencyUsecs = known.ControllerAvgReadIoLatencyUsecs
+	}
+	if known.ControllerAvgReadIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgReadIoLatencyUsecsLowerBuf = known.ControllerAvgReadIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgReadIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgReadIoLatencyUsecsUpperBuf = known.ControllerAvgReadIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerAvgWriteIoLatencyUsecs != nil {
+		p.ControllerAvgWriteIoLatencyUsecs = known.ControllerAvgWriteIoLatencyUsecs
+	}
+	if known.ControllerAvgWriteIoLatencyUsecsLowerBuf != nil {
+		p.ControllerAvgWriteIoLatencyUsecsLowerBuf = known.ControllerAvgWriteIoLatencyUsecsLowerBuf
+	}
+	if known.ControllerAvgWriteIoLatencyUsecsUpperBuf != nil {
+		p.ControllerAvgWriteIoLatencyUsecsUpperBuf = known.ControllerAvgWriteIoLatencyUsecsUpperBuf
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumIopsLowerBuf != nil {
+		p.ControllerNumIopsLowerBuf = known.ControllerNumIopsLowerBuf
+	}
+	if known.ControllerNumIopsUpperBuf != nil {
+		p.ControllerNumIopsUpperBuf = known.ControllerNumIopsUpperBuf
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumReadIopsLowerBuf != nil {
+		p.ControllerNumReadIopsLowerBuf = known.ControllerNumReadIopsLowerBuf
+	}
+	if known.ControllerNumReadIopsUpperBuf != nil {
+		p.ControllerNumReadIopsUpperBuf = known.ControllerNumReadIopsUpperBuf
+	}
+	if known.ControllerNumWriteIops != nil {
+		p.ControllerNumWriteIops = known.ControllerNumWriteIops
+	}
+	if known.ControllerNumWriteIopsLowerBuf != nil {
+		p.ControllerNumWriteIopsLowerBuf = known.ControllerNumWriteIopsLowerBuf
+	}
+	if known.ControllerNumWriteIopsUpperBuf != nil {
+		p.ControllerNumWriteIopsUpperBuf = known.ControllerNumWriteIopsUpperBuf
+	}
+	if known.ControllerReadIoBandwidthKbps != nil {
+		p.ControllerReadIoBandwidthKbps = known.ControllerReadIoBandwidthKbps
+	}
+	if known.ControllerReadIoBandwidthKbpsLowerBuf != nil {
+		p.ControllerReadIoBandwidthKbpsLowerBuf = known.ControllerReadIoBandwidthKbpsLowerBuf
+	}
+	if known.ControllerReadIoBandwidthKbpsUpperBuf != nil {
+		p.ControllerReadIoBandwidthKbpsUpperBuf = known.ControllerReadIoBandwidthKbpsUpperBuf
+	}
+	if known.ControllerWriteIoBandwidthKbps != nil {
+		p.ControllerWriteIoBandwidthKbps = known.ControllerWriteIoBandwidthKbps
+	}
+	if known.ControllerWriteIoBandwidthKbpsLowerBuf != nil {
+		p.ControllerWriteIoBandwidthKbpsLowerBuf = known.ControllerWriteIoBandwidthKbpsLowerBuf
+	}
+	if known.ControllerWriteIoBandwidthKbpsUpperBuf != nil {
+		p.ControllerWriteIoBandwidthKbpsUpperBuf = known.ControllerWriteIoBandwidthKbpsUpperBuf
+	}
+	if known.CpuCapacityHz != nil {
+		p.CpuCapacityHz = known.CpuCapacityHz
+	}
+	if known.CpuUsageHz != nil {
+		p.CpuUsageHz = known.CpuUsageHz
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FreePhysicalStorageBytes != nil {
+		p.FreePhysicalStorageBytes = known.FreePhysicalStorageBytes
+	}
+	if known.HealthCheckScore != nil {
+		p.HealthCheckScore = known.HealthCheckScore
+	}
+	if known.HypervisorCpuUsagePpm != nil {
+		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
+	}
+	if known.HypervisorCpuUsagePpmLowerBuf != nil {
+		p.HypervisorCpuUsagePpmLowerBuf = known.HypervisorCpuUsagePpmLowerBuf
+	}
+	if known.HypervisorCpuUsagePpmUpperBuf != nil {
+		p.HypervisorCpuUsagePpmUpperBuf = known.HypervisorCpuUsagePpmUpperBuf
+	}
+	if known.IoBandwidthKbps != nil {
+		p.IoBandwidthKbps = known.IoBandwidthKbps
+	}
+	if known.IoBandwidthKbpsLowerBuf != nil {
+		p.IoBandwidthKbpsLowerBuf = known.IoBandwidthKbpsLowerBuf
+	}
+	if known.IoBandwidthKbpsUpperBuf != nil {
+		p.IoBandwidthKbpsUpperBuf = known.IoBandwidthKbpsUpperBuf
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LogicalStorageUsageBytes != nil {
+		p.LogicalStorageUsageBytes = known.LogicalStorageUsageBytes
+	}
+	if known.MemoryCapacityBytes != nil {
+		p.MemoryCapacityBytes = known.MemoryCapacityBytes
+	}
+	if known.MemoryOvercommitPoolSizePpm != nil {
+		p.MemoryOvercommitPoolSizePpm = known.MemoryOvercommitPoolSizePpm
+	}
+	if known.OverallMemoryUsageBytes != nil {
+		p.OverallMemoryUsageBytes = known.OverallMemoryUsageBytes
+	}
+	if known.OverallMemoryUsagePpm != nil {
+		p.OverallMemoryUsagePpm = known.OverallMemoryUsagePpm
+	}
+	if known.OverallMemoryUsagePpmLowerBuf != nil {
+		p.OverallMemoryUsagePpmLowerBuf = known.OverallMemoryUsagePpmLowerBuf
+	}
+	if known.OverallMemoryUsagePpmUpperBuf != nil {
+		p.OverallMemoryUsagePpmUpperBuf = known.OverallMemoryUsagePpmUpperBuf
+	}
+	if known.OvercommittedVmsReclaimableMemoryBytes != nil {
+		p.OvercommittedVmsReclaimableMemoryBytes = known.OvercommittedVmsReclaimableMemoryBytes
+	}
+	if known.PowerConsumptionInstantWatt != nil {
+		p.PowerConsumptionInstantWatt = known.PowerConsumptionInstantWatt
+	}
+	if known.StorageCapacityBytes != nil {
+		p.StorageCapacityBytes = known.StorageCapacityBytes
+	}
+	if known.StorageUsageBytes != nil {
+		p.StorageUsageBytes = known.StorageUsageBytes
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1963,17 +2853,21 @@ func (p *HostStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 	delete(allFields, "logicalStorageUsageBytes")
 	delete(allFields, "memoryCapacityBytes")
+	delete(allFields, "memoryOvercommitPoolSizePpm")
 	delete(allFields, "overallMemoryUsageBytes")
 	delete(allFields, "overallMemoryUsagePpm")
 	delete(allFields, "overallMemoryUsagePpmLowerBuf")
 	delete(allFields, "overallMemoryUsagePpmUpperBuf")
+	delete(allFields, "overcommittedVmsReclaimableMemoryBytes")
 	delete(allFields, "powerConsumptionInstantWatt")
 	delete(allFields, "storageCapacityBytes")
 	delete(allFields, "storageUsageBytes")
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1982,7 +2876,7 @@ func NewHostStatsProjection() *HostStatsProjection {
 	p := new(HostStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.HostStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2233,7 +3127,164 @@ func (p *StorageContainerStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StorageContainerStats(*known)
+	*p = *NewStorageContainerStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ContainerExtId != nil {
+		p.ContainerExtId = known.ContainerExtId
+	}
+	if known.ControllerAvgIoLatencyuSecs != nil {
+		p.ControllerAvgIoLatencyuSecs = known.ControllerAvgIoLatencyuSecs
+	}
+	if known.ControllerAvgReadIoLatencyuSecs != nil {
+		p.ControllerAvgReadIoLatencyuSecs = known.ControllerAvgReadIoLatencyuSecs
+	}
+	if known.ControllerAvgWriteIoLatencyuSecs != nil {
+		p.ControllerAvgWriteIoLatencyuSecs = known.ControllerAvgWriteIoLatencyuSecs
+	}
+	if known.ControllerIoBandwidthkBps != nil {
+		p.ControllerIoBandwidthkBps = known.ControllerIoBandwidthkBps
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumWriteIops != nil {
+		p.ControllerNumWriteIops = known.ControllerNumWriteIops
+	}
+	if known.ControllerReadIoBandwidthkBps != nil {
+		p.ControllerReadIoBandwidthkBps = known.ControllerReadIoBandwidthkBps
+	}
+	if known.ControllerReadIoRatioPpm != nil {
+		p.ControllerReadIoRatioPpm = known.ControllerReadIoRatioPpm
+	}
+	if known.ControllerWriteIoBandwidthkBps != nil {
+		p.ControllerWriteIoBandwidthkBps = known.ControllerWriteIoBandwidthkBps
+	}
+	if known.ControllerWriteIoRatioPpm != nil {
+		p.ControllerWriteIoRatioPpm = known.ControllerWriteIoRatioPpm
+	}
+	if known.DataReductionCloneSavedBytes != nil {
+		p.DataReductionCloneSavedBytes = known.DataReductionCloneSavedBytes
+	}
+	if known.DataReductionCloneSavingRatioPpm != nil {
+		p.DataReductionCloneSavingRatioPpm = known.DataReductionCloneSavingRatioPpm
+	}
+	if known.DataReductionCompressionSavedBytes != nil {
+		p.DataReductionCompressionSavedBytes = known.DataReductionCompressionSavedBytes
+	}
+	if known.DataReductionCompressionSavingRatioPpm != nil {
+		p.DataReductionCompressionSavingRatioPpm = known.DataReductionCompressionSavingRatioPpm
+	}
+	if known.DataReductionDedupSavedBytes != nil {
+		p.DataReductionDedupSavedBytes = known.DataReductionDedupSavedBytes
+	}
+	if known.DataReductionDedupSavingRatioPpm != nil {
+		p.DataReductionDedupSavingRatioPpm = known.DataReductionDedupSavingRatioPpm
+	}
+	if known.DataReductionErasureCodingSavedBytes != nil {
+		p.DataReductionErasureCodingSavedBytes = known.DataReductionErasureCodingSavedBytes
+	}
+	if known.DataReductionErasureCodingSavingRatioPpm != nil {
+		p.DataReductionErasureCodingSavingRatioPpm = known.DataReductionErasureCodingSavingRatioPpm
+	}
+	if known.DataReductionOverallPostReductionBytes != nil {
+		p.DataReductionOverallPostReductionBytes = known.DataReductionOverallPostReductionBytes
+	}
+	if known.DataReductionOverallPreReductionBytes != nil {
+		p.DataReductionOverallPreReductionBytes = known.DataReductionOverallPreReductionBytes
+	}
+	if known.DataReductionOverallSavedBytes != nil {
+		p.DataReductionOverallSavedBytes = known.DataReductionOverallSavedBytes
+	}
+	if known.DataReductionSavedBytes != nil {
+		p.DataReductionSavedBytes = known.DataReductionSavedBytes
+	}
+	if known.DataReductionSavingRatioPpm != nil {
+		p.DataReductionSavingRatioPpm = known.DataReductionSavingRatioPpm
+	}
+	if known.DataReductionSnapshotSavedBytes != nil {
+		p.DataReductionSnapshotSavedBytes = known.DataReductionSnapshotSavedBytes
+	}
+	if known.DataReductionSnapshotSavingRatioPpm != nil {
+		p.DataReductionSnapshotSavingRatioPpm = known.DataReductionSnapshotSavingRatioPpm
+	}
+	if known.DataReductionThinProvisionSavedBytes != nil {
+		p.DataReductionThinProvisionSavedBytes = known.DataReductionThinProvisionSavedBytes
+	}
+	if known.DataReductionThinProvisionSavingRatioPpm != nil {
+		p.DataReductionThinProvisionSavingRatioPpm = known.DataReductionThinProvisionSavingRatioPpm
+	}
+	if known.DataReductionTotalSavingRatioPpm != nil {
+		p.DataReductionTotalSavingRatioPpm = known.DataReductionTotalSavingRatioPpm
+	}
+	if known.DataReductionZeroWriteSavingsBytes != nil {
+		p.DataReductionZeroWriteSavingsBytes = known.DataReductionZeroWriteSavingsBytes
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Health != nil {
+		p.Health = known.Health
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.StorageActualPhysicalUsageBytes != nil {
+		p.StorageActualPhysicalUsageBytes = known.StorageActualPhysicalUsageBytes
+	}
+	if known.StorageCapacityBytes != nil {
+		p.StorageCapacityBytes = known.StorageCapacityBytes
+	}
+	if known.StorageFreeBytes != nil {
+		p.StorageFreeBytes = known.StorageFreeBytes
+	}
+	if known.StorageOtherContainersReservedCapacity != nil {
+		p.StorageOtherContainersReservedCapacity = known.StorageOtherContainersReservedCapacity
+	}
+	if known.StorageOtherContainersUnreservedCapacity != nil {
+		p.StorageOtherContainersUnreservedCapacity = known.StorageOtherContainersUnreservedCapacity
+	}
+	if known.StorageReplicationFactor != nil {
+		p.StorageReplicationFactor = known.StorageReplicationFactor
+	}
+	if known.StorageReservedCapacityBytes != nil {
+		p.StorageReservedCapacityBytes = known.StorageReservedCapacityBytes
+	}
+	if known.StorageReservedFreeBytes != nil {
+		p.StorageReservedFreeBytes = known.StorageReservedFreeBytes
+	}
+	if known.StorageReservedUsageBytes != nil {
+		p.StorageReservedUsageBytes = known.StorageReservedUsageBytes
+	}
+	if known.StorageSnapshotReclaimable != nil {
+		p.StorageSnapshotReclaimable = known.StorageSnapshotReclaimable
+	}
+	if known.StorageTierDasSataUsageBytes != nil {
+		p.StorageTierDasSataUsageBytes = known.StorageTierDasSataUsageBytes
+	}
+	if known.StorageTierSsdUsageBytes != nil {
+		p.StorageTierSsdUsageBytes = known.StorageTierSsdUsageBytes
+	}
+	if known.StorageUnreservedUsageBytes != nil {
+		p.StorageUnreservedUsageBytes = known.StorageUnreservedUsageBytes
+	}
+	if known.StorageUsageBytes != nil {
+		p.StorageUsageBytes = known.StorageUsageBytes
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2290,7 +3341,9 @@ func (p *StorageContainerStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2299,7 +3352,7 @@ func NewStorageContainerStats() *StorageContainerStats {
 	p := new(StorageContainerStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.StorageContainerStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2550,7 +3603,164 @@ func (p *StorageContainerStatsProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StorageContainerStatsProjection(*known)
+	*p = *NewStorageContainerStatsProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ContainerExtId != nil {
+		p.ContainerExtId = known.ContainerExtId
+	}
+	if known.ControllerAvgIoLatencyuSecs != nil {
+		p.ControllerAvgIoLatencyuSecs = known.ControllerAvgIoLatencyuSecs
+	}
+	if known.ControllerAvgReadIoLatencyuSecs != nil {
+		p.ControllerAvgReadIoLatencyuSecs = known.ControllerAvgReadIoLatencyuSecs
+	}
+	if known.ControllerAvgWriteIoLatencyuSecs != nil {
+		p.ControllerAvgWriteIoLatencyuSecs = known.ControllerAvgWriteIoLatencyuSecs
+	}
+	if known.ControllerIoBandwidthkBps != nil {
+		p.ControllerIoBandwidthkBps = known.ControllerIoBandwidthkBps
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumWriteIops != nil {
+		p.ControllerNumWriteIops = known.ControllerNumWriteIops
+	}
+	if known.ControllerReadIoBandwidthkBps != nil {
+		p.ControllerReadIoBandwidthkBps = known.ControllerReadIoBandwidthkBps
+	}
+	if known.ControllerReadIoRatioPpm != nil {
+		p.ControllerReadIoRatioPpm = known.ControllerReadIoRatioPpm
+	}
+	if known.ControllerWriteIoBandwidthkBps != nil {
+		p.ControllerWriteIoBandwidthkBps = known.ControllerWriteIoBandwidthkBps
+	}
+	if known.ControllerWriteIoRatioPpm != nil {
+		p.ControllerWriteIoRatioPpm = known.ControllerWriteIoRatioPpm
+	}
+	if known.DataReductionCloneSavedBytes != nil {
+		p.DataReductionCloneSavedBytes = known.DataReductionCloneSavedBytes
+	}
+	if known.DataReductionCloneSavingRatioPpm != nil {
+		p.DataReductionCloneSavingRatioPpm = known.DataReductionCloneSavingRatioPpm
+	}
+	if known.DataReductionCompressionSavedBytes != nil {
+		p.DataReductionCompressionSavedBytes = known.DataReductionCompressionSavedBytes
+	}
+	if known.DataReductionCompressionSavingRatioPpm != nil {
+		p.DataReductionCompressionSavingRatioPpm = known.DataReductionCompressionSavingRatioPpm
+	}
+	if known.DataReductionDedupSavedBytes != nil {
+		p.DataReductionDedupSavedBytes = known.DataReductionDedupSavedBytes
+	}
+	if known.DataReductionDedupSavingRatioPpm != nil {
+		p.DataReductionDedupSavingRatioPpm = known.DataReductionDedupSavingRatioPpm
+	}
+	if known.DataReductionErasureCodingSavedBytes != nil {
+		p.DataReductionErasureCodingSavedBytes = known.DataReductionErasureCodingSavedBytes
+	}
+	if known.DataReductionErasureCodingSavingRatioPpm != nil {
+		p.DataReductionErasureCodingSavingRatioPpm = known.DataReductionErasureCodingSavingRatioPpm
+	}
+	if known.DataReductionOverallPostReductionBytes != nil {
+		p.DataReductionOverallPostReductionBytes = known.DataReductionOverallPostReductionBytes
+	}
+	if known.DataReductionOverallPreReductionBytes != nil {
+		p.DataReductionOverallPreReductionBytes = known.DataReductionOverallPreReductionBytes
+	}
+	if known.DataReductionOverallSavedBytes != nil {
+		p.DataReductionOverallSavedBytes = known.DataReductionOverallSavedBytes
+	}
+	if known.DataReductionSavedBytes != nil {
+		p.DataReductionSavedBytes = known.DataReductionSavedBytes
+	}
+	if known.DataReductionSavingRatioPpm != nil {
+		p.DataReductionSavingRatioPpm = known.DataReductionSavingRatioPpm
+	}
+	if known.DataReductionSnapshotSavedBytes != nil {
+		p.DataReductionSnapshotSavedBytes = known.DataReductionSnapshotSavedBytes
+	}
+	if known.DataReductionSnapshotSavingRatioPpm != nil {
+		p.DataReductionSnapshotSavingRatioPpm = known.DataReductionSnapshotSavingRatioPpm
+	}
+	if known.DataReductionThinProvisionSavedBytes != nil {
+		p.DataReductionThinProvisionSavedBytes = known.DataReductionThinProvisionSavedBytes
+	}
+	if known.DataReductionThinProvisionSavingRatioPpm != nil {
+		p.DataReductionThinProvisionSavingRatioPpm = known.DataReductionThinProvisionSavingRatioPpm
+	}
+	if known.DataReductionTotalSavingRatioPpm != nil {
+		p.DataReductionTotalSavingRatioPpm = known.DataReductionTotalSavingRatioPpm
+	}
+	if known.DataReductionZeroWriteSavingsBytes != nil {
+		p.DataReductionZeroWriteSavingsBytes = known.DataReductionZeroWriteSavingsBytes
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Health != nil {
+		p.Health = known.Health
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.StorageActualPhysicalUsageBytes != nil {
+		p.StorageActualPhysicalUsageBytes = known.StorageActualPhysicalUsageBytes
+	}
+	if known.StorageCapacityBytes != nil {
+		p.StorageCapacityBytes = known.StorageCapacityBytes
+	}
+	if known.StorageFreeBytes != nil {
+		p.StorageFreeBytes = known.StorageFreeBytes
+	}
+	if known.StorageOtherContainersReservedCapacity != nil {
+		p.StorageOtherContainersReservedCapacity = known.StorageOtherContainersReservedCapacity
+	}
+	if known.StorageOtherContainersUnreservedCapacity != nil {
+		p.StorageOtherContainersUnreservedCapacity = known.StorageOtherContainersUnreservedCapacity
+	}
+	if known.StorageReplicationFactor != nil {
+		p.StorageReplicationFactor = known.StorageReplicationFactor
+	}
+	if known.StorageReservedCapacityBytes != nil {
+		p.StorageReservedCapacityBytes = known.StorageReservedCapacityBytes
+	}
+	if known.StorageReservedFreeBytes != nil {
+		p.StorageReservedFreeBytes = known.StorageReservedFreeBytes
+	}
+	if known.StorageReservedUsageBytes != nil {
+		p.StorageReservedUsageBytes = known.StorageReservedUsageBytes
+	}
+	if known.StorageSnapshotReclaimable != nil {
+		p.StorageSnapshotReclaimable = known.StorageSnapshotReclaimable
+	}
+	if known.StorageTierDasSataUsageBytes != nil {
+		p.StorageTierDasSataUsageBytes = known.StorageTierDasSataUsageBytes
+	}
+	if known.StorageTierSsdUsageBytes != nil {
+		p.StorageTierSsdUsageBytes = known.StorageTierSsdUsageBytes
+	}
+	if known.StorageUnreservedUsageBytes != nil {
+		p.StorageUnreservedUsageBytes = known.StorageUnreservedUsageBytes
+	}
+	if known.StorageUsageBytes != nil {
+		p.StorageUsageBytes = known.StorageUsageBytes
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2607,7 +3817,9 @@ func (p *StorageContainerStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2616,7 +3828,7 @@ func NewStorageContainerStatsProjection() *StorageContainerStatsProjection {
 	p := new(StorageContainerStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.StorageContainerStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2682,7 +3894,23 @@ func (p *TimeValuePair) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TimeValuePair(*known)
+	*p = *NewTimeValuePair()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2692,7 +3920,9 @@ func (p *TimeValuePair) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2701,7 +3931,7 @@ func NewTimeValuePair() *TimeValuePair {
 	p := new(TimeValuePair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.stats.TimeValuePair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

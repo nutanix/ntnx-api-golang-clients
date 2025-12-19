@@ -39,7 +39,7 @@ func (api *BmcApi) GetBmcInfo(clusterExtId *string, extId *string, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -75,7 +75,7 @@ func (api *BmcApi) GetBmcInfo(clusterExtId *string, extId *string, args ...map[s
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -94,7 +94,7 @@ func (api *BmcApi) UpdateBmcInfo(clusterExtId *string, extId *string, body *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{extId}/bmc-info"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -134,7 +134,7 @@ func (api *BmcApi) UpdateBmcInfo(clusterExtId *string, extId *string, body *impo
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

@@ -39,7 +39,7 @@ func (api *SSLCertificateApi) GetSSLCertificate(clusterExtId *string, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/ssl-certificate"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/ssl-certificate"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -70,7 +70,7 @@ func (api *SSLCertificateApi) GetSSLCertificate(clusterExtId *string, args ...ma
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -89,7 +89,7 @@ func (api *SSLCertificateApi) UpdateSSLCertificate(clusterExtId *string, body *i
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/ssl-certificate"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/ssl-certificate"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -124,7 +124,7 @@ func (api *SSLCertificateApi) UpdateSSLCertificate(clusterExtId *string, body *i
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type VcenterExtensionsApi struct {
+type CvmsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewVcenterExtensionsApi(apiClient *client.ApiClient) *VcenterExtensionsApi {
+func NewCvmsApi(apiClient *client.ApiClient) *CvmsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &VcenterExtensionsApi{
+	a := &CvmsApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,21 +32,26 @@ func NewVcenterExtensionsApi(apiClient *client.ApiClient) *VcenterExtensionsApi 
 	return a
 }
 
-// Fetches vCenter server extension information for the given VcenterExtensionExtId.
-func (api *VcenterExtensionsApi) GetVcenterExtensionById(extId *string, args ...map[string]interface{}) (*import1.GetVcenterExtensionApiResponse, error) {
+// Get the details of the CVMs identified by {extId} belonging to the cluster identified by {clusterExtId}.
+func (api *CvmsApi) GetCvmById(clusterExtId *string, extId *string, args ...map[string]interface{}) (*import1.GetCvmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/vcenter-extensions/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/cvms/{extId}"
 
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -77,20 +82,27 @@ func (api *VcenterExtensionsApi) GetVcenterExtensionById(extId *string, args ...
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetVcenterExtensionApiResponse)
+	unmarshalledResp := new(import1.GetCvmApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List of vCenter server extensions for the clusters registered under a Prism Central server.
-func (api *VcenterExtensionsApi) ListVcenterExtensions(page_ *int, limit_ *int, filter_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListVcenterExtensionsApiResponse, error) {
+// Get the list of all the CVMs belonging to the cluster identified by {clusterExtId}.
+func (api *CvmsApi) ListCvmsbyClusterId(clusterExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListCvmsByClusterIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/vcenter-extensions"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/cvms"
 
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -110,6 +122,9 @@ func (api *VcenterExtensionsApi) ListVcenterExtensions(page_ *int, limit_ *int, 
 	}
 	if filter_ != nil {
 		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
 	}
 	if select_ != nil {
 		queryParams.Add("$select", client.ParameterToString(*select_, ""))
@@ -133,23 +148,23 @@ func (api *VcenterExtensionsApi) ListVcenterExtensions(page_ *int, limit_ *int, 
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ListVcenterExtensionsApiResponse)
+	unmarshalledResp := new(import1.ListCvmsByClusterIdApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Registers Nutanix cluster as a vCenter server extension.
-func (api *VcenterExtensionsApi) RegisterVcenterExtension(extId *string, body *import1.VcenterCredentials, args ...map[string]interface{}) (*import1.RegisterVcenterExtensionApiResponse, error) {
+// Reconfigure CVMs within a cluster identified by {clusterExtId}.
+func (api *CvmsApi) ReconfigureCvms(clusterExtId *string, body *import1.CvmReconfigurationSpec, args ...map[string]interface{}) (*import1.ReconfigureCvmsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.2/config/vcenter-extensions/{extId}/$actions/register"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/cvms/$actions/reconfigure"
 
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
+	// verify the required parameter 'clusterExtId' is set
+	if nil == clusterExtId {
+		return nil, client.ReportError("clusterExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -157,7 +172,7 @@ func (api *VcenterExtensionsApi) RegisterVcenterExtension(extId *string, body *i
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"clusterExtId"+"}", url.PathEscape(client.ParameterToString(*clusterExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -187,61 +202,7 @@ func (api *VcenterExtensionsApi) RegisterVcenterExtension(extId *string, body *i
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.RegisterVcenterExtensionApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Unregisters Nutanix cluster as a vCenter server extension.
-func (api *VcenterExtensionsApi) UnregisterVcenterExtension(extId *string, body *import1.VcenterCredentials, args ...map[string]interface{}) (*import1.UnregisterVcenterExtensionApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/clustermgmt/v4.2/config/vcenter-extensions/{extId}/$actions/unregister"
-
-	// verify the required parameter 'extId' is set
-	if nil == extId {
-		return nil, client.ReportError("extId is required and must be specified")
-	}
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.UnregisterVcenterExtensionApiResponse)
+	unmarshalledResp := new(import1.ReconfigureCvmsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

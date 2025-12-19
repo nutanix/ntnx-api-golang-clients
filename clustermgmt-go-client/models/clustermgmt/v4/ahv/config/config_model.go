@@ -1,7 +1,7 @@
 /*
  * Generated file models/clustermgmt/v4/ahv/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -24,7 +24,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/ahv/config/pcie-devices Get operation
+REST response for all response codes in API path /clustermgmt/v4.2/ahv/config/pcie-devices Get operation
 */
 type ListPcieDevicesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -83,7 +83,26 @@ func (p *ListPcieDevicesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListPcieDevicesApiResponse(*known)
+	*p = *NewListPcieDevicesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -94,7 +113,9 @@ func (p *ListPcieDevicesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -103,7 +124,7 @@ func NewListPcieDevicesApiResponse() *ListPcieDevicesApiResponse {
 	p := new(ListPcieDevicesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.ahv.config.ListPcieDevicesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -216,7 +237,47 @@ func (p *PcieDevice) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcieDevice(*known)
+	*p = *NewPcieDevice()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.Configuration != nil {
+		p.Configuration = known.Configuration
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HostExtId != nil {
+		p.HostExtId = known.HostExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.OwnerVmExtId != nil {
+		p.OwnerVmExtId = known.OwnerVmExtId
+	}
+	if known.State != nil {
+		p.State = known.State
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -234,7 +295,9 @@ func (p *PcieDevice) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -243,7 +306,7 @@ func NewPcieDevice() *PcieDevice {
 	p := new(PcieDevice)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.ahv.config.PcieDevice"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -329,7 +392,38 @@ func (p *PcieDeviceConfiguration) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcieDeviceConfiguration(*known)
+	*p = *NewPcieDeviceConfiguration()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClassId != nil {
+		p.ClassId = known.ClassId
+	}
+	if known.DeviceId != nil {
+		p.DeviceId = known.DeviceId
+	}
+	if known.ProgIFace != nil {
+		p.ProgIFace = known.ProgIFace
+	}
+	if known.SubClassId != nil {
+		p.SubClassId = known.SubClassId
+	}
+	if known.SubSystemId != nil {
+		p.SubSystemId = known.SubSystemId
+	}
+	if known.SubSystemVendorId != nil {
+		p.SubSystemVendorId = known.SubSystemVendorId
+	}
+	if known.VendorId != nil {
+		p.VendorId = known.VendorId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -344,7 +438,9 @@ func (p *PcieDeviceConfiguration) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendorId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -353,7 +449,7 @@ func NewPcieDeviceConfiguration() *PcieDeviceConfiguration {
 	p := new(PcieDeviceConfiguration)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.ahv.config.PcieDeviceConfiguration"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

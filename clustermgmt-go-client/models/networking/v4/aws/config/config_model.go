@@ -1,7 +1,7 @@
 /*
  * Generated file models/networking/v4/aws/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -129,7 +129,47 @@ func (p *AwsSubnet) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AwsSubnet(*known)
+	*p = *NewAwsSubnet()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Annotation != nil {
+		p.Annotation = known.Annotation
+	}
+	if known.AvailabilityZone != nil {
+		p.AvailabilityZone = known.AvailabilityZone
+	}
+	if known.Cidr != nil {
+		p.Cidr = known.Cidr
+	}
+	if known.CloudType != nil {
+		p.CloudType = known.CloudType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.GatewayIp != nil {
+		p.GatewayIp = known.GatewayIp
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.SubnetId != nil {
+		p.SubnetId = known.SubnetId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VpcId != nil {
+		p.VpcId = known.VpcId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -147,7 +187,9 @@ func (p *AwsSubnet) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vpcId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -156,7 +198,7 @@ func NewAwsSubnet() *AwsSubnet {
 	p := new(AwsSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.AwsSubnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

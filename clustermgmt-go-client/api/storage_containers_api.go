@@ -42,7 +42,7 @@ func (api *StorageContainersApi) ClearThickProvisionedSpace(extId *string, xClus
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}/$actions/clear-thick-provisioned-space"
+	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}/$actions/clear-thick-provisioned-space"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -76,7 +76,7 @@ func (api *StorageContainersApi) ClearThickProvisionedSpace(extId *string, xClus
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -95,7 +95,7 @@ func (api *StorageContainersApi) CreateStorageContainer(body *import1.StorageCon
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/storage-containers"
+	uri := "/api/clustermgmt/v4.2/config/storage-containers"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -129,7 +129,7 @@ func (api *StorageContainersApi) CreateStorageContainer(body *import1.StorageCon
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -148,7 +148,7 @@ func (api *StorageContainersApi) DeleteStorageContainerById(extId *string, ignor
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -183,7 +183,7 @@ func (api *StorageContainersApi) DeleteStorageContainerById(extId *string, ignor
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -202,7 +202,7 @@ func (api *StorageContainersApi) GetStorageContainerById(extId *string, args ...
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -233,7 +233,7 @@ func (api *StorageContainersApi) GetStorageContainerById(extId *string, args ...
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -252,7 +252,7 @@ func (api *StorageContainersApi) GetStorageContainerStats(extId *string, startTi
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/stats/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.2/stats/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -301,7 +301,7 @@ func (api *StorageContainersApi) GetStorageContainerStats(extId *string, startTi
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -320,7 +320,7 @@ func (api *StorageContainersApi) ListDataStoresByClusterId(clusterExtId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/storage-containers/datastores"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/storage-containers/datastores"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -361,7 +361,7 @@ func (api *StorageContainersApi) ListDataStoresByClusterId(clusterExtId *string,
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -373,14 +373,14 @@ func (api *StorageContainersApi) ListDataStoresByClusterId(clusterExtId *string,
 	return unmarshalledResp, err
 }
 
-// Lists the Storage Containers available in the cluster.  Note: The Storage Containers of PEs with versions prior to AOS 6.5 might have missing attribute data, and the PEs under the self-owned RBAC category might not be visible to non-admin users.
+// Lists the Storage Containers available in the cluster. Note: The Storage Containers of PEs with versions prior to AOS 6.5 might have missing attribute data, and the PEs under the self-owned RBAC category might not be visible to non-admin users.
 func (api *StorageContainersApi) ListStorageContainers(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListStorageContainersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/storage-containers"
+	uri := "/api/clustermgmt/v4.2/config/storage-containers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -420,7 +420,7 @@ func (api *StorageContainersApi) ListStorageContainers(page_ *int, limit_ *int, 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -439,7 +439,7 @@ func (api *StorageContainersApi) MountStorageContainer(extId *string, body *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}/$actions/mount"
+	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}/$actions/mount"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -474,7 +474,7 @@ func (api *StorageContainersApi) MountStorageContainer(extId *string, body *impo
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -493,7 +493,7 @@ func (api *StorageContainersApi) UnmountStorageContainer(extId *string, body *im
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}/$actions/unmount"
+	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}/$actions/unmount"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -528,7 +528,7 @@ func (api *StorageContainersApi) UnmountStorageContainer(extId *string, body *im
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -547,7 +547,7 @@ func (api *StorageContainersApi) UpdateStorageContainerById(extId *string, body 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/storage-containers/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/storage-containers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -582,7 +582,7 @@ func (api *StorageContainersApi) UpdateStorageContainerById(extId *string, body 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

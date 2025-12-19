@@ -1,7 +1,7 @@
 /*
  * Generated file models/clustermgmt/v4/operations/operations_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Cluster Management APIs
  *
@@ -26,7 +26,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance Post operation
 */
 type EnterHostMaintenanceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -85,7 +85,26 @@ func (p *EnterHostMaintenanceApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EnterHostMaintenanceApiResponse(*known)
+	*p = *NewEnterHostMaintenanceApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -96,7 +115,9 @@ func (p *EnterHostMaintenanceApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -105,7 +126,7 @@ func NewEnterHostMaintenanceApiResponse() *EnterHostMaintenanceApiResponse {
 	p := new(EnterHostMaintenanceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.EnterHostMaintenanceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -198,7 +219,29 @@ func (p *EnterHostMaintenanceSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EnterHostMaintenanceSpec(*known)
+	*p = *NewEnterHostMaintenanceSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ShouldRollbackOnFailure != nil {
+		p.ShouldRollbackOnFailure = known.ShouldRollbackOnFailure
+	}
+	if known.ShouldShutdownNonMigratableUvms != nil {
+		p.ShouldShutdownNonMigratableUvms = known.ShouldShutdownNonMigratableUvms
+	}
+	if known.TimeoutSeconds != nil {
+		p.TimeoutSeconds = known.TimeoutSeconds
+	}
+	if known.VcenterInfo != nil {
+		p.VcenterInfo = known.VcenterInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -210,7 +253,9 @@ func (p *EnterHostMaintenanceSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vcenterInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -219,7 +264,7 @@ func NewEnterHostMaintenanceSpec() *EnterHostMaintenanceSpec {
 	p := new(EnterHostMaintenanceSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.EnterHostMaintenanceSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldRollbackOnFailure = new(bool)
@@ -231,7 +276,7 @@ func NewEnterHostMaintenanceSpec() *EnterHostMaintenanceSpec {
 }
 
 /*
-REST response for all response codes in API path /clustermgmt/v4.1/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance Post operation
+REST response for all response codes in API path /clustermgmt/v4.2/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance Post operation
 */
 type ExitHostMaintenanceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -290,7 +335,26 @@ func (p *ExitHostMaintenanceApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ExitHostMaintenanceApiResponse(*known)
+	*p = *NewExitHostMaintenanceApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -301,7 +365,9 @@ func (p *ExitHostMaintenanceApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -310,7 +376,7 @@ func NewExitHostMaintenanceApiResponse() *ExitHostMaintenanceApiResponse {
 	p := new(ExitHostMaintenanceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.ExitHostMaintenanceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -395,7 +461,23 @@ func (p *HostMaintenanceCommonSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostMaintenanceCommonSpec(*known)
+	*p = *NewHostMaintenanceCommonSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.TimeoutSeconds != nil {
+		p.TimeoutSeconds = known.TimeoutSeconds
+	}
+	if known.VcenterInfo != nil {
+		p.VcenterInfo = known.VcenterInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -405,7 +487,9 @@ func (p *HostMaintenanceCommonSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vcenterInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -414,7 +498,7 @@ func NewHostMaintenanceCommonSpec() *HostMaintenanceCommonSpec {
 	p := new(HostMaintenanceCommonSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.HostMaintenanceCommonSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -563,7 +647,29 @@ func (p *RollingRebootParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RollingRebootParams(*known)
+	*p = *NewRollingRebootParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NodeExtIdList != nil {
+		p.NodeExtIdList = known.NodeExtIdList
+	}
+	if known.RebootDescription != nil {
+		p.RebootDescription = known.RebootDescription
+	}
+	if known.RebootType != nil {
+		p.RebootType = known.RebootType
+	}
+	if known.TargetRebootDomain != nil {
+		p.TargetRebootDomain = known.TargetRebootDomain
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -575,7 +681,9 @@ func (p *RollingRebootParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "targetRebootDomain")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -584,7 +692,7 @@ func NewRollingRebootParams() *RollingRebootParams {
 	p := new(RollingRebootParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.RollingRebootParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -648,7 +756,23 @@ func (p *TargetRebootDomain) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TargetRebootDomain(*known)
+	*p = *NewTargetRebootDomain()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DomainType != nil {
+		p.DomainType = known.DomainType
+	}
+	if known.MaxConcurrentDomainRebootsTolerated != nil {
+		p.MaxConcurrentDomainRebootsTolerated = known.MaxConcurrentDomainRebootsTolerated
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -658,7 +782,9 @@ func (p *TargetRebootDomain) UnmarshalJSON(b []byte) error {
 	delete(allFields, "maxConcurrentDomainRebootsTolerated")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -667,7 +793,7 @@ func NewTargetRebootDomain() *TargetRebootDomain {
 	p := new(TargetRebootDomain)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "clustermgmt.v4.operations.TargetRebootDomain"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

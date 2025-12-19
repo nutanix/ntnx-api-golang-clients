@@ -43,7 +43,7 @@ func (api *ClustersApi) AddSnmpTransport(clusterExtId *string, body *import1.Snm
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/$actions/add-transports"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/$actions/add-transports"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -78,7 +78,7 @@ func (api *ClustersApi) AddSnmpTransport(clusterExtId *string, body *import1.Snm
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -97,7 +97,7 @@ func (api *ClustersApi) AssociateCategoriesToCluster(clusterExtId *string, body 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/associate-categories"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/associate-categories"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -132,7 +132,7 @@ func (api *ClustersApi) AssociateCategoriesToCluster(clusterExtId *string, body 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -151,7 +151,7 @@ func (api *ClustersApi) CheckHypervisorRequirements(clusterExtId *string, body *
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/check-hypervisor-requirements"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/check-hypervisor-requirements"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -186,7 +186,7 @@ func (api *ClustersApi) CheckHypervisorRequirements(clusterExtId *string, body *
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -205,7 +205,7 @@ func (api *ClustersApi) CreateCluster(body *import1.Cluster, dryrun_ *bool, args
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters"
+	uri := "/api/clustermgmt/v4.2/config/clusters"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -238,7 +238,7 @@ func (api *ClustersApi) CreateCluster(body *import1.Cluster, dryrun_ *bool, args
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -257,7 +257,7 @@ func (api *ClustersApi) CreateRsyslogServer(clusterExtId *string, body *import1.
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -292,7 +292,7 @@ func (api *ClustersApi) CreateRsyslogServer(clusterExtId *string, body *import1.
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -311,7 +311,7 @@ func (api *ClustersApi) CreateSnmpTrap(clusterExtId *string, body *import1.SnmpT
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -346,7 +346,7 @@ func (api *ClustersApi) CreateSnmpTrap(clusterExtId *string, body *import1.SnmpT
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -365,7 +365,7 @@ func (api *ClustersApi) CreateSnmpUser(clusterExtId *string, body *import1.SnmpU
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -400,7 +400,7 @@ func (api *ClustersApi) CreateSnmpUser(clusterExtId *string, body *import1.SnmpU
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -419,7 +419,7 @@ func (api *ClustersApi) DeleteClusterById(extId *string, dryrun_ *bool, args ...
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -454,7 +454,7 @@ func (api *ClustersApi) DeleteClusterById(extId *string, dryrun_ *bool, args ...
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -473,7 +473,7 @@ func (api *ClustersApi) DeleteRsyslogServerById(clusterExtId *string, extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -509,7 +509,7 @@ func (api *ClustersApi) DeleteRsyslogServerById(clusterExtId *string, extId *str
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -528,7 +528,7 @@ func (api *ClustersApi) DeleteSnmpTrapById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -564,7 +564,7 @@ func (api *ClustersApi) DeleteSnmpTrapById(clusterExtId *string, extId *string, 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -583,7 +583,7 @@ func (api *ClustersApi) DeleteSnmpUserById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -619,7 +619,7 @@ func (api *ClustersApi) DeleteSnmpUserById(clusterExtId *string, extId *string, 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -638,7 +638,7 @@ func (api *ClustersApi) DisassociateCategoriesFromCluster(clusterExtId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/disassociate-categories"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/disassociate-categories"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -673,7 +673,7 @@ func (api *ClustersApi) DisassociateCategoriesFromCluster(clusterExtId *string, 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -692,7 +692,7 @@ func (api *ClustersApi) DiscoverUnconfiguredNodes(clusterExtId *string, body *im
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/discover-unconfigured-nodes"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/discover-unconfigured-nodes"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -727,7 +727,7 @@ func (api *ClustersApi) DiscoverUnconfiguredNodes(clusterExtId *string, body *im
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -746,7 +746,7 @@ func (api *ClustersApi) EnterHostMaintenance(clusterExtId *string, extId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance"
+	uri := "/api/clustermgmt/v4.2/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/enter-host-maintenance"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -786,7 +786,7 @@ func (api *ClustersApi) EnterHostMaintenance(clusterExtId *string, extId *string
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -805,7 +805,7 @@ func (api *ClustersApi) ExitHostMaintenance(clusterExtId *string, extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance"
+	uri := "/api/clustermgmt/v4.2/operations/clusters/{clusterExtId}/hosts/{extId}/$actions/exit-host-maintenance"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -845,7 +845,7 @@ func (api *ClustersApi) ExitHostMaintenance(clusterExtId *string, extId *string,
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -864,7 +864,7 @@ func (api *ClustersApi) ExpandCluster(clusterExtId *string, body *import1.Expand
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/expand-cluster"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/expand-cluster"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -899,7 +899,7 @@ func (api *ClustersApi) ExpandCluster(clusterExtId *string, body *import1.Expand
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -918,7 +918,7 @@ func (api *ClustersApi) FetchNodeNetworkingDetails(clusterExtId *string, body *i
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/fetch-node-networking-details"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/fetch-node-networking-details"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -953,7 +953,7 @@ func (api *ClustersApi) FetchNodeNetworkingDetails(clusterExtId *string, body *i
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -972,7 +972,7 @@ func (api *ClustersApi) FetchTaskResponse(extId *string, taskResponseType *impor
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/task-response/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/task-response/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1010,7 +1010,7 @@ func (api *ClustersApi) FetchTaskResponse(extId *string, taskResponseType *impor
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1029,7 +1029,7 @@ func (api *ClustersApi) GetClusterById(extId *string, expand_ *string, args ...m
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1064,7 +1064,7 @@ func (api *ClustersApi) GetClusterById(extId *string, expand_ *string, args ...m
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1083,7 +1083,7 @@ func (api *ClustersApi) GetClusterStats(extId *string, startTime_ *time.Time, en
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/stats/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.2/stats/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1135,7 +1135,7 @@ func (api *ClustersApi) GetClusterStats(extId *string, startTime_ *time.Time, en
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1154,7 +1154,7 @@ func (api *ClustersApi) GetHostById(clusterExtId *string, extId *string, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1190,7 +1190,7 @@ func (api *ClustersApi) GetHostById(clusterExtId *string, extId *string, args ..
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1209,7 +1209,7 @@ func (api *ClustersApi) GetHostNicById(clusterExtId *string, hostExtId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1250,7 +1250,7 @@ func (api *ClustersApi) GetHostNicById(clusterExtId *string, hostExtId *string, 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1269,7 +1269,7 @@ func (api *ClustersApi) GetHostStats(clusterExtId *string, extId *string, startT
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/stats/clusters/{clusterExtId}/hosts/{extId}"
+	uri := "/api/clustermgmt/v4.2/stats/clusters/{clusterExtId}/hosts/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1326,7 +1326,7 @@ func (api *ClustersApi) GetHostStats(clusterExtId *string, extId *string, startT
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1345,7 +1345,7 @@ func (api *ClustersApi) GetRackableUnitById(clusterExtId *string, extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rackable-units/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rackable-units/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1381,7 +1381,7 @@ func (api *ClustersApi) GetRackableUnitById(clusterExtId *string, extId *string,
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1400,7 +1400,7 @@ func (api *ClustersApi) GetRsyslogServerById(clusterExtId *string, extId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1436,7 +1436,7 @@ func (api *ClustersApi) GetRsyslogServerById(clusterExtId *string, extId *string
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1455,7 +1455,7 @@ func (api *ClustersApi) GetSnmpConfigByClusterId(clusterExtId *string, args ...m
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1486,7 +1486,7 @@ func (api *ClustersApi) GetSnmpConfigByClusterId(clusterExtId *string, args ...m
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1505,7 +1505,7 @@ func (api *ClustersApi) GetSnmpTrapById(clusterExtId *string, extId *string, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1541,7 +1541,7 @@ func (api *ClustersApi) GetSnmpTrapById(clusterExtId *string, extId *string, arg
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1560,7 +1560,7 @@ func (api *ClustersApi) GetSnmpUserById(clusterExtId *string, extId *string, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1596,7 +1596,7 @@ func (api *ClustersApi) GetSnmpUserById(clusterExtId *string, extId *string, arg
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1615,7 +1615,7 @@ func (api *ClustersApi) GetVirtualNicById(clusterExtId *string, hostExtId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1656,7 +1656,7 @@ func (api *ClustersApi) GetVirtualNicById(clusterExtId *string, hostExtId *strin
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1675,7 +1675,7 @@ func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, o
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters"
+	uri := "/api/clustermgmt/v4.2/config/clusters"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1721,7 +1721,7 @@ func (api *ClustersApi) ListClusters(page_ *int, limit_ *int, filter_ *string, o
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1740,7 +1740,7 @@ func (api *ClustersApi) ListHostNics(page_ *int, limit_ *int, filter_ *string, o
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/host-nics"
+	uri := "/api/clustermgmt/v4.2/config/host-nics"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1780,7 +1780,7 @@ func (api *ClustersApi) ListHostNics(page_ *int, limit_ *int, filter_ *string, o
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1799,7 +1799,7 @@ func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, hostExtId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/host-nics"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1851,7 +1851,7 @@ func (api *ClustersApi) ListHostNicsByHostId(clusterExtId *string, hostExtId *st
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1870,7 +1870,7 @@ func (api *ClustersApi) ListHosts(page_ *int, limit_ *int, filter_ *string, orde
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/hosts"
+	uri := "/api/clustermgmt/v4.2/config/hosts"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -1913,7 +1913,7 @@ func (api *ClustersApi) ListHosts(page_ *int, limit_ *int, filter_ *string, orde
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -1932,7 +1932,7 @@ func (api *ClustersApi) ListHostsByClusterId(clusterExtId *string, page_ *int, l
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -1982,7 +1982,7 @@ func (api *ClustersApi) ListHostsByClusterId(clusterExtId *string, page_ *int, l
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2001,7 +2001,7 @@ func (api *ClustersApi) ListPhysicalGpuProfiles(clusterExtId *string, page_ *int
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/physical-gpu-profiles"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/physical-gpu-profiles"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2045,7 +2045,7 @@ func (api *ClustersApi) ListPhysicalGpuProfiles(clusterExtId *string, page_ *int
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2064,7 +2064,7 @@ func (api *ClustersApi) ListRackableUnitsByClusterId(clusterExtId *string, args 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rackable-units"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rackable-units"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2095,7 +2095,7 @@ func (api *ClustersApi) ListRackableUnitsByClusterId(clusterExtId *string, args 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2114,7 +2114,7 @@ func (api *ClustersApi) ListRsyslogServersByClusterId(clusterExtId *string, args
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2145,7 +2145,7 @@ func (api *ClustersApi) ListRsyslogServersByClusterId(clusterExtId *string, args
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2164,7 +2164,7 @@ func (api *ClustersApi) ListVirtualGpuProfiles(clusterExtId *string, page_ *int,
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/virtual-gpu-profiles"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/virtual-gpu-profiles"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2208,7 +2208,7 @@ func (api *ClustersApi) ListVirtualGpuProfiles(clusterExtId *string, page_ *int,
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2227,7 +2227,7 @@ func (api *ClustersApi) ListVirtualNicsByHostId(clusterExtId *string, hostExtId 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/hosts/{hostExtId}/virtual-nics"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2279,7 +2279,7 @@ func (api *ClustersApi) ListVirtualNicsByHostId(clusterExtId *string, hostExtId 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2298,7 +2298,7 @@ func (api *ClustersApi) RemoveNode(clusterExtId *string, body *import1.NodeRemov
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/remove-node"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/remove-node"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2333,7 +2333,7 @@ func (api *ClustersApi) RemoveNode(clusterExtId *string, body *import1.NodeRemov
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2352,7 +2352,7 @@ func (api *ClustersApi) RemoveSnmpTransport(clusterExtId *string, body *import1.
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/$actions/remove-transports"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/$actions/remove-transports"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2387,7 +2387,7 @@ func (api *ClustersApi) RemoveSnmpTransport(clusterExtId *string, body *import1.
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2406,7 +2406,7 @@ func (api *ClustersApi) UpdateClusterById(extId *string, body *import1.Cluster, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2441,7 +2441,7 @@ func (api *ClustersApi) UpdateClusterById(extId *string, body *import1.Cluster, 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2460,7 +2460,7 @@ func (api *ClustersApi) UpdateRsyslogServerById(clusterExtId *string, extId *str
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/rsyslog-servers/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2500,7 +2500,7 @@ func (api *ClustersApi) UpdateRsyslogServerById(clusterExtId *string, extId *str
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2519,7 +2519,7 @@ func (api *ClustersApi) UpdateSnmpStatus(clusterExtId *string, body *import1.Snm
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/$actions/update-status"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/$actions/update-status"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2554,7 +2554,7 @@ func (api *ClustersApi) UpdateSnmpStatus(clusterExtId *string, body *import1.Snm
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2573,7 +2573,7 @@ func (api *ClustersApi) UpdateSnmpTrapById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/traps/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/traps/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2613,7 +2613,7 @@ func (api *ClustersApi) UpdateSnmpTrapById(clusterExtId *string, extId *string, 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2632,7 +2632,7 @@ func (api *ClustersApi) UpdateSnmpUserById(clusterExtId *string, extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/snmp/users/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/snmp/users/{extId}"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2672,7 +2672,7 @@ func (api *ClustersApi) UpdateSnmpUserById(clusterExtId *string, extId *string, 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -2691,7 +2691,7 @@ func (api *ClustersApi) ValidateNode(clusterExtId *string, body *import1.Validat
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{clusterExtId}/$actions/validate-node"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{clusterExtId}/$actions/validate-node"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == clusterExtId {
@@ -2726,7 +2726,7 @@ func (api *ClustersApi) ValidateNode(clusterExtId *string, body *import1.Validat
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

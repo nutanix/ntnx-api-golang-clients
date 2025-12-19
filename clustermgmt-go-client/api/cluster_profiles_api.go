@@ -39,7 +39,7 @@ func (api *ClusterProfilesApi) ApplyClusterProfile(extId *string, body *import1.
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}/$actions/apply"
+	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}/$actions/apply"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -78,7 +78,7 @@ func (api *ClusterProfilesApi) ApplyClusterProfile(extId *string, body *import1.
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -97,7 +97,7 @@ func (api *ClusterProfilesApi) CreateClusterProfile(body *import1.ClusterProfile
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/cluster-profiles"
+	uri := "/api/clustermgmt/v4.2/config/cluster-profiles"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -126,7 +126,7 @@ func (api *ClusterProfilesApi) CreateClusterProfile(body *import1.ClusterProfile
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -145,7 +145,7 @@ func (api *ClusterProfilesApi) DeleteClusterProfileById(extId *string, args ...m
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -176,7 +176,7 @@ func (api *ClusterProfilesApi) DeleteClusterProfileById(extId *string, args ...m
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -195,7 +195,7 @@ func (api *ClusterProfilesApi) DisassociateClusterFromClusterProfile(extId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}/$actions/disassociate-cluster"
+	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}/$actions/disassociate-cluster"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -230,7 +230,7 @@ func (api *ClusterProfilesApi) DisassociateClusterFromClusterProfile(extId *stri
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -249,7 +249,7 @@ func (api *ClusterProfilesApi) GetClusterProfileById(extId *string, args ...map[
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -280,7 +280,7 @@ func (api *ClusterProfilesApi) GetClusterProfileById(extId *string, args ...map[
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -299,7 +299,7 @@ func (api *ClusterProfilesApi) ListClusterProfiles(page_ *int, limit_ *int, filt
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/cluster-profiles"
+	uri := "/api/clustermgmt/v4.2/config/cluster-profiles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -339,7 +339,7 @@ func (api *ClusterProfilesApi) ListClusterProfiles(page_ *int, limit_ *int, filt
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -358,7 +358,7 @@ func (api *ClusterProfilesApi) UpdateClusterProfileById(extId *string, body *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/cluster-profiles/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/cluster-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -397,7 +397,7 @@ func (api *ClusterProfilesApi) UpdateClusterProfileById(extId *string, body *imp
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {

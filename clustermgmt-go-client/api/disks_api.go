@@ -42,7 +42,7 @@ func (api *DisksApi) AddDisk(extId *string, body *import1.DiskAdditionSpec, args
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/clusters/{extId}/$actions/add-disk"
+	uri := "/api/clustermgmt/v4.2/config/clusters/{extId}/$actions/add-disk"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -77,7 +77,7 @@ func (api *DisksApi) AddDisk(extId *string, body *import1.DiskAdditionSpec, args
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -96,7 +96,7 @@ func (api *DisksApi) DeleteDiskById(extId *string, args ...map[string]interface{
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/disks/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/disks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -127,7 +127,7 @@ func (api *DisksApi) DeleteDiskById(extId *string, args ...map[string]interface{
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -146,7 +146,7 @@ func (api *DisksApi) GetDiskById(extId *string, args ...map[string]interface{}) 
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/disks/{extId}"
+	uri := "/api/clustermgmt/v4.2/config/disks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -177,7 +177,7 @@ func (api *DisksApi) GetDiskById(extId *string, args ...map[string]interface{}) 
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -196,7 +196,7 @@ func (api *DisksApi) GetDiskStats(extId *string, startTime_ *time.Time, endTime_
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/stats/disks/{extId}"
+	uri := "/api/clustermgmt/v4.2/stats/disks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -245,7 +245,7 @@ func (api *DisksApi) GetDiskStats(extId *string, startTime_ *time.Time, endTime_
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -264,7 +264,7 @@ func (api *DisksApi) ListDisks(page_ *int, limit_ *int, filter_ *string, orderby
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/disks"
+	uri := "/api/clustermgmt/v4.2/config/disks"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -307,7 +307,7 @@ func (api *DisksApi) ListDisks(page_ *int, limit_ *int, filter_ *string, orderby
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
@@ -326,7 +326,7 @@ func (api *DisksApi) UpdateDiskLEDState(extId *string, body *import1.LEDStateUpd
 		argMap = args[0]
 	}
 
-	uri := "/api/clustermgmt/v4.1/config/disks/{extId}/$actions/update-led-state"
+	uri := "/api/clustermgmt/v4.2/config/disks/{extId}/$actions/update-led-state"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -361,7 +361,7 @@ func (api *DisksApi) UpdateDiskLEDState(extId *string, body *import1.LEDStateUpd
 		}
 	}
 
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+	authNames := []string{"basicAuthScheme"}
 
 	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
