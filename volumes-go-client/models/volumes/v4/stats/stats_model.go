@@ -1,7 +1,7 @@
 /*
  * Generated file models/volumes/v4/stats/stats_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Volumes APIs
  *
@@ -24,7 +24,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /volumes/v4.1/stats/volume-groups/{volumeGroupExtId}/disks/{extId} Get operation
+REST response for all response codes in API path /volumes/v4.2/stats/volume-groups/{volumeGroupExtId}/disks/{extId} Get operation
 */
 type GetVolumeDiskStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -83,7 +83,26 @@ func (p *GetVolumeDiskStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVolumeDiskStatsApiResponse(*known)
+	*p = *NewGetVolumeDiskStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -94,7 +113,9 @@ func (p *GetVolumeDiskStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -103,7 +124,7 @@ func NewGetVolumeDiskStatsApiResponse() *GetVolumeDiskStatsApiResponse {
 	p := new(GetVolumeDiskStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.GetVolumeDiskStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -131,7 +152,7 @@ func (p *GetVolumeDiskStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.1/stats/volume-groups/{extId} Get operation
+REST response for all response codes in API path /volumes/v4.2/stats/volume-groups/{extId} Get operation
 */
 type GetVolumeGroupStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -190,7 +211,26 @@ func (p *GetVolumeGroupStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVolumeGroupStatsApiResponse(*known)
+	*p = *NewGetVolumeGroupStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -201,7 +241,9 @@ func (p *GetVolumeGroupStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -210,7 +252,7 @@ func NewGetVolumeGroupStatsApiResponse() *GetVolumeGroupStatsApiResponse {
 	p := new(GetVolumeGroupStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.GetVolumeGroupStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -294,7 +336,23 @@ func (p *TimeValuePair) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TimeValuePair(*known)
+	*p = *NewTimeValuePair()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -304,7 +362,9 @@ func (p *TimeValuePair) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -313,7 +373,7 @@ func NewTimeValuePair() *TimeValuePair {
 	p := new(TimeValuePair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.TimeValuePair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -427,7 +487,59 @@ func (p *VolumeDiskStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VolumeDiskStats(*known)
+	*p = *NewVolumeDiskStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ControllerAvgIOLatencyUsecs != nil {
+		p.ControllerAvgIOLatencyUsecs = known.ControllerAvgIOLatencyUsecs
+	}
+	if known.ControllerAvgReadIOLatencyUsecs != nil {
+		p.ControllerAvgReadIOLatencyUsecs = known.ControllerAvgReadIOLatencyUsecs
+	}
+	if known.ControllerAvgWriteIOLatencyUsecs != nil {
+		p.ControllerAvgWriteIOLatencyUsecs = known.ControllerAvgWriteIOLatencyUsecs
+	}
+	if known.ControllerIOBandwidthKBps != nil {
+		p.ControllerIOBandwidthKBps = known.ControllerIOBandwidthKBps
+	}
+	if known.ControllerNumIOPS != nil {
+		p.ControllerNumIOPS = known.ControllerNumIOPS
+	}
+	if known.ControllerNumReadIOPS != nil {
+		p.ControllerNumReadIOPS = known.ControllerNumReadIOPS
+	}
+	if known.ControllerNumWriteIOPS != nil {
+		p.ControllerNumWriteIOPS = known.ControllerNumWriteIOPS
+	}
+	if known.ControllerReadIOBandwidthKBps != nil {
+		p.ControllerReadIOBandwidthKBps = known.ControllerReadIOBandwidthKBps
+	}
+	if known.ControllerUserBytes != nil {
+		p.ControllerUserBytes = known.ControllerUserBytes
+	}
+	if known.ControllerWriteIOBandwidthKBps != nil {
+		p.ControllerWriteIOBandwidthKBps = known.ControllerWriteIOBandwidthKBps
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VolumeDiskExtId != nil {
+		p.VolumeDiskExtId = known.VolumeDiskExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -449,7 +561,9 @@ func (p *VolumeDiskStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "volumeDiskExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -458,7 +572,7 @@ func NewVolumeDiskStats() *VolumeDiskStats {
 	p := new(VolumeDiskStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeDiskStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -569,7 +683,59 @@ func (p *VolumeDiskStatsProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VolumeDiskStatsProjection(*known)
+	*p = *NewVolumeDiskStatsProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ControllerAvgIOLatencyUsecs != nil {
+		p.ControllerAvgIOLatencyUsecs = known.ControllerAvgIOLatencyUsecs
+	}
+	if known.ControllerAvgReadIOLatencyUsecs != nil {
+		p.ControllerAvgReadIOLatencyUsecs = known.ControllerAvgReadIOLatencyUsecs
+	}
+	if known.ControllerAvgWriteIOLatencyUsecs != nil {
+		p.ControllerAvgWriteIOLatencyUsecs = known.ControllerAvgWriteIOLatencyUsecs
+	}
+	if known.ControllerIOBandwidthKBps != nil {
+		p.ControllerIOBandwidthKBps = known.ControllerIOBandwidthKBps
+	}
+	if known.ControllerNumIOPS != nil {
+		p.ControllerNumIOPS = known.ControllerNumIOPS
+	}
+	if known.ControllerNumReadIOPS != nil {
+		p.ControllerNumReadIOPS = known.ControllerNumReadIOPS
+	}
+	if known.ControllerNumWriteIOPS != nil {
+		p.ControllerNumWriteIOPS = known.ControllerNumWriteIOPS
+	}
+	if known.ControllerReadIOBandwidthKBps != nil {
+		p.ControllerReadIOBandwidthKBps = known.ControllerReadIOBandwidthKBps
+	}
+	if known.ControllerUserBytes != nil {
+		p.ControllerUserBytes = known.ControllerUserBytes
+	}
+	if known.ControllerWriteIOBandwidthKBps != nil {
+		p.ControllerWriteIOBandwidthKBps = known.ControllerWriteIOBandwidthKBps
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VolumeDiskExtId != nil {
+		p.VolumeDiskExtId = known.VolumeDiskExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -591,7 +757,9 @@ func (p *VolumeDiskStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "volumeDiskExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -600,7 +768,7 @@ func NewVolumeDiskStatsProjection() *VolumeDiskStatsProjection {
 	p := new(VolumeDiskStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeDiskStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -660,6 +828,10 @@ type VolumeGroupStats struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  Number of bytes that are left to hydrate the Volume Group.
+	*/
+	HydrationRemainingBytes []TimeValuePair `json:"hydrationRemainingBytes,omitempty"`
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
@@ -714,7 +886,62 @@ func (p *VolumeGroupStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VolumeGroupStats(*known)
+	*p = *NewVolumeGroupStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ControllerAvgIOLatencyUsecs != nil {
+		p.ControllerAvgIOLatencyUsecs = known.ControllerAvgIOLatencyUsecs
+	}
+	if known.ControllerAvgReadIOLatencyUsecs != nil {
+		p.ControllerAvgReadIOLatencyUsecs = known.ControllerAvgReadIOLatencyUsecs
+	}
+	if known.ControllerAvgWriteIOLatencyUsecs != nil {
+		p.ControllerAvgWriteIOLatencyUsecs = known.ControllerAvgWriteIOLatencyUsecs
+	}
+	if known.ControllerIOBandwidthKBps != nil {
+		p.ControllerIOBandwidthKBps = known.ControllerIOBandwidthKBps
+	}
+	if known.ControllerNumIOPS != nil {
+		p.ControllerNumIOPS = known.ControllerNumIOPS
+	}
+	if known.ControllerNumReadIOPS != nil {
+		p.ControllerNumReadIOPS = known.ControllerNumReadIOPS
+	}
+	if known.ControllerNumWriteIOPS != nil {
+		p.ControllerNumWriteIOPS = known.ControllerNumWriteIOPS
+	}
+	if known.ControllerReadIOBandwidthKBps != nil {
+		p.ControllerReadIOBandwidthKBps = known.ControllerReadIOBandwidthKBps
+	}
+	if known.ControllerUserBytes != nil {
+		p.ControllerUserBytes = known.ControllerUserBytes
+	}
+	if known.ControllerWriteIOBandwidthKBps != nil {
+		p.ControllerWriteIOBandwidthKBps = known.ControllerWriteIOBandwidthKBps
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HydrationRemainingBytes != nil {
+		p.HydrationRemainingBytes = known.HydrationRemainingBytes
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VolumeGroupExtId != nil {
+		p.VolumeGroupExtId = known.VolumeGroupExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -731,12 +958,15 @@ func (p *VolumeGroupStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "controllerUserBytes")
 	delete(allFields, "controllerWriteIOBandwidthKBps")
 	delete(allFields, "extId")
+	delete(allFields, "hydrationRemainingBytes")
 	delete(allFields, "links")
 	delete(allFields, "tenantId")
 	delete(allFields, "volumeGroupExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -745,7 +975,7 @@ func NewVolumeGroupStats() *VolumeGroupStats {
 	p := new(VolumeGroupStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeGroupStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -802,6 +1032,10 @@ type VolumeGroupStatsProjection struct {
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
+	  Number of bytes that are left to hydrate the Volume Group.
+	*/
+	HydrationRemainingBytes []TimeValuePair `json:"hydrationRemainingBytes,omitempty"`
+	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
@@ -856,7 +1090,62 @@ func (p *VolumeGroupStatsProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VolumeGroupStatsProjection(*known)
+	*p = *NewVolumeGroupStatsProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ControllerAvgIOLatencyUsecs != nil {
+		p.ControllerAvgIOLatencyUsecs = known.ControllerAvgIOLatencyUsecs
+	}
+	if known.ControllerAvgReadIOLatencyUsecs != nil {
+		p.ControllerAvgReadIOLatencyUsecs = known.ControllerAvgReadIOLatencyUsecs
+	}
+	if known.ControllerAvgWriteIOLatencyUsecs != nil {
+		p.ControllerAvgWriteIOLatencyUsecs = known.ControllerAvgWriteIOLatencyUsecs
+	}
+	if known.ControllerIOBandwidthKBps != nil {
+		p.ControllerIOBandwidthKBps = known.ControllerIOBandwidthKBps
+	}
+	if known.ControllerNumIOPS != nil {
+		p.ControllerNumIOPS = known.ControllerNumIOPS
+	}
+	if known.ControllerNumReadIOPS != nil {
+		p.ControllerNumReadIOPS = known.ControllerNumReadIOPS
+	}
+	if known.ControllerNumWriteIOPS != nil {
+		p.ControllerNumWriteIOPS = known.ControllerNumWriteIOPS
+	}
+	if known.ControllerReadIOBandwidthKBps != nil {
+		p.ControllerReadIOBandwidthKBps = known.ControllerReadIOBandwidthKBps
+	}
+	if known.ControllerUserBytes != nil {
+		p.ControllerUserBytes = known.ControllerUserBytes
+	}
+	if known.ControllerWriteIOBandwidthKBps != nil {
+		p.ControllerWriteIOBandwidthKBps = known.ControllerWriteIOBandwidthKBps
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HydrationRemainingBytes != nil {
+		p.HydrationRemainingBytes = known.HydrationRemainingBytes
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VolumeGroupExtId != nil {
+		p.VolumeGroupExtId = known.VolumeGroupExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -873,12 +1162,15 @@ func (p *VolumeGroupStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "controllerUserBytes")
 	delete(allFields, "controllerWriteIOBandwidthKBps")
 	delete(allFields, "extId")
+	delete(allFields, "hydrationRemainingBytes")
 	delete(allFields, "links")
 	delete(allFields, "tenantId")
 	delete(allFields, "volumeGroupExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -887,7 +1179,7 @@ func NewVolumeGroupStatsProjection() *VolumeGroupStatsProjection {
 	p := new(VolumeGroupStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeGroupStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

@@ -39,7 +39,7 @@ func (api *NvmfClientsApi) GetNvmfClientById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.1/config/nvmf-clients/{extId}"
+	uri := "/api/volumes/v4.2/config/nvmf-clients/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *NvmfClientsApi) ListNvmfClients(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.1/config/nvmf-clients"
+	uri := "/api/volumes/v4.2/config/nvmf-clients"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

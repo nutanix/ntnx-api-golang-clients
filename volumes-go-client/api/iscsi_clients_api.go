@@ -39,7 +39,7 @@ func (api *IscsiClientsApi) GetIscsiClientById(extId *string, args ...map[string
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.1/config/iscsi-clients/{extId}"
+	uri := "/api/volumes/v4.2/config/iscsi-clients/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *IscsiClientsApi) ListIscsiClients(page_ *int, limit_ *int, filter_ *s
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.1/config/iscsi-clients"
+	uri := "/api/volumes/v4.2/config/iscsi-clients"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -151,7 +151,7 @@ func (api *IscsiClientsApi) UpdateIscsiClientById(extId *string, body *import1.I
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.1/config/iscsi-clients/{extId}"
+	uri := "/api/volumes/v4.2/config/iscsi-clients/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

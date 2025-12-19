@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/stats/stats_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Volumes APIs
  *
