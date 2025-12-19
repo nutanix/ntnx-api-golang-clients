@@ -1,6 +1,6 @@
-# Go Client For Nutanix IAM Versioned APIs
+# Go Client For Nutanix Identity and Access Management APIs
 
-The Go client for Nutanix IAM Versioned APIs is designed for Go client application developers offering them simple and flexible access to APIs that nutanix APIs for managing users, user-groups, directory services, identity providers, roles and authorization policies.
+The Go client for Nutanix Identity and Access Management APIs is designed for Go client application developers offering them simple and flexible access to APIs that nutanix APIs for managing users, user-groups, directory services, identity providers, roles and authorization policies.
 
 ## Features
 - Invoke Nutanix APIs with a simple interface.
@@ -9,8 +9,29 @@ The Go client for Nutanix IAM Versioned APIs is designed for Go client applicati
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.1.b1
-- Package version: v4.1.1-beta.1
+- API version: v4.1.b2
+- Package version: v4.1.1-beta.2
+## Version Negotiation
+
+By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/client"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+ApiClientInstance.Host = "10.19.50.27"
+ApiClientInstance.Username = "admin"
+ApiClientInstance.Password = "password"
+ApiClientInstance.AllowVersionNegotiation = false // Disables automatic version negotiation
+```
+
+When version negotiation is disabled, the client will use the SDK's default API version.
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/...@v4.1.1-beta.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4/...@v4.1.1-beta.2
 ```
 
 #### Using go modules
@@ -60,13 +81,13 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4 v4.1.1-beta.1
+	github.com/nutanix/ntnx-api-golang-clients/iam-go-client/v4 v4.1.1-beta.2
 )
 ```
 
 
 ## Configuration
-The Go client for Nutanix IAM Versioned APIs can be configured with the following parameters
+The Go client for Nutanix Identity and Access Management APIs can be configured with the following parameters
 
 | Parameter | Description                                                                      | Required | Default Value|
 |-----------|----------------------------------------------------------------------------------|----------|--------------|
@@ -204,7 +225,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CertificateAuthenticationProvidersApiInstance = api.NewCertificateAuthenticationProvidersApi(ApiClientInstance)
-extId := "f3Abd3cA-1bFa-c463-cf2e-D06ecDbcD5Dc"
+extId := "E263bDDA-BF8C-A0fc-1c3C-c5BecF8acB6C"
 
 // 
 getResponse, err := CertificateAuthenticationProvidersApiInstance.GetCertAuthProviderById(&extId)
@@ -252,7 +273,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CertificateAuthenticationProvidersApiInstance = api.NewCertificateAuthenticationProvidersApi(ApiClientInstance)
-extId := "f3Abd3cA-1bFa-c463-cf2e-D06ecDbcD5Dc"
+extId := "E263bDDA-BF8C-A0fc-1c3C-c5BecF8acB6C"
 
 // 
 getResponse, err := CertificateAuthenticationProvidersApiInstance.GetCertAuthProviderById(&extId)
@@ -324,7 +345,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=iam&version=v4.1.b1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=iam&version=v4.1.b2&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).

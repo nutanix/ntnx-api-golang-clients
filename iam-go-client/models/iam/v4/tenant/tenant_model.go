@@ -1,16 +1,16 @@
 /*
  * Generated file models/iam/v4/tenant/tenant_model.go.
  *
- * Product version: 4.1.1-beta-1
+ * Product version: 4.1.1-beta-2
  *
- * Part of the Nutanix IAM Versioned APIs
+ * Part of the Nutanix Identity and Access Management APIs
  *
  * (c) 2025 Nutanix Inc.  All rights reserved
  *
  */
 
 /*
-  Module iam.v4.tenant of Nutanix IAM Versioned APIs
+  Module iam.v4.tenant of Nutanix Identity and Access Management APIs
 */
 package tenant
 
@@ -91,7 +91,32 @@ func (p *Tenant) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Tenant(*known)
+	*p = *NewTenant()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantDescription != nil {
+		p.TenantDescription = known.TenantDescription
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TenantName != nil {
+		p.TenantName = known.TenantName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -104,7 +129,9 @@ func (p *Tenant) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -113,7 +140,7 @@ func NewTenant() *Tenant {
 	p := new(Tenant)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.tenant.Tenant"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

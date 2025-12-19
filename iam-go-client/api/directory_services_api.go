@@ -39,7 +39,7 @@ func (api *DirectoryServicesApi) ConnectionStatusDirectoryService(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}/$actions/verify-connection-status"
+	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}/$actions/verify-connection-status"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -93,7 +93,7 @@ func (api *DirectoryServicesApi) CreateDirectoryService(body *import3.DirectoryS
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/directory-services"
+	uri := "/api/iam/v4.1.b2/authn/directory-services"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -141,7 +141,7 @@ func (api *DirectoryServicesApi) DeleteDirectoryServiceById(extId *string, args 
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -191,7 +191,7 @@ func (api *DirectoryServicesApi) GetDirectoryServiceById(extId *string, args ...
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -241,7 +241,7 @@ func (api *DirectoryServicesApi) ListDirectoryServices(page_ *int, limit_ *int, 
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/directory-services"
+	uri := "/api/iam/v4.1.b2/authn/directory-services"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -300,7 +300,7 @@ func (api *DirectoryServicesApi) SearchDirectoryService(extId *string, body *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}/$actions/search"
+	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}/$actions/search"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -354,7 +354,7 @@ func (api *DirectoryServicesApi) UpdateDirectoryServiceById(extId *string, body 
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/directory-services/{extId}"
+	uri := "/api/iam/v4.1.b2/authn/directory-services/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

@@ -41,7 +41,7 @@ func (api *CertificateAuthenticationProvidersApi) CreateCertAuthProvider(clientC
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers"
+	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers"
 
 	// verify the required parameter 'clientCaChain' is set
 	if nil == clientCaChain {
@@ -136,7 +136,7 @@ func (api *CertificateAuthenticationProvidersApi) DeleteCertAuthProviderById(ext
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -186,7 +186,7 @@ func (api *CertificateAuthenticationProvidersApi) GetCertAuthProviderById(extId 
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -236,7 +236,7 @@ func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(page_ *i
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers"
+	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -280,17 +280,37 @@ func (api *CertificateAuthenticationProvidersApi) ListCertAuthProviders(page_ *i
 }
 
 // Updates a certificate-based authentication provider configuration.
-func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(extId *string, clientCaChain *string, dirSvcExtID *string, certRevocationInfo *import3.CertRevocationInfo, caCertFileName *string, isCertAuthEnabled *bool, createdBy *string, tenantId *string, name *string, createdTime *time.Time, links *[]import2.ApiLink, isCacEnabled *bool, lastUpdatedTime *time.Time, extId2 *string, args ...map[string]interface{}) (*import3.UpdateCertAuthProviderApiResponse, error) {
+func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(extId *string, clientCaChain *string, caCertFileName *string, isCertAuthEnabled *bool, name *string, isCacEnabled *bool, dirSvcExtID *string, certRevocationInfo *import3.CertRevocationInfo, createdBy *string, tenantId *string, createdTime *time.Time, links *[]import2.ApiLink, lastUpdatedTime *time.Time, extId2 *string, args ...map[string]interface{}) (*import3.UpdateCertAuthProviderApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/cert-auth-providers/{extId}"
+	uri := "/api/iam/v4.1.b2/authn/cert-auth-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'clientCaChain' is set
+	if nil == clientCaChain {
+		return nil, client.ReportError("clientCaChain is required and must be specified")
+	}
+	// verify the required parameter 'caCertFileName' is set
+	if nil == caCertFileName {
+		return nil, client.ReportError("caCertFileName is required and must be specified")
+	}
+	// verify the required parameter 'isCertAuthEnabled' is set
+	if nil == isCertAuthEnabled {
+		return nil, client.ReportError("isCertAuthEnabled is required and must be specified")
+	}
+	// verify the required parameter 'name' is set
+	if nil == name {
+		return nil, client.ReportError("name is required and must be specified")
+	}
+	// verify the required parameter 'isCacEnabled' is set
+	if nil == isCacEnabled {
+		return nil, client.ReportError("isCacEnabled is required and must be specified")
 	}
 
 	// Path Params
@@ -318,39 +338,29 @@ func (api *CertificateAuthenticationProvidersApi) UpdateCertAuthProviderById(ext
 	}
 
 	// Form Params
-	if clientCaChain != nil {
-		formParams.Add("clientCaChain", client.ParameterToString(*clientCaChain, ""))
-	}
+	formParams.Add("clientCaChain", client.ParameterToString(*clientCaChain, ""))
 	if dirSvcExtID != nil {
 		formParams.Add("dirSvcExtID", client.ParameterToString(*dirSvcExtID, ""))
 	}
 	if certRevocationInfo != nil {
 		formParams.Add("certRevocationInfo", client.ParameterToString(*certRevocationInfo, ""))
 	}
-	if caCertFileName != nil {
-		formParams.Add("caCertFileName", client.ParameterToString(*caCertFileName, ""))
-	}
-	if isCertAuthEnabled != nil {
-		formParams.Add("isCertAuthEnabled", client.ParameterToString(*isCertAuthEnabled, ""))
-	}
+	formParams.Add("caCertFileName", client.ParameterToString(*caCertFileName, ""))
+	formParams.Add("isCertAuthEnabled", client.ParameterToString(*isCertAuthEnabled, ""))
 	if createdBy != nil {
 		formParams.Add("createdBy", client.ParameterToString(*createdBy, ""))
 	}
 	if tenantId != nil {
 		formParams.Add("tenantId", client.ParameterToString(*tenantId, ""))
 	}
-	if name != nil {
-		formParams.Add("name", client.ParameterToString(*name, ""))
-	}
+	formParams.Add("name", client.ParameterToString(*name, ""))
 	if createdTime != nil {
 		formParams.Add("createdTime", client.ParameterToString(*createdTime, ""))
 	}
 	if links != nil {
 		formParams.Add("links", client.ParameterToString(*links, "multi"))
 	}
-	if isCacEnabled != nil {
-		formParams.Add("isCacEnabled", client.ParameterToString(*isCacEnabled, ""))
-	}
+	formParams.Add("isCacEnabled", client.ParameterToString(*isCacEnabled, ""))
 	if lastUpdatedTime != nil {
 		formParams.Add("lastUpdatedTime", client.ParameterToString(*lastUpdatedTime, ""))
 	}

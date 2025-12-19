@@ -39,7 +39,7 @@ func (api *AuthorizationPoliciesApi) CreateAuthorizationPolicy(body *import1.Aut
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/authorization-policies"
+	uri := "/api/iam/v4.1.b2/authz/authorization-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *AuthorizationPoliciesApi) DeleteAuthorizationPolicyById(extId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/authorization-policies/{extId}"
+	uri := "/api/iam/v4.1.b2/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *AuthorizationPoliciesApi) GetAuthorizationPolicyById(extId *string, a
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/authorization-policies/{extId}"
+	uri := "/api/iam/v4.1.b2/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *AuthorizationPoliciesApi) ListAuthorizationPolicies(page_ *int, limit
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/authorization-policies"
+	uri := "/api/iam/v4.1.b2/authz/authorization-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -249,7 +249,7 @@ func (api *AuthorizationPoliciesApi) UpdateAuthorizationPolicyById(extId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/authorization-policies/{extId}"
+	uri := "/api/iam/v4.1.b2/authz/authorization-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

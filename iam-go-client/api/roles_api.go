@@ -39,7 +39,7 @@ func (api *RolesApi) CreateRole(body *import1.Role, args ...map[string]interface
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/roles"
+	uri := "/api/iam/v4.1.b2/authz/roles"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *RolesApi) DeleteRoleById(extId *string, args ...map[string]interface{
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/roles/{extId}"
+	uri := "/api/iam/v4.1.b2/authz/roles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *RolesApi) GetRoleById(extId *string, args ...map[string]interface{}) 
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/roles/{extId}"
+	uri := "/api/iam/v4.1.b2/authz/roles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *RolesApi) ListRoles(page_ *int, limit_ *int, filter_ *string, orderby
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/roles"
+	uri := "/api/iam/v4.1.b2/authz/roles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *RolesApi) UpdateRoleById(extId *string, body *import1.Role, args ...m
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authz/roles/{extId}"
+	uri := "/api/iam/v4.1.b2/authz/roles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

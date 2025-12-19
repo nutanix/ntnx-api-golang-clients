@@ -42,7 +42,7 @@ func (api *SAMLIdentityProvidersApi) CreateSamlIdentityProvider(body *import3.Sa
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers"
+	uri := "/api/iam/v4.1.b2/authn/saml-identity-providers"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -90,7 +90,7 @@ func (api *SAMLIdentityProvidersApi) DeleteSamlIdentityProviderById(extId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers/{extId}"
+	uri := "/api/iam/v4.1.b2/authn/saml-identity-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -140,7 +140,7 @@ func (api *SAMLIdentityProvidersApi) GetSamlIdentityProviderById(extId *string, 
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers/{extId}"
+	uri := "/api/iam/v4.1.b2/authn/saml-identity-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -190,7 +190,7 @@ func (api *SAMLIdentityProvidersApi) GetSamlIdpSpMetadataById(extId *string, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers/{extId}/sp-metadata"
+	uri := "/api/iam/v4.1.b2/authn/saml-identity-providers/{extId}/sp-metadata"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -265,7 +265,7 @@ func (api *SAMLIdentityProvidersApi) GetSamlSpMetadata(args ...map[string]interf
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/saml-sp-metadata"
+	uri := "/api/iam/v4.1.b2/authn/saml-sp-metadata"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -326,7 +326,7 @@ func (api *SAMLIdentityProvidersApi) ListSamlIdentityProviders(page_ *int, limit
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers"
+	uri := "/api/iam/v4.1.b2/authn/saml-identity-providers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -385,7 +385,7 @@ func (api *SAMLIdentityProvidersApi) UpdateSamlIdentityProviderById(extId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/iam/v4.1.b1/authn/saml-identity-providers/{extId}"
+	uri := "/api/iam/v4.1.b2/authn/saml-identity-providers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

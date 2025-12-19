@@ -1,9 +1,9 @@
 /*
  * Generated file models/iam/v4/authz/authz_model.go.
  *
- * Product version: 4.1.1-beta-1
+ * Product version: 4.1.1-beta-2
  *
- * Part of the Nutanix IAM Versioned APIs
+ * Part of the Nutanix Identity and Access Management APIs
  *
  * (c) 2025 Nutanix Inc.  All rights reserved
  *
@@ -164,7 +164,26 @@ func (p *AssociatedEndpoint) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociatedEndpoint(*known)
+	*p = *NewAssociatedEndpoint()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ApiVersion != nil {
+		p.ApiVersion = known.ApiVersion
+	}
+	if known.EndpointUrl != nil {
+		p.EndpointUrl = known.EndpointUrl
+	}
+	if known.HttpMethod != nil {
+		p.HttpMethod = known.HttpMethod
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -175,7 +194,9 @@ func (p *AssociatedEndpoint) UnmarshalJSON(b []byte) error {
 	delete(allFields, "httpMethod")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -184,7 +205,7 @@ func NewAssociatedEndpoint() *AssociatedEndpoint {
 	p := new(AssociatedEndpoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AssociatedEndpoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -204,7 +225,7 @@ type AttributeEntity struct {
 	*/
 	AttributeValues []string `json:"attributeValues,omitempty"`
 	/*
-	  UI display name of the entity.
+	  Display name of the entity's attribute used in Authorization Policy filters.
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 	/*
@@ -215,6 +236,10 @@ type AttributeEntity struct {
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  Name of the entity's attribute used in Authorization Policy filters.
+	*/
+	Name *string `json:"name,omitempty"`
 	/*
 	  List of supported operators for this entity.
 	*/
@@ -266,7 +291,38 @@ func (p *AttributeEntity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AttributeEntity(*known)
+	*p = *NewAttributeEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AttributeValues != nil {
+		p.AttributeValues = known.AttributeValues
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SupportedOperators != nil {
+		p.SupportedOperators = known.SupportedOperators
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -276,11 +332,14 @@ func (p *AttributeEntity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "displayName")
 	delete(allFields, "extId")
 	delete(allFields, "links")
+	delete(allFields, "name")
 	delete(allFields, "supportedOperators")
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -289,7 +348,7 @@ func NewAttributeEntity() *AttributeEntity {
 	p := new(AttributeEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AttributeEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -409,7 +468,65 @@ func (p *AuthorizationPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AuthorizationPolicy(*known)
+	*p = *NewAuthorizationPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AssignedUserGroupsCount != nil {
+		p.AssignedUserGroupsCount = known.AssignedUserGroupsCount
+	}
+	if known.AssignedUsersCount != nil {
+		p.AssignedUsersCount = known.AssignedUsersCount
+	}
+	if known.AuthorizationPolicyType != nil {
+		p.AuthorizationPolicyType = known.AuthorizationPolicyType
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Identities != nil {
+		p.Identities = known.Identities
+	}
+	if known.IsSystemDefined != nil {
+		p.IsSystemDefined = known.IsSystemDefined
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Role != nil {
+		p.Role = known.Role
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -433,7 +550,9 @@ func (p *AuthorizationPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -442,9 +561,240 @@ func NewAuthorizationPolicy() *AuthorizationPolicy {
 	p := new(AuthorizationPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
+	p.IsSystemDefined = new(bool)
+	*p.IsSystemDefined = true
+
+	return p
+}
+
+type AuthorizationPolicyConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Number of user groups assigned to the authorization policy.
+	*/
+	AssignedUserGroupsCount *int `json:"assignedUserGroupsCount,omitempty"`
+	/*
+	  Number of users assigned to the authorization policy.
+	*/
+	AssignedUsersCount *int `json:"assignedUsersCount,omitempty"`
+
+	AuthorizationPolicyType *AuthorizationPolicyType `json:"authorizationPolicyType,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  User or Service Name that created the authorization policy.
+	*/
+	CreatedBy *string `json:"createdBy,omitempty"`
+	/*
+	  The creation time of the authorization policy.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+	/*
+	  Description of the Authorization Policy.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  The display name for the authorization policy.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  The entities being qualified by the authorization policy.
+	*/
+	Entities []EntityFilter `json:"entities,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  The identities for which the authorization policy is created.
+	*/
+	Identities []IdentityFilter `json:"identities,omitempty"`
+	/*
+	  Flag identifying if the authorization policy is internal or not.
+	*/
+	IsInternal *bool `json:"isInternal,omitempty"`
+	/*
+	  Flag identifying if the authorization policy is system-defined or not.
+	*/
+	IsSystemDefined *bool `json:"isSystemDefined,omitempty"`
+	/*
+	  The time when the authorization policy was last updated.
+	*/
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  Opaque data refers to the legacy filters used in the authorization policy.
+	*/
+	Opaquedata *string `json:"opaquedata,omitempty"`
+	/*
+	  The role associated with the authorization policy.
+	*/
+	Role *string `json:"role,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *AuthorizationPolicyConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AuthorizationPolicyConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AuthorizationPolicyConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AuthorizationPolicyConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewAuthorizationPolicyConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AssignedUserGroupsCount != nil {
+		p.AssignedUserGroupsCount = known.AssignedUserGroupsCount
+	}
+	if known.AssignedUsersCount != nil {
+		p.AssignedUsersCount = known.AssignedUsersCount
+	}
+	if known.AuthorizationPolicyType != nil {
+		p.AuthorizationPolicyType = known.AuthorizationPolicyType
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Identities != nil {
+		p.Identities = known.Identities
+	}
+	if known.IsInternal != nil {
+		p.IsInternal = known.IsInternal
+	}
+	if known.IsSystemDefined != nil {
+		p.IsSystemDefined = known.IsSystemDefined
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Opaquedata != nil {
+		p.Opaquedata = known.Opaquedata
+	}
+	if known.Role != nil {
+		p.Role = known.Role
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "assignedUserGroupsCount")
+	delete(allFields, "assignedUsersCount")
+	delete(allFields, "authorizationPolicyType")
+	delete(allFields, "clientName")
+	delete(allFields, "createdBy")
+	delete(allFields, "createdTime")
+	delete(allFields, "description")
+	delete(allFields, "displayName")
+	delete(allFields, "entities")
+	delete(allFields, "extId")
+	delete(allFields, "identities")
+	delete(allFields, "isInternal")
+	delete(allFields, "isSystemDefined")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "links")
+	delete(allFields, "opaquedata")
+	delete(allFields, "role")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewAuthorizationPolicyConfig() *AuthorizationPolicyConfig {
+	p := new(AuthorizationPolicyConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.AuthorizationPolicyConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.IsInternal = new(bool)
+	*p.IsInternal = false
 	p.IsSystemDefined = new(bool)
 	*p.IsSystemDefined = true
 
@@ -564,7 +914,68 @@ func (p *AuthorizationPolicyProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AuthorizationPolicyProjection(*known)
+	*p = *NewAuthorizationPolicyProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AssignedUserGroupsCount != nil {
+		p.AssignedUserGroupsCount = known.AssignedUserGroupsCount
+	}
+	if known.AssignedUsersCount != nil {
+		p.AssignedUsersCount = known.AssignedUsersCount
+	}
+	if known.AuthorizationPolicyType != nil {
+		p.AuthorizationPolicyType = known.AuthorizationPolicyType
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Identities != nil {
+		p.Identities = known.Identities
+	}
+	if known.IsSystemDefined != nil {
+		p.IsSystemDefined = known.IsSystemDefined
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Role != nil {
+		p.Role = known.Role
+	}
+	if known.RoleProjection != nil {
+		p.RoleProjection = known.RoleProjection
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -589,7 +1000,9 @@ func (p *AuthorizationPolicyProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -598,7 +1011,7 @@ func NewAuthorizationPolicyProjection() *AuthorizationPolicyProjection {
 	p := new(AuthorizationPolicyProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationPolicyProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsSystemDefined = new(bool)
@@ -765,7 +1178,23 @@ func (p *AuthorizationRequest) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AuthorizationRequest(*known)
+	*p = *NewAuthorizationRequest()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Identity != nil {
+		p.Identity = known.Identity
+	}
+	if known.RequestList != nil {
+		p.RequestList = known.RequestList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -775,7 +1204,9 @@ func (p *AuthorizationRequest) UnmarshalJSON(b []byte) error {
 	delete(allFields, "requestList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -784,7 +1215,7 @@ func NewAuthorizationRequest() *AuthorizationRequest {
 	p := new(AuthorizationRequest)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationRequest"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -846,7 +1277,20 @@ func (p *AuthorizationResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AuthorizationResponse(*known)
+	*p = *NewAuthorizationResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Response != nil {
+		p.Response = known.Response
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -855,7 +1299,9 @@ func (p *AuthorizationResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "response")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -864,7 +1310,7 @@ func NewAuthorizationResponse() *AuthorizationResponse {
 	p := new(AuthorizationResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -936,7 +1382,29 @@ func (p *AuthorizationResponseObject) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AuthorizationResponseObject(*known)
+	*p = *NewAuthorizationResponseObject()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Authorized != nil {
+		p.Authorized = known.Authorized
+	}
+	if known.Filters != nil {
+		p.Filters = known.Filters
+	}
+	if known.RequestId != nil {
+		p.RequestId = known.RequestId
+	}
+	if known.ResponseType != nil {
+		p.ResponseType = known.ResponseType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -948,7 +1416,9 @@ func (p *AuthorizationResponseObject) UnmarshalJSON(b []byte) error {
 	delete(allFields, "responseType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -957,7 +1427,7 @@ func NewAuthorizationResponseObject() *AuthorizationResponseObject {
 	p := new(AuthorizationResponseObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizationResponseObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1036,7 +1506,26 @@ func (p *AuthorizeEntity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AuthorizeEntity(*known)
+	*p = *NewAuthorizeEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Attributes != nil {
+		p.Attributes = known.Attributes
+	}
+	if known.Operation != nil {
+		p.Operation = known.Operation
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1047,7 +1536,9 @@ func (p *AuthorizeEntity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1056,10 +1547,205 @@ func NewAuthorizeEntity() *AuthorizeEntity {
 	p := new(AuthorizeEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.AuthorizeEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+The authZ migration API request body.
+*/
+type AuthzMigrationRequest struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	MigrationType *AuthzMigrationType `json:"migrationType"`
+}
+
+func (p *AuthzMigrationRequest) MarshalJSON() ([]byte, error) {
+	type AuthzMigrationRequestProxy AuthzMigrationRequest
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*AuthzMigrationRequestProxy
+		MigrationType *AuthzMigrationType `json:"migrationType,omitempty"`
+	}{
+		AuthzMigrationRequestProxy: (*AuthzMigrationRequestProxy)(p),
+		MigrationType:              p.MigrationType,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AuthzMigrationRequest) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AuthzMigrationRequest
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewAuthzMigrationRequest()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MigrationType != nil {
+		p.MigrationType = known.MigrationType
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "migrationType")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewAuthzMigrationRequest() *AuthzMigrationRequest {
+	p := new(AuthzMigrationRequest)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.AuthzMigrationRequest"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The type of authz migration.
+*/
+type AuthzMigrationType int
+
+const (
+	AUTHZMIGRATIONTYPE_UNKNOWN                                             AuthzMigrationType = 0
+	AUTHZMIGRATIONTYPE_REDACTED                                            AuthzMigrationType = 1
+	AUTHZMIGRATIONTYPE_REMOVE_AP_TENANT_ID_FILTERS                         AuthzMigrationType = 2
+	AUTHZMIGRATIONTYPE_NC_USER_AP_TO_USER_DEFINED                          AuthzMigrationType = 3
+	AUTHZMIGRATIONTYPE_ASSIGN_BASIC_USER_AP_TO_NC_USER_AP_USERS_USERGROUPS AuthzMigrationType = 4
+	AUTHZMIGRATIONTYPE_REMOVE_CLIENT_FOUNDATION_CENTRAL                    AuthzMigrationType = 5
+	AUTHZMIGRATIONTYPE_MOVE_ROLES_APS_FROM_PRISM_CLOUD_IAM                 AuthzMigrationType = 6
+	AUTHZMIGRATIONTYPE_REMOVE_DUPLICATE_APS_AFTER_NAMESPACE_MIGRATION      AuthzMigrationType = 7
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *AuthzMigrationType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"REMOVE_AP_TENANT_ID_FILTERS",
+		"NC_USER_AP_TO_USER_DEFINED",
+		"ASSIGN_BASIC_USER_AP_TO_NC_USER_AP_USERS_USERGROUPS",
+		"REMOVE_CLIENT_FOUNDATION_CENTRAL",
+		"MOVE_ROLES_APS_FROM_PRISM_CLOUD_IAM",
+		"REMOVE_DUPLICATE_APS_AFTER_NAMESPACE_MIGRATION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e AuthzMigrationType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"REMOVE_AP_TENANT_ID_FILTERS",
+		"NC_USER_AP_TO_USER_DEFINED",
+		"ASSIGN_BASIC_USER_AP_TO_NC_USER_AP_USERS_USERGROUPS",
+		"REMOVE_CLIENT_FOUNDATION_CENTRAL",
+		"MOVE_ROLES_APS_FROM_PRISM_CLOUD_IAM",
+		"REMOVE_DUPLICATE_APS_AFTER_NAMESPACE_MIGRATION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *AuthzMigrationType) index(name string) AuthzMigrationType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"REMOVE_AP_TENANT_ID_FILTERS",
+		"NC_USER_AP_TO_USER_DEFINED",
+		"ASSIGN_BASIC_USER_AP_TO_NC_USER_AP_USERS_USERGROUPS",
+		"REMOVE_CLIENT_FOUNDATION_CENTRAL",
+		"MOVE_ROLES_APS_FROM_PRISM_CLOUD_IAM",
+		"REMOVE_DUPLICATE_APS_AFTER_NAMESPACE_MIGRATION",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return AuthzMigrationType(idx)
+		}
+	}
+	return AUTHZMIGRATIONTYPE_UNKNOWN
+}
+
+func (e *AuthzMigrationType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for AuthzMigrationType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *AuthzMigrationType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e AuthzMigrationType) Ref() *AuthzMigrationType {
+	return &e
 }
 
 /*
@@ -1146,7 +1832,41 @@ func (p *BaseAuthorizationPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BaseAuthorizationPolicy(*known)
+	*p = *NewBaseAuthorizationPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Role != nil {
+		p.Role = known.Role
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1162,7 +1882,9 @@ func (p *BaseAuthorizationPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1171,7 +1893,7 @@ func NewBaseAuthorizationPolicy() *BaseAuthorizationPolicy {
 	p := new(BaseAuthorizationPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.BaseAuthorizationPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1260,7 +1982,44 @@ func (p *BaseAuthorizationPolicyProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BaseAuthorizationPolicyProjection(*known)
+	*p = *NewBaseAuthorizationPolicyProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BaseRoleProjection != nil {
+		p.BaseRoleProjection = known.BaseRoleProjection
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Role != nil {
+		p.Role = known.Role
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1277,7 +2036,9 @@ func (p *BaseAuthorizationPolicyProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1286,7 +2047,7 @@ func NewBaseAuthorizationPolicyProjection() *BaseAuthorizationPolicyProjection {
 	p := new(BaseAuthorizationPolicyProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.BaseAuthorizationPolicyProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1364,7 +2125,32 @@ func (p *BaseRole) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BaseRole(*known)
+	*p = *NewBaseRole()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1377,7 +2163,9 @@ func (p *BaseRole) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1386,7 +2174,7 @@ func NewBaseRole() *BaseRole {
 	p := new(BaseRole)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.BaseRole"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1461,7 +2249,32 @@ func (p *BaseRoleProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BaseRoleProjection(*known)
+	*p = *NewBaseRoleProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1474,7 +2287,9 @@ func (p *BaseRoleProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1483,7 +2298,7 @@ func NewBaseRoleProjection() *BaseRoleProjection {
 	p := new(BaseRoleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.BaseRoleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1590,7 +2405,47 @@ func (p *Client) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Client(*known)
+	*p = *NewClient()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.DeploymentList != nil {
+		p.DeploymentList = known.DeploymentList
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1608,7 +2463,9 @@ func (p *Client) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1617,14 +2474,1013 @@ func NewClient() *Client {
 	p := new(Client)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Client"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/authorization-policies Post operation
+Information of the client configuration that is registered.
+*/
+type ClientConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  User or Service Name that created the client.
+	*/
+	CreatedBy *string `json:"createdBy,omitempty"`
+	/*
+	  The creation time of the client.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+	/*
+	  Deployment List related to the client.
+	*/
+	DeploymentList []string `json:"deploymentList,omitempty"`
+	/*
+	  Description of the client.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  UI name of the client.
+	*/
+	DisplayName *string `json:"displayName"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  The time when the client was last updated.
+	*/
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+	/*
+	  Identifier for the old/legacy client name.
+	*/
+	LegacyClientName *string `json:"legacyClientName,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  Unique name of the client.
+	*/
+	Name *string `json:"name"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ClientConfig) MarshalJSON() ([]byte, error) {
+	type ClientConfigProxy ClientConfig
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ClientConfigProxy
+		DisplayName *string `json:"displayName,omitempty"`
+		Name        *string `json:"name,omitempty"`
+	}{
+		ClientConfigProxy: (*ClientConfigProxy)(p),
+		DisplayName:       p.DisplayName,
+		Name:              p.Name,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ClientConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ClientConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewClientConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.DeploymentList != nil {
+		p.DeploymentList = known.DeploymentList
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.LegacyClientName != nil {
+		p.LegacyClientName = known.LegacyClientName
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "createdBy")
+	delete(allFields, "createdTime")
+	delete(allFields, "deploymentList")
+	delete(allFields, "description")
+	delete(allFields, "displayName")
+	delete(allFields, "extId")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "legacyClientName")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewClientConfig() *ClientConfig {
+	p := new(ClientConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.ClientConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+IAM configuration changset instance describing the change happened over the last deployed version.
+*/
+type ConfigChangeset struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Changeset *ConfigChangesetData `json:"changeset,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+
+	ConfigType *ConfigType `json:"configType,omitempty"`
+	/*
+	  The creation time of the IAM configuration changeset record.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+	/*
+	  The display name of the IAM configuration entity for which the changeset is generated.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  The time when the IAM configuration changeset record was last updated.
+	*/
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ConfigChangeset) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ConfigChangeset
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ConfigChangeset) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ConfigChangeset
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewConfigChangeset()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Changeset != nil {
+		p.Changeset = known.Changeset
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.ConfigType != nil {
+		p.ConfigType = known.ConfigType
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "changeset")
+	delete(allFields, "clientName")
+	delete(allFields, "configType")
+	delete(allFields, "createdTime")
+	delete(allFields, "displayName")
+	delete(allFields, "extId")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewConfigChangeset() *ConfigChangeset {
+	p := new(ConfigChangeset)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.ConfigChangeset"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The difference in the IAM configuration entity from the last deployed version.
+*/
+type ConfigChangesetData struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	DisplayNameChangeset *ConfigChangesetDisplayName `json:"displayNameChangeset,omitempty"`
+
+	LegacyObjectListChangeset *ConfigChangesetDataObjects `json:"legacyObjectListChangeset,omitempty"`
+
+	LegacyOperationListChangeset *ConfigChangesetDataOperations `json:"legacyOperationListChangeset,omitempty"`
+
+	LegacyParentOperationListChangeset *ConfigChangesetDataOperations `json:"legacyParentOperationListChangeset,omitempty"`
+}
+
+func (p *ConfigChangesetData) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ConfigChangesetData
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ConfigChangesetData) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ConfigChangesetData
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewConfigChangesetData()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DisplayNameChangeset != nil {
+		p.DisplayNameChangeset = known.DisplayNameChangeset
+	}
+	if known.LegacyObjectListChangeset != nil {
+		p.LegacyObjectListChangeset = known.LegacyObjectListChangeset
+	}
+	if known.LegacyOperationListChangeset != nil {
+		p.LegacyOperationListChangeset = known.LegacyOperationListChangeset
+	}
+	if known.LegacyParentOperationListChangeset != nil {
+		p.LegacyParentOperationListChangeset = known.LegacyParentOperationListChangeset
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "displayNameChangeset")
+	delete(allFields, "legacyObjectListChangeset")
+	delete(allFields, "legacyOperationListChangeset")
+	delete(allFields, "legacyParentOperationListChangeset")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewConfigChangesetData() *ConfigChangesetData {
+	p := new(ConfigChangesetData)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.ConfigChangesetData"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The changeset data corresponding to IAM configuration "entity".
+*/
+type ConfigChangesetDataObjects struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Configuration changeset data for added legacyObjectList entries.
+	*/
+	AddedObjects []string `json:"addedObjects,omitempty"`
+	/*
+	  Configuration changeset data for removed legacyObjectList entries.
+	*/
+	RemovedObjects []string `json:"removedObjects,omitempty"`
+}
+
+func (p *ConfigChangesetDataObjects) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ConfigChangesetDataObjects
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ConfigChangesetDataObjects) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ConfigChangesetDataObjects
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewConfigChangesetDataObjects()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AddedObjects != nil {
+		p.AddedObjects = known.AddedObjects
+	}
+	if known.RemovedObjects != nil {
+		p.RemovedObjects = known.RemovedObjects
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "addedObjects")
+	delete(allFields, "removedObjects")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewConfigChangesetDataObjects() *ConfigChangesetDataObjects {
+	p := new(ConfigChangesetDataObjects)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.ConfigChangesetDataObjects"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Configuration changeset data associated with the IAM configuration "Operation".
+*/
+type ConfigChangesetDataOperations struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Configuration changeset data for added IAM configuration "Operation" entries.
+	*/
+	AddedOperations []string `json:"addedOperations,omitempty"`
+	/*
+	  Configuration changeset data for removed IAM configuration "Operation" entries.
+	*/
+	RemovedOperations []string `json:"removedOperations,omitempty"`
+}
+
+func (p *ConfigChangesetDataOperations) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ConfigChangesetDataOperations
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ConfigChangesetDataOperations) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ConfigChangesetDataOperations
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewConfigChangesetDataOperations()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AddedOperations != nil {
+		p.AddedOperations = known.AddedOperations
+	}
+	if known.RemovedOperations != nil {
+		p.RemovedOperations = known.RemovedOperations
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "addedOperations")
+	delete(allFields, "removedOperations")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewConfigChangesetDataOperations() *ConfigChangesetDataOperations {
+	p := new(ConfigChangesetDataOperations)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.ConfigChangesetDataOperations"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The changeset corresponding to the change in the display name of the IAM configuration entity.
+*/
+type ConfigChangesetDisplayName struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The current display name of the IAM configuration entity.
+	*/
+	NewDisplayName *string `json:"newDisplayName"`
+	/*
+	  The old display name of the IAM configuration entity.
+	*/
+	PreviousDisplayName *string `json:"previousDisplayName"`
+}
+
+func (p *ConfigChangesetDisplayName) MarshalJSON() ([]byte, error) {
+	type ConfigChangesetDisplayNameProxy ConfigChangesetDisplayName
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ConfigChangesetDisplayNameProxy
+		NewDisplayName      *string `json:"newDisplayName,omitempty"`
+		PreviousDisplayName *string `json:"previousDisplayName,omitempty"`
+	}{
+		ConfigChangesetDisplayNameProxy: (*ConfigChangesetDisplayNameProxy)(p),
+		NewDisplayName:                  p.NewDisplayName,
+		PreviousDisplayName:             p.PreviousDisplayName,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ConfigChangesetDisplayName) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ConfigChangesetDisplayName
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewConfigChangesetDisplayName()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NewDisplayName != nil {
+		p.NewDisplayName = known.NewDisplayName
+	}
+	if known.PreviousDisplayName != nil {
+		p.PreviousDisplayName = known.PreviousDisplayName
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "newDisplayName")
+	delete(allFields, "previousDisplayName")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewConfigChangesetDisplayName() *ConfigChangesetDisplayName {
+	p := new(ConfigChangesetDisplayName)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.ConfigChangesetDisplayName"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type ConfigChangesetProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Changeset *ConfigChangesetData `json:"changeset,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+
+	ConfigType *ConfigType `json:"configType,omitempty"`
+	/*
+	  The creation time of the IAM configuration changeset record.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+	/*
+	  The display name of the IAM configuration entity for which the changeset is generated.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  The time when the IAM configuration changeset record was last updated.
+	*/
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ConfigChangesetProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ConfigChangesetProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ConfigChangesetProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ConfigChangesetProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewConfigChangesetProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Changeset != nil {
+		p.Changeset = known.Changeset
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.ConfigType != nil {
+		p.ConfigType = known.ConfigType
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "changeset")
+	delete(allFields, "clientName")
+	delete(allFields, "configType")
+	delete(allFields, "createdTime")
+	delete(allFields, "displayName")
+	delete(allFields, "extId")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "links")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewConfigChangesetProjection() *ConfigChangesetProjection {
+	p := new(ConfigChangesetProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.ConfigChangesetProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Type of IAM configuration.
+*/
+type ConfigType int
+
+const (
+	CONFIGTYPE_UNKNOWN   ConfigType = 0
+	CONFIGTYPE_REDACTED  ConfigType = 1
+	CONFIGTYPE_OPERATION ConfigType = 2
+	CONFIGTYPE_ENTITY    ConfigType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ConfigType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"OPERATION",
+		"ENTITY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ConfigType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"OPERATION",
+		"ENTITY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ConfigType) index(name string) ConfigType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"OPERATION",
+		"ENTITY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ConfigType(idx)
+		}
+	}
+	return CONFIGTYPE_UNKNOWN
+}
+
+func (e *ConfigType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ConfigType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ConfigType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ConfigType) Ref() *ConfigType {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /iam/v4.1.b2/authz/authorization-policies Post operation
 */
 type CreateAuthorizationPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1683,7 +3539,26 @@ func (p *CreateAuthorizationPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateAuthorizationPolicyApiResponse(*known)
+	*p = *NewCreateAuthorizationPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1694,7 +3569,9 @@ func (p *CreateAuthorizationPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1703,7 +3580,7 @@ func NewCreateAuthorizationPolicyApiResponse() *CreateAuthorizationPolicyApiResp
 	p := new(CreateAuthorizationPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.CreateAuthorizationPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1731,7 +3608,7 @@ func (p *CreateAuthorizationPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/roles Post operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/roles Post operation
 */
 type CreateRoleApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1790,7 +3667,26 @@ func (p *CreateRoleApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateRoleApiResponse(*known)
+	*p = *NewCreateRoleApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1801,7 +3697,9 @@ func (p *CreateRoleApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1810,7 +3708,7 @@ func NewCreateRoleApiResponse() *CreateRoleApiResponse {
 	p := new(CreateRoleApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.CreateRoleApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1838,7 +3736,7 @@ func (p *CreateRoleApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/authorization-policies/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/authorization-policies/{extId} Delete operation
 */
 type DeleteAuthorizationPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1897,7 +3795,26 @@ func (p *DeleteAuthorizationPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteAuthorizationPolicyApiResponse(*known)
+	*p = *NewDeleteAuthorizationPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1908,7 +3825,9 @@ func (p *DeleteAuthorizationPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1917,7 +3836,7 @@ func NewDeleteAuthorizationPolicyApiResponse() *DeleteAuthorizationPolicyApiResp
 	p := new(DeleteAuthorizationPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.DeleteAuthorizationPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1945,7 +3864,7 @@ func (p *DeleteAuthorizationPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/roles/{extId} Delete operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/roles/{extId} Delete operation
 */
 type DeleteRoleApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2004,7 +3923,26 @@ func (p *DeleteRoleApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteRoleApiResponse(*known)
+	*p = *NewDeleteRoleApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2015,7 +3953,9 @@ func (p *DeleteRoleApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2024,7 +3964,7 @@ func NewDeleteRoleApiResponse() *DeleteRoleApiResponse {
 	p := new(DeleteRoleApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.DeleteRoleApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2153,7 +4093,56 @@ func (p *Entity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Entity(*known)
+	*p = *NewEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AttributeList != nil {
+		p.AttributeList = known.AttributeList
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsLogicalAndSupportedForAttributes != nil {
+		p.IsLogicalAndSupportedForAttributes = known.IsLogicalAndSupportedForAttributes
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SearchURL != nil {
+		p.SearchURL = known.SearchURL
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2174,7 +4163,9 @@ func (p *Entity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2183,7 +4174,212 @@ func NewEntity() *Entity {
 	p := new(Entity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Entity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Information of the entity configuration.
+*/
+type EntityConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	AttributeList []AttributeEntity `json:"attributeList,omitempty"`
+	/*
+	  Name of client the entity belongs to.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  User or Service Name that created the entity.
+	*/
+	CreatedBy *string `json:"createdBy,omitempty"`
+	/*
+	  The creation time of the entity.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+	/*
+	  Description of the entity.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  UI display name of the entity.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Flag identifying if the entity is internal or not.
+	*/
+	IsInternal *bool `json:"isInternal,omitempty"`
+	/*
+	  Indicates whether the entity supports scoping using multiple attributes which will result in a logical AND.
+	*/
+	IsLogicalAndSupportedForAttributes *bool `json:"isLogicalAndSupportedForAttributes,omitempty"`
+	/*
+	  The time when the entity was last updated.
+	*/
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+	/*
+	  List of old displayNames of the given entity which have been consolidated or renamed.
+	*/
+	LegacyObjectList []string `json:"legacyObjectList,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  Unique name of the entity.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  URL provided by the client to search the entities.
+	*/
+	SearchURL *string `json:"searchURL,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *EntityConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EntityConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EntityConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EntityConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewEntityConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AttributeList != nil {
+		p.AttributeList = known.AttributeList
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsInternal != nil {
+		p.IsInternal = known.IsInternal
+	}
+	if known.IsLogicalAndSupportedForAttributes != nil {
+		p.IsLogicalAndSupportedForAttributes = known.IsLogicalAndSupportedForAttributes
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.LegacyObjectList != nil {
+		p.LegacyObjectList = known.LegacyObjectList
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SearchURL != nil {
+		p.SearchURL = known.SearchURL
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "attributeList")
+	delete(allFields, "clientName")
+	delete(allFields, "createdBy")
+	delete(allFields, "createdTime")
+	delete(allFields, "description")
+	delete(allFields, "displayName")
+	delete(allFields, "extId")
+	delete(allFields, "isInternal")
+	delete(allFields, "isLogicalAndSupportedForAttributes")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "legacyObjectList")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "searchURL")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewEntityConfig() *EntityConfig {
+	p := new(EntityConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.EntityConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2245,7 +4441,20 @@ func (p *EntityFilter) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityFilter(*known)
+	*p = *NewEntityFilter()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityFilter != nil {
+		p.EntityFilter = known.EntityFilter
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2254,7 +4463,9 @@ func (p *EntityFilter) UnmarshalJSON(b []byte) error {
 	delete(allFields, "entityFilter")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2263,7 +4474,7 @@ func NewEntityFilter() *EntityFilter {
 	p := new(EntityFilter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.EntityFilter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2361,7 +4572,7 @@ func (e EntityOperators) Ref() *EntityOperators {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/authorization-policies/{extId} Get operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/authorization-policies/{extId} Get operation
 */
 type GetAuthorizationPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2420,7 +4631,26 @@ func (p *GetAuthorizationPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetAuthorizationPolicyApiResponse(*known)
+	*p = *NewGetAuthorizationPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2431,7 +4661,9 @@ func (p *GetAuthorizationPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2440,7 +4672,7 @@ func NewGetAuthorizationPolicyApiResponse() *GetAuthorizationPolicyApiResponse {
 	p := new(GetAuthorizationPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetAuthorizationPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2468,7 +4700,7 @@ func (p *GetAuthorizationPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/clients/{extId} Get operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/clients/{extId} Get operation
 */
 type GetClientApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2527,7 +4759,26 @@ func (p *GetClientApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetClientApiResponse(*known)
+	*p = *NewGetClientApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2538,7 +4789,9 @@ func (p *GetClientApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2547,7 +4800,7 @@ func NewGetClientApiResponse() *GetClientApiResponse {
 	p := new(GetClientApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetClientApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2575,7 +4828,7 @@ func (p *GetClientApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/entities/{extId} Get operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/entities/{extId} Get operation
 */
 type GetEntityApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2634,7 +4887,26 @@ func (p *GetEntityApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetEntityApiResponse(*known)
+	*p = *NewGetEntityApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2645,7 +4917,9 @@ func (p *GetEntityApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2654,7 +4928,7 @@ func NewGetEntityApiResponse() *GetEntityApiResponse {
 	p := new(GetEntityApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetEntityApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2682,7 +4956,7 @@ func (p *GetEntityApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/operations/{extId} Get operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/operations/{extId} Get operation
 */
 type GetOperationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2741,7 +5015,26 @@ func (p *GetOperationApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetOperationApiResponse(*known)
+	*p = *NewGetOperationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2752,7 +5045,9 @@ func (p *GetOperationApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2761,7 +5056,7 @@ func NewGetOperationApiResponse() *GetOperationApiResponse {
 	p := new(GetOperationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetOperationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2789,7 +5084,7 @@ func (p *GetOperationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/roles/{extId} Get operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/roles/{extId} Get operation
 */
 type GetRoleApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2848,7 +5143,26 @@ func (p *GetRoleApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetRoleApiResponse(*known)
+	*p = *NewGetRoleApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2859,7 +5173,9 @@ func (p *GetRoleApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2868,7 +5184,7 @@ func NewGetRoleApiResponse() *GetRoleApiResponse {
 	p := new(GetRoleApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.GetRoleApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3042,7 +5358,20 @@ func (p *IdentityFilter) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IdentityFilter(*known)
+	*p = *NewIdentityFilter()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IdentityFilter != nil {
+		p.IdentityFilter = known.IdentityFilter
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3051,7 +5380,9 @@ func (p *IdentityFilter) UnmarshalJSON(b []byte) error {
 	delete(allFields, "identityFilter")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3060,7 +5391,7 @@ func NewIdentityFilter() *IdentityFilter {
 	p := new(IdentityFilter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.IdentityFilter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3124,7 +5455,23 @@ func (p *IdentityObject) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IdentityObject(*known)
+	*p = *NewIdentityObject()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Attributes != nil {
+		p.Attributes = known.Attributes
+	}
+	if known.IdentityType != nil {
+		p.IdentityType = known.IdentityType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3134,7 +5481,9 @@ func (p *IdentityObject) UnmarshalJSON(b []byte) error {
 	delete(allFields, "identityType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3143,7 +5492,7 @@ func NewIdentityObject() *IdentityObject {
 	p := new(IdentityObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.IdentityObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3225,7 +5574,7 @@ func (e IdentityType) Ref() *IdentityType {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/authorization-policies Get operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/authorization-policies Get operation
 */
 type ListAuthorizationPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3284,7 +5633,26 @@ func (p *ListAuthorizationPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListAuthorizationPoliciesApiResponse(*known)
+	*p = *NewListAuthorizationPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3295,7 +5663,9 @@ func (p *ListAuthorizationPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3304,7 +5674,7 @@ func NewListAuthorizationPoliciesApiResponse() *ListAuthorizationPoliciesApiResp
 	p := new(ListAuthorizationPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.ListAuthorizationPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3332,7 +5702,7 @@ func (p *ListAuthorizationPoliciesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/entities Get operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/entities Get operation
 */
 type ListEntitiesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3391,7 +5761,26 @@ func (p *ListEntitiesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListEntitiesApiResponse(*known)
+	*p = *NewListEntitiesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3402,7 +5791,9 @@ func (p *ListEntitiesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3411,7 +5802,7 @@ func NewListEntitiesApiResponse() *ListEntitiesApiResponse {
 	p := new(ListEntitiesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.ListEntitiesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3439,7 +5830,7 @@ func (p *ListEntitiesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/operations Get operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/operations Get operation
 */
 type ListOperationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3498,7 +5889,26 @@ func (p *ListOperationsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListOperationsApiResponse(*known)
+	*p = *NewListOperationsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3509,7 +5919,9 @@ func (p *ListOperationsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3518,7 +5930,7 @@ func NewListOperationsApiResponse() *ListOperationsApiResponse {
 	p := new(ListOperationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.ListOperationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3546,7 +5958,7 @@ func (p *ListOperationsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/roles Get operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/roles Get operation
 */
 type ListRolesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3605,7 +6017,26 @@ func (p *ListRolesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListRolesApiResponse(*known)
+	*p = *NewListRolesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3616,7 +6047,9 @@ func (p *ListRolesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3625,7 +6058,7 @@ func NewListRolesApiResponse() *ListRolesApiResponse {
 	p := new(ListRolesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.ListRolesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3715,7 +6148,20 @@ func (p *MigrateRoleSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MigrateRoleSpec(*known)
+	*p = *NewMigrateRoleSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ShouldIncludeRelatedOperations != nil {
+		p.ShouldIncludeRelatedOperations = known.ShouldIncludeRelatedOperations
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3724,7 +6170,9 @@ func (p *MigrateRoleSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldIncludeRelatedOperations")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3733,7 +6181,7 @@ func NewMigrateRoleSpec() *MigrateRoleSpec {
 	p := new(MigrateRoleSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.MigrateRoleSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3802,7 +6250,20 @@ func (p *MigrationActionNotes) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MigrationActionNotes(*known)
+	*p = *NewMigrationActionNotes()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Notes != nil {
+		p.Notes = known.Notes
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3811,7 +6272,9 @@ func (p *MigrationActionNotes) UnmarshalJSON(b []byte) error {
 	delete(allFields, "notes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3820,7 +6283,7 @@ func NewMigrationActionNotes() *MigrationActionNotes {
 	p := new(MigrationActionNotes)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.MigrationActionNotes"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3923,7 +6386,56 @@ func (p *Operation) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Operation(*known)
+	*p = *NewOperation()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AssociatedEndpointList != nil {
+		p.AssociatedEndpointList = known.AssociatedEndpointList
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MigrationActionNotes != nil {
+		p.MigrationActionNotes = known.MigrationActionNotes
+	}
+	if known.OperationType != nil {
+		p.OperationType = known.OperationType
+	}
+	if known.RelatedOperationList != nil {
+		p.RelatedOperationList = known.RelatedOperationList
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3944,7 +6456,9 @@ func (p *Operation) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3953,7 +6467,215 @@ func NewOperation() *Operation {
 	p := new(Operation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Operation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type OperationConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of associated endpoint objects for the operation.
+	*/
+	AssociatedEndpointList []AssociatedEndpoint `json:"associatedEndpointList,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  The creation time of the operation.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+	/*
+	  Description of the operation.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  Name of the operation.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  Type of entity associated with this operation.
+	*/
+	EntityType *string `json:"entityType,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Flag to denote if operation is internal or not.
+	*/
+	IsInternal *bool `json:"isInternal,omitempty"`
+	/*
+	  The time when the operation was last updated.
+	*/
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+	/*
+	  Legacy or existing Operation name(s) which have been replaced/consolidated by the new Operation name.
+	*/
+	LegacyOperationList []string `json:"legacyOperationList,omitempty"`
+	/*
+	  Existing operation name(s) which have been split into operations including the given new Operation name.
+	*/
+	LegacyParentOperationList []string `json:"legacyParentOperationList,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+
+	MigrationActionNotes *MigrationActionNotes `json:"migrationActionNotes,omitempty"`
+
+	OperationType *OperationType `json:"operationType,omitempty"`
+	/*
+	  List of related operations. These are the operations that may need to be accessed along with the current operation in order for certain workflows to succeed.
+	*/
+	RelatedOperationList []string `json:"relatedOperationList,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *OperationConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias OperationConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *OperationConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias OperationConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewOperationConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AssociatedEndpointList != nil {
+		p.AssociatedEndpointList = known.AssociatedEndpointList
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsInternal != nil {
+		p.IsInternal = known.IsInternal
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.LegacyOperationList != nil {
+		p.LegacyOperationList = known.LegacyOperationList
+	}
+	if known.LegacyParentOperationList != nil {
+		p.LegacyParentOperationList = known.LegacyParentOperationList
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MigrationActionNotes != nil {
+		p.MigrationActionNotes = known.MigrationActionNotes
+	}
+	if known.OperationType != nil {
+		p.OperationType = known.OperationType
+	}
+	if known.RelatedOperationList != nil {
+		p.RelatedOperationList = known.RelatedOperationList
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "associatedEndpointList")
+	delete(allFields, "clientName")
+	delete(allFields, "createdTime")
+	delete(allFields, "description")
+	delete(allFields, "displayName")
+	delete(allFields, "entityType")
+	delete(allFields, "extId")
+	delete(allFields, "isInternal")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "legacyOperationList")
+	delete(allFields, "legacyParentOperationList")
+	delete(allFields, "links")
+	delete(allFields, "migrationActionNotes")
+	delete(allFields, "operationType")
+	delete(allFields, "relatedOperationList")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewOperationConfig() *OperationConfig {
+	p := new(OperationConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.OperationConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4194,7 +6916,26 @@ func (p *RequestObject) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RequestObject(*known)
+	*p = *NewRequestObject()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Entity != nil {
+		p.Entity = known.Entity
+	}
+	if known.RequestID != nil {
+		p.RequestID = known.RequestID
+	}
+	if known.ResponseType != nil {
+		p.ResponseType = known.ResponseType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4205,7 +6946,9 @@ func (p *RequestObject) UnmarshalJSON(b []byte) error {
 	delete(allFields, "responseType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4214,7 +6957,7 @@ func NewRequestObject() *RequestObject {
 	p := new(RequestObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.RequestObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4421,7 +7164,71 @@ func (p *Role) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Role(*known)
+	*p = *NewRole()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AccessibleClients != nil {
+		p.AccessibleClients = known.AccessibleClients
+	}
+	if known.AccessibleClientsCount != nil {
+		p.AccessibleClientsCount = known.AccessibleClientsCount
+	}
+	if known.AccessibleEntityTypes != nil {
+		p.AccessibleEntityTypes = known.AccessibleEntityTypes
+	}
+	if known.AccessibleEntityTypesCount != nil {
+		p.AccessibleEntityTypesCount = known.AccessibleEntityTypesCount
+	}
+	if known.AssignedUserGroupsCount != nil {
+		p.AssignedUserGroupsCount = known.AssignedUserGroupsCount
+	}
+	if known.AssignedUsersCount != nil {
+		p.AssignedUsersCount = known.AssignedUsersCount
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsSystemDefined != nil {
+		p.IsSystemDefined = known.IsSystemDefined
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.OperationSchemaChangeImpact != nil {
+		p.OperationSchemaChangeImpact = known.OperationSchemaChangeImpact
+	}
+	if known.Operations != nil {
+		p.Operations = known.Operations
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4447,7 +7254,9 @@ func (p *Role) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4456,7 +7265,252 @@ func NewRole() *Role {
 	p := new(Role)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Role"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.IsSystemDefined = new(bool)
+	*p.IsSystemDefined = true
+
+	return p
+}
+
+type RoleConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of Accessible clients for the role.
+	*/
+	AccessibleClients []string `json:"accessibleClients,omitempty"`
+	/*
+	  Count of Accessible clients for the role.
+	*/
+	AccessibleClientsCount *int `json:"accessibleClientsCount,omitempty"`
+	/*
+	  List of Accessible Entity Types for the role.
+	*/
+	AccessibleEntityTypes []string `json:"accessibleEntityTypes,omitempty"`
+	/*
+	  Count of Accessible Entity Types for the role.
+	*/
+	AccessibleEntityTypesCount *int `json:"accessibleEntityTypesCount,omitempty"`
+	/*
+	  Number of user groups assigned to the given role.
+	*/
+	AssignedUserGroupsCount *int64 `json:"assignedUserGroupsCount,omitempty"`
+	/*
+	  Number of users assigned to the given role.
+	*/
+	AssignedUsersCount *int64 `json:"assignedUsersCount,omitempty"`
+	/*
+	  Client that created the entity.
+	*/
+	ClientName *string `json:"clientName,omitempty"`
+	/*
+	  User or Service Name that created the role.
+	*/
+	CreatedBy *string `json:"createdBy,omitempty"`
+	/*
+	  The creation time of the role.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+	/*
+	  Description of the role.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  The display name of the role.
+	*/
+	DisplayName *string `json:"displayName,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Flag identifying if the role is internal or not.
+	*/
+	IsInternal *bool `json:"isInternal,omitempty"`
+	/*
+	  Flag identifying if the role is system-defined or not.
+	*/
+	IsSystemDefined *bool `json:"isSystemDefined,omitempty"`
+	/*
+	  The time when the role was last updated.
+	*/
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+	/*
+	  Old IUN of the role.
+	*/
+	LegacyRole *string `json:"legacyRole,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+
+	OperationSchemaChangeImpact *OperationSchemaChangeImpact `json:"operationSchemaChangeImpact,omitempty"`
+	/*
+	  List of operations for the role.
+	*/
+	Operations []string `json:"operations,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *RoleConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RoleConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RoleConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RoleConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewRoleConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AccessibleClients != nil {
+		p.AccessibleClients = known.AccessibleClients
+	}
+	if known.AccessibleClientsCount != nil {
+		p.AccessibleClientsCount = known.AccessibleClientsCount
+	}
+	if known.AccessibleEntityTypes != nil {
+		p.AccessibleEntityTypes = known.AccessibleEntityTypes
+	}
+	if known.AccessibleEntityTypesCount != nil {
+		p.AccessibleEntityTypesCount = known.AccessibleEntityTypesCount
+	}
+	if known.AssignedUserGroupsCount != nil {
+		p.AssignedUserGroupsCount = known.AssignedUserGroupsCount
+	}
+	if known.AssignedUsersCount != nil {
+		p.AssignedUsersCount = known.AssignedUsersCount
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsInternal != nil {
+		p.IsInternal = known.IsInternal
+	}
+	if known.IsSystemDefined != nil {
+		p.IsSystemDefined = known.IsSystemDefined
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.LegacyRole != nil {
+		p.LegacyRole = known.LegacyRole
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.OperationSchemaChangeImpact != nil {
+		p.OperationSchemaChangeImpact = known.OperationSchemaChangeImpact
+	}
+	if known.Operations != nil {
+		p.Operations = known.Operations
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "accessibleClients")
+	delete(allFields, "accessibleClientsCount")
+	delete(allFields, "accessibleEntityTypes")
+	delete(allFields, "accessibleEntityTypesCount")
+	delete(allFields, "assignedUserGroupsCount")
+	delete(allFields, "assignedUsersCount")
+	delete(allFields, "clientName")
+	delete(allFields, "createdBy")
+	delete(allFields, "createdTime")
+	delete(allFields, "description")
+	delete(allFields, "displayName")
+	delete(allFields, "extId")
+	delete(allFields, "isInternal")
+	delete(allFields, "isSystemDefined")
+	delete(allFields, "lastUpdatedTime")
+	delete(allFields, "legacyRole")
+	delete(allFields, "links")
+	delete(allFields, "operationSchemaChangeImpact")
+	delete(allFields, "operations")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewRoleConfig() *RoleConfig {
+	p := new(RoleConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.RoleConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsSystemDefined = new(bool)
@@ -4584,7 +7638,71 @@ func (p *RoleProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RoleProjection(*known)
+	*p = *NewRoleProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AccessibleClients != nil {
+		p.AccessibleClients = known.AccessibleClients
+	}
+	if known.AccessibleClientsCount != nil {
+		p.AccessibleClientsCount = known.AccessibleClientsCount
+	}
+	if known.AccessibleEntityTypes != nil {
+		p.AccessibleEntityTypes = known.AccessibleEntityTypes
+	}
+	if known.AccessibleEntityTypesCount != nil {
+		p.AccessibleEntityTypesCount = known.AccessibleEntityTypesCount
+	}
+	if known.AssignedUserGroupsCount != nil {
+		p.AssignedUserGroupsCount = known.AssignedUserGroupsCount
+	}
+	if known.AssignedUsersCount != nil {
+		p.AssignedUsersCount = known.AssignedUsersCount
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsSystemDefined != nil {
+		p.IsSystemDefined = known.IsSystemDefined
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.OperationSchemaChangeImpact != nil {
+		p.OperationSchemaChangeImpact = known.OperationSchemaChangeImpact
+	}
+	if known.Operations != nil {
+		p.Operations = known.Operations
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4610,7 +7728,9 @@ func (p *RoleProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4619,13 +7739,728 @@ func NewRoleProjection() *RoleProjection {
 	p := new(RoleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.RoleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsSystemDefined = new(bool)
 	*p.IsSystemDefined = true
 
 	return p
+}
+
+/*
+The authorization policies config that will be seeded.
+*/
+type SeedConfigAuthorizationPolicyList struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The authorization policies config that will be seeded.
+	*/
+	AuthorizationPolicies []AuthorizationPolicyConfig `json:"authorizationPolicies,omitempty"`
+}
+
+func (p *SeedConfigAuthorizationPolicyList) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SeedConfigAuthorizationPolicyList
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SeedConfigAuthorizationPolicyList) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SeedConfigAuthorizationPolicyList
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewSeedConfigAuthorizationPolicyList()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AuthorizationPolicies != nil {
+		p.AuthorizationPolicies = known.AuthorizationPolicies
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "authorizationPolicies")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewSeedConfigAuthorizationPolicyList() *SeedConfigAuthorizationPolicyList {
+	p := new(SeedConfigAuthorizationPolicyList)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.SeedConfigAuthorizationPolicyList"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The entities config that will be seeded.
+*/
+type SeedConfigEntityList struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The entities config that will be seeded.
+	*/
+	Entities []EntityConfig `json:"entities,omitempty"`
+}
+
+func (p *SeedConfigEntityList) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SeedConfigEntityList
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SeedConfigEntityList) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SeedConfigEntityList
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewSeedConfigEntityList()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "entities")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewSeedConfigEntityList() *SeedConfigEntityList {
+	p := new(SeedConfigEntityList)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.SeedConfigEntityList"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The operation objects that will be seeded.
+*/
+type SeedConfigOperationList struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The operation objects that will be seeded.
+	*/
+	Operations []OperationConfig `json:"operations,omitempty"`
+}
+
+func (p *SeedConfigOperationList) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SeedConfigOperationList
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SeedConfigOperationList) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SeedConfigOperationList
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewSeedConfigOperationList()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Operations != nil {
+		p.Operations = known.Operations
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "operations")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewSeedConfigOperationList() *SeedConfigOperationList {
+	p := new(SeedConfigOperationList)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.SeedConfigOperationList"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The type of operation to be performed on the entities.
+*/
+type SeedConfigOperationType int
+
+const (
+	SEEDCONFIGOPERATIONTYPE_UNKNOWN  SeedConfigOperationType = 0
+	SEEDCONFIGOPERATIONTYPE_REDACTED SeedConfigOperationType = 1
+	SEEDCONFIGOPERATIONTYPE_CREATE   SeedConfigOperationType = 2
+	SEEDCONFIGOPERATIONTYPE_UPDATE   SeedConfigOperationType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *SeedConfigOperationType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CREATE",
+		"UPDATE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e SeedConfigOperationType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CREATE",
+		"UPDATE",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *SeedConfigOperationType) index(name string) SeedConfigOperationType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CREATE",
+		"UPDATE",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return SeedConfigOperationType(idx)
+		}
+	}
+	return SEEDCONFIGOPERATIONTYPE_UNKNOWN
+}
+
+func (e *SeedConfigOperationType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for SeedConfigOperationType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *SeedConfigOperationType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e SeedConfigOperationType) Ref() *SeedConfigOperationType {
+	return &e
+}
+
+/*
+Request body for the configuration seeding request.
+*/
+type SeedConfigRequest struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The name of the client for which the entities will be seeded.
+	*/
+	ClientName *string `json:"clientName"`
+	/*
+
+	 */
+	ConfigListItemDiscriminator_ *string `json:"$configListItemDiscriminator,omitempty"`
+	/*
+	  List of entities to be seeded.
+	*/
+	ConfigList *OneOfSeedConfigRequestConfigList `json:"configList"`
+
+	ConfigType *SeedConfigType `json:"configType"`
+
+	OperationType *SeedConfigOperationType `json:"operationType"`
+	/*
+	  ID of tenant for which configuration is being set up.
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *SeedConfigRequest) MarshalJSON() ([]byte, error) {
+	type SeedConfigRequestProxy SeedConfigRequest
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*SeedConfigRequestProxy
+		ClientName    *string                           `json:"clientName,omitempty"`
+		ConfigList    *OneOfSeedConfigRequestConfigList `json:"configList,omitempty"`
+		ConfigType    *SeedConfigType                   `json:"configType,omitempty"`
+		OperationType *SeedConfigOperationType          `json:"operationType,omitempty"`
+	}{
+		SeedConfigRequestProxy: (*SeedConfigRequestProxy)(p),
+		ClientName:             p.ClientName,
+		ConfigList:             p.ConfigList,
+		ConfigType:             p.ConfigType,
+		OperationType:          p.OperationType,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SeedConfigRequest) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SeedConfigRequest
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewSeedConfigRequest()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.ConfigListItemDiscriminator_ != nil {
+		p.ConfigListItemDiscriminator_ = known.ConfigListItemDiscriminator_
+	}
+	if known.ConfigList != nil {
+		p.ConfigList = known.ConfigList
+	}
+	if known.ConfigType != nil {
+		p.ConfigType = known.ConfigType
+	}
+	if known.OperationType != nil {
+		p.OperationType = known.OperationType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clientName")
+	delete(allFields, "$configListItemDiscriminator")
+	delete(allFields, "configList")
+	delete(allFields, "configType")
+	delete(allFields, "operationType")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewSeedConfigRequest() *SeedConfigRequest {
+	p := new(SeedConfigRequest)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.SeedConfigRequest"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *SeedConfigRequest) GetConfigList() interface{} {
+	if nil == p.ConfigList {
+		return nil
+	}
+	return p.ConfigList.GetValue()
+}
+
+func (p *SeedConfigRequest) SetConfigList(v interface{}) error {
+	if nil == p.ConfigList {
+		p.ConfigList = NewOneOfSeedConfigRequestConfigList()
+	}
+	e := p.ConfigList.SetValue(v)
+	if nil == e {
+		if nil == p.ConfigListItemDiscriminator_ {
+			p.ConfigListItemDiscriminator_ = new(string)
+		}
+		*p.ConfigListItemDiscriminator_ = *p.ConfigList.Discriminator
+	}
+	return e
+}
+
+/*
+The role objects that will be seeded.
+*/
+type SeedConfigRoleList struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The role objects that will be seeded.
+	*/
+	Roles []RoleConfig `json:"roles,omitempty"`
+}
+
+func (p *SeedConfigRoleList) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias SeedConfigRoleList
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *SeedConfigRoleList) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias SeedConfigRoleList
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewSeedConfigRoleList()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Roles != nil {
+		p.Roles = known.Roles
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "roles")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewSeedConfigRoleList() *SeedConfigRoleList {
+	p := new(SeedConfigRoleList)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "iam.v4.authz.SeedConfigRoleList"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The type of entities which will be seeded.
+*/
+type SeedConfigType int
+
+const (
+	SEEDCONFIGTYPE_UNKNOWN              SeedConfigType = 0
+	SEEDCONFIGTYPE_REDACTED             SeedConfigType = 1
+	SEEDCONFIGTYPE_CLIENT               SeedConfigType = 2
+	SEEDCONFIGTYPE_ENTITY               SeedConfigType = 3
+	SEEDCONFIGTYPE_OPERATION            SeedConfigType = 4
+	SEEDCONFIGTYPE_ROLE                 SeedConfigType = 5
+	SEEDCONFIGTYPE_AUTHORIZATION_POLICY SeedConfigType = 6
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *SeedConfigType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CLIENT",
+		"ENTITY",
+		"OPERATION",
+		"ROLE",
+		"AUTHORIZATION_POLICY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e SeedConfigType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CLIENT",
+		"ENTITY",
+		"OPERATION",
+		"ROLE",
+		"AUTHORIZATION_POLICY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *SeedConfigType) index(name string) SeedConfigType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CLIENT",
+		"ENTITY",
+		"OPERATION",
+		"ROLE",
+		"AUTHORIZATION_POLICY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return SeedConfigType(idx)
+		}
+	}
+	return SEEDCONFIGTYPE_UNKNOWN
+}
+
+func (e *SeedConfigType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for SeedConfigType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *SeedConfigType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e SeedConfigType) Ref() *SeedConfigType {
+	return &e
 }
 
 /*
@@ -4696,7 +8531,29 @@ func (p *Tenant) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Tenant(*known)
+	*p = *NewTenant()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TenantName != nil {
+		p.TenantName = known.TenantName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4708,7 +8565,9 @@ func (p *Tenant) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4717,14 +8576,14 @@ func NewTenant() *Tenant {
 	p := new(Tenant)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.Tenant"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/authorization-policies/{extId} Put operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/authorization-policies/{extId} Put operation
 */
 type UpdateAuthorizationPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4783,7 +8642,26 @@ func (p *UpdateAuthorizationPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateAuthorizationPolicyApiResponse(*known)
+	*p = *NewUpdateAuthorizationPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4794,7 +8672,9 @@ func (p *UpdateAuthorizationPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4803,7 +8683,7 @@ func NewUpdateAuthorizationPolicyApiResponse() *UpdateAuthorizationPolicyApiResp
 	p := new(UpdateAuthorizationPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.UpdateAuthorizationPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4831,7 +8711,7 @@ func (p *UpdateAuthorizationPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /iam/v4.1.b1/authz/roles/{extId} Put operation
+REST response for all response codes in API path /iam/v4.1.b2/authz/roles/{extId} Put operation
 */
 type UpdateRoleApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4890,7 +8770,26 @@ func (p *UpdateRoleApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateRoleApiResponse(*known)
+	*p = *NewUpdateRoleApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4901,7 +8800,9 @@ func (p *UpdateRoleApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4910,7 +8811,7 @@ func NewUpdateRoleApiResponse() *UpdateRoleApiResponse {
 	p := new(UpdateRoleApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.UpdateRoleApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5021,7 +8922,41 @@ func (p *UserAuthorizationPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UserAuthorizationPolicy(*known)
+	*p = *NewUserAuthorizationPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Role != nil {
+		p.Role = known.Role
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5037,7 +8972,9 @@ func (p *UserAuthorizationPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5046,7 +8983,7 @@ func NewUserAuthorizationPolicy() *UserAuthorizationPolicy {
 	p := new(UserAuthorizationPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.UserAuthorizationPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5128,7 +9065,35 @@ func (p *UserRole) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UserRole(*known)
+	*p = *NewUserRole()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Operations != nil {
+		p.Operations = known.Operations
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5142,7 +9107,9 @@ func (p *UserRole) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5151,7 +9118,7 @@ func NewUserRole() *UserRole {
 	p := new(UserRole)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.UserRole"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5230,7 +9197,35 @@ func (p *UserRoleProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UserRoleProjection(*known)
+	*p = *NewUserRoleProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClientName != nil {
+		p.ClientName = known.ClientName
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Operations != nil {
+		p.Operations = known.Operations
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5244,7 +9239,9 @@ func (p *UserRoleProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5253,7 +9250,7 @@ func NewUserRoleProjection() *UserRoleProjection {
 	p := new(UserRoleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "iam.v4.authz.UserRoleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5743,6 +9740,231 @@ func (p *OneOfDeleteAuthorizationPolicyApiResponseData) MarshalJSON() ([]byte, e
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfDeleteAuthorizationPolicyApiResponseData")
+}
+
+type OneOfSeedConfigRequestConfigList struct {
+	Discriminator *string                            `json:"-"`
+	ObjectType_   *string                            `json:"-"`
+	oneOfType2005 *SeedConfigAuthorizationPolicyList `json:"-"`
+	oneOfType2002 *SeedConfigEntityList              `json:"-"`
+	oneOfType2001 *ClientConfig                      `json:"-"`
+	oneOfType2003 *SeedConfigOperationList           `json:"-"`
+	oneOfType2004 *SeedConfigRoleList                `json:"-"`
+}
+
+func NewOneOfSeedConfigRequestConfigList() *OneOfSeedConfigRequestConfigList {
+	p := new(OneOfSeedConfigRequestConfigList)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfSeedConfigRequestConfigList) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfSeedConfigRequestConfigList is nil"))
+	}
+	switch v.(type) {
+	case SeedConfigAuthorizationPolicyList:
+		if nil == p.oneOfType2005 {
+			p.oneOfType2005 = new(SeedConfigAuthorizationPolicyList)
+		}
+		*p.oneOfType2005 = v.(SeedConfigAuthorizationPolicyList)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2005.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+	case SeedConfigEntityList:
+		if nil == p.oneOfType2002 {
+			p.oneOfType2002 = new(SeedConfigEntityList)
+		}
+		*p.oneOfType2002 = v.(SeedConfigEntityList)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2002.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+	case ClientConfig:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(ClientConfig)
+		}
+		*p.oneOfType2001 = v.(ClientConfig)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case SeedConfigOperationList:
+		if nil == p.oneOfType2003 {
+			p.oneOfType2003 = new(SeedConfigOperationList)
+		}
+		*p.oneOfType2003 = v.(SeedConfigOperationList)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2003.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2003.ObjectType_
+	case SeedConfigRoleList:
+		if nil == p.oneOfType2004 {
+			p.oneOfType2004 = new(SeedConfigRoleList)
+		}
+		*p.oneOfType2004 = v.(SeedConfigRoleList)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2004.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2004.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfSeedConfigRequestConfigList) GetValue() interface{} {
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2005
+	}
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2002
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2003
+	}
+	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2004
+	}
+	return nil
+}
+
+func (p *OneOfSeedConfigRequestConfigList) UnmarshalJSON(b []byte) error {
+	vOneOfType2005 := new(SeedConfigAuthorizationPolicyList)
+	if err := json.Unmarshal(b, vOneOfType2005); err == nil {
+		if "iam.v4.authz.SeedConfigAuthorizationPolicyList" == *vOneOfType2005.ObjectType_ {
+			if nil == p.oneOfType2005 {
+				p.oneOfType2005 = new(SeedConfigAuthorizationPolicyList)
+			}
+			*p.oneOfType2005 = *vOneOfType2005
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2005.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2002 := new(SeedConfigEntityList)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if "iam.v4.authz.SeedConfigEntityList" == *vOneOfType2002.ObjectType_ {
+			if nil == p.oneOfType2002 {
+				p.oneOfType2002 = new(SeedConfigEntityList)
+			}
+			*p.oneOfType2002 = *vOneOfType2002
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2002.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(ClientConfig)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "iam.v4.authz.ClientConfig" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(ClientConfig)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2003 := new(SeedConfigOperationList)
+	if err := json.Unmarshal(b, vOneOfType2003); err == nil {
+		if "iam.v4.authz.SeedConfigOperationList" == *vOneOfType2003.ObjectType_ {
+			if nil == p.oneOfType2003 {
+				p.oneOfType2003 = new(SeedConfigOperationList)
+			}
+			*p.oneOfType2003 = *vOneOfType2003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2003.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2003.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2004 := new(SeedConfigRoleList)
+	if err := json.Unmarshal(b, vOneOfType2004); err == nil {
+		if "iam.v4.authz.SeedConfigRoleList" == *vOneOfType2004.ObjectType_ {
+			if nil == p.oneOfType2004 {
+				p.oneOfType2004 = new(SeedConfigRoleList)
+			}
+			*p.oneOfType2004 = *vOneOfType2004
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2004.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2004.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSeedConfigRequestConfigList"))
+}
+
+func (p *OneOfSeedConfigRequestConfigList) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2005)
+	}
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2003)
+	}
+	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2004)
+	}
+	return nil, errors.New("No value to marshal for OneOfSeedConfigRequestConfigList")
 }
 
 type OneOfDeleteRoleApiResponseData struct {

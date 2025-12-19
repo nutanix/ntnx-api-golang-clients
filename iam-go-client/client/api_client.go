@@ -27,9 +27,10 @@ import (
 )
 
 const (
-	basic   = "basic"
-	eTag    = "ETag"
-	ifMatch = "If-Match"
+	basic      = "basic"
+	eTag       = "ETag"
+	ifMatch    = "If-Match"
+	sdkVersion = "v4.1.b2"
 )
 
 var (
@@ -38,7 +39,7 @@ var (
 	uriCheck                = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
 	contentDispositionCheck = regexp.MustCompile("attachment;\\s*filename=\"(.*)\"")
 	retryStatusList         = []int{408, 429, 503, 504}
-	userAgent               = "Nutanix-iam/v4.1.1-beta.1"
+	userAgent               = "Nutanix-iam/v4.1.1-beta.2"
 )
 
 /*
@@ -59,34 +60,38 @@ var (
     DownloadDirectory (optional) : Directory location on local for files to download (default: Current Directory)
     DownloadChunkSize (optional) : Chunk size in bytes for files to download (default: 8*1024 bytes)
     LoggerFile (optional) : Log file to write activity logs
+    AllowVersionNegotiation (optional) : Flag to enable version negotiation
 */
 type ApiClient struct {
-	Scheme            string `json:"scheme,omitempty"`
-	Host              string `json:"host,omitempty"`
-	Port              int    `json:"port,omitempty"`
-	Username          string `json:"username,omitempty"`
-	Password          string `json:"password,omitempty"`
-	Debug             bool   `json:"debug,omitempty"`
-	VerifySSL         bool
-	Proxy             *Proxy
-	MaxRetryAttempts  int           `json:"maxRetryAttempts,omitempty"`
-	MaxRedirects      int           `json:"maxRedirects,omitempty"`
-	ReadTimeout       time.Duration `json:"readTimeout,omitempty"`
-	ConnectTimeout    time.Duration `json:"connectTimeout,omitempty"`
-	RetryInterval     time.Duration `json:"retryInterval,omitempty"`
-	DownloadDirectory string        `json:"downloadDirectory,omitempty"`
-	DownloadChunkSize int           `json:"downloadChunkSize,omitempty"`
-	LoggerFile        string        `json:"loggerFile,omitempty"`
-	defaultHeaders    map[string]string
-	retryClient       *retryablehttp.Client
-	httpClient        *http.Client
-	dialer            *net.Dialer
-	authentication    map[string]interface{}
-	cookie            string
-	refreshCookie     bool
-	previousAuth      string
-	basicAuth         *BasicAuth
-	logger            *logrus.Logger
+	Scheme                  string `json:"scheme,omitempty"`
+	Host                    string `json:"host,omitempty"`
+	Port                    int    `json:"port,omitempty"`
+	Username                string `json:"username,omitempty"`
+	Password                string `json:"password,omitempty"`
+	Debug                   bool   `json:"debug,omitempty"`
+	VerifySSL               bool
+	Proxy                   *Proxy
+	MaxRetryAttempts        int           `json:"maxRetryAttempts,omitempty"`
+	MaxRedirects            int           `json:"maxRedirects,omitempty"`
+	ReadTimeout             time.Duration `json:"readTimeout,omitempty"`
+	ConnectTimeout          time.Duration `json:"connectTimeout,omitempty"`
+	RetryInterval           time.Duration `json:"retryInterval,omitempty"`
+	DownloadDirectory       string        `json:"downloadDirectory,omitempty"`
+	DownloadChunkSize       int           `json:"downloadChunkSize,omitempty"`
+	LoggerFile              string        `json:"loggerFile,omitempty"`
+	AllowVersionNegotiation bool          `json:"allowVersionNegotiation,omitempty"`
+	negotiatedVersion       string
+	negotiationCompleted    bool
+	defaultHeaders          map[string]string
+	retryClient             *retryablehttp.Client
+	httpClient              *http.Client
+	dialer                  *net.Dialer
+	authentication          map[string]interface{}
+	cookie                  string
+	refreshCookie           bool
+	previousAuth            string
+	basicAuth               *BasicAuth
+	logger                  *logrus.Logger
 
 	// maxIdleConns controls the maximum number of idle (keep-alive)
 	// connections across all hosts. Zero means no limit.
@@ -126,27 +131,30 @@ func NewApiClient() *ApiClient {
 	currentDirectory, _ := os.Getwd()
 
 	a := &ApiClient{
-		Scheme:              "https",
-		Host:                "localhost",
-		Port:                9440,
-		Debug:               false,
-		VerifySSL:           true,
-		MaxRetryAttempts:    5,
-		MaxRedirects:        10,
-		ReadTimeout:         30 * time.Second,
-		ConnectTimeout:      30 * time.Second,
-		RetryInterval:       3 * time.Second,
-		DownloadDirectory:   currentDirectory,
-		DownloadChunkSize:   8 * 1024,
-		maxIdleConns:        10,
-		maxIdleConnsPerHost: 10,
-		maxConnsPerHost:     100,
-		idleConnTimeout:     90 * time.Second,
-		tlsHandshakeTimeout: 10 * time.Second,
-		defaultHeaders:      make(map[string]string),
-		refreshCookie:       true,
-		basicAuth:           basicAuth,
-		authentication:      authentication,
+		Scheme:                  "https",
+		Host:                    "localhost",
+		Port:                    9440,
+		Debug:                   false,
+		VerifySSL:               true,
+		MaxRetryAttempts:        5,
+		MaxRedirects:            10,
+		ReadTimeout:             30 * time.Second,
+		ConnectTimeout:          30 * time.Second,
+		RetryInterval:           3 * time.Second,
+		DownloadDirectory:       currentDirectory,
+		DownloadChunkSize:       8 * 1024,
+		maxIdleConns:            10,
+		maxIdleConnsPerHost:     10,
+		maxConnsPerHost:         100,
+		idleConnTimeout:         90 * time.Second,
+		tlsHandshakeTimeout:     10 * time.Second,
+		defaultHeaders:          make(map[string]string),
+		refreshCookie:           true,
+		basicAuth:               basicAuth,
+		authentication:          authentication,
+		negotiatedVersion:       "",
+		AllowVersionNegotiation: true,
+		negotiationCompleted:    false,
 	}
 
 	a.setupClient()
@@ -166,6 +174,24 @@ func (a *ApiClient) AddDefaultHeader(headerName string, headerValue string) {
 func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	queryParams url.Values, headerParams map[string]string, formParams url.Values,
 	accepts []string, contentType []string, authNames []string) (interface{}, error) {
+	if a.AllowVersionNegotiation && !a.negotiationCompleted {
+		a.NegotiateVersion(authNames)
+	}
+	return a.callApiInternal(uri, httpMethod, body, queryParams, headerParams,
+		formParams, accepts, contentType, authNames)
+}
+
+func (a *ApiClient) callApiInternal(uri *string, httpMethod string, body interface{},
+	queryParams url.Values, headerParams map[string]string, formParams url.Values,
+	accepts []string, contentType []string, authNames []string) (interface{}, error) {
+
+	if a.negotiatedVersion != "" && a.negotiatedVersion != sdkVersion {
+		if match, _ := regexp.MatchString(`v\d+\.\d+(\.[a|b]\d+)?`, a.negotiatedVersion); match {
+			a.logger.Infof("Changing uri %s to negotiated version %s", *uri, a.negotiatedVersion)
+			*uri = uriCheck.ReplaceAllString(*uri, fmt.Sprintf(`/${namespace}/%s/${suffix}`, a.negotiatedVersion))
+		}
+	}
+
 	path := a.Scheme + "://" + a.Host + ":" + strconv.Itoa(a.Port) + *uri
 
 	if headerParams["Authorization"] != "" {
@@ -232,7 +258,7 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	response, err := a.httpClient.Do(request)
 
 	// Retry one more time without the cookie but with basic auth header
-	if response != nil && response.StatusCode == 401 {
+	if response != nil && response.StatusCode == 401 && len(a.cookie) > 0 {
 		a.logger.Debug("Retrying the request to refresh cookie...")
 		request, _ = a.prepareRequest(path, httpMethod, body, headerParams, queryParams, formParams, authNames)
 		a.refreshCookie = true
@@ -293,6 +319,13 @@ func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
 	}
 
 	a.updateCookies(response)
+
+	// Reset negotiation flags on 404 to allow future negotiation attempts
+	if response.StatusCode == 404 {
+		a.negotiationCompleted = false
+		a.negotiatedVersion = ""
+		a.logger.Errorf("Received 404 Not Found for request")
+	}
 
 	if response.StatusCode == 204 {
 		return nil, nil
@@ -374,6 +407,11 @@ func (a *ApiClient) GetAuthentications() map[string]interface{} {
 // Get authentication for the given auth name (eg : basic, oauth, bearer, apiKey)
 func (a *ApiClient) GetAuthentication(authName string) interface{} {
 	return a.authentication[authName]
+}
+
+// Get fallback version negotiated with server
+func (a *ApiClient) GetNegotiatedVersion() string {
+	return a.negotiatedVersion
 }
 
 // Helper method to set username for the first HTTP basic authentication.
@@ -460,6 +498,14 @@ func (a *ApiClient) SetVerifySSL(verifySSL bool) {
 // After the initial instantiation of ApiClient, back off period must be modified only via this method
 func (a *ApiClient) SetRetryIntervalInMilliSeconds(ms int) {
 	a.RetryInterval = time.Duration(ms) * time.Millisecond
+}
+
+// SetHost sets the hostname for base URL and resets negotiation flags
+func (a *ApiClient) SetHost(host string) {
+	a.Host = host
+	// Reset negotiation flags when host changes
+	a.negotiationCompleted = false
+	a.negotiatedVersion = ""
 }
 
 func (a *ApiClient) setupClient() {
@@ -775,6 +821,117 @@ func (a *ApiClient) prepareRequest(
 	}
 
 	return localVarRequest, nil
+}
+
+func (a *ApiClient) performNegotiationBetweenVersions(sdk string, server string) string {
+	if len(sdk) == 0 || len(server) == 0 {
+		return sdk
+	}
+	sdkProps := a.getVersionDetails(sdk)
+	serverProps := a.getVersionDetails(server)
+	// if major version is different, then do not negotiate
+	// maintain sdk version
+	if sdkProps["family"] != serverProps["family"] {
+		a.logger.Info("\nCannot negotiate versions with different major versions\n")
+		return sdk
+	}
+	// if sdk version is smaller than highest server version, then maintain sdk version
+	if a.isSmallerMinorVersion(sdkProps, serverProps) {
+		return sdk
+	}
+	// since sdk version is higher than highest server version, use server version
+	return server
+}
+
+func (a *ApiClient) isSmallerMinorVersion(p1 map[string]string, p2 map[string]string) bool {
+	// if revision different, then compare revision
+	p1Revision, _ := strconv.Atoi(p1["revision"])
+	p2Revision, _ := strconv.Atoi(p2["revision"])
+	if p1Revision != p2Revision {
+		return p1Revision < p2Revision
+	}
+	// revision is same, so compare version_type (release_type + release_type_revision)
+	if p1["versionType"] == "released" {
+		return false
+	}
+	p1ReleaseType := p1["versionType"][0:1]
+	p2ReleaseType := p2["versionType"][0:1]
+	p1ReleaseTypeRevision, _ := strconv.Atoi(p1["versionType"][1:])
+	p2ReleaseTypeRevision, _ := strconv.Atoi(p2["versionType"][1:])
+	if p2["versionType"] == "released" {
+		p2ReleaseTypeRevision = 0
+	}
+	if p1ReleaseType == p2ReleaseType {
+		// release type is same, so compare release type revision
+		return p1ReleaseTypeRevision < p2ReleaseTypeRevision
+	}
+	// release type is different, so alpha must be smallest and released must be largest
+	return p1ReleaseType == "a" || p2["versionType"] == "released"
+}
+
+func (a *ApiClient) getVersionDetails(version string) map[string]string {
+	ret := make(map[string]string)
+	if version == "unversioned" {
+		ret["family"] = "unversioned"
+		ret["versionType"] = "released"
+	} else {
+		versionParts := strings.Split(version, ".")
+		if versionParts[0] == "unversioned" {
+			ret["family"] = "unversioned"
+			ret["versionType"] = versionParts[1]
+		} else {
+			ret["family"] = versionParts[0][1:]
+			ret["revision"] = versionParts[1]
+			if len(versionParts) == 2 {
+				ret["versionType"] = "released"
+			} else {
+				ret["versionType"] = versionParts[2]
+			}
+		}
+	}
+	return ret
+}
+
+// Trigger OPTIONS API call and version negotiation manually
+func (a *ApiClient) NegotiateVersion(authNames []string) {
+	path := new(string)
+	*path = "/api/iam/unversioned/info"
+	response, err := a.callApiInternal(path, http.MethodOptions, nil, url.Values{}, make(map[string]string),
+		url.Values{}, []string{}, []string{"application/json"}, authNames)
+	if nil == err {
+		unmarshalledResp := make(map[string]interface{})
+		err = json.Unmarshal(response.([]byte), &unmarshalledResp)
+		if nil == err {
+			if data, ok1 := unmarshalledResp["data"].(string); ok1 {
+				minimumSupportedVersion := "v4.1.b2"
+
+				// Check if server version is below minimum supported version
+				if a.isSmallerMinorVersion(a.getVersionDetails(data), a.getVersionDetails(minimumSupportedVersion)) {
+					a.logger.Warnf("Server version %s is below minimum supported version %s. Version negotiation will not be performed.", data, minimumSupportedVersion)
+					a.negotiatedVersion = ""
+					a.negotiationCompleted = false
+					return
+				}
+
+				a.negotiatedVersion = a.performNegotiationBetweenVersions(sdkVersion, data)
+				a.logger.Infof("Negotiated Version with server : %s", a.negotiatedVersion)
+				a.negotiationCompleted = true
+				return
+			} else {
+				a.logger.Errorf("Could not fetch supported versions from server")
+				a.negotiatedVersion = ""
+				a.negotiationCompleted = false
+			}
+		} else {
+			a.logger.Errorf("Could not unmarshal response from server")
+			a.negotiatedVersion = ""
+			a.negotiationCompleted = false
+		}
+	} else {
+		a.logger.Errorf("Could not fetch supported versions from server with error : %s", err)
+		a.negotiatedVersion = ""
+		a.negotiationCompleted = false
+	}
 }
 
 // RetryPolicy provides a callback for Client.CheckRetry, specifies retry on
