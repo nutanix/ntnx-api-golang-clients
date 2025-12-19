@@ -1,7 +1,7 @@
 /*
  * Generated file models/aiops/v4/config/config_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.2.1-beta-1
  *
  * Part of the Nutanix AIOps APIs
  *
@@ -19,14 +19,100 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/aiops/v4/common"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/aiops/v4/error"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/config"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/response"
-	import6 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/stats"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/prism/v4/config"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/aiops/v4/error"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/config"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/response"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/common/v1/stats"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/models/prism/v4/config"
 	"time"
 )
+
+/*
+Supported capacity types.
+*/
+type CapacityType int
+
+const (
+	CAPACITYTYPE_UNKNOWN          CapacityType = 0
+	CAPACITYTYPE_REDACTED         CapacityType = 1
+	CAPACITYTYPE_ORIGINAL         CapacityType = 2
+	CAPACITYTYPE_ONE_NODE_FAILURE CapacityType = 3
+	CAPACITYTYPE_BLOCK_AWARENESS  CapacityType = 4
+	CAPACITYTYPE_AUTO_DETECT      CapacityType = 5
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *CapacityType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ORIGINAL",
+		"ONE_NODE_FAILURE",
+		"BLOCK_AWARENESS",
+		"AUTO_DETECT",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e CapacityType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ORIGINAL",
+		"ONE_NODE_FAILURE",
+		"BLOCK_AWARENESS",
+		"AUTO_DETECT",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *CapacityType) index(name string) CapacityType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ORIGINAL",
+		"ONE_NODE_FAILURE",
+		"BLOCK_AWARENESS",
+		"AUTO_DETECT",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return CapacityType(idx)
+		}
+	}
+	return CAPACITYTYPE_UNKNOWN
+}
+
+func (e *CapacityType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for CapacityType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *CapacityType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e CapacityType) Ref() *CapacityType {
+	return &e
+}
 
 /*
 Capacity unit of resources.
@@ -174,7 +260,23 @@ func (p *CapacityUpdateConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CapacityUpdateConfig(*known)
+	*p = *NewCapacityUpdateConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ChangeType != nil {
+		p.ChangeType = known.ChangeType
+	}
+	if known.PercentageChange != nil {
+		p.PercentageChange = known.PercentageChange
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -184,7 +286,9 @@ func (p *CapacityUpdateConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "percentageChange")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -193,7 +297,7 @@ func NewCapacityUpdateConfig() *CapacityUpdateConfig {
 	p := new(CapacityUpdateConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.CapacityUpdateConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -276,116 +380,6 @@ func (e *CapacityUpdateType) MarshalJSON() ([]byte, error) {
 
 func (e CapacityUpdateType) Ref() *CapacityUpdateType {
 	return &e
-}
-
-/*
-Detail of a category containing the name of the format "key/value".
-*/
-type CategoryDetail struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  A flag that indicates whether this category is a critical out-of-box category, and might not be removed from the policy.
-	*/
-	IsDefault *bool `json:"isDefault,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Category name of the format "key/value"
-	*/
-	Name *string `json:"name"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func (p *CategoryDetail) MarshalJSON() ([]byte, error) {
-	type CategoryDetailProxy CategoryDetail
-
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*CategoryDetailProxy
-		Name *string `json:"name,omitempty"`
-	}{
-		CategoryDetailProxy: (*CategoryDetailProxy)(p),
-		Name:                p.Name,
-	}
-
-	known, err := json.Marshal(baseStruct)
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *CategoryDetail) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias CategoryDetail
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = CategoryDetail(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "extId")
-	delete(allFields, "isDefault")
-	delete(allFields, "links")
-	delete(allFields, "name")
-	delete(allFields, "tenantId")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewCategoryDetail() *CategoryDetail {
-	p := new(CategoryDetail)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.config.CategoryDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	p.IsDefault = new(bool)
-	*p.IsDefault = false
-
-	return p
 }
 
 /*
@@ -566,7 +560,41 @@ func (p *CitrixXenWorkload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CitrixXenWorkload(*known)
+	*p = *NewCitrixXenWorkload()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.McsDiffSizeGb != nil {
+		p.McsDiffSizeGb = known.McsDiffSizeGb
+	}
+	if known.OperatingSystem != nil {
+		p.OperatingSystem = known.OperatingSystem
+	}
+	if known.ProvisionType != nil {
+		p.ProvisionType = known.ProvisionType
+	}
+	if known.PvsWriteCacheSizeGb != nil {
+		p.PvsWriteCacheSizeGb = known.PvsWriteCacheSizeGb
+	}
+	if known.SystemDataGb != nil {
+		p.SystemDataGb = known.SystemDataGb
+	}
+	if known.UserCount != nil {
+		p.UserCount = known.UserCount
+	}
+	if known.UserProfileDataMb != nil {
+		p.UserProfileDataMb = known.UserProfileDataMb
+	}
+	if known.Vendor != nil {
+		p.Vendor = known.Vendor
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -582,7 +610,9 @@ func (p *CitrixXenWorkload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendor")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -591,7 +621,7 @@ func NewCitrixXenWorkload() *CitrixXenWorkload {
 	p := new(CitrixXenWorkload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.CitrixXenWorkload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -682,7 +712,7 @@ type ClusterConfig struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
-	DataStoreConfig *DataStoreConfig `json:"dataStoreConfig"`
+	DataStoreConfig *DataStoreConfig `json:"dataStoreConfig,omitempty"`
 	/*
 	  List containing the metadata about the nodes in a cluster. Nodes can be user added or existing.
 	*/
@@ -690,18 +720,11 @@ type ClusterConfig struct {
 }
 
 func (p *ClusterConfig) MarshalJSON() ([]byte, error) {
-	type ClusterConfigProxy ClusterConfig
+	// Create Alias to avoid infinite recursion
+	type Alias ClusterConfig
 
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*ClusterConfigProxy
-		DataStoreConfig *DataStoreConfig `json:"dataStoreConfig,omitempty"`
-	}{
-		ClusterConfigProxy: (*ClusterConfigProxy)(p),
-		DataStoreConfig:    p.DataStoreConfig,
-	}
-
-	known, err := json.Marshal(baseStruct)
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
 	if err != nil {
 		return nil, err
 	}
@@ -737,7 +760,23 @@ func (p *ClusterConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterConfig(*known)
+	*p = *NewClusterConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataStoreConfig != nil {
+		p.DataStoreConfig = known.DataStoreConfig
+	}
+	if known.NodeConfigs != nil {
+		p.NodeConfigs = known.NodeConfigs
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -747,7 +786,9 @@ func (p *ClusterConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nodeConfigs")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -756,14 +797,93 @@ func NewClusterConfig() *ClusterConfig {
 	p := new(ClusterConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.ClusterConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/scenarios Post operation
+Enum describing different type of cluster environment supported in PC.
+*/
+type ClusterType int
+
+const (
+	CLUSTERTYPE_UNKNOWN                 ClusterType = 0
+	CLUSTERTYPE_REDACTED                ClusterType = 1
+	CLUSTERTYPE_CLUSTER                 ClusterType = 2
+	CLUSTERTYPE_NUTANIX_VCENTER_CLUSTER ClusterType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ClusterType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CLUSTER",
+		"NUTANIX_VCENTER_CLUSTER",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ClusterType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CLUSTER",
+		"NUTANIX_VCENTER_CLUSTER",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ClusterType) index(name string) ClusterType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CLUSTER",
+		"NUTANIX_VCENTER_CLUSTER",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ClusterType(idx)
+		}
+	}
+	return CLUSTERTYPE_UNKNOWN
+}
+
+func (e *ClusterType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ClusterType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ClusterType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ClusterType) Ref() *ClusterType {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /aiops/v4.2.b1/config/scenarios Post operation
 */
 type CreateScenarioApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -778,7 +898,7 @@ type CreateScenarioApiResponse struct {
 
 	Data *OneOfCreateScenarioApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *CreateScenarioApiResponse) MarshalJSON() ([]byte, error) {
@@ -822,7 +942,26 @@ func (p *CreateScenarioApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateScenarioApiResponse(*known)
+	*p = *NewCreateScenarioApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -833,7 +972,9 @@ func (p *CreateScenarioApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -842,7 +983,7 @@ func NewCreateScenarioApiResponse() *CreateScenarioApiResponse {
 	p := new(CreateScenarioApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.CreateScenarioApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -870,7 +1011,7 @@ func (p *CreateScenarioApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/simulations Post operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/simulations Post operation
 */
 type CreateSimulationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -885,7 +1026,7 @@ type CreateSimulationApiResponse struct {
 
 	Data *OneOfCreateSimulationApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *CreateSimulationApiResponse) MarshalJSON() ([]byte, error) {
@@ -929,7 +1070,26 @@ func (p *CreateSimulationApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateSimulationApiResponse(*known)
+	*p = *NewCreateSimulationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -940,7 +1100,9 @@ func (p *CreateSimulationApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -949,7 +1111,7 @@ func NewCreateSimulationApiResponse() *CreateSimulationApiResponse {
 	p := new(CreateSimulationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.CreateSimulationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1091,7 +1253,47 @@ func (p *DataStoreConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DataStoreConfig(*known)
+	*p = *NewDataStoreConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CompressionSavingPercent != nil {
+		p.CompressionSavingPercent = known.CompressionSavingPercent
+	}
+	if known.CpuOverCommitRatio != nil {
+		p.CpuOverCommitRatio = known.CpuOverCommitRatio
+	}
+	if known.CpuReservationPercentage != nil {
+		p.CpuReservationPercentage = known.CpuReservationPercentage
+	}
+	if known.DedupSavingPercent != nil {
+		p.DedupSavingPercent = known.DedupSavingPercent
+	}
+	if known.ErasureCodingSavingPercent != nil {
+		p.ErasureCodingSavingPercent = known.ErasureCodingSavingPercent
+	}
+	if known.OverallSavingPercent != nil {
+		p.OverallSavingPercent = known.OverallSavingPercent
+	}
+	if known.RamOverCommitRatio != nil {
+		p.RamOverCommitRatio = known.RamOverCommitRatio
+	}
+	if known.RamReservationPercentage != nil {
+		p.RamReservationPercentage = known.RamReservationPercentage
+	}
+	if known.ReplicationFactor != nil {
+		p.ReplicationFactor = known.ReplicationFactor
+	}
+	if known.StorageReservationPercentage != nil {
+		p.StorageReservationPercentage = known.StorageReservationPercentage
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1109,7 +1311,9 @@ func (p *DataStoreConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "storageReservationPercentage")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1118,7 +1322,7 @@ func NewDataStoreConfig() *DataStoreConfig {
 	p := new(DataStoreConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.DataStoreConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.CompressionSavingPercent = new(float64)
@@ -1144,7 +1348,7 @@ func NewDataStoreConfig() *DataStoreConfig {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/scenarios/{extId} Delete operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/scenarios/{extId} Delete operation
 */
 type DeleteScenarioApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1159,7 +1363,7 @@ type DeleteScenarioApiResponse struct {
 
 	Data *OneOfDeleteScenarioApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *DeleteScenarioApiResponse) MarshalJSON() ([]byte, error) {
@@ -1203,7 +1407,26 @@ func (p *DeleteScenarioApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteScenarioApiResponse(*known)
+	*p = *NewDeleteScenarioApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1214,7 +1437,9 @@ func (p *DeleteScenarioApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1223,7 +1448,7 @@ func NewDeleteScenarioApiResponse() *DeleteScenarioApiResponse {
 	p := new(DeleteScenarioApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.DeleteScenarioApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1251,7 +1476,7 @@ func (p *DeleteScenarioApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/simulations/{extId} Delete operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/simulations/{extId} Delete operation
 */
 type DeleteSimulationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1266,7 +1491,7 @@ type DeleteSimulationApiResponse struct {
 
 	Data *OneOfDeleteSimulationApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *DeleteSimulationApiResponse) MarshalJSON() ([]byte, error) {
@@ -1310,7 +1535,26 @@ func (p *DeleteSimulationApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteSimulationApiResponse(*known)
+	*p = *NewDeleteSimulationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1321,7 +1565,9 @@ func (p *DeleteSimulationApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1330,7 +1576,7 @@ func NewDeleteSimulationApiResponse() *DeleteSimulationApiResponse {
 	p := new(DeleteSimulationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.DeleteSimulationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1378,7 +1624,7 @@ type EntityDescriptor struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Metrics data for the entity.
 	*/
@@ -1438,7 +1684,41 @@ func (p *EntityDescriptor) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityDescriptor(*known)
+	*p = *NewEntityDescriptor()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Metrics != nil {
+		p.Metrics = known.Metrics
+	}
+	if known.Parents != nil {
+		p.Parents = known.Parents
+	}
+	if known.Source != nil {
+		p.Source = known.Source
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1454,7 +1734,9 @@ func (p *EntityDescriptor) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1463,14 +1745,14 @@ func NewEntityDescriptor() *EntityDescriptor {
 	p := new(EntityDescriptor)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.EntityDescriptor"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/sources/{sourceExtId}/entity-descriptors Get operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/sources/{sourceExtId}/entity-descriptors Get operation
 */
 type EntityDescriptorListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1485,7 +1767,7 @@ type EntityDescriptorListApiResponse struct {
 
 	Data *OneOfEntityDescriptorListApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *EntityDescriptorListApiResponse) MarshalJSON() ([]byte, error) {
@@ -1529,7 +1811,26 @@ func (p *EntityDescriptorListApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityDescriptorListApiResponse(*known)
+	*p = *NewEntityDescriptorListApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1540,7 +1841,9 @@ func (p *EntityDescriptorListApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1549,7 +1852,7 @@ func NewEntityDescriptorListApiResponse() *EntityDescriptorListApiResponse {
 	p := new(EntityDescriptorListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.EntityDescriptorListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1576,6 +1879,126 @@ func (p *EntityDescriptorListApiResponse) SetData(v interface{}) error {
 	return e
 }
 
+type EntityDetail struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+
+	IsDefaultAIOpsPolicyEntity *bool `json:"isDefaultAIOpsPolicyEntity,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+
+	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *EntityDetail) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EntityDetail
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EntityDetail) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EntityDetail
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewEntityDetail()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsDefaultAIOpsPolicyEntity != nil {
+		p.IsDefaultAIOpsPolicyEntity = known.IsDefaultAIOpsPolicyEntity
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "isDefaultAIOpsPolicyEntity")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewEntityDetail() *EntityDetail {
+	p := new(EntityDetail)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "aiops.v4.config.EntityDetail"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
 type EntityType struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -1593,7 +2016,7 @@ type EntityType struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
@@ -1641,7 +2064,29 @@ func (p *EntityType) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityType(*known)
+	*p = *NewEntityType()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityTypeName != nil {
+		p.EntityTypeName = known.EntityTypeName
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1653,7 +2098,9 @@ func (p *EntityType) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1662,14 +2109,14 @@ func NewEntityType() *EntityType {
 	p := new(EntityType)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.EntityType"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/sources/{sourceExtId}/entity-types Get operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/sources/{sourceExtId}/entity-types Get operation
 */
 type EntityTypeListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1684,7 +2131,7 @@ type EntityTypeListApiResponse struct {
 
 	Data *OneOfEntityTypeListApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *EntityTypeListApiResponse) MarshalJSON() ([]byte, error) {
@@ -1728,7 +2175,26 @@ func (p *EntityTypeListApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityTypeListApiResponse(*known)
+	*p = *NewEntityTypeListApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1739,7 +2205,9 @@ func (p *EntityTypeListApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1748,7 +2216,7 @@ func NewEntityTypeListApiResponse() *EntityTypeListApiResponse {
 	p := new(EntityTypeListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.EntityTypeListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1776,7 +2244,7 @@ func (p *EntityTypeListApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/scenarios/{extId}/$actions/generate-recommendation Post operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/scenarios/{extId}/$actions/generate-recommendation Post operation
 */
 type GenerateRecommendationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1791,7 +2259,7 @@ type GenerateRecommendationApiResponse struct {
 
 	Data *OneOfGenerateRecommendationApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *GenerateRecommendationApiResponse) MarshalJSON() ([]byte, error) {
@@ -1835,7 +2303,26 @@ func (p *GenerateRecommendationApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GenerateRecommendationApiResponse(*known)
+	*p = *NewGenerateRecommendationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1846,7 +2333,9 @@ func (p *GenerateRecommendationApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1855,7 +2344,7 @@ func NewGenerateRecommendationApiResponse() *GenerateRecommendationApiResponse {
 	p := new(GenerateRecommendationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.GenerateRecommendationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1883,7 +2372,7 @@ func (p *GenerateRecommendationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/scenarios/{extId}/$actions/generate-report Post operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/scenarios/{extId}/$actions/generate-report Post operation
 */
 type GenerateReportApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1898,7 +2387,7 @@ type GenerateReportApiResponse struct {
 
 	Data *OneOfGenerateReportApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *GenerateReportApiResponse) MarshalJSON() ([]byte, error) {
@@ -1942,7 +2431,26 @@ func (p *GenerateReportApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GenerateReportApiResponse(*known)
+	*p = *NewGenerateReportApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1953,7 +2461,9 @@ func (p *GenerateReportApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1962,7 +2472,7 @@ func NewGenerateReportApiResponse() *GenerateReportApiResponse {
 	p := new(GenerateReportApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.GenerateReportApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1990,7 +2500,7 @@ func (p *GenerateReportApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/scenarios/{extId}/$actions/generate-runway Post operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/scenarios/{extId}/$actions/generate-runway Post operation
 */
 type GenerateRunwayApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2005,7 +2515,7 @@ type GenerateRunwayApiResponse struct {
 
 	Data *OneOfGenerateRunwayApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *GenerateRunwayApiResponse) MarshalJSON() ([]byte, error) {
@@ -2049,7 +2559,26 @@ func (p *GenerateRunwayApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GenerateRunwayApiResponse(*known)
+	*p = *NewGenerateRunwayApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2060,7 +2589,9 @@ func (p *GenerateRunwayApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2069,7 +2600,7 @@ func NewGenerateRunwayApiResponse() *GenerateRunwayApiResponse {
 	p := new(GenerateRunwayApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.GenerateRunwayApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2097,7 +2628,7 @@ func (p *GenerateRunwayApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/scenarios/{extId} Get operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/scenarios/{extId} Get operation
 */
 type GetScenarioApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2112,7 +2643,7 @@ type GetScenarioApiResponse struct {
 
 	Data *OneOfGetScenarioApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *GetScenarioApiResponse) MarshalJSON() ([]byte, error) {
@@ -2156,7 +2687,26 @@ func (p *GetScenarioApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetScenarioApiResponse(*known)
+	*p = *NewGetScenarioApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2167,7 +2717,9 @@ func (p *GetScenarioApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2176,7 +2728,7 @@ func NewGetScenarioApiResponse() *GetScenarioApiResponse {
 	p := new(GetScenarioApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.GetScenarioApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2204,7 +2756,7 @@ func (p *GetScenarioApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/scenarios/{scenarioExtId}/reports Get operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/scenarios/{scenarioExtId}/reports Get operation
 */
 type GetScenarioReportApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2219,7 +2771,7 @@ type GetScenarioReportApiResponse struct {
 
 	Data *OneOfGetScenarioReportApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *GetScenarioReportApiResponse) MarshalJSON() ([]byte, error) {
@@ -2263,7 +2815,26 @@ func (p *GetScenarioReportApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetScenarioReportApiResponse(*known)
+	*p = *NewGetScenarioReportApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2274,7 +2845,9 @@ func (p *GetScenarioReportApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2283,7 +2856,7 @@ func NewGetScenarioReportApiResponse() *GetScenarioReportApiResponse {
 	p := new(GetScenarioReportApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.GetScenarioReportApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2311,7 +2884,7 @@ func (p *GetScenarioReportApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/simulations/{extId} Get operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/simulations/{extId} Get operation
 */
 type GetSimulationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2326,7 +2899,7 @@ type GetSimulationApiResponse struct {
 
 	Data *OneOfGetSimulationApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *GetSimulationApiResponse) MarshalJSON() ([]byte, error) {
@@ -2370,7 +2943,26 @@ func (p *GetSimulationApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetSimulationApiResponse(*known)
+	*p = *NewGetSimulationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2381,7 +2973,9 @@ func (p *GetSimulationApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2390,7 +2984,7 @@ func NewGetSimulationApiResponse() *GetSimulationApiResponse {
 	p := new(GetSimulationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.GetSimulationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2418,482 +3012,7 @@ func (p *GetSimulationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-Metadata about the model. For example, all the parts (CPU, memory and storage) available in the model and their capacity.
-*/
-type HardwareModel struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  CPU parts in a model.
-	*/
-	Cpus []HardwarePart `json:"cpus,omitempty"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  HDD parts in a model.
-	*/
-	Hdds []HardwarePart `json:"hdds,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Name of the model.
-	*/
-	Model *string `json:"model,omitempty"`
-	/*
-	  NVMe part details in a model.
-	*/
-	Nvmes []HardwarePart `json:"nvmes,omitempty"`
-	/*
-	  RAM parts in a model.
-	*/
-	Rams []HardwarePart `json:"rams,omitempty"`
-	/*
-	  SSD parts in a model.
-	*/
-	Ssds []HardwarePart `json:"ssds,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-
-	Vendor *Vendor `json:"vendor,omitempty"`
-}
-
-func (p *HardwareModel) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias HardwareModel
-
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *HardwareModel) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias HardwareModel
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = HardwareModel(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "cpus")
-	delete(allFields, "extId")
-	delete(allFields, "hdds")
-	delete(allFields, "links")
-	delete(allFields, "model")
-	delete(allFields, "nvmes")
-	delete(allFields, "rams")
-	delete(allFields, "ssds")
-	delete(allFields, "tenantId")
-	delete(allFields, "vendor")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewHardwareModel() *HardwareModel {
-	p := new(HardwareModel)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.config.HardwareModel"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Part details of a resource (CPU, memory and storage).
-*/
-type HardwarePart struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Part code of a part (CPU, RAM, HDD, and so on) in a model.
-	*/
-	ModelName *string `json:"modelName"`
-	/*
-	  Capacity of the part in a model.
-	*/
-	PartCapacity *float64 `json:"partCapacity"`
-
-	Unit *CapacityUnit `json:"unit"`
-}
-
-func (p *HardwarePart) MarshalJSON() ([]byte, error) {
-	type HardwarePartProxy HardwarePart
-
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*HardwarePartProxy
-		ModelName    *string       `json:"modelName,omitempty"`
-		PartCapacity *float64      `json:"partCapacity,omitempty"`
-		Unit         *CapacityUnit `json:"unit,omitempty"`
-	}{
-		HardwarePartProxy: (*HardwarePartProxy)(p),
-		ModelName:         p.ModelName,
-		PartCapacity:      p.PartCapacity,
-		Unit:              p.Unit,
-	}
-
-	known, err := json.Marshal(baseStruct)
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *HardwarePart) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias HardwarePart
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = HardwarePart(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "modelName")
-	delete(allFields, "partCapacity")
-	delete(allFields, "unit")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewHardwarePart() *HardwarePart {
-	p := new(HardwarePart)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.config.HardwarePart"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Definition of an ignore window.
-*/
-type IgnoreWindow struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	ClusterType *import4.ClusterType `json:"clusterType"`
-	/*
-	  UUID of the cluster to which the ignore window is to be applied.
-	*/
-	ClusterUuid *string `json:"clusterUuid"`
-	/*
-	  End timestamp of the ignore window. It can be a maximum of one year in the past from the current date but should be at least one day after the startDateTime.
-	*/
-	EndDateTime *time.Time `json:"endDateTime"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Name of an ignore window period.
-	*/
-	Name *string `json:"name"`
-	/*
-	  Start timestamp of the ignore window. It can be maximum of one year in the past from the current date.
-	*/
-	StartDateTime *time.Time `json:"startDateTime"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func (p *IgnoreWindow) MarshalJSON() ([]byte, error) {
-	type IgnoreWindowProxy IgnoreWindow
-
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*IgnoreWindowProxy
-		ClusterType   *import4.ClusterType `json:"clusterType,omitempty"`
-		ClusterUuid   *string              `json:"clusterUuid,omitempty"`
-		EndDateTime   *time.Time           `json:"endDateTime,omitempty"`
-		Name          *string              `json:"name,omitempty"`
-		StartDateTime *time.Time           `json:"startDateTime,omitempty"`
-	}{
-		IgnoreWindowProxy: (*IgnoreWindowProxy)(p),
-		ClusterType:       p.ClusterType,
-		ClusterUuid:       p.ClusterUuid,
-		EndDateTime:       p.EndDateTime,
-		Name:              p.Name,
-		StartDateTime:     p.StartDateTime,
-	}
-
-	known, err := json.Marshal(baseStruct)
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *IgnoreWindow) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias IgnoreWindow
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = IgnoreWindow(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "clusterType")
-	delete(allFields, "clusterUuid")
-	delete(allFields, "endDateTime")
-	delete(allFields, "extId")
-	delete(allFields, "links")
-	delete(allFields, "name")
-	delete(allFields, "startDateTime")
-	delete(allFields, "tenantId")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewIgnoreWindow() *IgnoreWindow {
-	p := new(IgnoreWindow)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.config.IgnoreWindow"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-type IgnoreWindowProjection struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	ClusterType *import4.ClusterType `json:"clusterType"`
-	/*
-	  UUID of the cluster to which the ignore window is to be applied.
-	*/
-	ClusterUuid *string `json:"clusterUuid"`
-	/*
-	  End timestamp of the ignore window. It can be a maximum of one year in the past from the current date but should be at least one day after the startDateTime.
-	*/
-	EndDateTime *time.Time `json:"endDateTime"`
-	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
-	*/
-	ExtId *string `json:"extId,omitempty"`
-	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
-	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
-	/*
-	  Name of an ignore window period.
-	*/
-	Name *string `json:"name"`
-	/*
-	  Start timestamp of the ignore window. It can be maximum of one year in the past from the current date.
-	*/
-	StartDateTime *time.Time `json:"startDateTime"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
-}
-
-func (p *IgnoreWindowProjection) MarshalJSON() ([]byte, error) {
-	type IgnoreWindowProjectionProxy IgnoreWindowProjection
-
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*IgnoreWindowProjectionProxy
-		ClusterType   *import4.ClusterType `json:"clusterType,omitempty"`
-		ClusterUuid   *string              `json:"clusterUuid,omitempty"`
-		EndDateTime   *time.Time           `json:"endDateTime,omitempty"`
-		Name          *string              `json:"name,omitempty"`
-		StartDateTime *time.Time           `json:"startDateTime,omitempty"`
-	}{
-		IgnoreWindowProjectionProxy: (*IgnoreWindowProjectionProxy)(p),
-		ClusterType:                 p.ClusterType,
-		ClusterUuid:                 p.ClusterUuid,
-		EndDateTime:                 p.EndDateTime,
-		Name:                        p.Name,
-		StartDateTime:               p.StartDateTime,
-	}
-
-	known, err := json.Marshal(baseStruct)
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *IgnoreWindowProjection) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias IgnoreWindowProjection
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = IgnoreWindowProjection(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "clusterType")
-	delete(allFields, "clusterUuid")
-	delete(allFields, "endDateTime")
-	delete(allFields, "extId")
-	delete(allFields, "links")
-	delete(allFields, "name")
-	delete(allFields, "startDateTime")
-	delete(allFields, "tenantId")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewIgnoreWindowProjection() *IgnoreWindowProjection {
-	p := new(IgnoreWindowProjection)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.config.IgnoreWindowProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-REST response for all response codes in API path /aiops/v4.0/config/scenarios Get operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/scenarios Get operation
 */
 type ListScenariosApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2908,7 +3027,7 @@ type ListScenariosApiResponse struct {
 
 	Data *OneOfListScenariosApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *ListScenariosApiResponse) MarshalJSON() ([]byte, error) {
@@ -2952,7 +3071,26 @@ func (p *ListScenariosApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListScenariosApiResponse(*known)
+	*p = *NewListScenariosApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2963,7 +3101,9 @@ func (p *ListScenariosApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2972,7 +3112,7 @@ func NewListScenariosApiResponse() *ListScenariosApiResponse {
 	p := new(ListScenariosApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.ListScenariosApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3000,7 +3140,7 @@ func (p *ListScenariosApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/simulations Get operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/simulations Get operation
 */
 type ListSimulationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3015,7 +3155,7 @@ type ListSimulationsApiResponse struct {
 
 	Data *OneOfListSimulationsApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *ListSimulationsApiResponse) MarshalJSON() ([]byte, error) {
@@ -3059,7 +3199,26 @@ func (p *ListSimulationsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListSimulationsApiResponse(*known)
+	*p = *NewListSimulationsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3070,7 +3229,9 @@ func (p *ListSimulationsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3079,7 +3240,7 @@ func NewListSimulationsApiResponse() *ListSimulationsApiResponse {
 	p := new(ListSimulationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.ListSimulationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3115,7 +3276,7 @@ type MetricDescriptor struct {
 	/*
 	  Additional properties for metric descriptor definition. Like anomaly metric, alert metric and search UI metric.
 	*/
-	AdditionalProperties []import5.KVPair `json:"additionalProperties,omitempty"`
+	AdditionalProperties []import4.KVPair `json:"additionalProperties,omitempty"`
 	/*
 	  Default value of the metric.
 	*/
@@ -3125,7 +3286,7 @@ type MetricDescriptor struct {
 	*/
 	DisplayName *string `json:"displayName,omitempty"`
 
-	DownsamplingOperator *import6.DownSamplingOperator `json:"downsamplingOperator,omitempty"`
+	DownsamplingOperator *import5.DownSamplingOperator `json:"downsamplingOperator,omitempty"`
 	/*
 	  Indicates whether it is an attribute or not.
 	*/
@@ -3193,7 +3354,50 @@ func (p *MetricDescriptor) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MetricDescriptor(*known)
+	*p = *NewMetricDescriptor()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AdditionalProperties != nil {
+		p.AdditionalProperties = known.AdditionalProperties
+	}
+	if known.DefaultValue != nil {
+		p.DefaultValue = known.DefaultValue
+	}
+	if known.DisplayName != nil {
+		p.DisplayName = known.DisplayName
+	}
+	if known.DownsamplingOperator != nil {
+		p.DownsamplingOperator = known.DownsamplingOperator
+	}
+	if known.IsAttribute != nil {
+		p.IsAttribute = known.IsAttribute
+	}
+	if known.IsAttributePersistedAsTimeSeries != nil {
+		p.IsAttributePersistedAsTimeSeries = known.IsAttributePersistedAsTimeSeries
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SamplingIntervalSecs != nil {
+		p.SamplingIntervalSecs = known.SamplingIntervalSecs
+	}
+	if known.Unit != nil {
+		p.Unit = known.Unit
+	}
+	if known.ValueRange != nil {
+		p.ValueRange = known.ValueRange
+	}
+	if known.ValueType != nil {
+		p.ValueType = known.ValueType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3212,7 +3416,9 @@ func (p *MetricDescriptor) UnmarshalJSON(b []byte) error {
 	delete(allFields, "valueType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3221,7 +3427,7 @@ func NewMetricDescriptor() *MetricDescriptor {
 	p := new(MetricDescriptor)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.MetricDescriptor"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3401,7 +3607,41 @@ func (p *MicrosoftXenWorkload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MicrosoftXenWorkload(*known)
+	*p = *NewMicrosoftXenWorkload()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.McsDiffSizeGb != nil {
+		p.McsDiffSizeGb = known.McsDiffSizeGb
+	}
+	if known.OperatingSystem != nil {
+		p.OperatingSystem = known.OperatingSystem
+	}
+	if known.ProvisionType != nil {
+		p.ProvisionType = known.ProvisionType
+	}
+	if known.PvsWriteCacheSizeGb != nil {
+		p.PvsWriteCacheSizeGb = known.PvsWriteCacheSizeGb
+	}
+	if known.SystemDataGb != nil {
+		p.SystemDataGb = known.SystemDataGb
+	}
+	if known.UserCount != nil {
+		p.UserCount = known.UserCount
+	}
+	if known.UserProfileDataMb != nil {
+		p.UserProfileDataMb = known.UserProfileDataMb
+	}
+	if known.Vendor != nil {
+		p.Vendor = known.Vendor
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3417,7 +3657,9 @@ func (p *MicrosoftXenWorkload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendor")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3426,7 +3668,7 @@ func NewMicrosoftXenWorkload() *MicrosoftXenWorkload {
 	p := new(MicrosoftXenWorkload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.MicrosoftXenWorkload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3517,6 +3759,10 @@ type NodeConfig struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
+	  Flag indicating whether the added node is an existing node from the cluster that should be excluded from the scenario. This flag must be used only when disregarding an existing node.
+	*/
+	IsDisregarded *bool `json:"isDisregarded,omitempty"`
+	/*
 	  Flag to indicate if node is to be taken into account while performing capacity scenario analysis.
 	*/
 	IsEnabled *bool `json:"isEnabled"`
@@ -3592,12 +3838,44 @@ func (p *NodeConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeConfig(*known)
+	*p = *NewNodeConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsDisregarded != nil {
+		p.IsDisregarded = known.IsDisregarded
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.NodeCount != nil {
+		p.NodeCount = known.NodeCount
+	}
+	if known.NodeResourceCapacity != nil {
+		p.NodeResourceCapacity = known.NodeResourceCapacity
+	}
+	if known.NodeSource != nil {
+		p.NodeSource = known.NodeSource
+	}
+	if known.TargetOnlineTime != nil {
+		p.TargetOnlineTime = known.TargetOnlineTime
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "isDisregarded")
 	delete(allFields, "isEnabled")
 	delete(allFields, "model")
 	delete(allFields, "nodeCount")
@@ -3606,7 +3884,9 @@ func (p *NodeConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "targetOnlineTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3615,9 +3895,11 @@ func NewNodeConfig() *NodeConfig {
 	p := new(NodeConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.NodeConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
+	p.IsDisregarded = new(bool)
+	*p.IsDisregarded = false
 	p.IsEnabled = new(bool)
 	*p.IsEnabled = false
 
@@ -3952,7 +4234,32 @@ func (p *ResourceCapacity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ResourceCapacity(*known)
+	*p = *NewResourceCapacity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CpuGhz != nil {
+		p.CpuGhz = known.CpuGhz
+	}
+	if known.HddGb != nil {
+		p.HddGb = known.HddGb
+	}
+	if known.NvmeGb != nil {
+		p.NvmeGb = known.NvmeGb
+	}
+	if known.RamGb != nil {
+		p.RamGb = known.RamGb
+	}
+	if known.SsdGb != nil {
+		p.SsdGb = known.SsdGb
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3965,7 +4272,9 @@ func (p *ResourceCapacity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "ssdGb")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3974,7 +4283,7 @@ func NewResourceCapacity() *ResourceCapacity {
 	p := new(ResourceCapacity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.ResourceCapacity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3990,15 +4299,15 @@ type Runway struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  Number of days the CPU can sustain the added and existing workload.
+	  Number of days the CPU can sustain the added and existing workload. If the value is -1, it indicates that the runway is not yet calculated for CPU.
 	*/
 	CpuRunwayDays *int `json:"cpuRunwayDays"`
 	/*
-	  Number of days the memory can sustain the added and existing workload.
+	  Number of days the memory can sustain the added and existing workload. If the value is -1, it indicates that the runway is not yet calculated for memory.
 	*/
 	MemoryRunwayDays *int `json:"memoryRunwayDays"`
 	/*
-	  Number of days the cluster will be able to sustain the existing and added workloads.
+	  Number of days the cluster will be able to sustain the existing and added workloads. If the value is -1, it indicates that the runway has not yet been calculated for one or more resources.
 	*/
 	MinimumRunwayDays *int `json:"minimumRunwayDays"`
 	/*
@@ -4006,7 +4315,7 @@ type Runway struct {
 	*/
 	RunwayStartTime *time.Time `json:"runwayStartTime"`
 	/*
-	  Number of days the storage can sustain the added and existing workload.
+	  Number of days the storage can sustain the added and existing workload. If the value is -1, it indicates that the runway is not yet calculated for storage.
 	*/
 	StorageRunwayDays *int `json:"storageRunwayDays"`
 }
@@ -4067,7 +4376,32 @@ func (p *Runway) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Runway(*known)
+	*p = *NewRunway()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CpuRunwayDays != nil {
+		p.CpuRunwayDays = known.CpuRunwayDays
+	}
+	if known.MemoryRunwayDays != nil {
+		p.MemoryRunwayDays = known.MemoryRunwayDays
+	}
+	if known.MinimumRunwayDays != nil {
+		p.MinimumRunwayDays = known.MinimumRunwayDays
+	}
+	if known.RunwayStartTime != nil {
+		p.RunwayStartTime = known.RunwayStartTime
+	}
+	if known.StorageRunwayDays != nil {
+		p.StorageRunwayDays = known.StorageRunwayDays
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4080,7 +4414,9 @@ func (p *Runway) UnmarshalJSON(b []byte) error {
 	delete(allFields, "storageRunwayDays")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4089,188 +4425,7 @@ func NewRunway() *Runway {
 	p := new(Runway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.Runway"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Required details to trigger a calculate runway task.
-*/
-type RunwayParams struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	ClusterType *import4.ClusterType `json:"clusterType"`
-	/*
-	  UUID of the cluster to which the ignore window is to be applied.
-	*/
-	ClusterUuid *string `json:"clusterUuid"`
-}
-
-func (p *RunwayParams) MarshalJSON() ([]byte, error) {
-	type RunwayParamsProxy RunwayParams
-
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*RunwayParamsProxy
-		ClusterType *import4.ClusterType `json:"clusterType,omitempty"`
-		ClusterUuid *string              `json:"clusterUuid,omitempty"`
-	}{
-		RunwayParamsProxy: (*RunwayParamsProxy)(p),
-		ClusterType:       p.ClusterType,
-		ClusterUuid:       p.ClusterUuid,
-	}
-
-	known, err := json.Marshal(baseStruct)
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *RunwayParams) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias RunwayParams
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = RunwayParams(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "clusterType")
-	delete(allFields, "clusterUuid")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewRunwayParams() *RunwayParams {
-	p := new(RunwayParams)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.config.RunwayParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-type RunwayParamsProjection struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-
-	ClusterType *import4.ClusterType `json:"clusterType"`
-	/*
-	  UUID of the cluster to which the ignore window is to be applied.
-	*/
-	ClusterUuid *string `json:"clusterUuid"`
-}
-
-func (p *RunwayParamsProjection) MarshalJSON() ([]byte, error) {
-	type RunwayParamsProjectionProxy RunwayParamsProjection
-
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*RunwayParamsProjectionProxy
-		ClusterType *import4.ClusterType `json:"clusterType,omitempty"`
-		ClusterUuid *string              `json:"clusterUuid,omitempty"`
-	}{
-		RunwayParamsProjectionProxy: (*RunwayParamsProjectionProxy)(p),
-		ClusterType:                 p.ClusterType,
-		ClusterUuid:                 p.ClusterUuid,
-	}
-
-	known, err := json.Marshal(baseStruct)
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *RunwayParamsProjection) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias RunwayParamsProjection
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = RunwayParamsProjection(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "clusterType")
-	delete(allFields, "clusterUuid")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewRunwayParamsProjection() *RunwayParamsProjection {
-	p := new(RunwayParamsProjection)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.config.RunwayParamsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4285,6 +4440,10 @@ type Scenario struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Account ID of the cluster.
+	*/
+	AccountId *string `json:"accountId,omitempty"`
 
 	ClusterConfig *ClusterConfig `json:"clusterConfig,omitempty"`
 	/*
@@ -4292,17 +4451,25 @@ type Scenario struct {
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
+	  Domain ID of the cluster.
+	*/
+	DomainId *string `json:"domainId,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Name of capacity planning scenario.
 	*/
 	Name *string `json:"name,omitempty"`
+	/*
+	  Provider ID of the cluster.
+	*/
+	ProviderId *string `json:"providerId,omitempty"`
 
 	Runway *Runway `json:"runway,omitempty"`
 	/*
@@ -4318,7 +4485,7 @@ type Scenario struct {
 	*/
 	UpdatedTime *time.Time `json:"updatedTime,omitempty"`
 	/*
-	  A list of allowed vendors whose model can be requested to sustain the workload in a capacity planning scenario.
+	  A list of allowed vendors whose model can be requested to sustain the workload in a capacity planning scenario. This is an optional attribute but must be provided in case clusterExtId is not provided.
 	*/
 	Vendors []Vendor `json:"vendors,omitempty"`
 	/*
@@ -4368,17 +4535,72 @@ func (p *Scenario) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Scenario(*known)
+	*p = *NewScenario()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AccountId != nil {
+		p.AccountId = known.AccountId
+	}
+	if known.ClusterConfig != nil {
+		p.ClusterConfig = known.ClusterConfig
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.DomainId != nil {
+		p.DomainId = known.DomainId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ProviderId != nil {
+		p.ProviderId = known.ProviderId
+	}
+	if known.Runway != nil {
+		p.Runway = known.Runway
+	}
+	if known.TargetRunwayDays != nil {
+		p.TargetRunwayDays = known.TargetRunwayDays
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpdatedTime != nil {
+		p.UpdatedTime = known.UpdatedTime
+	}
+	if known.Vendors != nil {
+		p.Vendors = known.Vendors
+	}
+	if known.Workloads != nil {
+		p.Workloads = known.Workloads
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "accountId")
 	delete(allFields, "clusterConfig")
 	delete(allFields, "clusterExtId")
+	delete(allFields, "domainId")
 	delete(allFields, "extId")
 	delete(allFields, "links")
 	delete(allFields, "name")
+	delete(allFields, "providerId")
 	delete(allFields, "runway")
 	delete(allFields, "targetRunwayDays")
 	delete(allFields, "tenantId")
@@ -4387,7 +4609,9 @@ func (p *Scenario) UnmarshalJSON(b []byte) error {
 	delete(allFields, "workloads")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4396,7 +4620,7 @@ func NewScenario() *Scenario {
 	p := new(Scenario)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.Scenario"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4408,6 +4632,10 @@ type ScenarioProjection struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Account ID of the cluster.
+	*/
+	AccountId *string `json:"accountId,omitempty"`
 
 	ClusterConfig *ClusterConfig `json:"clusterConfig,omitempty"`
 	/*
@@ -4415,17 +4643,25 @@ type ScenarioProjection struct {
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
 	/*
+	  Domain ID of the cluster.
+	*/
+	DomainId *string `json:"domainId,omitempty"`
+	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Name of capacity planning scenario.
 	*/
 	Name *string `json:"name,omitempty"`
+	/*
+	  Provider ID of the cluster.
+	*/
+	ProviderId *string `json:"providerId,omitempty"`
 
 	Runway *Runway `json:"runway,omitempty"`
 	/*
@@ -4441,7 +4677,7 @@ type ScenarioProjection struct {
 	*/
 	UpdatedTime *time.Time `json:"updatedTime,omitempty"`
 	/*
-	  A list of allowed vendors whose model can be requested to sustain the workload in a capacity planning scenario.
+	  A list of allowed vendors whose model can be requested to sustain the workload in a capacity planning scenario. This is an optional attribute but must be provided in case clusterExtId is not provided.
 	*/
 	Vendors []Vendor `json:"vendors,omitempty"`
 	/*
@@ -4491,17 +4727,72 @@ func (p *ScenarioProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ScenarioProjection(*known)
+	*p = *NewScenarioProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AccountId != nil {
+		p.AccountId = known.AccountId
+	}
+	if known.ClusterConfig != nil {
+		p.ClusterConfig = known.ClusterConfig
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.DomainId != nil {
+		p.DomainId = known.DomainId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ProviderId != nil {
+		p.ProviderId = known.ProviderId
+	}
+	if known.Runway != nil {
+		p.Runway = known.Runway
+	}
+	if known.TargetRunwayDays != nil {
+		p.TargetRunwayDays = known.TargetRunwayDays
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpdatedTime != nil {
+		p.UpdatedTime = known.UpdatedTime
+	}
+	if known.Vendors != nil {
+		p.Vendors = known.Vendors
+	}
+	if known.Workloads != nil {
+		p.Workloads = known.Workloads
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "accountId")
 	delete(allFields, "clusterConfig")
 	delete(allFields, "clusterExtId")
+	delete(allFields, "domainId")
 	delete(allFields, "extId")
 	delete(allFields, "links")
 	delete(allFields, "name")
+	delete(allFields, "providerId")
 	delete(allFields, "runway")
 	delete(allFields, "targetRunwayDays")
 	delete(allFields, "tenantId")
@@ -4510,7 +4801,9 @@ func (p *ScenarioProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "workloads")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4519,7 +4812,7 @@ func NewScenarioProjection() *ScenarioProjection {
 	p := new(ScenarioProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.ScenarioProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4604,7 +4897,29 @@ func (p *SimulatedVmResourceSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SimulatedVmResourceSpec(*known)
+	*p = *NewSimulatedVmResourceSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HddGb != nil {
+		p.HddGb = known.HddGb
+	}
+	if known.RamGb != nil {
+		p.RamGb = known.RamGb
+	}
+	if known.SsdGb != nil {
+		p.SsdGb = known.SsdGb
+	}
+	if known.VcpuCount != nil {
+		p.VcpuCount = known.VcpuCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4616,7 +4931,9 @@ func (p *SimulatedVmResourceSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vcpuCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4625,7 +4942,7 @@ func NewSimulatedVmResourceSpec() *SimulatedVmResourceSpec {
 	p := new(SimulatedVmResourceSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.SimulatedVmResourceSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4707,7 +5024,29 @@ func (p *SimulatedVmResourceSpecProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SimulatedVmResourceSpecProjection(*known)
+	*p = *NewSimulatedVmResourceSpecProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HddGb != nil {
+		p.HddGb = known.HddGb
+	}
+	if known.RamGb != nil {
+		p.RamGb = known.RamGb
+	}
+	if known.SsdGb != nil {
+		p.SsdGb = known.SsdGb
+	}
+	if known.VcpuCount != nil {
+		p.VcpuCount = known.VcpuCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4719,7 +5058,9 @@ func (p *SimulatedVmResourceSpecProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vcpuCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4728,7 +5069,7 @@ func NewSimulatedVmResourceSpecProjection() *SimulatedVmResourceSpecProjection {
 	p := new(SimulatedVmResourceSpecProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.SimulatedVmResourceSpecProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4750,7 +5091,7 @@ type Simulation struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Name of the resource used in a scenario.
 	*/
@@ -4804,7 +5145,32 @@ func (p *Simulation) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Simulation(*known)
+	*p = *NewSimulation()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SimulationSpec != nil {
+		p.SimulationSpec = known.SimulationSpec
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4817,7 +5183,9 @@ func (p *Simulation) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4826,7 +5194,7 @@ func NewSimulation() *Simulation {
 	p := new(Simulation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.Simulation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4845,7 +5213,7 @@ type SimulationProjection struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Name of the resource used in a scenario.
 	*/
@@ -4899,7 +5267,32 @@ func (p *SimulationProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SimulationProjection(*known)
+	*p = *NewSimulationProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SimulationSpec != nil {
+		p.SimulationSpec = known.SimulationSpec
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4912,7 +5305,9 @@ func (p *SimulationProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4921,7 +5316,7 @@ func NewSimulationProjection() *SimulationProjection {
 	p := new(SimulationProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.SimulationProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4940,7 +5335,7 @@ type Source struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  Source name for the vendors. For example 'Nutanix'.
 	*/
@@ -4992,7 +5387,29 @@ func (p *Source) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Source(*known)
+	*p = *NewSource()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.SourceName != nil {
+		p.SourceName = known.SourceName
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5004,7 +5421,9 @@ func (p *Source) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5013,14 +5432,14 @@ func NewSource() *Source {
 	p := new(Source)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.Source"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/sources Get operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/sources Get operation
 */
 type SourceListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5035,7 +5454,7 @@ type SourceListApiResponse struct {
 
 	Data *OneOfSourceListApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *SourceListApiResponse) MarshalJSON() ([]byte, error) {
@@ -5079,7 +5498,26 @@ func (p *SourceListApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SourceListApiResponse(*known)
+	*p = *NewSourceListApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5090,7 +5528,9 @@ func (p *SourceListApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5099,7 +5539,7 @@ func NewSourceListApiResponse() *SourceListApiResponse {
 	p := new(SourceListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.SourceListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5207,7 +5647,29 @@ func (p *SplunkWorkload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SplunkWorkload(*known)
+	*p = *NewSplunkWorkload()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ColdRetentionDays != nil {
+		p.ColdRetentionDays = known.ColdRetentionDays
+	}
+	if known.DailyAverageIndexingRateGb != nil {
+		p.DailyAverageIndexingRateGb = known.DailyAverageIndexingRateGb
+	}
+	if known.HotRetentionDays != nil {
+		p.HotRetentionDays = known.HotRetentionDays
+	}
+	if known.UserCount != nil {
+		p.UserCount = known.UserCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5219,7 +5681,9 @@ func (p *SplunkWorkload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5228,7 +5692,7 @@ func NewSplunkWorkload() *SplunkWorkload {
 	p := new(SplunkWorkload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.SplunkWorkload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ColdRetentionDays = new(int)
@@ -5482,7 +5946,29 @@ func (p *SqlWorkload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SqlWorkload(*known)
+	*p = *NewSqlWorkload()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DbCount != nil {
+		p.DbCount = known.DbCount
+	}
+	if known.IsBusinessCritical != nil {
+		p.IsBusinessCritical = known.IsBusinessCritical
+	}
+	if known.ProfileType != nil {
+		p.ProfileType = known.ProfileType
+	}
+	if known.TransactionType != nil {
+		p.TransactionType = known.TransactionType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5494,7 +5980,9 @@ func (p *SqlWorkload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "transactionType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5503,7 +5991,7 @@ func NewSqlWorkload() *SqlWorkload {
 	p := new(SqlWorkload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.SqlWorkload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsBusinessCritical = new(bool)
@@ -5513,7 +6001,7 @@ func NewSqlWorkload() *SqlWorkload {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/scenarios/{extId} Put operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/scenarios/{extId} Put operation
 */
 type UpdateScenarioApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5528,7 +6016,7 @@ type UpdateScenarioApiResponse struct {
 
 	Data *OneOfUpdateScenarioApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *UpdateScenarioApiResponse) MarshalJSON() ([]byte, error) {
@@ -5572,7 +6060,26 @@ func (p *UpdateScenarioApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateScenarioApiResponse(*known)
+	*p = *NewUpdateScenarioApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5583,7 +6090,9 @@ func (p *UpdateScenarioApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5592,7 +6101,7 @@ func NewUpdateScenarioApiResponse() *UpdateScenarioApiResponse {
 	p := new(UpdateScenarioApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.UpdateScenarioApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5620,7 +6129,7 @@ func (p *UpdateScenarioApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/config/simulations/{extId} Put operation
+REST response for all response codes in API path /aiops/v4.2.b1/config/simulations/{extId} Put operation
 */
 type UpdateSimulationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5635,7 +6144,7 @@ type UpdateSimulationApiResponse struct {
 
 	Data *OneOfUpdateSimulationApiResponseData `json:"data,omitempty"`
 
-	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
 func (p *UpdateSimulationApiResponse) MarshalJSON() ([]byte, error) {
@@ -5679,7 +6188,26 @@ func (p *UpdateSimulationApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateSimulationApiResponse(*known)
+	*p = *NewUpdateSimulationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5690,7 +6218,9 @@ func (p *UpdateSimulationApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5699,7 +6229,7 @@ func NewUpdateSimulationApiResponse() *UpdateSimulationApiResponse {
 	p := new(UpdateSimulationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.UpdateSimulationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5786,7 +6316,23 @@ func (p *ValueRange) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ValueRange(*known)
+	*p = *NewValueRange()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Max != nil {
+		p.Max = known.Max
+	}
+	if known.Min != nil {
+		p.Min = known.Min
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5796,7 +6342,9 @@ func (p *ValueRange) UnmarshalJSON(b []byte) error {
 	delete(allFields, "min")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5805,7 +6353,7 @@ func NewValueRange() *ValueRange {
 	p := new(ValueRange)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.ValueRange"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6246,7 +6794,29 @@ func (p *VdiWorkload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VdiWorkload(*known)
+	*p = *NewVdiWorkload()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ProvisionType != nil {
+		p.ProvisionType = known.ProvisionType
+	}
+	if known.UserCount != nil {
+		p.UserCount = known.UserCount
+	}
+	if known.UserType != nil {
+		p.UserType = known.UserType
+	}
+	if known.Vendor != nil {
+		p.Vendor = known.Vendor
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6258,7 +6828,9 @@ func (p *VdiWorkload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendor")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6267,7 +6839,7 @@ func NewVdiWorkload() *VdiWorkload {
 	p := new(VdiWorkload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.VdiWorkload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6396,11 +6968,11 @@ type VmCategoryWorkload struct {
 	/*
 	  Number of VMs in category.
 	*/
-	CurrentVmCount *int `json:"currentVmCount"`
+	CurrentVmCount *int `json:"currentVmCount,omitempty"`
 	/*
 	  Number of VMs considered in category.
 	*/
-	TargetVmCount *int `json:"targetVmCount"`
+	TargetVmCount *int `json:"targetVmCount,omitempty"`
 }
 
 func (p *VmCategoryWorkload) MarshalJSON() ([]byte, error) {
@@ -6409,14 +6981,10 @@ func (p *VmCategoryWorkload) MarshalJSON() ([]byte, error) {
 	// Step 1: Marshal known fields via proxy to enforce required fields
 	baseStruct := struct {
 		*VmCategoryWorkloadProxy
-		CategoryExtId  *string `json:"categoryExtId,omitempty"`
-		CurrentVmCount *int    `json:"currentVmCount,omitempty"`
-		TargetVmCount  *int    `json:"targetVmCount,omitempty"`
+		CategoryExtId *string `json:"categoryExtId,omitempty"`
 	}{
 		VmCategoryWorkloadProxy: (*VmCategoryWorkloadProxy)(p),
 		CategoryExtId:           p.CategoryExtId,
-		CurrentVmCount:          p.CurrentVmCount,
-		TargetVmCount:           p.TargetVmCount,
 	}
 
 	known, err := json.Marshal(baseStruct)
@@ -6455,7 +7023,26 @@ func (p *VmCategoryWorkload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmCategoryWorkload(*known)
+	*p = *NewVmCategoryWorkload()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryExtId != nil {
+		p.CategoryExtId = known.CategoryExtId
+	}
+	if known.CurrentVmCount != nil {
+		p.CurrentVmCount = known.CurrentVmCount
+	}
+	if known.TargetVmCount != nil {
+		p.TargetVmCount = known.TargetVmCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6466,7 +7053,9 @@ func (p *VmCategoryWorkload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "targetVmCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6475,7 +7064,7 @@ func NewVmCategoryWorkload() *VmCategoryWorkload {
 	p := new(VmCategoryWorkload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.VmCategoryWorkload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6550,7 +7139,23 @@ func (p *VmWorkload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmWorkload(*known)
+	*p = *NewVmWorkload()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SimulationExtId != nil {
+		p.SimulationExtId = known.SimulationExtId
+	}
+	if known.VmCount != nil {
+		p.VmCount = known.VmCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6560,7 +7165,9 @@ func (p *VmWorkload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6569,7 +7176,7 @@ func NewVmWorkload() *VmWorkload {
 	p := new(VmWorkload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.VmWorkload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6673,17 +7280,35 @@ func (p *Workload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
+	*p = *NewWorkload()
+
 	// Handle custom date parsing
-	p.ObjectType_ = knownFields.ObjectType_
+
+	if knownFields.ObjectType_ != nil {
+		p.ObjectType_ = knownFields.ObjectType_
+	}
 	// Handle custom date parsing
-	p.Reserved_ = knownFields.Reserved_
+
+	if knownFields.Reserved_ != nil {
+		p.Reserved_ = knownFields.Reserved_
+	}
 	// Handle custom date parsing
-	p.UnknownFields_ = knownFields.UnknownFields_
+
+	if knownFields.UnknownFields_ != nil {
+		p.UnknownFields_ = knownFields.UnknownFields_
+	}
 	// Handle custom date parsing
-	p.IsEnabled = knownFields.IsEnabled
+
+	if knownFields.IsEnabled != nil {
+		p.IsEnabled = knownFields.IsEnabled
+	}
 	// Handle custom date parsing
-	p.ProjectedResourceRequirement = knownFields.ProjectedResourceRequirement
+
+	if knownFields.ProjectedResourceRequirement != nil {
+		p.ProjectedResourceRequirement = knownFields.ProjectedResourceRequirement
+	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.ScheduleDate != "" {
 		parsedScheduleDate, err := time.Parse("2006-01-02", knownFields.ScheduleDate)
@@ -6693,9 +7318,15 @@ func (p *Workload) UnmarshalJSON(b []byte) error {
 		p.ScheduleDate = &parsedScheduleDate
 	}
 	// Handle custom date parsing
-	p.WorkloadPropertiesItemDiscriminator_ = knownFields.WorkloadPropertiesItemDiscriminator_
+
+	if knownFields.WorkloadPropertiesItemDiscriminator_ != nil {
+		p.WorkloadPropertiesItemDiscriminator_ = knownFields.WorkloadPropertiesItemDiscriminator_
+	}
 	// Handle custom date parsing
-	p.WorkloadProperties = knownFields.WorkloadProperties
+
+	if knownFields.WorkloadProperties != nil {
+		p.WorkloadProperties = knownFields.WorkloadProperties
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6708,7 +7339,9 @@ func (p *Workload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "workloadProperties")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6717,7 +7350,7 @@ func NewWorkload() *Workload {
 	p := new(Workload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.Workload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsEnabled = new(bool)
@@ -6917,7 +7550,35 @@ func (p *XenWorkload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = XenWorkload(*known)
+	*p = *NewXenWorkload()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.McsDiffSizeGb != nil {
+		p.McsDiffSizeGb = known.McsDiffSizeGb
+	}
+	if known.OperatingSystem != nil {
+		p.OperatingSystem = known.OperatingSystem
+	}
+	if known.PvsWriteCacheSizeGb != nil {
+		p.PvsWriteCacheSizeGb = known.PvsWriteCacheSizeGb
+	}
+	if known.SystemDataGb != nil {
+		p.SystemDataGb = known.SystemDataGb
+	}
+	if known.UserCount != nil {
+		p.UserCount = known.UserCount
+	}
+	if known.UserProfileDataMb != nil {
+		p.UserProfileDataMb = known.UserProfileDataMb
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6931,7 +7592,9 @@ func (p *XenWorkload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userProfileDataMb")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6940,7 +7603,7 @@ func NewXenWorkload() *XenWorkload {
 	p := new(XenWorkload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.XenWorkload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6953,13 +7616,11 @@ type XfitPolicy struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of associated category details for the policy.
-	*/
-	Categories []CategoryDetail `json:"categories"`
-	/*
 	  The description of the policy.
 	*/
 	Description *string `json:"description,omitempty"`
+
+	Entities []EntityDetail `json:"entities"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
@@ -6975,7 +7636,7 @@ type XfitPolicy struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  The name of the policy.
 	*/
@@ -6983,13 +7644,15 @@ type XfitPolicy struct {
 	/*
 	  Key value pairs for the relevant properties of a policy. For example, it can hold the lookback period for an Inefficiency exclusion policy.
 	*/
-	Parameters []import5.KVStringPair `json:"parameters"`
+	Parameters []import4.KVStringPair `json:"parameters,omitempty"`
 
 	PolicyType *PolicyType `json:"policyType,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+
+	ToRemove *bool `json:"toRemove,omitempty"`
 	/*
 	  Last updated time of the policy in ISO-8601 format.
 	*/
@@ -7002,14 +7665,12 @@ func (p *XfitPolicy) MarshalJSON() ([]byte, error) {
 	// Step 1: Marshal known fields via proxy to enforce required fields
 	baseStruct := struct {
 		*XfitPolicyProxy
-		Categories []CategoryDetail       `json:"categories,omitempty"`
-		IsEnabled  *bool                  `json:"isEnabled,omitempty"`
-		Parameters []import5.KVStringPair `json:"parameters,omitempty"`
+		Entities  []EntityDetail `json:"entities,omitempty"`
+		IsEnabled *bool          `json:"isEnabled,omitempty"`
 	}{
 		XfitPolicyProxy: (*XfitPolicyProxy)(p),
-		Categories:      p.Categories,
+		Entities:        p.Entities,
 		IsEnabled:       p.IsEnabled,
-		Parameters:      p.Parameters,
 	}
 
 	known, err := json.Marshal(baseStruct)
@@ -7048,14 +7709,60 @@ func (p *XfitPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = XfitPolicy(*known)
+	*p = *NewXfitPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsDefault != nil {
+		p.IsDefault = known.IsDefault
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Parameters != nil {
+		p.Parameters = known.Parameters
+	}
+	if known.PolicyType != nil {
+		p.PolicyType = known.PolicyType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.ToRemove != nil {
+		p.ToRemove = known.ToRemove
+	}
+	if known.UpdatedTime != nil {
+		p.UpdatedTime = known.UpdatedTime
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "categories")
 	delete(allFields, "description")
+	delete(allFields, "entities")
 	delete(allFields, "extId")
 	delete(allFields, "isDefault")
 	delete(allFields, "isEnabled")
@@ -7064,10 +7771,13 @@ func (p *XfitPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "parameters")
 	delete(allFields, "policyType")
 	delete(allFields, "tenantId")
+	delete(allFields, "toRemove")
 	delete(allFields, "updatedTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7076,13 +7786,15 @@ func NewXfitPolicy() *XfitPolicy {
 	p := new(XfitPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.XfitPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsDefault = new(bool)
 	*p.IsDefault = false
 	p.IsEnabled = new(bool)
 	*p.IsEnabled = true
+	p.ToRemove = new(bool)
+	*p.ToRemove = false
 
 	return p
 }
@@ -7094,13 +7806,11 @@ type XfitPolicyProjection struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of associated category details for the policy.
-	*/
-	Categories []CategoryDetail `json:"categories"`
-	/*
 	  The description of the policy.
 	*/
 	Description *string `json:"description,omitempty"`
+
+	Entities []EntityDetail `json:"entities"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
@@ -7116,7 +7826,7 @@ type XfitPolicyProjection struct {
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
-	Links []import1.ApiLink `json:"links,omitempty"`
+	Links []import3.ApiLink `json:"links,omitempty"`
 	/*
 	  The name of the policy.
 	*/
@@ -7124,13 +7834,15 @@ type XfitPolicyProjection struct {
 	/*
 	  Key value pairs for the relevant properties of a policy. For example, it can hold the lookback period for an Inefficiency exclusion policy.
 	*/
-	Parameters []import5.KVStringPair `json:"parameters"`
+	Parameters []import4.KVStringPair `json:"parameters,omitempty"`
 
 	PolicyType *PolicyType `json:"policyType,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+
+	ToRemove *bool `json:"toRemove,omitempty"`
 	/*
 	  Last updated time of the policy in ISO-8601 format.
 	*/
@@ -7143,14 +7855,12 @@ func (p *XfitPolicyProjection) MarshalJSON() ([]byte, error) {
 	// Step 1: Marshal known fields via proxy to enforce required fields
 	baseStruct := struct {
 		*XfitPolicyProjectionProxy
-		Categories []CategoryDetail       `json:"categories,omitempty"`
-		IsEnabled  *bool                  `json:"isEnabled,omitempty"`
-		Parameters []import5.KVStringPair `json:"parameters,omitempty"`
+		Entities  []EntityDetail `json:"entities,omitempty"`
+		IsEnabled *bool          `json:"isEnabled,omitempty"`
 	}{
 		XfitPolicyProjectionProxy: (*XfitPolicyProjectionProxy)(p),
-		Categories:                p.Categories,
+		Entities:                  p.Entities,
 		IsEnabled:                 p.IsEnabled,
-		Parameters:                p.Parameters,
 	}
 
 	known, err := json.Marshal(baseStruct)
@@ -7189,14 +7899,60 @@ func (p *XfitPolicyProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = XfitPolicyProjection(*known)
+	*p = *NewXfitPolicyProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsDefault != nil {
+		p.IsDefault = known.IsDefault
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Parameters != nil {
+		p.Parameters = known.Parameters
+	}
+	if known.PolicyType != nil {
+		p.PolicyType = known.PolicyType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.ToRemove != nil {
+		p.ToRemove = known.ToRemove
+	}
+	if known.UpdatedTime != nil {
+		p.UpdatedTime = known.UpdatedTime
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "categories")
 	delete(allFields, "description")
+	delete(allFields, "entities")
 	delete(allFields, "extId")
 	delete(allFields, "isDefault")
 	delete(allFields, "isEnabled")
@@ -7205,10 +7961,13 @@ func (p *XfitPolicyProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "parameters")
 	delete(allFields, "policyType")
 	delete(allFields, "tenantId")
+	delete(allFields, "toRemove")
 	delete(allFields, "updatedTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7217,51 +7976,56 @@ func NewXfitPolicyProjection() *XfitPolicyProjection {
 	p := new(XfitPolicyProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.config.XfitPolicyProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsDefault = new(bool)
 	*p.IsDefault = false
 	p.IsEnabled = new(bool)
 	*p.IsEnabled = true
+	p.ToRemove = new(bool)
+	*p.ToRemove = false
 
 	return p
 }
 
-type OneOfUpdateSimulationApiResponseData struct {
+type OneOfUpdateScenarioApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    []import3.AppMessage   `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfUpdateSimulationApiResponseData() *OneOfUpdateSimulationApiResponseData {
-	p := new(OneOfUpdateSimulationApiResponseData)
+func NewOneOfUpdateScenarioApiResponseData() *OneOfUpdateScenarioApiResponseData {
+	p := new(OneOfUpdateScenarioApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfUpdateSimulationApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfUpdateScenarioApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateSimulationApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfUpdateScenarioApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []import3.AppMessage:
-		p.oneOfType0 = v.([]import3.AppMessage)
+	case import1.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import1.TaskReference)
+		}
+		*p.oneOfType0 = v.(import1.TaskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<aiops.v4.error.AppMessage>"
+		*p.Discriminator = *p.oneOfType0.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<aiops.v4.error.AppMessage>"
-	case import3.ErrorResponse:
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -7276,8 +8040,116 @@ func (p *OneOfUpdateSimulationApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfUpdateSimulationApiResponseData) GetValue() interface{} {
-	if "List<aiops.v4.error.AppMessage>" == *p.Discriminator {
+func (p *OneOfUpdateScenarioApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateScenarioApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import1.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateScenarioApiResponseData"))
+}
+
+func (p *OneOfUpdateScenarioApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateScenarioApiResponseData")
+}
+
+type OneOfEntityTypeListApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []EntityType           `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfEntityTypeListApiResponseData() *OneOfEntityTypeListApiResponseData {
+	p := new(OneOfEntityTypeListApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfEntityTypeListApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfEntityTypeListApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []EntityType:
+		p.oneOfType0 = v.([]EntityType)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<aiops.v4.config.EntityType>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<aiops.v4.config.EntityType>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfEntityTypeListApiResponseData) GetValue() interface{} {
+	if "List<aiops.v4.config.EntityType>" == *p.Discriminator {
 		return p.oneOfType0
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
@@ -7286,27 +8158,27 @@ func (p *OneOfUpdateSimulationApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfUpdateSimulationApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]import3.AppMessage)
+func (p *OneOfEntityTypeListApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]EntityType)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "aiops.v4.error.AppMessage" == *((*vOneOfType0)[0].ObjectType_) {
+		if len(*vOneOfType0) == 0 || "aiops.v4.config.EntityType" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<aiops.v4.error.AppMessage>"
+			*p.Discriminator = "List<aiops.v4.config.EntityType>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<aiops.v4.error.AppMessage>"
+			*p.ObjectType_ = "List<aiops.v4.config.EntityType>"
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -7320,58 +8192,56 @@ func (p *OneOfUpdateSimulationApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSimulationApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfEntityTypeListApiResponseData"))
 }
 
-func (p *OneOfUpdateSimulationApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<aiops.v4.error.AppMessage>" == *p.Discriminator {
+func (p *OneOfEntityTypeListApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<aiops.v4.config.EntityType>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateSimulationApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfEntityTypeListApiResponseData")
 }
 
-type OneOfDeleteSimulationApiResponseData struct {
+type OneOfGetSimulationApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *Simulation            `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfDeleteSimulationApiResponseData() *OneOfDeleteSimulationApiResponseData {
-	p := new(OneOfDeleteSimulationApiResponseData)
+func NewOneOfGetSimulationApiResponseData() *OneOfGetSimulationApiResponseData {
+	p := new(OneOfGetSimulationApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDeleteSimulationApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetSimulationApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteSimulationApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetSimulationApiResponseData is nil"))
 	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
+	switch v.(type) {
+	case Simulation:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Simulation)
 		}
-		*p.oneOfType1 = nil
+		*p.oneOfType0 = v.(Simulation)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "EMPTY"
+		*p.Discriminator = *p.oneOfType0.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -7386,9 +8256,9 @@ func (p *OneOfDeleteSimulationApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfDeleteSimulationApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
+func (p *OneOfGetSimulationApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -7396,30 +8266,30 @@ func (p *OneOfDeleteSimulationApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfDeleteSimulationApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
+func (p *OneOfGetSimulationApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(Simulation)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "aiops.v4.config.Simulation" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Simulation)
 			}
-			*p.oneOfType1 = nil
+			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "EMPTY"
+			*p.Discriminator = *p.oneOfType0.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "EMPTY"
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -7433,17 +8303,17 @@ func (p *OneOfDeleteSimulationApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteSimulationApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSimulationApiResponseData"))
 }
 
-func (p *OneOfDeleteSimulationApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
+func (p *OneOfGetSimulationApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfDeleteSimulationApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGetSimulationApiResponseData")
 }
 
 type OneOfListScenariosApiResponseData struct {
@@ -7451,7 +8321,7 @@ type OneOfListScenariosApiResponseData struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType401  []ScenarioProjection   `json:"-"`
 	oneOfType0    []Scenario             `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
 func NewOneOfListScenariosApiResponseData() *OneOfListScenariosApiResponseData {
@@ -7486,11 +8356,11 @@ func (p *OneOfListScenariosApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = "List<aiops.v4.config.Scenario>"
-	case import3.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -7549,11 +8419,11 @@ func (p *OneOfListScenariosApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -7583,40 +8453,45 @@ func (p *OneOfListScenariosApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfListScenariosApiResponseData")
 }
 
-type OneOfEntityTypeListApiResponseData struct {
+type OneOfDeleteSimulationApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    []EntityType           `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType1    *interface{}           `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfEntityTypeListApiResponseData() *OneOfEntityTypeListApiResponseData {
-	p := new(OneOfEntityTypeListApiResponseData)
+func NewOneOfDeleteSimulationApiResponseData() *OneOfDeleteSimulationApiResponseData {
+	p := new(OneOfDeleteSimulationApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfEntityTypeListApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfDeleteSimulationApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfEntityTypeListApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfDeleteSimulationApiResponseData is nil"))
 	}
-	switch v.(type) {
-	case []EntityType:
-		p.oneOfType0 = v.([]EntityType)
+	if nil == v {
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(interface{})
+		}
+		*p.oneOfType1 = nil
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<aiops.v4.config.EntityType>"
+		*p.Discriminator = "EMPTY"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<aiops.v4.config.EntityType>"
-	case import3.ErrorResponse:
+		*p.ObjectType_ = "EMPTY"
+		return nil
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -7631,9 +8506,9 @@ func (p *OneOfEntityTypeListApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfEntityTypeListApiResponseData) GetValue() interface{} {
-	if "List<aiops.v4.config.EntityType>" == *p.Discriminator {
-		return p.oneOfType0
+func (p *OneOfDeleteSimulationApiResponseData) GetValue() interface{} {
+	if "EMPTY" == *p.Discriminator {
+		return *p.oneOfType1
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -7641,27 +8516,30 @@ func (p *OneOfEntityTypeListApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfEntityTypeListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]EntityType)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "aiops.v4.config.EntityType" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
+func (p *OneOfDeleteSimulationApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(interface{})
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if nil == *vOneOfType1 {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(interface{})
+			}
+			*p.oneOfType1 = nil
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<aiops.v4.config.EntityType>"
+			*p.Discriminator = "EMPTY"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<aiops.v4.config.EntityType>"
+			*p.ObjectType_ = "EMPTY"
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -7675,43 +8553,43 @@ func (p *OneOfEntityTypeListApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfEntityTypeListApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteSimulationApiResponseData"))
 }
 
-func (p *OneOfEntityTypeListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<aiops.v4.config.EntityType>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+func (p *OneOfDeleteSimulationApiResponseData) MarshalJSON() ([]byte, error) {
+	if "EMPTY" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfEntityTypeListApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfDeleteSimulationApiResponseData")
 }
 
-type OneOfCreateSimulationApiResponseData struct {
+type OneOfCreateScenarioApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *Simulation            `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfCreateSimulationApiResponseData() *OneOfCreateSimulationApiResponseData {
-	p := new(OneOfCreateSimulationApiResponseData)
+func NewOneOfCreateScenarioApiResponseData() *OneOfCreateScenarioApiResponseData {
+	p := new(OneOfCreateScenarioApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCreateSimulationApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfCreateScenarioApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateSimulationApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfCreateScenarioApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case Simulation:
+	case import1.TaskReference:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Simulation)
+			p.oneOfType0 = new(import1.TaskReference)
 		}
-		*p.oneOfType0 = v.(Simulation)
+		*p.oneOfType0 = v.(import1.TaskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -7720,11 +8598,11 @@ func (p *OneOfCreateSimulationApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -7739,7 +8617,7 @@ func (p *OneOfCreateSimulationApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfCreateSimulationApiResponseData) GetValue() interface{} {
+func (p *OneOfCreateScenarioApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -7749,12 +8627,12 @@ func (p *OneOfCreateSimulationApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfCreateSimulationApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(Simulation)
+func (p *OneOfCreateScenarioApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import1.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "aiops.v4.config.Simulation" == *vOneOfType0.ObjectType_ {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Simulation)
+				p.oneOfType0 = new(import1.TaskReference)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -7768,11 +8646,11 @@ func (p *OneOfCreateSimulationApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -7786,56 +8664,53 @@ func (p *OneOfCreateSimulationApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateSimulationApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateScenarioApiResponseData"))
 }
 
-func (p *OneOfCreateSimulationApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfCreateScenarioApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfCreateSimulationApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfCreateScenarioApiResponseData")
 }
 
-type OneOfGetScenarioReportApiResponseData struct {
+type OneOfSourceListApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *FileDetail            `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []Source               `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfGetScenarioReportApiResponseData() *OneOfGetScenarioReportApiResponseData {
-	p := new(OneOfGetScenarioReportApiResponseData)
+func NewOneOfSourceListApiResponseData() *OneOfSourceListApiResponseData {
+	p := new(OneOfSourceListApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetScenarioReportApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfSourceListApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetScenarioReportApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfSourceListApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case FileDetail:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(FileDetail)
-		}
-		*p.oneOfType0 = v.(FileDetail)
+	case []Source:
+		p.oneOfType0 = v.([]Source)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "FileDetail"
+		*p.Discriminator = "List<aiops.v4.config.Source>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "FileDetail"
-	case import3.ErrorResponse:
+		*p.ObjectType_ = "List<aiops.v4.config.Source>"
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -7850,172 +8725,37 @@ func (p *OneOfGetScenarioReportApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfGetScenarioReportApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && "FileDetail" == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetScenarioReportApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(FileDetail)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(FileDetail)
-		}
-		*p.oneOfType0 = *vOneOfType0
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "FileDetail"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "FileDetail"
-		return nil
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetScenarioReportApiResponseData"))
-}
-
-func (p *OneOfGetScenarioReportApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && "FileDetail" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetScenarioReportApiResponseData")
-}
-
-type OneOfListSimulationsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Simulation           `json:"-"`
-	oneOfType401  []SimulationProjection `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfListSimulationsApiResponseData() *OneOfListSimulationsApiResponseData {
-	p := new(OneOfListSimulationsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListSimulationsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListSimulationsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Simulation:
-		p.oneOfType0 = v.([]Simulation)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<aiops.v4.config.Simulation>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<aiops.v4.config.Simulation>"
-	case []SimulationProjection:
-		p.oneOfType401 = v.([]SimulationProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<aiops.v4.config.SimulationProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<aiops.v4.config.SimulationProjection>"
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListSimulationsApiResponseData) GetValue() interface{} {
-	if "List<aiops.v4.config.Simulation>" == *p.Discriminator {
+func (p *OneOfSourceListApiResponseData) GetValue() interface{} {
+	if "List<aiops.v4.config.Source>" == *p.Discriminator {
 		return p.oneOfType0
 	}
-	if "List<aiops.v4.config.SimulationProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
 	return nil
 }
 
-func (p *OneOfListSimulationsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Simulation)
+func (p *OneOfSourceListApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]Source)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "aiops.v4.config.Simulation" == *((*vOneOfType0)[0].ObjectType_) {
+		if len(*vOneOfType0) == 0 || "aiops.v4.config.Source" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<aiops.v4.config.Simulation>"
+			*p.Discriminator = "List<aiops.v4.config.Source>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<aiops.v4.config.Simulation>"
+			*p.ObjectType_ = "List<aiops.v4.config.Source>"
 			return nil
 		}
 	}
-	vOneOfType401 := new([]SimulationProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "aiops.v4.config.SimulationProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<aiops.v4.config.SimulationProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<aiops.v4.config.SimulationProjection>"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -8029,20 +8769,17 @@ func (p *OneOfListSimulationsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSimulationsApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSourceListApiResponseData"))
 }
 
-func (p *OneOfListSimulationsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<aiops.v4.config.Simulation>" == *p.Discriminator {
+func (p *OneOfSourceListApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<aiops.v4.config.Source>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
-	}
-	if "List<aiops.v4.config.SimulationProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfListSimulationsApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfSourceListApiResponseData")
 }
 
 type OneOfWorkloadWorkloadProperties struct {
@@ -8384,116 +9121,11 @@ func (p *OneOfWorkloadWorkloadProperties) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfWorkloadWorkloadProperties")
 }
 
-type OneOfEntityDescriptorListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []EntityDescriptor     `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfEntityDescriptorListApiResponseData() *OneOfEntityDescriptorListApiResponseData {
-	p := new(OneOfEntityDescriptorListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfEntityDescriptorListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfEntityDescriptorListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []EntityDescriptor:
-		p.oneOfType0 = v.([]EntityDescriptor)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<aiops.v4.config.EntityDescriptor>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<aiops.v4.config.EntityDescriptor>"
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfEntityDescriptorListApiResponseData) GetValue() interface{} {
-	if "List<aiops.v4.config.EntityDescriptor>" == *p.Discriminator {
-		return p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfEntityDescriptorListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]EntityDescriptor)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "aiops.v4.config.EntityDescriptor" == *((*vOneOfType0)[0].ObjectType_) {
-			p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<aiops.v4.config.EntityDescriptor>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<aiops.v4.config.EntityDescriptor>"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfEntityDescriptorListApiResponseData"))
-}
-
-func (p *OneOfEntityDescriptorListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<aiops.v4.config.EntityDescriptor>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfEntityDescriptorListApiResponseData")
-}
-
 type OneOfGenerateRunwayApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import2.TaskReference `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
 func NewOneOfGenerateRunwayApiResponseData() *OneOfGenerateRunwayApiResponseData {
@@ -8508,11 +9140,11 @@ func (p *OneOfGenerateRunwayApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfGenerateRunwayApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import2.TaskReference:
+	case import1.TaskReference:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import2.TaskReference)
+			p.oneOfType0 = new(import1.TaskReference)
 		}
-		*p.oneOfType0 = v.(import2.TaskReference)
+		*p.oneOfType0 = v.(import1.TaskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -8521,11 +9153,11 @@ func (p *OneOfGenerateRunwayApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -8551,11 +9183,11 @@ func (p *OneOfGenerateRunwayApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfGenerateRunwayApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import2.TaskReference)
+	vOneOfType0 := new(import1.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import2.TaskReference)
+				p.oneOfType0 = new(import1.TaskReference)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -8569,11 +9201,11 @@ func (p *OneOfGenerateRunwayApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -8600,45 +9232,40 @@ func (p *OneOfGenerateRunwayApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGenerateRunwayApiResponseData")
 }
 
-type OneOfDeleteScenarioApiResponseData struct {
+type OneOfUpdateSimulationApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []import2.AppMessage   `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfDeleteScenarioApiResponseData() *OneOfDeleteScenarioApiResponseData {
-	p := new(OneOfDeleteScenarioApiResponseData)
+func NewOneOfUpdateSimulationApiResponseData() *OneOfUpdateSimulationApiResponseData {
+	p := new(OneOfUpdateSimulationApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDeleteScenarioApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfUpdateSimulationApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteScenarioApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfUpdateSimulationApiResponseData is nil"))
 	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
+	switch v.(type) {
+	case []import2.AppMessage:
+		p.oneOfType0 = v.([]import2.AppMessage)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "EMPTY"
+		*p.Discriminator = "List<aiops.v4.error.AppMessage>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import3.ErrorResponse:
+		*p.ObjectType_ = "List<aiops.v4.error.AppMessage>"
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -8653,116 +9280,8 @@ func (p *OneOfDeleteScenarioApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfDeleteScenarioApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteScenarioApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteScenarioApiResponseData"))
-}
-
-func (p *OneOfDeleteScenarioApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteScenarioApiResponseData")
-}
-
-type OneOfSourceListApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    []Source               `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfSourceListApiResponseData() *OneOfSourceListApiResponseData {
-	p := new(OneOfSourceListApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfSourceListApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfSourceListApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Source:
-		p.oneOfType0 = v.([]Source)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<aiops.v4.config.Source>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<aiops.v4.config.Source>"
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfSourceListApiResponseData) GetValue() interface{} {
-	if "List<aiops.v4.config.Source>" == *p.Discriminator {
+func (p *OneOfUpdateSimulationApiResponseData) GetValue() interface{} {
+	if "List<aiops.v4.error.AppMessage>" == *p.Discriminator {
 		return p.oneOfType0
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
@@ -8771,27 +9290,27 @@ func (p *OneOfSourceListApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfSourceListApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new([]Source)
+func (p *OneOfUpdateSimulationApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]import2.AppMessage)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if len(*vOneOfType0) == 0 || "aiops.v4.config.Source" == *((*vOneOfType0)[0].ObjectType_) {
+		if len(*vOneOfType0) == 0 || "aiops.v4.error.AppMessage" == *((*vOneOfType0)[0].ObjectType_) {
 			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<aiops.v4.config.Source>"
+			*p.Discriminator = "List<aiops.v4.error.AppMessage>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<aiops.v4.config.Source>"
+			*p.ObjectType_ = "List<aiops.v4.error.AppMessage>"
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -8805,43 +9324,43 @@ func (p *OneOfSourceListApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSourceListApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSimulationApiResponseData"))
 }
 
-func (p *OneOfSourceListApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<aiops.v4.config.Source>" == *p.Discriminator {
+func (p *OneOfUpdateSimulationApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<aiops.v4.error.AppMessage>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfSourceListApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfUpdateSimulationApiResponseData")
 }
 
-type OneOfUpdateScenarioApiResponseData struct {
+type OneOfGenerateRecommendationApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import2.TaskReference `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfUpdateScenarioApiResponseData() *OneOfUpdateScenarioApiResponseData {
-	p := new(OneOfUpdateScenarioApiResponseData)
+func NewOneOfGenerateRecommendationApiResponseData() *OneOfGenerateRecommendationApiResponseData {
+	p := new(OneOfGenerateRecommendationApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfUpdateScenarioApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGenerateRecommendationApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateScenarioApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGenerateRecommendationApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import2.TaskReference:
+	case import1.TaskReference:
 		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import2.TaskReference)
+			p.oneOfType0 = new(import1.TaskReference)
 		}
-		*p.oneOfType0 = v.(import2.TaskReference)
+		*p.oneOfType0 = v.(import1.TaskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -8850,11 +9369,11 @@ func (p *OneOfUpdateScenarioApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -8869,7 +9388,7 @@ func (p *OneOfUpdateScenarioApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfUpdateScenarioApiResponseData) GetValue() interface{} {
+func (p *OneOfGenerateRecommendationApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -8879,12 +9398,12 @@ func (p *OneOfUpdateScenarioApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfUpdateScenarioApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import2.TaskReference)
+func (p *OneOfGenerateRecommendationApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import1.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import2.TaskReference)
+				p.oneOfType0 = new(import1.TaskReference)
 			}
 			*p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
@@ -8898,11 +9417,11 @@ func (p *OneOfUpdateScenarioApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -8916,36 +9435,36 @@ func (p *OneOfUpdateScenarioApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateScenarioApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGenerateRecommendationApiResponseData"))
 }
 
-func (p *OneOfUpdateScenarioApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfGenerateRecommendationApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateScenarioApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGenerateRecommendationApiResponseData")
 }
 
-type OneOfGetSimulationApiResponseData struct {
+type OneOfCreateSimulationApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    *Simulation            `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfGetSimulationApiResponseData() *OneOfGetSimulationApiResponseData {
-	p := new(OneOfGetSimulationApiResponseData)
+func NewOneOfCreateSimulationApiResponseData() *OneOfCreateSimulationApiResponseData {
+	p := new(OneOfCreateSimulationApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetSimulationApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfCreateSimulationApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetSimulationApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfCreateSimulationApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case Simulation:
@@ -8961,11 +9480,11 @@ func (p *OneOfGetSimulationApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -8980,7 +9499,7 @@ func (p *OneOfGetSimulationApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfGetSimulationApiResponseData) GetValue() interface{} {
+func (p *OneOfCreateSimulationApiResponseData) GetValue() interface{} {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -8990,7 +9509,7 @@ func (p *OneOfGetSimulationApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfGetSimulationApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfCreateSimulationApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType0 := new(Simulation)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
 		if "aiops.v4.config.Simulation" == *vOneOfType0.ObjectType_ {
@@ -9009,11 +9528,11 @@ func (p *OneOfGetSimulationApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -9027,135 +9546,24 @@ func (p *OneOfGetSimulationApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSimulationApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateSimulationApiResponseData"))
 }
 
-func (p *OneOfGetSimulationApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfCreateSimulationApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetSimulationApiResponseData")
-}
-
-type OneOfGenerateReportApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import2.TaskReference `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGenerateReportApiResponseData() *OneOfGenerateReportApiResponseData {
-	p := new(OneOfGenerateReportApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGenerateReportApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGenerateReportApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import2.TaskReference)
-		}
-		*p.oneOfType0 = v.(import2.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGenerateReportApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGenerateReportApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import2.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import2.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import3.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGenerateReportApiResponseData"))
-}
-
-func (p *OneOfGenerateReportApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGenerateReportApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfCreateSimulationApiResponseData")
 }
 
 type OneOfGetScenarioApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType0    *Scenario              `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
 func NewOneOfGetScenarioApiResponseData() *OneOfGetScenarioApiResponseData {
@@ -9183,11 +9591,11 @@ func (p *OneOfGetScenarioApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -9231,11 +9639,11 @@ func (p *OneOfGetScenarioApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -9262,43 +9670,51 @@ func (p *OneOfGetScenarioApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGetScenarioApiResponseData")
 }
 
-type OneOfCreateScenarioApiResponseData struct {
+type OneOfListSimulationsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import2.TaskReference `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType0    []Simulation           `json:"-"`
+	oneOfType401  []SimulationProjection `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfCreateScenarioApiResponseData() *OneOfCreateScenarioApiResponseData {
-	p := new(OneOfCreateScenarioApiResponseData)
+func NewOneOfListSimulationsApiResponseData() *OneOfListSimulationsApiResponseData {
+	p := new(OneOfListSimulationsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCreateScenarioApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListSimulationsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateScenarioApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListSimulationsApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import2.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import2.TaskReference)
-		}
-		*p.oneOfType0 = v.(import2.TaskReference)
+	case []Simulation:
+		p.oneOfType0 = v.([]Simulation)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = "List<aiops.v4.config.Simulation>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+		*p.ObjectType_ = "List<aiops.v4.config.Simulation>"
+	case []SimulationProjection:
+		p.oneOfType401 = v.([]SimulationProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.Discriminator = "List<aiops.v4.config.SimulationProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<aiops.v4.config.SimulationProjection>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -9313,9 +9729,12 @@ func (p *OneOfCreateScenarioApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfCreateScenarioApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+func (p *OneOfListSimulationsApiResponseData) GetValue() interface{} {
+	if "List<aiops.v4.config.Simulation>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if "List<aiops.v4.config.SimulationProjection>" == *p.Discriminator {
+		return p.oneOfType401
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -9323,30 +9742,42 @@ func (p *OneOfCreateScenarioApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfCreateScenarioApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import2.TaskReference)
+func (p *OneOfListSimulationsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]Simulation)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import2.TaskReference)
-			}
-			*p.oneOfType0 = *vOneOfType0
+		if len(*vOneOfType0) == 0 || "aiops.v4.config.Simulation" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = "List<aiops.v4.config.Simulation>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = "List<aiops.v4.config.Simulation>"
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType401 := new([]SimulationProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "aiops.v4.config.SimulationProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<aiops.v4.config.SimulationProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<aiops.v4.config.SimulationProjection>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -9360,56 +9791,61 @@ func (p *OneOfCreateScenarioApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateScenarioApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSimulationsApiResponseData"))
 }
 
-func (p *OneOfCreateScenarioApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+func (p *OneOfListSimulationsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<aiops.v4.config.Simulation>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
+	}
+	if "List<aiops.v4.config.SimulationProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfCreateScenarioApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListSimulationsApiResponseData")
 }
 
-type OneOfGenerateRecommendationApiResponseData struct {
+type OneOfDeleteScenarioApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType0    *import2.TaskReference `json:"-"`
-	oneOfType400  *import3.ErrorResponse `json:"-"`
+	oneOfType1    *interface{}           `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfGenerateRecommendationApiResponseData() *OneOfGenerateRecommendationApiResponseData {
-	p := new(OneOfGenerateRecommendationApiResponseData)
+func NewOneOfDeleteScenarioApiResponseData() *OneOfDeleteScenarioApiResponseData {
+	p := new(OneOfDeleteScenarioApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGenerateRecommendationApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfDeleteScenarioApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGenerateRecommendationApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfDeleteScenarioApiResponseData is nil"))
 	}
-	switch v.(type) {
-	case import2.TaskReference:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(import2.TaskReference)
+	if nil == v {
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(interface{})
 		}
-		*p.oneOfType0 = v.(import2.TaskReference)
+		*p.oneOfType1 = nil
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = "EMPTY"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import3.ErrorResponse:
+		*p.ObjectType_ = "EMPTY"
+		return nil
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import3.ErrorResponse)
+			p.oneOfType400 = new(import2.ErrorResponse)
 		}
-		*p.oneOfType400 = v.(import3.ErrorResponse)
+		*p.oneOfType400 = v.(import2.ErrorResponse)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -9424,9 +9860,9 @@ func (p *OneOfGenerateRecommendationApiResponseData) SetValue(v interface{}) err
 	return nil
 }
 
-func (p *OneOfGenerateRecommendationApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+func (p *OneOfDeleteScenarioApiResponseData) GetValue() interface{} {
+	if "EMPTY" == *p.Discriminator {
+		return *p.oneOfType1
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -9434,30 +9870,30 @@ func (p *OneOfGenerateRecommendationApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfGenerateRecommendationApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(import2.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(import2.TaskReference)
+func (p *OneOfDeleteScenarioApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(interface{})
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if nil == *vOneOfType1 {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(interface{})
 			}
-			*p.oneOfType0 = *vOneOfType0
+			*p.oneOfType1 = nil
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = "EMPTY"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = "EMPTY"
 			return nil
 		}
 	}
-	vOneOfType400 := new(import3.ErrorResponse)
+	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import3.ErrorResponse)
+				p.oneOfType400 = new(import2.ErrorResponse)
 			}
 			*p.oneOfType400 = *vOneOfType400
 			if nil == p.Discriminator {
@@ -9471,17 +9907,342 @@ func (p *OneOfGenerateRecommendationApiResponseData) UnmarshalJSON(b []byte) err
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGenerateRecommendationApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteScenarioApiResponseData"))
 }
 
-func (p *OneOfGenerateRecommendationApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfDeleteScenarioApiResponseData) MarshalJSON() ([]byte, error) {
+	if "EMPTY" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteScenarioApiResponseData")
+}
+
+type OneOfGenerateReportApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGenerateReportApiResponseData() *OneOfGenerateReportApiResponseData {
+	p := new(OneOfGenerateReportApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGenerateReportApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGenerateReportApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(import1.TaskReference)
+		}
+		*p.oneOfType0 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGenerateReportApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGenerateReportApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(import1.TaskReference)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGenerateReportApiResponseData"))
+}
+
+func (p *OneOfGenerateReportApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfGenerateRecommendationApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfGenerateReportApiResponseData")
+}
+
+type OneOfGetScenarioReportApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *FileDetail            `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetScenarioReportApiResponseData() *OneOfGetScenarioReportApiResponseData {
+	p := new(OneOfGetScenarioReportApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetScenarioReportApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetScenarioReportApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case FileDetail:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(FileDetail)
+		}
+		*p.oneOfType0 = v.(FileDetail)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "FileDetail"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "FileDetail"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetScenarioReportApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && "FileDetail" == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetScenarioReportApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(FileDetail)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(FileDetail)
+		}
+		*p.oneOfType0 = *vOneOfType0
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "FileDetail"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "FileDetail"
+		return nil
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetScenarioReportApiResponseData"))
+}
+
+func (p *OneOfGetScenarioReportApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && "FileDetail" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetScenarioReportApiResponseData")
+}
+
+type OneOfEntityDescriptorListApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    []EntityDescriptor     `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfEntityDescriptorListApiResponseData() *OneOfEntityDescriptorListApiResponseData {
+	p := new(OneOfEntityDescriptorListApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfEntityDescriptorListApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfEntityDescriptorListApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []EntityDescriptor:
+		p.oneOfType0 = v.([]EntityDescriptor)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<aiops.v4.config.EntityDescriptor>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<aiops.v4.config.EntityDescriptor>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfEntityDescriptorListApiResponseData) GetValue() interface{} {
+	if "List<aiops.v4.config.EntityDescriptor>" == *p.Discriminator {
+		return p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfEntityDescriptorListApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new([]EntityDescriptor)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if len(*vOneOfType0) == 0 || "aiops.v4.config.EntityDescriptor" == *((*vOneOfType0)[0].ObjectType_) {
+			p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<aiops.v4.config.EntityDescriptor>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<aiops.v4.config.EntityDescriptor>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "aiops.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfEntityDescriptorListApiResponseData"))
+}
+
+func (p *OneOfEntityDescriptorListApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<aiops.v4.config.EntityDescriptor>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfEntityDescriptorListApiResponseData")
 }
 
 type FileDetail struct {

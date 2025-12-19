@@ -1,7 +1,7 @@
 /*
  * Generated file models/aiops/v4/stats/stats_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.2.1-beta-1
  *
  * Part of the Nutanix AIOps APIs
  *
@@ -83,7 +83,20 @@ func (p *BoolList) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BoolList(*known)
+	*p = *NewBoolList()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BoolList != nil {
+		p.BoolList = known.BoolList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -92,7 +105,9 @@ func (p *BoolList) UnmarshalJSON(b []byte) error {
 	delete(allFields, "boolList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -101,7 +116,7 @@ func NewBoolList() *BoolList {
 	p := new(BoolList)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.BoolList"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -167,7 +182,20 @@ func (p *BoolVal) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BoolVal(*known)
+	*p = *NewBoolVal()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BoolValue != nil {
+		p.BoolValue = known.BoolValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -176,7 +204,9 @@ func (p *BoolVal) UnmarshalJSON(b []byte) error {
 	delete(allFields, "boolValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -185,7 +215,7 @@ func NewBoolVal() *BoolVal {
 	p := new(BoolVal)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.BoolVal"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -251,7 +281,20 @@ func (p *DoubleList) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DoubleList(*known)
+	*p = *NewDoubleList()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DoubleList != nil {
+		p.DoubleList = known.DoubleList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -260,7 +303,9 @@ func (p *DoubleList) UnmarshalJSON(b []byte) error {
 	delete(allFields, "doubleList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -269,7 +314,7 @@ func NewDoubleList() *DoubleList {
 	p := new(DoubleList)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.DoubleList"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -335,7 +380,20 @@ func (p *DoubleVal) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DoubleVal(*known)
+	*p = *NewDoubleVal()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DoubleValue != nil {
+		p.DoubleValue = known.DoubleValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -344,7 +402,9 @@ func (p *DoubleVal) UnmarshalJSON(b []byte) error {
 	delete(allFields, "doubleValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -353,7 +413,7 @@ func NewDoubleVal() *DoubleVal {
 	p := new(DoubleVal)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.DoubleVal"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -436,7 +496,38 @@ func (p *Entity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Entity(*known)
+	*p = *NewEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Metrics != nil {
+		p.Metrics = known.Metrics
+	}
+	if known.Parents != nil {
+		p.Parents = known.Parents
+	}
+	if known.Source != nil {
+		p.Source = known.Source
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -451,7 +542,9 @@ func (p *Entity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -460,14 +553,14 @@ func NewEntity() *Entity {
 	p := new(Entity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.Entity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /aiops/v4.0/stats/sources/{sourceExtId}/entities/{extId} Get operation
+REST response for all response codes in API path /aiops/v4.2.b1/stats/sources/{sourceExtId}/entities/{extId} Get operation
 */
 type EntityListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -526,7 +619,26 @@ func (p *EntityListApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityListApiResponse(*known)
+	*p = *NewEntityListApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -537,7 +649,9 @@ func (p *EntityListApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -546,7 +660,7 @@ func NewEntityListApiResponse() *EntityListApiResponse {
 	p := new(EntityListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.EntityListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -633,7 +747,20 @@ func (p *IntList) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IntList(*known)
+	*p = *NewIntList()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IntList != nil {
+		p.IntList = known.IntList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -642,7 +769,9 @@ func (p *IntList) UnmarshalJSON(b []byte) error {
 	delete(allFields, "intList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -651,7 +780,7 @@ func NewIntList() *IntList {
 	p := new(IntList)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.IntList"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -717,7 +846,20 @@ func (p *IntVal) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IntVal(*known)
+	*p = *NewIntVal()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IntValue != nil {
+		p.IntValue = known.IntValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -726,7 +868,9 @@ func (p *IntVal) UnmarshalJSON(b []byte) error {
 	delete(allFields, "intValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -735,7 +879,7 @@ func NewIntVal() *IntVal {
 	p := new(IntVal)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.IntVal"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -796,7 +940,23 @@ func (p *Metric) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Metric(*known)
+	*p = *NewMetric()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.TimeSeries != nil {
+		p.TimeSeries = known.TimeSeries
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -806,7 +966,9 @@ func (p *Metric) UnmarshalJSON(b []byte) error {
 	delete(allFields, "timeSeries")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -815,7 +977,7 @@ func NewMetric() *Metric {
 	p := new(Metric)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.Metric"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -880,7 +1042,26 @@ func (p *Point) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Point(*known)
+	*p = *NewPoint()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
+	if known.ValueItemDiscriminator_ != nil {
+		p.ValueItemDiscriminator_ = known.ValueItemDiscriminator_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -891,7 +1072,9 @@ func (p *Point) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -900,7 +1083,7 @@ func NewPoint() *Point {
 	p := new(Point)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.Point"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -925,298 +1108,6 @@ func (p *Point) SetValue(v interface{}) error {
 		*p.ValueItemDiscriminator_ = *p.Value.Discriminator
 	}
 	return e
-}
-
-/*
-A collection of WhatIf Scenario stats.
-*/
-type ScenarioStats struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The UUID of the WhatIf Scenario associated with the Scneario Stats.
-	*/
-	ScenarioExtId *string `json:"scenarioExtId,omitempty"`
-	/*
-	  WhatIf Scenario entity statistic time-series.
-	*/
-	Stats []ScenarioStatsTuple `json:"stats,omitempty"`
-}
-
-func (p *ScenarioStats) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias ScenarioStats
-
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *ScenarioStats) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias ScenarioStats
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = ScenarioStats(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "scenarioExtId")
-	delete(allFields, "stats")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewScenarioStats() *ScenarioStats {
-	p := new(ScenarioStats)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.stats.ScenarioStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-type ScenarioStatsProjection struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The UUID of the WhatIf Scenario associated with the Scneario Stats.
-	*/
-	ScenarioExtId *string `json:"scenarioExtId,omitempty"`
-	/*
-	  WhatIf Scenario entity statistic time-series.
-	*/
-	Stats []ScenarioStatsTuple `json:"stats,omitempty"`
-}
-
-func (p *ScenarioStatsProjection) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias ScenarioStatsProjection
-
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *ScenarioStatsProjection) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias ScenarioStatsProjection
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = ScenarioStatsProjection(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "scenarioExtId")
-	delete(allFields, "stats")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewScenarioStatsProjection() *ScenarioStatsProjection {
-	p := new(ScenarioStatsProjection)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.stats.ScenarioStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Tuple value of timestamp and CPU/Memory/Storage resource usage, capacity, and effective capacity.
-*/
-type ScenarioStatsTuple struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  CPU capacity in Ghz.
-	*/
-	CpuCapacityGhz *float64 `json:"cpuCapacityGhz,omitempty"`
-	/*
-	  CPU effective capacity in Ghz.
-	*/
-	CpuEffectiveCapacityGhz *float64 `json:"cpuEffectiveCapacityGhz,omitempty"`
-	/*
-	  Usage of CPU resources in Ghz.
-	*/
-	CpuUsageGhz *float64 `json:"cpuUsageGhz,omitempty"`
-	/*
-	  Memory capacity in Gb.
-	*/
-	MemoryCapacityGb *float64 `json:"memoryCapacityGb,omitempty"`
-	/*
-	  Memory effective capacity in Gb.
-	*/
-	MemoryEffectiveCapacityGb *float64 `json:"memoryEffectiveCapacityGb,omitempty"`
-	/*
-	  Usage of Memory resources in Gb.
-	*/
-	MemoryUsageGb *float64 `json:"memoryUsageGb,omitempty"`
-	/*
-	  Storage capacity in Gb.
-	*/
-	StorageCapacityGb *float64 `json:"storageCapacityGb,omitempty"`
-	/*
-	  Storage effective capacity in Gb.
-	*/
-	StorageEffectiveCapacityGb *float64 `json:"storageEffectiveCapacityGb,omitempty"`
-	/*
-	  Usage of storage resources in Gb.
-	*/
-	StorageUsageGb *float64 `json:"storageUsageGb,omitempty"`
-	/*
-	  Timestamp of a WhatIf Scenario statistic attribute data point.
-	*/
-	Timestamp *time.Time `json:"timestamp,omitempty"`
-}
-
-func (p *ScenarioStatsTuple) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias ScenarioStatsTuple
-
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *ScenarioStatsTuple) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias ScenarioStatsTuple
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = ScenarioStatsTuple(*known)
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "cpuCapacityGhz")
-	delete(allFields, "cpuEffectiveCapacityGhz")
-	delete(allFields, "cpuUsageGhz")
-	delete(allFields, "memoryCapacityGb")
-	delete(allFields, "memoryEffectiveCapacityGb")
-	delete(allFields, "memoryUsageGb")
-	delete(allFields, "storageCapacityGb")
-	delete(allFields, "storageEffectiveCapacityGb")
-	delete(allFields, "storageUsageGb")
-	delete(allFields, "timestamp")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
-
-	return nil
-}
-
-func NewScenarioStatsTuple() *ScenarioStatsTuple {
-	p := new(ScenarioStatsTuple)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "aiops.v4.stats.ScenarioStatsTuple"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
 }
 
 type StrList struct {
@@ -1279,7 +1170,20 @@ func (p *StrList) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StrList(*known)
+	*p = *NewStrList()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StrList != nil {
+		p.StrList = known.StrList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1288,7 +1192,9 @@ func (p *StrList) UnmarshalJSON(b []byte) error {
 	delete(allFields, "strList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1297,7 +1203,7 @@ func NewStrList() *StrList {
 	p := new(StrList)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.StrList"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1363,7 +1269,20 @@ func (p *StrVal) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StrVal(*known)
+	*p = *NewStrVal()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StrValue != nil {
+		p.StrValue = known.StrValue
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1372,7 +1291,9 @@ func (p *StrVal) UnmarshalJSON(b []byte) error {
 	delete(allFields, "strValue")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1381,7 +1302,7 @@ func NewStrVal() *StrVal {
 	p := new(StrVal)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.StrVal"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1447,7 +1368,23 @@ func (p *TimeSeries) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TimeSeries(*known)
+	*p = *NewTimeSeries()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SamplingIntervalSecs != nil {
+		p.SamplingIntervalSecs = known.SamplingIntervalSecs
+	}
+	if known.Values != nil {
+		p.Values = known.Values
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1457,7 +1394,9 @@ func (p *TimeSeries) UnmarshalJSON(b []byte) error {
 	delete(allFields, "values")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1466,7 +1405,7 @@ func NewTimeSeries() *TimeSeries {
 	p := new(TimeSeries)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.stats.TimeSeries"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

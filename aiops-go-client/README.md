@@ -9,8 +9,29 @@ The Go client for Nutanix AIOps APIs is designed for Go client application devel
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0
-- Package version: v4.0.2
+- API version: v4.2.b1
+- Package version: v4.2.1-beta.1
+## Version Negotiation
+
+By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/client"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+ApiClientInstance.Host = "10.19.50.27"
+ApiClientInstance.Username = "admin"
+ApiClientInstance.Password = "password"
+ApiClientInstance.AllowVersionNegotiation = false // Disables automatic version negotiation
+```
+
+When version negotiation is disabled, the client will use the SDK's default API version.
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/...@v4.0.2
+$ go get github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/...@v4.2.1-beta.1
 ```
 
 #### Using go modules
@@ -60,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4 v4.0.2
+	github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4 v4.2.1-beta.1
 )
 ```
 
@@ -247,7 +268,7 @@ var (
 )
 
 ApiClientInstance = client.NewApiClient()
-// Configure the client as shown in a previous step
+// Configure the client as shown in the previous step
 // ...
 
 // Initialize the API
@@ -303,7 +324,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 StatsApiInstance = api.NewStatsApi(ApiClientInstance)
-sourceExtId := "7acEAe78-deBe-bC22-Ac9F-0d314DE3F29F"
+sourceExtId := "eD9FA5eE-5FDd-d91c-B03b-eFaeD5Cb2a3f"
 page_ := 0
 limit_ := 50
 filter_ := "string_sample_data"
@@ -320,7 +341,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=aiops&version=v4.0&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=aiops&version=v4.2.b1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).

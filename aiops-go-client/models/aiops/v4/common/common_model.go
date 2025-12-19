@@ -1,7 +1,7 @@
 /*
  * Generated file models/aiops/v4/common/common_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.2.1-beta-1
  *
  * Part of the Nutanix AIOps APIs
  *

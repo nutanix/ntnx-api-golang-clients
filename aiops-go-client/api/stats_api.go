@@ -42,7 +42,7 @@ func (api *StatsApi) GetEntityDescriptorsV4(sourceExtId *string, page_ *int, lim
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/sources/{sourceExtId}/entity-descriptors"
+	uri := "/api/aiops/v4.2.b1/config/sources/{sourceExtId}/entity-descriptors"
 
 	// verify the required parameter 'sourceExtId' is set
 	if nil == sourceExtId {
@@ -102,7 +102,7 @@ func (api *StatsApi) GetEntityMetricsV4(sourceExtId *string, extId *string, star
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/stats/sources/{sourceExtId}/entities/{extId}"
+	uri := "/api/aiops/v4.2.b1/stats/sources/{sourceExtId}/entities/{extId}"
 
 	// verify the required parameter 'sourceExtId' is set
 	if nil == sourceExtId {
@@ -187,7 +187,7 @@ func (api *StatsApi) GetEntityTypesV4(sourceExtId *string, args ...map[string]in
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/sources/{sourceExtId}/entity-types"
+	uri := "/api/aiops/v4.2.b1/config/sources/{sourceExtId}/entity-types"
 
 	// verify the required parameter 'sourceExtId' is set
 	if nil == sourceExtId {
@@ -237,7 +237,7 @@ func (api *StatsApi) GetSourcesV4(args ...map[string]interface{}) (*import1.Sour
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/sources"
+	uri := "/api/aiops/v4.2.b1/config/sources"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

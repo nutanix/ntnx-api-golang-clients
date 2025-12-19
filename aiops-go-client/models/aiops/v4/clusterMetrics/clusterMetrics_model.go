@@ -1,7 +1,7 @@
 /*
  * Generated file models/aiops/v4/clusterMetrics/clusterMetrics_model.go.
  *
- * Product version: 4.0.2
+ * Product version: 4.2.1-beta-1
  *
  * Part of the Nutanix AIOps APIs
  *
@@ -93,7 +93,53 @@ func (p *Cluster) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Cluster(*known)
+	*p = *NewCluster()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CapacityBytes != nil {
+		p.CapacityBytes = known.CapacityBytes
+	}
+	if known.ExternalIpAddress != nil {
+		p.ExternalIpAddress = known.ExternalIpAddress
+	}
+	if known.FreeBytes != nil {
+		p.FreeBytes = known.FreeBytes
+	}
+	if known.HypervisorCpuUsagePpm != nil {
+		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
+	}
+	if known.HypervisorMemoryUsagePpm != nil {
+		p.HypervisorMemoryUsagePpm = known.HypervisorMemoryUsagePpm
+	}
+	if known.MemoryCapacityBytes != nil {
+		p.MemoryCapacityBytes = known.MemoryCapacityBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NumCpus != nil {
+		p.NumCpus = known.NumCpus
+	}
+	if known.Rf != nil {
+		p.Rf = known.Rf
+	}
+	if known.SavedBytes != nil {
+		p.SavedBytes = known.SavedBytes
+	}
+	if known.UsageBytes != nil {
+		p.UsageBytes = known.UsageBytes
+	}
+	if known.Uuid != nil {
+		p.Uuid = known.Uuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -113,7 +159,9 @@ func (p *Cluster) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -122,7 +170,7 @@ func NewCluster() *Cluster {
 	p := new(Cluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.clusterMetrics.Cluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -283,7 +331,98 @@ func (p *ClusterMetrics) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterMetrics(*known)
+	*p = *NewClusterMetrics()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AvailableMemorySizeBytes != nil {
+		p.AvailableMemorySizeBytes = known.AvailableMemorySizeBytes
+	}
+	if known.AvailableVCpuCount != nil {
+		p.AvailableVCpuCount = known.AvailableVCpuCount
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
+	if known.CurrentMemoryUsageSizeBytes != nil {
+		p.CurrentMemoryUsageSizeBytes = known.CurrentMemoryUsageSizeBytes
+	}
+	if known.CurrentUsedCpuHz != nil {
+		p.CurrentUsedCpuHz = known.CurrentUsedCpuHz
+	}
+	if known.CurrentUsedVCpuCount != nil {
+		p.CurrentUsedVCpuCount = known.CurrentUsedVCpuCount
+	}
+	if known.CvmIPs != nil {
+		p.CvmIPs = known.CvmIPs
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.ExternalIP != nil {
+		p.ExternalIP = known.ExternalIP
+	}
+	if known.LargestPoweredOffVMMemory != nil {
+		p.LargestPoweredOffVMMemory = known.LargestPoweredOffVMMemory
+	}
+	if known.LargestPoweredOffVMVCpu != nil {
+		p.LargestPoweredOffVMVCpu = known.LargestPoweredOffVMVCpu
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MaxVmMemorySizeBytes != nil {
+		p.MaxVmMemorySizeBytes = known.MaxVmMemorySizeBytes
+	}
+	if known.MaxVmVCpuSize != nil {
+		p.MaxVmVCpuSize = known.MaxVmVCpuSize
+	}
+	if known.ProvisionedCpuHz != nil {
+		p.ProvisionedCpuHz = known.ProvisionedCpuHz
+	}
+	if known.ProvisionedMemoryUsageBytes != nil {
+		p.ProvisionedMemoryUsageBytes = known.ProvisionedMemoryUsageBytes
+	}
+	if known.ProvisionedVCpuCount != nil {
+		p.ProvisionedVCpuCount = known.ProvisionedVCpuCount
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TotalCpuHz != nil {
+		p.TotalCpuHz = known.TotalCpuHz
+	}
+	if known.TotalMemorySizeBytes != nil {
+		p.TotalMemorySizeBytes = known.TotalMemorySizeBytes
+	}
+	if known.TotalStorageAvailableBytes != nil {
+		p.TotalStorageAvailableBytes = known.TotalStorageAvailableBytes
+	}
+	if known.TotalStorageAvailableLogicalBytes != nil {
+		p.TotalStorageAvailableLogicalBytes = known.TotalStorageAvailableLogicalBytes
+	}
+	if known.TotalStorageCapacityLogicalBytes != nil {
+		p.TotalStorageCapacityLogicalBytes = known.TotalStorageCapacityLogicalBytes
+	}
+	if known.TotalStorageCapacityLogicalWithSavingsBytes != nil {
+		p.TotalStorageCapacityLogicalWithSavingsBytes = known.TotalStorageCapacityLogicalWithSavingsBytes
+	}
+	if known.TotalStorageCapacityRawBytes != nil {
+		p.TotalStorageCapacityRawBytes = known.TotalStorageCapacityRawBytes
+	}
+	if known.TotalStorageUsageBytes != nil {
+		p.TotalStorageUsageBytes = known.TotalStorageUsageBytes
+	}
+	if known.TotalVCpuCount != nil {
+		p.TotalVCpuCount = known.TotalVCpuCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -318,7 +457,9 @@ func (p *ClusterMetrics) UnmarshalJSON(b []byte) error {
 	delete(allFields, "totalVCpuCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -327,7 +468,7 @@ func NewClusterMetrics() *ClusterMetrics {
 	p := new(ClusterMetrics)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.clusterMetrics.ClusterMetrics"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -410,7 +551,59 @@ func (p *ClusterProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterProjection(*known)
+	*p = *NewClusterProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CapacityBytes != nil {
+		p.CapacityBytes = known.CapacityBytes
+	}
+	if known.ExternalIpAddress != nil {
+		p.ExternalIpAddress = known.ExternalIpAddress
+	}
+	if known.FreeBytes != nil {
+		p.FreeBytes = known.FreeBytes
+	}
+	if known.HypervisorCpuUsagePpm != nil {
+		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
+	}
+	if known.HypervisorMemoryUsagePpm != nil {
+		p.HypervisorMemoryUsagePpm = known.HypervisorMemoryUsagePpm
+	}
+	if known.MemoryCapacityBytes != nil {
+		p.MemoryCapacityBytes = known.MemoryCapacityBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NodeProjection != nil {
+		p.NodeProjection = known.NodeProjection
+	}
+	if known.NumCpus != nil {
+		p.NumCpus = known.NumCpus
+	}
+	if known.Rf != nil {
+		p.Rf = known.Rf
+	}
+	if known.SavedBytes != nil {
+		p.SavedBytes = known.SavedBytes
+	}
+	if known.UsageBytes != nil {
+		p.UsageBytes = known.UsageBytes
+	}
+	if known.Uuid != nil {
+		p.Uuid = known.Uuid
+	}
+	if known.VmProjection != nil {
+		p.VmProjection = known.VmProjection
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -432,7 +625,9 @@ func (p *ClusterProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmProjection")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -441,7 +636,7 @@ func NewClusterProjection() *ClusterProjection {
 	p := new(ClusterProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.clusterMetrics.ClusterProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -506,7 +701,32 @@ func (p *Node) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Node(*known)
+	*p = *NewNode()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CapacityHz != nil {
+		p.CapacityHz = known.CapacityHz
+	}
+	if known.HaMemoryReservedBytes != nil {
+		p.HaMemoryReservedBytes = known.HaMemoryReservedBytes
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.NumCpuThreads != nil {
+		p.NumCpuThreads = known.NumCpuThreads
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -519,7 +739,9 @@ func (p *Node) UnmarshalJSON(b []byte) error {
 	delete(allFields, "numCpuThreads")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -528,7 +750,7 @@ func NewNode() *Node {
 	p := new(Node)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.clusterMetrics.Node"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -593,7 +815,32 @@ func (p *NodeProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NodeProjection(*known)
+	*p = *NewNodeProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CapacityHz != nil {
+		p.CapacityHz = known.CapacityHz
+	}
+	if known.HaMemoryReservedBytes != nil {
+		p.HaMemoryReservedBytes = known.HaMemoryReservedBytes
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.NodeUuid != nil {
+		p.NodeUuid = known.NodeUuid
+	}
+	if known.NumCpuThreads != nil {
+		p.NumCpuThreads = known.NumCpuThreads
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -606,7 +853,9 @@ func (p *NodeProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "numCpuThreads")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -615,7 +864,7 @@ func NewNodeProjection() *NodeProjection {
 	p := new(NodeProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.clusterMetrics.NodeProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -680,7 +929,32 @@ func (p *Vm) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Vm(*known)
+	*p = *NewVm()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Node != nil {
+		p.Node = known.Node
+	}
+	if known.NumVcpus != nil {
+		p.NumVcpus = known.NumVcpus
+	}
+	if known.PowerState != nil {
+		p.PowerState = known.PowerState
+	}
+	if known.VmMemory != nil {
+		p.VmMemory = known.VmMemory
+	}
+	if known.VmUuid != nil {
+		p.VmUuid = known.VmUuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -693,7 +967,9 @@ func (p *Vm) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmUuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -702,7 +978,7 @@ func NewVm() *Vm {
 	p := new(Vm)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.clusterMetrics.Vm"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -767,7 +1043,32 @@ func (p *VmProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmProjection(*known)
+	*p = *NewVmProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Node != nil {
+		p.Node = known.Node
+	}
+	if known.NumVcpus != nil {
+		p.NumVcpus = known.NumVcpus
+	}
+	if known.PowerState != nil {
+		p.PowerState = known.PowerState
+	}
+	if known.VmMemory != nil {
+		p.VmMemory = known.VmMemory
+	}
+	if known.VmUuid != nil {
+		p.VmUuid = known.VmUuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -780,7 +1081,9 @@ func (p *VmProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmUuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -789,7 +1092,7 @@ func NewVmProjection() *VmProjection {
 	p := new(VmProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "aiops.v4.clusterMetrics.VmProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

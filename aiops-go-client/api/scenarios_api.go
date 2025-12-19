@@ -41,7 +41,7 @@ func (api *ScenariosApi) CreateScenario(body *import1.Scenario, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/scenarios"
+	uri := "/api/aiops/v4.2.b1/config/scenarios"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -89,7 +89,7 @@ func (api *ScenariosApi) CreateSimulation(body *import1.Simulation, args ...map[
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/simulations"
+	uri := "/api/aiops/v4.2.b1/config/simulations"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -137,7 +137,7 @@ func (api *ScenariosApi) DeleteScenarioById(extId *string, args ...map[string]in
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/scenarios/{extId}"
+	uri := "/api/aiops/v4.2.b1/config/scenarios/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *ScenariosApi) DeleteSimulationById(extId *string, args ...map[string]
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/simulations/{extId}"
+	uri := "/api/aiops/v4.2.b1/config/simulations/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -237,7 +237,7 @@ func (api *ScenariosApi) GenerateRecommendation(extId *string, args ...map[strin
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/scenarios/{extId}/$actions/generate-recommendation"
+	uri := "/api/aiops/v4.2.b1/config/scenarios/{extId}/$actions/generate-recommendation"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -287,7 +287,7 @@ func (api *ScenariosApi) GenerateReport(extId *string, args ...map[string]interf
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/scenarios/{extId}/$actions/generate-report"
+	uri := "/api/aiops/v4.2.b1/config/scenarios/{extId}/$actions/generate-report"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -337,7 +337,7 @@ func (api *ScenariosApi) GenerateRunway(extId *string, args ...map[string]interf
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/scenarios/{extId}/$actions/generate-runway"
+	uri := "/api/aiops/v4.2.b1/config/scenarios/{extId}/$actions/generate-runway"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -387,7 +387,7 @@ func (api *ScenariosApi) GetScenarioById(extId *string, args ...map[string]inter
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/scenarios/{extId}"
+	uri := "/api/aiops/v4.2.b1/config/scenarios/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -437,7 +437,7 @@ func (api *ScenariosApi) GetScenarioReport(scenarioExtId *string, args ...map[st
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/scenarios/{scenarioExtId}/reports"
+	uri := "/api/aiops/v4.2.b1/config/scenarios/{scenarioExtId}/reports"
 
 	// verify the required parameter 'scenarioExtId' is set
 	if nil == scenarioExtId {
@@ -516,7 +516,7 @@ func (api *ScenariosApi) GetSimulationById(extId *string, args ...map[string]int
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/simulations/{extId}"
+	uri := "/api/aiops/v4.2.b1/config/simulations/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -566,7 +566,7 @@ func (api *ScenariosApi) ListScenarios(page_ *int, limit_ *int, filter_ *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/scenarios"
+	uri := "/api/aiops/v4.2.b1/config/scenarios"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -625,7 +625,7 @@ func (api *ScenariosApi) ListSimulations(page_ *int, limit_ *int, filter_ *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/simulations"
+	uri := "/api/aiops/v4.2.b1/config/simulations"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -684,7 +684,7 @@ func (api *ScenariosApi) UpdateScenarioById(extId *string, body *import1.Scenari
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/scenarios/{extId}"
+	uri := "/api/aiops/v4.2.b1/config/scenarios/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -738,7 +738,7 @@ func (api *ScenariosApi) UpdateSimulationById(extId *string, body *import1.Simul
 		argMap = args[0]
 	}
 
-	uri := "/api/aiops/v4.0/config/simulations/{extId}"
+	uri := "/api/aiops/v4.2.b1/config/simulations/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
