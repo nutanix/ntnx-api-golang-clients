@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/mgmt/mgmt_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Prism APIs
  *
@@ -132,7 +132,68 @@ func (p *EnvironmentInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EnvironmentInfo(*known)
+	*p = *NewEnvironmentInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BillingApiHost != nil {
+		p.BillingApiHost = known.BillingApiHost
+	}
+	if known.BillingHost != nil {
+		p.BillingHost = known.BillingHost
+	}
+	if known.CellFqdn != nil {
+		p.CellFqdn = known.CellFqdn
+	}
+	if known.CloudRegionName != nil {
+		p.CloudRegionName = known.CloudRegionName
+	}
+	if known.CloudSiteName != nil {
+		p.CloudSiteName = known.CloudSiteName
+	}
+	if known.EnvironmentType != nil {
+		p.EnvironmentType = known.EnvironmentType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.InstanceType != nil {
+		p.InstanceType = known.InstanceType
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocalAzName != nil {
+		p.LocalAzName = known.LocalAzName
+	}
+	if known.MyNutanixUrl != nil {
+		p.MyNutanixUrl = known.MyNutanixUrl
+	}
+	if known.OlbVirtualAddress != nil {
+		p.OlbVirtualAddress = known.OlbVirtualAddress
+	}
+	if known.PcExternalUrl != nil {
+		p.PcExternalUrl = known.PcExternalUrl
+	}
+	if known.ProviderType != nil {
+		p.ProviderType = known.ProviderType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TenantUuid != nil {
+		p.TenantUuid = known.TenantUuid
+	}
+	if known.XlbVirtualAddress != nil {
+		p.XlbVirtualAddress = known.XlbVirtualAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -157,7 +218,9 @@ func (p *EnvironmentInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "xlbVirtualAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -166,7 +229,7 @@ func NewEnvironmentInfo() *EnvironmentInfo {
 	p := new(EnvironmentInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.mgmt.EnvironmentInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -407,7 +470,41 @@ func (p *LbAddress) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LbAddress(*known)
+	*p = *NewLbAddress()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Fqdn != nil {
+		p.Fqdn = known.Fqdn
+	}
+	if known.Ip != nil {
+		p.Ip = known.Ip
+	}
+	if known.Ipv6 != nil {
+		p.Ipv6 = known.Ipv6
+	}
+	if known.IsBackup != nil {
+		p.IsBackup = known.IsBackup
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -423,7 +520,9 @@ func (p *LbAddress) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -432,7 +531,7 @@ func NewLbAddress() *LbAddress {
 	p := new(LbAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.mgmt.LbAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

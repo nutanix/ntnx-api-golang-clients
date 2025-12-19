@@ -3,23 +3,23 @@ package api
 import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/client"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/operations"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/management"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type BatchesApi struct {
+type RegistrationApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewBatchesApi(apiClient *client.ApiClient) *BatchesApi {
+func NewRegistrationApi(apiClient *client.ApiClient) *RegistrationApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &BatchesApi{
+	a := &RegistrationApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,21 +32,26 @@ func NewBatchesApi(apiClient *client.ApiClient) *BatchesApi {
 	return a
 }
 
-// Query the Batch identified by {extId}.
-func (api *BatchesApi) GetBatchById(extId *string, args ...map[string]interface{}) (*import1.GetBatchApiResponse, error) {
+// Returns the specifications for the specified registration.
+func (api *RegistrationApi) GetRegistrationById(domainManagerExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetRegistrationApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/operations/batches/{extId}"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/registrations/{extId}"
 
+	// verify the required parameter 'domainManagerExtId' is set
+	if nil == domainManagerExtId {
+		return nil, client.ReportError("domainManagerExtId is required and must be specified")
+	}
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
+	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*domainManagerExtId, "")), -1)
 	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -77,20 +82,27 @@ func (api *BatchesApi) GetBatchById(extId *string, args ...map[string]interface{
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetBatchApiResponse)
+	unmarshalledResp := new(import3.GetRegistrationApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Query the list of Batches.
-func (api *BatchesApi) ListBatches(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListBatchesApiResponse, error) {
+// This endpoint returns the list of registered clusters to the domain manager. It could be the other domain managers, PEs, WitnessVMs, etc.
+func (api *RegistrationApi) ListRegistrations(domainManagerExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListRegistrationApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/operations/batches"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/registrations"
 
+	// verify the required parameter 'domainManagerExtId' is set
+	if nil == domainManagerExtId {
+		return nil, client.ReportError("domainManagerExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*domainManagerExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -136,55 +148,7 @@ func (api *BatchesApi) ListBatches(page_ *int, limit_ *int, filter_ *string, ord
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ListBatchesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Submit a homogenous batch operation.
-func (api *BatchesApi) SubmitBatch(body *import1.BatchSpec, args ...map[string]interface{}) (*import1.SubmitBatchApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/prism/v4.2/operations/$actions/batch"
-
-	// verify the required parameter 'body' is set
-	if nil == body {
-		return nil, client.ReportError("body is required and must be specified")
-	}
-
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{"application/json"}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.SubmitBatchApiResponse)
+	unmarshalledResp := new(import3.ListRegistrationApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

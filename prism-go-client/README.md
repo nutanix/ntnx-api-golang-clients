@@ -9,8 +9,29 @@ The Go client for Nutanix Prism APIs is designed for Go client application devel
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.1
-- Package version: v4.1.1
+- API version: v4.2
+- Package version: v4.2.1
+## Version Negotiation
+
+By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/client"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+ApiClientInstance.Host = "10.19.50.27"
+ApiClientInstance.Username = "admin"
+ApiClientInstance.Password = "password"
+ApiClientInstance.AllowVersionNegotiation = false // Disables automatic version negotiation
+```
+
+When version negotiation is disabled, the client will use the SDK's default API version.
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/...@v4.1.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/...@v4.2.1
 ```
 
 #### Using go modules
@@ -60,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4 v4.1.1
+	github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4 v4.2.1
 )
 ```
 
@@ -204,7 +225,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CategoriesApiInstance = api.NewCategoriesApi(ApiClientInstance)
-extId := "62Dca8bc-DeDf-68c1-48CA-CCAca6CDfbff"
+extId := "FeACaeA1-f1a9-7EDF-3EDa-CDF54F69c8Ad"
 expand_ := "string_sample_data"
 
 // 
@@ -253,7 +274,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CategoriesApiInstance = api.NewCategoriesApi(ApiClientInstance)
-extId := "62Dca8bc-DeDf-68c1-48CA-CCAca6CDfbff"
+extId := "FeACaeA1-f1a9-7EDF-3EDa-CDF54F69c8Ad"
 expand_ := "string_sample_data"
 
 // 
@@ -326,7 +347,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=prism&version=v4.1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=prism&version=v4.2&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).

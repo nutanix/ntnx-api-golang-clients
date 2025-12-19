@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Prism APIs
  *
@@ -102,7 +102,38 @@ func (p *AssociationDetail) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociationDetail(*known)
+	*p = *NewAssociationDetail()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryId != nil {
+		p.CategoryId = known.CategoryId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.ResourceGroup != nil {
+		p.ResourceGroup = known.ResourceGroup
+	}
+	if known.ResourceId != nil {
+		p.ResourceId = known.ResourceId
+	}
+	if known.ResourceType != nil {
+		p.ResourceType = known.ResourceType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -117,7 +148,9 @@ func (p *AssociationDetail) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -126,7 +159,7 @@ func NewAssociationDetail() *AssociationDetail {
 	p := new(AssociationDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -204,7 +237,32 @@ func (p *AssociationDetailOld) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociationDetailOld(*known)
+	*p = *NewAssociationDetailOld()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryId != nil {
+		p.CategoryId = known.CategoryId
+	}
+	if known.Count != nil {
+		p.Count = known.Count
+	}
+	if known.ResourceGroup != nil {
+		p.ResourceGroup = known.ResourceGroup
+	}
+	if known.ResourceReferences != nil {
+		p.ResourceReferences = known.ResourceReferences
+	}
+	if known.ResourceType != nil {
+		p.ResourceType = known.ResourceType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -217,7 +275,9 @@ func (p *AssociationDetailOld) UnmarshalJSON(b []byte) error {
 	delete(allFields, "resourceType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -226,7 +286,7 @@ func NewAssociationDetailOld() *AssociationDetailOld {
 	p := new(AssociationDetailOld)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationDetailOld"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -297,7 +357,32 @@ func (p *AssociationDetailOldProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociationDetailOldProjection(*known)
+	*p = *NewAssociationDetailOldProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryId != nil {
+		p.CategoryId = known.CategoryId
+	}
+	if known.Count != nil {
+		p.Count = known.Count
+	}
+	if known.ResourceGroup != nil {
+		p.ResourceGroup = known.ResourceGroup
+	}
+	if known.ResourceReferences != nil {
+		p.ResourceReferences = known.ResourceReferences
+	}
+	if known.ResourceType != nil {
+		p.ResourceType = known.ResourceType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -310,7 +395,9 @@ func (p *AssociationDetailOldProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "resourceType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -319,7 +406,7 @@ func NewAssociationDetailOldProjection() *AssociationDetailOldProjection {
 	p := new(AssociationDetailOldProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationDetailOldProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -400,7 +487,38 @@ func (p *AssociationDetailProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociationDetailProjection(*known)
+	*p = *NewAssociationDetailProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryId != nil {
+		p.CategoryId = known.CategoryId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.ResourceGroup != nil {
+		p.ResourceGroup = known.ResourceGroup
+	}
+	if known.ResourceId != nil {
+		p.ResourceId = known.ResourceId
+	}
+	if known.ResourceType != nil {
+		p.ResourceType = known.ResourceType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -415,7 +533,9 @@ func (p *AssociationDetailProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -424,7 +544,7 @@ func NewAssociationDetailProjection() *AssociationDetailProjection {
 	p := new(AssociationDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -499,7 +619,29 @@ func (p *AssociationSummary) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociationSummary(*known)
+	*p = *NewAssociationSummary()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryId != nil {
+		p.CategoryId = known.CategoryId
+	}
+	if known.Count != nil {
+		p.Count = known.Count
+	}
+	if known.ResourceGroup != nil {
+		p.ResourceGroup = known.ResourceGroup
+	}
+	if known.ResourceType != nil {
+		p.ResourceType = known.ResourceType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -511,7 +653,9 @@ func (p *AssociationSummary) UnmarshalJSON(b []byte) error {
 	delete(allFields, "resourceType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -520,7 +664,7 @@ func NewAssociationSummary() *AssociationSummary {
 	p := new(AssociationSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -589,7 +733,29 @@ func (p *AssociationSummaryProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociationSummaryProjection(*known)
+	*p = *NewAssociationSummaryProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryId != nil {
+		p.CategoryId = known.CategoryId
+	}
+	if known.Count != nil {
+		p.Count = known.Count
+	}
+	if known.ResourceGroup != nil {
+		p.ResourceGroup = known.ResourceGroup
+	}
+	if known.ResourceType != nil {
+		p.ResourceType = known.ResourceType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -601,7 +767,9 @@ func (p *AssociationSummaryProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "resourceType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -610,7 +778,7 @@ func NewAssociationSummaryProjection() *AssociationSummaryProjection {
 	p := new(AssociationSummaryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.AssociationSummaryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -628,9 +796,13 @@ type BaseNetwork struct {
 
 	DefaultGateway *import2.IPAddressOrFQDN `json:"defaultGateway"`
 	/*
+	  List of Node (VM) IP addresses used for Prism Central network setup.
+	*/
+	IpAddresses []import2.IPAddress `json:"ipAddresses,omitempty"`
+	/*
 	  Range of IPs used for Prism Central network setup.
 	*/
-	IpRanges []import2.IpRange `json:"ipRanges"`
+	IpRanges []import2.IpRange `json:"ipRanges,omitempty"`
 
 	SubnetMask *import2.IPAddressOrFQDN `json:"subnetMask"`
 }
@@ -642,12 +814,10 @@ func (p *BaseNetwork) MarshalJSON() ([]byte, error) {
 	baseStruct := struct {
 		*BaseNetworkProxy
 		DefaultGateway *import2.IPAddressOrFQDN `json:"defaultGateway,omitempty"`
-		IpRanges       []import2.IpRange        `json:"ipRanges,omitempty"`
 		SubnetMask     *import2.IPAddressOrFQDN `json:"subnetMask,omitempty"`
 	}{
 		BaseNetworkProxy: (*BaseNetworkProxy)(p),
 		DefaultGateway:   p.DefaultGateway,
-		IpRanges:         p.IpRanges,
 		SubnetMask:       p.SubnetMask,
 	}
 
@@ -687,18 +857,43 @@ func (p *BaseNetwork) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BaseNetwork(*known)
+	*p = *NewBaseNetwork()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DefaultGateway != nil {
+		p.DefaultGateway = known.DefaultGateway
+	}
+	if known.IpAddresses != nil {
+		p.IpAddresses = known.IpAddresses
+	}
+	if known.IpRanges != nil {
+		p.IpRanges = known.IpRanges
+	}
+	if known.SubnetMask != nil {
+		p.SubnetMask = known.SubnetMask
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "defaultGateway")
+	delete(allFields, "ipAddresses")
 	delete(allFields, "ipRanges")
 	delete(allFields, "subnetMask")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -707,7 +902,7 @@ func NewBaseNetwork() *BaseNetwork {
 	p := new(BaseNetwork)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.BaseNetwork"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -771,7 +966,23 @@ func (p *BootstrapConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BootstrapConfig(*known)
+	*p = *NewBootstrapConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CloudInitConfig != nil {
+		p.CloudInitConfig = known.CloudInitConfig
+	}
+	if known.EnvironmentInfo != nil {
+		p.EnvironmentInfo = known.EnvironmentInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -781,7 +992,9 @@ func (p *BootstrapConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "environmentInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -790,14 +1003,14 @@ func NewBootstrapConfig() *BootstrapConfig {
 	p := new(BootstrapConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.BootstrapConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/tasks/{taskExtId}/$actions/cancel Post operation
+REST response for all response codes in API path /prism/v4.2/config/tasks/{taskExtId}/$actions/cancel Post operation
 */
 type CancelTaskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -856,7 +1069,26 @@ func (p *CancelTaskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CancelTaskApiResponse(*known)
+	*p = *NewCancelTaskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -867,7 +1099,9 @@ func (p *CancelTaskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -876,7 +1110,7 @@ func NewCancelTaskApiResponse() *CancelTaskApiResponse {
 	p := new(CancelTaskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CancelTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -942,8 +1176,9 @@ type Category struct {
 
 	Constraints applicable when field is given in the payload during create and update:
 	* A string of maxlength of 64
-	* Character at the start cannot be `$`
-	* Characters `/` and `,` are not allowed anywhere
+	* First character must NOT be any of: `$` `/` `,` `!` `"` `#` `%` `'` `(` `)` `*` `+` `:` `;` `=` `?` `\` `|` `[` `]` `^` `&`
+	* Remaining characters (0–63) must NOT include: `/` `,` `!` `"` `#` `%` `'` `(` `)` `*` `+` `:` `;` `=` `?` `\` `|` `[` `]` `^` `&`
+	* Note: `$` is allowed after the first character
 
 	It is a mandatory field in the payload of `createCategory` and `updateCategoryById` APIs.<br>
 	This field can't be updated through `updateCategoryById` API.
@@ -972,8 +1207,9 @@ type Category struct {
 
 	Constraints applicable when the field is given in the payload during create and update:
 	* A string of max length 64
-	* Character at the start cannot be `$`
-	* Characters `/` and `,` are not allowed anywhere
+	* First character must NOT be any of: `$` `/` `,` `!` `"` `#` `%` `'` `(` `)` `*` `+` `:` `;` `=` `?` `\` `|` `[` `]` `^` `&`
+	* Remaining characters (0–63) must NOT include: `/` `,` `!` `"` `#` `%` `'` `(` `)` `*` `+` `:` `;` `=` `?` `\` `|` `[` `]` `^` `&`
+	* Note: `$` is allowed after the first character
 
 	It is a mandatory input field in the payload of `createCategory` and `updateCategoryById` APIs.<br>
 	This field can be updated through `updateCategoryById` API.<br>
@@ -1032,7 +1268,47 @@ func (p *Category) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Category(*known)
+	*p = *NewCategory()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Associations != nil {
+		p.Associations = known.Associations
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DetailedAssociations != nil {
+		p.DetailedAssociations = known.DetailedAssociations
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Key != nil {
+		p.Key = known.Key
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.OwnerUuid != nil {
+		p.OwnerUuid = known.OwnerUuid
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1050,7 +1326,9 @@ func (p *Category) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1059,7 +1337,7 @@ func NewCategory() *Category {
 	p := new(Category)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.Category"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1133,7 +1411,29 @@ func (p *CategoryAssociationSummaryOld) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryAssociationSummaryOld(*known)
+	*p = *NewCategoryAssociationSummaryOld()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryId != nil {
+		p.CategoryId = known.CategoryId
+	}
+	if known.Count != nil {
+		p.Count = known.Count
+	}
+	if known.ResourceGroup != nil {
+		p.ResourceGroup = known.ResourceGroup
+	}
+	if known.ResourceType != nil {
+		p.ResourceType = known.ResourceType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1145,7 +1445,9 @@ func (p *CategoryAssociationSummaryOld) UnmarshalJSON(b []byte) error {
 	delete(allFields, "resourceType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1154,7 +1456,7 @@ func NewCategoryAssociationSummaryOld() *CategoryAssociationSummaryOld {
 	p := new(CategoryAssociationSummaryOld)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryAssociationSummaryOld"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1223,7 +1525,29 @@ func (p *CategoryAssociationSummaryOldProjection) UnmarshalJSON(b []byte) error 
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryAssociationSummaryOldProjection(*known)
+	*p = *NewCategoryAssociationSummaryOldProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryId != nil {
+		p.CategoryId = known.CategoryId
+	}
+	if known.Count != nil {
+		p.Count = known.Count
+	}
+	if known.ResourceGroup != nil {
+		p.ResourceGroup = known.ResourceGroup
+	}
+	if known.ResourceType != nil {
+		p.ResourceType = known.ResourceType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1235,7 +1559,9 @@ func (p *CategoryAssociationSummaryOldProjection) UnmarshalJSON(b []byte) error 
 	delete(allFields, "resourceType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1244,7 +1570,7 @@ func NewCategoryAssociationSummaryOldProjection() *CategoryAssociationSummaryOld
 	p := new(CategoryAssociationSummaryOldProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryAssociationSummaryOldProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1391,7 +1717,56 @@ func (p *CategoryOld) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryOld(*known)
+	*p = *NewCategoryOld()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Associations != nil {
+		p.Associations = known.Associations
+	}
+	if known.ChildCategories != nil {
+		p.ChildCategories = known.ChildCategories
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FqName != nil {
+		p.FqName = known.FqName
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.OwnerUuid != nil {
+		p.OwnerUuid = known.OwnerUuid
+	}
+	if known.ParentExtId != nil {
+		p.ParentExtId = known.ParentExtId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.UserSpecifiedName != nil {
+		p.UserSpecifiedName = known.UserSpecifiedName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1412,7 +1787,9 @@ func (p *CategoryOld) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userSpecifiedName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1421,7 +1798,7 @@ func NewCategoryOld() *CategoryOld {
 	p := new(CategoryOld)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryOld"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1560,7 +1937,62 @@ func (p *CategoryOldProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryOldProjection(*known)
+	*p = *NewCategoryOldProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Associations != nil {
+		p.Associations = known.Associations
+	}
+	if known.CategoryAssociationSummaryOldProjection != nil {
+		p.CategoryAssociationSummaryOldProjection = known.CategoryAssociationSummaryOldProjection
+	}
+	if known.CategorySummaryOldProjection != nil {
+		p.CategorySummaryOldProjection = known.CategorySummaryOldProjection
+	}
+	if known.ChildCategories != nil {
+		p.ChildCategories = known.ChildCategories
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FqName != nil {
+		p.FqName = known.FqName
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.OwnerUuid != nil {
+		p.OwnerUuid = known.OwnerUuid
+	}
+	if known.ParentExtId != nil {
+		p.ParentExtId = known.ParentExtId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.UserSpecifiedName != nil {
+		p.UserSpecifiedName = known.UserSpecifiedName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1583,7 +2015,9 @@ func (p *CategoryOldProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userSpecifiedName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1592,7 +2026,7 @@ func NewCategoryOldProjection() *CategoryOldProjection {
 	p := new(CategoryOldProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryOldProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1641,8 +2075,9 @@ type CategoryProjection struct {
 
 	Constraints applicable when field is given in the payload during create and update:
 	* A string of maxlength of 64
-	* Character at the start cannot be `$`
-	* Characters `/` and `,` are not allowed anywhere
+	* First character must NOT be any of: `$` `/` `,` `!` `"` `#` `%` `'` `(` `)` `*` `+` `:` `;` `=` `?` `\` `|` `[` `]` `^` `&`
+	* Remaining characters (0–63) must NOT include: `/` `,` `!` `"` `#` `%` `'` `(` `)` `*` `+` `:` `;` `=` `?` `\` `|` `[` `]` `^` `&`
+	* Note: `$` is allowed after the first character
 
 	It is a mandatory field in the payload of `createCategory` and `updateCategoryById` APIs.<br>
 	This field can't be updated through `updateCategoryById` API.
@@ -1671,8 +2106,9 @@ type CategoryProjection struct {
 
 	Constraints applicable when the field is given in the payload during create and update:
 	* A string of max length 64
-	* Character at the start cannot be `$`
-	* Characters `/` and `,` are not allowed anywhere
+	* First character must NOT be any of: `$` `/` `,` `!` `"` `#` `%` `'` `(` `)` `*` `+` `:` `;` `=` `?` `\` `|` `[` `]` `^` `&`
+	* Remaining characters (0–63) must NOT include: `/` `,` `!` `"` `#` `%` `'` `(` `)` `*` `+` `:` `;` `=` `?` `\` `|` `[` `]` `^` `&`
+	* Note: `$` is allowed after the first character
 
 	It is a mandatory input field in the payload of `createCategory` and `updateCategoryById` APIs.<br>
 	This field can be updated through `updateCategoryById` API.<br>
@@ -1731,7 +2167,53 @@ func (p *CategoryProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryProjection(*known)
+	*p = *NewCategoryProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AssociationDetailProjection != nil {
+		p.AssociationDetailProjection = known.AssociationDetailProjection
+	}
+	if known.AssociationSummaryProjection != nil {
+		p.AssociationSummaryProjection = known.AssociationSummaryProjection
+	}
+	if known.Associations != nil {
+		p.Associations = known.Associations
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.DetailedAssociations != nil {
+		p.DetailedAssociations = known.DetailedAssociations
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Key != nil {
+		p.Key = known.Key
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.OwnerUuid != nil {
+		p.OwnerUuid = known.OwnerUuid
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1751,7 +2233,9 @@ func (p *CategoryProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1760,7 +2244,7 @@ func NewCategoryProjection() *CategoryProjection {
 	p := new(CategoryProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategoryProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1891,7 +2375,53 @@ func (p *CategorySummaryOld) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategorySummaryOld(*known)
+	*p = *NewCategorySummaryOld()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Associations != nil {
+		p.Associations = known.Associations
+	}
+	if known.ChildCategories != nil {
+		p.ChildCategories = known.ChildCategories
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FqName != nil {
+		p.FqName = known.FqName
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.OwnerUuid != nil {
+		p.OwnerUuid = known.OwnerUuid
+	}
+	if known.ParentExtId != nil {
+		p.ParentExtId = known.ParentExtId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.UserSpecifiedName != nil {
+		p.UserSpecifiedName = known.UserSpecifiedName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1911,7 +2441,9 @@ func (p *CategorySummaryOld) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userSpecifiedName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1920,7 +2452,7 @@ func NewCategorySummaryOld() *CategorySummaryOld {
 	p := new(CategorySummaryOld)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategorySummaryOld"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2055,7 +2587,59 @@ func (p *CategorySummaryOldProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategorySummaryOldProjection(*known)
+	*p = *NewCategorySummaryOldProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Associations != nil {
+		p.Associations = known.Associations
+	}
+	if known.CategoryAssociationSummaryOldProjection != nil {
+		p.CategoryAssociationSummaryOldProjection = known.CategoryAssociationSummaryOldProjection
+	}
+	if known.CategorySummaryOldProjection != nil {
+		p.CategorySummaryOldProjection = known.CategorySummaryOldProjection
+	}
+	if known.ChildCategories != nil {
+		p.ChildCategories = known.ChildCategories
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FqName != nil {
+		p.FqName = known.FqName
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.OwnerUuid != nil {
+		p.OwnerUuid = known.OwnerUuid
+	}
+	if known.ParentExtId != nil {
+		p.ParentExtId = known.ParentExtId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.UserSpecifiedName != nil {
+		p.UserSpecifiedName = known.UserSpecifiedName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2077,7 +2661,9 @@ func (p *CategorySummaryOldProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "userSpecifiedName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2086,7 +2672,7 @@ func NewCategorySummaryOldProjection() *CategorySummaryOldProjection {
 	p := new(CategorySummaryOldProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CategorySummaryOldProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2178,7 +2764,7 @@ func (e CategoryType) Ref() *CategoryType {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/categories Post operation
+REST response for all response codes in API path /prism/v4.2/config/categories Post operation
 */
 type CreateCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2237,7 +2823,26 @@ func (p *CreateCategoryApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateCategoryApiResponse(*known)
+	*p = *NewCreateCategoryApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2248,7 +2853,9 @@ func (p *CreateCategoryApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2257,7 +2864,7 @@ func NewCreateCategoryApiResponse() *CreateCategoryApiResponse {
 	p := new(CreateCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CreateCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2285,7 +2892,7 @@ func (p *CreateCategoryApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/domain-managers Post operation
+REST response for all response codes in API path /prism/v4.2/config/domain-managers Post operation
 */
 type CreateDomainManagerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2344,7 +2951,26 @@ func (p *CreateDomainManagerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateDomainManagerApiResponse(*known)
+	*p = *NewCreateDomainManagerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2355,7 +2981,9 @@ func (p *CreateDomainManagerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2364,7 +2992,7 @@ func NewCreateDomainManagerApiResponse() *CreateDomainManagerApiResponse {
 	p := new(CreateDomainManagerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.CreateDomainManagerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2392,7 +3020,7 @@ func (p *CreateDomainManagerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/categories/{extId} Delete operation
+REST response for all response codes in API path /prism/v4.2/config/categories/{extId} Delete operation
 */
 type DeleteCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2451,7 +3079,26 @@ func (p *DeleteCategoryApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteCategoryApiResponse(*known)
+	*p = *NewDeleteCategoryApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2462,7 +3109,9 @@ func (p *DeleteCategoryApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2471,7 +3120,7 @@ func NewDeleteCategoryApiResponse() *DeleteCategoryApiResponse {
 	p := new(DeleteCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.DeleteCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2499,6 +3148,224 @@ func (p *DeleteCategoryApiResponse) SetData(v interface{}) error {
 }
 
 /*
+Configuration details for a Dell PowerFlex external storage.
+*/
+type DellPowerflexConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Address *import2.IPAddressOrFQDN `json:"address,omitempty"`
+
+	StoragePool *DellPowerflexStoragePool `json:"storagePool,omitempty"`
+	/*
+	  The systemId for the Dell PowerFlex system.
+	*/
+	SystemId *string `json:"systemId,omitempty"`
+}
+
+func (p *DellPowerflexConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DellPowerflexConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DellPowerflexConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DellPowerflexConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDellPowerflexConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Address != nil {
+		p.Address = known.Address
+	}
+	if known.StoragePool != nil {
+		p.StoragePool = known.StoragePool
+	}
+	if known.SystemId != nil {
+		p.SystemId = known.SystemId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "address")
+	delete(allFields, "storagePool")
+	delete(allFields, "systemId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDellPowerflexConfig() *DellPowerflexConfig {
+	p := new(DellPowerflexConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.DellPowerflexConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Details of a Dell PowerFlex storage pool.
+*/
+type DellPowerflexStoragePool struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of the Dell PowerFlex storage pool.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  Name of the protection domain for the storage pool.
+	*/
+	ProtectionDomainName *string `json:"protectionDomainName,omitempty"`
+	/*
+	  Unique identifier for the Dell PowerFlex storage pool.
+	*/
+	StoragePoolId *string `json:"storagePoolId,omitempty"`
+}
+
+func (p *DellPowerflexStoragePool) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DellPowerflexStoragePool
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DellPowerflexStoragePool) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DellPowerflexStoragePool
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDellPowerflexStoragePool()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ProtectionDomainName != nil {
+		p.ProtectionDomainName = known.ProtectionDomainName
+	}
+	if known.StoragePoolId != nil {
+		p.StoragePoolId = known.StoragePoolId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "name")
+	delete(allFields, "protectionDomainName")
+	delete(allFields, "storagePoolId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDellPowerflexStoragePool() *DellPowerflexStoragePool {
+	p := new(DellPowerflexStoragePool)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.DellPowerflexStoragePool"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Domain manager (Prism Central) details.
 */
 type DomainManager struct {
@@ -2509,6 +3376,10 @@ type DomainManager struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	Config *DomainManagerClusterConfig `json:"config"`
+	/*
+	  The timestamp when the domain manager (Prism Central) was created.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
@@ -2591,13 +3462,54 @@ func (p *DomainManager) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DomainManager(*known)
+	*p = *NewDomainManager()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Config != nil {
+		p.Config = known.Config
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HostingClusterExtId != nil {
+		p.HostingClusterExtId = known.HostingClusterExtId
+	}
+	if known.IsRegisteredWithHostingCluster != nil {
+		p.IsRegisteredWithHostingCluster = known.IsRegisteredWithHostingCluster
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Network != nil {
+		p.Network = known.Network
+	}
+	if known.NodeExtIds != nil {
+		p.NodeExtIds = known.NodeExtIds
+	}
+	if known.ShouldEnableHighAvailability != nil {
+		p.ShouldEnableHighAvailability = known.ShouldEnableHighAvailability
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "config")
+	delete(allFields, "createdTime")
 	delete(allFields, "extId")
 	delete(allFields, "hostingClusterExtId")
 	delete(allFields, "isRegisteredWithHostingCluster")
@@ -2608,7 +3520,9 @@ func (p *DomainManager) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2617,7 +3531,7 @@ func NewDomainManager() *DomainManager {
 	p := new(DomainManager)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.DomainManager"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldEnableHighAvailability = new(bool)
@@ -2698,7 +3612,38 @@ func (p *DomainManagerClusterConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DomainManagerClusterConfig(*known)
+	*p = *NewDomainManagerClusterConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BootstrapConfig != nil {
+		p.BootstrapConfig = known.BootstrapConfig
+	}
+	if known.BuildInfo != nil {
+		p.BuildInfo = known.BuildInfo
+	}
+	if known.Credentials != nil {
+		p.Credentials = known.Credentials
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ResourceConfig != nil {
+		p.ResourceConfig = known.ResourceConfig
+	}
+	if known.ShouldEnableLockdownMode != nil {
+		p.ShouldEnableLockdownMode = known.ShouldEnableLockdownMode
+	}
+	if known.Size != nil {
+		p.Size = known.Size
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2713,7 +3658,9 @@ func (p *DomainManagerClusterConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "size")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2722,7 +3669,7 @@ func NewDomainManagerClusterConfig() *DomainManagerClusterConfig {
 	p := new(DomainManagerClusterConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.DomainManagerClusterConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2749,6 +3696,14 @@ type DomainManagerNetwork struct {
 	  Cluster fully qualified domain name. This is part of payload for cluster update operation only.
 	*/
 	Fqdn *string `json:"fqdn,omitempty"`
+	/*
+	  List of HTTP Proxy server configuration needed to access a cluster which is hosted behind a HTTP Proxy to not reveal its identity.
+	*/
+	HttpProxyConfig []import5.HttpProxyConfig `json:"httpProxyConfig,omitempty"`
+	/*
+	  Targets HTTP traffic to which is exempted from going through the configured HTTP Proxy.
+	*/
+	HttpProxyWhiteListConfig []import5.HttpProxyWhiteListConfig `json:"httpProxyWhiteListConfig,omitempty"`
 	/*
 	  This configuration is used to internally manage Prism Central network.
 	*/
@@ -2804,7 +3759,44 @@ func (p *DomainManagerNetwork) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DomainManagerNetwork(*known)
+	*p = *NewDomainManagerNetwork()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Capability != nil {
+		p.Capability = known.Capability
+	}
+	if known.ExternalAddress != nil {
+		p.ExternalAddress = known.ExternalAddress
+	}
+	if known.ExternalNetworks != nil {
+		p.ExternalNetworks = known.ExternalNetworks
+	}
+	if known.Fqdn != nil {
+		p.Fqdn = known.Fqdn
+	}
+	if known.HttpProxyConfig != nil {
+		p.HttpProxyConfig = known.HttpProxyConfig
+	}
+	if known.HttpProxyWhiteListConfig != nil {
+		p.HttpProxyWhiteListConfig = known.HttpProxyWhiteListConfig
+	}
+	if known.InternalNetworks != nil {
+		p.InternalNetworks = known.InternalNetworks
+	}
+	if known.NameServers != nil {
+		p.NameServers = known.NameServers
+	}
+	if known.NtpServers != nil {
+		p.NtpServers = known.NtpServers
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2814,12 +3806,16 @@ func (p *DomainManagerNetwork) UnmarshalJSON(b []byte) error {
 	delete(allFields, "externalAddress")
 	delete(allFields, "externalNetworks")
 	delete(allFields, "fqdn")
+	delete(allFields, "httpProxyConfig")
+	delete(allFields, "httpProxyWhiteListConfig")
 	delete(allFields, "internalNetworks")
 	delete(allFields, "nameServers")
 	delete(allFields, "ntpServers")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2828,7 +3824,7 @@ func NewDomainManagerNetwork() *DomainManagerNetwork {
 	p := new(DomainManagerNetwork)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.DomainManagerNetwork"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2902,7 +3898,29 @@ func (p *DomainManagerResourceConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DomainManagerResourceConfig(*known)
+	*p = *NewDomainManagerResourceConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ContainerExtIds != nil {
+		p.ContainerExtIds = known.ContainerExtIds
+	}
+	if known.DataDiskSizeBytes != nil {
+		p.DataDiskSizeBytes = known.DataDiskSizeBytes
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.NumVcpus != nil {
+		p.NumVcpus = known.NumVcpus
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2914,7 +3932,9 @@ func (p *DomainManagerResourceConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "numVcpus")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2923,7 +3943,7 @@ func NewDomainManagerResourceConfig() *DomainManagerResourceConfig {
 	p := new(DomainManagerResourceConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.DomainManagerResourceConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2993,7 +4013,26 @@ func (p *EntityReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityReference(*known)
+	*p = *NewEntityReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Rel != nil {
+		p.Rel = known.Rel
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3004,7 +4043,9 @@ func (p *EntityReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rel")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3013,7 +4054,7 @@ func NewEntityReference() *EntityReference {
 	p := new(EntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.EntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3080,7 +4121,26 @@ func (p *EnvironmentInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EnvironmentInfo(*known)
+	*p = *NewEnvironmentInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ProviderType != nil {
+		p.ProviderType = known.ProviderType
+	}
+	if known.ProvisioningType != nil {
+		p.ProvisioningType = known.ProvisioningType
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3091,7 +4151,9 @@ func (p *EnvironmentInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3100,7 +4162,7 @@ func NewEnvironmentInfo() *EnvironmentInfo {
 	p := new(EnvironmentInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.EnvironmentInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3200,9 +4262,13 @@ type ExternalNetwork struct {
 
 	DefaultGateway *import2.IPAddressOrFQDN `json:"defaultGateway"`
 	/*
+	  List of Node (VM) IP addresses used for Prism Central network setup.
+	*/
+	IpAddresses []import2.IPAddress `json:"ipAddresses,omitempty"`
+	/*
 	  Range of IPs used for Prism Central network setup.
 	*/
-	IpRanges []import2.IpRange `json:"ipRanges"`
+	IpRanges []import2.IpRange `json:"ipRanges,omitempty"`
 	/*
 	  The network external identifier to which Domain Manager (Prism Central) is to be deployed or is already configured.
 	*/
@@ -3218,13 +4284,11 @@ func (p *ExternalNetwork) MarshalJSON() ([]byte, error) {
 	baseStruct := struct {
 		*ExternalNetworkProxy
 		DefaultGateway *import2.IPAddressOrFQDN `json:"defaultGateway,omitempty"`
-		IpRanges       []import2.IpRange        `json:"ipRanges,omitempty"`
 		NetworkExtId   *string                  `json:"networkExtId,omitempty"`
 		SubnetMask     *import2.IPAddressOrFQDN `json:"subnetMask,omitempty"`
 	}{
 		ExternalNetworkProxy: (*ExternalNetworkProxy)(p),
 		DefaultGateway:       p.DefaultGateway,
-		IpRanges:             p.IpRanges,
 		NetworkExtId:         p.NetworkExtId,
 		SubnetMask:           p.SubnetMask,
 	}
@@ -3265,19 +4329,47 @@ func (p *ExternalNetwork) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ExternalNetwork(*known)
+	*p = *NewExternalNetwork()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DefaultGateway != nil {
+		p.DefaultGateway = known.DefaultGateway
+	}
+	if known.IpAddresses != nil {
+		p.IpAddresses = known.IpAddresses
+	}
+	if known.IpRanges != nil {
+		p.IpRanges = known.IpRanges
+	}
+	if known.NetworkExtId != nil {
+		p.NetworkExtId = known.NetworkExtId
+	}
+	if known.SubnetMask != nil {
+		p.SubnetMask = known.SubnetMask
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "defaultGateway")
+	delete(allFields, "ipAddresses")
 	delete(allFields, "ipRanges")
 	delete(allFields, "networkExtId")
 	delete(allFields, "subnetMask")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3286,14 +4378,271 @@ func NewExternalNetwork() *ExternalNetwork {
 	p := new(ExternalNetwork)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.ExternalNetwork"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/categories/{extId} Get operation
+Configuration for an external storage resource.
+*/
+type ExternalStorage struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	ConfigItemDiscriminator_ *string `json:"$configItemDiscriminator,omitempty"`
+	/*
+	  Configuration details for the external storage.
+	*/
+	Config *OneOfExternalStorageConfig `json:"config,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Free capacity of the external storage in bytes.
+	*/
+	FreeCapacityBytes *int64 `json:"freeCapacityBytes,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  The name of the external storage resource.
+	*/
+	Name *string `json:"name,omitempty"`
+
+	ProviderType *ExternalStorageProvider `json:"providerType,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Total capacity of the external storage in bytes.
+	*/
+	TotalCapacityBytes *int64 `json:"totalCapacityBytes,omitempty"`
+}
+
+func (p *ExternalStorage) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ExternalStorage
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExternalStorage) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExternalStorage
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewExternalStorage()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConfigItemDiscriminator_ != nil {
+		p.ConfigItemDiscriminator_ = known.ConfigItemDiscriminator_
+	}
+	if known.Config != nil {
+		p.Config = known.Config
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FreeCapacityBytes != nil {
+		p.FreeCapacityBytes = known.FreeCapacityBytes
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ProviderType != nil {
+		p.ProviderType = known.ProviderType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TotalCapacityBytes != nil {
+		p.TotalCapacityBytes = known.TotalCapacityBytes
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$configItemDiscriminator")
+	delete(allFields, "config")
+	delete(allFields, "extId")
+	delete(allFields, "freeCapacityBytes")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "providerType")
+	delete(allFields, "tenantId")
+	delete(allFields, "totalCapacityBytes")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewExternalStorage() *ExternalStorage {
+	p := new(ExternalStorage)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.ExternalStorage"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ExternalStorage) GetConfig() interface{} {
+	if nil == p.Config {
+		return nil
+	}
+	return p.Config.GetValue()
+}
+
+func (p *ExternalStorage) SetConfig(v interface{}) error {
+	if nil == p.Config {
+		p.Config = NewOneOfExternalStorageConfig()
+	}
+	e := p.Config.SetValue(v)
+	if nil == e {
+		if nil == p.ConfigItemDiscriminator_ {
+			p.ConfigItemDiscriminator_ = new(string)
+		}
+		*p.ConfigItemDiscriminator_ = *p.Config.Discriminator
+	}
+	return e
+}
+
+/*
+The type of external storage provider.
+*/
+type ExternalStorageProvider int
+
+const (
+	EXTERNALSTORAGEPROVIDER_UNKNOWN                 ExternalStorageProvider = 0
+	EXTERNALSTORAGEPROVIDER_REDACTED                ExternalStorageProvider = 1
+	EXTERNALSTORAGEPROVIDER_DELL_POWERFLEX          ExternalStorageProvider = 2
+	EXTERNALSTORAGEPROVIDER_PURE_STORAGE_FLASHARRAY ExternalStorageProvider = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ExternalStorageProvider) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"DELL_POWERFLEX",
+		"PURE_STORAGE_FLASHARRAY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ExternalStorageProvider) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"DELL_POWERFLEX",
+		"PURE_STORAGE_FLASHARRAY",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ExternalStorageProvider) index(name string) ExternalStorageProvider {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"DELL_POWERFLEX",
+		"PURE_STORAGE_FLASHARRAY",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ExternalStorageProvider(idx)
+		}
+	}
+	return EXTERNALSTORAGEPROVIDER_UNKNOWN
+}
+
+func (e *ExternalStorageProvider) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ExternalStorageProvider:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ExternalStorageProvider) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ExternalStorageProvider) Ref() *ExternalStorageProvider {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /prism/v4.2/config/categories/{extId} Get operation
 */
 type GetCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3352,7 +4701,26 @@ func (p *GetCategoryApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetCategoryApiResponse(*known)
+	*p = *NewGetCategoryApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3363,7 +4731,9 @@ func (p *GetCategoryApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3372,7 +4742,7 @@ func NewGetCategoryApiResponse() *GetCategoryApiResponse {
 	p := new(GetCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.GetCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3400,7 +4770,7 @@ func (p *GetCategoryApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/domain-managers/{extId} Get operation
+REST response for all response codes in API path /prism/v4.2/config/domain-managers/{extId} Get operation
 */
 type GetDomainManagerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3459,7 +4829,26 @@ func (p *GetDomainManagerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetDomainManagerApiResponse(*known)
+	*p = *NewGetDomainManagerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3470,7 +4859,9 @@ func (p *GetDomainManagerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3479,7 +4870,7 @@ func NewGetDomainManagerApiResponse() *GetDomainManagerApiResponse {
 	p := new(GetDomainManagerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.GetDomainManagerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3507,7 +4898,135 @@ func (p *GetDomainManagerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/tasks/{extId} Get operation
+REST response for all response codes in API path /prism/v4.2/config/external-storages/{extId} Get operation
+*/
+type GetExternalStorageApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetExternalStorageApiResponseData `json:"data,omitempty"`
+
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetExternalStorageApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetExternalStorageApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetExternalStorageApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetExternalStorageApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetExternalStorageApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetExternalStorageApiResponse() *GetExternalStorageApiResponse {
+	p := new(GetExternalStorageApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.GetExternalStorageApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetExternalStorageApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetExternalStorageApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetExternalStorageApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /prism/v4.2/config/tasks/{extId} Get operation
 */
 type GetTaskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3566,7 +5085,26 @@ func (p *GetTaskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetTaskApiResponse(*known)
+	*p = *NewGetTaskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3577,7 +5115,9 @@ func (p *GetTaskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3586,7 +5126,7 @@ func NewGetTaskApiResponse() *GetTaskApiResponse {
 	p := new(GetTaskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.GetTaskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3614,7 +5154,135 @@ func (p *GetTaskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/categories Get operation
+REST response for all response codes in API path /prism/v4.2/config/tasks/{taskExtId}/jobs/{extId} Get operation
+*/
+type GetTaskJobApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetTaskJobApiResponseData `json:"data,omitempty"`
+
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetTaskJobApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetTaskJobApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetTaskJobApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetTaskJobApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetTaskJobApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetTaskJobApiResponse() *GetTaskJobApiResponse {
+	p := new(GetTaskJobApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.GetTaskJobApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetTaskJobApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetTaskJobApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetTaskJobApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /prism/v4.2/config/categories Get operation
 */
 type ListCategoriesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3673,7 +5341,26 @@ func (p *ListCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListCategoriesApiResponse(*known)
+	*p = *NewListCategoriesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3684,7 +5371,9 @@ func (p *ListCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3693,7 +5382,7 @@ func NewListCategoriesApiResponse() *ListCategoriesApiResponse {
 	p := new(ListCategoriesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.ListCategoriesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3721,7 +5410,7 @@ func (p *ListCategoriesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/domain-managers Get operation
+REST response for all response codes in API path /prism/v4.2/config/domain-managers Get operation
 */
 type ListDomainManagerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3780,7 +5469,26 @@ func (p *ListDomainManagerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListDomainManagerApiResponse(*known)
+	*p = *NewListDomainManagerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3791,7 +5499,9 @@ func (p *ListDomainManagerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3800,7 +5510,7 @@ func NewListDomainManagerApiResponse() *ListDomainManagerApiResponse {
 	p := new(ListDomainManagerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.ListDomainManagerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3828,7 +5538,263 @@ func (p *ListDomainManagerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/tasks Get operation
+REST response for all response codes in API path /prism/v4.2/config/tasks/{taskExtId}/affected-entities Get operation
+*/
+type ListTaskEntitiesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListTaskEntitiesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListTaskEntitiesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListTaskEntitiesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListTaskEntitiesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListTaskEntitiesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListTaskEntitiesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewListTaskEntitiesApiResponse() *ListTaskEntitiesApiResponse {
+	p := new(ListTaskEntitiesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.ListTaskEntitiesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListTaskEntitiesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListTaskEntitiesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListTaskEntitiesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /prism/v4.2/config/tasks/{taskExtId}/jobs Get operation
+*/
+type ListTaskJobsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListTaskJobsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import1.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListTaskJobsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListTaskJobsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListTaskJobsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListTaskJobsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListTaskJobsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewListTaskJobsApiResponse() *ListTaskJobsApiResponse {
+	p := new(ListTaskJobsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.ListTaskJobsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListTaskJobsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListTaskJobsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListTaskJobsApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /prism/v4.2/config/tasks Get operation
 */
 type ListTasksApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3887,7 +5853,26 @@ func (p *ListTasksApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListTasksApiResponse(*known)
+	*p = *NewListTasksApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3898,7 +5883,9 @@ func (p *ListTasksApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3907,7 +5894,7 @@ func NewListTasksApiResponse() *ListTasksApiResponse {
 	p := new(ListTasksApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.ListTasksApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4077,7 +6064,23 @@ func (p *OwnerReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = OwnerReference(*known)
+	*p = *NewOwnerReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4087,7 +6090,9 @@ func (p *OwnerReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4096,7 +6101,7 @@ func NewOwnerReference() *OwnerReference {
 	p := new(OwnerReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.OwnerReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4282,6 +6287,224 @@ func (e ProvisioningType) Ref() *ProvisioningType {
 }
 
 /*
+Configuration details for a Pure Storage FlashArray external storage.
+*/
+type PureStorageFlashArrayConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Address *import2.IPAddressOrFQDN `json:"address,omitempty"`
+	/*
+	  Unique identifier for the Pure Storage FlashArray.
+	*/
+	Id *string `json:"id,omitempty"`
+
+	Pod *PureStorageFlashArrayPod `json:"pod,omitempty"`
+}
+
+func (p *PureStorageFlashArrayConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PureStorageFlashArrayConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PureStorageFlashArrayConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PureStorageFlashArrayConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewPureStorageFlashArrayConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Address != nil {
+		p.Address = known.Address
+	}
+	if known.Id != nil {
+		p.Id = known.Id
+	}
+	if known.Pod != nil {
+		p.Pod = known.Pod
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "address")
+	delete(allFields, "id")
+	delete(allFields, "pod")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewPureStorageFlashArrayConfig() *PureStorageFlashArrayConfig {
+	p := new(PureStorageFlashArrayConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.PureStorageFlashArrayConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Pod configuration for the Pure Storage FlashArray.
+*/
+type PureStorageFlashArrayPod struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of the Pure Storage FlashArray pod.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  Unique identifier for the Pure Storage FlashArray pod.
+	*/
+	PodId *string `json:"podId,omitempty"`
+	/*
+	  Realm of the Pure Storage FlashArray pod.
+	*/
+	Realm *string `json:"realm,omitempty"`
+}
+
+func (p *PureStorageFlashArrayPod) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PureStorageFlashArrayPod
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PureStorageFlashArrayPod) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PureStorageFlashArrayPod
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewPureStorageFlashArrayPod()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.PodId != nil {
+		p.PodId = known.PodId
+	}
+	if known.Realm != nil {
+		p.Realm = known.Realm
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "name")
+	delete(allFields, "podId")
+	delete(allFields, "realm")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewPureStorageFlashArrayPod() *PureStorageFlashArrayPod {
+	p := new(PureStorageFlashArrayPod)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.PureStorageFlashArrayPod"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Contains references for entities given in EntityAssociation.
 This contains the entity ID and a list of links to fetch the associated entities.
 */
@@ -4338,7 +6561,20 @@ func (p *Reference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Reference(*known)
+	*p = *NewReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ResourceId != nil {
+		p.ResourceId = known.ResourceId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4347,7 +6583,9 @@ func (p *Reference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "resourceId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4356,7 +6594,7 @@ func NewReference() *Reference {
 	p := new(Reference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.Reference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4508,7 +6746,26 @@ func (p *ResourceLink) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ResourceLink(*known)
+	*p = *NewResourceLink()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Href != nil {
+		p.Href = known.Href
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Rel != nil {
+		p.Rel = known.Rel
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4519,7 +6776,9 @@ func (p *ResourceLink) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rel")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4528,7 +6787,7 @@ func NewResourceLink() *ResourceLink {
 	p := new(ResourceLink)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.ResourceLink"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4559,22 +6818,23 @@ const (
 	RESOURCETYPE_NETWORK_SECURITY_RULE      ResourceType = 15
 	RESOURCETYPE_VM_HOST_AFFINITY_POLICY    ResourceType = 16
 	RESOURCETYPE_VM_VM_ANTI_AFFINITY_POLICY ResourceType = 17
-	RESOURCETYPE_TEMPLATE_PLACEMENT_POLICY  ResourceType = 18
-	RESOURCETYPE_QOS_POLICY                 ResourceType = 19
-	RESOURCETYPE_NGT_POLICY                 ResourceType = 20
-	RESOURCETYPE_PROTECTION_RULE            ResourceType = 21
-	RESOURCETYPE_ACCESS_CONTROL_POLICY      ResourceType = 22
-	RESOURCETYPE_STORAGE_POLICY             ResourceType = 23
-	RESOURCETYPE_IMAGE_RATE_LIMIT           ResourceType = 24
-	RESOURCETYPE_RECOVERY_PLAN              ResourceType = 25
-	RESOURCETYPE_BUNDLE                     ResourceType = 26
-	RESOURCETYPE_POLICY_SCHEMA              ResourceType = 27
-	RESOURCETYPE_HOST_NIC                   ResourceType = 28
-	RESOURCETYPE_ACTION_RULE                ResourceType = 29
-	RESOURCETYPE_VIRTUAL_NIC                ResourceType = 30
-	RESOURCETYPE_VM_TEMPLATE                ResourceType = 31
-	RESOURCETYPE_NETWORK_ENTITY_GROUP       ResourceType = 32
-	RESOURCETYPE_VIRTUAL_NETWORK            ResourceType = 33
+	RESOURCETYPE_VM_DEPENDENCY_POLICY       ResourceType = 18
+	RESOURCETYPE_TEMPLATE_PLACEMENT_POLICY  ResourceType = 19
+	RESOURCETYPE_QOS_POLICY                 ResourceType = 20
+	RESOURCETYPE_NGT_POLICY                 ResourceType = 21
+	RESOURCETYPE_PROTECTION_RULE            ResourceType = 22
+	RESOURCETYPE_ACCESS_CONTROL_POLICY      ResourceType = 23
+	RESOURCETYPE_STORAGE_POLICY             ResourceType = 24
+	RESOURCETYPE_IMAGE_RATE_LIMIT           ResourceType = 25
+	RESOURCETYPE_RECOVERY_PLAN              ResourceType = 26
+	RESOURCETYPE_BUNDLE                     ResourceType = 27
+	RESOURCETYPE_POLICY_SCHEMA              ResourceType = 28
+	RESOURCETYPE_HOST_NIC                   ResourceType = 29
+	RESOURCETYPE_ACTION_RULE                ResourceType = 30
+	RESOURCETYPE_VIRTUAL_NIC                ResourceType = 31
+	RESOURCETYPE_VM_TEMPLATE                ResourceType = 32
+	RESOURCETYPE_NETWORK_ENTITY_GROUP       ResourceType = 33
+	RESOURCETYPE_VIRTUAL_NETWORK            ResourceType = 34
 )
 
 // Returns the name of the enum given an ordinal number
@@ -4600,6 +6860,7 @@ func (e *ResourceType) name(index int) string {
 		"NETWORK_SECURITY_RULE",
 		"VM_HOST_AFFINITY_POLICY",
 		"VM_VM_ANTI_AFFINITY_POLICY",
+		"VM_DEPENDENCY_POLICY",
 		"TEMPLATE_PLACEMENT_POLICY",
 		"QOS_POLICY",
 		"NGT_POLICY",
@@ -4645,6 +6906,7 @@ func (e ResourceType) GetName() string {
 		"NETWORK_SECURITY_RULE",
 		"VM_HOST_AFFINITY_POLICY",
 		"VM_VM_ANTI_AFFINITY_POLICY",
+		"VM_DEPENDENCY_POLICY",
 		"TEMPLATE_PLACEMENT_POLICY",
 		"QOS_POLICY",
 		"NGT_POLICY",
@@ -4689,6 +6951,7 @@ func (e *ResourceType) index(name string) ResourceType {
 		"NETWORK_SECURITY_RULE",
 		"VM_HOST_AFFINITY_POLICY",
 		"VM_VM_ANTI_AFFINITY_POLICY",
+		"VM_DEPENDENCY_POLICY",
 		"TEMPLATE_PLACEMENT_POLICY",
 		"QOS_POLICY",
 		"NGT_POLICY",
@@ -4834,6 +7097,8 @@ type Task struct {
 	  Name of the application to which the task belongs.
 	*/
 	AppName *string `json:"appName,omitempty"`
+
+	BatchSummary *TaskBatchSummary `json:"batchSummary,omitempty"`
 	/*
 	  List of globally unique identifiers for clusters associated with the task or any of its subtasks.
 	*/
@@ -4969,13 +7234,105 @@ func (p *Task) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Task(*known)
+	*p = *NewTask()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AppName != nil {
+		p.AppName = known.AppName
+	}
+	if known.BatchSummary != nil {
+		p.BatchSummary = known.BatchSummary
+	}
+	if known.ClusterExtIds != nil {
+		p.ClusterExtIds = known.ClusterExtIds
+	}
+	if known.CompletedTime != nil {
+		p.CompletedTime = known.CompletedTime
+	}
+	if known.CompletionDetails != nil {
+		p.CompletionDetails = known.CompletionDetails
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.EntitiesAffected != nil {
+		p.EntitiesAffected = known.EntitiesAffected
+	}
+	if known.ErrorMessages != nil {
+		p.ErrorMessages = known.ErrorMessages
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsBackgroundTask != nil {
+		p.IsBackgroundTask = known.IsBackgroundTask
+	}
+	if known.IsCancelable != nil {
+		p.IsCancelable = known.IsCancelable
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.LegacyErrorMessage != nil {
+		p.LegacyErrorMessage = known.LegacyErrorMessage
+	}
+	if known.NumberOfEntitiesAffected != nil {
+		p.NumberOfEntitiesAffected = known.NumberOfEntitiesAffected
+	}
+	if known.NumberOfSubtasks != nil {
+		p.NumberOfSubtasks = known.NumberOfSubtasks
+	}
+	if known.Operation != nil {
+		p.Operation = known.Operation
+	}
+	if known.OperationDescription != nil {
+		p.OperationDescription = known.OperationDescription
+	}
+	if known.OwnedBy != nil {
+		p.OwnedBy = known.OwnedBy
+	}
+	if known.ParentTask != nil {
+		p.ParentTask = known.ParentTask
+	}
+	if known.ProgressPercentage != nil {
+		p.ProgressPercentage = known.ProgressPercentage
+	}
+	if known.ResourceLinks != nil {
+		p.ResourceLinks = known.ResourceLinks
+	}
+	if known.RootTask != nil {
+		p.RootTask = known.RootTask
+	}
+	if known.StartedTime != nil {
+		p.StartedTime = known.StartedTime
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.SubSteps != nil {
+		p.SubSteps = known.SubSteps
+	}
+	if known.SubTasks != nil {
+		p.SubTasks = known.SubTasks
+	}
+	if known.Warnings != nil {
+		p.Warnings = known.Warnings
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "appName")
+	delete(allFields, "batchSummary")
 	delete(allFields, "clusterExtIds")
 	delete(allFields, "completedTime")
 	delete(allFields, "completionDetails")
@@ -5003,7 +7360,9 @@ func (p *Task) UnmarshalJSON(b []byte) error {
 	delete(allFields, "warnings")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5012,10 +7371,385 @@ func NewTask() *Task {
 	p := new(Task)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.Task"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Summary of jobs associated with the task.
+*/
+type TaskBatchSummary struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Number of total jobs associated with the task.
+	*/
+	NumberOfJobs *int `json:"numberOfJobs,omitempty"`
+	/*
+	  Number of failed jobs associated with the task.
+	*/
+	NumberOfJobsFailed *int `json:"numberOfJobsFailed,omitempty"`
+	/*
+	  Number of successful jobs associated with the task.
+	*/
+	NumberOfJobsSuccessful *int `json:"numberOfJobsSuccessful,omitempty"`
+}
+
+func (p *TaskBatchSummary) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TaskBatchSummary
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TaskBatchSummary) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TaskBatchSummary
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewTaskBatchSummary()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NumberOfJobs != nil {
+		p.NumberOfJobs = known.NumberOfJobs
+	}
+	if known.NumberOfJobsFailed != nil {
+		p.NumberOfJobsFailed = known.NumberOfJobsFailed
+	}
+	if known.NumberOfJobsSuccessful != nil {
+		p.NumberOfJobsSuccessful = known.NumberOfJobsSuccessful
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "numberOfJobs")
+	delete(allFields, "numberOfJobsFailed")
+	delete(allFields, "numberOfJobsSuccessful")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewTaskBatchSummary() *TaskBatchSummary {
+	p := new(TaskBatchSummary)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.TaskBatchSummary"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Job associated with a task.
+*/
+type TaskJob struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of globally unique identifiers for clusters associated with the job.
+	*/
+	ClusterExtIds []string `json:"clusterExtIds,omitempty"`
+	/*
+	  UTC date and time in RFC-3339 format when the job was completed.
+	*/
+	CompletedTime *time.Time `json:"completedTime,omitempty"`
+	/*
+	  Additional job details that help the user take further action after the job is completed.
+	*/
+	CompletionDetails []import2.KVPair `json:"completionDetails,omitempty"`
+	/*
+	  UTC date and time in RFC-3339 format when the job was created.
+	*/
+	CreatedTime *time.Time `json:"createdTime,omitempty"`
+	/*
+	  Entities affected by the job associated with the task.
+	*/
+	EntitiesAffected []EntityReference `json:"entitiesAffected,omitempty"`
+	/*
+	  Error details that explain a job failure. These details are populated if a task fails.
+	*/
+	ErrorMessages []import4.AppMessage `json:"errorMessages,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import1.ApiLink `json:"links,omitempty"`
+	/*
+	  Name of the job associated with the task.
+	*/
+	Name *string `json:"name,omitempty"`
+
+	Status *TaskJobStatus `json:"status,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Warning messages to alert the user of issues that did not directly cause the job to fail.
+	*/
+	Warnings []import4.AppMessage `json:"warnings,omitempty"`
+}
+
+func (p *TaskJob) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TaskJob
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TaskJob) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TaskJob
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewTaskJob()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtIds != nil {
+		p.ClusterExtIds = known.ClusterExtIds
+	}
+	if known.CompletedTime != nil {
+		p.CompletedTime = known.CompletedTime
+	}
+	if known.CompletionDetails != nil {
+		p.CompletionDetails = known.CompletionDetails
+	}
+	if known.CreatedTime != nil {
+		p.CreatedTime = known.CreatedTime
+	}
+	if known.EntitiesAffected != nil {
+		p.EntitiesAffected = known.EntitiesAffected
+	}
+	if known.ErrorMessages != nil {
+		p.ErrorMessages = known.ErrorMessages
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Warnings != nil {
+		p.Warnings = known.Warnings
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtIds")
+	delete(allFields, "completedTime")
+	delete(allFields, "completionDetails")
+	delete(allFields, "createdTime")
+	delete(allFields, "entitiesAffected")
+	delete(allFields, "errorMessages")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "status")
+	delete(allFields, "tenantId")
+	delete(allFields, "warnings")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewTaskJob() *TaskJob {
+	p := new(TaskJob)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "prism.v4.config.TaskJob"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Status of the job associated with the task.
+*/
+type TaskJobStatus int
+
+const (
+	TASKJOBSTATUS_UNKNOWN   TaskJobStatus = 0
+	TASKJOBSTATUS_REDACTED  TaskJobStatus = 1
+	TASKJOBSTATUS_PENDING   TaskJobStatus = 2
+	TASKJOBSTATUS_SUCCEEDED TaskJobStatus = 3
+	TASKJOBSTATUS_FAILED    TaskJobStatus = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *TaskJobStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PENDING",
+		"SUCCEEDED",
+		"FAILED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e TaskJobStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PENDING",
+		"SUCCEEDED",
+		"FAILED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *TaskJobStatus) index(name string) TaskJobStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PENDING",
+		"SUCCEEDED",
+		"FAILED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return TaskJobStatus(idx)
+		}
+	}
+	return TASKJOBSTATUS_UNKNOWN
+}
+
+func (e *TaskJobStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for TaskJobStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *TaskJobStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e TaskJobStatus) Ref() *TaskJobStatus {
+	return &e
 }
 
 /*
@@ -5074,7 +7808,20 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TaskReference(*known)
+	*p = *NewTaskReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5083,7 +7830,9 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5092,7 +7841,7 @@ func NewTaskReference() *TaskReference {
 	p := new(TaskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.TaskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5162,7 +7911,26 @@ func (p *TaskReferenceInternal) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TaskReferenceInternal(*known)
+	*p = *NewTaskReferenceInternal()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Href != nil {
+		p.Href = known.Href
+	}
+	if known.Rel != nil {
+		p.Rel = known.Rel
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5173,7 +7941,9 @@ func (p *TaskReferenceInternal) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rel")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5182,7 +7952,7 @@ func NewTaskReferenceInternal() *TaskReferenceInternal {
 	p := new(TaskReferenceInternal)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.TaskReferenceInternal"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5343,7 +8113,20 @@ func (p *TaskStep) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TaskStep(*known)
+	*p = *NewTaskStep()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5352,7 +8135,9 @@ func (p *TaskStep) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5361,14 +8146,14 @@ func NewTaskStep() *TaskStep {
 	p := new(TaskStep)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.TaskStep"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/config/categories/{extId} Put operation
+REST response for all response codes in API path /prism/v4.2/config/categories/{extId} Put operation
 */
 type UpdateCategoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5427,7 +8212,26 @@ func (p *UpdateCategoryApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateCategoryApiResponse(*known)
+	*p = *NewUpdateCategoryApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5438,7 +8242,9 @@ func (p *UpdateCategoryApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5447,7 +8253,7 @@ func NewUpdateCategoryApiResponse() *UpdateCategoryApiResponse {
 	p := new(UpdateCategoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.config.UpdateCategoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5472,228 +8278,6 @@ func (p *UpdateCategoryApiResponse) SetData(v interface{}) error {
 		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
 	return e
-}
-
-type OneOfCancelTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 *import4.AppMessage    `json:"-"`
-}
-
-func NewOneOfCancelTaskApiResponseData() *OneOfCancelTaskApiResponseData {
-	p := new(OneOfCancelTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCancelTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCancelTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case import4.AppMessage:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import4.AppMessage)
-		}
-		*p.oneOfType2001 = v.(import4.AppMessage)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCancelTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfCancelTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(import4.AppMessage)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.error.AppMessage" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import4.AppMessage)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCancelTaskApiResponseData"))
-}
-
-func (p *OneOfCancelTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfCancelTaskApiResponseData")
-}
-
-type OneOfGetTaskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 *Task                  `json:"-"`
-}
-
-func NewOneOfGetTaskApiResponseData() *OneOfGetTaskApiResponseData {
-	p := new(OneOfGetTaskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetTaskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetTaskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Task:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(Task)
-		}
-		*p.oneOfType2001 = v.(Task)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetTaskApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfGetTaskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(Task)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.Task" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(Task)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetTaskApiResponseData"))
-}
-
-func (p *OneOfGetTaskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetTaskApiResponseData")
 }
 
 type OneOfUpdateCategoryApiResponseData struct {
@@ -5801,341 +8385,6 @@ func (p *OneOfUpdateCategoryApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfUpdateCategoryApiResponseData")
 }
 
-type OneOfDeleteCategoryApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType1    *interface{}           `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeleteCategoryApiResponseData() *OneOfDeleteCategoryApiResponseData {
-	p := new(OneOfDeleteCategoryApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeleteCategoryApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteCategoryApiResponseData is nil"))
-	}
-	if nil == v {
-		if nil == p.oneOfType1 {
-			p.oneOfType1 = new(interface{})
-		}
-		*p.oneOfType1 = nil
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "EMPTY"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "EMPTY"
-		return nil
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeleteCategoryApiResponseData) GetValue() interface{} {
-	if "EMPTY" == *p.Discriminator {
-		return *p.oneOfType1
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeleteCategoryApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType1 := new(interface{})
-	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if nil == *vOneOfType1 {
-			if nil == p.oneOfType1 {
-				p.oneOfType1 = new(interface{})
-			}
-			*p.oneOfType1 = nil
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "EMPTY"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "EMPTY"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteCategoryApiResponseData"))
-}
-
-func (p *OneOfDeleteCategoryApiResponseData) MarshalJSON() ([]byte, error) {
-	if "EMPTY" == *p.Discriminator {
-		return json.Marshal(p.oneOfType1)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteCategoryApiResponseData")
-}
-
-type OneOfGetDomainManagerApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 *DomainManager         `json:"-"`
-}
-
-func NewOneOfGetDomainManagerApiResponseData() *OneOfGetDomainManagerApiResponseData {
-	p := new(OneOfGetDomainManagerApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetDomainManagerApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetDomainManagerApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case DomainManager:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(DomainManager)
-		}
-		*p.oneOfType2001 = v.(DomainManager)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetDomainManagerApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfGetDomainManagerApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(DomainManager)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.DomainManager" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(DomainManager)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDomainManagerApiResponseData"))
-}
-
-func (p *OneOfGetDomainManagerApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetDomainManagerApiResponseData")
-}
-
-type OneOfGetCategoryApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *Category              `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetCategoryApiResponseData() *OneOfGetCategoryApiResponseData {
-	p := new(OneOfGetCategoryApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetCategoryApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetCategoryApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case Category:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Category)
-		}
-		*p.oneOfType0 = v.(Category)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetCategoryApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetCategoryApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(Category)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.Category" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Category)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCategoryApiResponseData"))
-}
-
-func (p *OneOfGetCategoryApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetCategoryApiResponseData")
-}
-
 type OneOfListTasksApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -6241,38 +8490,25 @@ func (p *OneOfListTasksApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfListTasksApiResponseData")
 }
 
-type OneOfCreateDomainManagerApiResponseData struct {
+type OneOfListTaskJobsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *TaskReference         `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 []TaskJob              `json:"-"`
 }
 
-func NewOneOfCreateDomainManagerApiResponseData() *OneOfCreateDomainManagerApiResponseData {
-	p := new(OneOfCreateDomainManagerApiResponseData)
+func NewOneOfListTaskJobsApiResponseData() *OneOfListTaskJobsApiResponseData {
+	p := new(OneOfListTaskJobsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCreateDomainManagerApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListTaskJobsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateDomainManagerApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListTaskJobsApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(TaskReference)
-		}
-		*p.oneOfType2001 = v.(TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	case import4.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import4.ErrorResponse)
@@ -6286,41 +8522,33 @@ func (p *OneOfCreateDomainManagerApiResponseData) SetValue(v interface{}) error 
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []TaskJob:
+		p.oneOfType2001 = v.([]TaskJob)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.config.TaskJob>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.config.TaskJob>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfCreateDomainManagerApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
+func (p *OneOfListTaskJobsApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if "List<prism.v4.config.TaskJob>" == *p.Discriminator {
+		return p.oneOfType2001
 	}
 	return nil
 }
 
-func (p *OneOfCreateDomainManagerApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
+func (p *OneOfListTaskJobsApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -6339,128 +8567,32 @@ func (p *OneOfCreateDomainManagerApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDomainManagerApiResponseData"))
+	vOneOfType2001 := new([]TaskJob)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "prism.v4.config.TaskJob" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.config.TaskJob>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.config.TaskJob>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListTaskJobsApiResponseData"))
 }
 
-func (p *OneOfCreateDomainManagerApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+func (p *OneOfListTaskJobsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<prism.v4.config.TaskJob>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateDomainManagerApiResponseData")
-}
-
-type OneOfCreateCategoryApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType0    *Category              `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-}
-
-func NewOneOfCreateCategoryApiResponseData() *OneOfCreateCategoryApiResponseData {
-	p := new(OneOfCreateCategoryApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateCategoryApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateCategoryApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case Category:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(Category)
-		}
-		*p.oneOfType0 = v.(Category)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateCategoryApiResponseData) GetValue() interface{} {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfCreateCategoryApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType0 := new(Category)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "prism.v4.config.Category" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(Category)
-			}
-			*p.oneOfType0 = *vOneOfType0
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateCategoryApiResponseData"))
-}
-
-func (p *OneOfCreateCategoryApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateCategoryApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListTaskJobsApiResponseData")
 }
 
 type OneOfListCategoriesApiResponseData struct {
@@ -6703,6 +8835,1223 @@ func (p *OneOfListDomainManagerApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType2001)
 	}
 	return nil, errors.New("No value to marshal for OneOfListDomainManagerApiResponseData")
+}
+
+type OneOfCancelTaskApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *import4.AppMessage    `json:"-"`
+}
+
+func NewOneOfCancelTaskApiResponseData() *OneOfCancelTaskApiResponseData {
+	p := new(OneOfCancelTaskApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCancelTaskApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCancelTaskApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case import4.AppMessage:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import4.AppMessage)
+		}
+		*p.oneOfType2001 = v.(import4.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCancelTaskApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfCancelTaskApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(import4.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.error.AppMessage" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import4.AppMessage)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCancelTaskApiResponseData"))
+}
+
+func (p *OneOfCancelTaskApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfCancelTaskApiResponseData")
+}
+
+type OneOfGetTaskApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *Task                  `json:"-"`
+}
+
+func NewOneOfGetTaskApiResponseData() *OneOfGetTaskApiResponseData {
+	p := new(OneOfGetTaskApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetTaskApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetTaskApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Task:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Task)
+		}
+		*p.oneOfType2001 = v.(Task)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetTaskApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetTaskApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(Task)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.Task" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Task)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetTaskApiResponseData"))
+}
+
+func (p *OneOfGetTaskApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetTaskApiResponseData")
+}
+
+type OneOfExternalStorageConfig struct {
+	Discriminator *string                      `json:"-"`
+	ObjectType_   *string                      `json:"-"`
+	oneOfType2100 *DellPowerflexConfig         `json:"-"`
+	oneOfType2101 *PureStorageFlashArrayConfig `json:"-"`
+}
+
+func NewOneOfExternalStorageConfig() *OneOfExternalStorageConfig {
+	p := new(OneOfExternalStorageConfig)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfExternalStorageConfig) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfExternalStorageConfig is nil"))
+	}
+	switch v.(type) {
+	case DellPowerflexConfig:
+		if nil == p.oneOfType2100 {
+			p.oneOfType2100 = new(DellPowerflexConfig)
+		}
+		*p.oneOfType2100 = v.(DellPowerflexConfig)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2100.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2100.ObjectType_
+	case PureStorageFlashArrayConfig:
+		if nil == p.oneOfType2101 {
+			p.oneOfType2101 = new(PureStorageFlashArrayConfig)
+		}
+		*p.oneOfType2101 = v.(PureStorageFlashArrayConfig)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2101.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2101.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfExternalStorageConfig) GetValue() interface{} {
+	if p.oneOfType2100 != nil && *p.oneOfType2100.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2100
+	}
+	if p.oneOfType2101 != nil && *p.oneOfType2101.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2101
+	}
+	return nil
+}
+
+func (p *OneOfExternalStorageConfig) UnmarshalJSON(b []byte) error {
+	vOneOfType2100 := new(DellPowerflexConfig)
+	if err := json.Unmarshal(b, vOneOfType2100); err == nil {
+		if "prism.v4.config.DellPowerflexConfig" == *vOneOfType2100.ObjectType_ {
+			if nil == p.oneOfType2100 {
+				p.oneOfType2100 = new(DellPowerflexConfig)
+			}
+			*p.oneOfType2100 = *vOneOfType2100
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2100.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2100.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2101 := new(PureStorageFlashArrayConfig)
+	if err := json.Unmarshal(b, vOneOfType2101); err == nil {
+		if "prism.v4.config.PureStorageFlashArrayConfig" == *vOneOfType2101.ObjectType_ {
+			if nil == p.oneOfType2101 {
+				p.oneOfType2101 = new(PureStorageFlashArrayConfig)
+			}
+			*p.oneOfType2101 = *vOneOfType2101
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2101.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2101.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfExternalStorageConfig"))
+}
+
+func (p *OneOfExternalStorageConfig) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2100 != nil && *p.oneOfType2100.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2100)
+	}
+	if p.oneOfType2101 != nil && *p.oneOfType2101.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2101)
+	}
+	return nil, errors.New("No value to marshal for OneOfExternalStorageConfig")
+}
+
+type OneOfDeleteCategoryApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType1    *interface{}           `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteCategoryApiResponseData() *OneOfDeleteCategoryApiResponseData {
+	p := new(OneOfDeleteCategoryApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteCategoryApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteCategoryApiResponseData is nil"))
+	}
+	if nil == v {
+		if nil == p.oneOfType1 {
+			p.oneOfType1 = new(interface{})
+		}
+		*p.oneOfType1 = nil
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "EMPTY"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "EMPTY"
+		return nil
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteCategoryApiResponseData) GetValue() interface{} {
+	if "EMPTY" == *p.Discriminator {
+		return *p.oneOfType1
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteCategoryApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType1 := new(interface{})
+	if err := json.Unmarshal(b, vOneOfType1); err == nil {
+		if nil == *vOneOfType1 {
+			if nil == p.oneOfType1 {
+				p.oneOfType1 = new(interface{})
+			}
+			*p.oneOfType1 = nil
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "EMPTY"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "EMPTY"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteCategoryApiResponseData"))
+}
+
+func (p *OneOfDeleteCategoryApiResponseData) MarshalJSON() ([]byte, error) {
+	if "EMPTY" == *p.Discriminator {
+		return json.Marshal(p.oneOfType1)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteCategoryApiResponseData")
+}
+
+type OneOfGetDomainManagerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *DomainManager         `json:"-"`
+}
+
+func NewOneOfGetDomainManagerApiResponseData() *OneOfGetDomainManagerApiResponseData {
+	p := new(OneOfGetDomainManagerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetDomainManagerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetDomainManagerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case DomainManager:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(DomainManager)
+		}
+		*p.oneOfType2001 = v.(DomainManager)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetDomainManagerApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetDomainManagerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(DomainManager)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.DomainManager" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(DomainManager)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDomainManagerApiResponseData"))
+}
+
+func (p *OneOfGetDomainManagerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetDomainManagerApiResponseData")
+}
+
+type OneOfGetTaskJobApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *TaskJob               `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetTaskJobApiResponseData() *OneOfGetTaskJobApiResponseData {
+	p := new(OneOfGetTaskJobApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetTaskJobApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetTaskJobApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case TaskJob:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(TaskJob)
+		}
+		*p.oneOfType2001 = v.(TaskJob)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetTaskJobApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetTaskJobApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(TaskJob)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskJob" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(TaskJob)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetTaskJobApiResponseData"))
+}
+
+func (p *OneOfGetTaskJobApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetTaskJobApiResponseData")
+}
+
+type OneOfGetCategoryApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *Category              `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetCategoryApiResponseData() *OneOfGetCategoryApiResponseData {
+	p := new(OneOfGetCategoryApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetCategoryApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetCategoryApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case Category:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Category)
+		}
+		*p.oneOfType0 = v.(Category)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetCategoryApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetCategoryApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(Category)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.Category" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Category)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCategoryApiResponseData"))
+}
+
+func (p *OneOfGetCategoryApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetCategoryApiResponseData")
+}
+
+type OneOfListTaskEntitiesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []EntityReference      `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListTaskEntitiesApiResponseData() *OneOfListTaskEntitiesApiResponseData {
+	p := new(OneOfListTaskEntitiesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListTaskEntitiesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListTaskEntitiesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []EntityReference:
+		p.oneOfType2001 = v.([]EntityReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<prism.v4.config.EntityReference>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<prism.v4.config.EntityReference>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListTaskEntitiesApiResponseData) GetValue() interface{} {
+	if "List<prism.v4.config.EntityReference>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListTaskEntitiesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]EntityReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "prism.v4.config.EntityReference" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<prism.v4.config.EntityReference>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<prism.v4.config.EntityReference>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListTaskEntitiesApiResponseData"))
+}
+
+func (p *OneOfListTaskEntitiesApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<prism.v4.config.EntityReference>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListTaskEntitiesApiResponseData")
+}
+
+type OneOfGetExternalStorageApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *ExternalStorage       `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetExternalStorageApiResponseData() *OneOfGetExternalStorageApiResponseData {
+	p := new(OneOfGetExternalStorageApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetExternalStorageApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetExternalStorageApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case ExternalStorage:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(ExternalStorage)
+		}
+		*p.oneOfType2001 = v.(ExternalStorage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetExternalStorageApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetExternalStorageApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(ExternalStorage)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.ExternalStorage" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(ExternalStorage)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetExternalStorageApiResponseData"))
+}
+
+func (p *OneOfGetExternalStorageApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetExternalStorageApiResponseData")
+}
+
+type OneOfCreateDomainManagerApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *TaskReference         `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateDomainManagerApiResponseData() *OneOfCreateDomainManagerApiResponseData {
+	p := new(OneOfCreateDomainManagerApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateDomainManagerApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateDomainManagerApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(TaskReference)
+		}
+		*p.oneOfType2001 = v.(TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateDomainManagerApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateDomainManagerApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDomainManagerApiResponseData"))
+}
+
+func (p *OneOfCreateDomainManagerApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateDomainManagerApiResponseData")
+}
+
+type OneOfCreateCategoryApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType0    *Category              `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateCategoryApiResponseData() *OneOfCreateCategoryApiResponseData {
+	p := new(OneOfCreateCategoryApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateCategoryApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateCategoryApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case Category:
+		if nil == p.oneOfType0 {
+			p.oneOfType0 = new(Category)
+		}
+		*p.oneOfType0 = v.(Category)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType0.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateCategoryApiResponseData) GetValue() interface{} {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType0
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateCategoryApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType0 := new(Category)
+	if err := json.Unmarshal(b, vOneOfType0); err == nil {
+		if "prism.v4.config.Category" == *vOneOfType0.ObjectType_ {
+			if nil == p.oneOfType0 {
+				p.oneOfType0 = new(Category)
+			}
+			*p.oneOfType0 = *vOneOfType0
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType0.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "prism.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateCategoryApiResponseData"))
+}
+
+func (p *OneOfCreateCategoryApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType0)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateCategoryApiResponseData")
 }
 
 type FileDetail struct {

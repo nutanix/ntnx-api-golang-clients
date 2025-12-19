@@ -40,7 +40,7 @@ func (api *DomainManagerApi) CreateDomainManager(body *import2.DomainManager, ar
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/domain-managers"
+	uri := "/api/prism/v4.2/config/domain-managers"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -88,7 +88,7 @@ func (api *DomainManagerApi) GetDomainManagerById(extId *string, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/domain-managers/{extId}"
+	uri := "/api/prism/v4.2/config/domain-managers/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -138,7 +138,7 @@ func (api *DomainManagerApi) GetProductById(domainManagerExtId *string, extId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/products/{extId}"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/products/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -193,7 +193,7 @@ func (api *DomainManagerApi) ListDomainManagers(select_ *string, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/domain-managers"
+	uri := "/api/prism/v4.2/config/domain-managers"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -240,7 +240,7 @@ func (api *DomainManagerApi) ListProducts(domainManagerExtId *string, page_ *int
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/products"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/products"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -306,7 +306,7 @@ func (api *DomainManagerApi) Register(extId *string, body *import3.ClusterRegist
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{extId}/$actions/register"
+	uri := "/api/prism/v4.2/management/domain-managers/{extId}/$actions/register"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -364,7 +364,7 @@ func (api *DomainManagerApi) Unregister(extId *string, body *import3.ClusterRefe
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{extId}/$actions/unregister"
+	uri := "/api/prism/v4.2/management/domain-managers/{extId}/$actions/unregister"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -416,13 +416,13 @@ func (api *DomainManagerApi) Unregister(extId *string, body *import3.ClusterRefe
 }
 
 // Updates the status of a given product with the current support focused on updating the enablement state.
-func (api *DomainManagerApi) UpdateProductById(domainManagerExtId *string, extId *string, body *import3.Product, args ...map[string]interface{}) (*import3.UpdateProductApiResponse, error) {
+func (api *DomainManagerApi) UpdateProductById(domainManagerExtId *string, extId *string, body *import3.Product, dryrun_ *bool, args ...map[string]interface{}) (*import3.UpdateProductApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/products/{extId}"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/products/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -450,6 +450,10 @@ func (api *DomainManagerApi) UpdateProductById(domainManagerExtId *string, extId
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers

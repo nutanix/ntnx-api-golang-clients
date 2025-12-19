@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/trust/trust_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Prism APIs
  *
@@ -79,7 +79,23 @@ func (p *ApiLink) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApiLink(*known)
+	*p = *NewApiLink()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Href != nil {
+		p.Href = known.Href
+	}
+	if known.Rel != nil {
+		p.Rel = known.Rel
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -89,7 +105,9 @@ func (p *ApiLink) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rel")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -98,7 +116,7 @@ func NewApiLink() *ApiLink {
 	p := new(ApiLink)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.ApiLink"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -158,7 +176,20 @@ func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApiResponseMetadata(*known)
+	*p = *NewApiResponseMetadata()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -167,7 +198,9 @@ func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -176,7 +209,7 @@ func NewApiResponseMetadata() *ApiResponseMetadata {
 	p := new(ApiResponseMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.ApiResponseMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -240,7 +273,20 @@ func (p *AuthMetadata) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AuthMetadata(*known)
+	*p = *NewAuthMetadata()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AuthToken != nil {
+		p.AuthToken = known.AuthToken
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -249,7 +295,9 @@ func (p *AuthMetadata) UnmarshalJSON(b []byte) error {
 	delete(allFields, "authToken")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -258,7 +306,7 @@ func NewAuthMetadata() *AuthMetadata {
 	p := new(AuthMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.AuthMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -333,7 +381,32 @@ func (p *SignedCertDetails) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SignedCertDetails(*known)
+	*p = *NewSignedCertDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AuthMetadata != nil {
+		p.AuthMetadata = known.AuthMetadata
+	}
+	if known.CaCertChain != nil {
+		p.CaCertChain = known.CaCertChain
+	}
+	if known.CertificateSigningRequest != nil {
+		p.CertificateSigningRequest = known.CertificateSigningRequest
+	}
+	if known.Error != nil {
+		p.Error = known.Error
+	}
+	if known.SignedCertificate != nil {
+		p.SignedCertificate = known.SignedCertificate
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -346,7 +419,9 @@ func (p *SignedCertDetails) UnmarshalJSON(b []byte) error {
 	delete(allFields, "signedCertificate")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -355,7 +430,7 @@ func NewSignedCertDetails() *SignedCertDetails {
 	p := new(SignedCertDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.SignedCertDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -420,7 +495,23 @@ func (p *Trust) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Trust(*known)
+	*p = *NewTrust()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AuthMetadata != nil {
+		p.AuthMetadata = known.AuthMetadata
+	}
+	if known.CertificateSigningRequest != nil {
+		p.CertificateSigningRequest = known.CertificateSigningRequest
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -430,7 +521,9 @@ func (p *Trust) UnmarshalJSON(b []byte) error {
 	delete(allFields, "certificateSigningRequest")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -439,7 +532,7 @@ func NewTrust() *Trust {
 	p := new(Trust)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.Trust"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/operations/operations_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Prism APIs
  *
@@ -208,7 +208,53 @@ func (p *Batch) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Batch(*known)
+	*p = *NewBatch()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CompletionStatus != nil {
+		p.CompletionStatus = known.CompletionStatus
+	}
+	if known.EndTime != nil {
+		p.EndTime = known.EndTime
+	}
+	if known.ExecutionStatus != nil {
+		p.ExecutionStatus = known.ExecutionStatus
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FailedCount != nil {
+		p.FailedCount = known.FailedCount
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ShouldStopOnError != nil {
+		p.ShouldStopOnError = known.ShouldStopOnError
+	}
+	if known.Size != nil {
+		p.Size = known.Size
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
+	if known.SuccessCount != nil {
+		p.SuccessCount = known.SuccessCount
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -228,7 +274,9 @@ func (p *Batch) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -237,7 +285,7 @@ func NewBatch() *Batch {
 	p := new(Batch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.Batch"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -465,7 +513,23 @@ func (p *BatchSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BatchSpec(*known)
+	*p = *NewBatchSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+	if known.Payload != nil {
+		p.Payload = known.Payload
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -475,7 +539,9 @@ func (p *BatchSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "payload")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -484,7 +550,7 @@ func NewBatchSpec() *BatchSpec {
 	p := new(BatchSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -571,7 +637,32 @@ func (p *BatchSpecMetadata) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BatchSpecMetadata(*known)
+	*p = *NewBatchSpecMetadata()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Action != nil {
+		p.Action = known.Action
+	}
+	if known.ChunkSize != nil {
+		p.ChunkSize = known.ChunkSize
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.ShouldStopOnError != nil {
+		p.ShouldStopOnError = known.ShouldStopOnError
+	}
+	if known.Uri != nil {
+		p.Uri = known.Uri
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -584,7 +675,9 @@ func (p *BatchSpecMetadata) UnmarshalJSON(b []byte) error {
 	delete(allFields, "uri")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -593,7 +686,7 @@ func NewBatchSpecMetadata() *BatchSpecMetadata {
 	p := new(BatchSpecMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ChunkSize = new(int)
@@ -662,7 +755,23 @@ func (p *BatchSpecPayload) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BatchSpecPayload(*known)
+	*p = *NewBatchSpecPayload()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -672,7 +781,9 @@ func (p *BatchSpecPayload) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -681,7 +792,7 @@ func NewBatchSpecPayload() *BatchSpecPayload {
 	p := new(BatchSpecPayload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -743,7 +854,23 @@ func (p *BatchSpecPayloadMetadata) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BatchSpecPayloadMetadata(*known)
+	*p = *NewBatchSpecPayloadMetadata()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Headers != nil {
+		p.Headers = known.Headers
+	}
+	if known.Path != nil {
+		p.Path = known.Path
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -753,7 +880,9 @@ func (p *BatchSpecPayloadMetadata) UnmarshalJSON(b []byte) error {
 	delete(allFields, "path")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -762,7 +891,7 @@ func NewBatchSpecPayloadMetadata() *BatchSpecPayloadMetadata {
 	p := new(BatchSpecPayloadMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -837,7 +966,23 @@ func (p *BatchSpecPayloadMetadataHeader) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BatchSpecPayloadMetadataHeader(*known)
+	*p = *NewBatchSpecPayloadMetadataHeader()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -847,7 +992,9 @@ func (p *BatchSpecPayloadMetadataHeader) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -856,7 +1003,7 @@ func NewBatchSpecPayloadMetadataHeader() *BatchSpecPayloadMetadataHeader {
 	p := new(BatchSpecPayloadMetadataHeader)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataHeader"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -931,7 +1078,23 @@ func (p *BatchSpecPayloadMetadataPath) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BatchSpecPayloadMetadataPath(*known)
+	*p = *NewBatchSpecPayloadMetadataPath()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -941,7 +1104,9 @@ func (p *BatchSpecPayloadMetadataPath) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -950,14 +1115,14 @@ func NewBatchSpecPayloadMetadataPath() *BatchSpecPayloadMetadataPath {
 	p := new(BatchSpecPayloadMetadataPath)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataPath"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/operations/batches/{extId} Get operation
+REST response for all response codes in API path /prism/v4.2/operations/batches/{extId} Get operation
 */
 type GetBatchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1016,7 +1181,26 @@ func (p *GetBatchApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetBatchApiResponse(*known)
+	*p = *NewGetBatchApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1027,7 +1211,9 @@ func (p *GetBatchApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1036,7 +1222,7 @@ func NewGetBatchApiResponse() *GetBatchApiResponse {
 	p := new(GetBatchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.GetBatchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1064,7 +1250,7 @@ func (p *GetBatchApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/operations/batches Get operation
+REST response for all response codes in API path /prism/v4.2/operations/batches Get operation
 */
 type ListBatchesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1123,7 +1309,26 @@ func (p *ListBatchesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListBatchesApiResponse(*known)
+	*p = *NewListBatchesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1134,7 +1339,9 @@ func (p *ListBatchesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1143,7 +1350,7 @@ func NewListBatchesApiResponse() *ListBatchesApiResponse {
 	p := new(ListBatchesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.ListBatchesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1171,7 +1378,7 @@ func (p *ListBatchesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.1/operations/$actions/batch Post operation
+REST response for all response codes in API path /prism/v4.2/operations/$actions/batch Post operation
 */
 type SubmitBatchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1230,7 +1437,26 @@ func (p *SubmitBatchApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SubmitBatchApiResponse(*known)
+	*p = *NewSubmitBatchApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1241,7 +1467,9 @@ func (p *SubmitBatchApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1250,7 +1478,7 @@ func NewSubmitBatchApiResponse() *SubmitBatchApiResponse {
 	p := new(SubmitBatchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.SubmitBatchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

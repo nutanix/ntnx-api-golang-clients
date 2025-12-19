@@ -1,7 +1,7 @@
 /*
  * Generated file models/prism/v4/protectpc/protectpc_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Prism APIs
  *
@@ -81,7 +81,23 @@ func (p *ApiError) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApiError(*known)
+	*p = *NewApiError()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ErrorMessageList != nil {
+		p.ErrorMessageList = known.ErrorMessageList
+	}
+	if known.ErrorType != nil {
+		p.ErrorType = known.ErrorType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -91,7 +107,9 @@ func (p *ApiError) UnmarshalJSON(b []byte) error {
 	delete(allFields, "errorType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -100,7 +118,7 @@ func NewApiError() *ApiError {
 	p := new(ApiError)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiError"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -166,7 +184,23 @@ func (p *ApiLink) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApiLink(*known)
+	*p = *NewApiLink()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Href != nil {
+		p.Href = known.Href
+	}
+	if known.Rel != nil {
+		p.Rel = known.Rel
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -176,7 +210,9 @@ func (p *ApiLink) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rel")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -185,7 +221,7 @@ func NewApiLink() *ApiLink {
 	p := new(ApiLink)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiLink"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -245,7 +281,20 @@ func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApiResponseMetadata(*known)
+	*p = *NewApiResponseMetadata()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -254,7 +303,9 @@ func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -263,7 +314,7 @@ func NewApiResponseMetadata() *ApiResponseMetadata {
 	p := new(ApiResponseMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiResponseMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -325,7 +376,20 @@ func (p *ApiSuccess) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApiSuccess(*known)
+	*p = *NewApiSuccess()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -334,7 +398,9 @@ func (p *ApiSuccess) UnmarshalJSON(b []byte) error {
 	delete(allFields, "message")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -343,7 +409,7 @@ func NewApiSuccess() *ApiSuccess {
 	p := new(ApiSuccess)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ApiSuccess"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -409,7 +475,23 @@ func (p *BackupTargets) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BackupTargets(*known)
+	*p = *NewBackupTargets()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterUuidList != nil {
+		p.ClusterUuidList = known.ClusterUuidList
+	}
+	if known.ObjectStoreEndpointList != nil {
+		p.ObjectStoreEndpointList = known.ObjectStoreEndpointList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -419,7 +501,9 @@ func (p *BackupTargets) UnmarshalJSON(b []byte) error {
 	delete(allFields, "objectStoreEndpointList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -428,7 +512,7 @@ func NewBackupTargets() *BackupTargets {
 	p := new(BackupTargets)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.BackupTargets"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -490,7 +574,23 @@ func (p *BackupTargetsInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BackupTargetsInfo(*known)
+	*p = *NewBackupTargetsInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ObjectStoreEndpointInfoList != nil {
+		p.ObjectStoreEndpointInfoList = known.ObjectStoreEndpointInfoList
+	}
+	if known.PeInfoList != nil {
+		p.PeInfoList = known.PeInfoList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -500,7 +600,9 @@ func (p *BackupTargetsInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "peInfoList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -509,7 +611,7 @@ func NewBackupTargetsInfo() *BackupTargetsInfo {
 	p := new(BackupTargetsInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.BackupTargetsInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -584,7 +686,29 @@ func (p *EligibleCluster) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EligibleCluster(*known)
+	*p = *NewEligibleCluster()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackedUpEntitiesCountSupported != nil {
+		p.BackedUpEntitiesCountSupported = known.BackedUpEntitiesCountSupported
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
+	if known.ClusterUuid != nil {
+		p.ClusterUuid = known.ClusterUuid
+	}
+	if known.IsHostingPe != nil {
+		p.IsHostingPe = known.IsHostingPe
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -596,7 +720,9 @@ func (p *EligibleCluster) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isHostingPe")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -605,7 +731,7 @@ func NewEligibleCluster() *EligibleCluster {
 	p := new(EligibleCluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.EligibleCluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -666,7 +792,20 @@ func (p *EligibleClusterList) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EligibleClusterList(*known)
+	*p = *NewEligibleClusterList()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EligibleClusterList != nil {
+		p.EligibleClusterList = known.EligibleClusterList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -675,7 +814,9 @@ func (p *EligibleClusterList) UnmarshalJSON(b []byte) error {
 	delete(allFields, "eligibleClusterList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -684,7 +825,7 @@ func NewEligibleClusterList() *EligibleClusterList {
 	p := new(EligibleClusterList)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.EligibleClusterList"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -754,7 +895,26 @@ func (p *FailedRecoveryPointDetails) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FailedRecoveryPointDetails(*known)
+	*p = *NewFailedRecoveryPointDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
+	if known.RecoveryPointTimestamp != nil {
+		p.RecoveryPointTimestamp = known.RecoveryPointTimestamp
+	}
+	if known.RpoSeconds != nil {
+		p.RpoSeconds = known.RpoSeconds
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -765,7 +925,9 @@ func (p *FailedRecoveryPointDetails) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rpoSeconds")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -774,7 +936,7 @@ func NewFailedRecoveryPointDetails() *FailedRecoveryPointDetails {
 	p := new(FailedRecoveryPointDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.FailedRecoveryPointDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -838,7 +1000,23 @@ func (p *FailedRecoveryPointsStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FailedRecoveryPointsStats(*known)
+	*p = *NewFailedRecoveryPointsStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.FailedRecoveryPoints != nil {
+		p.FailedRecoveryPoints = known.FailedRecoveryPoints
+	}
+	if known.TotalFailedRecoveryPoints != nil {
+		p.TotalFailedRecoveryPoints = known.TotalFailedRecoveryPoints
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -848,7 +1026,9 @@ func (p *FailedRecoveryPointsStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "totalFailedRecoveryPoints")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -857,7 +1037,7 @@ func NewFailedRecoveryPointsStats() *FailedRecoveryPointsStats {
 	p := new(FailedRecoveryPointsStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.FailedRecoveryPointsStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -933,7 +1113,32 @@ func (p *ObjectStoreEndpointInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ObjectStoreEndpointInfo(*known)
+	*p = *NewObjectStoreEndpointInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityId != nil {
+		p.EntityId = known.EntityId
+	}
+	if known.IsBackupPaused != nil {
+		p.IsBackupPaused = known.IsBackupPaused
+	}
+	if known.LastSyncTimestamp != nil {
+		p.LastSyncTimestamp = known.LastSyncTimestamp
+	}
+	if known.ObjectStoreEndpoint != nil {
+		p.ObjectStoreEndpoint = known.ObjectStoreEndpoint
+	}
+	if known.PauseBackupMessage != nil {
+		p.PauseBackupMessage = known.PauseBackupMessage
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -946,7 +1151,9 @@ func (p *ObjectStoreEndpointInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "pauseBackupMessage")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -955,7 +1162,7 @@ func NewObjectStoreEndpointInfo() *ObjectStoreEndpointInfo {
 	p := new(ObjectStoreEndpointInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ObjectStoreEndpointInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1033,7 +1240,32 @@ func (p *PEInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PEInfo(*known)
+	*p = *NewPEInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsBackupPaused != nil {
+		p.IsBackupPaused = known.IsBackupPaused
+	}
+	if known.LastSyncTimestamp != nil {
+		p.LastSyncTimestamp = known.LastSyncTimestamp
+	}
+	if known.PauseBackupMessage != nil {
+		p.PauseBackupMessage = known.PauseBackupMessage
+	}
+	if known.PeClusterId != nil {
+		p.PeClusterId = known.PeClusterId
+	}
+	if known.PeName != nil {
+		p.PeName = known.PeName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1046,7 +1278,9 @@ func (p *PEInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "peName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1055,7 +1289,7 @@ func NewPEInfo() *PEInfo {
 	p := new(PEInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PEInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1125,7 +1359,26 @@ func (p *PcEndpointCredentials) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcEndpointCredentials(*known)
+	*p = *NewPcEndpointCredentials()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AccessKey != nil {
+		p.AccessKey = known.AccessKey
+	}
+	if known.Certificate != nil {
+		p.Certificate = known.Certificate
+	}
+	if known.SecretAccessKey != nil {
+		p.SecretAccessKey = known.SecretAccessKey
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1136,7 +1389,9 @@ func (p *PcEndpointCredentials) UnmarshalJSON(b []byte) error {
 	delete(allFields, "secretAccessKey")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1145,7 +1400,7 @@ func NewPcEndpointCredentials() *PcEndpointCredentials {
 	p := new(PcEndpointCredentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcEndpointCredentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1154,9 +1409,10 @@ func NewPcEndpointCredentials() *PcEndpointCredentials {
 type PcEndpointFlavour int
 
 const (
-	PCENDPOINTFLAVOUR_KS3      PcEndpointFlavour = 0
-	PCENDPOINTFLAVOUR_KOBJECTS PcEndpointFlavour = 1
-	PCENDPOINTFLAVOUR_UNKNOWN  PcEndpointFlavour = 2
+	PCENDPOINTFLAVOUR_KS3        PcEndpointFlavour = 0
+	PCENDPOINTFLAVOUR_KOBJECTS   PcEndpointFlavour = 1
+	PCENDPOINTFLAVOUR_KGENERICS3 PcEndpointFlavour = 2
+	PCENDPOINTFLAVOUR_UNKNOWN    PcEndpointFlavour = 3
 )
 
 // Returns the name of the enum given an ordinal number
@@ -1166,6 +1422,7 @@ func (e *PcEndpointFlavour) name(index int) string {
 	names := [...]string{
 		"kS3",
 		"kOBJECTS",
+		"kGENERICS3",
 		"$UNKNOWN",
 	}
 	if index < 0 || index >= len(names) {
@@ -1180,6 +1437,7 @@ func (e PcEndpointFlavour) GetName() string {
 	names := [...]string{
 		"kS3",
 		"kOBJECTS",
+		"kGENERICS3",
 		"$UNKNOWN",
 	}
 	if index < 0 || index >= len(names) {
@@ -1193,6 +1451,7 @@ func (e *PcEndpointFlavour) index(name string) PcEndpointFlavour {
 	names := [...]string{
 		"kS3",
 		"kOBJECTS",
+		"kGENERICS3",
 		"$UNKNOWN",
 	}
 	for idx := range names {
@@ -1327,7 +1586,53 @@ func (p *PcObjectStoreEndpoint) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcObjectStoreEndpoint(*known)
+	*p = *NewPcObjectStoreEndpoint()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackupRetentionDays != nil {
+		p.BackupRetentionDays = known.BackupRetentionDays
+	}
+	if known.Bucket != nil {
+		p.Bucket = known.Bucket
+	}
+	if known.EndpointAddress != nil {
+		p.EndpointAddress = known.EndpointAddress
+	}
+	if known.EndpointCredentials != nil {
+		p.EndpointCredentials = known.EndpointCredentials
+	}
+	if known.EndpointFlavour != nil {
+		p.EndpointFlavour = known.EndpointFlavour
+	}
+	if known.HasCustomCertificate != nil {
+		p.HasCustomCertificate = known.HasCustomCertificate
+	}
+	if known.IpAddressOrDomain != nil {
+		p.IpAddressOrDomain = known.IpAddressOrDomain
+	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
+	if known.Region != nil {
+		p.Region = known.Region
+	}
+	if known.RpoSeconds != nil {
+		p.RpoSeconds = known.RpoSeconds
+	}
+	if known.SkipCertificateValidation != nil {
+		p.SkipCertificateValidation = known.SkipCertificateValidation
+	}
+	if known.SkipTLS != nil {
+		p.SkipTLS = known.SkipTLS
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1347,7 +1652,9 @@ func (p *PcObjectStoreEndpoint) UnmarshalJSON(b []byte) error {
 	delete(allFields, "skipTLS")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1356,7 +1663,7 @@ func NewPcObjectStoreEndpoint() *PcObjectStoreEndpoint {
 	p := new(PcObjectStoreEndpoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcObjectStoreEndpoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.BackupRetentionDays = new(int)
@@ -1429,7 +1736,20 @@ func (p *PcRestoreRootTask) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcRestoreRootTask(*known)
+	*p = *NewPcRestoreRootTask()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.TaskUuid != nil {
+		p.TaskUuid = known.TaskUuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1438,7 +1758,9 @@ func (p *PcRestoreRootTask) UnmarshalJSON(b []byte) error {
 	delete(allFields, "taskUuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1447,7 +1769,7 @@ func NewPcRestoreRootTask() *PcRestoreRootTask {
 	p := new(PcRestoreRootTask)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcRestoreRootTask"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1521,7 +1843,32 @@ func (p *PcvmRestoreFile) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcvmRestoreFile(*known)
+	*p = *NewPcvmRestoreFile()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EncryptionVersion != nil {
+		p.EncryptionVersion = known.EncryptionVersion
+	}
+	if known.FileContent != nil {
+		p.FileContent = known.FileContent
+	}
+	if known.FilePath != nil {
+		p.FilePath = known.FilePath
+	}
+	if known.IsEncrypted != nil {
+		p.IsEncrypted = known.IsEncrypted
+	}
+	if known.KeyId != nil {
+		p.KeyId = known.KeyId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1534,7 +1881,9 @@ func (p *PcvmRestoreFile) UnmarshalJSON(b []byte) error {
 	delete(allFields, "keyId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1543,7 +1892,7 @@ func NewPcvmRestoreFile() *PcvmRestoreFile {
 	p := new(PcvmRestoreFile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcvmRestoreFile"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1603,7 +1952,20 @@ func (p *PcvmRestoreFiles) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcvmRestoreFiles(*known)
+	*p = *NewPcvmRestoreFiles()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.FileList != nil {
+		p.FileList = known.FileList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1612,7 +1974,9 @@ func (p *PcvmRestoreFiles) UnmarshalJSON(b []byte) error {
 	delete(allFields, "fileList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1621,7 +1985,7 @@ func NewPcvmRestoreFiles() *PcvmRestoreFiles {
 	p := new(PcvmRestoreFiles)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.PcvmRestoreFiles"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1693,7 +2057,26 @@ func (p *RecoveryStatus) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RecoveryStatus(*known)
+	*p = *NewRecoveryStatus()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.OverallCompletionPercentage != nil {
+		p.OverallCompletionPercentage = known.OverallCompletionPercentage
+	}
+	if known.RecoveryState != nil {
+		p.RecoveryState = known.RecoveryState
+	}
+	if known.RecoveryStateTitle != nil {
+		p.RecoveryStateTitle = known.RecoveryStateTitle
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1704,7 +2087,9 @@ func (p *RecoveryStatus) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recoveryStateTitle")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1713,7 +2098,7 @@ func NewRecoveryStatus() *RecoveryStatus {
 	p := new(RecoveryStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.RecoveryStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1785,7 +2170,29 @@ func (p *ReplicaInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ReplicaInfo(*known)
+	*p = *NewReplicaInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackupUuid != nil {
+		p.BackupUuid = known.BackupUuid
+	}
+	if known.ObjectStoreEndpoint != nil {
+		p.ObjectStoreEndpoint = known.ObjectStoreEndpoint
+	}
+	if known.PeClusterId != nil {
+		p.PeClusterId = known.PeClusterId
+	}
+	if known.PeClusterIpList != nil {
+		p.PeClusterIpList = known.PeClusterIpList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1797,7 +2204,9 @@ func (p *ReplicaInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "peClusterIpList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1806,7 +2215,7 @@ func NewReplicaInfo() *ReplicaInfo {
 	p := new(ReplicaInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.ReplicaInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1868,7 +2277,20 @@ func (p *RpoConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RpoConfig(*known)
+	*p = *NewRpoConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.RpoSeconds != nil {
+		p.RpoSeconds = known.RpoSeconds
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1877,7 +2299,9 @@ func (p *RpoConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rpoSeconds")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1886,7 +2310,7 @@ func NewRpoConfig() *RpoConfig {
 	p := new(RpoConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.protectpc.RpoConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

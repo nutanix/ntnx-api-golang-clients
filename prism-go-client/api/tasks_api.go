@@ -39,7 +39,7 @@ func (api *TasksApi) CancelTask(taskExtId *string, args ...map[string]interface{
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/tasks/{taskExtId}/$actions/cancel"
+	uri := "/api/prism/v4.2/config/tasks/{taskExtId}/$actions/cancel"
 
 	// verify the required parameter 'taskExtId' is set
 	if nil == taskExtId {
@@ -89,7 +89,7 @@ func (api *TasksApi) GetTaskById(extId *string, select_ *string, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/tasks/{extId}"
+	uri := "/api/prism/v4.2/config/tasks/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -136,6 +136,188 @@ func (api *TasksApi) GetTaskById(extId *string, select_ *string, args ...map[str
 	return unmarshalledResp, err
 }
 
+// Fetches details of an individual job associated with a task. When a task is a batch task, it includes multiple actions, each represented as a separate job.
+func (api *TasksApi) GetTaskJobById(taskExtId *string, extId *string, select_ *string, args ...map[string]interface{}) (*import2.GetTaskJobApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/prism/v4.2/config/tasks/{taskExtId}/jobs/{extId}"
+
+	// verify the required parameter 'taskExtId' is set
+	if nil == taskExtId {
+		return nil, client.ReportError("taskExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"taskExtId"+"}", url.PathEscape(client.ParameterToString(*taskExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.GetTaskJobApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Lists entities associated with a task.
+func (api *TasksApi) ListTaskEntities(taskExtId *string, page_ *int, limit_ *int, filter_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListTaskEntitiesApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/prism/v4.2/config/tasks/{taskExtId}/affected-entities"
+
+	// verify the required parameter 'taskExtId' is set
+	if nil == taskExtId {
+		return nil, client.ReportError("taskExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"taskExtId"+"}", url.PathEscape(client.ParameterToString(*taskExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.ListTaskEntitiesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Lists jobs associated with a task. When a task is a batch task, it includes multiple actions, each represented as a separate job.
+func (api *TasksApi) ListTaskJobs(taskExtId *string, page_ *int, limit_ *int, select_ *string, args ...map[string]interface{}) (*import2.ListTaskJobsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/prism/v4.2/config/tasks/{taskExtId}/jobs"
+
+	// verify the required parameter 'taskExtId' is set
+	if nil == taskExtId {
+		return nil, client.ReportError("taskExtId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"taskExtId"+"}", url.PathEscape(client.ParameterToString(*taskExtId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.ListTaskJobsApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // List of tasks in the system. The response can be further filtered/sorted using the filter and sort options provided. By default, the response would be sorted by 'createdTime' in descending order.
 func (api *TasksApi) ListTasks(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListTasksApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -143,7 +325,7 @@ func (api *TasksApi) ListTasks(page_ *int, limit_ *int, filter_ *string, orderby
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/tasks"
+	uri := "/api/prism/v4.2/config/tasks"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

@@ -39,7 +39,7 @@ func (api *CategoriesApi) CreateCategory(body *import2.Category, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/categories"
+	uri := "/api/prism/v4.2/config/categories"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *CategoriesApi) DeleteCategoryById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/categories/{extId}"
+	uri := "/api/prism/v4.2/config/categories/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *CategoriesApi) GetCategoryById(extId *string, expand_ *string, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/categories/{extId}"
+	uri := "/api/prism/v4.2/config/categories/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -191,7 +191,7 @@ func (api *CategoriesApi) ListCategories(page_ *int, limit_ *int, filter_ *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/categories"
+	uri := "/api/prism/v4.2/config/categories"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -253,7 +253,7 @@ func (api *CategoriesApi) UpdateCategoryById(extId *string, body *import2.Catego
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/config/categories/{extId}"
+	uri := "/api/prism/v4.2/config/categories/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

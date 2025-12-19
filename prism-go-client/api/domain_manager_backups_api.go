@@ -39,7 +39,7 @@ func (api *DomainManagerBackupsApi) CreateBackupTarget(domainManagerExtId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -93,7 +93,7 @@ func (api *DomainManagerBackupsApi) CreateRestoreSource(body *import3.RestoreSou
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/restore-sources"
+	uri := "/api/prism/v4.2/management/restore-sources"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -141,7 +141,7 @@ func (api *DomainManagerBackupsApi) DeleteBackupTargetById(domainManagerExtId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -196,7 +196,7 @@ func (api *DomainManagerBackupsApi) DeleteRestoreSourceById(extId *string, args 
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/restore-sources/{extId}"
+	uri := "/api/prism/v4.2/management/restore-sources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -246,7 +246,7 @@ func (api *DomainManagerBackupsApi) GetBackupTargetById(domainManagerExtId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -301,7 +301,7 @@ func (api *DomainManagerBackupsApi) GetRestorePointById(restoreSourceExtId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}"
+	uri := "/api/prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == restoreSourceExtId {
@@ -361,7 +361,7 @@ func (api *DomainManagerBackupsApi) GetRestoreSourceById(extId *string, args ...
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/restore-sources/{extId}"
+	uri := "/api/prism/v4.2/management/restore-sources/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -411,7 +411,7 @@ func (api *DomainManagerBackupsApi) ListBackupTargets(domainManagerExtId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
@@ -461,7 +461,7 @@ func (api *DomainManagerBackupsApi) ListRestorableDomainManagers(restoreSourceEx
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers"
+	uri := "/api/prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == restoreSourceExtId {
@@ -521,7 +521,7 @@ func (api *DomainManagerBackupsApi) ListRestorePoints(restoreSourceExtId *string
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points"
+	uri := "/api/prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == restoreSourceExtId {
@@ -592,7 +592,7 @@ func (api *DomainManagerBackupsApi) Restore(restoreSourceExtId *string, restorab
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore"
+	uri := "/api/prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore"
 
 	// verify the required parameter 'restoreSourceExtId' is set
 	if nil == restoreSourceExtId {
@@ -656,7 +656,7 @@ func (api *DomainManagerBackupsApi) UpdateBackupTargetById(domainManagerExtId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.1/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
 	if nil == domainManagerExtId {
