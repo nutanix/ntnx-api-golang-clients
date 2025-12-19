@@ -39,7 +39,7 @@ func (api *StoragePoliciesApi) CreateStoragePolicy(body *import1.StoragePolicy, 
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/storage-policies"
+	uri := "/api/datapolicies/v4.2/config/storage-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *StoragePoliciesApi) DeleteStoragePolicyById(extId *string, args ...ma
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/storage-policies/{extId}"
+	uri := "/api/datapolicies/v4.2/config/storage-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *StoragePoliciesApi) GetStoragePolicyById(extId *string, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/storage-policies/{extId}"
+	uri := "/api/datapolicies/v4.2/config/storage-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *StoragePoliciesApi) ListStoragePolicies(page_ *int, limit_ *int, filt
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/storage-policies"
+	uri := "/api/datapolicies/v4.2/config/storage-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *StoragePoliciesApi) UpdateStoragePolicyById(extId *string, body *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/storage-policies/{extId}"
+	uri := "/api/datapolicies/v4.2/config/storage-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

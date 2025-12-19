@@ -39,7 +39,7 @@ func (api *EntitySyncPoliciesApi) GetEntitySyncPolicyById(extId *string, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/entity-sync-policies/{extId}"
+	uri := "/api/datapolicies/v4.2/config/entity-sync-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -89,7 +89,7 @@ func (api *EntitySyncPoliciesApi) ListEntitySyncPolicies(page_ *int, limit_ *int
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/entity-sync-policies"
+	uri := "/api/datapolicies/v4.2/config/entity-sync-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -148,7 +148,7 @@ func (api *EntitySyncPoliciesApi) SyncEntitySyncPolicyById(extId *string, args .
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/entity-sync-policies/{extId}/$actions/sync-entity"
+	uri := "/api/datapolicies/v4.2/config/entity-sync-policies/{extId}/$actions/sync-entity"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

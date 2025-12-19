@@ -1,7 +1,7 @@
 /*
  * Generated file models/dataprotection/v4/common/common_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Data Policies APIs
  *

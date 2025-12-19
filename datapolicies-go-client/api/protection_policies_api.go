@@ -39,7 +39,7 @@ func (api *ProtectionPoliciesApi) CreateConsistencyRule(protectionPolicyExtId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies/{protectionPolicyExtId}/consistency-rules"
+	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == protectionPolicyExtId {
@@ -93,7 +93,7 @@ func (api *ProtectionPoliciesApi) CreateProtectionPolicy(body *import1.Protectio
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies"
+	uri := "/api/datapolicies/v4.2/config/protection-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -141,7 +141,7 @@ func (api *ProtectionPoliciesApi) DeleteConsistencyRuleById(protectionPolicyExtI
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
+	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == protectionPolicyExtId {
@@ -196,7 +196,7 @@ func (api *ProtectionPoliciesApi) DeleteProtectionPolicyById(extId *string, args
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies/{extId}"
+	uri := "/api/datapolicies/v4.2/config/protection-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -246,7 +246,7 @@ func (api *ProtectionPoliciesApi) GetConsistencyRuleById(protectionPolicyExtId *
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
+	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == protectionPolicyExtId {
@@ -301,7 +301,7 @@ func (api *ProtectionPoliciesApi) GetProtectionPolicyById(extId *string, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies/{extId}"
+	uri := "/api/datapolicies/v4.2/config/protection-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -351,7 +351,7 @@ func (api *ProtectionPoliciesApi) ListConsistencyRulesByProtectionPolicyId(prote
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies/{protectionPolicyExtId}/consistency-rules"
+	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == protectionPolicyExtId {
@@ -417,7 +417,7 @@ func (api *ProtectionPoliciesApi) ListProtectionPolicies(page_ *int, limit_ *int
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies"
+	uri := "/api/datapolicies/v4.2/config/protection-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -476,7 +476,7 @@ func (api *ProtectionPoliciesApi) UpdateConsistencyRuleById(protectionPolicyExtI
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
+	uri := "/api/datapolicies/v4.2/config/protection-policies/{protectionPolicyExtId}/consistency-rules/{extId}"
 
 	// verify the required parameter 'protectionPolicyExtId' is set
 	if nil == protectionPolicyExtId {
@@ -535,7 +535,7 @@ func (api *ProtectionPoliciesApi) UpdateProtectionPolicyById(extId *string, body
 		argMap = args[0]
 	}
 
-	uri := "/api/datapolicies/v4.1/config/protection-policies/{extId}"
+	uri := "/api/datapolicies/v4.2/config/protection-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

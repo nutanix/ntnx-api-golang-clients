@@ -1,5 +1,5 @@
 /*
- * Generated file models/prism/v4/config/config_model.go.
+ * Generated file models/networking/v4/config/config_model.go.
  *
  * Product version: 4.2.1
  *
@@ -10,35 +10,45 @@
  */
 
 /*
-  Module prism.v4.config of Nutanix Data Policies APIs
+  Module networking.v4.config of Nutanix Data Policies APIs
 */
 package config
 
 import (
 	"encoding/json"
+	import1 "github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/models/common/v1/config"
 )
 
 /*
-A reference to a task tracking an asynchronous operation. The status of the task can be queried by making a GET request to the task URI provided in the metadata section of the API response.
+Start/end IP address range.
 */
-type TaskReference struct {
+type IPv4Pool struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  A globally unique identifier for a task.
-	*/
-	ExtId *string `json:"extId,omitempty"`
+
+	EndIp *import1.IPv4Address `json:"endIp"`
+
+	StartIp *import1.IPv4Address `json:"startIp"`
 }
 
-func (p *TaskReference) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias TaskReference
+func (p *IPv4Pool) MarshalJSON() ([]byte, error) {
+	type IPv4PoolProxy IPv4Pool
 
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*IPv4PoolProxy
+		EndIp   *import1.IPv4Address `json:"endIp,omitempty"`
+		StartIp *import1.IPv4Address `json:"startIp,omitempty"`
+	}{
+		IPv4PoolProxy: (*IPv4PoolProxy)(p),
+		EndIp:         p.EndIp,
+		StartIp:       p.StartIp,
+	}
+
+	known, err := json.Marshal(baseStruct)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +69,7 @@ func (p *TaskReference) MarshalJSON() ([]byte, error) {
 	return json.Marshal(knownMap)
 }
 
-func (p *TaskReference) UnmarshalJSON(b []byte) error {
+func (p *IPv4Pool) UnmarshalJSON(b []byte) error {
 	// Step 1: Unmarshal into a generic map to capture all fields
 	var allFields map[string]interface{}
 	if err := json.Unmarshal(b, &allFields); err != nil {
@@ -67,14 +77,14 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias TaskReference
+	type Alias IPv4Pool
 	known := &Alias{}
 	if err := json.Unmarshal(b, known); err != nil {
 		return err
 	}
 
 	// Step 3: Assign known fields
-	*p = *NewTaskReference()
+	*p = *NewIPv4Pool()
 
 	if known.ObjectType_ != nil {
 		p.ObjectType_ = known.ObjectType_
@@ -85,15 +95,19 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
-	if known.ExtId != nil {
-		p.ExtId = known.ExtId
+	if known.EndIp != nil {
+		p.EndIp = known.EndIp
+	}
+	if known.StartIp != nil {
+		p.StartIp = known.StartIp
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "extId")
+	delete(allFields, "endIp")
+	delete(allFields, "startIp")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -103,10 +117,10 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func NewTaskReference() *TaskReference {
-	p := new(TaskReference)
+func NewIPv4Pool() *IPv4Pool {
+	p := new(IPv4Pool)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.config.TaskReference"
+	*p.ObjectType_ = "networking.v4.config.IPv4Pool"
 	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 

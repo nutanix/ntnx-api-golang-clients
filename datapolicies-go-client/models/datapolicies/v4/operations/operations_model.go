@@ -1,5 +1,5 @@
 /*
- * Generated file models/prism/v4/config/config_model.go.
+ * Generated file models/datapolicies/v4/operations/operations_model.go.
  *
  * Product version: 4.2.1
  *
@@ -10,35 +10,39 @@
  */
 
 /*
-  Module prism.v4.config of Nutanix Data Policies APIs
+  Disaster recovery and storage policies like overriding protection domain.
 */
-package config
+package operations
 
 import (
 	"encoding/json"
 )
 
-/*
-A reference to a task tracking an asynchronous operation. The status of the task can be queried by making a GET request to the task URI provided in the metadata section of the API response.
-*/
-type TaskReference struct {
+type MigrateProtectionDomainSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  A globally unique identifier for a task.
+	  Name of the protection domain
 	*/
-	ExtId *string `json:"extId,omitempty"`
+	Name *string `json:"name"`
 }
 
-func (p *TaskReference) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias TaskReference
+func (p *MigrateProtectionDomainSpec) MarshalJSON() ([]byte, error) {
+	type MigrateProtectionDomainSpecProxy MigrateProtectionDomainSpec
 
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*MigrateProtectionDomainSpecProxy
+		Name *string `json:"name,omitempty"`
+	}{
+		MigrateProtectionDomainSpecProxy: (*MigrateProtectionDomainSpecProxy)(p),
+		Name:                             p.Name,
+	}
+
+	known, err := json.Marshal(baseStruct)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +63,7 @@ func (p *TaskReference) MarshalJSON() ([]byte, error) {
 	return json.Marshal(knownMap)
 }
 
-func (p *TaskReference) UnmarshalJSON(b []byte) error {
+func (p *MigrateProtectionDomainSpec) UnmarshalJSON(b []byte) error {
 	// Step 1: Unmarshal into a generic map to capture all fields
 	var allFields map[string]interface{}
 	if err := json.Unmarshal(b, &allFields); err != nil {
@@ -67,14 +71,14 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias TaskReference
+	type Alias MigrateProtectionDomainSpec
 	known := &Alias{}
 	if err := json.Unmarshal(b, known); err != nil {
 		return err
 	}
 
 	// Step 3: Assign known fields
-	*p = *NewTaskReference()
+	*p = *NewMigrateProtectionDomainSpec()
 
 	if known.ObjectType_ != nil {
 		p.ObjectType_ = known.ObjectType_
@@ -85,15 +89,15 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
-	if known.ExtId != nil {
-		p.ExtId = known.ExtId
+	if known.Name != nil {
+		p.Name = known.Name
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "extId")
+	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -103,10 +107,10 @@ func (p *TaskReference) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func NewTaskReference() *TaskReference {
-	p := new(TaskReference)
+func NewMigrateProtectionDomainSpec() *MigrateProtectionDomainSpec {
+	p := new(MigrateProtectionDomainSpec)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "prism.v4.config.TaskReference"
+	*p.ObjectType_ = "datapolicies.v4.operations.MigrateProtectionDomainSpec"
 	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 

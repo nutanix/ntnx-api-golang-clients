@@ -9,8 +9,29 @@ The Go client for Nutanix Data Policies APIs is designed for Go client applicati
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.1
-- Package version: v4.1.1
+- API version: v4.2
+- Package version: v4.2.1
+## Version Negotiation
+
+By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/client"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+ApiClientInstance.Host = "10.19.50.27"
+ApiClientInstance.Username = "admin"
+ApiClientInstance.Password = "password"
+ApiClientInstance.AllowVersionNegotiation = false // Disables automatic version negotiation
+```
+
+When version negotiation is disabled, the client will use the SDK's default API version.
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/..
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/...@v4.1.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4/...@v4.2.1
 ```
 
 #### Using go modules
@@ -60,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4 v4.1.1
+	github.com/nutanix/ntnx-api-golang-clients/datapolicies-go-client/v4 v4.2.1
 )
 ```
 
@@ -195,7 +216,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	ProtectionPoliciesApiInstance *api.ProtectionPoliciesApi
+	RecoveryPlansApiInstance *api.RecoveryPlansApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -203,11 +224,12 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ProtectionPoliciesApiInstance = api.NewProtectionPoliciesApi(ApiClientInstance)
-extId := "eFf57687-eDfD-dA10-aCD0-b726BbC5Abfb"
+RecoveryPlansApiInstance = api.NewRecoveryPlansApi(ApiClientInstance)
+recoveryPlanExtId := "c6dc6dCb-dDe7-84Ff-B19E-aeDc1DCF57Cd"
+extId := "4747f0ad-Da41-e5B5-Efe3-56faD42CbFCa"
 
 // 
-getResponse, err := ProtectionPoliciesApiInstance.GetProtectionPolicyById(&extId)
+getResponse, err := RecoveryPlansApiInstance.GetDataServicesIpMappingById(&recoveryPlanExtId, &extId)
 if err != nil {
 ....
 }
@@ -243,7 +265,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	ProtectionPoliciesApiInstance *api.ProtectionPoliciesApi
+	RecoveryPlansApiInstance *api.RecoveryPlansApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -251,11 +273,12 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ProtectionPoliciesApiInstance = api.NewProtectionPoliciesApi(ApiClientInstance)
-extId := "eFf57687-eDfD-dA10-aCD0-b726BbC5Abfb"
+RecoveryPlansApiInstance = api.NewRecoveryPlansApi(ApiClientInstance)
+recoveryPlanExtId := "c6dc6dCb-dDe7-84Ff-B19E-aeDc1DCF57Cd"
+extId := "4747f0ad-Da41-e5B5-Efe3-56faD42CbFCa"
 
 // 
-getResponse, err := ProtectionPoliciesApiInstance.GetProtectionPolicyById(&extId)
+getResponse, err := RecoveryPlansApiInstance.GetDataServicesIpMappingById(&recoveryPlanExtId, &extId)
 if err != nil {
     ....
 }
@@ -269,10 +292,10 @@ args["If-Match"] = etagValue
 // Perform update call with received E-Tag reference
 // initialize/change parameters for update
 // ...
-protectionPolicy := getResponse.GetData().(import1.ProtectionPolicy)
+dataServicesIpMapping := getResponse.GetData().(import1.DataServicesIpMapping)
 
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := ProtectionPoliciesApiInstance.UpdateProtectionPolicyById(&protectionPolicy&extId, , args)
+response, err := RecoveryPlansApiInstance.UpdateDataServicesIpMappingById(&dataServicesIpMapping&recoveryPlanExtId, &extId, , args)
 if err != nil {
 ....
 }
@@ -297,7 +320,7 @@ import (
 )
 var (
 	ApiClientInstance *client.ApiClient
-	EntitySyncPoliciesApiInstance *api.EntitySyncPoliciesApi
+	RecoveryPlansApiInstance *api.RecoveryPlansApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -305,7 +328,8 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-EntitySyncPoliciesApiInstance = api.NewEntitySyncPoliciesApi(ApiClientInstance)
+RecoveryPlansApiInstance = api.NewRecoveryPlansApi(ApiClientInstance)
+recoveryPlanExtId := "abCa551f-5AfA-7A6E-BE0e-548EbaFACFe6"
 page_ := 0
 limit_ := 50
 filter_ := "string_sample_data"
@@ -313,7 +337,7 @@ orderby_ := "string_sample_data"
 select_ := "string_sample_data"
 
 // 
-response, err := EntitySyncPoliciesApiInstance.ListEntitySyncPolicies(&page_, &limit_, &filter_, &orderby_, &select_)
+response, err := RecoveryPlansApiInstance.ListDataServicesIpMappings(&recoveryPlanExtId, &page_, &limit_, &filter_, &orderby_, &select_)
 if err != nil {
     ....
 }
@@ -324,7 +348,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=datapolicies&version=v4.1&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=datapolicies&version=v4.2&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).
