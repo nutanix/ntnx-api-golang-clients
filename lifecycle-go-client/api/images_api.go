@@ -39,7 +39,7 @@ func (api *ImagesApi) ListImages(page_ *int, limit_ *int, filter_ *string, order
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/resources/images"
+	uri := "/api/lifecycle/v4.2/resources/images"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

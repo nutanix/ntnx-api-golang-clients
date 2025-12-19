@@ -40,7 +40,7 @@ func (api *UpgradesApi) PerformUpgrade(body *import2.UpgradeSpec, xClusterId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/operations/$actions/upgrade"
+	uri := "/api/lifecycle/v4.2/operations/$actions/upgrade"
 
 	// verify the required parameter 'body' is set
 	if nil == body {

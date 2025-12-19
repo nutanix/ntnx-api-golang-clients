@@ -33,13 +33,13 @@ func NewInventoryApi(apiClient *client.ApiClient) *InventoryApi {
 }
 
 // Perform an LCM inventory operation.
-func (api *InventoryApi) PerformInventory(body *import3.InventorySpec, xClusterId *string, dryrun_ *bool, args ...map[string]interface{}) (*import3.InventoryApiResponse, error) {
+func (api *InventoryApi) PerformInventory(xClusterId *string, body *import3.InventorySpec, dryrun_ *bool, args ...map[string]interface{}) (*import3.InventoryApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/operations/$actions/inventory"
+	uri := "/api/lifecycle/v4.2/operations/$actions/inventory"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

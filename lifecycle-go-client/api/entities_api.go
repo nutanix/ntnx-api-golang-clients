@@ -34,6 +34,54 @@ func NewEntitiesApi(apiClient *client.ApiClient) *EntitiesApi {
 	return a
 }
 
+// Download the history and inventory information of connected clusters as a file. This API will return a task, which on completion will provide a URL in the completion_details field to download the file containing the inventory information.
+func (api *EntitiesApi) ExportInventory(body *import1.ExportInventorySpec, args ...map[string]interface{}) (*import1.ExportInventoryApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/lifecycle/v4.2/resources/entities/$actions/export"
+
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import1.ExportInventoryApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Get details about an LCM entity.
 func (api *EntitiesApi) GetEntityById(extId *string, args ...map[string]interface{}) (*import1.GetEntityByIdApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -41,7 +89,7 @@ func (api *EntitiesApi) GetEntityById(extId *string, args ...map[string]interfac
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/resources/entities/{extId}"
+	uri := "/api/lifecycle/v4.2/resources/entities/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -91,7 +139,7 @@ func (api *EntitiesApi) ListEntities(page_ *int, limit_ *int, filter_ *string, o
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/resources/entities"
+	uri := "/api/lifecycle/v4.2/resources/entities"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -150,7 +198,7 @@ func (api *EntitiesApi) PreloadArtifacts(body *import2.PreloadSpec, xClusterId *
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/operations/$actions/preload-artifacts"
+	uri := "/api/lifecycle/v4.2/operations/$actions/preload-artifacts"
 
 	// verify the required parameter 'body' is set
 	if nil == body {

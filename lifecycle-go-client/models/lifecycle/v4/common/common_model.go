@@ -1,7 +1,7 @@
 /*
  * Generated file models/lifecycle/v4/common/common_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Lifecycle Management APIs
  *
@@ -210,6 +210,85 @@ func (e CheckSumType) Ref() *CheckSumType {
 }
 
 /*
+This field indicates LCM is running on a Prism Element or Prism Central cluster.
+*/
+type ClusterType int
+
+const (
+	CLUSTERTYPE_UNKNOWN       ClusterType = 0
+	CLUSTERTYPE_REDACTED      ClusterType = 1
+	CLUSTERTYPE_PRISM_CENTRAL ClusterType = 2
+	CLUSTERTYPE_AOS           ClusterType = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ClusterType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRISM_CENTRAL",
+		"AOS",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ClusterType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRISM_CENTRAL",
+		"AOS",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ClusterType) index(name string) ClusterType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PRISM_CENTRAL",
+		"AOS",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ClusterType(idx)
+		}
+	}
+	return CLUSTERTYPE_UNKNOWN
+}
+
+func (e *ClusterType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ClusterType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ClusterType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ClusterType) Ref() *ClusterType {
+	return &e
+}
+
+/*
 Details of credential used for performing an LCM operations.
 */
 type Credential struct {
@@ -276,7 +355,23 @@ func (p *Credential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Credential(*known)
+	*p = *NewCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CredentialDetailItemDiscriminator_ != nil {
+		p.CredentialDetailItemDiscriminator_ = known.CredentialDetailItemDiscriminator_
+	}
+	if known.CredentialDetail != nil {
+		p.CredentialDetail = known.CredentialDetail
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -286,7 +381,9 @@ func (p *Credential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "credentialDetail")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -295,7 +392,7 @@ func NewCredential() *Credential {
 	p := new(Credential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.Credential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -385,7 +482,20 @@ func (p *CredentialReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CredentialReference(*known)
+	*p = *NewCredentialReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CredentialExtId != nil {
+		p.CredentialExtId = known.CredentialExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -394,7 +504,9 @@ func (p *CredentialReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "credentialExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -403,7 +515,7 @@ func NewCredentialReference() *CredentialReference {
 	p := new(CredentialReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.CredentialReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -472,7 +584,20 @@ func (p *DeploySpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeploySpec(*known)
+	*p = *NewDeploySpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityDeploySpecs != nil {
+		p.EntityDeploySpecs = known.EntityDeploySpecs
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -481,7 +606,9 @@ func (p *DeploySpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "entityDeploySpecs")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -490,7 +617,7 @@ func NewDeploySpec() *DeploySpec {
 	p := new(DeploySpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.DeploySpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -578,7 +705,41 @@ func (p *EntityBaseModel) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityBaseModel(*known)
+	*p = *NewEntityBaseModel()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityClass != nil {
+		p.EntityClass = known.EntityClass
+	}
+	if known.EntityModel != nil {
+		p.EntityModel = known.EntityModel
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.EntityVersion != nil {
+		p.EntityVersion = known.EntityVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HardwareFamily != nil {
+		p.HardwareFamily = known.HardwareFamily
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -594,7 +755,9 @@ func (p *EntityBaseModel) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -603,7 +766,7 @@ func NewEntityBaseModel() *EntityBaseModel {
 	p := new(EntityBaseModel)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.EntityBaseModel"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -670,7 +833,20 @@ func (p *EntityDeploySpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityDeploySpec(*known)
+	*p = *NewEntityDeploySpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityIdentifier != nil {
+		p.EntityIdentifier = known.EntityIdentifier
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -679,7 +855,9 @@ func (p *EntityDeploySpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "entityIdentifier")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -688,7 +866,7 @@ func NewEntityDeploySpec() *EntityDeploySpec {
 	p := new(EntityDeploySpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.EntityDeploySpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -842,7 +1020,23 @@ func (p *EntityUpdateSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityUpdateSpec(*known)
+	*p = *NewEntityUpdateSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityUuid != nil {
+		p.EntityUuid = known.EntityUuid
+	}
+	if known.ToVersion != nil {
+		p.ToVersion = known.ToVersion
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -852,7 +1046,9 @@ func (p *EntityUpdateSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "toVersion")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -861,10 +1057,85 @@ func NewEntityUpdateSpec() *EntityUpdateSpec {
 	p := new(EntityUpdateSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.EntityUpdateSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+File format of the exported data.
+*/
+type FileFormat int
+
+const (
+	FILEFORMAT_UNKNOWN  FileFormat = 0
+	FILEFORMAT_REDACTED FileFormat = 1
+	FILEFORMAT_CSV      FileFormat = 2
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *FileFormat) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CSV",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e FileFormat) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CSV",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *FileFormat) index(name string) FileFormat {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"CSV",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return FileFormat(idx)
+		}
+	}
+	return FILEFORMAT_UNKNOWN
+}
+
+func (e *FileFormat) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for FileFormat:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *FileFormat) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e FileFormat) Ref() *FileFormat {
+	return &e
 }
 
 /*
@@ -1008,7 +1279,23 @@ func (p *InProgressOpDetails) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = InProgressOpDetails(*known)
+	*p = *NewInProgressOpDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.OperationType != nil {
+		p.OperationType = known.OperationType
+	}
+	if known.TaskExtId != nil {
+		p.TaskExtId = known.TaskExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1018,7 +1305,9 @@ func (p *InProgressOpDetails) UnmarshalJSON(b []byte) error {
 	delete(allFields, "taskExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1027,7 +1316,7 @@ func NewInProgressOpDetails() *InProgressOpDetails {
 	p := new(InProgressOpDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.InProgressOpDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1096,7 +1385,20 @@ func (p *LcmMd5Sum) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LcmMd5Sum(*known)
+	*p = *NewLcmMd5Sum()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HexDigest != nil {
+		p.HexDigest = known.HexDigest
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1105,7 +1407,9 @@ func (p *LcmMd5Sum) UnmarshalJSON(b []byte) error {
 	delete(allFields, "hexDigest")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1114,7 +1418,7 @@ func NewLcmMd5Sum() *LcmMd5Sum {
 	p := new(LcmMd5Sum)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.LcmMd5Sum"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1183,7 +1487,20 @@ func (p *LcmSha256Sum) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LcmSha256Sum(*known)
+	*p = *NewLcmSha256Sum()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HexDigest != nil {
+		p.HexDigest = known.HexDigest
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1192,7 +1509,9 @@ func (p *LcmSha256Sum) UnmarshalJSON(b []byte) error {
 	delete(allFields, "hexDigest")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1201,7 +1520,7 @@ func NewLcmSha256Sum() *LcmSha256Sum {
 	p := new(LcmSha256Sum)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.LcmSha256Sum"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1216,6 +1535,10 @@ type LocationInfo struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of the location.
+	*/
+	LocationName *string `json:"locationName,omitempty"`
 
 	LocationType *LocationType `json:"locationType,omitempty"`
 	/*
@@ -1265,17 +1588,39 @@ func (p *LocationInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LocationInfo(*known)
+	*p = *NewLocationInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.LocationName != nil {
+		p.LocationName = known.LocationName
+	}
+	if known.LocationType != nil {
+		p.LocationType = known.LocationType
+	}
+	if known.Uuid != nil {
+		p.Uuid = known.Uuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "locationName")
 	delete(allFields, "locationType")
 	delete(allFields, "uuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1284,7 +1629,7 @@ func NewLocationInfo() *LocationInfo {
 	p := new(LocationInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.LocationInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1452,7 +1797,29 @@ func (p *ManagementServer) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ManagementServer(*known)
+	*p = *NewManagementServer()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.Ip != nil {
+		p.Ip = known.Ip
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1464,7 +1831,9 @@ func (p *ManagementServer) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1473,7 +1842,7 @@ func NewManagementServer() *ManagementServer {
 	p := new(ManagementServer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.ManagementServer"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1616,7 +1985,23 @@ func (p *OperationCredential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = OperationCredential(*known)
+	*p = *NewOperationCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CredentialExtId != nil {
+		p.CredentialExtId = known.CredentialExtId
+	}
+	if known.VendorManagementName != nil {
+		p.VendorManagementName = known.VendorManagementName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1626,7 +2011,9 @@ func (p *OperationCredential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendorManagementName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1635,10 +2022,109 @@ func NewOperationCredential() *OperationCredential {
 	p := new(OperationCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.OperationCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Current status of the operation.
+*/
+type OperationStatus int
+
+const (
+	OPERATIONSTATUS_UNKNOWN   OperationStatus = 0
+	OPERATIONSTATUS_REDACTED  OperationStatus = 1
+	OPERATIONSTATUS_SUCCEEDED OperationStatus = 2
+	OPERATIONSTATUS_FAILED    OperationStatus = 3
+	OPERATIONSTATUS_RUNNING   OperationStatus = 4
+	OPERATIONSTATUS_SUSPENDED OperationStatus = 5
+	OPERATIONSTATUS_CANCELED  OperationStatus = 6
+	OPERATIONSTATUS_CANCELING OperationStatus = 7
+	OPERATIONSTATUS_QUEUED    OperationStatus = 8
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *OperationStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SUCCEEDED",
+		"FAILED",
+		"RUNNING",
+		"SUSPENDED",
+		"CANCELED",
+		"CANCELING",
+		"QUEUED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e OperationStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SUCCEEDED",
+		"FAILED",
+		"RUNNING",
+		"SUSPENDED",
+		"CANCELED",
+		"CANCELING",
+		"QUEUED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *OperationStatus) index(name string) OperationStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"SUCCEEDED",
+		"FAILED",
+		"RUNNING",
+		"SUSPENDED",
+		"CANCELED",
+		"CANCELING",
+		"QUEUED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return OperationStatus(idx)
+		}
+	}
+	return OPERATIONSTATUS_UNKNOWN
+}
+
+func (e *OperationStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for OperationStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *OperationStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e OperationStatus) Ref() *OperationStatus {
+	return &e
 }
 
 /*
@@ -1653,6 +2139,7 @@ const (
 	OPERATIONTYPE_PRECHECKS OperationType = 3
 	OPERATIONTYPE_UPGRADE   OperationType = 4
 	OPERATIONTYPE_NONE      OperationType = 5
+	OPERATIONTYPE_UPLOAD    OperationType = 6
 )
 
 // Returns the name of the enum given an ordinal number
@@ -1666,6 +2153,7 @@ func (e *OperationType) name(index int) string {
 		"PRECHECKS",
 		"UPGRADE",
 		"NONE",
+		"UPLOAD",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1683,6 +2171,7 @@ func (e OperationType) GetName() string {
 		"PRECHECKS",
 		"UPGRADE",
 		"NONE",
+		"UPLOAD",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1699,6 +2188,7 @@ func (e *OperationType) index(name string) OperationType {
 		"PRECHECKS",
 		"UPGRADE",
 		"NONE",
+		"UPLOAD",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -1799,7 +2289,29 @@ func (p *PrechecksSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PrechecksSpec(*known)
+	*p = *NewPrechecksSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credentials != nil {
+		p.Credentials = known.Credentials
+	}
+	if known.EntityUpdateSpecs != nil {
+		p.EntityUpdateSpecs = known.EntityUpdateSpecs
+	}
+	if known.ManagementServer != nil {
+		p.ManagementServer = known.ManagementServer
+	}
+	if known.SkippedPrecheckFlags != nil {
+		p.SkippedPrecheckFlags = known.SkippedPrecheckFlags
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1811,7 +2323,9 @@ func (p *PrechecksSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "skippedPrecheckFlags")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1820,7 +2334,7 @@ func NewPrechecksSpec() *PrechecksSpec {
 	p := new(PrechecksSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.PrechecksSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1889,7 +2403,20 @@ func (p *PreloadSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PreloadSpec(*known)
+	*p = *NewPreloadSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityUpdateSpecs != nil {
+		p.EntityUpdateSpecs = known.EntityUpdateSpecs
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1898,7 +2425,9 @@ func (p *PreloadSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "entityUpdateSpecs")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1907,7 +2436,7 @@ func NewPreloadSpec() *PreloadSpec {
 	p := new(PreloadSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.PreloadSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2071,7 +2600,35 @@ func (p *UpgradeSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpgradeSpec(*known)
+	*p = *NewUpgradeSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AutoHandleFlags != nil {
+		p.AutoHandleFlags = known.AutoHandleFlags
+	}
+	if known.Credentials != nil {
+		p.Credentials = known.Credentials
+	}
+	if known.EntityUpdateSpecs != nil {
+		p.EntityUpdateSpecs = known.EntityUpdateSpecs
+	}
+	if known.ManagementServer != nil {
+		p.ManagementServer = known.ManagementServer
+	}
+	if known.MaxWaitTimeInSecs != nil {
+		p.MaxWaitTimeInSecs = known.MaxWaitTimeInSecs
+	}
+	if known.SkippedPrecheckFlags != nil {
+		p.SkippedPrecheckFlags = known.SkippedPrecheckFlags
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2085,7 +2642,9 @@ func (p *UpgradeSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "skippedPrecheckFlags")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2094,7 +2653,7 @@ func NewUpgradeSpec() *UpgradeSpec {
 	p := new(UpgradeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.UpgradeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2167,7 +2726,23 @@ func (p *VendorManagementCredential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VendorManagementCredential(*known)
+	*p = *NewVendorManagementCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CredentialSpecItemDiscriminator_ != nil {
+		p.CredentialSpecItemDiscriminator_ = known.CredentialSpecItemDiscriminator_
+	}
+	if known.CredentialSpec != nil {
+		p.CredentialSpec = known.CredentialSpec
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2177,7 +2752,9 @@ func (p *VendorManagementCredential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "credentialSpec")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2186,7 +2763,7 @@ func NewVendorManagementCredential() *VendorManagementCredential {
 	p := new(VendorManagementCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.common.VendorManagementCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

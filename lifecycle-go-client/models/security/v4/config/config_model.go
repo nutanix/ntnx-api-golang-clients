@@ -1,7 +1,7 @@
 /*
  * Generated file models/security/v4/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Lifecycle Management APIs
  *
@@ -80,7 +80,20 @@ func (p *BasicAuthCredential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BasicAuthCredential(*known)
+	*p = *NewBasicAuthCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credential != nil {
+		p.Credential = known.Credential
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -89,7 +102,9 @@ func (p *BasicAuthCredential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "credential")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -98,7 +113,7 @@ func NewBasicAuthCredential() *BasicAuthCredential {
 	p := new(BasicAuthCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.BasicAuthCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -255,7 +270,29 @@ func (p *IntersightCredential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IntersightCredential(*known)
+	*p = *NewIntersightCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credential != nil {
+		p.Credential = known.Credential
+	}
+	if known.DeploymentType != nil {
+		p.DeploymentType = known.DeploymentType
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.Url != nil {
+		p.Url = known.Url
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -267,7 +304,9 @@ func (p *IntersightCredential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "url")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -276,7 +315,7 @@ func NewIntersightCredential() *IntersightCredential {
 	p := new(IntersightCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.IntersightCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -351,7 +390,23 @@ func (p *KeyBasedAuth) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = KeyBasedAuth(*known)
+	*p = *NewKeyBasedAuth()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ApiKey != nil {
+		p.ApiKey = known.ApiKey
+	}
+	if known.SecretKey != nil {
+		p.SecretKey = known.SecretKey
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -361,7 +416,9 @@ func (p *KeyBasedAuth) UnmarshalJSON(b []byte) error {
 	delete(allFields, "secretKey")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -370,7 +427,7 @@ func NewKeyBasedAuth() *KeyBasedAuth {
 	p := new(KeyBasedAuth)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.KeyBasedAuth"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -434,7 +491,20 @@ func (p *KeyBasedAuthCredential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = KeyBasedAuthCredential(*known)
+	*p = *NewKeyBasedAuthCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credential != nil {
+		p.Credential = known.Credential
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -443,7 +513,9 @@ func (p *KeyBasedAuthCredential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "credential")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -452,7 +524,7 @@ func NewKeyBasedAuthCredential() *KeyBasedAuthCredential {
 	p := new(KeyBasedAuthCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.KeyBasedAuthCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -524,7 +596,26 @@ func (p *VcenterCredential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VcenterCredential(*known)
+	*p = *NewVcenterCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Address != nil {
+		p.Address = known.Address
+	}
+	if known.Credential != nil {
+		p.Credential = known.Credential
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -535,7 +626,9 @@ func (p *VcenterCredential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -544,7 +637,7 @@ func NewVcenterCredential() *VcenterCredential {
 	p := new(VcenterCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "security.v4.config.VcenterCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

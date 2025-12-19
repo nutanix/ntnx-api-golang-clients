@@ -1,7 +1,7 @@
 /*
  * Generated file models/lifecycle/v4/resources/resources_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Lifecycle Management APIs
  *
@@ -10,7 +10,7 @@
  */
 
 /*
-  Lifecycle resources such as reccomendations and notifications.
+  Lifecycle resources such as recommendations and notifications.
 */
 package resources
 
@@ -64,6 +64,10 @@ type AvailableVersion struct {
 	  Indicates if the available update is enabled.
 	*/
 	IsEnabled *bool `json:"isEnabled,omitempty"`
+	/*
+	  Indicates if the image is already present in the cluster to perform upgrade
+	*/
+	IsImagePresent *bool `json:"isImagePresent,omitempty"`
 	/*
 	  Order of this available version (1 being the lowest and 6 being the highest) when multiple versions are present with different status.
 	*/
@@ -143,6 +147,7 @@ func (p *AvailableVersion) UnmarshalJSON(b []byte) error {
 		DisablementReason    *string                         `json:"disablementReason,omitempty"`
 		GroupUuid            *string                         `json:"groupUuid,omitempty"`
 		IsEnabled            *bool                           `json:"isEnabled,omitempty"`
+		IsImagePresent       *bool                           `json:"isImagePresent,omitempty"`
 		Order                *int64                          `json:"order,omitempty"`
 		ReleaseDate          string                          `json:"releaseDate,omitempty"`
 		ReleaseNotes         *string                         `json:"releaseNotes,omitempty"`
@@ -156,29 +161,70 @@ func (p *AvailableVersion) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
+	*p = *NewAvailableVersion()
+
 	// Handle custom date parsing
-	p.ObjectType_ = knownFields.ObjectType_
+
+	if knownFields.ObjectType_ != nil {
+		p.ObjectType_ = knownFields.ObjectType_
+	}
 	// Handle custom date parsing
-	p.Reserved_ = knownFields.Reserved_
+
+	if knownFields.Reserved_ != nil {
+		p.Reserved_ = knownFields.Reserved_
+	}
 	// Handle custom date parsing
-	p.UnknownFields_ = knownFields.UnknownFields_
+
+	if knownFields.UnknownFields_ != nil {
+		p.UnknownFields_ = knownFields.UnknownFields_
+	}
 	// Handle custom date parsing
-	p.AvailableVersionUuid = knownFields.AvailableVersionUuid
+
+	if knownFields.AvailableVersionUuid != nil {
+		p.AvailableVersionUuid = knownFields.AvailableVersionUuid
+	}
 	// Handle custom date parsing
-	p.ChildEntities = knownFields.ChildEntities
+
+	if knownFields.ChildEntities != nil {
+		p.ChildEntities = knownFields.ChildEntities
+	}
 	// Handle custom date parsing
-	p.CustomMessage = knownFields.CustomMessage
+
+	if knownFields.CustomMessage != nil {
+		p.CustomMessage = knownFields.CustomMessage
+	}
 	// Handle custom date parsing
-	p.Dependencies = knownFields.Dependencies
+
+	if knownFields.Dependencies != nil {
+		p.Dependencies = knownFields.Dependencies
+	}
 	// Handle custom date parsing
-	p.DisablementReason = knownFields.DisablementReason
+
+	if knownFields.DisablementReason != nil {
+		p.DisablementReason = knownFields.DisablementReason
+	}
 	// Handle custom date parsing
-	p.GroupUuid = knownFields.GroupUuid
+
+	if knownFields.GroupUuid != nil {
+		p.GroupUuid = knownFields.GroupUuid
+	}
 	// Handle custom date parsing
-	p.IsEnabled = knownFields.IsEnabled
+
+	if knownFields.IsEnabled != nil {
+		p.IsEnabled = knownFields.IsEnabled
+	}
 	// Handle custom date parsing
-	p.Order = knownFields.Order
+
+	if knownFields.IsImagePresent != nil {
+		p.IsImagePresent = knownFields.IsImagePresent
+	}
 	// Handle custom date parsing
+
+	if knownFields.Order != nil {
+		p.Order = knownFields.Order
+	}
+	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.ReleaseDate != "" {
 		parsedReleaseDate, err := time.Parse("2006-01-02", knownFields.ReleaseDate)
@@ -188,11 +234,20 @@ func (p *AvailableVersion) UnmarshalJSON(b []byte) error {
 		p.ReleaseDate = &parsedReleaseDate
 	}
 	// Handle custom date parsing
-	p.ReleaseNotes = knownFields.ReleaseNotes
+
+	if knownFields.ReleaseNotes != nil {
+		p.ReleaseNotes = knownFields.ReleaseNotes
+	}
 	// Handle custom date parsing
-	p.Status = knownFields.Status
+
+	if knownFields.Status != nil {
+		p.Status = knownFields.Status
+	}
 	// Handle custom date parsing
-	p.Version = knownFields.Version
+
+	if knownFields.Version != nil {
+		p.Version = knownFields.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -205,6 +260,7 @@ func (p *AvailableVersion) UnmarshalJSON(b []byte) error {
 	delete(allFields, "disablementReason")
 	delete(allFields, "groupUuid")
 	delete(allFields, "isEnabled")
+	delete(allFields, "isImagePresent")
 	delete(allFields, "order")
 	delete(allFields, "releaseDate")
 	delete(allFields, "releaseNotes")
@@ -212,7 +268,9 @@ func (p *AvailableVersion) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -221,11 +279,13 @@ func NewAvailableVersion() *AvailableVersion {
 	p := new(AvailableVersion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.AvailableVersion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsEnabled = new(bool)
 	*p.IsEnabled = true
+	p.IsImagePresent = new(bool)
+	*p.IsImagePresent = true
 
 	return p
 }
@@ -331,7 +391,50 @@ func (p *Bundle) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Bundle(*known)
+	*p = *NewBundle()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ChecksumItemDiscriminator_ != nil {
+		p.ChecksumItemDiscriminator_ = known.ChecksumItemDiscriminator_
+	}
+	if known.Checksum != nil {
+		p.Checksum = known.Checksum
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Images != nil {
+		p.Images = known.Images
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SizeBytes != nil {
+		p.SizeBytes = known.SizeBytes
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.Vendor != nil {
+		p.Vendor = known.Vendor
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -350,7 +453,9 @@ func (p *Bundle) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendor")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -359,7 +464,7 @@ func NewBundle() *Bundle {
 	p := new(Bundle)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.Bundle"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -632,6 +737,199 @@ func (e Capability) Ref() *Capability {
 }
 
 /*
+Details of the component that was upgraded.
+*/
+type ComponentDetails struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Unique identifier of an LCM entity e.g. "HDD serial number".
+	*/
+	DeviceId *string `json:"deviceId,omitempty"`
+	/*
+	  LCM entity class.
+	*/
+	EntityClass *string `json:"entityClass,omitempty"`
+	/*
+	  LCM entity model.
+	*/
+	EntityModel *string `json:"entityModel,omitempty"`
+
+	EntityType *import1.EntityType `json:"entityType,omitempty"`
+	/*
+	  Current version of an LCM entity.
+	*/
+	EntityVersion *string `json:"entityVersion,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  UUID of the group that this LCM entity is part of.
+	*/
+	GroupUuid *string `json:"groupUuid,omitempty"`
+	/*
+	  A hardware family for a LCM entity.
+	*/
+	HardwareFamily *string `json:"hardwareFamily,omitempty"`
+	/*
+	  Hardware vendor information.
+	*/
+	HardwareVendor *string `json:"hardwareVendor,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+
+	LocationInfo *import1.LocationInfo `json:"locationInfo,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	UpgradeStatus *import1.OperationStatus `json:"upgradeStatus,omitempty"`
+	/*
+	  Version to which the component was upgraded.
+	*/
+	UpgradedVersion *string `json:"upgradedVersion,omitempty"`
+}
+
+func (p *ComponentDetails) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ComponentDetails
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ComponentDetails) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ComponentDetails
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewComponentDetails()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DeviceId != nil {
+		p.DeviceId = known.DeviceId
+	}
+	if known.EntityClass != nil {
+		p.EntityClass = known.EntityClass
+	}
+	if known.EntityModel != nil {
+		p.EntityModel = known.EntityModel
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.EntityVersion != nil {
+		p.EntityVersion = known.EntityVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.GroupUuid != nil {
+		p.GroupUuid = known.GroupUuid
+	}
+	if known.HardwareFamily != nil {
+		p.HardwareFamily = known.HardwareFamily
+	}
+	if known.HardwareVendor != nil {
+		p.HardwareVendor = known.HardwareVendor
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocationInfo != nil {
+		p.LocationInfo = known.LocationInfo
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpgradeStatus != nil {
+		p.UpgradeStatus = known.UpgradeStatus
+	}
+	if known.UpgradedVersion != nil {
+		p.UpgradedVersion = known.UpgradedVersion
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "deviceId")
+	delete(allFields, "entityClass")
+	delete(allFields, "entityModel")
+	delete(allFields, "entityType")
+	delete(allFields, "entityVersion")
+	delete(allFields, "extId")
+	delete(allFields, "groupUuid")
+	delete(allFields, "hardwareFamily")
+	delete(allFields, "hardwareVendor")
+	delete(allFields, "links")
+	delete(allFields, "locationInfo")
+	delete(allFields, "tenantId")
+	delete(allFields, "upgradeStatus")
+	delete(allFields, "upgradedVersion")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewComponentDetails() *ComponentDetails {
+	p := new(ComponentDetails)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ComponentDetails"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 LCM configuration on the cluster.
 */
 type Config struct {
@@ -737,7 +1035,59 @@ func (p *Config) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Config(*known)
+	*p = *NewConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AutoInventorySchedule != nil {
+		p.AutoInventorySchedule = known.AutoInventorySchedule
+	}
+	if known.ConnectivityType != nil {
+		p.ConnectivityType = known.ConnectivityType
+	}
+	if known.DeprecatedSoftwareEntities != nil {
+		p.DeprecatedSoftwareEntities = known.DeprecatedSoftwareEntities
+	}
+	if known.DisplayVersion != nil {
+		p.DisplayVersion = known.DisplayVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HasModuleAutoUpgradeEnabled != nil {
+		p.HasModuleAutoUpgradeEnabled = known.HasModuleAutoUpgradeEnabled
+	}
+	if known.IsAutoInventoryEnabled != nil {
+		p.IsAutoInventoryEnabled = known.IsAutoInventoryEnabled
+	}
+	if known.IsFrameworkBundleUploaded != nil {
+		p.IsFrameworkBundleUploaded = known.IsFrameworkBundleUploaded
+	}
+	if known.IsHttpsEnabled != nil {
+		p.IsHttpsEnabled = known.IsHttpsEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.SupportedSoftwareEntities != nil {
+		p.SupportedSoftwareEntities = known.SupportedSoftwareEntities
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Url != nil {
+		p.Url = known.Url
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -759,7 +1109,9 @@ func (p *Config) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -768,7 +1120,7 @@ func NewConfig() *Config {
 	p := new(Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HasModuleAutoUpgradeEnabled = new(bool)
@@ -867,7 +1219,7 @@ func (e ConnectivityType) Ref() *ConnectivityType {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/bundles Post operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/bundles Post operation
 */
 type CreateBundleApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -926,7 +1278,26 @@ func (p *CreateBundleApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateBundleApiResponse(*known)
+	*p = *NewCreateBundleApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -937,7 +1308,9 @@ func (p *CreateBundleApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -946,7 +1319,7 @@ func NewCreateBundleApiResponse() *CreateBundleApiResponse {
 	p := new(CreateBundleApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.CreateBundleApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -974,7 +1347,135 @@ func (p *CreateBundleApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/bundles/{extId} Delete operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/upgrade-selections Post operation
+*/
+type CreateUpgradeSelectionApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfCreateUpgradeSelectionApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *CreateUpgradeSelectionApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CreateUpgradeSelectionApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CreateUpgradeSelectionApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CreateUpgradeSelectionApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewCreateUpgradeSelectionApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewCreateUpgradeSelectionApiResponse() *CreateUpgradeSelectionApiResponse {
+	p := new(CreateUpgradeSelectionApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.CreateUpgradeSelectionApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *CreateUpgradeSelectionApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *CreateUpgradeSelectionApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfCreateUpgradeSelectionApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.2/resources/bundles/{extId} Delete operation
 */
 type DeleteBundleByIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1033,7 +1534,26 @@ func (p *DeleteBundleByIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteBundleByIdApiResponse(*known)
+	*p = *NewDeleteBundleByIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1044,7 +1564,9 @@ func (p *DeleteBundleByIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1053,7 +1575,7 @@ func NewDeleteBundleByIdApiResponse() *DeleteBundleByIdApiResponse {
 	p := new(DeleteBundleByIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.DeleteBundleByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1069,6 +1591,134 @@ func (p *DeleteBundleByIdApiResponse) GetData() interface{} {
 func (p *DeleteBundleByIdApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfDeleteBundleByIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.2/resources/upgrade-selections/{extId} Delete operation
+*/
+type DeleteUpgradeSelectionApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDeleteUpgradeSelectionApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *DeleteUpgradeSelectionApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DeleteUpgradeSelectionApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DeleteUpgradeSelectionApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DeleteUpgradeSelectionApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDeleteUpgradeSelectionApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDeleteUpgradeSelectionApiResponse() *DeleteUpgradeSelectionApiResponse {
+	p := new(DeleteUpgradeSelectionApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.DeleteUpgradeSelectionApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DeleteUpgradeSelectionApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DeleteUpgradeSelectionApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDeleteUpgradeSelectionApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1166,7 +1816,44 @@ func (p *DependentEntity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DependentEntity(*known)
+	*p = *NewDependentEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DependentVersions != nil {
+		p.DependentVersions = known.DependentVersions
+	}
+	if known.EntityClass != nil {
+		p.EntityClass = known.EntityClass
+	}
+	if known.EntityModel != nil {
+		p.EntityModel = known.EntityModel
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.EntityVersion != nil {
+		p.EntityVersion = known.EntityVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HardwareFamily != nil {
+		p.HardwareFamily = known.HardwareFamily
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1183,7 +1870,9 @@ func (p *DependentEntity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1192,7 +1881,7 @@ func NewDependentEntity() *DependentEntity {
 	p := new(DependentEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.DependentEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1286,7 +1975,47 @@ func (p *DeployableVersion) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeployableVersion(*known)
+	*p = *NewDeployableVersion()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityClass != nil {
+		p.EntityClass = known.EntityClass
+	}
+	if known.EntityModel != nil {
+		p.EntityModel = known.EntityModel
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.EntityVersion != nil {
+		p.EntityVersion = known.EntityVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HardwareFamily != nil {
+		p.HardwareFamily = known.HardwareFamily
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TargetVersion != nil {
+		p.TargetVersion = known.TargetVersion
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpdateDependencies != nil {
+		p.UpdateDependencies = known.UpdateDependencies
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1304,7 +2033,9 @@ func (p *DeployableVersion) UnmarshalJSON(b []byte) error {
 	delete(allFields, "updateDependencies")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1313,7 +2044,7 @@ func NewDeployableVersion() *DeployableVersion {
 	p := new(DeployableVersion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.DeployableVersion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1447,7 +2178,77 @@ func (p *Entity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Entity(*known)
+	*p = *NewEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AvailableVersions != nil {
+		p.AvailableVersions = known.AvailableVersions
+	}
+	if known.ChildEntities != nil {
+		p.ChildEntities = known.ChildEntities
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.DeviceId != nil {
+		p.DeviceId = known.DeviceId
+	}
+	if known.EntityClass != nil {
+		p.EntityClass = known.EntityClass
+	}
+	if known.EntityDescription != nil {
+		p.EntityDescription = known.EntityDescription
+	}
+	if known.EntityDetails != nil {
+		p.EntityDetails = known.EntityDetails
+	}
+	if known.EntityModel != nil {
+		p.EntityModel = known.EntityModel
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.EntityVersion != nil {
+		p.EntityVersion = known.EntityVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.GroupUuid != nil {
+		p.GroupUuid = known.GroupUuid
+	}
+	if known.HardwareFamily != nil {
+		p.HardwareFamily = known.HardwareFamily
+	}
+	if known.HardwareVendor != nil {
+		p.HardwareVendor = known.HardwareVendor
+	}
+	if known.LastUpdatedTime != nil {
+		p.LastUpdatedTime = known.LastUpdatedTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocationInfo != nil {
+		p.LocationInfo = known.LocationInfo
+	}
+	if known.SubEntities != nil {
+		p.SubEntities = known.SubEntities
+	}
+	if known.TargetVersion != nil {
+		p.TargetVersion = known.TargetVersion
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1475,7 +2276,9 @@ func (p *Entity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1484,10 +2287,594 @@ func NewEntity() *Entity {
 	p := new(Entity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.Entity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.2/resources/lcm-histories/$actions/export Post operation
+*/
+type ExportHistoriesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfExportHistoriesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ExportHistoriesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ExportHistoriesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExportHistoriesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExportHistoriesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewExportHistoriesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewExportHistoriesApiResponse() *ExportHistoriesApiResponse {
+	p := new(ExportHistoriesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ExportHistoriesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ExportHistoriesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ExportHistoriesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfExportHistoriesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Specification for exporting histories.
+*/
+type ExportHistorySpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	FileFormat *import1.FileFormat `json:"fileFormat"`
+}
+
+func (p *ExportHistorySpec) MarshalJSON() ([]byte, error) {
+	type ExportHistorySpecProxy ExportHistorySpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ExportHistorySpecProxy
+		FileFormat *import1.FileFormat `json:"fileFormat,omitempty"`
+	}{
+		ExportHistorySpecProxy: (*ExportHistorySpecProxy)(p),
+		FileFormat:             p.FileFormat,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExportHistorySpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExportHistorySpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewExportHistorySpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.FileFormat != nil {
+		p.FileFormat = known.FileFormat
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "fileFormat")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewExportHistorySpec() *ExportHistorySpec {
+	p := new(ExportHistorySpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ExportHistorySpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.2/resources/entities/$actions/export Post operation
+*/
+type ExportInventoryApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfExportInventoryApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ExportInventoryApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ExportInventoryApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExportInventoryApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExportInventoryApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewExportInventoryApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewExportInventoryApiResponse() *ExportInventoryApiResponse {
+	p := new(ExportInventoryApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ExportInventoryApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ExportInventoryApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ExportInventoryApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfExportInventoryApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Specification for exporting inventory.
+*/
+type ExportInventorySpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	FileFormat *import1.FileFormat `json:"fileFormat"`
+}
+
+func (p *ExportInventorySpec) MarshalJSON() ([]byte, error) {
+	type ExportInventorySpecProxy ExportInventorySpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ExportInventorySpecProxy
+		FileFormat *import1.FileFormat `json:"fileFormat,omitempty"`
+	}{
+		ExportInventorySpecProxy: (*ExportInventorySpecProxy)(p),
+		FileFormat:               p.FileFormat,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExportInventorySpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExportInventorySpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewExportInventorySpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.FileFormat != nil {
+		p.FileFormat = known.FileFormat
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "fileFormat")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewExportInventorySpec() *ExportInventorySpec {
+	p := new(ExportInventorySpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ExportInventorySpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.2/resources/upgrade-selections/{extId}/$actions/export Post operation
+*/
+type ExportUpgradeSelectionApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfExportUpgradeSelectionApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ExportUpgradeSelectionApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ExportUpgradeSelectionApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExportUpgradeSelectionApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExportUpgradeSelectionApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewExportUpgradeSelectionApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewExportUpgradeSelectionApiResponse() *ExportUpgradeSelectionApiResponse {
+	p := new(ExportUpgradeSelectionApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ExportUpgradeSelectionApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ExportUpgradeSelectionApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ExportUpgradeSelectionApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfExportUpgradeSelectionApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
 }
 
 /*
@@ -1554,7 +2941,26 @@ func (p *FrameworkVersionInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = FrameworkVersionInfo(*known)
+	*p = *NewFrameworkVersionInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AvailableVersion != nil {
+		p.AvailableVersion = known.AvailableVersion
+	}
+	if known.CurrentVersion != nil {
+		p.CurrentVersion = known.CurrentVersion
+	}
+	if known.IsUpdateNeeded != nil {
+		p.IsUpdateNeeded = known.IsUpdateNeeded
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1565,7 +2971,9 @@ func (p *FrameworkVersionInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isUpdateNeeded")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1574,7 +2982,7 @@ func NewFrameworkVersionInfo() *FrameworkVersionInfo {
 	p := new(FrameworkVersionInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.FrameworkVersionInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsUpdateNeeded = new(bool)
@@ -1584,7 +2992,7 @@ func NewFrameworkVersionInfo() *FrameworkVersionInfo {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/bundles/{extId} Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/bundles/{extId} Get operation
 */
 type GetBundleByIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1643,7 +3051,26 @@ func (p *GetBundleByIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetBundleByIdApiResponse(*known)
+	*p = *NewGetBundleByIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1654,7 +3081,9 @@ func (p *GetBundleByIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1663,7 +3092,7 @@ func NewGetBundleByIdApiResponse() *GetBundleByIdApiResponse {
 	p := new(GetBundleByIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetBundleByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1691,7 +3120,7 @@ func (p *GetBundleByIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/config Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/config Get operation
 */
 type GetConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1750,7 +3179,26 @@ func (p *GetConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetConfigApiResponse(*known)
+	*p = *NewGetConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1761,7 +3209,9 @@ func (p *GetConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1770,7 +3220,7 @@ func NewGetConfigApiResponse() *GetConfigApiResponse {
 	p := new(GetConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1798,7 +3248,7 @@ func (p *GetConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/entities/{extId} Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/entities/{extId} Get operation
 */
 type GetEntityByIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1857,7 +3307,26 @@ func (p *GetEntityByIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetEntityByIdApiResponse(*known)
+	*p = *NewGetEntityByIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1868,7 +3337,9 @@ func (p *GetEntityByIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1877,7 +3348,7 @@ func NewGetEntityByIdApiResponse() *GetEntityByIdApiResponse {
 	p := new(GetEntityByIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetEntityByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1905,7 +3376,135 @@ func (p *GetEntityByIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/lcm-summaries/{extId} Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/lcm-histories/{extId} Get operation
+*/
+type GetLcmHistoryByIdApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetLcmHistoryByIdApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetLcmHistoryByIdApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetLcmHistoryByIdApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetLcmHistoryByIdApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetLcmHistoryByIdApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetLcmHistoryByIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetLcmHistoryByIdApiResponse() *GetLcmHistoryByIdApiResponse {
+	p := new(GetLcmHistoryByIdApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.GetLcmHistoryByIdApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetLcmHistoryByIdApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetLcmHistoryByIdApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetLcmHistoryByIdApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.2/resources/lcm-summaries/{extId} Get operation
 */
 type GetLcmSummaryByIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1964,7 +3563,26 @@ func (p *GetLcmSummaryByIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetLcmSummaryByIdApiResponse(*known)
+	*p = *NewGetLcmSummaryByIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1975,7 +3593,9 @@ func (p *GetLcmSummaryByIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1984,7 +3604,7 @@ func NewGetLcmSummaryByIdApiResponse() *GetLcmSummaryByIdApiResponse {
 	p := new(GetLcmSummaryByIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetLcmSummaryByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2012,7 +3632,7 @@ func (p *GetLcmSummaryByIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/notifications/{extId} Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/notifications/{extId} Get operation
 */
 type GetNotificationsByIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2071,7 +3691,26 @@ func (p *GetNotificationsByIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetNotificationsByIdApiResponse(*known)
+	*p = *NewGetNotificationsByIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2082,7 +3721,9 @@ func (p *GetNotificationsByIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2091,7 +3732,7 @@ func NewGetNotificationsByIdApiResponse() *GetNotificationsByIdApiResponse {
 	p := new(GetNotificationsByIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetNotificationsByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2119,7 +3760,7 @@ func (p *GetNotificationsByIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/recommendations/{extId} Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/recommendations/{extId} Get operation
 */
 type GetRecommendationByIdApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2178,7 +3819,26 @@ func (p *GetRecommendationByIdApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetRecommendationByIdApiResponse(*known)
+	*p = *NewGetRecommendationByIdApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2189,7 +3849,9 @@ func (p *GetRecommendationByIdApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2198,7 +3860,7 @@ func NewGetRecommendationByIdApiResponse() *GetRecommendationByIdApiResponse {
 	p := new(GetRecommendationByIdApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetRecommendationByIdApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2226,7 +3888,7 @@ func (p *GetRecommendationByIdApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/status Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/status Get operation
 */
 type GetStatusApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2285,7 +3947,26 @@ func (p *GetStatusApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetStatusApiResponse(*known)
+	*p = *NewGetStatusApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2296,7 +3977,9 @@ func (p *GetStatusApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2305,7 +3988,7 @@ func NewGetStatusApiResponse() *GetStatusApiResponse {
 	p := new(GetStatusApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.GetStatusApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2321,6 +4004,134 @@ func (p *GetStatusApiResponse) GetData() interface{} {
 func (p *GetStatusApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfGetStatusApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.2/resources/upgrade-selections/{extId} Get operation
+*/
+type GetUpgradeSelectionApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetUpgradeSelectionApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetUpgradeSelectionApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetUpgradeSelectionApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetUpgradeSelectionApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetUpgradeSelectionApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetUpgradeSelectionApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetUpgradeSelectionApiResponse() *GetUpgradeSelectionApiResponse {
+	p := new(GetUpgradeSelectionApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.GetUpgradeSelectionApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetUpgradeSelectionApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetUpgradeSelectionApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetUpgradeSelectionApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2443,7 +4254,59 @@ func (p *Image) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Image(*known)
+	*p = *NewImage()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.EntityClass != nil {
+		p.EntityClass = known.EntityClass
+	}
+	if known.EntityModel != nil {
+		p.EntityModel = known.EntityModel
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.EntityVersion != nil {
+		p.EntityVersion = known.EntityVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Files != nil {
+		p.Files = known.Files
+	}
+	if known.HardwareFamily != nil {
+		p.HardwareFamily = known.HardwareFamily
+	}
+	if known.IsQualified != nil {
+		p.IsQualified = known.IsQualified
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.ReleaseNotes != nil {
+		p.ReleaseNotes = known.ReleaseNotes
+	}
+	if known.SpecVersion != nil {
+		p.SpecVersion = known.SpecVersion
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2465,7 +4328,9 @@ func (p *Image) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2474,7 +4339,7 @@ func NewImage() *Image {
 	p := new(Image)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.Image"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsQualified = new(bool)
@@ -2568,7 +4433,35 @@ func (p *ImageFile) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ImageFile(*known)
+	*p = *NewImageFile()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Checksum != nil {
+		p.Checksum = known.Checksum
+	}
+	if known.ChecksumType != nil {
+		p.ChecksumType = known.ChecksumType
+	}
+	if known.FileLocationId != nil {
+		p.FileLocationId = known.FileLocationId
+	}
+	if known.FilePath != nil {
+		p.FilePath = known.FilePath
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.SizeBytes != nil {
+		p.SizeBytes = known.SizeBytes
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2582,7 +4475,9 @@ func (p *ImageFile) UnmarshalJSON(b []byte) error {
 	delete(allFields, "sizeBytes")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2591,7 +4486,7 @@ func NewImageFile() *ImageFile {
 	p := new(ImageFile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.ImageFile"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2655,7 +4550,23 @@ func (p *InProgressOpInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = InProgressOpInfo(*known)
+	*p = *NewInProgressOpInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.OperationId != nil {
+		p.OperationId = known.OperationId
+	}
+	if known.OperationType != nil {
+		p.OperationType = known.OperationType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2665,7 +4576,9 @@ func (p *InProgressOpInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "operationType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2674,10 +4587,216 @@ func NewInProgressOpInfo() *InProgressOpInfo {
 	p := new(InProgressOpInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.InProgressOpInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Details about the history of LCM operations.
+*/
+type LcmHistory struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Cluster uuid on which the resource is present or operation is being performed.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  Name of the cluster.
+	*/
+	ClusterName *string `json:"clusterName,omitempty"`
+	/*
+	  End time of the operation.
+	*/
+	EndTime *time.Time `json:"endTime,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Version of LCM framework when operation was performed.
+	*/
+	FrameworkVersion *string `json:"frameworkVersion,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+
+	 */
+	OperationInfoItemDiscriminator_ *string `json:"$operationInfoItemDiscriminator,omitempty"`
+	/*
+	  Detailed information about the operation performed.
+	*/
+	OperationInfo *OneOfLcmHistoryOperationInfo `json:"operationInfo,omitempty"`
+
+	OperationStatus *import1.OperationStatus `json:"operationStatus,omitempty"`
+
+	OperationType *import1.OperationType `json:"operationType,omitempty"`
+	/*
+	  Start time of the operation.
+	*/
+	StartTime *time.Time `json:"startTime,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+
+	UserInfo *UserInfo `json:"userInfo,omitempty"`
+}
+
+func (p *LcmHistory) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias LcmHistory
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *LcmHistory) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias LcmHistory
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewLcmHistory()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ClusterName != nil {
+		p.ClusterName = known.ClusterName
+	}
+	if known.EndTime != nil {
+		p.EndTime = known.EndTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FrameworkVersion != nil {
+		p.FrameworkVersion = known.FrameworkVersion
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.OperationInfoItemDiscriminator_ != nil {
+		p.OperationInfoItemDiscriminator_ = known.OperationInfoItemDiscriminator_
+	}
+	if known.OperationInfo != nil {
+		p.OperationInfo = known.OperationInfo
+	}
+	if known.OperationStatus != nil {
+		p.OperationStatus = known.OperationStatus
+	}
+	if known.OperationType != nil {
+		p.OperationType = known.OperationType
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UserInfo != nil {
+		p.UserInfo = known.UserInfo
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "clusterName")
+	delete(allFields, "endTime")
+	delete(allFields, "extId")
+	delete(allFields, "frameworkVersion")
+	delete(allFields, "links")
+	delete(allFields, "$operationInfoItemDiscriminator")
+	delete(allFields, "operationInfo")
+	delete(allFields, "operationStatus")
+	delete(allFields, "operationType")
+	delete(allFields, "startTime")
+	delete(allFields, "tenantId")
+	delete(allFields, "userInfo")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewLcmHistory() *LcmHistory {
+	p := new(LcmHistory)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.LcmHistory"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *LcmHistory) GetOperationInfo() interface{} {
+	if nil == p.OperationInfo {
+		return nil
+	}
+	return p.OperationInfo.GetValue()
+}
+
+func (p *LcmHistory) SetOperationInfo(v interface{}) error {
+	if nil == p.OperationInfo {
+		p.OperationInfo = NewOneOfLcmHistoryOperationInfo()
+	}
+	e := p.OperationInfo.SetValue(v)
+	if nil == e {
+		if nil == p.OperationInfoItemDiscriminator_ {
+			p.OperationInfoItemDiscriminator_ = new(string)
+		}
+		*p.OperationInfoItemDiscriminator_ = *p.OperationInfo.Discriminator
+	}
+	return e
 }
 
 /*
@@ -2701,6 +4820,14 @@ type LcmSummary struct {
 	  Cluster uuid on which the resource is present or operation is being performed.
 	*/
 	ClusterExtId *string `json:"clusterExtId,omitempty"`
+
+	ClusterType *import1.ClusterType `json:"clusterType,omitempty"`
+	/*
+	  Installed Nutanix Compatibility version on the cluster.
+	*/
+	CompatibilityBundleVersion *string `json:"compatibilityBundleVersion,omitempty"`
+
+	ConnectivityType *ConnectivityType `json:"connectivityType,omitempty"`
 	/*
 	  Current LCM Version.
 	*/
@@ -2723,6 +4850,8 @@ type LcmSummary struct {
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
+
+	RestrictedModeType *RestrictedModeType `json:"restrictedModeType,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
@@ -2770,7 +4899,59 @@ func (p *LcmSummary) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LcmSummary(*known)
+	*p = *NewLcmSummary()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AvailableVersion != nil {
+		p.AvailableVersion = known.AvailableVersion
+	}
+	if known.Capabilities != nil {
+		p.Capabilities = known.Capabilities
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ClusterType != nil {
+		p.ClusterType = known.ClusterType
+	}
+	if known.CompatibilityBundleVersion != nil {
+		p.CompatibilityBundleVersion = known.CompatibilityBundleVersion
+	}
+	if known.ConnectivityType != nil {
+		p.ConnectivityType = known.ConnectivityType
+	}
+	if known.CurrentVersion != nil {
+		p.CurrentVersion = known.CurrentVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HardwareVendor != nil {
+		p.HardwareVendor = known.HardwareVendor
+	}
+	if known.InProgressOperation != nil {
+		p.InProgressOperation = known.InProgressOperation
+	}
+	if known.IsUrlAccessible != nil {
+		p.IsUrlAccessible = known.IsUrlAccessible
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.RestrictedModeType != nil {
+		p.RestrictedModeType = known.RestrictedModeType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2779,16 +4960,22 @@ func (p *LcmSummary) UnmarshalJSON(b []byte) error {
 	delete(allFields, "availableVersion")
 	delete(allFields, "capabilities")
 	delete(allFields, "clusterExtId")
+	delete(allFields, "clusterType")
+	delete(allFields, "compatibilityBundleVersion")
+	delete(allFields, "connectivityType")
 	delete(allFields, "currentVersion")
 	delete(allFields, "extId")
 	delete(allFields, "hardwareVendor")
 	delete(allFields, "inProgressOperation")
 	delete(allFields, "isUrlAccessible")
 	delete(allFields, "links")
+	delete(allFields, "restrictedModeType")
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2797,7 +4984,7 @@ func NewLcmSummary() *LcmSummary {
 	p := new(LcmSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.LcmSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsUrlAccessible = new(bool)
@@ -2807,7 +4994,7 @@ func NewLcmSummary() *LcmSummary {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/bundles Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/bundles Get operation
 */
 type ListBundlesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2866,7 +5053,26 @@ func (p *ListBundlesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListBundlesApiResponse(*known)
+	*p = *NewListBundlesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2877,7 +5083,9 @@ func (p *ListBundlesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2886,7 +5094,7 @@ func NewListBundlesApiResponse() *ListBundlesApiResponse {
 	p := new(ListBundlesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.ListBundlesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2914,7 +5122,7 @@ func (p *ListBundlesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/entities Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/entities Get operation
 */
 type ListEntitiesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2973,7 +5181,26 @@ func (p *ListEntitiesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListEntitiesApiResponse(*known)
+	*p = *NewListEntitiesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2984,7 +5211,9 @@ func (p *ListEntitiesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2993,7 +5222,7 @@ func NewListEntitiesApiResponse() *ListEntitiesApiResponse {
 	p := new(ListEntitiesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.ListEntitiesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3021,7 +5250,7 @@ func (p *ListEntitiesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/images Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/images Get operation
 */
 type ListImagesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3080,7 +5309,26 @@ func (p *ListImagesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListImagesApiResponse(*known)
+	*p = *NewListImagesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3091,7 +5339,9 @@ func (p *ListImagesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3100,7 +5350,7 @@ func NewListImagesApiResponse() *ListImagesApiResponse {
 	p := new(ListImagesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.ListImagesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3128,7 +5378,135 @@ func (p *ListImagesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/lcm-summaries Get operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/lcm-histories Get operation
+*/
+type ListLcmHistoriesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListLcmHistoriesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListLcmHistoriesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListLcmHistoriesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListLcmHistoriesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListLcmHistoriesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListLcmHistoriesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewListLcmHistoriesApiResponse() *ListLcmHistoriesApiResponse {
+	p := new(ListLcmHistoriesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ListLcmHistoriesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListLcmHistoriesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListLcmHistoriesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListLcmHistoriesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.2/resources/lcm-summaries Get operation
 */
 type ListLcmSummariesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3187,7 +5565,26 @@ func (p *ListLcmSummariesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListLcmSummariesApiResponse(*known)
+	*p = *NewListLcmSummariesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3198,7 +5595,9 @@ func (p *ListLcmSummariesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3207,7 +5606,7 @@ func NewListLcmSummariesApiResponse() *ListLcmSummariesApiResponse {
 	p := new(ListLcmSummariesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.ListLcmSummariesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3223,6 +5622,134 @@ func (p *ListLcmSummariesApiResponse) GetData() interface{} {
 func (p *ListLcmSummariesApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfListLcmSummariesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /lifecycle/v4.2/resources/upgrade-selections Get operation
+*/
+type ListUpgradeSelectionsApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListUpgradeSelectionsApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListUpgradeSelectionsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListUpgradeSelectionsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListUpgradeSelectionsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListUpgradeSelectionsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListUpgradeSelectionsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewListUpgradeSelectionsApiResponse() *ListUpgradeSelectionsApiResponse {
+	p := new(ListUpgradeSelectionsApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.ListUpgradeSelectionsApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListUpgradeSelectionsApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListUpgradeSelectionsApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListUpgradeSelectionsApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -3304,7 +5831,32 @@ func (p *Notification) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Notification(*known)
+	*p = *NewNotification()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Notifications != nil {
+		p.Notifications = known.Notifications
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3317,7 +5869,9 @@ func (p *Notification) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3326,7 +5880,7 @@ func NewNotification() *Notification {
 	p := new(Notification)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.Notification"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3390,7 +5944,23 @@ func (p *NotificationDetail) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NotificationDetail(*known)
+	*p = *NewNotificationDetail()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
+	if known.SeverityLevel != nil {
+		p.SeverityLevel = known.SeverityLevel
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3400,7 +5970,9 @@ func (p *NotificationDetail) UnmarshalJSON(b []byte) error {
 	delete(allFields, "severityLevel")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3409,7 +5981,7 @@ func NewNotificationDetail() *NotificationDetail {
 	p := new(NotificationDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.NotificationDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3511,7 +6083,56 @@ func (p *NotificationItem) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NotificationItem(*known)
+	*p = *NewNotificationItem()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Details != nil {
+		p.Details = known.Details
+	}
+	if known.EntityClass != nil {
+		p.EntityClass = known.EntityClass
+	}
+	if known.EntityModel != nil {
+		p.EntityModel = known.EntityModel
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.EntityVersion != nil {
+		p.EntityVersion = known.EntityVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HardwareFamily != nil {
+		p.HardwareFamily = known.HardwareFamily
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocationInfo != nil {
+		p.LocationInfo = known.LocationInfo
+	}
+	if known.NotificationType != nil {
+		p.NotificationType = known.NotificationType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.ToVersion != nil {
+		p.ToVersion = known.ToVersion
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3532,7 +6153,9 @@ func (p *NotificationItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "toVersion")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3541,7 +6164,7 @@ func NewNotificationItem() *NotificationItem {
 	p := new(NotificationItem)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.NotificationItem"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3614,7 +6237,23 @@ func (p *NotificationsSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NotificationsSpec(*known)
+	*p = *NewNotificationsSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credentials != nil {
+		p.Credentials = known.Credentials
+	}
+	if known.NotificationsSpec != nil {
+		p.NotificationsSpec = known.NotificationsSpec
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3624,7 +6263,9 @@ func (p *NotificationsSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "notificationsSpec")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3633,7 +6274,7 @@ func NewNotificationsSpec() *NotificationsSpec {
 	p := new(NotificationsSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.NotificationsSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3727,7 +6368,44 @@ func (p *RecommendationResult) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RecommendationResult(*known)
+	*p = *NewRecommendationResult()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AddableEntities != nil {
+		p.AddableEntities = known.AddableEntities
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.DeployableVersions != nil {
+		p.DeployableVersions = known.DeployableVersions
+	}
+	if known.EntityUpdateSpecs != nil {
+		p.EntityUpdateSpecs = known.EntityUpdateSpecs
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.ModifiableEntities != nil {
+		p.ModifiableEntities = known.ModifiableEntities
+	}
+	if known.SkippedEntities != nil {
+		p.SkippedEntities = known.SkippedEntities
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3744,7 +6422,9 @@ func (p *RecommendationResult) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3753,7 +6433,7 @@ func NewRecommendationResult() *RecommendationResult {
 	p := new(RecommendationResult)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.RecommendationResult"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3826,7 +6506,23 @@ func (p *RecommendationSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RecommendationSpec(*known)
+	*p = *NewRecommendationSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.RecommendationSpecItemDiscriminator_ != nil {
+		p.RecommendationSpecItemDiscriminator_ = known.RecommendationSpecItemDiscriminator_
+	}
+	if known.RecommendationSpec != nil {
+		p.RecommendationSpec = known.RecommendationSpec
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3836,7 +6532,9 @@ func (p *RecommendationSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recommendationSpec")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3845,7 +6543,7 @@ func NewRecommendationSpec() *RecommendationSpec {
 	p := new(RecommendationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.RecommendationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3870,6 +6568,89 @@ func (p *RecommendationSpec) SetRecommendationSpec(v interface{}) error {
 		*p.RecommendationSpecItemDiscriminator_ = *p.RecommendationSpec.Discriminator
 	}
 	return e
+}
+
+/*
+Indicates the type of Restricted Mode
+*/
+type RestrictedModeType int
+
+const (
+	RESTRICTEDMODETYPE_UNKNOWN           RestrictedModeType = 0
+	RESTRICTEDMODETYPE_REDACTED          RestrictedModeType = 1
+	RESTRICTEDMODETYPE_NON_UNIFORM_AHV   RestrictedModeType = 2
+	RESTRICTEDMODETYPE_EMERGENCY_UPDATES RestrictedModeType = 3
+	RESTRICTEDMODETYPE_EOL_AOS           RestrictedModeType = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *RestrictedModeType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NON_UNIFORM_AHV",
+		"EMERGENCY_UPDATES",
+		"EOL_AOS",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e RestrictedModeType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NON_UNIFORM_AHV",
+		"EMERGENCY_UPDATES",
+		"EOL_AOS",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *RestrictedModeType) index(name string) RestrictedModeType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NON_UNIFORM_AHV",
+		"EMERGENCY_UPDATES",
+		"EOL_AOS",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return RestrictedModeType(idx)
+		}
+	}
+	return RESTRICTEDMODETYPE_UNKNOWN
+}
+
+func (e *RestrictedModeType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for RestrictedModeType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *RestrictedModeType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e RestrictedModeType) Ref() *RestrictedModeType {
+	return &e
 }
 
 /*
@@ -3964,6 +6745,8 @@ type StatusInfo struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	ConnectivityType *ConnectivityType `json:"connectivityType,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
@@ -3977,6 +6760,10 @@ type StatusInfo struct {
 	*/
 	IsCancelIntentSet *bool `json:"isCancelIntentSet,omitempty"`
 	/*
+	  Boolean that indicates if LCM is running in restricted mode or not
+	*/
+	IsRestrictedMode *bool `json:"isRestrictedMode,omitempty"`
+	/*
 	  Boolean that indicates if LCM url is accessible or not
 	*/
 	IsUrlAccessible *bool `json:"isUrlAccessible,omitempty"`
@@ -3984,6 +6771,8 @@ type StatusInfo struct {
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
 	Links []import2.ApiLink `json:"links,omitempty"`
+
+	RestrictedModeType *RestrictedModeType `json:"restrictedModeType,omitempty"`
 	/*
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
@@ -4035,23 +6824,71 @@ func (p *StatusInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = StatusInfo(*known)
+	*p = *NewStatusInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConnectivityType != nil {
+		p.ConnectivityType = known.ConnectivityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.FrameworkVersion != nil {
+		p.FrameworkVersion = known.FrameworkVersion
+	}
+	if known.InProgressOperation != nil {
+		p.InProgressOperation = known.InProgressOperation
+	}
+	if known.IsCancelIntentSet != nil {
+		p.IsCancelIntentSet = known.IsCancelIntentSet
+	}
+	if known.IsRestrictedMode != nil {
+		p.IsRestrictedMode = known.IsRestrictedMode
+	}
+	if known.IsUrlAccessible != nil {
+		p.IsUrlAccessible = known.IsUrlAccessible
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.RestrictedModeType != nil {
+		p.RestrictedModeType = known.RestrictedModeType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UploadTaskUuid != nil {
+		p.UploadTaskUuid = known.UploadTaskUuid
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "connectivityType")
 	delete(allFields, "extId")
 	delete(allFields, "frameworkVersion")
 	delete(allFields, "inProgressOperation")
 	delete(allFields, "isCancelIntentSet")
+	delete(allFields, "isRestrictedMode")
 	delete(allFields, "isUrlAccessible")
 	delete(allFields, "links")
+	delete(allFields, "restrictedModeType")
 	delete(allFields, "tenantId")
 	delete(allFields, "uploadTaskUuid")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4060,11 +6897,13 @@ func NewStatusInfo() *StatusInfo {
 	p := new(StatusInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.StatusInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsCancelIntentSet = new(bool)
 	*p.IsCancelIntentSet = false
+	p.IsRestrictedMode = new(bool)
+	*p.IsRestrictedMode = false
 	p.IsUrlAccessible = new(bool)
 	*p.IsUrlAccessible = true
 
@@ -4170,7 +7009,50 @@ func (p *TargetEntity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TargetEntity(*known)
+	*p = *NewTargetEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DeviceId != nil {
+		p.DeviceId = known.DeviceId
+	}
+	if known.EntityClass != nil {
+		p.EntityClass = known.EntityClass
+	}
+	if known.EntityModel != nil {
+		p.EntityModel = known.EntityModel
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.EntityVersion != nil {
+		p.EntityVersion = known.EntityVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HardwareFamily != nil {
+		p.HardwareFamily = known.HardwareFamily
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocationInfo != nil {
+		p.LocationInfo = known.LocationInfo
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4189,7 +7071,9 @@ func (p *TargetEntity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4198,14 +7082,14 @@ func NewTargetEntity() *TargetEntity {
 	p := new(TargetEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.TargetEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/resources/config Put operation
+REST response for all response codes in API path /lifecycle/v4.2/resources/config Put operation
 */
 type UpdateConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4264,7 +7148,26 @@ func (p *UpdateConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateConfigApiResponse(*known)
+	*p = *NewUpdateConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4275,7 +7178,9 @@ func (p *UpdateConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4284,7 +7189,7 @@ func NewUpdateConfigApiResponse() *UpdateConfigApiResponse {
 	p := new(UpdateConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.UpdateConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4395,7 +7300,44 @@ func (p *UpdatedTargetEntity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdatedTargetEntity(*known)
+	*p = *NewUpdatedTargetEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityClass != nil {
+		p.EntityClass = known.EntityClass
+	}
+	if known.EntityModel != nil {
+		p.EntityModel = known.EntityModel
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.EntityVersion != nil {
+		p.EntityVersion = known.EntityVersion
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HardwareFamily != nil {
+		p.HardwareFamily = known.HardwareFamily
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocationInfo != nil {
+		p.LocationInfo = known.LocationInfo
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4412,7 +7354,9 @@ func (p *UpdatedTargetEntity) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4421,7 +7365,7 @@ func NewUpdatedTargetEntity() *UpdatedTargetEntity {
 	p := new(UpdatedTargetEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.UpdatedTargetEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4492,7 +7436,23 @@ func (p *UpdatedTargetEntityResult) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdatedTargetEntityResult(*known)
+	*p = *NewUpdatedTargetEntityResult()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Message != nil {
+		p.Message = known.Message
+	}
+	if known.TargetEntity != nil {
+		p.TargetEntity = known.TargetEntity
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4502,7 +7462,9 @@ func (p *UpdatedTargetEntityResult) UnmarshalJSON(b []byte) error {
 	delete(allFields, "targetEntity")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4511,7 +7473,559 @@ func NewUpdatedTargetEntityResult() *UpdatedTargetEntityResult {
 	p := new(UpdatedTargetEntityResult)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.resources.UpdatedTargetEntityResult"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Details of the upgrade operation relevant for History.
+*/
+type UpgradeInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Details of the component that was upgraded.
+	*/
+	ComponentDetails []ComponentDetails `json:"componentDetails,omitempty"`
+}
+
+func (p *UpgradeInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpgradeInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpgradeInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpgradeInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUpgradeInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ComponentDetails != nil {
+		p.ComponentDetails = known.ComponentDetails
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "componentDetails")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUpgradeInfo() *UpgradeInfo {
+	p := new(UpgradeInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.UpgradeInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Details of LCM Upgrade Selections
+*/
+type UpgradeSelection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Cluster uuid on which the resource is present or operation is being performed.
+	*/
+	ClusterExtId *string `json:"clusterExtId,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  List of upgrades whose selection is made
+	*/
+	SelectedUpgrades []import1.EntityUpdateSpec `json:"selectedUpgrades,omitempty"`
+
+	Status *UpgradeSelectionStatus `json:"status,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *UpgradeSelection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpgradeSelection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpgradeSelection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpgradeSelection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUpgradeSelection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.SelectedUpgrades != nil {
+		p.SelectedUpgrades = known.SelectedUpgrades
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "selectedUpgrades")
+	delete(allFields, "status")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUpgradeSelection() *UpgradeSelection {
+	p := new(UpgradeSelection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.UpgradeSelection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Indicates the current status of the selected upgrade selections
+*/
+type UpgradeSelectionStatus int
+
+const (
+	UPGRADESELECTIONSTATUS_UNKNOWN         UpgradeSelectionStatus = 0
+	UPGRADESELECTIONSTATUS_REDACTED        UpgradeSelectionStatus = 1
+	UPGRADESELECTIONSTATUS_PENDING_UPLOAD  UpgradeSelectionStatus = 2
+	UPGRADESELECTIONSTATUS_UPGRADE_READY   UpgradeSelectionStatus = 3
+	UPGRADESELECTIONSTATUS_STALE_SELECTION UpgradeSelectionStatus = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *UpgradeSelectionStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PENDING_UPLOAD",
+		"UPGRADE_READY",
+		"STALE_SELECTION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e UpgradeSelectionStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PENDING_UPLOAD",
+		"UPGRADE_READY",
+		"STALE_SELECTION",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *UpgradeSelectionStatus) index(name string) UpgradeSelectionStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PENDING_UPLOAD",
+		"UPGRADE_READY",
+		"STALE_SELECTION",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return UpgradeSelectionStatus(idx)
+		}
+	}
+	return UPGRADESELECTIONSTATUS_UNKNOWN
+}
+
+func (e *UpgradeSelectionStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for UpgradeSelectionStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *UpgradeSelectionStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e UpgradeSelectionStatus) Ref() *UpgradeSelectionStatus {
+	return &e
+}
+
+/*
+Details of the bundle upload relevant for History.
+*/
+type UploadInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	ChecksumItemDiscriminator_ *string `json:"$checksumItemDiscriminator,omitempty"`
+	/*
+	  SHA256 sum.
+	*/
+	Checksum *OneOfUploadInfoChecksum `json:"checksum,omitempty"`
+	/*
+	  LCM subrepo name.
+	*/
+	Name *string `json:"name,omitempty"`
+
+	Type *BundleType `json:"type,omitempty"`
+}
+
+func (p *UploadInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UploadInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UploadInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UploadInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUploadInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ChecksumItemDiscriminator_ != nil {
+		p.ChecksumItemDiscriminator_ = known.ChecksumItemDiscriminator_
+	}
+	if known.Checksum != nil {
+		p.Checksum = known.Checksum
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$checksumItemDiscriminator")
+	delete(allFields, "checksum")
+	delete(allFields, "name")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUploadInfo() *UploadInfo {
+	p := new(UploadInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.UploadInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UploadInfo) GetChecksum() interface{} {
+	if nil == p.Checksum {
+		return nil
+	}
+	return p.Checksum.GetValue()
+}
+
+func (p *UploadInfo) SetChecksum(v interface{}) error {
+	if nil == p.Checksum {
+		p.Checksum = NewOneOfUploadInfoChecksum()
+	}
+	e := p.Checksum.SetValue(v)
+	if nil == e {
+		if nil == p.ChecksumItemDiscriminator_ {
+			p.ChecksumItemDiscriminator_ = new(string)
+		}
+		*p.ChecksumItemDiscriminator_ = *p.Checksum.Discriminator
+	}
+	return e
+}
+
+/*
+Details of the user who performed the operation.
+*/
+type UserInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of the user who performed the operation.
+	*/
+	UserName *string `json:"userName,omitempty"`
+	/*
+	  User ID of the user who performed the operation.
+	*/
+	UserUuid *string `json:"userUuid,omitempty"`
+}
+
+func (p *UserInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UserInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UserInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UserInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUserInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.UserName != nil {
+		p.UserName = known.UserName
+	}
+	if known.UserUuid != nil {
+		p.UserUuid = known.UserUuid
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "userName")
+	delete(allFields, "userUuid")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUserInfo() *UserInfo {
+	p := new(UserInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "lifecycle.v4.resources.UserInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4626,6 +8140,339 @@ func (p *OneOfGetEntityByIdApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfGetEntityByIdApiResponseData")
+}
+
+type OneOfCreateUpgradeSelectionApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateUpgradeSelectionApiResponseData() *OneOfCreateUpgradeSelectionApiResponseData {
+	p := new(OneOfCreateUpgradeSelectionApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateUpgradeSelectionApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateUpgradeSelectionApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateUpgradeSelectionApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateUpgradeSelectionApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import3.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateUpgradeSelectionApiResponseData"))
+}
+
+func (p *OneOfCreateUpgradeSelectionApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateUpgradeSelectionApiResponseData")
+}
+
+type OneOfUploadInfoChecksum struct {
+	Discriminator *string               `json:"-"`
+	ObjectType_   *string               `json:"-"`
+	oneOfType2401 *import1.LcmSha256Sum `json:"-"`
+	oneOfType2402 *import1.LcmMd5Sum    `json:"-"`
+}
+
+func NewOneOfUploadInfoChecksum() *OneOfUploadInfoChecksum {
+	p := new(OneOfUploadInfoChecksum)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUploadInfoChecksum) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUploadInfoChecksum is nil"))
+	}
+	switch v.(type) {
+	case import1.LcmSha256Sum:
+		if nil == p.oneOfType2401 {
+			p.oneOfType2401 = new(import1.LcmSha256Sum)
+		}
+		*p.oneOfType2401 = v.(import1.LcmSha256Sum)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2401.ObjectType_
+	case import1.LcmMd5Sum:
+		if nil == p.oneOfType2402 {
+			p.oneOfType2402 = new(import1.LcmMd5Sum)
+		}
+		*p.oneOfType2402 = v.(import1.LcmMd5Sum)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2402.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2402.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUploadInfoChecksum) GetValue() interface{} {
+	if p.oneOfType2401 != nil && *p.oneOfType2401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2401
+	}
+	if p.oneOfType2402 != nil && *p.oneOfType2402.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2402
+	}
+	return nil
+}
+
+func (p *OneOfUploadInfoChecksum) UnmarshalJSON(b []byte) error {
+	vOneOfType2401 := new(import1.LcmSha256Sum)
+	if err := json.Unmarshal(b, vOneOfType2401); err == nil {
+		if "lifecycle.v4.common.LcmSha256Sum" == *vOneOfType2401.ObjectType_ {
+			if nil == p.oneOfType2401 {
+				p.oneOfType2401 = new(import1.LcmSha256Sum)
+			}
+			*p.oneOfType2401 = *vOneOfType2401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2401.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2402 := new(import1.LcmMd5Sum)
+	if err := json.Unmarshal(b, vOneOfType2402); err == nil {
+		if "lifecycle.v4.common.LcmMd5Sum" == *vOneOfType2402.ObjectType_ {
+			if nil == p.oneOfType2402 {
+				p.oneOfType2402 = new(import1.LcmMd5Sum)
+			}
+			*p.oneOfType2402 = *vOneOfType2402
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2402.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2402.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUploadInfoChecksum"))
+}
+
+func (p *OneOfUploadInfoChecksum) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2401 != nil && *p.oneOfType2401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2401)
+	}
+	if p.oneOfType2402 != nil && *p.oneOfType2402.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2402)
+	}
+	return nil, errors.New("No value to marshal for OneOfUploadInfoChecksum")
+}
+
+type OneOfLcmHistoryOperationInfo struct {
+	Discriminator *string      `json:"-"`
+	ObjectType_   *string      `json:"-"`
+	oneOfType2401 *UploadInfo  `json:"-"`
+	oneOfType2402 *UpgradeInfo `json:"-"`
+}
+
+func NewOneOfLcmHistoryOperationInfo() *OneOfLcmHistoryOperationInfo {
+	p := new(OneOfLcmHistoryOperationInfo)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfLcmHistoryOperationInfo) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfLcmHistoryOperationInfo is nil"))
+	}
+	switch v.(type) {
+	case UploadInfo:
+		if nil == p.oneOfType2401 {
+			p.oneOfType2401 = new(UploadInfo)
+		}
+		*p.oneOfType2401 = v.(UploadInfo)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2401.ObjectType_
+	case UpgradeInfo:
+		if nil == p.oneOfType2402 {
+			p.oneOfType2402 = new(UpgradeInfo)
+		}
+		*p.oneOfType2402 = v.(UpgradeInfo)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2402.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2402.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfLcmHistoryOperationInfo) GetValue() interface{} {
+	if p.oneOfType2401 != nil && *p.oneOfType2401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2401
+	}
+	if p.oneOfType2402 != nil && *p.oneOfType2402.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2402
+	}
+	return nil
+}
+
+func (p *OneOfLcmHistoryOperationInfo) UnmarshalJSON(b []byte) error {
+	vOneOfType2401 := new(UploadInfo)
+	if err := json.Unmarshal(b, vOneOfType2401); err == nil {
+		if "lifecycle.v4.resources.UploadInfo" == *vOneOfType2401.ObjectType_ {
+			if nil == p.oneOfType2401 {
+				p.oneOfType2401 = new(UploadInfo)
+			}
+			*p.oneOfType2401 = *vOneOfType2401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2401.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2402 := new(UpgradeInfo)
+	if err := json.Unmarshal(b, vOneOfType2402); err == nil {
+		if "lifecycle.v4.resources.UpgradeInfo" == *vOneOfType2402.ObjectType_ {
+			if nil == p.oneOfType2402 {
+				p.oneOfType2402 = new(UpgradeInfo)
+			}
+			*p.oneOfType2402 = *vOneOfType2402
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2402.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2402.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfLcmHistoryOperationInfo"))
+}
+
+func (p *OneOfLcmHistoryOperationInfo) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2401 != nil && *p.oneOfType2401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2401)
+	}
+	if p.oneOfType2402 != nil && *p.oneOfType2402.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2402)
+	}
+	return nil, errors.New("No value to marshal for OneOfLcmHistoryOperationInfo")
 }
 
 type OneOfRecommendationSpecRecommendationSpec struct {
@@ -5003,111 +8850,6 @@ func (p *OneOfListEntitiesApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfListEntitiesApiResponseData")
-}
-
-type OneOfListBundlesApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 []Bundle               `json:"-"`
-}
-
-func NewOneOfListBundlesApiResponseData() *OneOfListBundlesApiResponseData {
-	p := new(OneOfListBundlesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListBundlesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListBundlesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import4.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import4.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import4.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Bundle:
-		p.oneOfType2001 = v.([]Bundle)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<lifecycle.v4.resources.Bundle>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<lifecycle.v4.resources.Bundle>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListBundlesApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<lifecycle.v4.resources.Bundle>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfListBundlesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import4.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import4.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new([]Bundle)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.Bundle" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<lifecycle.v4.resources.Bundle>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<lifecycle.v4.resources.Bundle>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListBundlesApiResponseData"))
-}
-
-func (p *OneOfListBundlesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<lifecycle.v4.resources.Bundle>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfListBundlesApiResponseData")
 }
 
 type OneOfCreateBundleApiResponseData struct {
@@ -5548,23 +9290,23 @@ func (p *OneOfBundleChecksum) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfBundleChecksum")
 }
 
-type OneOfGetRecommendationByIdApiResponseData struct {
+type OneOfListLcmHistoriesApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType400  *import4.ErrorResponse `json:"-"`
-	oneOfType2001 *RecommendationResult  `json:"-"`
+	oneOfType2001 []LcmHistory           `json:"-"`
 }
 
-func NewOneOfGetRecommendationByIdApiResponseData() *OneOfGetRecommendationByIdApiResponseData {
-	p := new(OneOfGetRecommendationByIdApiResponseData)
+func NewOneOfListLcmHistoriesApiResponseData() *OneOfListLcmHistoriesApiResponseData {
+	p := new(OneOfListLcmHistoriesApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetRecommendationByIdApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListLcmHistoriesApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetRecommendationByIdApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListLcmHistoriesApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import4.ErrorResponse:
@@ -5580,36 +9322,33 @@ func (p *OneOfGetRecommendationByIdApiResponseData) SetValue(v interface{}) erro
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case RecommendationResult:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(RecommendationResult)
-		}
-		*p.oneOfType2001 = v.(RecommendationResult)
+	case []LcmHistory:
+		p.oneOfType2001 = v.([]LcmHistory)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		*p.Discriminator = "List<lifecycle.v4.resources.LcmHistory>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+		*p.ObjectType_ = "List<lifecycle.v4.resources.LcmHistory>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfGetRecommendationByIdApiResponseData) GetValue() interface{} {
+func (p *OneOfListLcmHistoriesApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
+	if "List<lifecycle.v4.resources.LcmHistory>" == *p.Discriminator {
+		return p.oneOfType2001
 	}
 	return nil
 }
 
-func (p *OneOfGetRecommendationByIdApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListLcmHistoriesApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import4.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -5628,35 +9367,32 @@ func (p *OneOfGetRecommendationByIdApiResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
-	vOneOfType2001 := new(RecommendationResult)
+	vOneOfType2001 := new([]LcmHistory)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "lifecycle.v4.resources.RecommendationResult" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(RecommendationResult)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
+		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.LcmHistory" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			*p.Discriminator = "List<lifecycle.v4.resources.LcmHistory>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			*p.ObjectType_ = "List<lifecycle.v4.resources.LcmHistory>"
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRecommendationByIdApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLcmHistoriesApiResponseData"))
 }
 
-func (p *OneOfGetRecommendationByIdApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListLcmHistoriesApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+	if "List<lifecycle.v4.resources.LcmHistory>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetRecommendationByIdApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListLcmHistoriesApiResponseData")
 }
 
 type OneOfGetLcmSummaryByIdApiResponseData struct {
@@ -6103,6 +9839,888 @@ func (p *OneOfGetConfigApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGetConfigApiResponseData")
 }
 
+type OneOfExportInventoryApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfExportInventoryApiResponseData() *OneOfExportInventoryApiResponseData {
+	p := new(OneOfExportInventoryApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfExportInventoryApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfExportInventoryApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfExportInventoryApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfExportInventoryApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import3.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfExportInventoryApiResponseData"))
+}
+
+func (p *OneOfExportInventoryApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfExportInventoryApiResponseData")
+}
+
+type OneOfDeleteUpgradeSelectionApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteUpgradeSelectionApiResponseData() *OneOfDeleteUpgradeSelectionApiResponseData {
+	p := new(OneOfDeleteUpgradeSelectionApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteUpgradeSelectionApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteUpgradeSelectionApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteUpgradeSelectionApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteUpgradeSelectionApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import3.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteUpgradeSelectionApiResponseData"))
+}
+
+func (p *OneOfDeleteUpgradeSelectionApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteUpgradeSelectionApiResponseData")
+}
+
+type OneOfGetUpgradeSelectionApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *UpgradeSelection      `json:"-"`
+}
+
+func NewOneOfGetUpgradeSelectionApiResponseData() *OneOfGetUpgradeSelectionApiResponseData {
+	p := new(OneOfGetUpgradeSelectionApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetUpgradeSelectionApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetUpgradeSelectionApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case UpgradeSelection:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(UpgradeSelection)
+		}
+		*p.oneOfType2001 = v.(UpgradeSelection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetUpgradeSelectionApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetUpgradeSelectionApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(UpgradeSelection)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "lifecycle.v4.resources.UpgradeSelection" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(UpgradeSelection)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetUpgradeSelectionApiResponseData"))
+}
+
+func (p *OneOfGetUpgradeSelectionApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetUpgradeSelectionApiResponseData")
+}
+
+type OneOfListBundlesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 []Bundle               `json:"-"`
+}
+
+func NewOneOfListBundlesApiResponseData() *OneOfListBundlesApiResponseData {
+	p := new(OneOfListBundlesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListBundlesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListBundlesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Bundle:
+		p.oneOfType2001 = v.([]Bundle)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.resources.Bundle>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.resources.Bundle>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListBundlesApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<lifecycle.v4.resources.Bundle>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListBundlesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]Bundle)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.Bundle" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<lifecycle.v4.resources.Bundle>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<lifecycle.v4.resources.Bundle>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListBundlesApiResponseData"))
+}
+
+func (p *OneOfListBundlesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<lifecycle.v4.resources.Bundle>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListBundlesApiResponseData")
+}
+
+type OneOfExportHistoriesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfExportHistoriesApiResponseData() *OneOfExportHistoriesApiResponseData {
+	p := new(OneOfExportHistoriesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfExportHistoriesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfExportHistoriesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfExportHistoriesApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfExportHistoriesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import3.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfExportHistoriesApiResponseData"))
+}
+
+func (p *OneOfExportHistoriesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfExportHistoriesApiResponseData")
+}
+
+type OneOfExportUpgradeSelectionApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import3.TaskReference `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfExportUpgradeSelectionApiResponseData() *OneOfExportUpgradeSelectionApiResponseData {
+	p := new(OneOfExportUpgradeSelectionApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfExportUpgradeSelectionApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfExportUpgradeSelectionApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import3.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import3.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import3.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfExportUpgradeSelectionApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfExportUpgradeSelectionApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import3.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import3.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfExportUpgradeSelectionApiResponseData"))
+}
+
+func (p *OneOfExportUpgradeSelectionApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfExportUpgradeSelectionApiResponseData")
+}
+
+type OneOfGetRecommendationByIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *RecommendationResult  `json:"-"`
+}
+
+func NewOneOfGetRecommendationByIdApiResponseData() *OneOfGetRecommendationByIdApiResponseData {
+	p := new(OneOfGetRecommendationByIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetRecommendationByIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetRecommendationByIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case RecommendationResult:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(RecommendationResult)
+		}
+		*p.oneOfType2001 = v.(RecommendationResult)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetRecommendationByIdApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetRecommendationByIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(RecommendationResult)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "lifecycle.v4.resources.RecommendationResult" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(RecommendationResult)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetRecommendationByIdApiResponseData"))
+}
+
+func (p *OneOfGetRecommendationByIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetRecommendationByIdApiResponseData")
+}
+
+type OneOfGetLcmHistoryByIdApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+	oneOfType2001 *LcmHistory            `json:"-"`
+}
+
+func NewOneOfGetLcmHistoryByIdApiResponseData() *OneOfGetLcmHistoryByIdApiResponseData {
+	p := new(OneOfGetLcmHistoryByIdApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetLcmHistoryByIdApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetLcmHistoryByIdApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case LcmHistory:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(LcmHistory)
+		}
+		*p.oneOfType2001 = v.(LcmHistory)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetLcmHistoryByIdApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetLcmHistoryByIdApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(LcmHistory)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "lifecycle.v4.resources.LcmHistory" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(LcmHistory)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetLcmHistoryByIdApiResponseData"))
+}
+
+func (p *OneOfGetLcmHistoryByIdApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetLcmHistoryByIdApiResponseData")
+}
+
 type OneOfDeleteBundleByIdApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -6317,6 +10935,111 @@ func (p *OneOfListImagesApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType2001)
 	}
 	return nil, errors.New("No value to marshal for OneOfListImagesApiResponseData")
+}
+
+type OneOfListUpgradeSelectionsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []UpgradeSelection     `json:"-"`
+	oneOfType400  *import4.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListUpgradeSelectionsApiResponseData() *OneOfListUpgradeSelectionsApiResponseData {
+	p := new(OneOfListUpgradeSelectionsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListUpgradeSelectionsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListUpgradeSelectionsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []UpgradeSelection:
+		p.oneOfType2001 = v.([]UpgradeSelection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<lifecycle.v4.resources.UpgradeSelection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<lifecycle.v4.resources.UpgradeSelection>"
+	case import4.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import4.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import4.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListUpgradeSelectionsApiResponseData) GetValue() interface{} {
+	if "List<lifecycle.v4.resources.UpgradeSelection>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListUpgradeSelectionsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]UpgradeSelection)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "lifecycle.v4.resources.UpgradeSelection" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<lifecycle.v4.resources.UpgradeSelection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<lifecycle.v4.resources.UpgradeSelection>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import4.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "lifecycle.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import4.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListUpgradeSelectionsApiResponseData"))
+}
+
+func (p *OneOfListUpgradeSelectionsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<lifecycle.v4.resources.UpgradeSelection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListUpgradeSelectionsApiResponseData")
 }
 
 type FileDetail struct {

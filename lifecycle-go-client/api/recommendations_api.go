@@ -40,7 +40,7 @@ func (api *RecommendationsApi) ComputeRecommendations(body *import1.Recommendati
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/operations/$actions/compute-recommendations"
+	uri := "/api/lifecycle/v4.2/operations/$actions/compute-recommendations"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -91,7 +91,7 @@ func (api *RecommendationsApi) GetRecommendationById(extId *string, args ...map[
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/resources/recommendations/{extId}"
+	uri := "/api/lifecycle/v4.2/resources/recommendations/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

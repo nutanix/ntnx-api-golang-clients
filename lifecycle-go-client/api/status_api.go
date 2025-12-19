@@ -39,7 +39,7 @@ func (api *StatusApi) GetStatus(xClusterId *string, args ...map[string]interface
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/resources/status"
+	uri := "/api/lifecycle/v4.2/resources/status"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}

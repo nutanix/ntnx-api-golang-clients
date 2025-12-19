@@ -1,7 +1,7 @@
 /*
  * Generated file models/lifecycle/v4/operations/operations_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Lifecycle Management APIs
  *
@@ -25,7 +25,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/operations/$actions/compute-notifications Post operation
+REST response for all response codes in API path /lifecycle/v4.2/operations/$actions/compute-notifications Post operation
 */
 type ComputeNotificationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -84,7 +84,26 @@ func (p *ComputeNotificationsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ComputeNotificationsApiResponse(*known)
+	*p = *NewComputeNotificationsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -95,7 +114,9 @@ func (p *ComputeNotificationsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -104,7 +125,7 @@ func NewComputeNotificationsApiResponse() *ComputeNotificationsApiResponse {
 	p := new(ComputeNotificationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.operations.ComputeNotificationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -132,7 +153,7 @@ func (p *ComputeNotificationsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/operations/$actions/compute-recommendations Post operation
+REST response for all response codes in API path /lifecycle/v4.2/operations/$actions/compute-recommendations Post operation
 */
 type ComputeRecommendationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -191,7 +212,26 @@ func (p *ComputeRecommendationsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ComputeRecommendationsApiResponse(*known)
+	*p = *NewComputeRecommendationsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -202,7 +242,9 @@ func (p *ComputeRecommendationsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -211,7 +253,7 @@ func NewComputeRecommendationsApiResponse() *ComputeRecommendationsApiResponse {
 	p := new(ComputeRecommendationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.operations.ComputeRecommendationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -239,7 +281,7 @@ func (p *ComputeRecommendationsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/operations/$actions/inventory Post operation
+REST response for all response codes in API path /lifecycle/v4.2/operations/$actions/inventory Post operation
 */
 type InventoryApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -298,7 +340,26 @@ func (p *InventoryApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = InventoryApiResponse(*known)
+	*p = *NewInventoryApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -309,7 +370,9 @@ func (p *InventoryApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -318,7 +381,7 @@ func NewInventoryApiResponse() *InventoryApiResponse {
 	p := new(InventoryApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.operations.InventoryApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -401,7 +464,20 @@ func (p *InventorySpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = InventorySpec(*known)
+	*p = *NewInventorySpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credentials != nil {
+		p.Credentials = known.Credentials
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -410,7 +486,9 @@ func (p *InventorySpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "credentials")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -419,14 +497,14 @@ func NewInventorySpec() *InventorySpec {
 	p := new(InventorySpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.operations.InventorySpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/operations/$actions/prechecks Post operation
+REST response for all response codes in API path /lifecycle/v4.2/operations/$actions/prechecks Post operation
 */
 type PrechecksApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -485,7 +563,26 @@ func (p *PrechecksApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PrechecksApiResponse(*known)
+	*p = *NewPrechecksApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -496,7 +593,9 @@ func (p *PrechecksApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -505,7 +604,7 @@ func NewPrechecksApiResponse() *PrechecksApiResponse {
 	p := new(PrechecksApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.operations.PrechecksApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -533,7 +632,7 @@ func (p *PrechecksApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/operations/$actions/preload-artifacts Post operation
+REST response for all response codes in API path /lifecycle/v4.2/operations/$actions/preload-artifacts Post operation
 */
 type PreloadArtifactsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -592,7 +691,26 @@ func (p *PreloadArtifactsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PreloadArtifactsApiResponse(*known)
+	*p = *NewPreloadArtifactsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -603,7 +721,9 @@ func (p *PreloadArtifactsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -612,7 +732,7 @@ func NewPreloadArtifactsApiResponse() *PreloadArtifactsApiResponse {
 	p := new(PreloadArtifactsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.operations.PreloadArtifactsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -640,7 +760,7 @@ func (p *PreloadArtifactsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /lifecycle/v4.1/operations/$actions/upgrade Post operation
+REST response for all response codes in API path /lifecycle/v4.2/operations/$actions/upgrade Post operation
 */
 type UpgradeApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -699,7 +819,26 @@ func (p *UpgradeApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpgradeApiResponse(*known)
+	*p = *NewUpgradeApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -710,7 +849,9 @@ func (p *UpgradeApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -719,7 +860,7 @@ func NewUpgradeApiResponse() *UpgradeApiResponse {
 	p := new(UpgradeApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "lifecycle.v4.operations.UpgradeApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

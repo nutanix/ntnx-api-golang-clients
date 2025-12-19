@@ -40,7 +40,7 @@ func (api *PrechecksApi) PerformPrechecks(body *import2.PrechecksSpec, xClusterI
 		argMap = args[0]
 	}
 
-	uri := "/api/lifecycle/v4.1/operations/$actions/prechecks"
+	uri := "/api/lifecycle/v4.2/operations/$actions/prechecks"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
