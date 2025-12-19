@@ -1,7 +1,7 @@
 /*
  * Generated file models/catalogCommon/v1/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
@@ -90,7 +90,23 @@ func (p *CategoriesFilter) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoriesFilter(*known)
+	*p = *NewCategoriesFilter()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryExtIds != nil {
+		p.CategoryExtIds = known.CategoryExtIds
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -100,7 +116,9 @@ func (p *CategoriesFilter) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -288,7 +306,53 @@ func (p *CommonPlacementPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CommonPlacementPolicy(*known)
+	*p = *NewCommonPlacementPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterFilter != nil {
+		p.ClusterFilter = known.ClusterFilter
+	}
+	if known.ContentFilter != nil {
+		p.ContentFilter = known.ContentFilter
+	}
+	if known.CreateTime != nil {
+		p.CreateTime = known.CreateTime
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.PlacementType != nil {
+		p.PlacementType = known.PlacementType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpdateTime != nil {
+		p.UpdateTime = known.UpdateTime
+	}
+	if known.UpdatedBy != nil {
+		p.UpdatedBy = known.UpdatedBy
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -308,7 +372,9 @@ func (p *CommonPlacementPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "updatedBy")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }

@@ -39,7 +39,7 @@ func (api *TemplatePlacementPoliciesApi) CreateTemplatePlacementPolicy(body *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/config/template-placement-policies"
+	uri := "/api/vmm/v4.2/config/template-placement-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *TemplatePlacementPoliciesApi) DeleteTemplatePlacementPolicyById(extId
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/config/template-placement-policies/{extId}"
+	uri := "/api/vmm/v4.2/config/template-placement-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *TemplatePlacementPoliciesApi) GetTemplatePlacementPolicyById(extId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/config/template-placement-policies/{extId}"
+	uri := "/api/vmm/v4.2/config/template-placement-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *TemplatePlacementPoliciesApi) ListTemplatePlacementPolicies(page_ *in
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/config/template-placement-policies"
+	uri := "/api/vmm/v4.2/config/template-placement-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *TemplatePlacementPoliciesApi) UpdateTemplatePlacementPolicyById(extId
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/config/template-placement-policies/{extId}"
+	uri := "/api/vmm/v4.2/config/template-placement-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/images/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
@@ -26,7 +26,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/placement-policies Post operation
+REST response for all response codes in API path /vmm/v4.2/images/config/placement-policies Post operation
 */
 type CreatePlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -85,7 +85,26 @@ func (p *CreatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreatePlacementPolicyApiResponse(*known)
+	*p = *NewCreatePlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -96,7 +115,9 @@ func (p *CreatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -105,7 +126,7 @@ func NewCreatePlacementPolicyApiResponse() *CreatePlacementPolicyApiResponse {
 	p := new(CreatePlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.CreatePlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -133,7 +154,7 @@ func (p *CreatePlacementPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/rate-limit-policies Post operation
+REST response for all response codes in API path /vmm/v4.2/images/config/rate-limit-policies Post operation
 */
 type CreateRateLimitPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -192,7 +213,26 @@ func (p *CreateRateLimitPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateRateLimitPolicyApiResponse(*known)
+	*p = *NewCreateRateLimitPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -203,7 +243,9 @@ func (p *CreateRateLimitPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -212,7 +254,7 @@ func NewCreateRateLimitPolicyApiResponse() *CreateRateLimitPolicyApiResponse {
 	p := new(CreateRateLimitPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.CreateRateLimitPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -240,7 +282,7 @@ func (p *CreateRateLimitPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/placement-policies/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/images/config/placement-policies/{extId} Delete operation
 */
 type DeletePlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -299,7 +341,26 @@ func (p *DeletePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeletePlacementPolicyApiResponse(*known)
+	*p = *NewDeletePlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -310,7 +371,9 @@ func (p *DeletePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -319,7 +382,7 @@ func NewDeletePlacementPolicyApiResponse() *DeletePlacementPolicyApiResponse {
 	p := new(DeletePlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.DeletePlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -347,7 +410,7 @@ func (p *DeletePlacementPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/rate-limit-policies/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/images/config/rate-limit-policies/{extId} Delete operation
 */
 type DeleteRateLimitPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -406,7 +469,26 @@ func (p *DeleteRateLimitPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteRateLimitPolicyApiResponse(*known)
+	*p = *NewDeleteRateLimitPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -417,7 +499,9 @@ func (p *DeleteRateLimitPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -426,7 +510,7 @@ func NewDeleteRateLimitPolicyApiResponse() *DeleteRateLimitPolicyApiResponse {
 	p := new(DeleteRateLimitPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.DeleteRateLimitPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -531,7 +615,32 @@ func (p *EffectiveRateLimitPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EffectiveRateLimitPolicy(*known)
+	*p = *NewEffectiveRateLimitPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.RateLimitExtId != nil {
+		p.RateLimitExtId = known.RateLimitExtId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -544,7 +653,9 @@ func (p *EffectiveRateLimitPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -553,7 +664,7 @@ func NewEffectiveRateLimitPolicy() *EffectiveRateLimitPolicy {
 	p := new(EffectiveRateLimitPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.EffectiveRateLimitPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -705,7 +816,23 @@ func (p *Filter) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Filter(*known)
+	*p = *NewFilter()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CategoryExtIds != nil {
+		p.CategoryExtIds = known.CategoryExtIds
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -715,7 +842,9 @@ func (p *Filter) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -724,7 +853,7 @@ func NewFilter() *Filter {
 	p := new(Filter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.Filter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -810,7 +939,7 @@ func (e FilterMatchType) Ref() *FilterMatchType {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/placement-policies/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/images/config/placement-policies/{extId} Get operation
 */
 type GetPlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -869,7 +998,26 @@ func (p *GetPlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetPlacementPolicyApiResponse(*known)
+	*p = *NewGetPlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -880,7 +1028,9 @@ func (p *GetPlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -889,7 +1039,7 @@ func NewGetPlacementPolicyApiResponse() *GetPlacementPolicyApiResponse {
 	p := new(GetPlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.GetPlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -917,7 +1067,7 @@ func (p *GetPlacementPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/rate-limit-policies/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/images/config/rate-limit-policies/{extId} Get operation
 */
 type GetRateLimitPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -976,7 +1126,26 @@ func (p *GetRateLimitPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetRateLimitPolicyApiResponse(*known)
+	*p = *NewGetRateLimitPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -987,7 +1156,9 @@ func (p *GetRateLimitPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -996,7 +1167,7 @@ func NewGetRateLimitPolicyApiResponse() *GetRateLimitPolicyApiResponse {
 	p := new(GetRateLimitPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.GetRateLimitPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1024,7 +1195,7 @@ func (p *GetRateLimitPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/effective-rate-limit-policies Get operation
+REST response for all response codes in API path /vmm/v4.2/images/config/effective-rate-limit-policies Get operation
 */
 type ListEffectiveRateLimitPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1083,7 +1254,26 @@ func (p *ListEffectiveRateLimitPoliciesApiResponse) UnmarshalJSON(b []byte) erro
 	}
 
 	// Step 3: Assign known fields
-	*p = ListEffectiveRateLimitPoliciesApiResponse(*known)
+	*p = *NewListEffectiveRateLimitPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1094,7 +1284,9 @@ func (p *ListEffectiveRateLimitPoliciesApiResponse) UnmarshalJSON(b []byte) erro
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1103,7 +1295,7 @@ func NewListEffectiveRateLimitPoliciesApiResponse() *ListEffectiveRateLimitPolic
 	p := new(ListEffectiveRateLimitPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.ListEffectiveRateLimitPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1131,7 +1323,7 @@ func (p *ListEffectiveRateLimitPoliciesApiResponse) SetData(v interface{}) error
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/placement-policies Get operation
+REST response for all response codes in API path /vmm/v4.2/images/config/placement-policies Get operation
 */
 type ListPlacementPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1190,7 +1382,26 @@ func (p *ListPlacementPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListPlacementPoliciesApiResponse(*known)
+	*p = *NewListPlacementPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1201,7 +1412,9 @@ func (p *ListPlacementPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1210,7 +1423,7 @@ func NewListPlacementPoliciesApiResponse() *ListPlacementPoliciesApiResponse {
 	p := new(ListPlacementPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.ListPlacementPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1238,7 +1451,7 @@ func (p *ListPlacementPoliciesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/rate-limit-policies Get operation
+REST response for all response codes in API path /vmm/v4.2/images/config/rate-limit-policies Get operation
 */
 type ListRateLimitPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1297,7 +1510,26 @@ func (p *ListRateLimitPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListRateLimitPoliciesApiResponse(*known)
+	*p = *NewListRateLimitPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1308,7 +1540,9 @@ func (p *ListRateLimitPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1317,7 +1551,7 @@ func NewListRateLimitPoliciesApiResponse() *ListRateLimitPoliciesApiResponse {
 	p := new(ListRateLimitPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.ListRateLimitPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1384,6 +1618,10 @@ type PlacementPolicy struct {
 	  External identifier of the owner of the image placement policy.
 	*/
 	OwnerExtId *string `json:"ownerExtId,omitempty"`
+	/*
+	  Name of the owner of the image placement policy.
+	*/
+	OwnerName *string `json:"ownerName,omitempty"`
 
 	PlacementType *PlacementType `json:"placementType"`
 	/*
@@ -1446,7 +1684,56 @@ func (p *PlacementPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PlacementPolicy(*known)
+	*p = *NewPlacementPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterEntityFilter != nil {
+		p.ClusterEntityFilter = known.ClusterEntityFilter
+	}
+	if known.CreateTime != nil {
+		p.CreateTime = known.CreateTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.EnforcementState != nil {
+		p.EnforcementState = known.EnforcementState
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.ImageEntityFilter != nil {
+		p.ImageEntityFilter = known.ImageEntityFilter
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.OwnerExtId != nil {
+		p.OwnerExtId = known.OwnerExtId
+	}
+	if known.OwnerName != nil {
+		p.OwnerName = known.OwnerName
+	}
+	if known.PlacementType != nil {
+		p.PlacementType = known.PlacementType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1462,11 +1749,14 @@ func (p *PlacementPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "links")
 	delete(allFields, "name")
 	delete(allFields, "ownerExtId")
+	delete(allFields, "ownerName")
 	delete(allFields, "placementType")
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1475,7 +1765,7 @@ func NewPlacementPolicy() *PlacementPolicy {
 	p := new(PlacementPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.PlacementPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1601,6 +1891,10 @@ type RateLimitPolicy struct {
 	*/
 	OwnerExtId *string `json:"ownerExtId,omitempty"`
 	/*
+	  Name of the owner of the rate limit policy.
+	*/
+	OwnerName *string `json:"ownerName,omitempty"`
+	/*
 	  Network bandwidth in KBps that the rate limited image operation can utilize.
 	*/
 	RateLimitKbps *int64 `json:"rateLimitKbps"`
@@ -1662,7 +1956,53 @@ func (p *RateLimitPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RateLimitPolicy(*known)
+	*p = *NewRateLimitPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterEntityFilter != nil {
+		p.ClusterEntityFilter = known.ClusterEntityFilter
+	}
+	if known.CreateTime != nil {
+		p.CreateTime = known.CreateTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MatchingClusterExtIds != nil {
+		p.MatchingClusterExtIds = known.MatchingClusterExtIds
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.OwnerExtId != nil {
+		p.OwnerExtId = known.OwnerExtId
+	}
+	if known.OwnerName != nil {
+		p.OwnerName = known.OwnerName
+	}
+	if known.RateLimitKbps != nil {
+		p.RateLimitKbps = known.RateLimitKbps
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1677,11 +2017,14 @@ func (p *RateLimitPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "matchingClusterExtIds")
 	delete(allFields, "name")
 	delete(allFields, "ownerExtId")
+	delete(allFields, "ownerName")
 	delete(allFields, "rateLimitKbps")
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1690,14 +2033,14 @@ func NewRateLimitPolicy() *RateLimitPolicy {
 	p := new(RateLimitPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.RateLimitPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/placement-policies/{extId}/$actions/resume Post operation
+REST response for all response codes in API path /vmm/v4.2/images/config/placement-policies/{extId}/$actions/resume Post operation
 */
 type ResumePlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1756,7 +2099,26 @@ func (p *ResumePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ResumePlacementPolicyApiResponse(*known)
+	*p = *NewResumePlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1767,7 +2129,9 @@ func (p *ResumePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1776,7 +2140,7 @@ func NewResumePlacementPolicyApiResponse() *ResumePlacementPolicyApiResponse {
 	p := new(ResumePlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.ResumePlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1804,7 +2168,7 @@ func (p *ResumePlacementPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/placement-policies/{extId}/$actions/suspend Post operation
+REST response for all response codes in API path /vmm/v4.2/images/config/placement-policies/{extId}/$actions/suspend Post operation
 */
 type SuspendPlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1863,7 +2227,26 @@ func (p *SuspendPlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SuspendPlacementPolicyApiResponse(*known)
+	*p = *NewSuspendPlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1874,7 +2257,9 @@ func (p *SuspendPlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1883,7 +2268,7 @@ func NewSuspendPlacementPolicyApiResponse() *SuspendPlacementPolicyApiResponse {
 	p := new(SuspendPlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.SuspendPlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1967,7 +2352,20 @@ func (p *SuspendPlacementPolicyConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SuspendPlacementPolicyConfig(*known)
+	*p = *NewSuspendPlacementPolicyConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ShouldCancelRunningTasks != nil {
+		p.ShouldCancelRunningTasks = known.ShouldCancelRunningTasks
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1976,7 +2374,9 @@ func (p *SuspendPlacementPolicyConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldCancelRunningTasks")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1985,7 +2385,7 @@ func NewSuspendPlacementPolicyConfig() *SuspendPlacementPolicyConfig {
 	p := new(SuspendPlacementPolicyConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.SuspendPlacementPolicyConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldCancelRunningTasks = new(bool)
@@ -1995,7 +2395,7 @@ func NewSuspendPlacementPolicyConfig() *SuspendPlacementPolicyConfig {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/placement-policies/{extId} Put operation
+REST response for all response codes in API path /vmm/v4.2/images/config/placement-policies/{extId} Put operation
 */
 type UpdatePlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2054,7 +2454,26 @@ func (p *UpdatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdatePlacementPolicyApiResponse(*known)
+	*p = *NewUpdatePlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2065,7 +2484,9 @@ func (p *UpdatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2074,7 +2495,7 @@ func NewUpdatePlacementPolicyApiResponse() *UpdatePlacementPolicyApiResponse {
 	p := new(UpdatePlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.UpdatePlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2102,7 +2523,7 @@ func (p *UpdatePlacementPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/images/config/rate-limit-policies/{extId} Put operation
+REST response for all response codes in API path /vmm/v4.2/images/config/rate-limit-policies/{extId} Put operation
 */
 type UpdateRateLimitPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2161,7 +2582,26 @@ func (p *UpdateRateLimitPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateRateLimitPolicyApiResponse(*known)
+	*p = *NewUpdateRateLimitPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2172,7 +2612,9 @@ func (p *UpdateRateLimitPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2181,7 +2623,7 @@ func NewUpdateRateLimitPolicyApiResponse() *UpdateRateLimitPolicyApiResponse {
 	p := new(UpdateRateLimitPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.images.config.UpdateRateLimitPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

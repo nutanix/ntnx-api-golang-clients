@@ -39,7 +39,7 @@ func (api *VmHostAffinityPoliciesApi) CreateVmHostAffinityPolicy(body *import11.
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *VmHostAffinityPoliciesApi) DeleteVmHostAffinityPolicyById(extId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *VmHostAffinityPoliciesApi) GetVmHostAffinityPolicyById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicies(page_ *int, lim
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -243,7 +243,7 @@ func (api *VmHostAffinityPoliciesApi) ListVmHostAffinityPolicyVmComplianceStates
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{vmHostAffinityPolicyExtId}/vm-compliance-states"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{vmHostAffinityPolicyExtId}/vm-compliance-states"
 
 	// verify the required parameter 'vmHostAffinityPolicyExtId' is set
 	if nil == vmHostAffinityPolicyExtId {
@@ -300,7 +300,7 @@ func (api *VmHostAffinityPoliciesApi) ReEnforceVmHostAffinityPolicyById(extId *s
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{extId}/$actions/re-enforce"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{extId}/$actions/re-enforce"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -350,7 +350,7 @@ func (api *VmHostAffinityPoliciesApi) UpdateVmHostAffinityPolicyById(extId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-host-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-host-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

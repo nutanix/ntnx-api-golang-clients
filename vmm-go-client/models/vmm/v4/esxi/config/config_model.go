@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/esxi/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
@@ -126,7 +126,7 @@ func (e AdapterType) Ref() *AdapterType {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/assign-owner Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/assign-owner Post operation
 */
 type AssignVmOwnerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -185,7 +185,26 @@ func (p *AssignVmOwnerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssignVmOwnerApiResponse(*known)
+	*p = *NewAssignVmOwnerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -196,7 +215,9 @@ func (p *AssignVmOwnerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -205,7 +226,7 @@ func NewAssignVmOwnerApiResponse() *AssignVmOwnerApiResponse {
 	p := new(AssignVmOwnerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.AssignVmOwnerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -233,7 +254,7 @@ func (p *AssignVmOwnerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/associate-categories Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/associate-categories Post operation
 */
 type AssociateCategoriesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -292,7 +313,26 @@ func (p *AssociateCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociateCategoriesApiResponse(*known)
+	*p = *NewAssociateCategoriesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -303,7 +343,9 @@ func (p *AssociateCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -312,7 +354,7 @@ func NewAssociateCategoriesApiResponse() *AssociateCategoriesApiResponse {
 	p := new(AssociateCategoriesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.AssociateCategoriesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -400,7 +442,20 @@ func (p *AssociateVmCategoriesParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociateVmCategoriesParams(*known)
+	*p = *NewAssociateVmCategoriesParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -409,7 +464,9 @@ func (p *AssociateVmCategoriesParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "categories")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -418,7 +475,7 @@ func NewAssociateVmCategoriesParams() *AssociateVmCategoriesParams {
 	p := new(AssociateVmCategoriesParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.AssociateVmCategoriesParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -480,7 +537,20 @@ func (p *CategoryReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryReference(*known)
+	*p = *NewCategoryReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -489,7 +559,9 @@ func (p *CategoryReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -498,7 +570,7 @@ func NewCategoryReference() *CategoryReference {
 	p := new(CategoryReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.CategoryReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -572,7 +644,32 @@ func (p *CdRom) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CdRom(*known)
+	*p = *NewCdRom()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackingInfo != nil {
+		p.BackingInfo = known.BackingInfo
+	}
+	if known.DiskAddress != nil {
+		p.DiskAddress = known.DiskAddress
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -585,7 +682,9 @@ func (p *CdRom) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -594,7 +693,7 @@ func NewCdRom() *CdRom {
 	p := new(CdRom)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.CdRom"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -658,7 +757,23 @@ func (p *CdRomAddress) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CdRomAddress(*known)
+	*p = *NewCdRomAddress()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BusType != nil {
+		p.BusType = known.BusType
+	}
+	if known.Index != nil {
+		p.Index = known.Index
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -668,7 +783,9 @@ func (p *CdRomAddress) UnmarshalJSON(b []byte) error {
 	delete(allFields, "index")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -677,7 +794,7 @@ func NewCdRomAddress() *CdRomAddress {
 	p := new(CdRomAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.CdRomAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -741,7 +858,23 @@ func (p *CdRomBackingInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CdRomBackingInfo(*known)
+	*p = *NewCdRomBackingInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskExtId != nil {
+		p.DiskExtId = known.DiskExtId
+	}
+	if known.StorageContainer != nil {
+		p.StorageContainer = known.StorageContainer
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -751,7 +884,9 @@ func (p *CdRomBackingInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "storageContainer")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -760,7 +895,7 @@ func NewCdRomBackingInfo() *CdRomBackingInfo {
 	p := new(CdRomBackingInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.CdRomBackingInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -901,7 +1036,20 @@ func (p *ClusterReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterReference(*known)
+	*p = *NewClusterReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -910,7 +1058,9 @@ func (p *ClusterReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -919,14 +1069,14 @@ func NewClusterReference() *ClusterReference {
 	p := new(ClusterReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.ClusterReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/disassociate-categories Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/disassociate-categories Post operation
 */
 type DisassociateCategoriesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -985,7 +1135,26 @@ func (p *DisassociateCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DisassociateCategoriesApiResponse(*known)
+	*p = *NewDisassociateCategoriesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -996,7 +1165,9 @@ func (p *DisassociateCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1005,7 +1176,7 @@ func NewDisassociateCategoriesApiResponse() *DisassociateCategoriesApiResponse {
 	p := new(DisassociateCategoriesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.DisassociateCategoriesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1093,7 +1264,20 @@ func (p *DisassociateVmCategoriesParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DisassociateVmCategoriesParams(*known)
+	*p = *NewDisassociateVmCategoriesParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1102,7 +1286,9 @@ func (p *DisassociateVmCategoriesParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "categories")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1111,7 +1297,7 @@ func NewDisassociateVmCategoriesParams() *DisassociateVmCategoriesParams {
 	p := new(DisassociateVmCategoriesParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.DisassociateVmCategoriesParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1185,7 +1371,32 @@ func (p *Disk) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Disk(*known)
+	*p = *NewDisk()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackingInfo != nil {
+		p.BackingInfo = known.BackingInfo
+	}
+	if known.DiskAddress != nil {
+		p.DiskAddress = known.DiskAddress
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1198,7 +1409,9 @@ func (p *Disk) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1207,7 +1420,7 @@ func NewDisk() *Disk {
 	p := new(Disk)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.Disk"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1271,7 +1484,23 @@ func (p *DiskAddress) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskAddress(*known)
+	*p = *NewDiskAddress()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BusType != nil {
+		p.BusType = known.BusType
+	}
+	if known.Index != nil {
+		p.Index = known.Index
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1281,7 +1510,9 @@ func (p *DiskAddress) UnmarshalJSON(b []byte) error {
 	delete(allFields, "index")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1290,7 +1521,7 @@ func NewDiskAddress() *DiskAddress {
 	p := new(DiskAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.DiskAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1384,7 +1615,7 @@ func (e DiskBusType) Ref() *DiskBusType {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools Get operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools Get operation
 */
 type GetNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1443,7 +1674,26 @@ func (p *GetNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetNutanixGuestToolsApiResponse(*known)
+	*p = *NewGetNutanixGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1454,7 +1704,9 @@ func (p *GetNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1463,7 +1715,7 @@ func NewGetNutanixGuestToolsApiResponse() *GetNutanixGuestToolsApiResponse {
 	p := new(GetNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.GetNutanixGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1491,7 +1743,7 @@ func (p *GetNutanixGuestToolsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId} Get operation
 */
 type GetVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1550,7 +1802,26 @@ func (p *GetVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVmApiResponse(*known)
+	*p = *NewGetVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1561,7 +1832,9 @@ func (p *GetVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1570,7 +1843,7 @@ func NewGetVmApiResponse() *GetVmApiResponse {
 	p := new(GetVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.GetVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1595,6 +1868,139 @@ func (p *GetVmApiResponse) SetData(v interface{}) error {
 		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
 	return e
+}
+
+/*
+Information retrieved from the guest operating system.
+*/
+type GuestInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	DnsName *import4.FQDN `json:"dnsName,omitempty"`
+	/*
+	  Indicates build number of the guest operating system.
+	*/
+	GuestOsBuildNumber *string `json:"guestOsBuildNumber,omitempty"`
+	/*
+	  Guest operating system full name.
+	*/
+	GuestOsFullName *string `json:"guestOsFullName,omitempty"`
+	/*
+	  Version of the VirtIO drivers installed on the guest OS.
+	*/
+	InstalledVirtIoVersion *string `json:"installedVirtIoVersion,omitempty"`
+	/*
+	  Indicates whether the VM mobility drivers are installed on the VM or not.
+	*/
+	IsVmMobilityDriversInstalled *bool `json:"isVmMobilityDriversInstalled,omitempty"`
+	/*
+	  Timestamp indicating the last time the guest OS was booted.
+	*/
+	LastBootUpTime *time.Time `json:"lastBootUpTime,omitempty"`
+}
+
+func (p *GuestInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GuestInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GuestInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GuestInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGuestInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DnsName != nil {
+		p.DnsName = known.DnsName
+	}
+	if known.GuestOsBuildNumber != nil {
+		p.GuestOsBuildNumber = known.GuestOsBuildNumber
+	}
+	if known.GuestOsFullName != nil {
+		p.GuestOsFullName = known.GuestOsFullName
+	}
+	if known.InstalledVirtIoVersion != nil {
+		p.InstalledVirtIoVersion = known.InstalledVirtIoVersion
+	}
+	if known.IsVmMobilityDriversInstalled != nil {
+		p.IsVmMobilityDriversInstalled = known.IsVmMobilityDriversInstalled
+	}
+	if known.LastBootUpTime != nil {
+		p.LastBootUpTime = known.LastBootUpTime
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "dnsName")
+	delete(allFields, "guestOsBuildNumber")
+	delete(allFields, "guestOsFullName")
+	delete(allFields, "installedVirtIoVersion")
+	delete(allFields, "isVmMobilityDriversInstalled")
+	delete(allFields, "lastBootUpTime")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGuestInfo() *GuestInfo {
+	p := new(GuestInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.esxi.config.GuestInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -1653,7 +2059,20 @@ func (p *HostReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostReference(*known)
+	*p = *NewHostReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1662,7 +2081,9 @@ func (p *HostReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1671,14 +2092,14 @@ func NewHostReference() *HostReference {
 	p := new(HostReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.HostReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/insert-iso Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/insert-iso Post operation
 */
 type InsertNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1737,7 +2158,26 @@ func (p *InsertNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = InsertNutanixGuestToolsApiResponse(*known)
+	*p = *NewInsertNutanixGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1748,7 +2188,9 @@ func (p *InsertNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1757,7 +2199,7 @@ func NewInsertNutanixGuestToolsApiResponse() *InsertNutanixGuestToolsApiResponse
 	p := new(InsertNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.InsertNutanixGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1785,7 +2227,7 @@ func (p *InsertNutanixGuestToolsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/install Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/install Post operation
 */
 type InstallNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1844,7 +2286,26 @@ func (p *InstallNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = InstallNutanixGuestToolsApiResponse(*known)
+	*p = *NewInstallNutanixGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1855,7 +2316,9 @@ func (p *InstallNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1864,7 +2327,7 @@ func NewInstallNutanixGuestToolsApiResponse() *InstallNutanixGuestToolsApiRespon
 	p := new(InstallNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.InstallNutanixGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1951,7 +2414,23 @@ func (p *IpAddressInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IpAddressInfo(*known)
+	*p = *NewIpAddressInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4Addresses != nil {
+		p.Ipv4Addresses = known.Ipv4Addresses
+	}
+	if known.Ipv6Addresses != nil {
+		p.Ipv6Addresses = known.Ipv6Addresses
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1961,7 +2440,9 @@ func (p *IpAddressInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "ipv6Addresses")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1970,14 +2451,14 @@ func NewIpAddressInfo() *IpAddressInfo {
 	p := new(IpAddressInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.IpAddressInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms Get operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms Get operation
 */
 type ListVmsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2036,7 +2517,26 @@ func (p *ListVmsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListVmsApiResponse(*known)
+	*p = *NewListVmsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2047,7 +2547,9 @@ func (p *ListVmsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2056,7 +2558,7 @@ func NewListVmsApiResponse() *ListVmsApiResponse {
 	p := new(ListVmsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.ListVmsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2151,7 +2653,32 @@ func (p *Nic) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Nic(*known)
+	*p = *NewNic()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackingInfo != nil {
+		p.BackingInfo = known.BackingInfo
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.NetworkInfo != nil {
+		p.NetworkInfo = known.NetworkInfo
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2164,7 +2691,9 @@ func (p *Nic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2173,7 +2702,7 @@ func NewNic() *Nic {
 	p := new(Nic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.Nic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2241,7 +2770,26 @@ func (p *NicBackingInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NicBackingInfo(*known)
+	*p = *NewNicBackingInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AdapterType != nil {
+		p.AdapterType = known.AdapterType
+	}
+	if known.IsConnected != nil {
+		p.IsConnected = known.IsConnected
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2252,7 +2800,9 @@ func (p *NicBackingInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "macAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2261,7 +2811,7 @@ func NewNicBackingInfo() *NicBackingInfo {
 	p := new(NicBackingInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NicBackingInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2323,7 +2873,23 @@ func (p *NicNetworkInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NicNetworkInfo(*known)
+	*p = *NewNicNetworkInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IpAddressInfo != nil {
+		p.IpAddressInfo = known.IpAddressInfo
+	}
+	if known.PortGroupInfo != nil {
+		p.PortGroupInfo = known.PortGroupInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2333,7 +2899,9 @@ func (p *NicNetworkInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "portGroupInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2342,7 +2910,7 @@ func NewNicNetworkInfo() *NicNetworkInfo {
 	p := new(NicNetworkInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NicNetworkInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2417,7 +2985,23 @@ func (p *NutanixCredential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NutanixCredential(*known)
+	*p = *NewNutanixCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2427,7 +3011,9 @@ func (p *NutanixCredential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2436,7 +3022,7 @@ func NewNutanixCredential() *NutanixCredential {
 	p := new(NutanixCredential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixCredential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2459,8 +3045,10 @@ type NutanixGuestTools struct {
 	  The list of the application names that are enabled on the guest VM.
 	*/
 	Capabilities []NutanixGuestToolsCapability `json:"capabilities,omitempty"`
+
+	GuestInfo *GuestInfo `json:"guestInfo,omitempty"`
 	/*
-	  Version of the operating system on the VM.
+	  Version of the operating system on the VM. This object is now deprecated. If both deprecated and new objects are present, the new object GuestInfo/GuestOsFullName takes precedence.
 	*/
 	GuestOsVersion *string `json:"guestOsVersion,omitempty"`
 	/*
@@ -2480,7 +3068,7 @@ type NutanixGuestTools struct {
 	*/
 	IsReachable *bool `json:"isReachable,omitempty"`
 	/*
-	  Indicates whether the VM mobility drivers are installed on the VM or not.
+	  Indicates whether the VM mobility drivers are installed on the VM or not. This object is now deprecated. If both deprecated and new objects are present, the new object GuestInfoVmMobilityDriversInstalledDescription takes precedence.
 	*/
 	IsVmMobilityDriversInstalled *bool `json:"isVmMobilityDriversInstalled,omitempty"`
 	/*
@@ -2534,7 +3122,50 @@ func (p *NutanixGuestTools) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NutanixGuestTools(*known)
+	*p = *NewNutanixGuestTools()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AvailableVersion != nil {
+		p.AvailableVersion = known.AvailableVersion
+	}
+	if known.Capabilities != nil {
+		p.Capabilities = known.Capabilities
+	}
+	if known.GuestInfo != nil {
+		p.GuestInfo = known.GuestInfo
+	}
+	if known.GuestOsVersion != nil {
+		p.GuestOsVersion = known.GuestOsVersion
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.IsInstalled != nil {
+		p.IsInstalled = known.IsInstalled
+	}
+	if known.IsIsoInserted != nil {
+		p.IsIsoInserted = known.IsIsoInserted
+	}
+	if known.IsReachable != nil {
+		p.IsReachable = known.IsReachable
+	}
+	if known.IsVmMobilityDriversInstalled != nil {
+		p.IsVmMobilityDriversInstalled = known.IsVmMobilityDriversInstalled
+	}
+	if known.IsVssSnapshotCapable != nil {
+		p.IsVssSnapshotCapable = known.IsVssSnapshotCapable
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2542,6 +3173,7 @@ func (p *NutanixGuestTools) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "availableVersion")
 	delete(allFields, "capabilities")
+	delete(allFields, "guestInfo")
 	delete(allFields, "guestOsVersion")
 	delete(allFields, "isEnabled")
 	delete(allFields, "isInstalled")
@@ -2552,7 +3184,9 @@ func (p *NutanixGuestTools) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2561,7 +3195,7 @@ func NewNutanixGuestTools() *NutanixGuestTools {
 	p := new(NutanixGuestTools)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixGuestTools"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2702,7 +3336,20 @@ func (p *NutanixGuestToolsInsertConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NutanixGuestToolsInsertConfig(*known)
+	*p = *NewNutanixGuestToolsInsertConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Capabilities != nil {
+		p.Capabilities = known.Capabilities
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2711,7 +3358,9 @@ func (p *NutanixGuestToolsInsertConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "capabilities")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2720,7 +3369,7 @@ func NewNutanixGuestToolsInsertConfig() *NutanixGuestToolsInsertConfig {
 	p := new(NutanixGuestToolsInsertConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixGuestToolsInsertConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2793,7 +3442,26 @@ func (p *NutanixGuestToolsInstallConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NutanixGuestToolsInstallConfig(*known)
+	*p = *NewNutanixGuestToolsInstallConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Capabilities != nil {
+		p.Capabilities = known.Capabilities
+	}
+	if known.Credential != nil {
+		p.Credential = known.Credential
+	}
+	if known.RebootPreference != nil {
+		p.RebootPreference = known.RebootPreference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2804,7 +3472,9 @@ func (p *NutanixGuestToolsInstallConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rebootPreference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2813,7 +3483,7 @@ func NewNutanixGuestToolsInstallConfig() *NutanixGuestToolsInstallConfig {
 	p := new(NutanixGuestToolsInstallConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixGuestToolsInstallConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2873,7 +3543,20 @@ func (p *NutanixGuestToolsUpgradeConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NutanixGuestToolsUpgradeConfig(*known)
+	*p = *NewNutanixGuestToolsUpgradeConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.RebootPreference != nil {
+		p.RebootPreference = known.RebootPreference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2882,7 +3565,9 @@ func (p *NutanixGuestToolsUpgradeConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rebootPreference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2891,7 +3576,7 @@ func NewNutanixGuestToolsUpgradeConfig() *NutanixGuestToolsUpgradeConfig {
 	p := new(NutanixGuestToolsUpgradeConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixGuestToolsUpgradeConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2953,7 +3638,23 @@ func (p *NutanixRebootPreference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NutanixRebootPreference(*known)
+	*p = *NewNutanixRebootPreference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Schedule != nil {
+		p.Schedule = known.Schedule
+	}
+	if known.ScheduleType != nil {
+		p.ScheduleType = known.ScheduleType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2963,7 +3664,9 @@ func (p *NutanixRebootPreference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "scheduleType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2972,7 +3675,7 @@ func NewNutanixRebootPreference() *NutanixRebootPreference {
 	p := new(NutanixRebootPreference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixRebootPreference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3034,7 +3737,20 @@ func (p *NutanixRebootPreferenceSchedule) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NutanixRebootPreferenceSchedule(*known)
+	*p = *NewNutanixRebootPreferenceSchedule()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3043,7 +3759,9 @@ func (p *NutanixRebootPreferenceSchedule) UnmarshalJSON(b []byte) error {
 	delete(allFields, "startTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3052,7 +3770,7 @@ func NewNutanixRebootPreferenceSchedule() *NutanixRebootPreferenceSchedule {
 	p := new(NutanixRebootPreferenceSchedule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.NutanixRebootPreferenceSchedule"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3199,7 +3917,23 @@ func (p *OwnerReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = OwnerReference(*known)
+	*p = *NewOwnerReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3209,7 +3943,9 @@ func (p *OwnerReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3218,7 +3954,7 @@ func NewOwnerReference() *OwnerReference {
 	p := new(OwnerReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.OwnerReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3360,7 +4096,20 @@ func (p *OwnershipInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = OwnershipInfo(*known)
+	*p = *NewOwnershipInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Owner != nil {
+		p.Owner = known.Owner
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3369,7 +4118,9 @@ func (p *OwnershipInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "owner")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3378,7 +4129,7 @@ func NewOwnershipInfo() *OwnershipInfo {
 	p := new(OwnershipInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.OwnershipInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3440,7 +4191,20 @@ func (p *PortGroupInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PortGroupInfo(*known)
+	*p = *NewPortGroupInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3449,7 +4213,9 @@ func (p *PortGroupInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3458,14 +4224,14 @@ func NewPortGroupInfo() *PortGroupInfo {
 	p := new(PortGroupInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.PortGroupInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/power-off Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/power-off Post operation
 */
 type PowerOffVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3524,7 +4290,26 @@ func (p *PowerOffVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PowerOffVmApiResponse(*known)
+	*p = *NewPowerOffVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3535,7 +4320,9 @@ func (p *PowerOffVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3544,7 +4331,7 @@ func NewPowerOffVmApiResponse() *PowerOffVmApiResponse {
 	p := new(PowerOffVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.PowerOffVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3572,7 +4359,7 @@ func (p *PowerOffVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/power-on Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/power-on Post operation
 */
 type PowerOnVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3631,7 +4418,26 @@ func (p *PowerOnVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PowerOnVmApiResponse(*known)
+	*p = *NewPowerOnVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3642,7 +4448,9 @@ func (p *PowerOnVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3651,7 +4459,7 @@ func NewPowerOnVmApiResponse() *PowerOnVmApiResponse {
 	p := new(PowerOnVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.PowerOnVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3766,7 +4574,7 @@ func (e PowerState) Ref() *PowerState {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/guest-reboot Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/guest-reboot Post operation
 */
 type RebootGuestOSApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3825,7 +4633,26 @@ func (p *RebootGuestOSApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RebootGuestOSApiResponse(*known)
+	*p = *NewRebootGuestOSApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3836,7 +4663,9 @@ func (p *RebootGuestOSApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3845,7 +4674,7 @@ func NewRebootGuestOSApiResponse() *RebootGuestOSApiResponse {
 	p := new(RebootGuestOSApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.RebootGuestOSApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3873,7 +4702,7 @@ func (p *RebootGuestOSApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/reset Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/reset Post operation
 */
 type ResetVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3932,7 +4761,26 @@ func (p *ResetVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ResetVmApiResponse(*known)
+	*p = *NewResetVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3943,7 +4791,9 @@ func (p *ResetVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3952,7 +4802,7 @@ func NewResetVmApiResponse() *ResetVmApiResponse {
 	p := new(ResetVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.ResetVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4042,7 +4892,20 @@ func (p *RevertParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RevertParams(*known)
+	*p = *NewRevertParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.VmRecoveryPointExtId != nil {
+		p.VmRecoveryPointExtId = known.VmRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4051,7 +4914,9 @@ func (p *RevertParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4060,14 +4925,14 @@ func NewRevertParams() *RevertParams {
 	p := new(RevertParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.RevertParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/revert Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/revert Post operation
 */
 type RevertVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4126,7 +4991,26 @@ func (p *RevertVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RevertVmApiResponse(*known)
+	*p = *NewRevertVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4137,7 +5021,9 @@ func (p *RevertVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4146,7 +5032,7 @@ func NewRevertVmApiResponse() *RevertVmApiResponse {
 	p := new(RevertVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.RevertVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4174,7 +5060,7 @@ func (p *RevertVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/guest-shutdown Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/guest-shutdown Post operation
 */
 type ShutdownVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4233,7 +5119,26 @@ func (p *ShutdownVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ShutdownVmApiResponse(*known)
+	*p = *NewShutdownVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4244,7 +5149,9 @@ func (p *ShutdownVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4253,7 +5160,7 @@ func NewShutdownVmApiResponse() *ShutdownVmApiResponse {
 	p := new(ShutdownVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.ShutdownVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4281,7 +5188,7 @@ func (p *ShutdownVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/$actions/suspend Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/$actions/suspend Post operation
 */
 type SuspendVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4340,7 +5247,26 @@ func (p *SuspendVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SuspendVmApiResponse(*known)
+	*p = *NewSuspendVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4351,7 +5277,9 @@ func (p *SuspendVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4360,7 +5288,7 @@ func NewSuspendVmApiResponse() *SuspendVmApiResponse {
 	p := new(SuspendVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.SuspendVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4388,7 +5316,7 @@ func (p *SuspendVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/uninstall Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/uninstall Post operation
 */
 type UninstallNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4447,7 +5375,26 @@ func (p *UninstallNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UninstallNutanixGuestToolsApiResponse(*known)
+	*p = *NewUninstallNutanixGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4458,7 +5405,9 @@ func (p *UninstallNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4467,7 +5416,7 @@ func NewUninstallNutanixGuestToolsApiResponse() *UninstallNutanixGuestToolsApiRe
 	p := new(UninstallNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.UninstallNutanixGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4495,7 +5444,7 @@ func (p *UninstallNutanixGuestToolsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools Put operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools Put operation
 */
 type UpdateNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4554,7 +5503,26 @@ func (p *UpdateNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateNutanixGuestToolsApiResponse(*known)
+	*p = *NewUpdateNutanixGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4565,7 +5533,9 @@ func (p *UpdateNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4574,7 +5544,7 @@ func NewUpdateNutanixGuestToolsApiResponse() *UpdateNutanixGuestToolsApiResponse
 	p := new(UpdateNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.UpdateNutanixGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4602,7 +5572,7 @@ func (p *UpdateNutanixGuestToolsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/upgrade Post operation
+REST response for all response codes in API path /vmm/v4.2/esxi/config/vms/{extId}/nutanix-guest-tools/$actions/upgrade Post operation
 */
 type UpgradeNutanixGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4661,7 +5631,26 @@ func (p *UpgradeNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpgradeNutanixGuestToolsApiResponse(*known)
+	*p = *NewUpgradeNutanixGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4672,7 +5661,9 @@ func (p *UpgradeNutanixGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4681,7 +5672,7 @@ func NewUpgradeNutanixGuestToolsApiResponse() *UpgradeNutanixGuestToolsApiRespon
 	p := new(UpgradeNutanixGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.UpgradeNutanixGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4826,7 +5817,74 @@ func (p *Vm) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Vm(*known)
+	*p = *NewVm()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
+	if known.CdRoms != nil {
+		p.CdRoms = known.CdRoms
+	}
+	if known.Cluster != nil {
+		p.Cluster = known.Cluster
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.Disks != nil {
+		p.Disks = known.Disks
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.GuestOsName != nil {
+		p.GuestOsName = known.GuestOsName
+	}
+	if known.Host != nil {
+		p.Host = known.Host
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Nics != nil {
+		p.Nics = known.Nics
+	}
+	if known.NumCoresPerSocket != nil {
+		p.NumCoresPerSocket = known.NumCoresPerSocket
+	}
+	if known.NumCpus != nil {
+		p.NumCpus = known.NumCpus
+	}
+	if known.NutanixGuestTools != nil {
+		p.NutanixGuestTools = known.NutanixGuestTools
+	}
+	if known.OwnershipInfo != nil {
+		p.OwnershipInfo = known.OwnershipInfo
+	}
+	if known.PowerState != nil {
+		p.PowerState = known.PowerState
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VirtualHardwareVersion != nil {
+		p.VirtualHardwareVersion = known.VirtualHardwareVersion
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4853,7 +5911,9 @@ func (p *Vm) UnmarshalJSON(b []byte) error {
 	delete(allFields, "virtualHardwareVersion")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4862,7 +5922,7 @@ func NewVm() *Vm {
 	p := new(Vm)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.Vm"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4928,7 +5988,26 @@ func (p *VmDisk) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDisk(*known)
+	*p = *NewVmDisk()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskSizeBytes != nil {
+		p.DiskSizeBytes = known.DiskSizeBytes
+	}
+	if known.StorageConfig != nil {
+		p.StorageConfig = known.StorageConfig
+	}
+	if known.StorageContainer != nil {
+		p.StorageContainer = known.StorageContainer
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4939,7 +6018,9 @@ func (p *VmDisk) UnmarshalJSON(b []byte) error {
 	delete(allFields, "storageContainer")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4948,7 +6029,7 @@ func NewVmDisk() *VmDisk {
 	p := new(VmDisk)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.VmDisk"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5010,7 +6091,20 @@ func (p *VmDiskContainerReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskContainerReference(*known)
+	*p = *NewVmDiskContainerReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5019,7 +6113,9 @@ func (p *VmDiskContainerReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5028,7 +6124,7 @@ func NewVmDiskContainerReference() *VmDiskContainerReference {
 	p := new(VmDiskContainerReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.VmDiskContainerReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5090,7 +6186,20 @@ func (p *VmDiskStorageConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskStorageConfig(*known)
+	*p = *NewVmDiskStorageConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsFlashModeEnabled != nil {
+		p.IsFlashModeEnabled = known.IsFlashModeEnabled
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5099,7 +6208,9 @@ func (p *VmDiskStorageConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isFlashModeEnabled")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5108,7 +6219,7 @@ func NewVmDiskStorageConfig() *VmDiskStorageConfig {
 	p := new(VmDiskStorageConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.esxi.config.VmDiskStorageConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

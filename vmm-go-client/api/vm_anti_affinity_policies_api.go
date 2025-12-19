@@ -39,7 +39,7 @@ func (api *VmAntiAffinityPoliciesApi) CreateVmAntiAffinityPolicy(body *import11.
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-anti-affinity-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *VmAntiAffinityPoliciesApi) DeleteLegacyVmAntiAffinityPolicyById(extId
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/legacy-vm-anti-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.2/ahv/policies/legacy-vm-anti-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *VmAntiAffinityPoliciesApi) DeleteVmAntiAffinityPolicyById(extId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-anti-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *VmAntiAffinityPoliciesApi) GetVmAntiAffinityPolicyById(extId *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-anti-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -237,7 +237,7 @@ func (api *VmAntiAffinityPoliciesApi) ListLegacyVmAntiAffinityPolicies(page_ *in
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/legacy-vm-anti-affinity-policies"
+	uri := "/api/vmm/v4.2/ahv/policies/legacy-vm-anti-affinity-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -290,7 +290,7 @@ func (api *VmAntiAffinityPoliciesApi) ListVmAntiAffinityPolicies(page_ *int, lim
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-anti-affinity-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -346,7 +346,7 @@ func (api *VmAntiAffinityPoliciesApi) ListVmAntiAffinityPolicyVmComplianceStates
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies/{vmAntiAffinityPolicyExtId}/vm-compliance-states"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-anti-affinity-policies/{vmAntiAffinityPolicyExtId}/vm-compliance-states"
 
 	// verify the required parameter 'vmAntiAffinityPolicyExtId' is set
 	if nil == vmAntiAffinityPolicyExtId {
@@ -403,7 +403,7 @@ func (api *VmAntiAffinityPoliciesApi) UpdateVmAntiAffinityPolicyById(extId *stri
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/policies/vm-anti-affinity-policies/{extId}"
+	uri := "/api/vmm/v4.2/ahv/policies/vm-anti-affinity-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

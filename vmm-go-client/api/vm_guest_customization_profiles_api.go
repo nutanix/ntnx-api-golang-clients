@@ -9,17 +9,17 @@ import (
 	"strings"
 )
 
-type VmRecoveryPointsApi struct {
+type VmGuestCustomizationProfilesApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewVmRecoveryPointsApi(apiClient *client.ApiClient) *VmRecoveryPointsApi {
+func NewVmGuestCustomizationProfilesApi(apiClient *client.ApiClient) *VmGuestCustomizationProfilesApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &VmRecoveryPointsApi{
+	a := &VmGuestCustomizationProfilesApi{
 		ApiClient: apiClient,
 	}
 
@@ -32,14 +32,14 @@ func NewVmRecoveryPointsApi(apiClient *client.ApiClient) *VmRecoveryPointsApi {
 	return a
 }
 
-// Creates an AHV VM recovery point based on the provided recovery point details.
-func (api *VmRecoveryPointsApi) CreateVmRecoveryPoint(body *import10.VmRecoveryPoint, args ...map[string]interface{}) (*import10.CreateVMRecoveryPointApiResponse, error) {
+// Creates a new VM Guest Customization profile with the provided configuration.
+func (api *VmGuestCustomizationProfilesApi) CreateVmGuestCustomizationProfile(body *import10.VmGuestCustomizationProfile, args ...map[string]interface{}) (*import10.CreateVmGuestCustomizationProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points"
+	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -75,19 +75,19 @@ func (api *VmRecoveryPointsApi) CreateVmRecoveryPoint(body *import10.VmRecoveryP
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.CreateVMRecoveryPointApiResponse)
+	unmarshalledResp := new(import10.CreateVmGuestCustomizationProfileApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Deletes an AHV VM recovery point based on the provided identifier.
-func (api *VmRecoveryPointsApi) DeleteVmRecoveryPointByExtId(extId *string, args ...map[string]interface{}) (*import10.DeleteVmRecoveryPointApiResponse, error) {
+// Deletes the specified VM Guest Customization Profile.
+func (api *VmGuestCustomizationProfilesApi) DeleteVmGuestCustomizationProfileById(extId *string, args ...map[string]interface{}) (*import10.DeleteVmGuestCustomizationProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -125,19 +125,19 @@ func (api *VmRecoveryPointsApi) DeleteVmRecoveryPointByExtId(extId *string, args
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.DeleteVmRecoveryPointApiResponse)
+	unmarshalledResp := new(import10.DeleteVmGuestCustomizationProfileApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Retrieves the AHV VM recovery point details, including both VM recovery point and VM configuration.
-func (api *VmRecoveryPointsApi) GetVmRecoveryPointByExtId(extId *string, args ...map[string]interface{}) (*import10.GetVmRecoveryPointApiResponse, error) {
+// Retrieves the VM Guest Customization Profile configuration of the provided VM Guest Customization Profile external identifier.
+func (api *VmGuestCustomizationProfilesApi) GetVmGuestCustomizationProfileById(extId *string, args ...map[string]interface{}) (*import10.GetVmGuestCustomizationProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -175,19 +175,19 @@ func (api *VmRecoveryPointsApi) GetVmRecoveryPointByExtId(extId *string, args ..
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.GetVmRecoveryPointApiResponse)
+	unmarshalledResp := new(import10.GetVmGuestCustomizationProfileApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// List the AHV VM recovery points defined on the PC. It can be further refined using various filtering.
-func (api *VmRecoveryPointsApi) ListVmRecoveryPoints(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import10.ListVmRecoveryPointsApiResponse, error) {
+// Lists VM Guest Customization Profiles.
+func (api *VmGuestCustomizationProfilesApi) ListVmGuestCustomizationProfiles(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import10.ListVmGuestCustomizationProfilesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points"
+	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -234,19 +234,19 @@ func (api *VmRecoveryPointsApi) ListVmRecoveryPoints(page_ *int, limit_ *int, fi
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.ListVmRecoveryPointsApiResponse)
+	unmarshalledResp := new(import10.ListVmGuestCustomizationProfilesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Restores a new VM from an AHV VM recovery point using the VM configuration captured in the VM recovery point and the parameters provided in the restore API request body.
-func (api *VmRecoveryPointsApi) RestoreVmRecoveryPoint(extId *string, body *import10.RestoreVmRecoveryPointParams, args ...map[string]interface{}) (*import10.RestoreVmRecoveryPointApiResponse, error) {
+// Updates the specified VM Guest Customization Profile.
+func (api *VmGuestCustomizationProfilesApi) UpdateVmGuestCustomizationProfileById(extId *string, body *import10.VmGuestCustomizationProfile, args ...map[string]interface{}) (*import10.UpdateVmGuestCustomizationProfileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.2/ahv/config/vm-recovery-points/{extId}/$actions/restore"
+	uri := "/api/vmm/v4.2/ahv/config/vm-guest-customization-profiles/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -283,12 +283,12 @@ func (api *VmRecoveryPointsApi) RestoreVmRecoveryPoint(extId *string, body *impo
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import10.RestoreVmRecoveryPointApiResponse)
+	unmarshalledResp := new(import10.UpdateVmGuestCustomizationProfileApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

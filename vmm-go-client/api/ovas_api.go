@@ -41,7 +41,7 @@ func (api *OvasApi) CreateOva(body *import5.Ova, args ...map[string]interface{})
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/content/ovas"
+	uri := "/api/vmm/v4.2/content/ovas"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -89,7 +89,7 @@ func (api *OvasApi) DeleteOvaById(extId *string, args ...map[string]interface{})
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/content/ovas/{extId}"
+	uri := "/api/vmm/v4.2/content/ovas/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -139,7 +139,7 @@ func (api *OvasApi) DeployOva(extId *string, body *import5.OvaDeploymentSpec, ar
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/content/ovas/{extId}/$actions/deploy"
+	uri := "/api/vmm/v4.2/content/ovas/{extId}/$actions/deploy"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -193,7 +193,7 @@ func (api *OvasApi) GetFileByOvaId(ovaExtId *string, args ...map[string]interfac
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/content/ovas/{ovaExtId}/file"
+	uri := "/api/vmm/v4.2/content/ovas/{ovaExtId}/file"
 
 	// verify the required parameter 'ovaExtId' is set
 	if nil == ovaExtId {
@@ -272,7 +272,7 @@ func (api *OvasApi) GetOvaById(extId *string, args ...map[string]interface{}) (*
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/content/ovas/{extId}"
+	uri := "/api/vmm/v4.2/content/ovas/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -322,7 +322,7 @@ func (api *OvasApi) ListOvas(page_ *int, limit_ *int, filter_ *string, orderby_ 
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/content/ovas"
+	uri := "/api/vmm/v4.2/content/ovas"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -381,7 +381,7 @@ func (api *OvasApi) UpdateOvaById(extId *string, body *import5.Ova, args ...map[
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/content/ovas/{extId}"
+	uri := "/api/vmm/v4.2/content/ovas/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

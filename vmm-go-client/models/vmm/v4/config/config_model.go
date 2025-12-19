@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
@@ -26,7 +26,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /vmm/v4.1/config/template-placement-policies Post operation
+REST response for all response codes in API path /vmm/v4.2/config/template-placement-policies Post operation
 */
 type CreateTemplatePlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -85,7 +85,26 @@ func (p *CreateTemplatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateTemplatePlacementPolicyApiResponse(*known)
+	*p = *NewCreateTemplatePlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -96,7 +115,9 @@ func (p *CreateTemplatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -105,7 +126,7 @@ func NewCreateTemplatePlacementPolicyApiResponse() *CreateTemplatePlacementPolic
 	p := new(CreateTemplatePlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.config.CreateTemplatePlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -133,7 +154,7 @@ func (p *CreateTemplatePlacementPolicyApiResponse) SetData(v interface{}) error 
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/config/template-placement-policies/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/config/template-placement-policies/{extId} Delete operation
 */
 type DeleteTemplatePlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -192,7 +213,26 @@ func (p *DeleteTemplatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteTemplatePlacementPolicyApiResponse(*known)
+	*p = *NewDeleteTemplatePlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -203,7 +243,9 @@ func (p *DeleteTemplatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -212,7 +254,7 @@ func NewDeleteTemplatePlacementPolicyApiResponse() *DeleteTemplatePlacementPolic
 	p := new(DeleteTemplatePlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.config.DeleteTemplatePlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -240,7 +282,7 @@ func (p *DeleteTemplatePlacementPolicyApiResponse) SetData(v interface{}) error 
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/config/template-placement-policies/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/config/template-placement-policies/{extId} Get operation
 */
 type GetTemplatePlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -299,7 +341,26 @@ func (p *GetTemplatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetTemplatePlacementPolicyApiResponse(*known)
+	*p = *NewGetTemplatePlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -310,7 +371,9 @@ func (p *GetTemplatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -319,7 +382,7 @@ func NewGetTemplatePlacementPolicyApiResponse() *GetTemplatePlacementPolicyApiRe
 	p := new(GetTemplatePlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.config.GetTemplatePlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -347,7 +410,7 @@ func (p *GetTemplatePlacementPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/config/template-placement-policies Get operation
+REST response for all response codes in API path /vmm/v4.2/config/template-placement-policies Get operation
 */
 type ListTemplatePlacementPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -406,7 +469,26 @@ func (p *ListTemplatePlacementPoliciesApiResponse) UnmarshalJSON(b []byte) error
 	}
 
 	// Step 3: Assign known fields
-	*p = ListTemplatePlacementPoliciesApiResponse(*known)
+	*p = *NewListTemplatePlacementPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -417,7 +499,9 @@ func (p *ListTemplatePlacementPoliciesApiResponse) UnmarshalJSON(b []byte) error
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -426,7 +510,7 @@ func NewListTemplatePlacementPoliciesApiResponse() *ListTemplatePlacementPolicie
 	p := new(ListTemplatePlacementPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.config.ListTemplatePlacementPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -548,7 +632,56 @@ func (p *TemplatePlacementPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TemplatePlacementPolicy(*known)
+	*p = *NewTemplatePlacementPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ClusterFilter != nil {
+		p.ClusterFilter = known.ClusterFilter
+	}
+	if known.ContentFilter != nil {
+		p.ContentFilter = known.ContentFilter
+	}
+	if known.CreateTime != nil {
+		p.CreateTime = known.CreateTime
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Phony != nil {
+		p.Phony = known.Phony
+	}
+	if known.PlacementType != nil {
+		p.PlacementType = known.PlacementType
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpdateTime != nil {
+		p.UpdateTime = known.UpdateTime
+	}
+	if known.UpdatedBy != nil {
+		p.UpdatedBy = known.UpdatedBy
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -569,7 +702,9 @@ func (p *TemplatePlacementPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "updatedBy")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -578,14 +713,14 @@ func NewTemplatePlacementPolicy() *TemplatePlacementPolicy {
 	p := new(TemplatePlacementPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.config.TemplatePlacementPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/config/template-placement-policies/{extId} Put operation
+REST response for all response codes in API path /vmm/v4.2/config/template-placement-policies/{extId} Put operation
 */
 type UpdateTemplatePlacementPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -644,7 +779,26 @@ func (p *UpdateTemplatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateTemplatePlacementPolicyApiResponse(*known)
+	*p = *NewUpdateTemplatePlacementPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -655,7 +809,9 @@ func (p *UpdateTemplatePlacementPolicyApiResponse) UnmarshalJSON(b []byte) error
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -664,7 +820,7 @@ func NewUpdateTemplatePlacementPolicyApiResponse() *UpdateTemplatePlacementPolic
 	p := new(UpdateTemplatePlacementPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.config.UpdateTemplatePlacementPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

@@ -41,7 +41,7 @@ func (api *StatsApi) GetDiskStatsById(vmExtId *string, extId *string, startTime_
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/stats/vms/{vmExtId}/disks/{extId}"
+	uri := "/api/vmm/v4.2/ahv/stats/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -117,7 +117,7 @@ func (api *StatsApi) GetNicStatsById(vmExtId *string, extId *string, startTime_ 
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/stats/vms/{vmExtId}/nics/{extId}"
+	uri := "/api/vmm/v4.2/ahv/stats/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -193,7 +193,7 @@ func (api *StatsApi) GetVmStatsById(extId *string, startTime_ *time.Time, endTim
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/stats/vms/{extId}"
+	uri := "/api/vmm/v4.2/ahv/stats/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -264,7 +264,7 @@ func (api *StatsApi) ListVmStats(startTime_ *time.Time, endTime_ *time.Time, sam
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/stats/vms"
+	uri := "/api/vmm/v4.2/ahv/stats/vms"
 
 	// verify the required parameter 'startTime_' is set
 	if nil == startTime_ {

@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/ahv/stats/stats_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
@@ -24,7 +24,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/stats/vms/{vmExtId}/disks/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/stats/vms/{vmExtId}/disks/{extId} Get operation
 */
 type GetDiskStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -83,7 +83,26 @@ func (p *GetDiskStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetDiskStatsApiResponse(*known)
+	*p = *NewGetDiskStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -94,7 +113,9 @@ func (p *GetDiskStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -103,7 +124,7 @@ func NewGetDiskStatsApiResponse() *GetDiskStatsApiResponse {
 	p := new(GetDiskStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.GetDiskStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -131,7 +152,7 @@ func (p *GetDiskStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/stats/vms/{vmExtId}/nics/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/stats/vms/{vmExtId}/nics/{extId} Get operation
 */
 type GetNicStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -190,7 +211,26 @@ func (p *GetNicStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetNicStatsApiResponse(*known)
+	*p = *NewGetNicStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -201,7 +241,9 @@ func (p *GetNicStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -210,7 +252,7 @@ func NewGetNicStatsApiResponse() *GetNicStatsApiResponse {
 	p := new(GetNicStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.GetNicStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -238,7 +280,7 @@ func (p *GetNicStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/stats/vms/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/stats/vms/{extId} Get operation
 */
 type GetVmStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -297,7 +339,26 @@ func (p *GetVmStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVmStatsApiResponse(*known)
+	*p = *NewGetVmStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -308,7 +369,9 @@ func (p *GetVmStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -317,7 +380,7 @@ func NewGetVmStatsApiResponse() *GetVmStatsApiResponse {
 	p := new(GetVmStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.GetVmStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -345,7 +408,7 @@ func (p *GetVmStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/stats/vms Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/stats/vms Get operation
 */
 type ListVmStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -404,7 +467,26 @@ func (p *ListVmStatsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListVmStatsApiResponse(*known)
+	*p = *NewListVmStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -415,7 +497,9 @@ func (p *ListVmStatsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -424,7 +508,7 @@ func NewListVmStatsApiResponse() *ListVmStatsApiResponse {
 	p := new(ListVmStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.ListVmStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -523,7 +607,32 @@ func (p *VmDiskStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskStats(*known)
+	*p = *NewVmDiskStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Stats != nil {
+		p.Stats = known.Stats
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VmExtId != nil {
+		p.VmExtId = known.VmExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -536,7 +645,9 @@ func (p *VmDiskStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -545,7 +656,7 @@ func NewVmDiskStats() *VmDiskStats {
 	p := new(VmDiskStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmDiskStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -715,7 +826,101 @@ func (p *VmDiskStatsTuple) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskStatsTuple(*known)
+	*p = *NewVmDiskStatsTuple()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ControllerAvgIoLatencyMicros != nil {
+		p.ControllerAvgIoLatencyMicros = known.ControllerAvgIoLatencyMicros
+	}
+	if known.ControllerAvgReadIoLatencyMicros != nil {
+		p.ControllerAvgReadIoLatencyMicros = known.ControllerAvgReadIoLatencyMicros
+	}
+	if known.ControllerAvgReadIoSizeKb != nil {
+		p.ControllerAvgReadIoSizeKb = known.ControllerAvgReadIoSizeKb
+	}
+	if known.ControllerAvgWriteIoLatencyMicros != nil {
+		p.ControllerAvgWriteIoLatencyMicros = known.ControllerAvgWriteIoLatencyMicros
+	}
+	if known.ControllerAvgWriteIoSizeKb != nil {
+		p.ControllerAvgWriteIoSizeKb = known.ControllerAvgWriteIoSizeKb
+	}
+	if known.ControllerFrontendReadOps != nil {
+		p.ControllerFrontendReadOps = known.ControllerFrontendReadOps
+	}
+	if known.ControllerFrontendWriteOps != nil {
+		p.ControllerFrontendWriteOps = known.ControllerFrontendWriteOps
+	}
+	if known.ControllerIoBandwidthKbps != nil {
+		p.ControllerIoBandwidthKbps = known.ControllerIoBandwidthKbps
+	}
+	if known.ControllerNumIo != nil {
+		p.ControllerNumIo = known.ControllerNumIo
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumReadIo != nil {
+		p.ControllerNumReadIo = known.ControllerNumReadIo
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumWriteIo != nil {
+		p.ControllerNumWriteIo = known.ControllerNumWriteIo
+	}
+	if known.ControllerRandomReadOps != nil {
+		p.ControllerRandomReadOps = known.ControllerRandomReadOps
+	}
+	if known.ControllerRandomWriteOps != nil {
+		p.ControllerRandomWriteOps = known.ControllerRandomWriteOps
+	}
+	if known.ControllerReadIoBandwidthKbps != nil {
+		p.ControllerReadIoBandwidthKbps = known.ControllerReadIoBandwidthKbps
+	}
+	if known.ControllerReadIoPpm != nil {
+		p.ControllerReadIoPpm = known.ControllerReadIoPpm
+	}
+	if known.ControllerSeqIoPpm != nil {
+		p.ControllerSeqIoPpm = known.ControllerSeqIoPpm
+	}
+	if known.ControllerTimespanMicros != nil {
+		p.ControllerTimespanMicros = known.ControllerTimespanMicros
+	}
+	if known.ControllerTotalIoSizeKb != nil {
+		p.ControllerTotalIoSizeKb = known.ControllerTotalIoSizeKb
+	}
+	if known.ControllerTotalIoTimeMicros != nil {
+		p.ControllerTotalIoTimeMicros = known.ControllerTotalIoTimeMicros
+	}
+	if known.ControllerTotalReadIoSizeKb != nil {
+		p.ControllerTotalReadIoSizeKb = known.ControllerTotalReadIoSizeKb
+	}
+	if known.ControllerTotalReadIoTimeMicros != nil {
+		p.ControllerTotalReadIoTimeMicros = known.ControllerTotalReadIoTimeMicros
+	}
+	if known.ControllerUserBytes != nil {
+		p.ControllerUserBytes = known.ControllerUserBytes
+	}
+	if known.ControllerVdiskCpuTimeMicros != nil {
+		p.ControllerVdiskCpuTimeMicros = known.ControllerVdiskCpuTimeMicros
+	}
+	if known.ControllerWriteIoBandwidthKbps != nil {
+		p.ControllerWriteIoBandwidthKbps = known.ControllerWriteIoBandwidthKbps
+	}
+	if known.ControllerWriteIoPpm != nil {
+		p.ControllerWriteIoPpm = known.ControllerWriteIoPpm
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -751,7 +956,9 @@ func (p *VmDiskStatsTuple) UnmarshalJSON(b []byte) error {
 	delete(allFields, "timestamp")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -760,7 +967,7 @@ func NewVmDiskStatsTuple() *VmDiskStatsTuple {
 	p := new(VmDiskStatsTuple)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmDiskStatsTuple"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -927,7 +1134,101 @@ func (p *VmDiskStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskStatsTupleProjection(*known)
+	*p = *NewVmDiskStatsTupleProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ControllerAvgIoLatencyMicros != nil {
+		p.ControllerAvgIoLatencyMicros = known.ControllerAvgIoLatencyMicros
+	}
+	if known.ControllerAvgReadIoLatencyMicros != nil {
+		p.ControllerAvgReadIoLatencyMicros = known.ControllerAvgReadIoLatencyMicros
+	}
+	if known.ControllerAvgReadIoSizeKb != nil {
+		p.ControllerAvgReadIoSizeKb = known.ControllerAvgReadIoSizeKb
+	}
+	if known.ControllerAvgWriteIoLatencyMicros != nil {
+		p.ControllerAvgWriteIoLatencyMicros = known.ControllerAvgWriteIoLatencyMicros
+	}
+	if known.ControllerAvgWriteIoSizeKb != nil {
+		p.ControllerAvgWriteIoSizeKb = known.ControllerAvgWriteIoSizeKb
+	}
+	if known.ControllerFrontendReadOps != nil {
+		p.ControllerFrontendReadOps = known.ControllerFrontendReadOps
+	}
+	if known.ControllerFrontendWriteOps != nil {
+		p.ControllerFrontendWriteOps = known.ControllerFrontendWriteOps
+	}
+	if known.ControllerIoBandwidthKbps != nil {
+		p.ControllerIoBandwidthKbps = known.ControllerIoBandwidthKbps
+	}
+	if known.ControllerNumIo != nil {
+		p.ControllerNumIo = known.ControllerNumIo
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumReadIo != nil {
+		p.ControllerNumReadIo = known.ControllerNumReadIo
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumWriteIo != nil {
+		p.ControllerNumWriteIo = known.ControllerNumWriteIo
+	}
+	if known.ControllerRandomReadOps != nil {
+		p.ControllerRandomReadOps = known.ControllerRandomReadOps
+	}
+	if known.ControllerRandomWriteOps != nil {
+		p.ControllerRandomWriteOps = known.ControllerRandomWriteOps
+	}
+	if known.ControllerReadIoBandwidthKbps != nil {
+		p.ControllerReadIoBandwidthKbps = known.ControllerReadIoBandwidthKbps
+	}
+	if known.ControllerReadIoPpm != nil {
+		p.ControllerReadIoPpm = known.ControllerReadIoPpm
+	}
+	if known.ControllerSeqIoPpm != nil {
+		p.ControllerSeqIoPpm = known.ControllerSeqIoPpm
+	}
+	if known.ControllerTimespanMicros != nil {
+		p.ControllerTimespanMicros = known.ControllerTimespanMicros
+	}
+	if known.ControllerTotalIoSizeKb != nil {
+		p.ControllerTotalIoSizeKb = known.ControllerTotalIoSizeKb
+	}
+	if known.ControllerTotalIoTimeMicros != nil {
+		p.ControllerTotalIoTimeMicros = known.ControllerTotalIoTimeMicros
+	}
+	if known.ControllerTotalReadIoSizeKb != nil {
+		p.ControllerTotalReadIoSizeKb = known.ControllerTotalReadIoSizeKb
+	}
+	if known.ControllerTotalReadIoTimeMicros != nil {
+		p.ControllerTotalReadIoTimeMicros = known.ControllerTotalReadIoTimeMicros
+	}
+	if known.ControllerUserBytes != nil {
+		p.ControllerUserBytes = known.ControllerUserBytes
+	}
+	if known.ControllerVdiskCpuTimeMicros != nil {
+		p.ControllerVdiskCpuTimeMicros = known.ControllerVdiskCpuTimeMicros
+	}
+	if known.ControllerWriteIoBandwidthKbps != nil {
+		p.ControllerWriteIoBandwidthKbps = known.ControllerWriteIoBandwidthKbps
+	}
+	if known.ControllerWriteIoPpm != nil {
+		p.ControllerWriteIoPpm = known.ControllerWriteIoPpm
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -963,7 +1264,9 @@ func (p *VmDiskStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "timestamp")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -972,7 +1275,7 @@ func NewVmDiskStatsTupleProjection() *VmDiskStatsTupleProjection {
 	p := new(VmDiskStatsTupleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmDiskStatsTupleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1050,7 +1353,32 @@ func (p *VmNicStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmNicStats(*known)
+	*p = *NewVmNicStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Stats != nil {
+		p.Stats = known.Stats
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.VmExtId != nil {
+		p.VmExtId = known.VmExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1063,7 +1391,9 @@ func (p *VmNicStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1072,7 +1402,7 @@ func NewVmNicStats() *VmNicStats {
 	p := new(VmNicStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmNicStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1142,7 +1472,26 @@ func (p *VmNicStatsTuple) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmNicStatsTuple(*known)
+	*p = *NewVmNicStatsTuple()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NetworkDroppedReceivedPackets != nil {
+		p.NetworkDroppedReceivedPackets = known.NetworkDroppedReceivedPackets
+	}
+	if known.NetworkDroppedTransmittedPackets != nil {
+		p.NetworkDroppedTransmittedPackets = known.NetworkDroppedTransmittedPackets
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1153,7 +1502,9 @@ func (p *VmNicStatsTuple) UnmarshalJSON(b []byte) error {
 	delete(allFields, "timestamp")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1162,7 +1513,7 @@ func NewVmNicStatsTuple() *VmNicStatsTuple {
 	p := new(VmNicStatsTuple)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmNicStatsTuple"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1229,7 +1580,26 @@ func (p *VmNicStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmNicStatsTupleProjection(*known)
+	*p = *NewVmNicStatsTupleProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NetworkDroppedReceivedPackets != nil {
+		p.NetworkDroppedReceivedPackets = known.NetworkDroppedReceivedPackets
+	}
+	if known.NetworkDroppedTransmittedPackets != nil {
+		p.NetworkDroppedTransmittedPackets = known.NetworkDroppedTransmittedPackets
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1240,7 +1610,9 @@ func (p *VmNicStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "timestamp")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1249,7 +1621,7 @@ func NewVmNicStatsTupleProjection() *VmNicStatsTupleProjection {
 	p := new(VmNicStatsTupleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmNicStatsTupleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1323,7 +1695,29 @@ func (p *VmStats) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmStats(*known)
+	*p = *NewVmStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Stats != nil {
+		p.Stats = known.Stats
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1335,7 +1729,9 @@ func (p *VmStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1344,7 +1740,7 @@ func NewVmStats() *VmStats {
 	p := new(VmStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1692,6 +2088,10 @@ type VmStatsTuple struct {
 	*/
 	NumVcpusUsedPpm *int64 `json:"numVcpusUsedPpm,omitempty"`
 	/*
+	  Physical memory allocated to VM in bytes.
+	*/
+	PhysicalMemoryAllocatedBytes *int64 `json:"physicalMemoryAllocatedBytes,omitempty"`
+	/*
 	  The timestamp of a specific VM stats response data point.
 	*/
 	Timestamp *time.Time `json:"timestamp,omitempty"`
@@ -1738,7 +2138,272 @@ func (p *VmStatsTuple) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmStatsTuple(*known)
+	*p = *NewVmStatsTuple()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CheckScore != nil {
+		p.CheckScore = known.CheckScore
+	}
+	if known.Cluster != nil {
+		p.Cluster = known.Cluster
+	}
+	if known.ControllerAvgIoLatencyMicros != nil {
+		p.ControllerAvgIoLatencyMicros = known.ControllerAvgIoLatencyMicros
+	}
+	if known.ControllerAvgReadIoLatencyMicros != nil {
+		p.ControllerAvgReadIoLatencyMicros = known.ControllerAvgReadIoLatencyMicros
+	}
+	if known.ControllerAvgReadIoSizeKb != nil {
+		p.ControllerAvgReadIoSizeKb = known.ControllerAvgReadIoSizeKb
+	}
+	if known.ControllerAvgWriteIoLatencyMicros != nil {
+		p.ControllerAvgWriteIoLatencyMicros = known.ControllerAvgWriteIoLatencyMicros
+	}
+	if known.ControllerAvgWriteIoSizeKb != nil {
+		p.ControllerAvgWriteIoSizeKb = known.ControllerAvgWriteIoSizeKb
+	}
+	if known.ControllerIoBandwidthKbps != nil {
+		p.ControllerIoBandwidthKbps = known.ControllerIoBandwidthKbps
+	}
+	if known.ControllerNumIo != nil {
+		p.ControllerNumIo = known.ControllerNumIo
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumRandomIo != nil {
+		p.ControllerNumRandomIo = known.ControllerNumRandomIo
+	}
+	if known.ControllerNumReadIo != nil {
+		p.ControllerNumReadIo = known.ControllerNumReadIo
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumSeqIo != nil {
+		p.ControllerNumSeqIo = known.ControllerNumSeqIo
+	}
+	if known.ControllerNumWriteIo != nil {
+		p.ControllerNumWriteIo = known.ControllerNumWriteIo
+	}
+	if known.ControllerNumWriteIops != nil {
+		p.ControllerNumWriteIops = known.ControllerNumWriteIops
+	}
+	if known.ControllerOplogDrainDestHddBytes != nil {
+		p.ControllerOplogDrainDestHddBytes = known.ControllerOplogDrainDestHddBytes
+	}
+	if known.ControllerOplogDrainDestSsdBytes != nil {
+		p.ControllerOplogDrainDestSsdBytes = known.ControllerOplogDrainDestSsdBytes
+	}
+	if known.ControllerRandomIoPpm != nil {
+		p.ControllerRandomIoPpm = known.ControllerRandomIoPpm
+	}
+	if known.ControllerReadIoBandwidthKbps != nil {
+		p.ControllerReadIoBandwidthKbps = known.ControllerReadIoBandwidthKbps
+	}
+	if known.ControllerReadIoPpm != nil {
+		p.ControllerReadIoPpm = known.ControllerReadIoPpm
+	}
+	if known.ControllerReadSourceEstoreHddLocalBytes != nil {
+		p.ControllerReadSourceEstoreHddLocalBytes = known.ControllerReadSourceEstoreHddLocalBytes
+	}
+	if known.ControllerReadSourceEstoreHddRemoteBytes != nil {
+		p.ControllerReadSourceEstoreHddRemoteBytes = known.ControllerReadSourceEstoreHddRemoteBytes
+	}
+	if known.ControllerReadSourceEstoreSsdLocalBytes != nil {
+		p.ControllerReadSourceEstoreSsdLocalBytes = known.ControllerReadSourceEstoreSsdLocalBytes
+	}
+	if known.ControllerReadSourceEstoreSsdRemoteBytes != nil {
+		p.ControllerReadSourceEstoreSsdRemoteBytes = known.ControllerReadSourceEstoreSsdRemoteBytes
+	}
+	if known.ControllerReadSourceOplogBytes != nil {
+		p.ControllerReadSourceOplogBytes = known.ControllerReadSourceOplogBytes
+	}
+	if known.ControllerSeqIoPpm != nil {
+		p.ControllerSeqIoPpm = known.ControllerSeqIoPpm
+	}
+	if known.ControllerSharedUsageBytes != nil {
+		p.ControllerSharedUsageBytes = known.ControllerSharedUsageBytes
+	}
+	if known.ControllerSnapshotUsageBytes != nil {
+		p.ControllerSnapshotUsageBytes = known.ControllerSnapshotUsageBytes
+	}
+	if known.ControllerStorageTierSsdUsageBytes != nil {
+		p.ControllerStorageTierSsdUsageBytes = known.ControllerStorageTierSsdUsageBytes
+	}
+	if known.ControllerTimespanMicros != nil {
+		p.ControllerTimespanMicros = known.ControllerTimespanMicros
+	}
+	if known.ControllerTotalIoSizeKb != nil {
+		p.ControllerTotalIoSizeKb = known.ControllerTotalIoSizeKb
+	}
+	if known.ControllerTotalIoTimeMicros != nil {
+		p.ControllerTotalIoTimeMicros = known.ControllerTotalIoTimeMicros
+	}
+	if known.ControllerTotalReadIoSizeKb != nil {
+		p.ControllerTotalReadIoSizeKb = known.ControllerTotalReadIoSizeKb
+	}
+	if known.ControllerTotalReadIoTimeMicros != nil {
+		p.ControllerTotalReadIoTimeMicros = known.ControllerTotalReadIoTimeMicros
+	}
+	if known.ControllerTotalTransformedUsageBytes != nil {
+		p.ControllerTotalTransformedUsageBytes = known.ControllerTotalTransformedUsageBytes
+	}
+	if known.ControllerUserBytes != nil {
+		p.ControllerUserBytes = known.ControllerUserBytes
+	}
+	if known.ControllerWriteDestEstoreHddBytes != nil {
+		p.ControllerWriteDestEstoreHddBytes = known.ControllerWriteDestEstoreHddBytes
+	}
+	if known.ControllerWriteDestEstoreSsdBytes != nil {
+		p.ControllerWriteDestEstoreSsdBytes = known.ControllerWriteDestEstoreSsdBytes
+	}
+	if known.ControllerWriteIoBandwidthKbps != nil {
+		p.ControllerWriteIoBandwidthKbps = known.ControllerWriteIoBandwidthKbps
+	}
+	if known.ControllerWriteIoPpm != nil {
+		p.ControllerWriteIoPpm = known.ControllerWriteIoPpm
+	}
+	if known.ControllerWss120SecondReadMb != nil {
+		p.ControllerWss120SecondReadMb = known.ControllerWss120SecondReadMb
+	}
+	if known.ControllerWss120SecondUnionMb != nil {
+		p.ControllerWss120SecondUnionMb = known.ControllerWss120SecondUnionMb
+	}
+	if known.ControllerWss120SecondWriteMb != nil {
+		p.ControllerWss120SecondWriteMb = known.ControllerWss120SecondWriteMb
+	}
+	if known.ControllerWss3600SecondReadMb != nil {
+		p.ControllerWss3600SecondReadMb = known.ControllerWss3600SecondReadMb
+	}
+	if known.ControllerWss3600SecondUnionMb != nil {
+		p.ControllerWss3600SecondUnionMb = known.ControllerWss3600SecondUnionMb
+	}
+	if known.ControllerWss3600SecondWriteMb != nil {
+		p.ControllerWss3600SecondWriteMb = known.ControllerWss3600SecondWriteMb
+	}
+	if known.DiskCapacityBytes != nil {
+		p.DiskCapacityBytes = known.DiskCapacityBytes
+	}
+	if known.DiskUsagePpm != nil {
+		p.DiskUsagePpm = known.DiskUsagePpm
+	}
+	if known.FrameBufferUsagePpm != nil {
+		p.FrameBufferUsagePpm = known.FrameBufferUsagePpm
+	}
+	if known.GpuUsagePpm != nil {
+		p.GpuUsagePpm = known.GpuUsagePpm
+	}
+	if known.GuestMemoryUsagePpm != nil {
+		p.GuestMemoryUsagePpm = known.GuestMemoryUsagePpm
+	}
+	if known.HypervisorAvgIoLatencyMicros != nil {
+		p.HypervisorAvgIoLatencyMicros = known.HypervisorAvgIoLatencyMicros
+	}
+	if known.HypervisorCpuReadyTimePpm != nil {
+		p.HypervisorCpuReadyTimePpm = known.HypervisorCpuReadyTimePpm
+	}
+	if known.HypervisorCpuUsagePpm != nil {
+		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
+	}
+	if known.HypervisorIoBandwidthKbps != nil {
+		p.HypervisorIoBandwidthKbps = known.HypervisorIoBandwidthKbps
+	}
+	if known.HypervisorMemoryBalloonReclaimTargetBytes != nil {
+		p.HypervisorMemoryBalloonReclaimTargetBytes = known.HypervisorMemoryBalloonReclaimTargetBytes
+	}
+	if known.HypervisorMemoryBalloonReclaimedBytes != nil {
+		p.HypervisorMemoryBalloonReclaimedBytes = known.HypervisorMemoryBalloonReclaimedBytes
+	}
+	if known.HypervisorMemoryUsagePpm != nil {
+		p.HypervisorMemoryUsagePpm = known.HypervisorMemoryUsagePpm
+	}
+	if known.HypervisorNumIo != nil {
+		p.HypervisorNumIo = known.HypervisorNumIo
+	}
+	if known.HypervisorNumIops != nil {
+		p.HypervisorNumIops = known.HypervisorNumIops
+	}
+	if known.HypervisorNumReadIo != nil {
+		p.HypervisorNumReadIo = known.HypervisorNumReadIo
+	}
+	if known.HypervisorNumReadIops != nil {
+		p.HypervisorNumReadIops = known.HypervisorNumReadIops
+	}
+	if known.HypervisorNumReceivePacketsDropped != nil {
+		p.HypervisorNumReceivePacketsDropped = known.HypervisorNumReceivePacketsDropped
+	}
+	if known.HypervisorNumReceivedBytes != nil {
+		p.HypervisorNumReceivedBytes = known.HypervisorNumReceivedBytes
+	}
+	if known.HypervisorNumTransmitPacketsDropped != nil {
+		p.HypervisorNumTransmitPacketsDropped = known.HypervisorNumTransmitPacketsDropped
+	}
+	if known.HypervisorNumTransmittedBytes != nil {
+		p.HypervisorNumTransmittedBytes = known.HypervisorNumTransmittedBytes
+	}
+	if known.HypervisorNumWriteIo != nil {
+		p.HypervisorNumWriteIo = known.HypervisorNumWriteIo
+	}
+	if known.HypervisorNumWriteIops != nil {
+		p.HypervisorNumWriteIops = known.HypervisorNumWriteIops
+	}
+	if known.HypervisorReadIoBandwidthKbps != nil {
+		p.HypervisorReadIoBandwidthKbps = known.HypervisorReadIoBandwidthKbps
+	}
+	if known.HypervisorSwapInRateKbps != nil {
+		p.HypervisorSwapInRateKbps = known.HypervisorSwapInRateKbps
+	}
+	if known.HypervisorSwapOutRateKbps != nil {
+		p.HypervisorSwapOutRateKbps = known.HypervisorSwapOutRateKbps
+	}
+	if known.HypervisorTimespanMicros != nil {
+		p.HypervisorTimespanMicros = known.HypervisorTimespanMicros
+	}
+	if known.HypervisorTotalIoSizeKb != nil {
+		p.HypervisorTotalIoSizeKb = known.HypervisorTotalIoSizeKb
+	}
+	if known.HypervisorTotalIoTimeMicros != nil {
+		p.HypervisorTotalIoTimeMicros = known.HypervisorTotalIoTimeMicros
+	}
+	if known.HypervisorTotalReadIoSizeKb != nil {
+		p.HypervisorTotalReadIoSizeKb = known.HypervisorTotalReadIoSizeKb
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.HypervisorVmRunningTimeUsecs != nil {
+		p.HypervisorVmRunningTimeUsecs = known.HypervisorVmRunningTimeUsecs
+	}
+	if known.HypervisorWriteIoBandwidthKbps != nil {
+		p.HypervisorWriteIoBandwidthKbps = known.HypervisorWriteIoBandwidthKbps
+	}
+	if known.MemoryReservedBytes != nil {
+		p.MemoryReservedBytes = known.MemoryReservedBytes
+	}
+	if known.MemoryUsageBytes != nil {
+		p.MemoryUsageBytes = known.MemoryUsageBytes
+	}
+	if known.MemoryUsagePpm != nil {
+		p.MemoryUsagePpm = known.MemoryUsagePpm
+	}
+	if known.NumVcpusUsedPpm != nil {
+		p.NumVcpusUsedPpm = known.NumVcpusUsedPpm
+	}
+	if known.PhysicalMemoryAllocatedBytes != nil {
+		p.PhysicalMemoryAllocatedBytes = known.PhysicalMemoryAllocatedBytes
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1827,10 +2492,13 @@ func (p *VmStatsTuple) UnmarshalJSON(b []byte) error {
 	delete(allFields, "memoryUsageBytes")
 	delete(allFields, "memoryUsagePpm")
 	delete(allFields, "numVcpusUsedPpm")
+	delete(allFields, "physicalMemoryAllocatedBytes")
 	delete(allFields, "timestamp")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1839,7 +2507,7 @@ func NewVmStatsTuple() *VmStatsTuple {
 	p := new(VmStatsTuple)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmStatsTuple"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2184,6 +2852,10 @@ type VmStatsTupleProjection struct {
 	*/
 	NumVcpusUsedPpm *int64 `json:"numVcpusUsedPpm,omitempty"`
 	/*
+	  Physical memory allocated to VM in bytes.
+	*/
+	PhysicalMemoryAllocatedBytes *int64 `json:"physicalMemoryAllocatedBytes,omitempty"`
+	/*
 	  The timestamp of a specific VM stats response data point.
 	*/
 	Timestamp *time.Time `json:"timestamp,omitempty"`
@@ -2230,7 +2902,272 @@ func (p *VmStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmStatsTupleProjection(*known)
+	*p = *NewVmStatsTupleProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CheckScore != nil {
+		p.CheckScore = known.CheckScore
+	}
+	if known.Cluster != nil {
+		p.Cluster = known.Cluster
+	}
+	if known.ControllerAvgIoLatencyMicros != nil {
+		p.ControllerAvgIoLatencyMicros = known.ControllerAvgIoLatencyMicros
+	}
+	if known.ControllerAvgReadIoLatencyMicros != nil {
+		p.ControllerAvgReadIoLatencyMicros = known.ControllerAvgReadIoLatencyMicros
+	}
+	if known.ControllerAvgReadIoSizeKb != nil {
+		p.ControllerAvgReadIoSizeKb = known.ControllerAvgReadIoSizeKb
+	}
+	if known.ControllerAvgWriteIoLatencyMicros != nil {
+		p.ControllerAvgWriteIoLatencyMicros = known.ControllerAvgWriteIoLatencyMicros
+	}
+	if known.ControllerAvgWriteIoSizeKb != nil {
+		p.ControllerAvgWriteIoSizeKb = known.ControllerAvgWriteIoSizeKb
+	}
+	if known.ControllerIoBandwidthKbps != nil {
+		p.ControllerIoBandwidthKbps = known.ControllerIoBandwidthKbps
+	}
+	if known.ControllerNumIo != nil {
+		p.ControllerNumIo = known.ControllerNumIo
+	}
+	if known.ControllerNumIops != nil {
+		p.ControllerNumIops = known.ControllerNumIops
+	}
+	if known.ControllerNumRandomIo != nil {
+		p.ControllerNumRandomIo = known.ControllerNumRandomIo
+	}
+	if known.ControllerNumReadIo != nil {
+		p.ControllerNumReadIo = known.ControllerNumReadIo
+	}
+	if known.ControllerNumReadIops != nil {
+		p.ControllerNumReadIops = known.ControllerNumReadIops
+	}
+	if known.ControllerNumSeqIo != nil {
+		p.ControllerNumSeqIo = known.ControllerNumSeqIo
+	}
+	if known.ControllerNumWriteIo != nil {
+		p.ControllerNumWriteIo = known.ControllerNumWriteIo
+	}
+	if known.ControllerNumWriteIops != nil {
+		p.ControllerNumWriteIops = known.ControllerNumWriteIops
+	}
+	if known.ControllerOplogDrainDestHddBytes != nil {
+		p.ControllerOplogDrainDestHddBytes = known.ControllerOplogDrainDestHddBytes
+	}
+	if known.ControllerOplogDrainDestSsdBytes != nil {
+		p.ControllerOplogDrainDestSsdBytes = known.ControllerOplogDrainDestSsdBytes
+	}
+	if known.ControllerRandomIoPpm != nil {
+		p.ControllerRandomIoPpm = known.ControllerRandomIoPpm
+	}
+	if known.ControllerReadIoBandwidthKbps != nil {
+		p.ControllerReadIoBandwidthKbps = known.ControllerReadIoBandwidthKbps
+	}
+	if known.ControllerReadIoPpm != nil {
+		p.ControllerReadIoPpm = known.ControllerReadIoPpm
+	}
+	if known.ControllerReadSourceEstoreHddLocalBytes != nil {
+		p.ControllerReadSourceEstoreHddLocalBytes = known.ControllerReadSourceEstoreHddLocalBytes
+	}
+	if known.ControllerReadSourceEstoreHddRemoteBytes != nil {
+		p.ControllerReadSourceEstoreHddRemoteBytes = known.ControllerReadSourceEstoreHddRemoteBytes
+	}
+	if known.ControllerReadSourceEstoreSsdLocalBytes != nil {
+		p.ControllerReadSourceEstoreSsdLocalBytes = known.ControllerReadSourceEstoreSsdLocalBytes
+	}
+	if known.ControllerReadSourceEstoreSsdRemoteBytes != nil {
+		p.ControllerReadSourceEstoreSsdRemoteBytes = known.ControllerReadSourceEstoreSsdRemoteBytes
+	}
+	if known.ControllerReadSourceOplogBytes != nil {
+		p.ControllerReadSourceOplogBytes = known.ControllerReadSourceOplogBytes
+	}
+	if known.ControllerSeqIoPpm != nil {
+		p.ControllerSeqIoPpm = known.ControllerSeqIoPpm
+	}
+	if known.ControllerSharedUsageBytes != nil {
+		p.ControllerSharedUsageBytes = known.ControllerSharedUsageBytes
+	}
+	if known.ControllerSnapshotUsageBytes != nil {
+		p.ControllerSnapshotUsageBytes = known.ControllerSnapshotUsageBytes
+	}
+	if known.ControllerStorageTierSsdUsageBytes != nil {
+		p.ControllerStorageTierSsdUsageBytes = known.ControllerStorageTierSsdUsageBytes
+	}
+	if known.ControllerTimespanMicros != nil {
+		p.ControllerTimespanMicros = known.ControllerTimespanMicros
+	}
+	if known.ControllerTotalIoSizeKb != nil {
+		p.ControllerTotalIoSizeKb = known.ControllerTotalIoSizeKb
+	}
+	if known.ControllerTotalIoTimeMicros != nil {
+		p.ControllerTotalIoTimeMicros = known.ControllerTotalIoTimeMicros
+	}
+	if known.ControllerTotalReadIoSizeKb != nil {
+		p.ControllerTotalReadIoSizeKb = known.ControllerTotalReadIoSizeKb
+	}
+	if known.ControllerTotalReadIoTimeMicros != nil {
+		p.ControllerTotalReadIoTimeMicros = known.ControllerTotalReadIoTimeMicros
+	}
+	if known.ControllerTotalTransformedUsageBytes != nil {
+		p.ControllerTotalTransformedUsageBytes = known.ControllerTotalTransformedUsageBytes
+	}
+	if known.ControllerUserBytes != nil {
+		p.ControllerUserBytes = known.ControllerUserBytes
+	}
+	if known.ControllerWriteDestEstoreHddBytes != nil {
+		p.ControllerWriteDestEstoreHddBytes = known.ControllerWriteDestEstoreHddBytes
+	}
+	if known.ControllerWriteDestEstoreSsdBytes != nil {
+		p.ControllerWriteDestEstoreSsdBytes = known.ControllerWriteDestEstoreSsdBytes
+	}
+	if known.ControllerWriteIoBandwidthKbps != nil {
+		p.ControllerWriteIoBandwidthKbps = known.ControllerWriteIoBandwidthKbps
+	}
+	if known.ControllerWriteIoPpm != nil {
+		p.ControllerWriteIoPpm = known.ControllerWriteIoPpm
+	}
+	if known.ControllerWss120SecondReadMb != nil {
+		p.ControllerWss120SecondReadMb = known.ControllerWss120SecondReadMb
+	}
+	if known.ControllerWss120SecondUnionMb != nil {
+		p.ControllerWss120SecondUnionMb = known.ControllerWss120SecondUnionMb
+	}
+	if known.ControllerWss120SecondWriteMb != nil {
+		p.ControllerWss120SecondWriteMb = known.ControllerWss120SecondWriteMb
+	}
+	if known.ControllerWss3600SecondReadMb != nil {
+		p.ControllerWss3600SecondReadMb = known.ControllerWss3600SecondReadMb
+	}
+	if known.ControllerWss3600SecondUnionMb != nil {
+		p.ControllerWss3600SecondUnionMb = known.ControllerWss3600SecondUnionMb
+	}
+	if known.ControllerWss3600SecondWriteMb != nil {
+		p.ControllerWss3600SecondWriteMb = known.ControllerWss3600SecondWriteMb
+	}
+	if known.DiskCapacityBytes != nil {
+		p.DiskCapacityBytes = known.DiskCapacityBytes
+	}
+	if known.DiskUsagePpm != nil {
+		p.DiskUsagePpm = known.DiskUsagePpm
+	}
+	if known.FrameBufferUsagePpm != nil {
+		p.FrameBufferUsagePpm = known.FrameBufferUsagePpm
+	}
+	if known.GpuUsagePpm != nil {
+		p.GpuUsagePpm = known.GpuUsagePpm
+	}
+	if known.GuestMemoryUsagePpm != nil {
+		p.GuestMemoryUsagePpm = known.GuestMemoryUsagePpm
+	}
+	if known.HypervisorAvgIoLatencyMicros != nil {
+		p.HypervisorAvgIoLatencyMicros = known.HypervisorAvgIoLatencyMicros
+	}
+	if known.HypervisorCpuReadyTimePpm != nil {
+		p.HypervisorCpuReadyTimePpm = known.HypervisorCpuReadyTimePpm
+	}
+	if known.HypervisorCpuUsagePpm != nil {
+		p.HypervisorCpuUsagePpm = known.HypervisorCpuUsagePpm
+	}
+	if known.HypervisorIoBandwidthKbps != nil {
+		p.HypervisorIoBandwidthKbps = known.HypervisorIoBandwidthKbps
+	}
+	if known.HypervisorMemoryBalloonReclaimTargetBytes != nil {
+		p.HypervisorMemoryBalloonReclaimTargetBytes = known.HypervisorMemoryBalloonReclaimTargetBytes
+	}
+	if known.HypervisorMemoryBalloonReclaimedBytes != nil {
+		p.HypervisorMemoryBalloonReclaimedBytes = known.HypervisorMemoryBalloonReclaimedBytes
+	}
+	if known.HypervisorMemoryUsagePpm != nil {
+		p.HypervisorMemoryUsagePpm = known.HypervisorMemoryUsagePpm
+	}
+	if known.HypervisorNumIo != nil {
+		p.HypervisorNumIo = known.HypervisorNumIo
+	}
+	if known.HypervisorNumIops != nil {
+		p.HypervisorNumIops = known.HypervisorNumIops
+	}
+	if known.HypervisorNumReadIo != nil {
+		p.HypervisorNumReadIo = known.HypervisorNumReadIo
+	}
+	if known.HypervisorNumReadIops != nil {
+		p.HypervisorNumReadIops = known.HypervisorNumReadIops
+	}
+	if known.HypervisorNumReceivePacketsDropped != nil {
+		p.HypervisorNumReceivePacketsDropped = known.HypervisorNumReceivePacketsDropped
+	}
+	if known.HypervisorNumReceivedBytes != nil {
+		p.HypervisorNumReceivedBytes = known.HypervisorNumReceivedBytes
+	}
+	if known.HypervisorNumTransmitPacketsDropped != nil {
+		p.HypervisorNumTransmitPacketsDropped = known.HypervisorNumTransmitPacketsDropped
+	}
+	if known.HypervisorNumTransmittedBytes != nil {
+		p.HypervisorNumTransmittedBytes = known.HypervisorNumTransmittedBytes
+	}
+	if known.HypervisorNumWriteIo != nil {
+		p.HypervisorNumWriteIo = known.HypervisorNumWriteIo
+	}
+	if known.HypervisorNumWriteIops != nil {
+		p.HypervisorNumWriteIops = known.HypervisorNumWriteIops
+	}
+	if known.HypervisorReadIoBandwidthKbps != nil {
+		p.HypervisorReadIoBandwidthKbps = known.HypervisorReadIoBandwidthKbps
+	}
+	if known.HypervisorSwapInRateKbps != nil {
+		p.HypervisorSwapInRateKbps = known.HypervisorSwapInRateKbps
+	}
+	if known.HypervisorSwapOutRateKbps != nil {
+		p.HypervisorSwapOutRateKbps = known.HypervisorSwapOutRateKbps
+	}
+	if known.HypervisorTimespanMicros != nil {
+		p.HypervisorTimespanMicros = known.HypervisorTimespanMicros
+	}
+	if known.HypervisorTotalIoSizeKb != nil {
+		p.HypervisorTotalIoSizeKb = known.HypervisorTotalIoSizeKb
+	}
+	if known.HypervisorTotalIoTimeMicros != nil {
+		p.HypervisorTotalIoTimeMicros = known.HypervisorTotalIoTimeMicros
+	}
+	if known.HypervisorTotalReadIoSizeKb != nil {
+		p.HypervisorTotalReadIoSizeKb = known.HypervisorTotalReadIoSizeKb
+	}
+	if known.HypervisorType != nil {
+		p.HypervisorType = known.HypervisorType
+	}
+	if known.HypervisorVmRunningTimeUsecs != nil {
+		p.HypervisorVmRunningTimeUsecs = known.HypervisorVmRunningTimeUsecs
+	}
+	if known.HypervisorWriteIoBandwidthKbps != nil {
+		p.HypervisorWriteIoBandwidthKbps = known.HypervisorWriteIoBandwidthKbps
+	}
+	if known.MemoryReservedBytes != nil {
+		p.MemoryReservedBytes = known.MemoryReservedBytes
+	}
+	if known.MemoryUsageBytes != nil {
+		p.MemoryUsageBytes = known.MemoryUsageBytes
+	}
+	if known.MemoryUsagePpm != nil {
+		p.MemoryUsagePpm = known.MemoryUsagePpm
+	}
+	if known.NumVcpusUsedPpm != nil {
+		p.NumVcpusUsedPpm = known.NumVcpusUsedPpm
+	}
+	if known.PhysicalMemoryAllocatedBytes != nil {
+		p.PhysicalMemoryAllocatedBytes = known.PhysicalMemoryAllocatedBytes
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2319,10 +3256,13 @@ func (p *VmStatsTupleProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "memoryUsageBytes")
 	delete(allFields, "memoryUsagePpm")
 	delete(allFields, "numVcpusUsedPpm")
+	delete(allFields, "physicalMemoryAllocatedBytes")
 	delete(allFields, "timestamp")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2331,7 +3271,7 @@ func NewVmStatsTupleProjection() *VmStatsTupleProjection {
 	p := new(VmStatsTupleProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.stats.VmStatsTupleProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

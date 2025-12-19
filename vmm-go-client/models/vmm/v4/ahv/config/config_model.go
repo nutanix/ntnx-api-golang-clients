@@ -1,7 +1,7 @@
 /*
  * Generated file models/vmm/v4/ahv/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
@@ -85,7 +85,23 @@ func (p *ADSFDiskMigrationPlan) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ADSFDiskMigrationPlan(*known)
+	*p = *NewADSFDiskMigrationPlan()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StorageContainer != nil {
+		p.StorageContainer = known.StorageContainer
+	}
+	if known.VmDisks != nil {
+		p.VmDisks = known.VmDisks
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -95,7 +111,9 @@ func (p *ADSFDiskMigrationPlan) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmDisks")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -104,7 +122,7 @@ func NewADSFDiskMigrationPlan() *ADSFDiskMigrationPlan {
 	p := new(ADSFDiskMigrationPlan)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ADSFDiskMigrationPlan"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -119,12 +137,16 @@ type ADSFVmStorageConfig struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	HydrationInfo *HydrationInfo `json:"hydrationInfo,omitempty"`
 	/*
 	  Indicates whether the virtual disk is pinned to the hot tier or not.
 	*/
 	IsFlashModeEnabled *bool `json:"isFlashModeEnabled,omitempty"`
 
 	QosConfig *QosConfig `json:"qosConfig,omitempty"`
+
+	StorageLocationInfo *StorageLocationInfo `json:"storageLocationInfo,omitempty"`
 }
 
 func (p *ADSFVmStorageConfig) MarshalJSON() ([]byte, error) {
@@ -168,17 +190,43 @@ func (p *ADSFVmStorageConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ADSFVmStorageConfig(*known)
+	*p = *NewADSFVmStorageConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HydrationInfo != nil {
+		p.HydrationInfo = known.HydrationInfo
+	}
+	if known.IsFlashModeEnabled != nil {
+		p.IsFlashModeEnabled = known.IsFlashModeEnabled
+	}
+	if known.QosConfig != nil {
+		p.QosConfig = known.QosConfig
+	}
+	if known.StorageLocationInfo != nil {
+		p.StorageLocationInfo = known.StorageLocationInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "hydrationInfo")
 	delete(allFields, "isFlashModeEnabled")
 	delete(allFields, "qosConfig")
+	delete(allFields, "storageLocationInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -187,7 +235,7 @@ func NewADSFVmStorageConfig() *ADSFVmStorageConfig {
 	p := new(ADSFVmStorageConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ADSFVmStorageConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -256,7 +304,20 @@ func (p *ADSFVolumeGroupReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ADSFVolumeGroupReference(*known)
+	*p = *NewADSFVolumeGroupReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.VolumeGroupExtId != nil {
+		p.VolumeGroupExtId = known.VolumeGroupExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -265,7 +326,9 @@ func (p *ADSFVolumeGroupReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "volumeGroupExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -274,10 +337,266 @@ func NewADSFVolumeGroupReference() *ADSFVolumeGroupReference {
 	p := new(ADSFVolumeGroupReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ADSFVolumeGroupReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/add-custom-attributes Post operation
+*/
+type AddVmCustomAttributesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfAddVmCustomAttributesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *AddVmCustomAttributesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AddVmCustomAttributesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AddVmCustomAttributesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AddVmCustomAttributesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewAddVmCustomAttributesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewAddVmCustomAttributesApiResponse() *AddVmCustomAttributesApiResponse {
+	p := new(AddVmCustomAttributesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.AddVmCustomAttributesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *AddVmCustomAttributesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *AddVmCustomAttributesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfAddVmCustomAttributesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}/$actions/add-custom-attributes Post operation
+*/
+type AddVmDiskCustomAttributesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfAddVmDiskCustomAttributesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *AddVmDiskCustomAttributesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AddVmDiskCustomAttributesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AddVmDiskCustomAttributesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AddVmDiskCustomAttributesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewAddVmDiskCustomAttributesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewAddVmDiskCustomAttributesApiResponse() *AddVmDiskCustomAttributesApiResponse {
+	p := new(AddVmDiskCustomAttributesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.AddVmDiskCustomAttributesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *AddVmDiskCustomAttributesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *AddVmDiskCustomAttributesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfAddVmDiskCustomAttributesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
 }
 
 /*
@@ -334,7 +653,20 @@ func (p *AllDisksMigrationPlan) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AllDisksMigrationPlan(*known)
+	*p = *NewAllDisksMigrationPlan()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StorageContainer != nil {
+		p.StorageContainer = known.StorageContainer
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -343,7 +675,9 @@ func (p *AllDisksMigrationPlan) UnmarshalJSON(b []byte) error {
 	delete(allFields, "storageContainer")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -352,7 +686,7 @@ func NewAllDisksMigrationPlan() *AllDisksMigrationPlan {
 	p := new(AllDisksMigrationPlan)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.AllDisksMigrationPlan"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -416,7 +750,23 @@ func (p *ApcConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApcConfig(*known)
+	*p = *NewApcConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CpuModel != nil {
+		p.CpuModel = known.CpuModel
+	}
+	if known.IsApcEnabled != nil {
+		p.IsApcEnabled = known.IsApcEnabled
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -426,7 +776,9 @@ func (p *ApcConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isApcEnabled")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -435,14 +787,14 @@ func NewApcConfig() *ApcConfig {
 	p := new(ApcConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ApcConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/assign-ip Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/assign-ip Post operation
 */
 type AssignIpApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -501,7 +853,26 @@ func (p *AssignIpApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssignIpApiResponse(*known)
+	*p = *NewAssignIpApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -512,7 +883,9 @@ func (p *AssignIpApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -521,7 +894,7 @@ func NewAssignIpApiResponse() *AssignIpApiResponse {
 	p := new(AssignIpApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.AssignIpApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -602,7 +975,20 @@ func (p *AssignIpParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssignIpParams(*known)
+	*p = *NewAssignIpParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -611,7 +997,9 @@ func (p *AssignIpParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "ipAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -620,14 +1008,14 @@ func NewAssignIpParams() *AssignIpParams {
 	p := new(AssignIpParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.AssignIpParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/assign-owner Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/assign-owner Post operation
 */
 type AssignVmOwnerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -686,7 +1074,26 @@ func (p *AssignVmOwnerApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssignVmOwnerApiResponse(*known)
+	*p = *NewAssignVmOwnerApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -697,7 +1104,9 @@ func (p *AssignVmOwnerApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -706,7 +1115,7 @@ func NewAssignVmOwnerApiResponse() *AssignVmOwnerApiResponse {
 	p := new(AssignVmOwnerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.AssignVmOwnerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -734,7 +1143,7 @@ func (p *AssignVmOwnerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/associate-categories Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/associate-categories Post operation
 */
 type AssociateCategoriesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -793,7 +1202,26 @@ func (p *AssociateCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociateCategoriesApiResponse(*known)
+	*p = *NewAssociateCategoriesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -804,7 +1232,9 @@ func (p *AssociateCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -813,7 +1243,7 @@ func NewAssociateCategoriesApiResponse() *AssociateCategoriesApiResponse {
 	p := new(AssociateCategoriesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.AssociateCategoriesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -894,7 +1324,20 @@ func (p *AssociateVmCategoriesParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AssociateVmCategoriesParams(*known)
+	*p = *NewAssociateVmCategoriesParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -903,7 +1346,9 @@ func (p *AssociateVmCategoriesParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "categories")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -912,7 +1357,7 @@ func NewAssociateVmCategoriesParams() *AssociateVmCategoriesParams {
 	p := new(AssociateVmCategoriesParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.AssociateVmCategoriesParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -974,7 +1419,20 @@ func (p *AvailabilityZoneReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AvailabilityZoneReference(*known)
+	*p = *NewAvailabilityZoneReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -983,7 +1441,9 @@ func (p *AvailabilityZoneReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -992,7 +1452,100 @@ func NewAvailabilityZoneReference() *AvailabilityZoneReference {
 	p := new(AvailabilityZoneReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.AvailabilityZoneReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The backing storage information for the firmware disk.
+*/
+type BackingFirmwareDiskStorageInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	StorageContainer *VmDiskContainerReference `json:"storageContainer,omitempty"`
+}
+
+func (p *BackingFirmwareDiskStorageInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias BackingFirmwareDiskStorageInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *BackingFirmwareDiskStorageInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias BackingFirmwareDiskStorageInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewBackingFirmwareDiskStorageInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StorageContainer != nil {
+		p.StorageContainer = known.StorageContainer
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "storageContainer")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewBackingFirmwareDiskStorageInfo() *BackingFirmwareDiskStorageInfo {
+	p := new(BackingFirmwareDiskStorageInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.BackingFirmwareDiskStorageInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1052,7 +1605,20 @@ func (p *BootDeviceDisk) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BootDeviceDisk(*known)
+	*p = *NewBootDeviceDisk()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskAddress != nil {
+		p.DiskAddress = known.DiskAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1061,7 +1627,9 @@ func (p *BootDeviceDisk) UnmarshalJSON(b []byte) error {
 	delete(allFields, "diskAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1070,7 +1638,7 @@ func NewBootDeviceDisk() *BootDeviceDisk {
 	p := new(BootDeviceDisk)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.BootDeviceDisk"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1132,7 +1700,20 @@ func (p *BootDeviceNic) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = BootDeviceNic(*known)
+	*p = *NewBootDeviceNic()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1141,7 +1722,9 @@ func (p *BootDeviceNic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "macAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1150,7 +1733,7 @@ func NewBootDeviceNic() *BootDeviceNic {
 	p := new(BootDeviceNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.BootDeviceNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1295,7 +1878,20 @@ func (p *CategoryReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryReference(*known)
+	*p = *NewCategoryReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1304,7 +1900,9 @@ func (p *CategoryReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1313,7 +1911,7 @@ func NewCategoryReference() *CategoryReference {
 	p := new(CategoryReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CategoryReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1389,7 +1987,35 @@ func (p *CdRom) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CdRom(*known)
+	*p = *NewCdRom()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackingInfo != nil {
+		p.BackingInfo = known.BackingInfo
+	}
+	if known.DiskAddress != nil {
+		p.DiskAddress = known.DiskAddress
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsoType != nil {
+		p.IsoType = known.IsoType
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1403,7 +2029,9 @@ func (p *CdRom) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1412,7 +2040,7 @@ func NewCdRom() *CdRom {
 	p := new(CdRom)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CdRom"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1476,7 +2104,23 @@ func (p *CdRomAddress) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CdRomAddress(*known)
+	*p = *NewCdRomAddress()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BusType != nil {
+		p.BusType = known.BusType
+	}
+	if known.Index != nil {
+		p.Index = known.Index
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1486,7 +2130,9 @@ func (p *CdRomAddress) UnmarshalJSON(b []byte) error {
 	delete(allFields, "index")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1495,7 +2141,7 @@ func NewCdRomAddress() *CdRomAddress {
 	p := new(CdRomAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CdRomAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1634,7 +2280,20 @@ func (p *CdRomInsertParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CdRomInsertParams(*known)
+	*p = *NewCdRomInsertParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackingInfo != nil {
+		p.BackingInfo = known.BackingInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1643,7 +2302,9 @@ func (p *CdRomInsertParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "backingInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1652,7 +2313,7 @@ func NewCdRomInsertParams() *CdRomInsertParams {
 	p := new(CdRomInsertParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CdRomInsertParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1677,6 +2338,8 @@ type CloneOverrideParams struct {
 	BootConfig *OneOfCloneOverrideParamsBootConfig `json:"bootConfig,omitempty"`
 
 	GuestCustomization *GuestCustomizationParams `json:"guestCustomization,omitempty"`
+
+	GuestCustomizationProfileConfig *VmGcProfileConfig `json:"guestCustomizationProfileConfig,omitempty"`
 	/*
 	  Memory size in bytes.
 	*/
@@ -1744,7 +2407,47 @@ func (p *CloneOverrideParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CloneOverrideParams(*known)
+	*p = *NewCloneOverrideParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BootConfigItemDiscriminator_ != nil {
+		p.BootConfigItemDiscriminator_ = known.BootConfigItemDiscriminator_
+	}
+	if known.BootConfig != nil {
+		p.BootConfig = known.BootConfig
+	}
+	if known.GuestCustomization != nil {
+		p.GuestCustomization = known.GuestCustomization
+	}
+	if known.GuestCustomizationProfileConfig != nil {
+		p.GuestCustomizationProfileConfig = known.GuestCustomizationProfileConfig
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Nics != nil {
+		p.Nics = known.Nics
+	}
+	if known.NumCoresPerSocket != nil {
+		p.NumCoresPerSocket = known.NumCoresPerSocket
+	}
+	if known.NumSockets != nil {
+		p.NumSockets = known.NumSockets
+	}
+	if known.NumThreadsPerCore != nil {
+		p.NumThreadsPerCore = known.NumThreadsPerCore
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1753,6 +2456,7 @@ func (p *CloneOverrideParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$bootConfigItemDiscriminator")
 	delete(allFields, "bootConfig")
 	delete(allFields, "guestCustomization")
+	delete(allFields, "guestCustomizationProfileConfig")
 	delete(allFields, "memorySizeBytes")
 	delete(allFields, "name")
 	delete(allFields, "nics")
@@ -1761,7 +2465,9 @@ func (p *CloneOverrideParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "numThreadsPerCore")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1770,7 +2476,7 @@ func NewCloneOverrideParams() *CloneOverrideParams {
 	p := new(CloneOverrideParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CloneOverrideParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1798,7 +2504,7 @@ func (p *CloneOverrideParams) SetBootConfig(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/clone Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/clone Post operation
 */
 type CloneVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1857,7 +2563,26 @@ func (p *CloneVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CloneVmApiResponse(*known)
+	*p = *NewCloneVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1868,7 +2593,9 @@ func (p *CloneVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1877,7 +2604,7 @@ func NewCloneVmApiResponse() *CloneVmApiResponse {
 	p := new(CloneVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CloneVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1970,7 +2697,29 @@ func (p *CloudInit) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CloudInit(*known)
+	*p = *NewCloudInit()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CloudInitScriptItemDiscriminator_ != nil {
+		p.CloudInitScriptItemDiscriminator_ = known.CloudInitScriptItemDiscriminator_
+	}
+	if known.CloudInitScript != nil {
+		p.CloudInitScript = known.CloudInitScript
+	}
+	if known.DatasourceType != nil {
+		p.DatasourceType = known.DatasourceType
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1982,7 +2731,9 @@ func (p *CloudInit) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1991,7 +2742,7 @@ func NewCloudInit() *CloudInit {
 	p := new(CloudInit)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CloudInit"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2149,7 +2900,20 @@ func (p *ClusterReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ClusterReference(*known)
+	*p = *NewClusterReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2158,7 +2922,9 @@ func (p *ClusterReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2167,7 +2933,7 @@ func NewClusterReference() *ClusterReference {
 	p := new(ClusterReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ClusterReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2308,7 +3074,23 @@ func (p *CpuModelReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CpuModelReference(*known)
+	*p = *NewCpuModelReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2318,7 +3100,9 @@ func (p *CpuModelReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "name")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2327,14 +3111,14 @@ func NewCpuModelReference() *CpuModelReference {
 	p := new(CpuModelReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CpuModelReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms Post operation
 */
 type CreateCdRomApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2393,7 +3177,26 @@ func (p *CreateCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateCdRomApiResponse(*known)
+	*p = *NewCreateCdRomApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2404,7 +3207,9 @@ func (p *CreateCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2413,7 +3218,7 @@ func NewCreateCdRomApiResponse() *CreateCdRomApiResponse {
 	p := new(CreateCdRomApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CreateCdRomApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2441,7 +3246,7 @@ func (p *CreateCdRomApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/disks Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/disks Post operation
 */
 type CreateDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2500,7 +3305,26 @@ func (p *CreateDiskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateDiskApiResponse(*known)
+	*p = *NewCreateDiskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2511,7 +3335,9 @@ func (p *CreateDiskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2520,7 +3346,7 @@ func NewCreateDiskApiResponse() *CreateDiskApiResponse {
 	p := new(CreateDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CreateDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2548,7 +3374,7 @@ func (p *CreateDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/gpus Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/gpus Post operation
 */
 type CreateGpuApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2607,7 +3433,26 @@ func (p *CreateGpuApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateGpuApiResponse(*known)
+	*p = *NewCreateGpuApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2618,7 +3463,9 @@ func (p *CreateGpuApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2627,7 +3474,7 @@ func NewCreateGpuApiResponse() *CreateGpuApiResponse {
 	p := new(CreateGpuApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CreateGpuApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2655,7 +3502,7 @@ func (p *CreateGpuApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/nics Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/nics Post operation
 */
 type CreateNicApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2714,7 +3561,26 @@ func (p *CreateNicApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateNicApiResponse(*known)
+	*p = *NewCreateNicApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2725,7 +3591,9 @@ func (p *CreateNicApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2734,7 +3602,7 @@ func NewCreateNicApiResponse() *CreateNicApiResponse {
 	p := new(CreateNicApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CreateNicApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2762,7 +3630,7 @@ func (p *CreateNicApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/pcie-devices Post operation
 */
 type CreatePcieDeviceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2821,7 +3689,26 @@ func (p *CreatePcieDeviceApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreatePcieDeviceApiResponse(*known)
+	*p = *NewCreatePcieDeviceApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2832,7 +3719,9 @@ func (p *CreatePcieDeviceApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2841,7 +3730,7 @@ func NewCreatePcieDeviceApiResponse() *CreatePcieDeviceApiResponse {
 	p := new(CreatePcieDeviceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CreatePcieDeviceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2869,7 +3758,7 @@ func (p *CreatePcieDeviceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports Post operation
 */
 type CreateSerialPortApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2928,7 +3817,26 @@ func (p *CreateSerialPortApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateSerialPortApiResponse(*known)
+	*p = *NewCreateSerialPortApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2939,7 +3847,9 @@ func (p *CreateSerialPortApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2948,7 +3858,7 @@ func NewCreateSerialPortApiResponse() *CreateSerialPortApiResponse {
 	p := new(CreateSerialPortApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CreateSerialPortApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2976,7 +3886,7 @@ func (p *CreateSerialPortApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vm-recovery-points Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-recovery-points Post operation
 */
 type CreateVMRecoveryPointApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3035,7 +3945,26 @@ func (p *CreateVMRecoveryPointApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateVMRecoveryPointApiResponse(*known)
+	*p = *NewCreateVMRecoveryPointApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3046,7 +3975,9 @@ func (p *CreateVMRecoveryPointApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3055,7 +3986,7 @@ func NewCreateVMRecoveryPointApiResponse() *CreateVMRecoveryPointApiResponse {
 	p := new(CreateVMRecoveryPointApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CreateVMRecoveryPointApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3083,7 +4014,7 @@ func (p *CreateVMRecoveryPointApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms Post operation
 */
 type CreateVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3142,7 +4073,26 @@ func (p *CreateVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateVmApiResponse(*known)
+	*p = *NewCreateVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3153,7 +4103,9 @@ func (p *CreateVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3162,7 +4114,7 @@ func NewCreateVmApiResponse() *CreateVmApiResponse {
 	p := new(CreateVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CreateVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3178,6 +4130,134 @@ func (p *CreateVmApiResponse) GetData() interface{} {
 func (p *CreateVmApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfCreateVmApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-guest-customization-profiles Post operation
+*/
+type CreateVmGuestCustomizationProfileApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfCreateVmGuestCustomizationProfileApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *CreateVmGuestCustomizationProfileApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CreateVmGuestCustomizationProfileApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CreateVmGuestCustomizationProfileApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CreateVmGuestCustomizationProfileApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewCreateVmGuestCustomizationProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewCreateVmGuestCustomizationProfileApiResponse() *CreateVmGuestCustomizationProfileApiResponse {
+	p := new(CreateVmGuestCustomizationProfileApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.CreateVmGuestCustomizationProfileApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *CreateVmGuestCustomizationProfileApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *CreateVmGuestCustomizationProfileApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfCreateVmGuestCustomizationProfileApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -3249,7 +4329,23 @@ func (p *Credential) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Credential(*known)
+	*p = *NewCredential()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3259,7 +4355,9 @@ func (p *Credential) UnmarshalJSON(b []byte) error {
 	delete(allFields, "username")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3268,14 +4366,14 @@ func NewCredential() *Credential {
 	p := new(Credential)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Credential"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/migrate Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/migrate Post operation
 */
 type CrossClusterMigrateVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3334,7 +4432,26 @@ func (p *CrossClusterMigrateVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CrossClusterMigrateVmApiResponse(*known)
+	*p = *NewCrossClusterMigrateVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3345,7 +4462,9 @@ func (p *CrossClusterMigrateVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3354,7 +4473,7 @@ func NewCrossClusterMigrateVmApiResponse() *CrossClusterMigrateVmApiResponse {
 	p := new(CrossClusterMigrateVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CrossClusterMigrateVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3437,7 +4556,20 @@ func (p *CustomKeyValues) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CustomKeyValues(*known)
+	*p = *NewCustomKeyValues()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.KeyValuePairs != nil {
+		p.KeyValuePairs = known.KeyValuePairs
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3446,7 +4578,9 @@ func (p *CustomKeyValues) UnmarshalJSON(b []byte) error {
 	delete(allFields, "keyValuePairs")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3455,14 +4589,14 @@ func NewCustomKeyValues() *CustomKeyValues {
 	p := new(CustomKeyValues)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CustomKeyValues"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/customize-guest Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/customize-guest Post operation
 */
 type CustomizeGuestVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3521,7 +4655,26 @@ func (p *CustomizeGuestVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CustomizeGuestVmApiResponse(*known)
+	*p = *NewCustomizeGuestVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3532,7 +4685,9 @@ func (p *CustomizeGuestVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3541,7 +4696,7 @@ func NewCustomizeGuestVmApiResponse() *CustomizeGuestVmApiResponse {
 	p := new(CustomizeGuestVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.CustomizeGuestVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3628,7 +4783,23 @@ func (p *DataSource) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DataSource(*known)
+	*p = *NewDataSource()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ReferenceItemDiscriminator_ != nil {
+		p.ReferenceItemDiscriminator_ = known.ReferenceItemDiscriminator_
+	}
+	if known.Reference != nil {
+		p.Reference = known.Reference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3638,7 +4809,9 @@ func (p *DataSource) UnmarshalJSON(b []byte) error {
 	delete(allFields, "reference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3647,7 +4820,7 @@ func NewDataSource() *DataSource {
 	p := new(DataSource)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DataSource"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3675,7 +4848,7 @@ func (p *DataSource) SetReference(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId} Delete operation
 */
 type DeleteCdRomApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3734,7 +4907,26 @@ func (p *DeleteCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteCdRomApiResponse(*known)
+	*p = *NewDeleteCdRomApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3745,7 +4937,9 @@ func (p *DeleteCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3754,7 +4948,7 @@ func NewDeleteCdRomApiResponse() *DeleteCdRomApiResponse {
 	p := new(DeleteCdRomApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DeleteCdRomApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3782,7 +4976,7 @@ func (p *DeleteCdRomApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/disks/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId} Delete operation
 */
 type DeleteDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3841,7 +5035,26 @@ func (p *DeleteDiskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteDiskApiResponse(*known)
+	*p = *NewDeleteDiskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3852,7 +5065,9 @@ func (p *DeleteDiskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3861,7 +5076,7 @@ func NewDeleteDiskApiResponse() *DeleteDiskApiResponse {
 	p := new(DeleteDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DeleteDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3889,7 +5104,7 @@ func (p *DeleteDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/gpus/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/gpus/{extId} Delete operation
 */
 type DeleteGpuApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3948,7 +5163,26 @@ func (p *DeleteGpuApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteGpuApiResponse(*known)
+	*p = *NewDeleteGpuApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3959,7 +5193,9 @@ func (p *DeleteGpuApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3968,7 +5204,7 @@ func NewDeleteGpuApiResponse() *DeleteGpuApiResponse {
 	p := new(DeleteGpuApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DeleteGpuApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3996,7 +5232,7 @@ func (p *DeleteGpuApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId} Delete operation
 */
 type DeleteNicApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4055,7 +5291,26 @@ func (p *DeleteNicApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteNicApiResponse(*known)
+	*p = *NewDeleteNicApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4066,7 +5321,9 @@ func (p *DeleteNicApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4075,7 +5332,7 @@ func NewDeleteNicApiResponse() *DeleteNicApiResponse {
 	p := new(DeleteNicApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DeleteNicApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4103,7 +5360,7 @@ func (p *DeleteNicApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/pcie-devices/{extId} Delete operation
 */
 type DeletePcieDeviceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4162,7 +5419,26 @@ func (p *DeletePcieDeviceApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeletePcieDeviceApiResponse(*known)
+	*p = *NewDeletePcieDeviceApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4173,7 +5449,9 @@ func (p *DeletePcieDeviceApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4182,7 +5460,7 @@ func NewDeletePcieDeviceApiResponse() *DeletePcieDeviceApiResponse {
 	p := new(DeletePcieDeviceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DeletePcieDeviceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4210,7 +5488,7 @@ func (p *DeletePcieDeviceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports/{extId} Delete operation
 */
 type DeleteSerialPortApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4269,7 +5547,26 @@ func (p *DeleteSerialPortApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteSerialPortApiResponse(*known)
+	*p = *NewDeleteSerialPortApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4280,7 +5577,9 @@ func (p *DeleteSerialPortApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4289,7 +5588,7 @@ func NewDeleteSerialPortApiResponse() *DeleteSerialPortApiResponse {
 	p := new(DeleteSerialPortApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DeleteSerialPortApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4317,7 +5616,7 @@ func (p *DeleteSerialPortApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId} Delete operation
 */
 type DeleteVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4376,7 +5675,26 @@ func (p *DeleteVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteVmApiResponse(*known)
+	*p = *NewDeleteVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4387,7 +5705,9 @@ func (p *DeleteVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4396,7 +5716,7 @@ func NewDeleteVmApiResponse() *DeleteVmApiResponse {
 	p := new(DeleteVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DeleteVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4424,7 +5744,135 @@ func (p *DeleteVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vm-recovery-points/{extId} Delete operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-guest-customization-profiles/{extId} Delete operation
+*/
+type DeleteVmGuestCustomizationProfileApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDeleteVmGuestCustomizationProfileApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *DeleteVmGuestCustomizationProfileApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DeleteVmGuestCustomizationProfileApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DeleteVmGuestCustomizationProfileApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DeleteVmGuestCustomizationProfileApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDeleteVmGuestCustomizationProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDeleteVmGuestCustomizationProfileApiResponse() *DeleteVmGuestCustomizationProfileApiResponse {
+	p := new(DeleteVmGuestCustomizationProfileApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.DeleteVmGuestCustomizationProfileApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DeleteVmGuestCustomizationProfileApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DeleteVmGuestCustomizationProfileApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDeleteVmGuestCustomizationProfileApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-recovery-points/{extId} Delete operation
 */
 type DeleteVmRecoveryPointApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4483,7 +5931,26 @@ func (p *DeleteVmRecoveryPointApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteVmRecoveryPointApiResponse(*known)
+	*p = *NewDeleteVmRecoveryPointApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4494,7 +5961,9 @@ func (p *DeleteVmRecoveryPointApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4503,7 +5972,7 @@ func NewDeleteVmRecoveryPointApiResponse() *DeleteVmRecoveryPointApiResponse {
 	p := new(DeleteVmRecoveryPointApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DeleteVmRecoveryPointApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4531,7 +6000,263 @@ func (p *DeleteVmRecoveryPointApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/disassociate-categories Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/disable-hydration Post operation
+*/
+type DisableVmCdRomHydrationApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDisableVmCdRomHydrationApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *DisableVmCdRomHydrationApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DisableVmCdRomHydrationApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DisableVmCdRomHydrationApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DisableVmCdRomHydrationApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDisableVmCdRomHydrationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDisableVmCdRomHydrationApiResponse() *DisableVmCdRomHydrationApiResponse {
+	p := new(DisableVmCdRomHydrationApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.DisableVmCdRomHydrationApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DisableVmCdRomHydrationApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DisableVmCdRomHydrationApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDisableVmCdRomHydrationApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}/$actions/disable-hydration Post operation
+*/
+type DisableVmDiskHydrationApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDisableVmDiskHydrationApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *DisableVmDiskHydrationApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DisableVmDiskHydrationApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DisableVmDiskHydrationApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DisableVmDiskHydrationApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDisableVmDiskHydrationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDisableVmDiskHydrationApiResponse() *DisableVmDiskHydrationApiResponse {
+	p := new(DisableVmDiskHydrationApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.DisableVmDiskHydrationApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DisableVmDiskHydrationApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DisableVmDiskHydrationApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDisableVmDiskHydrationApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/disassociate-categories Post operation
 */
 type DisassociateCategoriesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4590,7 +6315,26 @@ func (p *DisassociateCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DisassociateCategoriesApiResponse(*known)
+	*p = *NewDisassociateCategoriesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4601,7 +6345,9 @@ func (p *DisassociateCategoriesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4610,7 +6356,7 @@ func NewDisassociateCategoriesApiResponse() *DisassociateCategoriesApiResponse {
 	p := new(DisassociateCategoriesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DisassociateCategoriesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4691,7 +6437,20 @@ func (p *DisassociateVmCategoriesParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DisassociateVmCategoriesParams(*known)
+	*p = *NewDisassociateVmCategoriesParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4700,7 +6459,9 @@ func (p *DisassociateVmCategoriesParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "categories")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4709,7 +6470,7 @@ func NewDisassociateVmCategoriesParams() *DisassociateVmCategoriesParams {
 	p := new(DisassociateVmCategoriesParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DisassociateVmCategoriesParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4732,6 +6493,10 @@ type Disk struct {
 	  Supporting storage to create virtual disk on.
 	*/
 	BackingInfo *OneOfDiskBackingInfo `json:"backingInfo,omitempty"`
+	/*
+	  A collection of user-defined key/value pairs as strings in the format 'key:value' representing custom attributes of the VM Disk.
+	*/
+	CustomAttributes []string `json:"customAttributes,omitempty"`
 
 	DiskAddress *DiskAddress `json:"diskAddress,omitempty"`
 	/*
@@ -4789,7 +6554,38 @@ func (p *Disk) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Disk(*known)
+	*p = *NewDisk()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackingInfoItemDiscriminator_ != nil {
+		p.BackingInfoItemDiscriminator_ = known.BackingInfoItemDiscriminator_
+	}
+	if known.BackingInfo != nil {
+		p.BackingInfo = known.BackingInfo
+	}
+	if known.CustomAttributes != nil {
+		p.CustomAttributes = known.CustomAttributes
+	}
+	if known.DiskAddress != nil {
+		p.DiskAddress = known.DiskAddress
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4797,13 +6593,16 @@ func (p *Disk) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "$backingInfoItemDiscriminator")
 	delete(allFields, "backingInfo")
+	delete(allFields, "customAttributes")
 	delete(allFields, "diskAddress")
 	delete(allFields, "extId")
 	delete(allFields, "links")
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4812,7 +6611,7 @@ func NewDisk() *Disk {
 	p := new(Disk)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Disk"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4897,7 +6696,23 @@ func (p *DiskAddress) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskAddress(*known)
+	*p = *NewDiskAddress()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BusType != nil {
+		p.BusType = known.BusType
+	}
+	if known.Index != nil {
+		p.Index = known.Index
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4907,7 +6722,9 @@ func (p *DiskAddress) UnmarshalJSON(b []byte) error {
 	delete(allFields, "index")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4916,7 +6733,7 @@ func NewDiskAddress() *DiskAddress {
 	p := new(DiskAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DiskAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5014,6 +6831,107 @@ func (e DiskBusType) Ref() *DiskBusType {
 }
 
 /*
+Hydration information for a VM disk.
+*/
+type DiskHydrationInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Number of bytes remaining to be hydrated.
+	*/
+	DiskHydrationRemainingBytes *int64 `json:"diskHydrationRemainingBytes,omitempty"`
+
+	DiskHydrationStatus *HydrationStatus `json:"diskHydrationStatus,omitempty"`
+}
+
+func (p *DiskHydrationInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DiskHydrationInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DiskHydrationInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DiskHydrationInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDiskHydrationInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskHydrationRemainingBytes != nil {
+		p.DiskHydrationRemainingBytes = known.DiskHydrationRemainingBytes
+	}
+	if known.DiskHydrationStatus != nil {
+		p.DiskHydrationStatus = known.DiskHydrationStatus
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "diskHydrationRemainingBytes")
+	delete(allFields, "diskHydrationStatus")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDiskHydrationInfo() *DiskHydrationInfo {
+	p := new(DiskHydrationInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.DiskHydrationInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Specifies the VmDisks of a VM for migration and the migration plan for them. If all the disks of a VM need to be migrated to the same storage container, only a single migration plan with only the external ID of the destination storage container is needed.  If the disks are being migrated to different containers, one plan per disk needs to be specified.
 */
 type DiskMigrationParams struct {
@@ -5073,7 +6991,23 @@ func (p *DiskMigrationParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DiskMigrationParams(*known)
+	*p = *NewDiskMigrationParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MigrateDisksItemDiscriminator_ != nil {
+		p.MigrateDisksItemDiscriminator_ = known.MigrateDisksItemDiscriminator_
+	}
+	if known.MigrateDisks != nil {
+		p.MigrateDisks = known.MigrateDisks
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5083,7 +7017,9 @@ func (p *DiskMigrationParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "migrateDisks")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5092,7 +7028,7 @@ func NewDiskMigrationParams() *DiskMigrationParams {
 	p := new(DiskMigrationParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DiskMigrationParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5190,7 +7126,29 @@ func (p *DpOffloadNic) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DpOffloadNic(*known)
+	*p = *NewDpOffloadNic()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DpOffloadProfileReference != nil {
+		p.DpOffloadProfileReference = known.DpOffloadProfileReference
+	}
+	if known.HostPcieDeviceReference != nil {
+		p.HostPcieDeviceReference = known.HostPcieDeviceReference
+	}
+	if known.IsConnected != nil {
+		p.IsConnected = known.IsConnected
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5202,7 +7160,9 @@ func (p *DpOffloadNic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "macAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5211,7 +7171,7 @@ func NewDpOffloadNic() *DpOffloadNic {
 	p := new(DpOffloadNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DpOffloadNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsConnected = new(bool)
@@ -5290,7 +7250,38 @@ func (p *DpOffloadNicNetworkInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DpOffloadNicNetworkInfo(*known)
+	*p = *NewDpOffloadNicNetworkInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4Config != nil {
+		p.Ipv4Config = known.Ipv4Config
+	}
+	if known.Ipv4Info != nil {
+		p.Ipv4Info = known.Ipv4Info
+	}
+	if known.Ipv6Info != nil {
+		p.Ipv6Info = known.Ipv6Info
+	}
+	if known.ShouldAllowUnknownMacs != nil {
+		p.ShouldAllowUnknownMacs = known.ShouldAllowUnknownMacs
+	}
+	if known.Subnet != nil {
+		p.Subnet = known.Subnet
+	}
+	if known.TrunkedVlans != nil {
+		p.TrunkedVlans = known.TrunkedVlans
+	}
+	if known.VlanMode != nil {
+		p.VlanMode = known.VlanMode
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5305,7 +7296,9 @@ func (p *DpOffloadNicNetworkInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vlanMode")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5314,14 +7307,14 @@ func NewDpOffloadNicNetworkInfo() *DpOffloadNicNetworkInfo {
 	p := new(DpOffloadNicNetworkInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.DpOffloadNicNetworkInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/eject Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/eject Post operation
 */
 type EjectCdRomApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5380,7 +7373,26 @@ func (p *EjectCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EjectCdRomApiResponse(*known)
+	*p = *NewEjectCdRomApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5391,7 +7403,9 @@ func (p *EjectCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5400,7 +7414,7 @@ func NewEjectCdRomApiResponse() *EjectCdRomApiResponse {
 	p := new(EjectCdRomApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.EjectCdRomApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5493,7 +7507,29 @@ func (p *EmulatedNic) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EmulatedNic(*known)
+	*p = *NewEmulatedNic()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsConnected != nil {
+		p.IsConnected = known.IsConnected
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.NumQueues != nil {
+		p.NumQueues = known.NumQueues
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5505,7 +7541,9 @@ func (p *EmulatedNic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "numQueues")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5514,7 +7552,7 @@ func NewEmulatedNic() *EmulatedNic {
 	p := new(EmulatedNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.EmulatedNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsConnected = new(bool)
@@ -5605,7 +7643,514 @@ func (e EmulatedNicModel) Ref() *EmulatedNicModel {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/enable-hydration Post operation
+*/
+type EnableVmCdRomHydrationApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfEnableVmCdRomHydrationApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *EnableVmCdRomHydrationApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EnableVmCdRomHydrationApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EnableVmCdRomHydrationApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EnableVmCdRomHydrationApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewEnableVmCdRomHydrationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewEnableVmCdRomHydrationApiResponse() *EnableVmCdRomHydrationApiResponse {
+	p := new(EnableVmCdRomHydrationApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.EnableVmCdRomHydrationApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *EnableVmCdRomHydrationApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *EnableVmCdRomHydrationApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfEnableVmCdRomHydrationApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}/$actions/enable-hydration Post operation
+*/
+type EnableVmDiskHydrationApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfEnableVmDiskHydrationApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *EnableVmDiskHydrationApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias EnableVmDiskHydrationApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *EnableVmDiskHydrationApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias EnableVmDiskHydrationApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewEnableVmDiskHydrationApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewEnableVmDiskHydrationApiResponse() *EnableVmDiskHydrationApiResponse {
+	p := new(EnableVmDiskHydrationApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.EnableVmDiskHydrationApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *EnableVmDiskHydrationApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *EnableVmDiskHydrationApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfEnableVmDiskHydrationApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Reference to an external data source disk.
+*/
+type ExternalDataSourceDiskReference struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The relative path of the external data source disk.
+	*/
+	ExternalDiskRelativePath *string `json:"externalDiskRelativePath"`
+	/*
+	  A globally unique identifier of type UUID for the external repository.
+	*/
+	ExternalRepositoryExtId *string `json:"externalRepositoryExtId"`
+	/*
+	  Indicates whether the background data hydration should be enabled for the external data source disk or not. If set to true, the disk will be migrated to the local storage container in the background.
+	*/
+	ShouldEnableBackgroundHydration *bool `json:"shouldEnableBackgroundHydration,omitempty"`
+}
+
+func (p *ExternalDataSourceDiskReference) MarshalJSON() ([]byte, error) {
+	type ExternalDataSourceDiskReferenceProxy ExternalDataSourceDiskReference
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ExternalDataSourceDiskReferenceProxy
+		ExternalDiskRelativePath *string `json:"externalDiskRelativePath,omitempty"`
+		ExternalRepositoryExtId  *string `json:"externalRepositoryExtId,omitempty"`
+	}{
+		ExternalDataSourceDiskReferenceProxy: (*ExternalDataSourceDiskReferenceProxy)(p),
+		ExternalDiskRelativePath:             p.ExternalDiskRelativePath,
+		ExternalRepositoryExtId:              p.ExternalRepositoryExtId,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExternalDataSourceDiskReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExternalDataSourceDiskReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewExternalDataSourceDiskReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExternalDiskRelativePath != nil {
+		p.ExternalDiskRelativePath = known.ExternalDiskRelativePath
+	}
+	if known.ExternalRepositoryExtId != nil {
+		p.ExternalRepositoryExtId = known.ExternalRepositoryExtId
+	}
+	if known.ShouldEnableBackgroundHydration != nil {
+		p.ShouldEnableBackgroundHydration = known.ShouldEnableBackgroundHydration
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "externalDiskRelativePath")
+	delete(allFields, "externalRepositoryExtId")
+	delete(allFields, "shouldEnableBackgroundHydration")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewExternalDataSourceDiskReference() *ExternalDataSourceDiskReference {
+	p := new(ExternalDataSourceDiskReference)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.ExternalDataSourceDiskReference"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.ShouldEnableBackgroundHydration = new(bool)
+	*p.ShouldEnableBackgroundHydration = true
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/generate-console-token Post operation
+*/
+type GenerateConsoleTokenApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGenerateConsoleTokenApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GenerateConsoleTokenApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GenerateConsoleTokenApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GenerateConsoleTokenApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GenerateConsoleTokenApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGenerateConsoleTokenApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGenerateConsoleTokenApiResponse() *GenerateConsoleTokenApiResponse {
+	p := new(GenerateConsoleTokenApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.GenerateConsoleTokenApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GenerateConsoleTokenApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GenerateConsoleTokenApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGenerateConsoleTokenApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId} Get operation
 */
 type GetCdRomApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5664,7 +8209,26 @@ func (p *GetCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetCdRomApiResponse(*known)
+	*p = *NewGetCdRomApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5675,7 +8239,9 @@ func (p *GetCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5684,7 +8250,7 @@ func NewGetCdRomApiResponse() *GetCdRomApiResponse {
 	p := new(GetCdRomApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GetCdRomApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5712,7 +8278,7 @@ func (p *GetCdRomApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/disks/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId} Get operation
 */
 type GetDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5771,7 +8337,26 @@ func (p *GetDiskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetDiskApiResponse(*known)
+	*p = *NewGetDiskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5782,7 +8367,9 @@ func (p *GetDiskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5791,7 +8378,7 @@ func NewGetDiskApiResponse() *GetDiskApiResponse {
 	p := new(GetDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GetDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5819,7 +8406,7 @@ func (p *GetDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/gpus/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/gpus/{extId} Get operation
 */
 type GetGpuApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5878,7 +8465,26 @@ func (p *GetGpuApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetGpuApiResponse(*known)
+	*p = *NewGetGpuApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5889,7 +8495,9 @@ func (p *GetGpuApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5898,7 +8506,7 @@ func NewGetGpuApiResponse() *GetGpuApiResponse {
 	p := new(GetGpuApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GetGpuApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5926,7 +8534,7 @@ func (p *GetGpuApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/guest-tools Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/guest-tools Get operation
 */
 type GetGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5985,7 +8593,26 @@ func (p *GetGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetGuestToolsApiResponse(*known)
+	*p = *NewGetGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5996,7 +8623,9 @@ func (p *GetGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6005,7 +8634,7 @@ func NewGetGuestToolsApiResponse() *GetGuestToolsApiResponse {
 	p := new(GetGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GetGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6033,7 +8662,7 @@ func (p *GetGuestToolsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId} Get operation
 */
 type GetNicApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6092,7 +8721,26 @@ func (p *GetNicApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetNicApiResponse(*known)
+	*p = *NewGetNicApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6103,7 +8751,9 @@ func (p *GetNicApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6112,7 +8762,7 @@ func NewGetNicApiResponse() *GetNicApiResponse {
 	p := new(GetNicApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GetNicApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6140,7 +8790,7 @@ func (p *GetNicApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/pcie-devices/{extId} Get operation
 */
 type GetPcieDeviceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6199,7 +8849,26 @@ func (p *GetPcieDeviceApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetPcieDeviceApiResponse(*known)
+	*p = *NewGetPcieDeviceApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6210,7 +8879,9 @@ func (p *GetPcieDeviceApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6219,7 +8890,7 @@ func NewGetPcieDeviceApiResponse() *GetPcieDeviceApiResponse {
 	p := new(GetPcieDeviceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GetPcieDeviceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6247,7 +8918,7 @@ func (p *GetPcieDeviceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports/{extId} Get operation
 */
 type GetSerialPortApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6306,7 +8977,26 @@ func (p *GetSerialPortApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetSerialPortApiResponse(*known)
+	*p = *NewGetSerialPortApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6317,7 +9007,9 @@ func (p *GetSerialPortApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6326,7 +9018,7 @@ func NewGetSerialPortApiResponse() *GetSerialPortApiResponse {
 	p := new(GetSerialPortApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GetSerialPortApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6354,7 +9046,7 @@ func (p *GetSerialPortApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId} Get operation
 */
 type GetVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6413,7 +9105,26 @@ func (p *GetVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVmApiResponse(*known)
+	*p = *NewGetVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6424,7 +9135,9 @@ func (p *GetVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6433,7 +9146,7 @@ func NewGetVmApiResponse() *GetVmApiResponse {
 	p := new(GetVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GetVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6461,7 +9174,135 @@ func (p *GetVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vm-recovery-points/{extId} Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-guest-customization-profiles/{extId} Get operation
+*/
+type GetVmGuestCustomizationProfileApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetVmGuestCustomizationProfileApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetVmGuestCustomizationProfileApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetVmGuestCustomizationProfileApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetVmGuestCustomizationProfileApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetVmGuestCustomizationProfileApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetVmGuestCustomizationProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetVmGuestCustomizationProfileApiResponse() *GetVmGuestCustomizationProfileApiResponse {
+	p := new(GetVmGuestCustomizationProfileApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.GetVmGuestCustomizationProfileApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetVmGuestCustomizationProfileApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetVmGuestCustomizationProfileApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetVmGuestCustomizationProfileApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-recovery-points/{extId} Get operation
 */
 type GetVmRecoveryPointApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6520,7 +9361,26 @@ func (p *GetVmRecoveryPointApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetVmRecoveryPointApiResponse(*known)
+	*p = *NewGetVmRecoveryPointApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6531,7 +9391,9 @@ func (p *GetVmRecoveryPointApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6540,7 +9402,7 @@ func NewGetVmRecoveryPointApiResponse() *GetVmRecoveryPointApiResponse {
 	p := new(GetVmRecoveryPointApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GetVmRecoveryPointApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6661,7 +9523,53 @@ func (p *Gpu) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Gpu(*known)
+	*p = *NewGpu()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DeviceId != nil {
+		p.DeviceId = known.DeviceId
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Fraction != nil {
+		p.Fraction = known.Fraction
+	}
+	if known.FrameBufferSizeBytes != nil {
+		p.FrameBufferSizeBytes = known.FrameBufferSizeBytes
+	}
+	if known.GuestDriverVersion != nil {
+		p.GuestDriverVersion = known.GuestDriverVersion
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Mode != nil {
+		p.Mode = known.Mode
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NumVirtualDisplayHeads != nil {
+		p.NumVirtualDisplayHeads = known.NumVirtualDisplayHeads
+	}
+	if known.PciAddress != nil {
+		p.PciAddress = known.PciAddress
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Vendor != nil {
+		p.Vendor = known.Vendor
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6681,7 +9589,9 @@ func (p *Gpu) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vendor")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6690,7 +9600,7 @@ func NewGpu() *Gpu {
 	p := new(Gpu)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Gpu"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6922,7 +9832,23 @@ func (p *GuestCustomizationParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GuestCustomizationParams(*known)
+	*p = *NewGuestCustomizationParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConfigItemDiscriminator_ != nil {
+		p.ConfigItemDiscriminator_ = known.ConfigItemDiscriminator_
+	}
+	if known.Config != nil {
+		p.Config = known.Config
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6932,7 +9858,9 @@ func (p *GuestCustomizationParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "config")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6941,7 +9869,7 @@ func NewGuestCustomizationParams() *GuestCustomizationParams {
 	p := new(GuestCustomizationParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GuestCustomizationParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6966,6 +9894,139 @@ func (p *GuestCustomizationParams) SetConfig(v interface{}) error {
 		*p.ConfigItemDiscriminator_ = *p.Config.Discriminator
 	}
 	return e
+}
+
+/*
+Information retrieved from the guest operating system.
+*/
+type GuestInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	DnsName *import4.FQDN `json:"dnsName,omitempty"`
+	/*
+	  Indicates build number of the guest operating system.
+	*/
+	GuestOsBuildNumber *string `json:"guestOsBuildNumber,omitempty"`
+	/*
+	  Guest operating system full name.
+	*/
+	GuestOsFullName *string `json:"guestOsFullName,omitempty"`
+	/*
+	  Version of the VirtIO drivers installed on the guest OS.
+	*/
+	InstalledVirtIoVersion *string `json:"installedVirtIoVersion,omitempty"`
+	/*
+	  Indicates whether the VM mobility drivers are installed on the VM or not.
+	*/
+	IsVmMobilityDriversInstalled *bool `json:"isVmMobilityDriversInstalled,omitempty"`
+	/*
+	  Timestamp indicating the last time the guest OS was booted.
+	*/
+	LastBootUpTime *time.Time `json:"lastBootUpTime,omitempty"`
+}
+
+func (p *GuestInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GuestInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GuestInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GuestInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGuestInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DnsName != nil {
+		p.DnsName = known.DnsName
+	}
+	if known.GuestOsBuildNumber != nil {
+		p.GuestOsBuildNumber = known.GuestOsBuildNumber
+	}
+	if known.GuestOsFullName != nil {
+		p.GuestOsFullName = known.GuestOsFullName
+	}
+	if known.InstalledVirtIoVersion != nil {
+		p.InstalledVirtIoVersion = known.InstalledVirtIoVersion
+	}
+	if known.IsVmMobilityDriversInstalled != nil {
+		p.IsVmMobilityDriversInstalled = known.IsVmMobilityDriversInstalled
+	}
+	if known.LastBootUpTime != nil {
+		p.LastBootUpTime = known.LastBootUpTime
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "dnsName")
+	delete(allFields, "guestOsBuildNumber")
+	delete(allFields, "guestOsFullName")
+	delete(allFields, "installedVirtIoVersion")
+	delete(allFields, "isVmMobilityDriversInstalled")
+	delete(allFields, "lastBootUpTime")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGuestInfo() *GuestInfo {
+	p := new(GuestInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.GuestInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -7022,7 +10083,20 @@ func (p *GuestPowerOptions) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GuestPowerOptions(*known)
+	*p = *NewGuestPowerOptions()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.GuestPowerStateTransitionConfig != nil {
+		p.GuestPowerStateTransitionConfig = known.GuestPowerStateTransitionConfig
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7031,7 +10105,9 @@ func (p *GuestPowerOptions) UnmarshalJSON(b []byte) error {
 	delete(allFields, "guestPowerStateTransitionConfig")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7040,7 +10116,7 @@ func NewGuestPowerOptions() *GuestPowerOptions {
 	p := new(GuestPowerOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GuestPowerOptions"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7106,7 +10182,23 @@ func (p *GuestPowerStateTransitionConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GuestPowerStateTransitionConfig(*known)
+	*p = *NewGuestPowerStateTransitionConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ShouldEnableScriptExec != nil {
+		p.ShouldEnableScriptExec = known.ShouldEnableScriptExec
+	}
+	if known.ShouldFailOnScriptFailure != nil {
+		p.ShouldFailOnScriptFailure = known.ShouldFailOnScriptFailure
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7116,7 +10208,9 @@ func (p *GuestPowerStateTransitionConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldFailOnScriptFailure")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7125,7 +10219,105 @@ func NewGuestPowerStateTransitionConfig() *GuestPowerStateTransitionConfig {
 	p := new(GuestPowerStateTransitionConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GuestPowerStateTransitionConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type GuestStaticIpSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of gateway IPv4 addresses to override for the guest NIC's particular static IP.
+	*/
+	GatewayIpv4AddressList []import4.IPv4Address `json:"gatewayIpv4AddressList,omitempty"`
+
+	Ipv4Address *import4.IPv4Address `json:"ipv4Address,omitempty"`
+}
+
+func (p *GuestStaticIpSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GuestStaticIpSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GuestStaticIpSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GuestStaticIpSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGuestStaticIpSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.GatewayIpv4AddressList != nil {
+		p.GatewayIpv4AddressList = known.GatewayIpv4AddressList
+	}
+	if known.Ipv4Address != nil {
+		p.Ipv4Address = known.Ipv4Address
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "gatewayIpv4AddressList")
+	delete(allFields, "ipv4Address")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGuestStaticIpSpec() *GuestStaticIpSpec {
+	p := new(GuestStaticIpSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.GuestStaticIpSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7148,8 +10340,10 @@ type GuestTools struct {
 	  The list of the application names that are enabled on the guest VM.
 	*/
 	Capabilities []NgtCapability `json:"capabilities,omitempty"`
+
+	GuestInfo *GuestInfo `json:"guestInfo,omitempty"`
 	/*
-	  Version of the operating system on the VM.
+	  Version of the operating system on the VM. This object is now deprecated. If both deprecated and new objects are present, the new object GuestInfo/GuestOsFullName takes precedence.
 	*/
 	GuestOsVersion *string `json:"guestOsVersion,omitempty"`
 	/*
@@ -7173,7 +10367,7 @@ type GuestTools struct {
 	*/
 	IsReachable *bool `json:"isReachable,omitempty"`
 	/*
-	  Indicates whether the VM mobility drivers are installed on the VM or not.
+	  Indicates whether the VM mobility drivers are installed on the VM or not. This object is now deprecated. If both deprecated and new objects are present, the new object GuestInfoVmMobilityDriversInstalledDescription takes precedence.
 	*/
 	IsVmMobilityDriversInstalled *bool `json:"isVmMobilityDriversInstalled,omitempty"`
 	/*
@@ -7227,7 +10421,53 @@ func (p *GuestTools) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GuestTools(*known)
+	*p = *NewGuestTools()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AvailableVersion != nil {
+		p.AvailableVersion = known.AvailableVersion
+	}
+	if known.Capabilities != nil {
+		p.Capabilities = known.Capabilities
+	}
+	if known.GuestInfo != nil {
+		p.GuestInfo = known.GuestInfo
+	}
+	if known.GuestOsVersion != nil {
+		p.GuestOsVersion = known.GuestOsVersion
+	}
+	if known.IsCommunicationActiveOverSerialPort != nil {
+		p.IsCommunicationActiveOverSerialPort = known.IsCommunicationActiveOverSerialPort
+	}
+	if known.IsEnabled != nil {
+		p.IsEnabled = known.IsEnabled
+	}
+	if known.IsInstalled != nil {
+		p.IsInstalled = known.IsInstalled
+	}
+	if known.IsIsoInserted != nil {
+		p.IsIsoInserted = known.IsIsoInserted
+	}
+	if known.IsReachable != nil {
+		p.IsReachable = known.IsReachable
+	}
+	if known.IsVmMobilityDriversInstalled != nil {
+		p.IsVmMobilityDriversInstalled = known.IsVmMobilityDriversInstalled
+	}
+	if known.IsVssSnapshotCapable != nil {
+		p.IsVssSnapshotCapable = known.IsVssSnapshotCapable
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7235,6 +10475,7 @@ func (p *GuestTools) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "availableVersion")
 	delete(allFields, "capabilities")
+	delete(allFields, "guestInfo")
 	delete(allFields, "guestOsVersion")
 	delete(allFields, "isCommunicationActiveOverSerialPort")
 	delete(allFields, "isEnabled")
@@ -7246,7 +10487,9 @@ func (p *GuestTools) UnmarshalJSON(b []byte) error {
 	delete(allFields, "version")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7255,7 +10498,7 @@ func NewGuestTools() *GuestTools {
 	p := new(GuestTools)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GuestTools"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7321,7 +10564,23 @@ func (p *GuestToolsInsertConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GuestToolsInsertConfig(*known)
+	*p = *NewGuestToolsInsertConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Capabilities != nil {
+		p.Capabilities = known.Capabilities
+	}
+	if known.IsConfigOnly != nil {
+		p.IsConfigOnly = known.IsConfigOnly
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7331,7 +10590,9 @@ func (p *GuestToolsInsertConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isConfigOnly")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7340,7 +10601,7 @@ func NewGuestToolsInsertConfig() *GuestToolsInsertConfig {
 	p := new(GuestToolsInsertConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GuestToolsInsertConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7406,7 +10667,26 @@ func (p *GuestToolsInstallConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GuestToolsInstallConfig(*known)
+	*p = *NewGuestToolsInstallConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Capabilities != nil {
+		p.Capabilities = known.Capabilities
+	}
+	if known.Credential != nil {
+		p.Credential = known.Credential
+	}
+	if known.RebootPreference != nil {
+		p.RebootPreference = known.RebootPreference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7417,7 +10697,9 @@ func (p *GuestToolsInstallConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rebootPreference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7426,7 +10708,7 @@ func NewGuestToolsInstallConfig() *GuestToolsInstallConfig {
 	p := new(GuestToolsInstallConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GuestToolsInstallConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7486,7 +10768,20 @@ func (p *GuestToolsUpgradeConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GuestToolsUpgradeConfig(*known)
+	*p = *NewGuestToolsUpgradeConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.RebootPreference != nil {
+		p.RebootPreference = known.RebootPreference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7495,7 +10790,9 @@ func (p *GuestToolsUpgradeConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "rebootPreference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7504,7 +10801,7 @@ func NewGuestToolsUpgradeConfig() *GuestToolsUpgradeConfig {
 	p := new(GuestToolsUpgradeConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.GuestToolsUpgradeConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7566,7 +10863,20 @@ func (p *HostPcieDeviceReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostPcieDeviceReference(*known)
+	*p = *NewHostPcieDeviceReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7575,7 +10885,9 @@ func (p *HostPcieDeviceReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7584,7 +10896,7 @@ func NewHostPcieDeviceReference() *HostPcieDeviceReference {
 	p := new(HostPcieDeviceReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.HostPcieDeviceReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7646,7 +10958,20 @@ func (p *HostReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = HostReference(*known)
+	*p = *NewHostReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7655,7 +10980,9 @@ func (p *HostReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7664,10 +10991,186 @@ func NewHostReference() *HostReference {
 	p := new(HostReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.HostReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Instant restore hydration information of a VM.
+*/
+type HydrationInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	HydrationStatus *HydrationStatus `json:"hydrationStatus,omitempty"`
+}
+
+func (p *HydrationInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias HydrationInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *HydrationInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias HydrationInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewHydrationInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HydrationStatus != nil {
+		p.HydrationStatus = known.HydrationStatus
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "hydrationStatus")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewHydrationInfo() *HydrationInfo {
+	p := new(HydrationInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.HydrationInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Reference to VM hydration status.
+*/
+type HydrationStatus int
+
+const (
+	HYDRATIONSTATUS_UNKNOWN     HydrationStatus = 0
+	HYDRATIONSTATUS_REDACTED    HydrationStatus = 1
+	HYDRATIONSTATUS_IN_PROGRESS HydrationStatus = 2
+	HYDRATIONSTATUS_FAILED      HydrationStatus = 3
+	HYDRATIONSTATUS_DISABLED    HydrationStatus = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *HydrationStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"IN_PROGRESS",
+		"FAILED",
+		"DISABLED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e HydrationStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"IN_PROGRESS",
+		"FAILED",
+		"DISABLED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *HydrationStatus) index(name string) HydrationStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"IN_PROGRESS",
+		"FAILED",
+		"DISABLED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return HydrationStatus(idx)
+		}
+	}
+	return HYDRATIONSTATUS_UNKNOWN
+}
+
+func (e *HydrationStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for HydrationStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *HydrationStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e HydrationStatus) Ref() *HydrationStatus {
+	return &e
 }
 
 /*
@@ -7683,6 +11186,8 @@ type ImageReference struct {
 	  A globally unique identifier of an image of type UUID.
 	*/
 	ImageExtId *string `json:"imageExtId"`
+
+	StorageCluster *ClusterReference `json:"storageCluster,omitempty"`
 }
 
 func (p *ImageReference) MarshalJSON() ([]byte, error) {
@@ -7733,16 +11238,35 @@ func (p *ImageReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ImageReference(*known)
+	*p = *NewImageReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ImageExtId != nil {
+		p.ImageExtId = known.ImageExtId
+	}
+	if known.StorageCluster != nil {
+		p.StorageCluster = known.StorageCluster
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "imageExtId")
+	delete(allFields, "storageCluster")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7751,14 +11275,14 @@ func NewImageReference() *ImageReference {
 	p := new(ImageReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ImageReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/insert Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/insert Post operation
 */
 type InsertCdRomApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7817,7 +11341,26 @@ func (p *InsertCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = InsertCdRomApiResponse(*known)
+	*p = *NewInsertCdRomApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7828,7 +11371,9 @@ func (p *InsertCdRomApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7837,7 +11382,7 @@ func NewInsertCdRomApiResponse() *InsertCdRomApiResponse {
 	p := new(InsertCdRomApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.InsertCdRomApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7865,7 +11410,7 @@ func (p *InsertCdRomApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/insert-iso Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/guest-tools/$actions/insert-iso Post operation
 */
 type InsertVmGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7924,7 +11469,26 @@ func (p *InsertVmGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = InsertVmGuestToolsApiResponse(*known)
+	*p = *NewInsertVmGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7935,7 +11499,9 @@ func (p *InsertVmGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7944,7 +11510,7 @@ func NewInsertVmGuestToolsApiResponse() *InsertVmGuestToolsApiResponse {
 	p := new(InsertVmGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.InsertVmGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8051,7 +11617,7 @@ func (e InstallType) Ref() *InstallType {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/install Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/guest-tools/$actions/install Post operation
 */
 type InstallVmGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8110,7 +11676,26 @@ func (p *InstallVmGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = InstallVmGuestToolsApiResponse(*known)
+	*p = *NewInstallVmGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8121,7 +11706,9 @@ func (p *InstallVmGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8130,7 +11717,7 @@ func NewInstallVmGuestToolsApiResponse() *InstallVmGuestToolsApiResponse {
 	p := new(InstallVmGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.InstallVmGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8219,7 +11806,26 @@ func (p *Ipv4Config) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Ipv4Config(*known)
+	*p = *NewIpv4Config()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.SecondaryIpAddressList != nil {
+		p.SecondaryIpAddressList = known.SecondaryIpAddressList
+	}
+	if known.ShouldAssignIp != nil {
+		p.ShouldAssignIp = known.ShouldAssignIp
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8230,7 +11836,9 @@ func (p *Ipv4Config) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldAssignIp")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8239,7 +11847,7 @@ func NewIpv4Config() *Ipv4Config {
 	p := new(Ipv4Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Ipv4Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8301,7 +11909,20 @@ func (p *Ipv4Info) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Ipv4Info(*known)
+	*p = *NewIpv4Info()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.LearnedIpAddresses != nil {
+		p.LearnedIpAddresses = known.LearnedIpAddresses
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8310,7 +11931,9 @@ func (p *Ipv4Info) UnmarshalJSON(b []byte) error {
 	delete(allFields, "learnedIpAddresses")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8319,7 +11942,7 @@ func NewIpv4Info() *Ipv4Info {
 	p := new(Ipv4Info)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Ipv4Info"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8381,7 +12004,20 @@ func (p *Ipv6Info) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Ipv6Info(*known)
+	*p = *NewIpv6Info()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.LearnedIpv6Addresses != nil {
+		p.LearnedIpv6Addresses = known.LearnedIpv6Addresses
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8390,7 +12026,9 @@ func (p *Ipv6Info) UnmarshalJSON(b []byte) error {
 	delete(allFields, "learnedIpv6Addresses")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8399,7 +12037,7 @@ func NewIpv6Info() *Ipv6Info {
 	p := new(Ipv6Info)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Ipv6Info"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8552,7 +12190,26 @@ func (p *LegacyBoot) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = LegacyBoot(*known)
+	*p = *NewLegacyBoot()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BootDeviceItemDiscriminator_ != nil {
+		p.BootDeviceItemDiscriminator_ = known.BootDeviceItemDiscriminator_
+	}
+	if known.BootDevice != nil {
+		p.BootDevice = known.BootDevice
+	}
+	if known.BootOrder != nil {
+		p.BootOrder = known.BootOrder
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8563,7 +12220,9 @@ func (p *LegacyBoot) UnmarshalJSON(b []byte) error {
 	delete(allFields, "bootOrder")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8572,7 +12231,7 @@ func NewLegacyBoot() *LegacyBoot {
 	p := new(LegacyBoot)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.LegacyBoot"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8600,7 +12259,7 @@ func (p *LegacyBoot) SetBootDevice(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms Get operation
 */
 type ListCdRomsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8659,7 +12318,26 @@ func (p *ListCdRomsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListCdRomsApiResponse(*known)
+	*p = *NewListCdRomsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8670,7 +12348,9 @@ func (p *ListCdRomsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8679,7 +12359,7 @@ func NewListCdRomsApiResponse() *ListCdRomsApiResponse {
 	p := new(ListCdRomsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ListCdRomsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8707,7 +12387,7 @@ func (p *ListCdRomsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/disks Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/disks Get operation
 */
 type ListDisksApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8766,7 +12446,26 @@ func (p *ListDisksApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListDisksApiResponse(*known)
+	*p = *NewListDisksApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8777,7 +12476,9 @@ func (p *ListDisksApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8786,7 +12487,7 @@ func NewListDisksApiResponse() *ListDisksApiResponse {
 	p := new(ListDisksApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ListDisksApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8814,7 +12515,7 @@ func (p *ListDisksApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/gpus Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/gpus Get operation
 */
 type ListGpusApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8873,7 +12574,26 @@ func (p *ListGpusApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListGpusApiResponse(*known)
+	*p = *NewListGpusApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8884,7 +12604,9 @@ func (p *ListGpusApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -8893,7 +12615,7 @@ func NewListGpusApiResponse() *ListGpusApiResponse {
 	p := new(ListGpusApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ListGpusApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8921,7 +12643,7 @@ func (p *ListGpusApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/nics Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/nics Get operation
 */
 type ListNicsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8980,7 +12702,26 @@ func (p *ListNicsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListNicsApiResponse(*known)
+	*p = *NewListNicsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -8991,7 +12732,9 @@ func (p *ListNicsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9000,7 +12743,7 @@ func NewListNicsApiResponse() *ListNicsApiResponse {
 	p := new(ListNicsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ListNicsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9028,7 +12771,7 @@ func (p *ListNicsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/pcie-devices Get operation
 */
 type ListPcieDevicesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9087,7 +12830,26 @@ func (p *ListPcieDevicesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListPcieDevicesApiResponse(*known)
+	*p = *NewListPcieDevicesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9098,7 +12860,9 @@ func (p *ListPcieDevicesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9107,7 +12871,7 @@ func NewListPcieDevicesApiResponse() *ListPcieDevicesApiResponse {
 	p := new(ListPcieDevicesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ListPcieDevicesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9135,7 +12899,7 @@ func (p *ListPcieDevicesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports Get operation
 */
 type ListSerialPortsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9194,7 +12958,26 @@ func (p *ListSerialPortsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListSerialPortsApiResponse(*known)
+	*p = *NewListSerialPortsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9205,7 +12988,9 @@ func (p *ListSerialPortsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9214,7 +12999,7 @@ func NewListSerialPortsApiResponse() *ListSerialPortsApiResponse {
 	p := new(ListSerialPortsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ListSerialPortsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9242,7 +13027,135 @@ func (p *ListSerialPortsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vm-recovery-points Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-guest-customization-profiles Get operation
+*/
+type ListVmGuestCustomizationProfilesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListVmGuestCustomizationProfilesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListVmGuestCustomizationProfilesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListVmGuestCustomizationProfilesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListVmGuestCustomizationProfilesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListVmGuestCustomizationProfilesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListVmGuestCustomizationProfilesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewListVmGuestCustomizationProfilesApiResponse() *ListVmGuestCustomizationProfilesApiResponse {
+	p := new(ListVmGuestCustomizationProfilesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.ListVmGuestCustomizationProfilesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListVmGuestCustomizationProfilesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListVmGuestCustomizationProfilesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListVmGuestCustomizationProfilesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-recovery-points Get operation
 */
 type ListVmRecoveryPointsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9301,7 +13214,26 @@ func (p *ListVmRecoveryPointsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListVmRecoveryPointsApiResponse(*known)
+	*p = *NewListVmRecoveryPointsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9312,7 +13244,9 @@ func (p *ListVmRecoveryPointsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9321,7 +13255,7 @@ func NewListVmRecoveryPointsApiResponse() *ListVmRecoveryPointsApiResponse {
 	p := new(ListVmRecoveryPointsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ListVmRecoveryPointsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9349,7 +13283,7 @@ func (p *ListVmRecoveryPointsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms Get operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms Get operation
 */
 type ListVmsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9408,7 +13342,26 @@ func (p *ListVmsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListVmsApiResponse(*known)
+	*p = *NewListVmsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9419,7 +13372,9 @@ func (p *ListVmsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9428,7 +13383,7 @@ func NewListVmsApiResponse() *ListVmsApiResponse {
 	p := new(ListVmsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ListVmsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9594,7 +13549,20 @@ func (p *MigrateDiskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MigrateDiskReference(*known)
+	*p = *NewMigrateDiskReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskExtId != nil {
+		p.DiskExtId = known.DiskExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9603,7 +13571,9 @@ func (p *MigrateDiskReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "diskExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9612,14 +13582,14 @@ func NewMigrateDiskReference() *MigrateDiskReference {
 	p := new(MigrateDiskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.MigrateDiskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/migrate Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/migrate Post operation
 */
 type MigrateNicApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9678,7 +13648,26 @@ func (p *MigrateNicApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MigrateNicApiResponse(*known)
+	*p = *NewMigrateNicApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9689,7 +13678,9 @@ func (p *MigrateNicApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9698,7 +13689,7 @@ func NewMigrateNicApiResponse() *MigrateNicApiResponse {
 	p := new(MigrateNicApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.MigrateNicApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9792,7 +13783,26 @@ func (p *MigrateNicConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MigrateNicConfig(*known)
+	*p = *NewMigrateNicConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.MigrateType != nil {
+		p.MigrateType = known.MigrateType
+	}
+	if known.Subnet != nil {
+		p.Subnet = known.Subnet
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9803,7 +13813,9 @@ func (p *MigrateNicConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "subnet")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9812,7 +13824,7 @@ func NewMigrateNicConfig() *MigrateNicConfig {
 	p := new(MigrateNicConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.MigrateNicConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9898,7 +13910,7 @@ func (e MigrateNicType) Ref() *MigrateNicType {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/migrate-vm-disks Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/migrate-vm-disks Post operation
 */
 type MigrateVmDisksApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9957,7 +13969,26 @@ func (p *MigrateVmDisksApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MigrateVmDisksApiResponse(*known)
+	*p = *NewMigrateVmDisksApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -9968,7 +13999,9 @@ func (p *MigrateVmDisksApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -9977,7 +14010,7 @@ func NewMigrateVmDisksApiResponse() *MigrateVmDisksApiResponse {
 	p := new(MigrateVmDisksApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.MigrateVmDisksApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10005,7 +14038,7 @@ func (p *MigrateVmDisksApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/migrate-to-host Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/migrate-to-host Post operation
 */
 type MigrateVmToHostApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10064,7 +14097,26 @@ func (p *MigrateVmToHostApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MigrateVmToHostApiResponse(*known)
+	*p = *NewMigrateVmToHostApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10075,7 +14127,9 @@ func (p *MigrateVmToHostApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10084,7 +14138,7 @@ func NewMigrateVmToHostApiResponse() *MigrateVmToHostApiResponse {
 	p := new(MigrateVmToHostApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.MigrateVmToHostApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10165,7 +14219,20 @@ func (p *MigrationPlans) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MigrationPlans(*known)
+	*p = *NewMigrationPlans()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Plans != nil {
+		p.Plans = known.Plans
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10174,7 +14241,9 @@ func (p *MigrationPlans) UnmarshalJSON(b []byte) error {
 	delete(allFields, "plans")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10183,7 +14252,7 @@ func NewMigrationPlans() *MigrationPlans {
 	p := new(MigrationPlans)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.MigrationPlans"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10245,7 +14314,20 @@ func (p *NetworkFunctionChainReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NetworkFunctionChainReference(*known)
+	*p = *NewNetworkFunctionChainReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10254,7 +14336,9 @@ func (p *NetworkFunctionChainReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10263,7 +14347,7 @@ func NewNetworkFunctionChainReference() *NetworkFunctionChainReference {
 	p := new(NetworkFunctionChainReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.NetworkFunctionChainReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10515,7 +14599,44 @@ func (p *Nic) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Nic(*known)
+	*p = *NewNic()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackingInfo != nil {
+		p.BackingInfo = known.BackingInfo
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.NetworkInfo != nil {
+		p.NetworkInfo = known.NetworkInfo
+	}
+	if known.NicBackingInfoItemDiscriminator_ != nil {
+		p.NicBackingInfoItemDiscriminator_ = known.NicBackingInfoItemDiscriminator_
+	}
+	if known.NicBackingInfo != nil {
+		p.NicBackingInfo = known.NicBackingInfo
+	}
+	if known.NicNetworkInfoItemDiscriminator_ != nil {
+		p.NicNetworkInfoItemDiscriminator_ = known.NicNetworkInfoItemDiscriminator_
+	}
+	if known.NicNetworkInfo != nil {
+		p.NicNetworkInfo = known.NicNetworkInfo
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10532,7 +14653,9 @@ func (p *Nic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10541,7 +14664,7 @@ func NewNic() *Nic {
 	p := new(Nic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Nic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10642,7 +14765,44 @@ func (p *NicNetworkInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NicNetworkInfo(*known)
+	*p = *NewNicNetworkInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4Config != nil {
+		p.Ipv4Config = known.Ipv4Config
+	}
+	if known.Ipv4Info != nil {
+		p.Ipv4Info = known.Ipv4Info
+	}
+	if known.NetworkFunctionChain != nil {
+		p.NetworkFunctionChain = known.NetworkFunctionChain
+	}
+	if known.NetworkFunctionNicType != nil {
+		p.NetworkFunctionNicType = known.NetworkFunctionNicType
+	}
+	if known.NicType != nil {
+		p.NicType = known.NicType
+	}
+	if known.ShouldAllowUnknownMacs != nil {
+		p.ShouldAllowUnknownMacs = known.ShouldAllowUnknownMacs
+	}
+	if known.Subnet != nil {
+		p.Subnet = known.Subnet
+	}
+	if known.TrunkedVlans != nil {
+		p.TrunkedVlans = known.TrunkedVlans
+	}
+	if known.VlanMode != nil {
+		p.VlanMode = known.VlanMode
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10659,7 +14819,9 @@ func (p *NicNetworkInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vlanMode")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10668,7 +14830,7 @@ func NewNicNetworkInfo() *NicNetworkInfo {
 	p := new(NicNetworkInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.NicNetworkInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10730,7 +14892,20 @@ func (p *NicProfileReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NicProfileReference(*known)
+	*p = *NewNicProfileReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10739,7 +14914,9 @@ func (p *NicProfileReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10748,7 +14925,7 @@ func NewNicProfileReference() *NicProfileReference {
 	p := new(NicProfileReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.NicProfileReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10895,7 +15072,20 @@ func (p *NvramDevice) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NvramDevice(*known)
+	*p = *NewNvramDevice()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackingStorageInfo != nil {
+		p.BackingStorageInfo = known.BackingStorageInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -10904,7 +15094,9 @@ func (p *NvramDevice) UnmarshalJSON(b []byte) error {
 	delete(allFields, "backingStorageInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -10913,7 +15105,7 @@ func NewNvramDevice() *NvramDevice {
 	p := new(NvramDevice)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.NvramDevice"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11010,7 +15202,41 @@ func (p *OvaVmConfigOverrideSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = OvaVmConfigOverrideSpec(*known)
+	*p = *NewOvaVmConfigOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
+	if known.CdRoms != nil {
+		p.CdRoms = known.CdRoms
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Nics != nil {
+		p.Nics = known.Nics
+	}
+	if known.NumCoresPerSocket != nil {
+		p.NumCoresPerSocket = known.NumCoresPerSocket
+	}
+	if known.NumSockets != nil {
+		p.NumSockets = known.NumSockets
+	}
+	if known.NumThreadsPerCore != nil {
+		p.NumThreadsPerCore = known.NumThreadsPerCore
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11026,7 +15252,9 @@ func (p *OvaVmConfigOverrideSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "numThreadsPerCore")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11035,7 +15263,7 @@ func NewOvaVmConfigOverrideSpec() *OvaVmConfigOverrideSpec {
 	p := new(OvaVmConfigOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.OvaVmConfigOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11097,7 +15325,20 @@ func (p *OwnerReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = OwnerReference(*known)
+	*p = *NewOwnerReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11106,7 +15347,9 @@ func (p *OwnerReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11115,7 +15358,7 @@ func NewOwnerReference() *OwnerReference {
 	p := new(OwnerReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.OwnerReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11175,7 +15418,20 @@ func (p *OwnershipInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = OwnershipInfo(*known)
+	*p = *NewOwnershipInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Owner != nil {
+		p.Owner = known.Owner
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11184,7 +15440,9 @@ func (p *OwnershipInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "owner")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11193,7 +15451,7 @@ func NewOwnershipInfo() *OwnershipInfo {
 	p := new(OwnershipInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.OwnershipInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11273,7 +15531,35 @@ func (p *PcieDevice) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcieDevice(*known)
+	*p = *NewPcieDevice()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AssignedDeviceInfo != nil {
+		p.AssignedDeviceInfo = known.AssignedDeviceInfo
+	}
+	if known.BackingInfoItemDiscriminator_ != nil {
+		p.BackingInfoItemDiscriminator_ = known.BackingInfoItemDiscriminator_
+	}
+	if known.BackingInfo != nil {
+		p.BackingInfo = known.BackingInfo
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11287,7 +15573,9 @@ func (p *PcieDevice) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11296,7 +15584,7 @@ func NewPcieDevice() *PcieDevice {
 	p := new(PcieDevice)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.PcieDevice"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11377,7 +15665,20 @@ func (p *PcieDeviceInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcieDeviceInfo(*known)
+	*p = *NewPcieDeviceInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Device != nil {
+		p.Device = known.Device
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11386,7 +15687,9 @@ func (p *PcieDeviceInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "device")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11395,7 +15698,7 @@ func NewPcieDeviceInfo() *PcieDeviceInfo {
 	p := new(PcieDeviceInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.PcieDeviceInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11457,7 +15760,20 @@ func (p *PcieDeviceReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PcieDeviceReference(*known)
+	*p = *NewPcieDeviceReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DeviceExtId != nil {
+		p.DeviceExtId = known.DeviceExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11466,7 +15782,9 @@ func (p *PcieDeviceReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "deviceExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11475,7 +15793,7 @@ func NewPcieDeviceReference() *PcieDeviceReference {
 	p := new(PcieDeviceReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.PcieDeviceReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11537,7 +15855,20 @@ func (p *PolicyReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PolicyReference(*known)
+	*p = *NewPolicyReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11546,7 +15877,9 @@ func (p *PolicyReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11555,14 +15888,14 @@ func NewPolicyReference() *PolicyReference {
 	p := new(PolicyReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.PolicyReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/power-cycle Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/power-cycle Post operation
 */
 type PowerCycleVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -11621,7 +15954,26 @@ func (p *PowerCycleVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PowerCycleVmApiResponse(*known)
+	*p = *NewPowerCycleVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11632,7 +15984,9 @@ func (p *PowerCycleVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11641,7 +15995,7 @@ func NewPowerCycleVmApiResponse() *PowerCycleVmApiResponse {
 	p := new(PowerCycleVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.PowerCycleVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11669,7 +16023,7 @@ func (p *PowerCycleVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/power-off Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/power-off Post operation
 */
 type PowerOffVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -11728,7 +16082,26 @@ func (p *PowerOffVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PowerOffVmApiResponse(*known)
+	*p = *NewPowerOffVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11739,7 +16112,9 @@ func (p *PowerOffVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11748,7 +16123,7 @@ func NewPowerOffVmApiResponse() *PowerOffVmApiResponse {
 	p := new(PowerOffVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.PowerOffVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11776,7 +16151,7 @@ func (p *PowerOffVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/power-on Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/power-on Post operation
 */
 type PowerOnVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -11835,7 +16210,26 @@ func (p *PowerOnVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PowerOnVmApiResponse(*known)
+	*p = *NewPowerOnVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -11846,7 +16240,9 @@ func (p *PowerOnVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -11855,7 +16251,7 @@ func NewPowerOnVmApiResponse() *PowerOnVmApiResponse {
 	p := new(PowerOnVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.PowerOnVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12025,7 +16421,20 @@ func (p *ProjectReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ProjectReference(*known)
+	*p = *NewProjectReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12034,7 +16443,9 @@ func (p *ProjectReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12043,7 +16454,7 @@ func NewProjectReference() *ProjectReference {
 	p := new(ProjectReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ProjectReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12103,7 +16514,20 @@ func (p *ProtectionPolicyState) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ProtectionPolicyState(*known)
+	*p = *NewProtectionPolicyState()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Policy != nil {
+		p.Policy = known.Policy
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12112,7 +16536,9 @@ func (p *ProtectionPolicyState) UnmarshalJSON(b []byte) error {
 	delete(allFields, "policy")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12121,7 +16547,7 @@ func NewProtectionPolicyState() *ProtectionPolicyState {
 	p := new(ProtectionPolicyState)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ProtectionPolicyState"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12266,7 +16692,20 @@ func (p *QosConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = QosConfig(*known)
+	*p = *NewQosConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ThrottledIops != nil {
+		p.ThrottledIops = known.ThrottledIops
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12275,7 +16714,9 @@ func (p *QosConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "throttledIops")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12284,7 +16725,7 @@ func NewQosConfig() *QosConfig {
 	p := new(QosConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.QosConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12346,7 +16787,23 @@ func (p *RebootPreference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RebootPreference(*known)
+	*p = *NewRebootPreference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Schedule != nil {
+		p.Schedule = known.Schedule
+	}
+	if known.ScheduleType != nil {
+		p.ScheduleType = known.ScheduleType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12356,7 +16813,9 @@ func (p *RebootPreference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "scheduleType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12365,7 +16824,7 @@ func NewRebootPreference() *RebootPreference {
 	p := new(RebootPreference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.RebootPreference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12427,7 +16886,20 @@ func (p *RebootPreferenceSchedule) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RebootPreferenceSchedule(*known)
+	*p = *NewRebootPreferenceSchedule()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StartTime != nil {
+		p.StartTime = known.StartTime
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12436,7 +16908,9 @@ func (p *RebootPreferenceSchedule) UnmarshalJSON(b []byte) error {
 	delete(allFields, "startTime")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12445,14 +16919,14 @@ func NewRebootPreferenceSchedule() *RebootPreferenceSchedule {
 	p := new(RebootPreferenceSchedule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.RebootPreferenceSchedule"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/guest-reboot Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/guest-reboot Post operation
 */
 type RebootVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -12511,7 +16985,26 @@ func (p *RebootVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RebootVmApiResponse(*known)
+	*p = *NewRebootVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12522,7 +17015,9 @@ func (p *RebootVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12531,7 +17026,7 @@ func NewRebootVmApiResponse() *RebootVmApiResponse {
 	p := new(RebootVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.RebootVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12559,7 +17054,7 @@ func (p *RebootVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/release-ip Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/release-ip Post operation
 */
 type ReleaseIpApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -12618,7 +17113,26 @@ func (p *ReleaseIpApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ReleaseIpApiResponse(*known)
+	*p = *NewReleaseIpApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12629,7 +17143,9 @@ func (p *ReleaseIpApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12638,7 +17154,7 @@ func NewReleaseIpApiResponse() *ReleaseIpApiResponse {
 	p := new(ReleaseIpApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ReleaseIpApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12666,7 +17182,263 @@ func (p *ReleaseIpApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/reset Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/remove-custom-attributes Post operation
+*/
+type RemoveVmCustomAttributesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfRemoveVmCustomAttributesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *RemoveVmCustomAttributesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RemoveVmCustomAttributesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RemoveVmCustomAttributesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RemoveVmCustomAttributesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewRemoveVmCustomAttributesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewRemoveVmCustomAttributesApiResponse() *RemoveVmCustomAttributesApiResponse {
+	p := new(RemoveVmCustomAttributesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.RemoveVmCustomAttributesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *RemoveVmCustomAttributesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *RemoveVmCustomAttributesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfRemoveVmCustomAttributesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}/$actions/remove-custom-attributes Post operation
+*/
+type RemoveVmDiskCustomAttributesApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfRemoveVmDiskCustomAttributesApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *RemoveVmDiskCustomAttributesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias RemoveVmDiskCustomAttributesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *RemoveVmDiskCustomAttributesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias RemoveVmDiskCustomAttributesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewRemoveVmDiskCustomAttributesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewRemoveVmDiskCustomAttributesApiResponse() *RemoveVmDiskCustomAttributesApiResponse {
+	p := new(RemoveVmDiskCustomAttributesApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.RemoveVmDiskCustomAttributesApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *RemoveVmDiskCustomAttributesApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *RemoveVmDiskCustomAttributesApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfRemoveVmDiskCustomAttributesApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/reset Post operation
 */
 type ResetVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -12725,7 +17497,26 @@ func (p *ResetVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ResetVmApiResponse(*known)
+	*p = *NewResetVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12736,7 +17527,9 @@ func (p *ResetVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12745,7 +17538,7 @@ func NewResetVmApiResponse() *ResetVmApiResponse {
 	p := new(ResetVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ResetVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12773,7 +17566,7 @@ func (p *ResetVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vm-recovery-points/{extId}/$actions/restore Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-recovery-points/{extId}/$actions/restore Post operation
 */
 type RestoreVmRecoveryPointApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -12832,7 +17625,26 @@ func (p *RestoreVmRecoveryPointApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RestoreVmRecoveryPointApiResponse(*known)
+	*p = *NewRestoreVmRecoveryPointApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12843,7 +17655,9 @@ func (p *RestoreVmRecoveryPointApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12852,7 +17666,7 @@ func NewRestoreVmRecoveryPointApiResponse() *RestoreVmRecoveryPointApiResponse {
 	p := new(RestoreVmRecoveryPointApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.RestoreVmRecoveryPointApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12937,7 +17751,23 @@ func (p *RestoreVmRecoveryPointParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RestoreVmRecoveryPointParams(*known)
+	*p = *NewRestoreVmRecoveryPointParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsStrictMode != nil {
+		p.IsStrictMode = known.IsStrictMode
+	}
+	if known.VmConfigOverrideSpec != nil {
+		p.VmConfigOverrideSpec = known.VmConfigOverrideSpec
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -12947,7 +17777,9 @@ func (p *RestoreVmRecoveryPointParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmConfigOverrideSpec")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -12956,7 +17788,7 @@ func NewRestoreVmRecoveryPointParams() *RestoreVmRecoveryPointParams {
 	p := new(RestoreVmRecoveryPointParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.RestoreVmRecoveryPointParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsStrictMode = new(bool)
@@ -12974,6 +17806,8 @@ type RevertParams struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	OverrideSpec *VmRevertOverrideSpec `json:"overrideSpec,omitempty"`
 	/*
 	  The external identifier of the VM Recovery Point.
 	*/
@@ -13028,16 +17862,35 @@ func (p *RevertParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RevertParams(*known)
+	*p = *NewRevertParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.OverrideSpec != nil {
+		p.OverrideSpec = known.OverrideSpec
+	}
+	if known.VmRecoveryPointExtId != nil {
+		p.VmRecoveryPointExtId = known.VmRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "overrideSpec")
 	delete(allFields, "vmRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13046,14 +17899,14 @@ func NewRevertParams() *RevertParams {
 	p := new(RevertParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.RevertParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/revert Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/revert Post operation
 */
 type RevertVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13112,7 +17965,26 @@ func (p *RevertVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = RevertVmApiResponse(*known)
+	*p = *NewRevertVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13123,7 +17995,9 @@ func (p *RevertVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13132,7 +18006,7 @@ func NewRevertVmApiResponse() *RevertVmApiResponse {
 	p := new(RevertVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.RevertVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13227,7 +18101,29 @@ func (p *SBDF) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SBDF(*known)
+	*p = *NewSBDF()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Bus != nil {
+		p.Bus = known.Bus
+	}
+	if known.Device != nil {
+		p.Device = known.Device
+	}
+	if known.Func != nil {
+		p.Func = known.Func
+	}
+	if known.Segment != nil {
+		p.Segment = known.Segment
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13239,7 +18135,9 @@ func (p *SBDF) UnmarshalJSON(b []byte) error {
 	delete(allFields, "segment")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13248,7 +18146,7 @@ func NewSBDF() *SBDF {
 	p := new(SBDF)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.SBDF"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13409,7 +18307,32 @@ func (p *SerialPort) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SerialPort(*known)
+	*p = *NewSerialPort()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Index != nil {
+		p.Index = known.Index
+	}
+	if known.IsConnected != nil {
+		p.IsConnected = known.IsConnected
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13422,7 +18345,9 @@ func (p *SerialPort) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13431,14 +18356,14 @@ func NewSerialPort() *SerialPort {
 	p := new(SerialPort)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.SerialPort"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/$actions/guest-shutdown Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/$actions/guest-shutdown Post operation
 */
 type ShutdownVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -13497,7 +18422,26 @@ func (p *ShutdownVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ShutdownVmApiResponse(*known)
+	*p = *NewShutdownVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13508,7 +18452,9 @@ func (p *ShutdownVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13517,7 +18463,7 @@ func NewShutdownVmApiResponse() *ShutdownVmApiResponse {
 	p := new(ShutdownVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.ShutdownVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13615,7 +18561,29 @@ func (p *SriovNic) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SriovNic(*known)
+	*p = *NewSriovNic()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.HostPcieDeviceReference != nil {
+		p.HostPcieDeviceReference = known.HostPcieDeviceReference
+	}
+	if known.IsConnected != nil {
+		p.IsConnected = known.IsConnected
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
+	if known.SriovProfileReference != nil {
+		p.SriovProfileReference = known.SriovProfileReference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13627,7 +18595,9 @@ func (p *SriovNic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "sriovProfileReference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13636,7 +18606,7 @@ func NewSriovNic() *SriovNic {
 	p := new(SriovNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.SriovNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsConnected = new(bool)
@@ -13701,7 +18671,20 @@ func (p *SriovNicNetworkInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SriovNicNetworkInfo(*known)
+	*p = *NewSriovNicNetworkInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.VlanId != nil {
+		p.VlanId = known.VlanId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13710,7 +18693,9 @@ func (p *SriovNicNetworkInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vlanId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13719,7 +18704,199 @@ func NewSriovNicNetworkInfo() *SriovNicNetworkInfo {
 	p := new(SriovNicNetworkInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.SriovNicNetworkInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+This optional field specifies the storage container mapping to apply when migrating a VM from the source cluster to the target cluster. It is supported on un-protected VMs only.
+*/
+type StorageContainerMapping struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	SourceStorageContainer *VmDiskContainerReference `json:"sourceStorageContainer,omitempty"`
+
+	TargetStorageContainer *VmDiskContainerReference `json:"targetStorageContainer,omitempty"`
+}
+
+func (p *StorageContainerMapping) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias StorageContainerMapping
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StorageContainerMapping) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StorageContainerMapping
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewStorageContainerMapping()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SourceStorageContainer != nil {
+		p.SourceStorageContainer = known.SourceStorageContainer
+	}
+	if known.TargetStorageContainer != nil {
+		p.TargetStorageContainer = known.TargetStorageContainer
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "sourceStorageContainer")
+	delete(allFields, "targetStorageContainer")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewStorageContainerMapping() *StorageContainerMapping {
+	p := new(StorageContainerMapping)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.StorageContainerMapping"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Represents information about the VM's storage location. StorageLocationInfo is only present for VMs using shared storage from a cluster different from the VM's cluster for compute.
+*/
+type StorageLocationInfo struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	StorageCluster *ClusterReference `json:"storageCluster,omitempty"`
+}
+
+func (p *StorageLocationInfo) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias StorageLocationInfo
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *StorageLocationInfo) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias StorageLocationInfo
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewStorageLocationInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.StorageCluster != nil {
+		p.StorageCluster = known.StorageCluster
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "storageCluster")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewStorageLocationInfo() *StorageLocationInfo {
+	p := new(StorageLocationInfo)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.StorageLocationInfo"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13781,7 +18958,20 @@ func (p *SubnetReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SubnetReference(*known)
+	*p = *NewSubnetReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13790,7 +18980,9 @@ func (p *SubnetReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13799,7 +18991,7 @@ func NewSubnetReference() *SubnetReference {
 	p := new(SubnetReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.SubnetReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13867,7 +19059,26 @@ func (p *Sysprep) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Sysprep(*known)
+	*p = *NewSysprep()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.InstallType != nil {
+		p.InstallType = known.InstallType
+	}
+	if known.SysprepScriptItemDiscriminator_ != nil {
+		p.SysprepScriptItemDiscriminator_ = known.SysprepScriptItemDiscriminator_
+	}
+	if known.SysprepScript != nil {
+		p.SysprepScript = known.SysprepScript
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13878,7 +19089,9 @@ func (p *Sysprep) UnmarshalJSON(b []byte) error {
 	delete(allFields, "sysprepScript")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -13887,7 +19100,7 @@ func NewSysprep() *Sysprep {
 	p := new(Sysprep)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Sysprep"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13984,7 +19197,32 @@ func (p *UefiBoot) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UefiBoot(*known)
+	*p = *NewUefiBoot()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BootDeviceItemDiscriminator_ != nil {
+		p.BootDeviceItemDiscriminator_ = known.BootDeviceItemDiscriminator_
+	}
+	if known.BootDevice != nil {
+		p.BootDevice = known.BootDevice
+	}
+	if known.BootOrder != nil {
+		p.BootOrder = known.BootOrder
+	}
+	if known.IsSecureBootEnabled != nil {
+		p.IsSecureBootEnabled = known.IsSecureBootEnabled
+	}
+	if known.NvramDevice != nil {
+		p.NvramDevice = known.NvramDevice
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -13997,7 +19235,9 @@ func (p *UefiBoot) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nvramDevice")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14006,7 +19246,7 @@ func NewUefiBoot() *UefiBoot {
 	p := new(UefiBoot)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.UefiBoot"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14089,7 +19329,20 @@ func (p *Unattendxml) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Unattendxml(*known)
+	*p = *NewUnattendxml()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14098,7 +19351,9 @@ func (p *Unattendxml) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14107,14 +19362,14 @@ func NewUnattendxml() *Unattendxml {
 	p := new(Unattendxml)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Unattendxml"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/uninstall Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/guest-tools/$actions/uninstall Post operation
 */
 type UninstallVmGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14173,7 +19428,26 @@ func (p *UninstallVmGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UninstallVmGuestToolsApiResponse(*known)
+	*p = *NewUninstallVmGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14184,7 +19458,9 @@ func (p *UninstallVmGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14193,7 +19469,7 @@ func NewUninstallVmGuestToolsApiResponse() *UninstallVmGuestToolsApiResponse {
 	p := new(UninstallVmGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.UninstallVmGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14221,7 +19497,109 @@ func (p *UninstallVmGuestToolsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/disks/{extId} Put operation
+List of custom attributes to be added/removed.
+*/
+type UpdateCustomAttributesParams struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of custom attributes to be added/removed.
+	*/
+	CustomAttributes []string `json:"customAttributes"`
+}
+
+func (p *UpdateCustomAttributesParams) MarshalJSON() ([]byte, error) {
+	type UpdateCustomAttributesParamsProxy UpdateCustomAttributesParams
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*UpdateCustomAttributesParamsProxy
+		CustomAttributes []string `json:"customAttributes,omitempty"`
+	}{
+		UpdateCustomAttributesParamsProxy: (*UpdateCustomAttributesParamsProxy)(p),
+		CustomAttributes:                  p.CustomAttributes,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateCustomAttributesParams) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateCustomAttributesParams
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUpdateCustomAttributesParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CustomAttributes != nil {
+		p.CustomAttributes = known.CustomAttributes
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "customAttributes")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUpdateCustomAttributesParams() *UpdateCustomAttributesParams {
+	p := new(UpdateCustomAttributesParams)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.UpdateCustomAttributesParams"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId} Put operation
 */
 type UpdateDiskApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14280,7 +19658,26 @@ func (p *UpdateDiskApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateDiskApiResponse(*known)
+	*p = *NewUpdateDiskApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14291,7 +19688,9 @@ func (p *UpdateDiskApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14300,7 +19699,7 @@ func NewUpdateDiskApiResponse() *UpdateDiskApiResponse {
 	p := new(UpdateDiskApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.UpdateDiskApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14328,7 +19727,7 @@ func (p *UpdateDiskApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/guest-tools Put operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/guest-tools Put operation
 */
 type UpdateGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14387,7 +19786,26 @@ func (p *UpdateGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateGuestToolsApiResponse(*known)
+	*p = *NewUpdateGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14398,7 +19816,9 @@ func (p *UpdateGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14407,7 +19827,7 @@ func NewUpdateGuestToolsApiResponse() *UpdateGuestToolsApiResponse {
 	p := new(UpdateGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.UpdateGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14435,7 +19855,7 @@ func (p *UpdateGuestToolsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId} Put operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId} Put operation
 */
 type UpdateNicApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14494,7 +19914,26 @@ func (p *UpdateNicApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateNicApiResponse(*known)
+	*p = *NewUpdateNicApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14505,7 +19944,9 @@ func (p *UpdateNicApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14514,7 +19955,7 @@ func NewUpdateNicApiResponse() *UpdateNicApiResponse {
 	p := new(UpdateNicApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.UpdateNicApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14542,7 +19983,7 @@ func (p *UpdateNicApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports/{extId} Put operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports/{extId} Put operation
 */
 type UpdateSerialPortApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14601,7 +20042,26 @@ func (p *UpdateSerialPortApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateSerialPortApiResponse(*known)
+	*p = *NewUpdateSerialPortApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14612,7 +20072,9 @@ func (p *UpdateSerialPortApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14621,7 +20083,7 @@ func NewUpdateSerialPortApiResponse() *UpdateSerialPortApiResponse {
 	p := new(UpdateSerialPortApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.UpdateSerialPortApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14649,7 +20111,7 @@ func (p *UpdateSerialPortApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId} Put operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId} Put operation
 */
 type UpdateVmApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14708,7 +20170,26 @@ func (p *UpdateVmApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateVmApiResponse(*known)
+	*p = *NewUpdateVmApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14719,7 +20200,9 @@ func (p *UpdateVmApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14728,7 +20211,7 @@ func NewUpdateVmApiResponse() *UpdateVmApiResponse {
 	p := new(UpdateVmApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.UpdateVmApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14756,7 +20239,135 @@ func (p *UpdateVmApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/upgrade Post operation
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vm-guest-customization-profiles/{extId} Put operation
+*/
+type UpdateVmGuestCustomizationProfileApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUpdateVmGuestCustomizationProfileApiResponseData `json:"data,omitempty"`
+
+	Metadata *import3.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *UpdateVmGuestCustomizationProfileApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateVmGuestCustomizationProfileApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateVmGuestCustomizationProfileApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateVmGuestCustomizationProfileApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUpdateVmGuestCustomizationProfileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUpdateVmGuestCustomizationProfileApiResponse() *UpdateVmGuestCustomizationProfileApiResponse {
+	p := new(UpdateVmGuestCustomizationProfileApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.UpdateVmGuestCustomizationProfileApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UpdateVmGuestCustomizationProfileApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UpdateVmGuestCustomizationProfileApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUpdateVmGuestCustomizationProfileApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /vmm/v4.2/ahv/config/vms/{extId}/guest-tools/$actions/upgrade Post operation
 */
 type UpgradeVmGuestToolsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -14815,7 +20426,26 @@ func (p *UpgradeVmGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpgradeVmGuestToolsApiResponse(*known)
+	*p = *NewUpgradeVmGuestToolsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14826,7 +20456,9 @@ func (p *UpgradeVmGuestToolsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14835,7 +20467,7 @@ func NewUpgradeVmGuestToolsApiResponse() *UpgradeVmGuestToolsApiResponse {
 	p := new(UpgradeVmGuestToolsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.UpgradeVmGuestToolsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14860,6 +20492,101 @@ func (p *UpgradeVmGuestToolsApiResponse) SetData(v interface{}) error {
 		*p.DataItemDiscriminator_ = *p.Data.Discriminator
 	}
 	return e
+}
+
+/*
+Reference to a user.
+*/
+type UserReference struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The external ID (UUID) of the user.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+}
+
+func (p *UserReference) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UserReference
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UserReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UserReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUserReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUserReference() *UserReference {
+	p := new(UserReference)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.UserReference"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -14918,7 +20645,20 @@ func (p *Userdata) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Userdata(*known)
+	*p = *NewUserdata()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -14927,7 +20667,9 @@ func (p *Userdata) UnmarshalJSON(b []byte) error {
 	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -14936,7 +20678,7 @@ func NewUserdata() *Userdata {
 	p := new(Userdata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Userdata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15008,7 +20750,29 @@ func (p *VirtualEthernetNic) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VirtualEthernetNic(*known)
+	*p = *NewVirtualEthernetNic()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsConnected != nil {
+		p.IsConnected = known.IsConnected
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
+	if known.Model != nil {
+		p.Model = known.Model
+	}
+	if known.NumQueues != nil {
+		p.NumQueues = known.NumQueues
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15020,7 +20784,9 @@ func (p *VirtualEthernetNic) UnmarshalJSON(b []byte) error {
 	delete(allFields, "numQueues")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15029,7 +20795,7 @@ func NewVirtualEthernetNic() *VirtualEthernetNic {
 	p := new(VirtualEthernetNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VirtualEthernetNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsConnected = new(bool)
@@ -15195,7 +20961,47 @@ func (p *VirtualEthernetNicNetworkInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VirtualEthernetNicNetworkInfo(*known)
+	*p = *NewVirtualEthernetNicNetworkInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4Config != nil {
+		p.Ipv4Config = known.Ipv4Config
+	}
+	if known.Ipv4Info != nil {
+		p.Ipv4Info = known.Ipv4Info
+	}
+	if known.Ipv6Info != nil {
+		p.Ipv6Info = known.Ipv6Info
+	}
+	if known.NetworkFunctionChain != nil {
+		p.NetworkFunctionChain = known.NetworkFunctionChain
+	}
+	if known.NetworkFunctionNicType != nil {
+		p.NetworkFunctionNicType = known.NetworkFunctionNicType
+	}
+	if known.NicType != nil {
+		p.NicType = known.NicType
+	}
+	if known.ShouldAllowUnknownMacs != nil {
+		p.ShouldAllowUnknownMacs = known.ShouldAllowUnknownMacs
+	}
+	if known.Subnet != nil {
+		p.Subnet = known.Subnet
+	}
+	if known.TrunkedVlans != nil {
+		p.TrunkedVlans = known.TrunkedVlans
+	}
+	if known.VlanMode != nil {
+		p.VlanMode = known.VlanMode
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15213,7 +21019,9 @@ func (p *VirtualEthernetNicNetworkInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vlanMode")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15222,7 +21030,7 @@ func NewVirtualEthernetNicNetworkInfo() *VirtualEthernetNicNetworkInfo {
 	p := new(VirtualEthernetNicNetworkInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VirtualEthernetNicNetworkInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15346,6 +21154,10 @@ type Vm struct {
 	  VM creation time.
 	*/
 	CreateTime *time.Time `json:"createTime,omitempty"`
+	/*
+	  A collection of user-defined key/value pairs as strings in the format 'key:value' representing custom attributes of the VM.
+	*/
+	CustomAttributes []string `json:"customAttributes,omitempty"`
 	/*
 	  VM description.
 	*/
@@ -15489,6 +21301,8 @@ type Vm struct {
 	*/
 	UpdateTime *time.Time `json:"updateTime,omitempty"`
 
+	VmGuestCustomizationStatus *VmGuestCustomizationStatus `json:"vmGuestCustomizationStatus,omitempty"`
+
 	VtpmConfig *VtpmConfig `json:"vtpmConfig,omitempty"`
 }
 
@@ -15533,7 +21347,176 @@ func (p *Vm) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = Vm(*known)
+	*p = *NewVm()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ApcConfig != nil {
+		p.ApcConfig = known.ApcConfig
+	}
+	if known.AvailabilityZone != nil {
+		p.AvailabilityZone = known.AvailabilityZone
+	}
+	if known.BiosUuid != nil {
+		p.BiosUuid = known.BiosUuid
+	}
+	if known.BootConfigItemDiscriminator_ != nil {
+		p.BootConfigItemDiscriminator_ = known.BootConfigItemDiscriminator_
+	}
+	if known.BootConfig != nil {
+		p.BootConfig = known.BootConfig
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
+	if known.CdRoms != nil {
+		p.CdRoms = known.CdRoms
+	}
+	if known.Cluster != nil {
+		p.Cluster = known.Cluster
+	}
+	if known.CreateTime != nil {
+		p.CreateTime = known.CreateTime
+	}
+	if known.CustomAttributes != nil {
+		p.CustomAttributes = known.CustomAttributes
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.Disks != nil {
+		p.Disks = known.Disks
+	}
+	if known.EnabledCpuFeatures != nil {
+		p.EnabledCpuFeatures = known.EnabledCpuFeatures
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.GenerationUuid != nil {
+		p.GenerationUuid = known.GenerationUuid
+	}
+	if known.Gpus != nil {
+		p.Gpus = known.Gpus
+	}
+	if known.GuestCustomization != nil {
+		p.GuestCustomization = known.GuestCustomization
+	}
+	if known.GuestTools != nil {
+		p.GuestTools = known.GuestTools
+	}
+	if known.HardwareClockTimezone != nil {
+		p.HardwareClockTimezone = known.HardwareClockTimezone
+	}
+	if known.Host != nil {
+		p.Host = known.Host
+	}
+	if known.IsAgentVm != nil {
+		p.IsAgentVm = known.IsAgentVm
+	}
+	if known.IsBrandingEnabled != nil {
+		p.IsBrandingEnabled = known.IsBrandingEnabled
+	}
+	if known.IsCpuHotplugEnabled != nil {
+		p.IsCpuHotplugEnabled = known.IsCpuHotplugEnabled
+	}
+	if known.IsCpuPassthroughEnabled != nil {
+		p.IsCpuPassthroughEnabled = known.IsCpuPassthroughEnabled
+	}
+	if known.IsCrossClusterMigrationInProgress != nil {
+		p.IsCrossClusterMigrationInProgress = known.IsCrossClusterMigrationInProgress
+	}
+	if known.IsGpuConsoleEnabled != nil {
+		p.IsGpuConsoleEnabled = known.IsGpuConsoleEnabled
+	}
+	if known.IsLiveMigrateCapable != nil {
+		p.IsLiveMigrateCapable = known.IsLiveMigrateCapable
+	}
+	if known.IsMemoryOvercommitEnabled != nil {
+		p.IsMemoryOvercommitEnabled = known.IsMemoryOvercommitEnabled
+	}
+	if known.IsScsiControllerEnabled != nil {
+		p.IsScsiControllerEnabled = known.IsScsiControllerEnabled
+	}
+	if known.IsVcpuHardPinningEnabled != nil {
+		p.IsVcpuHardPinningEnabled = known.IsVcpuHardPinningEnabled
+	}
+	if known.IsVgaConsoleEnabled != nil {
+		p.IsVgaConsoleEnabled = known.IsVgaConsoleEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MachineType != nil {
+		p.MachineType = known.MachineType
+	}
+	if known.MemorySizeBytes != nil {
+		p.MemorySizeBytes = known.MemorySizeBytes
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Nics != nil {
+		p.Nics = known.Nics
+	}
+	if known.NumCoresPerSocket != nil {
+		p.NumCoresPerSocket = known.NumCoresPerSocket
+	}
+	if known.NumNumaNodes != nil {
+		p.NumNumaNodes = known.NumNumaNodes
+	}
+	if known.NumSockets != nil {
+		p.NumSockets = known.NumSockets
+	}
+	if known.NumThreadsPerCore != nil {
+		p.NumThreadsPerCore = known.NumThreadsPerCore
+	}
+	if known.OwnershipInfo != nil {
+		p.OwnershipInfo = known.OwnershipInfo
+	}
+	if known.PcieDevices != nil {
+		p.PcieDevices = known.PcieDevices
+	}
+	if known.PowerState != nil {
+		p.PowerState = known.PowerState
+	}
+	if known.Project != nil {
+		p.Project = known.Project
+	}
+	if known.ProtectionPolicyState != nil {
+		p.ProtectionPolicyState = known.ProtectionPolicyState
+	}
+	if known.ProtectionType != nil {
+		p.ProtectionType = known.ProtectionType
+	}
+	if known.SerialPorts != nil {
+		p.SerialPorts = known.SerialPorts
+	}
+	if known.Source != nil {
+		p.Source = known.Source
+	}
+	if known.StorageConfig != nil {
+		p.StorageConfig = known.StorageConfig
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpdateTime != nil {
+		p.UpdateTime = known.UpdateTime
+	}
+	if known.VmGuestCustomizationStatus != nil {
+		p.VmGuestCustomizationStatus = known.VmGuestCustomizationStatus
+	}
+	if known.VtpmConfig != nil {
+		p.VtpmConfig = known.VtpmConfig
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15548,6 +21531,7 @@ func (p *Vm) UnmarshalJSON(b []byte) error {
 	delete(allFields, "cdRoms")
 	delete(allFields, "cluster")
 	delete(allFields, "createTime")
+	delete(allFields, "customAttributes")
 	delete(allFields, "description")
 	delete(allFields, "disks")
 	delete(allFields, "enabledCpuFeatures")
@@ -15589,10 +21573,13 @@ func (p *Vm) UnmarshalJSON(b []byte) error {
 	delete(allFields, "storageConfig")
 	delete(allFields, "tenantId")
 	delete(allFields, "updateTime")
+	delete(allFields, "vmGuestCustomizationStatus")
 	delete(allFields, "vtpmConfig")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15601,7 +21588,7 @@ func NewVm() *Vm {
 	p := new(Vm)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.Vm"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HardwareClockTimezone = new(string)
@@ -15648,6 +21635,8 @@ type VmConfigOverrideSpecification struct {
 	  VM description.
 	*/
 	Description *string `json:"description,omitempty"`
+
+	GuestToolsSpec *VmRestoreGuestToolsSpecification `json:"guestToolsSpec,omitempty"`
 	/*
 	  Name of the VM to override with. If not specified, a name is chosen by the system and returned to the task entities when complete.
 	*/
@@ -15699,7 +21688,35 @@ func (p *VmConfigOverrideSpecification) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmConfigOverrideSpecification(*known)
+	*p = *NewVmConfigOverrideSpecification()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Categories != nil {
+		p.Categories = known.Categories
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.GuestToolsSpec != nil {
+		p.GuestToolsSpec = known.GuestToolsSpec
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NicSpec != nil {
+		p.NicSpec = known.NicSpec
+	}
+	if known.OwnershipInfo != nil {
+		p.OwnershipInfo = known.OwnershipInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15707,12 +21724,15 @@ func (p *VmConfigOverrideSpecification) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "categories")
 	delete(allFields, "description")
+	delete(allFields, "guestToolsSpec")
 	delete(allFields, "name")
 	delete(allFields, "nicSpec")
 	delete(allFields, "ownershipInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15721,7 +21741,7 @@ func NewVmConfigOverrideSpecification() *VmConfigOverrideSpecification {
 	p := new(VmConfigOverrideSpecification)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmConfigOverrideSpecification"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15740,6 +21760,10 @@ type VmCrossClusterMigrateOverrides struct {
 	  The NIC configuration to apply on the target cluster when migrating a VM from the source cluster to the target cluster.
 	*/
 	OverrideNicList []Nic `json:"overrideNicList,omitempty"`
+	/*
+	  This optional field specifies the storage container mapping to apply when migrating a VM from the source cluster to the target cluster. It is supported on un-protected VMs only.
+	*/
+	StorageContainersMapping []StorageContainerMapping `json:"storageContainersMapping,omitempty"`
 }
 
 func (p *VmCrossClusterMigrateOverrides) MarshalJSON() ([]byte, error) {
@@ -15783,16 +21807,35 @@ func (p *VmCrossClusterMigrateOverrides) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmCrossClusterMigrateOverrides(*known)
+	*p = *NewVmCrossClusterMigrateOverrides()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.OverrideNicList != nil {
+		p.OverrideNicList = known.OverrideNicList
+	}
+	if known.StorageContainersMapping != nil {
+		p.StorageContainersMapping = known.StorageContainersMapping
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "overrideNicList")
+	delete(allFields, "storageContainersMapping")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15801,7 +21844,7 @@ func NewVmCrossClusterMigrateOverrides() *VmCrossClusterMigrateOverrides {
 	p := new(VmCrossClusterMigrateOverrides)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmCrossClusterMigrateOverrides"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15878,7 +21921,29 @@ func (p *VmCrossClusterMigrateParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmCrossClusterMigrateParams(*known)
+	*p = *NewVmCrossClusterMigrateParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsLiveMigration != nil {
+		p.IsLiveMigration = known.IsLiveMigration
+	}
+	if known.Overrides != nil {
+		p.Overrides = known.Overrides
+	}
+	if known.TargetAvailabilityZone != nil {
+		p.TargetAvailabilityZone = known.TargetAvailabilityZone
+	}
+	if known.TargetCluster != nil {
+		p.TargetCluster = known.TargetCluster
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15890,7 +21955,9 @@ func (p *VmCrossClusterMigrateParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "targetCluster")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15899,7 +21966,7 @@ func NewVmCrossClusterMigrateParams() *VmCrossClusterMigrateParams {
 	p := new(VmCrossClusterMigrateParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmCrossClusterMigrateParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15932,6 +21999,8 @@ type VmDisk struct {
 	StorageConfig *VmDiskStorageConfig `json:"storageConfig,omitempty"`
 
 	StorageContainer *VmDiskContainerReference `json:"storageContainer,omitempty"`
+
+	VmDiskHydrationInfo *DiskHydrationInfo `json:"vmDiskHydrationInfo,omitempty"`
 }
 
 func (p *VmDisk) MarshalJSON() ([]byte, error) {
@@ -15975,7 +22044,38 @@ func (p *VmDisk) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDisk(*known)
+	*p = *NewVmDisk()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataSource != nil {
+		p.DataSource = known.DataSource
+	}
+	if known.DiskExtId != nil {
+		p.DiskExtId = known.DiskExtId
+	}
+	if known.DiskSizeBytes != nil {
+		p.DiskSizeBytes = known.DiskSizeBytes
+	}
+	if known.IsMigrationInProgress != nil {
+		p.IsMigrationInProgress = known.IsMigrationInProgress
+	}
+	if known.StorageConfig != nil {
+		p.StorageConfig = known.StorageConfig
+	}
+	if known.StorageContainer != nil {
+		p.StorageContainer = known.StorageContainer
+	}
+	if known.VmDiskHydrationInfo != nil {
+		p.VmDiskHydrationInfo = known.VmDiskHydrationInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -15987,9 +22087,12 @@ func (p *VmDisk) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isMigrationInProgress")
 	delete(allFields, "storageConfig")
 	delete(allFields, "storageContainer")
+	delete(allFields, "vmDiskHydrationInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -15998,7 +22101,7 @@ func NewVmDisk() *VmDisk {
 	p := new(VmDisk)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmDisk"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16060,7 +22163,20 @@ func (p *VmDiskContainerReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskContainerReference(*known)
+	*p = *NewVmDiskContainerReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16069,7 +22185,9 @@ func (p *VmDiskContainerReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16078,7 +22196,7 @@ func NewVmDiskContainerReference() *VmDiskContainerReference {
 	p := new(VmDiskContainerReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmDiskContainerReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16144,7 +22262,23 @@ func (p *VmDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskRecoveryPointReference(*known)
+	*p = *NewVmDiskRecoveryPointReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskRecoveryPointExtId != nil {
+		p.DiskRecoveryPointExtId = known.DiskRecoveryPointExtId
+	}
+	if known.VmRecoveryPointExtId != nil {
+		p.VmRecoveryPointExtId = known.VmRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16154,7 +22288,9 @@ func (p *VmDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16163,7 +22299,7 @@ func NewVmDiskRecoveryPointReference() *VmDiskRecoveryPointReference {
 	p := new(VmDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16229,7 +22365,26 @@ func (p *VmDiskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskReference(*known)
+	*p = *NewVmDiskReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskAddress != nil {
+		p.DiskAddress = known.DiskAddress
+	}
+	if known.DiskExtId != nil {
+		p.DiskExtId = known.DiskExtId
+	}
+	if known.VmReference != nil {
+		p.VmReference = known.VmReference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16240,7 +22395,9 @@ func (p *VmDiskReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vmReference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16249,7 +22406,7 @@ func NewVmDiskReference() *VmDiskReference {
 	p := new(VmDiskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmDiskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16311,7 +22468,20 @@ func (p *VmDiskStorageConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmDiskStorageConfig(*known)
+	*p = *NewVmDiskStorageConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsFlashModeEnabled != nil {
+		p.IsFlashModeEnabled = known.IsFlashModeEnabled
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16320,7 +22490,9 @@ func (p *VmDiskStorageConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isFlashModeEnabled")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16329,10 +22501,4777 @@ func NewVmDiskStorageConfig() *VmDiskStorageConfig {
 	p := new(VmDiskStorageConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmDiskStorageConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
+}
+
+/*
+Password to be configured for built-in Administrator account.
+*/
+type VmGcProfileAdministratorPassword struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Administrator password value.
+	*/
+	Value *string `json:"value"`
+}
+
+func (p *VmGcProfileAdministratorPassword) MarshalJSON() ([]byte, error) {
+	type VmGcProfileAdministratorPasswordProxy VmGcProfileAdministratorPassword
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileAdministratorPasswordProxy
+		Value *string `json:"value,omitempty"`
+	}{
+		VmGcProfileAdministratorPasswordProxy: (*VmGcProfileAdministratorPasswordProxy)(p),
+		Value:                                 p.Value,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileAdministratorPassword) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileAdministratorPassword
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileAdministratorPassword()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileAdministratorPassword() *VmGcProfileAdministratorPassword {
+	p := new(VmGcProfileAdministratorPassword)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileAdministratorPassword"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The answer file (unattend.xml) for sysprep configured the VM Guest Customization Profile.
+*/
+type VmGcProfileAnswerFile struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The unattend XML file as a string value. Note that double quotes in the XML file need to be escaped to maintain correctness.
+	*/
+	UnattendXml *string `json:"unattendXml"`
+}
+
+func (p *VmGcProfileAnswerFile) MarshalJSON() ([]byte, error) {
+	type VmGcProfileAnswerFileProxy VmGcProfileAnswerFile
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileAnswerFileProxy
+		UnattendXml *string `json:"unattendXml,omitempty"`
+	}{
+		VmGcProfileAnswerFileProxy: (*VmGcProfileAnswerFileProxy)(p),
+		UnattendXml:                p.UnattendXml,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileAnswerFile) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileAnswerFile
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileAnswerFile()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.UnattendXml != nil {
+		p.UnattendXml = known.UnattendXml
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "unattendXml")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileAnswerFile() *VmGcProfileAnswerFile {
+	p := new(VmGcProfileAnswerFile)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileAnswerFile"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Custom unattend.xml file for sysprep configuration. When provided, this completely overrides the unattend.xml from the referenced profile.
+*/
+type VmGcProfileAnswerFileOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The custom unattend.xml file content as a string. This replaces the unattend.xml from the referenced VM Guest Customization Profile. Note that double quotes in the XML file must be escaped to maintain correctness.
+	*/
+	UnattendXml *string `json:"unattendXml"`
+}
+
+func (p *VmGcProfileAnswerFileOverrideSpec) MarshalJSON() ([]byte, error) {
+	type VmGcProfileAnswerFileOverrideSpecProxy VmGcProfileAnswerFileOverrideSpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileAnswerFileOverrideSpecProxy
+		UnattendXml *string `json:"unattendXml,omitempty"`
+	}{
+		VmGcProfileAnswerFileOverrideSpecProxy: (*VmGcProfileAnswerFileOverrideSpecProxy)(p),
+		UnattendXml:                            p.UnattendXml,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileAnswerFileOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileAnswerFileOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileAnswerFileOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.UnattendXml != nil {
+		p.UnattendXml = known.UnattendXml
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "unattendXml")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileAnswerFileOverrideSpec() *VmGcProfileAnswerFileOverrideSpec {
+	p := new(VmGcProfileAnswerFileOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileAnswerFileOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Autologon settings that need to be specified to enable autologon. Currently, it is for only the Administrator account, and the value for the Administrator Password should be provided in the General Settings section when configuring this setting.
+*/
+type VmGcProfileAutoLogonSettings struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The number of automatic logons allowed for the computer using the specified local account. The LogonCount must be specified if the AutoLogon setting is used.
+	*/
+	LogonCount *int `json:"logonCount"`
+}
+
+func (p *VmGcProfileAutoLogonSettings) MarshalJSON() ([]byte, error) {
+	type VmGcProfileAutoLogonSettingsProxy VmGcProfileAutoLogonSettings
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileAutoLogonSettingsProxy
+		LogonCount *int `json:"logonCount,omitempty"`
+	}{
+		VmGcProfileAutoLogonSettingsProxy: (*VmGcProfileAutoLogonSettingsProxy)(p),
+		LogonCount:                        p.LogonCount,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileAutoLogonSettings) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileAutoLogonSettings
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileAutoLogonSettings()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.LogonCount != nil {
+		p.LogonCount = known.LogonCount
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "logonCount")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileAutoLogonSettings() *VmGcProfileAutoLogonSettings {
+	p := new(VmGcProfileAutoLogonSettings)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileAutoLogonSettings"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Override specification for autologon settings. These settings override the corresponding autologon settings from the referenced profile. To completely discard the setting from the referenced profile, specify an empty object as the value.
+*/
+type VmGcProfileAutoLogonSettingsOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Override value for the number of automatic logons allowed. This overrides the logon count from the referenced profile.
+	*/
+	LogonCount *int `json:"logonCount,omitempty"`
+}
+
+func (p *VmGcProfileAutoLogonSettingsOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileAutoLogonSettingsOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileAutoLogonSettingsOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileAutoLogonSettingsOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileAutoLogonSettingsOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.LogonCount != nil {
+		p.LogonCount = known.LogonCount
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "logonCount")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileAutoLogonSettingsOverrideSpec() *VmGcProfileAutoLogonSettingsOverrideSpec {
+	p := new(VmGcProfileAutoLogonSettingsOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileAutoLogonSettingsOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Computer name of the VM.
+*/
+type VmGcProfileComputerName struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Computer name value.
+	*/
+	Value *string `json:"value"`
+}
+
+func (p *VmGcProfileComputerName) MarshalJSON() ([]byte, error) {
+	type VmGcProfileComputerNameProxy VmGcProfileComputerName
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileComputerNameProxy
+		Value *string `json:"value,omitempty"`
+	}{
+		VmGcProfileComputerNameProxy: (*VmGcProfileComputerNameProxy)(p),
+		Value:                        p.Value,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileComputerName) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileComputerName
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileComputerName()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileComputerName() *VmGcProfileComputerName {
+	p := new(VmGcProfileComputerName)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileComputerName"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Override configuration for the VM Guest Customization Profile.
+*/
+type VmGcProfileConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	ConfigOverrideSpecItemDiscriminator_ *string `json:"$configOverrideSpecItemDiscriminator,omitempty"`
+	/*
+	  Sysprep configuration override specification for Windows operating system customization.
+	*/
+	ConfigOverrideSpec *OneOfVmGcProfileConfigConfigOverrideSpec `json:"configOverrideSpec,omitempty"`
+
+	Profile *VmGcProfileReference `json:"profile"`
+}
+
+func (p *VmGcProfileConfig) MarshalJSON() ([]byte, error) {
+	type VmGcProfileConfigProxy VmGcProfileConfig
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileConfigProxy
+		Profile *VmGcProfileReference `json:"profile,omitempty"`
+	}{
+		VmGcProfileConfigProxy: (*VmGcProfileConfigProxy)(p),
+		Profile:                p.Profile,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConfigOverrideSpecItemDiscriminator_ != nil {
+		p.ConfigOverrideSpecItemDiscriminator_ = known.ConfigOverrideSpecItemDiscriminator_
+	}
+	if known.ConfigOverrideSpec != nil {
+		p.ConfigOverrideSpec = known.ConfigOverrideSpec
+	}
+	if known.Profile != nil {
+		p.Profile = known.Profile
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$configOverrideSpecItemDiscriminator")
+	delete(allFields, "configOverrideSpec")
+	delete(allFields, "profile")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileConfig() *VmGcProfileConfig {
+	p := new(VmGcProfileConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileConfig) GetConfigOverrideSpec() interface{} {
+	if nil == p.ConfigOverrideSpec {
+		return nil
+	}
+	return p.ConfigOverrideSpec.GetValue()
+}
+
+func (p *VmGcProfileConfig) SetConfigOverrideSpec(v interface{}) error {
+	if nil == p.ConfigOverrideSpec {
+		p.ConfigOverrideSpec = NewOneOfVmGcProfileConfigConfigOverrideSpec()
+	}
+	e := p.ConfigOverrideSpec.SetValue(v)
+	if nil == e {
+		if nil == p.ConfigOverrideSpecItemDiscriminator_ {
+			p.ConfigOverrideSpecItemDiscriminator_ = new(string)
+		}
+		*p.ConfigOverrideSpecItemDiscriminator_ = *p.ConfigOverrideSpec.Discriminator
+	}
+	return e
+}
+
+/*
+Discard the corresponding setting from the referenced profile. When this is specified, the setting will be completely discarded during VM deployment.
+*/
+type VmGcProfileDiscardSettings struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+}
+
+func (p *VmGcProfileDiscardSettings) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileDiscardSettings
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileDiscardSettings) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileDiscardSettings
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileDiscardSettings()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileDiscardSettings() *VmGcProfileDiscardSettings {
+	p := new(VmGcProfileDiscardSettings)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileDiscardSettings"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+DNS configuration to be applied to the NIC.
+*/
+type VmGcProfileDnsConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of IPv4 addresses to look for after preferred DNS server when searching for the DNS server on the network.
+	*/
+	AlternateDnsServerAddresses []string `json:"alternateDnsServerAddresses,omitempty"`
+	/*
+	  An IPv4 address is preferred to search first when searching for the DNS server on the network.
+	*/
+	PreferredDnsServerAddress *string `json:"preferredDnsServerAddress"`
+}
+
+func (p *VmGcProfileDnsConfig) MarshalJSON() ([]byte, error) {
+	type VmGcProfileDnsConfigProxy VmGcProfileDnsConfig
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileDnsConfigProxy
+		PreferredDnsServerAddress *string `json:"preferredDnsServerAddress,omitempty"`
+	}{
+		VmGcProfileDnsConfigProxy: (*VmGcProfileDnsConfigProxy)(p),
+		PreferredDnsServerAddress: p.PreferredDnsServerAddress,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileDnsConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileDnsConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileDnsConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AlternateDnsServerAddresses != nil {
+		p.AlternateDnsServerAddresses = known.AlternateDnsServerAddresses
+	}
+	if known.PreferredDnsServerAddress != nil {
+		p.PreferredDnsServerAddress = known.PreferredDnsServerAddress
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "alternateDnsServerAddresses")
+	delete(allFields, "preferredDnsServerAddress")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileDnsConfig() *VmGcProfileDnsConfig {
+	p := new(VmGcProfileDnsConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileDnsConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Override specification for DNS configuration. This overrides the DNS settings from the referenced profile.
+*/
+type VmGcProfileDnsConfigOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Override value for alternate DNS server addresses. This overrides the alternate DNS servers from the referenced profile.
+	*/
+	AlternateDnsServerAddresses []string `json:"alternateDnsServerAddresses,omitempty"`
+	/*
+	  Override value for preferred DNS server address. This overrides the preferred DNS server from the referenced profile.
+	*/
+	PreferredDnsServerAddress *string `json:"preferredDnsServerAddress,omitempty"`
+}
+
+func (p *VmGcProfileDnsConfigOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileDnsConfigOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileDnsConfigOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileDnsConfigOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileDnsConfigOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AlternateDnsServerAddresses != nil {
+		p.AlternateDnsServerAddresses = known.AlternateDnsServerAddresses
+	}
+	if known.PreferredDnsServerAddress != nil {
+		p.PreferredDnsServerAddress = known.PreferredDnsServerAddress
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "alternateDnsServerAddresses")
+	delete(allFields, "preferredDnsServerAddress")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileDnsConfigOverrideSpec() *VmGcProfileDnsConfigOverrideSpec {
+	p := new(VmGcProfileDnsConfigOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileDnsConfigOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Credentials of the domain account to use to join the domain.
+*/
+type VmGcProfileDomainCredentials struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The name of the domain to use for authentication of the account before the computer can be joined to a domain. A domain name can be the fully qualified DNS name or the NetBIOS name of the domain.
+	*/
+	DomainName *string `json:"domainName"`
+	/*
+	  The password of the domain user account to use for authenticating an account to the domain before the computer can be joined to a domain.
+	*/
+	Password *string `json:"password"`
+	/*
+	  Name of the domain user account with permission to add the computer to a domain.
+	*/
+	Username *string `json:"username"`
+}
+
+func (p *VmGcProfileDomainCredentials) MarshalJSON() ([]byte, error) {
+	type VmGcProfileDomainCredentialsProxy VmGcProfileDomainCredentials
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileDomainCredentialsProxy
+		DomainName *string `json:"domainName,omitempty"`
+		Password   *string `json:"password,omitempty"`
+		Username   *string `json:"username,omitempty"`
+	}{
+		VmGcProfileDomainCredentialsProxy: (*VmGcProfileDomainCredentialsProxy)(p),
+		DomainName:                        p.DomainName,
+		Password:                          p.Password,
+		Username:                          p.Username,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileDomainCredentials) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileDomainCredentials
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileDomainCredentials()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DomainName != nil {
+		p.DomainName = known.DomainName
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "domainName")
+	delete(allFields, "password")
+	delete(allFields, "username")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileDomainCredentials() *VmGcProfileDomainCredentials {
+	p := new(VmGcProfileDomainCredentials)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileDomainCredentials"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Override specification for domain credentials. This overrides the domain credentials from the referenced profile.
+*/
+type VmGcProfileDomainCredentialsOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Override value for domain name. This overrides the domain name from the referenced profile. Can be either the fully qualified DNS name or NetBIOS name of the domain.
+	*/
+	DomainName *string `json:"domainName,omitempty"`
+	/*
+	  Override value for domain password. This overrides the domain password from the referenced profile.
+	*/
+	Password *string `json:"password,omitempty"`
+	/*
+	  Override value for domain username. This overrides the domain username from the referenced profile.
+	*/
+	Username *string `json:"username,omitempty"`
+}
+
+func (p *VmGcProfileDomainCredentialsOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileDomainCredentialsOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileDomainCredentialsOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileDomainCredentialsOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileDomainCredentialsOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DomainName != nil {
+		p.DomainName = known.DomainName
+	}
+	if known.Password != nil {
+		p.Password = known.Password
+	}
+	if known.Username != nil {
+		p.Username = known.Username
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "domainName")
+	delete(allFields, "password")
+	delete(allFields, "username")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileDomainCredentialsOverrideSpec() *VmGcProfileDomainCredentialsOverrideSpec {
+	p := new(VmGcProfileDomainCredentialsOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileDomainCredentialsOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Domain setting to be applied to the computer when joining the domain.
+*/
+type VmGcProfileDomainSettings struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Credentials *VmGcProfileDomainCredentials `json:"credentials"`
+}
+
+func (p *VmGcProfileDomainSettings) MarshalJSON() ([]byte, error) {
+	type VmGcProfileDomainSettingsProxy VmGcProfileDomainSettings
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileDomainSettingsProxy
+		Credentials *VmGcProfileDomainCredentials `json:"credentials,omitempty"`
+	}{
+		VmGcProfileDomainSettingsProxy: (*VmGcProfileDomainSettingsProxy)(p),
+		Credentials:                    p.Credentials,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileDomainSettings) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileDomainSettings
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileDomainSettings()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credentials != nil {
+		p.Credentials = known.Credentials
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "credentials")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileDomainSettings() *VmGcProfileDomainSettings {
+	p := new(VmGcProfileDomainSettings)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileDomainSettings"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Override specification for domain settings. This overrides the domain configuration from the referenced profile.
+*/
+type VmGcProfileDomainSettingsOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Credentials *VmGcProfileDomainCredentialsOverrideSpec `json:"credentials"`
+}
+
+func (p *VmGcProfileDomainSettingsOverrideSpec) MarshalJSON() ([]byte, error) {
+	type VmGcProfileDomainSettingsOverrideSpecProxy VmGcProfileDomainSettingsOverrideSpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileDomainSettingsOverrideSpecProxy
+		Credentials *VmGcProfileDomainCredentialsOverrideSpec `json:"credentials,omitempty"`
+	}{
+		VmGcProfileDomainSettingsOverrideSpecProxy: (*VmGcProfileDomainSettingsOverrideSpecProxy)(p),
+		Credentials: p.Credentials,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileDomainSettingsOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileDomainSettingsOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileDomainSettingsOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Credentials != nil {
+		p.Credentials = known.Credentials
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "credentials")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileDomainSettingsOverrideSpec() *VmGcProfileDomainSettingsOverrideSpec {
+	p := new(VmGcProfileDomainSettingsOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileDomainSettingsOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+A set of general unattended settings supported by Windows.
+*/
+type VmGcProfileGeneralSettings struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Password to be configured for built-in Administrator account.
+	*/
+	AdministratorPassword *string `json:"administratorPassword,omitempty"`
+
+	AutoLogonSettings *VmGcProfileAutoLogonSettings `json:"autoLogonSettings,omitempty"`
+	/*
+
+	 */
+	ComputerNameItemDiscriminator_ *string `json:"$computerNameItemDiscriminator,omitempty"`
+	/*
+	  Mechanism to use to generate the computer name of the VM. Either UseVmName or MustProvideDuringDeployment should be provided. If MustProvideDuringDeployment is specified, then the user must provide the value for the computer name during the VM deployment; otherwise, the deployment request fails. If the UseVmName is specified, then during VM deployment, the name of the VM needs to meet the sysprep's computer name requirements; otherwise, the request fails.
+	*/
+	ComputerName *OneOfVmGcProfileGeneralSettingsComputerName `json:"computerName,omitempty"`
+	/*
+	  Name of the organization of the end user.
+	*/
+	RegisteredOrganization *string `json:"registeredOrganization,omitempty"`
+	/*
+	  Full name of the end user. Note that this is the full name in the <Firstname Lastname> format, not only the username.
+	*/
+	RegisteredOwner *string `json:"registeredOwner,omitempty"`
+	/*
+	  The computer's time zone in string format. For different timezone values, refer to the Windows unattend installation documentation.
+	*/
+	Timezone *string `json:"timezone,omitempty"`
+	/*
+	  The product key to use to install and activate Windows. Note that entering an invalid product key causes Windows Setup to fail.
+	*/
+	WindowsProductKey *string `json:"windowsProductKey,omitempty"`
+}
+
+func (p *VmGcProfileGeneralSettings) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileGeneralSettings
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileGeneralSettings) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileGeneralSettings
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileGeneralSettings()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AdministratorPassword != nil {
+		p.AdministratorPassword = known.AdministratorPassword
+	}
+	if known.AutoLogonSettings != nil {
+		p.AutoLogonSettings = known.AutoLogonSettings
+	}
+	if known.ComputerNameItemDiscriminator_ != nil {
+		p.ComputerNameItemDiscriminator_ = known.ComputerNameItemDiscriminator_
+	}
+	if known.ComputerName != nil {
+		p.ComputerName = known.ComputerName
+	}
+	if known.RegisteredOrganization != nil {
+		p.RegisteredOrganization = known.RegisteredOrganization
+	}
+	if known.RegisteredOwner != nil {
+		p.RegisteredOwner = known.RegisteredOwner
+	}
+	if known.Timezone != nil {
+		p.Timezone = known.Timezone
+	}
+	if known.WindowsProductKey != nil {
+		p.WindowsProductKey = known.WindowsProductKey
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "administratorPassword")
+	delete(allFields, "autoLogonSettings")
+	delete(allFields, "$computerNameItemDiscriminator")
+	delete(allFields, "computerName")
+	delete(allFields, "registeredOrganization")
+	delete(allFields, "registeredOwner")
+	delete(allFields, "timezone")
+	delete(allFields, "windowsProductKey")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileGeneralSettings() *VmGcProfileGeneralSettings {
+	p := new(VmGcProfileGeneralSettings)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileGeneralSettings"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileGeneralSettings) GetComputerName() interface{} {
+	if nil == p.ComputerName {
+		return nil
+	}
+	return p.ComputerName.GetValue()
+}
+
+func (p *VmGcProfileGeneralSettings) SetComputerName(v interface{}) error {
+	if nil == p.ComputerName {
+		p.ComputerName = NewOneOfVmGcProfileGeneralSettingsComputerName()
+	}
+	e := p.ComputerName.SetValue(v)
+	if nil == e {
+		if nil == p.ComputerNameItemDiscriminator_ {
+			p.ComputerNameItemDiscriminator_ = new(string)
+		}
+		*p.ComputerNameItemDiscriminator_ = *p.ComputerName.Discriminator
+	}
+	return e
+}
+
+/*
+Override specification for general Windows unattended installation settings. These settings override the corresponding general settings from the referenced profile. To completely discard the setting from the referenced profile, specify an empty object as the value.
+*/
+type VmGcProfileGeneralSettingsOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	AdministratorPasswordItemDiscriminator_ *string `json:"$administratorPasswordItemDiscriminator,omitempty"`
+	/*
+	  Override for administrator password. You can either provide a new password or discard the setting from the referenced profile.
+	*/
+	AdministratorPassword *OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword `json:"administratorPassword,omitempty"`
+
+	AutoLogonSettings *VmGcProfileAutoLogonSettingsOverrideSpec `json:"autoLogonSettings,omitempty"`
+	/*
+
+	 */
+	ComputerNameItemDiscriminator_ *string `json:"$computerNameItemDiscriminator,omitempty"`
+	/*
+	  Override mechanism for computer name generation. You can either use the VM name, provide a computer name, or discard the setting from the referenced profile. If using a VM name or computer name, meet the sysprep's computer name requirements; otherwise, the request would fail.
+	*/
+	ComputerName *OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName `json:"computerName,omitempty"`
+	/*
+
+	 */
+	RegisteredOrganizationItemDiscriminator_ *string `json:"$registeredOrganizationItemDiscriminator,omitempty"`
+	/*
+	  Override for registered organization information. You can either provide new organization details or discard the setting from the referenced profile.
+	*/
+	RegisteredOrganization *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization `json:"registeredOrganization,omitempty"`
+	/*
+
+	 */
+	RegisteredOwnerItemDiscriminator_ *string `json:"$registeredOwnerItemDiscriminator,omitempty"`
+	/*
+	  Override for registered owner information. You can either provide new owner details or discard the setting from the referenced profile.
+	*/
+	RegisteredOwner *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner `json:"registeredOwner,omitempty"`
+	/*
+
+	 */
+	TimezoneItemDiscriminator_ *string `json:"$timezoneItemDiscriminator,omitempty"`
+	/*
+	  Override for timezone setting. You can either provide a new timezone value or discard the setting from the referenced profile. For valid timezone values, refer to Windows sysprep documentation.
+	*/
+	Timezone *OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone `json:"timezone,omitempty"`
+	/*
+
+	 */
+	WindowsProductKeyItemDiscriminator_ *string `json:"$windowsProductKeyItemDiscriminator,omitempty"`
+	/*
+	  Override for Windows product key. You can either provide a new product key or discard the setting from the referenced profile. Note that entering an invalid product key causes Windows Setup to fail.
+	*/
+	WindowsProductKey *OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey `json:"windowsProductKey,omitempty"`
+}
+
+func (p *VmGcProfileGeneralSettingsOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileGeneralSettingsOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileGeneralSettingsOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileGeneralSettingsOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileGeneralSettingsOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AdministratorPasswordItemDiscriminator_ != nil {
+		p.AdministratorPasswordItemDiscriminator_ = known.AdministratorPasswordItemDiscriminator_
+	}
+	if known.AdministratorPassword != nil {
+		p.AdministratorPassword = known.AdministratorPassword
+	}
+	if known.AutoLogonSettings != nil {
+		p.AutoLogonSettings = known.AutoLogonSettings
+	}
+	if known.ComputerNameItemDiscriminator_ != nil {
+		p.ComputerNameItemDiscriminator_ = known.ComputerNameItemDiscriminator_
+	}
+	if known.ComputerName != nil {
+		p.ComputerName = known.ComputerName
+	}
+	if known.RegisteredOrganizationItemDiscriminator_ != nil {
+		p.RegisteredOrganizationItemDiscriminator_ = known.RegisteredOrganizationItemDiscriminator_
+	}
+	if known.RegisteredOrganization != nil {
+		p.RegisteredOrganization = known.RegisteredOrganization
+	}
+	if known.RegisteredOwnerItemDiscriminator_ != nil {
+		p.RegisteredOwnerItemDiscriminator_ = known.RegisteredOwnerItemDiscriminator_
+	}
+	if known.RegisteredOwner != nil {
+		p.RegisteredOwner = known.RegisteredOwner
+	}
+	if known.TimezoneItemDiscriminator_ != nil {
+		p.TimezoneItemDiscriminator_ = known.TimezoneItemDiscriminator_
+	}
+	if known.Timezone != nil {
+		p.Timezone = known.Timezone
+	}
+	if known.WindowsProductKeyItemDiscriminator_ != nil {
+		p.WindowsProductKeyItemDiscriminator_ = known.WindowsProductKeyItemDiscriminator_
+	}
+	if known.WindowsProductKey != nil {
+		p.WindowsProductKey = known.WindowsProductKey
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$administratorPasswordItemDiscriminator")
+	delete(allFields, "administratorPassword")
+	delete(allFields, "autoLogonSettings")
+	delete(allFields, "$computerNameItemDiscriminator")
+	delete(allFields, "computerName")
+	delete(allFields, "$registeredOrganizationItemDiscriminator")
+	delete(allFields, "registeredOrganization")
+	delete(allFields, "$registeredOwnerItemDiscriminator")
+	delete(allFields, "registeredOwner")
+	delete(allFields, "$timezoneItemDiscriminator")
+	delete(allFields, "timezone")
+	delete(allFields, "$windowsProductKeyItemDiscriminator")
+	delete(allFields, "windowsProductKey")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileGeneralSettingsOverrideSpec() *VmGcProfileGeneralSettingsOverrideSpec {
+	p := new(VmGcProfileGeneralSettingsOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileGeneralSettingsOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileGeneralSettingsOverrideSpec) GetRegisteredOrganization() interface{} {
+	if nil == p.RegisteredOrganization {
+		return nil
+	}
+	return p.RegisteredOrganization.GetValue()
+}
+
+func (p *VmGcProfileGeneralSettingsOverrideSpec) SetRegisteredOrganization(v interface{}) error {
+	if nil == p.RegisteredOrganization {
+		p.RegisteredOrganization = NewOneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization()
+	}
+	e := p.RegisteredOrganization.SetValue(v)
+	if nil == e {
+		if nil == p.RegisteredOrganizationItemDiscriminator_ {
+			p.RegisteredOrganizationItemDiscriminator_ = new(string)
+		}
+		*p.RegisteredOrganizationItemDiscriminator_ = *p.RegisteredOrganization.Discriminator
+	}
+	return e
+}
+
+/*
+Locale setting value based on RFC 3066 language-tagging conventions, for example, en-US, fr-FR, es-ES.
+*/
+type VmGcProfileLocaleSettingOverride struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Locale setting value.
+	*/
+	Value *string `json:"value"`
+}
+
+func (p *VmGcProfileLocaleSettingOverride) MarshalJSON() ([]byte, error) {
+	type VmGcProfileLocaleSettingOverrideProxy VmGcProfileLocaleSettingOverride
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileLocaleSettingOverrideProxy
+		Value *string `json:"value,omitempty"`
+	}{
+		VmGcProfileLocaleSettingOverrideProxy: (*VmGcProfileLocaleSettingOverrideProxy)(p),
+		Value:                                 p.Value,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileLocaleSettingOverride) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileLocaleSettingOverride
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileLocaleSettingOverride()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileLocaleSettingOverride() *VmGcProfileLocaleSettingOverride {
+	p := new(VmGcProfileLocaleSettingOverride)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileLocaleSettingOverride"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Language and locale settings for the system and the user.
+*/
+type VmGcProfileLocaleSettings struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Default language to use for non-Unicode programs. Its value is based on the language-tagging conventions of RFC 3066. The pattern language-region is used, where language is a language code and region is a country or region identifier (for example, en-US, fr-FR, or es-ES).
+	*/
+	SystemLocale *string `json:"systemLocale,omitempty"`
+	/*
+	  Default system language to use to display user interface (UI) items. Its value is based on the language-tagging conventions of RFC 3066. The pattern language-region is used, where language is a language code and region is a country or region identifier (for example, en-US, fr-FR, or es-ES).
+	*/
+	UiLanguage *string `json:"uiLanguage,omitempty"`
+	/*
+	  Per-user settings to be used for formatting dates, times, currency, and numbers. Its value is based on the language-tagging conventions of RFC 3066. The pattern language-region is used, where language is a language code and region is a country or region identifier (for example, en-US, fr-FR, or es-ES).
+	*/
+	UserLocale *string `json:"userLocale,omitempty"`
+}
+
+func (p *VmGcProfileLocaleSettings) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileLocaleSettings
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileLocaleSettings) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileLocaleSettings
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileLocaleSettings()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SystemLocale != nil {
+		p.SystemLocale = known.SystemLocale
+	}
+	if known.UiLanguage != nil {
+		p.UiLanguage = known.UiLanguage
+	}
+	if known.UserLocale != nil {
+		p.UserLocale = known.UserLocale
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "systemLocale")
+	delete(allFields, "uiLanguage")
+	delete(allFields, "userLocale")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileLocaleSettings() *VmGcProfileLocaleSettings {
+	p := new(VmGcProfileLocaleSettings)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileLocaleSettings"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Override specification for language and input locale settings. These settings override the corresponding locale settings from the referenced profile. To completely discard the setting from the referenced profile, specify an empty object as the value.
+*/
+type VmGcProfileLocaleSettingsOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	SystemLocaleItemDiscriminator_ *string `json:"$systemLocaleItemDiscriminator,omitempty"`
+	/*
+	  Override for the default language used for non-Unicode programs. You can either provide a new locale value or discard the setting from the referenced profile. Value must follow RFC 3066 language-tagging conventions, for example, en-US, fr-FR, es-ES.
+	*/
+	SystemLocale *OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale `json:"systemLocale,omitempty"`
+	/*
+
+	 */
+	UiLanguageItemDiscriminator_ *string `json:"$uiLanguageItemDiscriminator,omitempty"`
+	/*
+	  Override for the default system language used to display user interface items. You can either provide a new language value or discard the setting from the referenced profile. Value must follow RFC 3066 language-tagging conventions, for example, en-US, fr-FR, es-ES.
+	*/
+	UiLanguage *OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage `json:"uiLanguage,omitempty"`
+	/*
+
+	 */
+	UserLocaleItemDiscriminator_ *string `json:"$userLocaleItemDiscriminator,omitempty"`
+	/*
+	  Override for per-user locale settings used for formatting dates, times, currency, and numbers. You can either provide a new locale value or discard the setting from the referenced profile. Value must follow RFC 3066 language-tagging conventions, for example, en-US, fr-FR, es-ES.
+	*/
+	UserLocale *OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale `json:"userLocale,omitempty"`
+}
+
+func (p *VmGcProfileLocaleSettingsOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileLocaleSettingsOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileLocaleSettingsOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileLocaleSettingsOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileLocaleSettingsOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SystemLocaleItemDiscriminator_ != nil {
+		p.SystemLocaleItemDiscriminator_ = known.SystemLocaleItemDiscriminator_
+	}
+	if known.SystemLocale != nil {
+		p.SystemLocale = known.SystemLocale
+	}
+	if known.UiLanguageItemDiscriminator_ != nil {
+		p.UiLanguageItemDiscriminator_ = known.UiLanguageItemDiscriminator_
+	}
+	if known.UiLanguage != nil {
+		p.UiLanguage = known.UiLanguage
+	}
+	if known.UserLocaleItemDiscriminator_ != nil {
+		p.UserLocaleItemDiscriminator_ = known.UserLocaleItemDiscriminator_
+	}
+	if known.UserLocale != nil {
+		p.UserLocale = known.UserLocale
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$systemLocaleItemDiscriminator")
+	delete(allFields, "systemLocale")
+	delete(allFields, "$uiLanguageItemDiscriminator")
+	delete(allFields, "uiLanguage")
+	delete(allFields, "$userLocaleItemDiscriminator")
+	delete(allFields, "userLocale")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileLocaleSettingsOverrideSpec() *VmGcProfileLocaleSettingsOverrideSpec {
+	p := new(VmGcProfileLocaleSettingsOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileLocaleSettingsOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileLocaleSettingsOverrideSpec) GetUiLanguage() interface{} {
+	if nil == p.UiLanguage {
+		return nil
+	}
+	return p.UiLanguage.GetValue()
+}
+
+func (p *VmGcProfileLocaleSettingsOverrideSpec) SetUiLanguage(v interface{}) error {
+	if nil == p.UiLanguage {
+		p.UiLanguage = NewOneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage()
+	}
+	e := p.UiLanguage.SetValue(v)
+	if nil == e {
+		if nil == p.UiLanguageItemDiscriminator_ {
+			p.UiLanguageItemDiscriminator_ = new(string)
+		}
+		*p.UiLanguageItemDiscriminator_ = *p.UiLanguage.Discriminator
+	}
+	return e
+}
+
+/*
+The value for the attribute that must be provided during deployment.
+*/
+type VmGcProfileMustProvideDuringDeployment struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+}
+
+func (p *VmGcProfileMustProvideDuringDeployment) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileMustProvideDuringDeployment
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileMustProvideDuringDeployment) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileMustProvideDuringDeployment
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileMustProvideDuringDeployment()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileMustProvideDuringDeployment() *VmGcProfileMustProvideDuringDeployment {
+	p := new(VmGcProfileMustProvideDuringDeployment)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileMustProvideDuringDeployment"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Network settings to apply to the NICs attached to the VM.
+*/
+type VmGcProfileNetworkSettings struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of NIC configurations to be applied to the NICs attached to the VM in serial order. The first configuration provided in the list is applied to the first NIC attached to the VM, and so on for other NICs.
+	*/
+	NicConfigList []VmGcProfileNicConfig `json:"nicConfigList"`
+}
+
+func (p *VmGcProfileNetworkSettings) MarshalJSON() ([]byte, error) {
+	type VmGcProfileNetworkSettingsProxy VmGcProfileNetworkSettings
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileNetworkSettingsProxy
+		NicConfigList []VmGcProfileNicConfig `json:"nicConfigList,omitempty"`
+	}{
+		VmGcProfileNetworkSettingsProxy: (*VmGcProfileNetworkSettingsProxy)(p),
+		NicConfigList:                   p.NicConfigList,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileNetworkSettings) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileNetworkSettings
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileNetworkSettings()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NicConfigList != nil {
+		p.NicConfigList = known.NicConfigList
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "nicConfigList")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileNetworkSettings() *VmGcProfileNetworkSettings {
+	p := new(VmGcProfileNetworkSettings)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileNetworkSettings"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Override specification for network settings. These settings override the corresponding network settings from the referenced profile. To completely discard the setting from the referenced profile, specify an empty object as the value.
+*/
+type VmGcProfileNetworkSettingsOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Override specification for NIC configuration list. This overrides the NIC configurations from the referenced profile. Configurations are applied to NICs in serial order.
+	*/
+	NicConfigList []VmGcProfileNicConfigOverrideSpec `json:"nicConfigList,omitempty"`
+}
+
+func (p *VmGcProfileNetworkSettingsOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileNetworkSettingsOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileNetworkSettingsOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileNetworkSettingsOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileNetworkSettingsOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NicConfigList != nil {
+		p.NicConfigList = known.NicConfigList
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "nicConfigList")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileNetworkSettingsOverrideSpec() *VmGcProfileNetworkSettingsOverrideSpec {
+	p := new(VmGcProfileNetworkSettingsOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileNetworkSettingsOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Network settings, such as DNS and IPv4 settings, are to be applied to a NIC attached to the VM.
+*/
+type VmGcProfileNicConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	DnsConfig *VmGcProfileDnsConfig `json:"dnsConfig,omitempty"`
+	/*
+
+	 */
+	Ipv4ConfigItemDiscriminator_ *string `json:"$ipv4ConfigItemDiscriminator,omitempty"`
+	/*
+	  Mechanism to configure IPv4 settings of the NIC. Either UseDhcp or MustProvideDuringDeployment should be specified as a value. If UseDhcp is specified, DhcpEnabled is set to True for the interface in the unattend XML. If MustProvideDuringDeployment is specified, the user must provide the IPv4 address with the prefix length and gateway details during the deployment.
+	*/
+	Ipv4Config *OneOfVmGcProfileNicConfigIpv4Config `json:"ipv4Config"`
+}
+
+func (p *VmGcProfileNicConfig) MarshalJSON() ([]byte, error) {
+	type VmGcProfileNicConfigProxy VmGcProfileNicConfig
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileNicConfigProxy
+		Ipv4Config *OneOfVmGcProfileNicConfigIpv4Config `json:"ipv4Config,omitempty"`
+	}{
+		VmGcProfileNicConfigProxy: (*VmGcProfileNicConfigProxy)(p),
+		Ipv4Config:                p.Ipv4Config,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileNicConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileNicConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileNicConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DnsConfig != nil {
+		p.DnsConfig = known.DnsConfig
+	}
+	if known.Ipv4ConfigItemDiscriminator_ != nil {
+		p.Ipv4ConfigItemDiscriminator_ = known.Ipv4ConfigItemDiscriminator_
+	}
+	if known.Ipv4Config != nil {
+		p.Ipv4Config = known.Ipv4Config
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "dnsConfig")
+	delete(allFields, "$ipv4ConfigItemDiscriminator")
+	delete(allFields, "ipv4Config")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileNicConfig() *VmGcProfileNicConfig {
+	p := new(VmGcProfileNicConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileNicConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileNicConfig) GetIpv4Config() interface{} {
+	if nil == p.Ipv4Config {
+		return nil
+	}
+	return p.Ipv4Config.GetValue()
+}
+
+func (p *VmGcProfileNicConfig) SetIpv4Config(v interface{}) error {
+	if nil == p.Ipv4Config {
+		p.Ipv4Config = NewOneOfVmGcProfileNicConfigIpv4Config()
+	}
+	e := p.Ipv4Config.SetValue(v)
+	if nil == e {
+		if nil == p.Ipv4ConfigItemDiscriminator_ {
+			p.Ipv4ConfigItemDiscriminator_ = new(string)
+		}
+		*p.Ipv4ConfigItemDiscriminator_ = *p.Ipv4Config.Discriminator
+	}
+	return e
+}
+
+/*
+Override specification for individual NIC configuration. This overrides the network settings for a specific NIC from the referenced profile.
+*/
+type VmGcProfileNicConfigOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	DnsConfig *VmGcProfileDnsConfigOverrideSpec `json:"dnsConfig,omitempty"`
+	/*
+
+	 */
+	Ipv4ConfigItemDiscriminator_ *string `json:"$ipv4ConfigItemDiscriminator,omitempty"`
+	/*
+	  Override mechanism for IPv4 configuration. You can either use DHCP, provide a custom IPv4 configuration, or discard the setting from the referenced profile. If DHCP is specified, DhcpEnabled is set to True in the unattend.xml.
+	*/
+	Ipv4Config *OneOfVmGcProfileNicConfigOverrideSpecIpv4Config `json:"ipv4Config"`
+}
+
+func (p *VmGcProfileNicConfigOverrideSpec) MarshalJSON() ([]byte, error) {
+	type VmGcProfileNicConfigOverrideSpecProxy VmGcProfileNicConfigOverrideSpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileNicConfigOverrideSpecProxy
+		Ipv4Config *OneOfVmGcProfileNicConfigOverrideSpecIpv4Config `json:"ipv4Config,omitempty"`
+	}{
+		VmGcProfileNicConfigOverrideSpecProxy: (*VmGcProfileNicConfigOverrideSpecProxy)(p),
+		Ipv4Config:                            p.Ipv4Config,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileNicConfigOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileNicConfigOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileNicConfigOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DnsConfig != nil {
+		p.DnsConfig = known.DnsConfig
+	}
+	if known.Ipv4ConfigItemDiscriminator_ != nil {
+		p.Ipv4ConfigItemDiscriminator_ = known.Ipv4ConfigItemDiscriminator_
+	}
+	if known.Ipv4Config != nil {
+		p.Ipv4Config = known.Ipv4Config
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "dnsConfig")
+	delete(allFields, "$ipv4ConfigItemDiscriminator")
+	delete(allFields, "ipv4Config")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileNicConfigOverrideSpec() *VmGcProfileNicConfigOverrideSpec {
+	p := new(VmGcProfileNicConfigOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileNicConfigOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileNicConfigOverrideSpec) GetIpv4Config() interface{} {
+	if nil == p.Ipv4Config {
+		return nil
+	}
+	return p.Ipv4Config.GetValue()
+}
+
+func (p *VmGcProfileNicConfigOverrideSpec) SetIpv4Config(v interface{}) error {
+	if nil == p.Ipv4Config {
+		p.Ipv4Config = NewOneOfVmGcProfileNicConfigOverrideSpecIpv4Config()
+	}
+	e := p.Ipv4Config.SetValue(v)
+	if nil == e {
+		if nil == p.Ipv4ConfigItemDiscriminator_ {
+			p.Ipv4ConfigItemDiscriminator_ = new(string)
+		}
+		*p.Ipv4ConfigItemDiscriminator_ = *p.Ipv4Config.Discriminator
+	}
+	return e
+}
+
+/*
+Override specification for IPv4 configuration details. This overrides the IPv4 configuration from the referenced profile.
+*/
+type VmGcProfileNicIpv4ConfigOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Override value for default gateways. This overrides the default gateway configuration from the referenced profile.
+	*/
+	DefaultGateways []string `json:"defaultGateways,omitempty"`
+
+	IpAddress *import4.IPv4Address `json:"ipAddress,omitempty"`
+}
+
+func (p *VmGcProfileNicIpv4ConfigOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileNicIpv4ConfigOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileNicIpv4ConfigOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileNicIpv4ConfigOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileNicIpv4ConfigOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DefaultGateways != nil {
+		p.DefaultGateways = known.DefaultGateways
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "defaultGateways")
+	delete(allFields, "ipAddress")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileNicIpv4ConfigOverrideSpec() *VmGcProfileNicIpv4ConfigOverrideSpec {
+	p := new(VmGcProfileNicIpv4ConfigOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileNicIpv4ConfigOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Reference to a VM Guest Customization profile.
+*/
+type VmGcProfileReference struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The external ID (UUID) of the VM Guest Customization profile.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+}
+
+func (p *VmGcProfileReference) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileReference
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileReference() *VmGcProfileReference {
+	p := new(VmGcProfileReference)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileReference"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Name of the organization of the end user.
+*/
+type VmGcProfileRegisteredOrganization struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Registered organization value.
+	*/
+	Value *string `json:"value"`
+}
+
+func (p *VmGcProfileRegisteredOrganization) MarshalJSON() ([]byte, error) {
+	type VmGcProfileRegisteredOrganizationProxy VmGcProfileRegisteredOrganization
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileRegisteredOrganizationProxy
+		Value *string `json:"value,omitempty"`
+	}{
+		VmGcProfileRegisteredOrganizationProxy: (*VmGcProfileRegisteredOrganizationProxy)(p),
+		Value:                                  p.Value,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileRegisteredOrganization) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileRegisteredOrganization
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileRegisteredOrganization()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileRegisteredOrganization() *VmGcProfileRegisteredOrganization {
+	p := new(VmGcProfileRegisteredOrganization)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileRegisteredOrganization"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Full name of the end user. Note that this is the full name in the <Firstname Lastname> format, not only the username.
+*/
+type VmGcProfileRegisteredOwner struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Registered owner value.
+	*/
+	Value *string `json:"value"`
+}
+
+func (p *VmGcProfileRegisteredOwner) MarshalJSON() ([]byte, error) {
+	type VmGcProfileRegisteredOwnerProxy VmGcProfileRegisteredOwner
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileRegisteredOwnerProxy
+		Value *string `json:"value,omitempty"`
+	}{
+		VmGcProfileRegisteredOwnerProxy: (*VmGcProfileRegisteredOwnerProxy)(p),
+		Value:                           p.Value,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileRegisteredOwner) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileRegisteredOwner
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileRegisteredOwner()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileRegisteredOwner() *VmGcProfileRegisteredOwner {
+	p := new(VmGcProfileRegisteredOwner)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileRegisteredOwner"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Configuration of the VM Guest Customization Profile for customization of a Windows guest operating system.
+*/
+type VmGcProfileSysprepConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	CustomizationItemDiscriminator_ *string `json:"$customizationItemDiscriminator,omitempty"`
+	/*
+	  Either specify the values for the parameters or an unattend XML file.
+	*/
+	Customization *OneOfVmGcProfileSysprepConfigCustomization `json:"customization"`
+}
+
+func (p *VmGcProfileSysprepConfig) MarshalJSON() ([]byte, error) {
+	type VmGcProfileSysprepConfigProxy VmGcProfileSysprepConfig
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileSysprepConfigProxy
+		Customization *OneOfVmGcProfileSysprepConfigCustomization `json:"customization,omitempty"`
+	}{
+		VmGcProfileSysprepConfigProxy: (*VmGcProfileSysprepConfigProxy)(p),
+		Customization:                 p.Customization,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileSysprepConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileSysprepConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileSysprepConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CustomizationItemDiscriminator_ != nil {
+		p.CustomizationItemDiscriminator_ = known.CustomizationItemDiscriminator_
+	}
+	if known.Customization != nil {
+		p.Customization = known.Customization
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$customizationItemDiscriminator")
+	delete(allFields, "customization")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileSysprepConfig() *VmGcProfileSysprepConfig {
+	p := new(VmGcProfileSysprepConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileSysprepConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileSysprepConfig) GetCustomization() interface{} {
+	if nil == p.Customization {
+		return nil
+	}
+	return p.Customization.GetValue()
+}
+
+func (p *VmGcProfileSysprepConfig) SetCustomization(v interface{}) error {
+	if nil == p.Customization {
+		p.Customization = NewOneOfVmGcProfileSysprepConfigCustomization()
+	}
+	e := p.Customization.SetValue(v)
+	if nil == e {
+		if nil == p.CustomizationItemDiscriminator_ {
+			p.CustomizationItemDiscriminator_ = new(string)
+		}
+		*p.CustomizationItemDiscriminator_ = *p.Customization.Discriminator
+	}
+	return e
+}
+
+/*
+Sysprep configuration override specification for Windows operating system customization.
+*/
+type VmGcProfileSysprepConfigOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	CustomizationItemDiscriminator_ *string `json:"$customizationItemDiscriminator,omitempty"`
+	/*
+	  Customization override information for the Windows operating system. You can either override specific sysprep parameters or provide a custom unattend.xml file to override the entire configuration.
+	*/
+	Customization *OneOfVmGcProfileSysprepConfigOverrideSpecCustomization `json:"customization"`
+}
+
+func (p *VmGcProfileSysprepConfigOverrideSpec) MarshalJSON() ([]byte, error) {
+	type VmGcProfileSysprepConfigOverrideSpecProxy VmGcProfileSysprepConfigOverrideSpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileSysprepConfigOverrideSpecProxy
+		Customization *OneOfVmGcProfileSysprepConfigOverrideSpecCustomization `json:"customization,omitempty"`
+	}{
+		VmGcProfileSysprepConfigOverrideSpecProxy: (*VmGcProfileSysprepConfigOverrideSpecProxy)(p),
+		Customization: p.Customization,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileSysprepConfigOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileSysprepConfigOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileSysprepConfigOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CustomizationItemDiscriminator_ != nil {
+		p.CustomizationItemDiscriminator_ = known.CustomizationItemDiscriminator_
+	}
+	if known.Customization != nil {
+		p.Customization = known.Customization
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$customizationItemDiscriminator")
+	delete(allFields, "customization")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileSysprepConfigOverrideSpec() *VmGcProfileSysprepConfigOverrideSpec {
+	p := new(VmGcProfileSysprepConfigOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileSysprepConfigOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileSysprepConfigOverrideSpec) GetCustomization() interface{} {
+	if nil == p.Customization {
+		return nil
+	}
+	return p.Customization.GetValue()
+}
+
+func (p *VmGcProfileSysprepConfigOverrideSpec) SetCustomization(v interface{}) error {
+	if nil == p.Customization {
+		p.Customization = NewOneOfVmGcProfileSysprepConfigOverrideSpecCustomization()
+	}
+	e := p.Customization.SetValue(v)
+	if nil == e {
+		if nil == p.CustomizationItemDiscriminator_ {
+			p.CustomizationItemDiscriminator_ = new(string)
+		}
+		*p.CustomizationItemDiscriminator_ = *p.Customization.Discriminator
+	}
+	return e
+}
+
+/*
+A set of various unattended settings supported by Windows. The unattend XML is generated based on the values provided for these elements.
+*/
+type VmGcProfileSysprepParams struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of commands to be executed automatically when a user logs in for the first time after Windows setup. This is an ordered list. The first command in the list is given the order as 1, and so on, in FirstLogonCommands in the generated unattend XML. For more information, refer to Windows unattend installation documentation.
+	*/
+	FirstLogonCommands []string `json:"firstLogonCommands,omitempty"`
+
+	GeneralSettings *VmGcProfileGeneralSettings `json:"generalSettings,omitempty"`
+
+	LocaleSettings *VmGcProfileLocaleSettings `json:"localeSettings,omitempty"`
+
+	NetworkSettings *VmGcProfileNetworkSettings `json:"networkSettings,omitempty"`
+	/*
+
+	 */
+	WorkgroupOrDomainInfoItemDiscriminator_ *string `json:"$workgroupOrDomainInfoItemDiscriminator,omitempty"`
+	/*
+	  JoinWorkgroup or JoinDomain settings of the computer.
+	*/
+	WorkgroupOrDomainInfo *OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo `json:"workgroupOrDomainInfo,omitempty"`
+}
+
+func (p *VmGcProfileSysprepParams) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileSysprepParams
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileSysprepParams) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileSysprepParams
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileSysprepParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.FirstLogonCommands != nil {
+		p.FirstLogonCommands = known.FirstLogonCommands
+	}
+	if known.GeneralSettings != nil {
+		p.GeneralSettings = known.GeneralSettings
+	}
+	if known.LocaleSettings != nil {
+		p.LocaleSettings = known.LocaleSettings
+	}
+	if known.NetworkSettings != nil {
+		p.NetworkSettings = known.NetworkSettings
+	}
+	if known.WorkgroupOrDomainInfoItemDiscriminator_ != nil {
+		p.WorkgroupOrDomainInfoItemDiscriminator_ = known.WorkgroupOrDomainInfoItemDiscriminator_
+	}
+	if known.WorkgroupOrDomainInfo != nil {
+		p.WorkgroupOrDomainInfo = known.WorkgroupOrDomainInfo
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "firstLogonCommands")
+	delete(allFields, "generalSettings")
+	delete(allFields, "localeSettings")
+	delete(allFields, "networkSettings")
+	delete(allFields, "$workgroupOrDomainInfoItemDiscriminator")
+	delete(allFields, "workgroupOrDomainInfo")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileSysprepParams() *VmGcProfileSysprepParams {
+	p := new(VmGcProfileSysprepParams)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileSysprepParams"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileSysprepParams) GetWorkgroupOrDomainInfo() interface{} {
+	if nil == p.WorkgroupOrDomainInfo {
+		return nil
+	}
+	return p.WorkgroupOrDomainInfo.GetValue()
+}
+
+func (p *VmGcProfileSysprepParams) SetWorkgroupOrDomainInfo(v interface{}) error {
+	if nil == p.WorkgroupOrDomainInfo {
+		p.WorkgroupOrDomainInfo = NewOneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo()
+	}
+	e := p.WorkgroupOrDomainInfo.SetValue(v)
+	if nil == e {
+		if nil == p.WorkgroupOrDomainInfoItemDiscriminator_ {
+			p.WorkgroupOrDomainInfoItemDiscriminator_ = new(string)
+		}
+		*p.WorkgroupOrDomainInfoItemDiscriminator_ = *p.WorkgroupOrDomainInfo.Discriminator
+	}
+	return e
+}
+
+/*
+Override specification for sysprep parameters. These settings override the corresponding parameters from the referenced profile. Any parameter not specified inherits from the referenced profile.
+*/
+type VmGcProfileSysprepParamsOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Override for first logon commands. This overrides the first logon commands from the referenced profile. Commands are executed in the order specified. To completely discard the setting from the referenced profile, specify an empty array as the value.
+	*/
+	FirstLogonCommands []string `json:"firstLogonCommands,omitempty"`
+
+	GeneralSettings *VmGcProfileGeneralSettingsOverrideSpec `json:"generalSettings,omitempty"`
+
+	LocaleSettings *VmGcProfileLocaleSettingsOverrideSpec `json:"localeSettings,omitempty"`
+
+	NetworkSettings *VmGcProfileNetworkSettingsOverrideSpec `json:"networkSettings,omitempty"`
+	/*
+
+	 */
+	WorkgroupOrDomainInfoItemDiscriminator_ *string `json:"$workgroupOrDomainInfoItemDiscriminator,omitempty"`
+	/*
+	  Override specification for workgroup or domain information. You can either provide a new workgroup or domain settings or discard the settings from the referenced profile.
+	*/
+	WorkgroupOrDomainInfo *OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo `json:"workgroupOrDomainInfo,omitempty"`
+}
+
+func (p *VmGcProfileSysprepParamsOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileSysprepParamsOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileSysprepParamsOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileSysprepParamsOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileSysprepParamsOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.FirstLogonCommands != nil {
+		p.FirstLogonCommands = known.FirstLogonCommands
+	}
+	if known.GeneralSettings != nil {
+		p.GeneralSettings = known.GeneralSettings
+	}
+	if known.LocaleSettings != nil {
+		p.LocaleSettings = known.LocaleSettings
+	}
+	if known.NetworkSettings != nil {
+		p.NetworkSettings = known.NetworkSettings
+	}
+	if known.WorkgroupOrDomainInfoItemDiscriminator_ != nil {
+		p.WorkgroupOrDomainInfoItemDiscriminator_ = known.WorkgroupOrDomainInfoItemDiscriminator_
+	}
+	if known.WorkgroupOrDomainInfo != nil {
+		p.WorkgroupOrDomainInfo = known.WorkgroupOrDomainInfo
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "firstLogonCommands")
+	delete(allFields, "generalSettings")
+	delete(allFields, "localeSettings")
+	delete(allFields, "networkSettings")
+	delete(allFields, "$workgroupOrDomainInfoItemDiscriminator")
+	delete(allFields, "workgroupOrDomainInfo")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileSysprepParamsOverrideSpec() *VmGcProfileSysprepParamsOverrideSpec {
+	p := new(VmGcProfileSysprepParamsOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileSysprepParamsOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGcProfileSysprepParamsOverrideSpec) GetWorkgroupOrDomainInfo() interface{} {
+	if nil == p.WorkgroupOrDomainInfo {
+		return nil
+	}
+	return p.WorkgroupOrDomainInfo.GetValue()
+}
+
+func (p *VmGcProfileSysprepParamsOverrideSpec) SetWorkgroupOrDomainInfo(v interface{}) error {
+	if nil == p.WorkgroupOrDomainInfo {
+		p.WorkgroupOrDomainInfo = NewOneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo()
+	}
+	e := p.WorkgroupOrDomainInfo.SetValue(v)
+	if nil == e {
+		if nil == p.WorkgroupOrDomainInfoItemDiscriminator_ {
+			p.WorkgroupOrDomainInfoItemDiscriminator_ = new(string)
+		}
+		*p.WorkgroupOrDomainInfoItemDiscriminator_ = *p.WorkgroupOrDomainInfo.Discriminator
+	}
+	return e
+}
+
+/*
+The computer's time zone in string format. For different timezone values, refer to the Windows unattend installation documentation.
+*/
+type VmGcProfileTimezone struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Timezone value.
+	*/
+	Value *string `json:"value"`
+}
+
+func (p *VmGcProfileTimezone) MarshalJSON() ([]byte, error) {
+	type VmGcProfileTimezoneProxy VmGcProfileTimezone
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileTimezoneProxy
+		Value *string `json:"value,omitempty"`
+	}{
+		VmGcProfileTimezoneProxy: (*VmGcProfileTimezoneProxy)(p),
+		Value:                    p.Value,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileTimezone) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileTimezone
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileTimezone()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileTimezone() *VmGcProfileTimezone {
+	p := new(VmGcProfileTimezone)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileTimezone"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+DHCP is enabled for the IPv4 protocol.
+*/
+type VmGcProfileUseDhcp struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+}
+
+func (p *VmGcProfileUseDhcp) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileUseDhcp
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileUseDhcp) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileUseDhcp
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileUseDhcp()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileUseDhcp() *VmGcProfileUseDhcp {
+	p := new(VmGcProfileUseDhcp)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileUseDhcp"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+DHCP is enabled for the IPv4 protocol.
+*/
+type VmGcProfileUseDhcpOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+}
+
+func (p *VmGcProfileUseDhcpOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileUseDhcpOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileUseDhcpOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileUseDhcpOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileUseDhcpOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileUseDhcpOverrideSpec() *VmGcProfileUseDhcpOverrideSpec {
+	p := new(VmGcProfileUseDhcpOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileUseDhcpOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The computer name of the VM should be the same as the VM's name.
+*/
+type VmGcProfileUseVmName struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+}
+
+func (p *VmGcProfileUseVmName) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileUseVmName
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileUseVmName) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileUseVmName
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileUseVmName()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileUseVmName() *VmGcProfileUseVmName {
+	p := new(VmGcProfileUseVmName)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileUseVmName"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The computer name of the VM should be the same as the VM's name.
+*/
+type VmGcProfileUseVmNameOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+}
+
+func (p *VmGcProfileUseVmNameOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGcProfileUseVmNameOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileUseVmNameOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileUseVmNameOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileUseVmNameOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileUseVmNameOverrideSpec() *VmGcProfileUseVmNameOverrideSpec {
+	p := new(VmGcProfileUseVmNameOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileUseVmNameOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+The product key to use to install and activate Windows. Note that entering an invalid product key causes Windows Setup to fail.
+*/
+type VmGcProfileWindowsProductKey struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Windows product key value.
+	*/
+	Value *string `json:"value"`
+}
+
+func (p *VmGcProfileWindowsProductKey) MarshalJSON() ([]byte, error) {
+	type VmGcProfileWindowsProductKeyProxy VmGcProfileWindowsProductKey
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileWindowsProductKeyProxy
+		Value *string `json:"value,omitempty"`
+	}{
+		VmGcProfileWindowsProductKeyProxy: (*VmGcProfileWindowsProductKeyProxy)(p),
+		Value:                             p.Value,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileWindowsProductKey) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileWindowsProductKey
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileWindowsProductKey()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileWindowsProductKey() *VmGcProfileWindowsProductKey {
+	p := new(VmGcProfileWindowsProductKey)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileWindowsProductKey"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Details of the workgroup to apply to the computer during Windows Setup.
+*/
+type VmGcProfileWorkgroup struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Name of workgroup to be applied to the computer when joining the workgroup. It must be a valid NetBIOS name.
+	*/
+	Name *string `json:"name"`
+}
+
+func (p *VmGcProfileWorkgroup) MarshalJSON() ([]byte, error) {
+	type VmGcProfileWorkgroupProxy VmGcProfileWorkgroup
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileWorkgroupProxy
+		Name *string `json:"name,omitempty"`
+	}{
+		VmGcProfileWorkgroupProxy: (*VmGcProfileWorkgroupProxy)(p),
+		Name:                      p.Name,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileWorkgroup) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileWorkgroup
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileWorkgroup()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "name")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileWorkgroup() *VmGcProfileWorkgroup {
+	p := new(VmGcProfileWorkgroup)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileWorkgroup"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Override specification for workgroup settings. This overrides the workgroup configuration from the referenced profile.
+*/
+type VmGcProfileWorkgroupOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Override value for workgroup name. This overrides the workgroup name from the referenced profile. It must be a valid NetBIOS name.
+	*/
+	Name *string `json:"name"`
+}
+
+func (p *VmGcProfileWorkgroupOverrideSpec) MarshalJSON() ([]byte, error) {
+	type VmGcProfileWorkgroupOverrideSpecProxy VmGcProfileWorkgroupOverrideSpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*VmGcProfileWorkgroupOverrideSpecProxy
+		Name *string `json:"name,omitempty"`
+	}{
+		VmGcProfileWorkgroupOverrideSpecProxy: (*VmGcProfileWorkgroupOverrideSpecProxy)(p),
+		Name:                                  p.Name,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGcProfileWorkgroupOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGcProfileWorkgroupOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGcProfileWorkgroupOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "name")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGcProfileWorkgroupOverrideSpec() *VmGcProfileWorkgroupOverrideSpec {
+	p := new(VmGcProfileWorkgroupOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGcProfileWorkgroupOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+VM Guest Customization Profile configuration.
+*/
+type VmGuestCustomizationProfile struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	ConfigItemDiscriminator_ *string `json:"$configItemDiscriminator,omitempty"`
+	/*
+	  Configuration of the VM Guest Customization Profile. A Configuration should be provided for the customization of either Windows or Linux guest operating system.
+	*/
+	Config *OneOfVmGuestCustomizationProfileConfig `json:"config,omitempty"`
+	/*
+	  VM Guest Customization Profile creation time.
+	*/
+	CreateTime *time.Time `json:"createTime,omitempty"`
+
+	CreatedBy *UserReference `json:"createdBy,omitempty"`
+	/*
+	  VM Guest Customization Profile description.
+	*/
+	Description *string `json:"description,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import3.ApiLink `json:"links,omitempty"`
+	/*
+	  Name of the VM Guest Customization Profile.
+	*/
+	Name *string `json:"name,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  VM Guest Customization Profile last updated time.
+	*/
+	UpdateTime *time.Time `json:"updateTime,omitempty"`
+
+	UpdatedBy *UserReference `json:"updatedBy,omitempty"`
+}
+
+func (p *VmGuestCustomizationProfile) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmGuestCustomizationProfile
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmGuestCustomizationProfile) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmGuestCustomizationProfile
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmGuestCustomizationProfile()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ConfigItemDiscriminator_ != nil {
+		p.ConfigItemDiscriminator_ = known.ConfigItemDiscriminator_
+	}
+	if known.Config != nil {
+		p.Config = known.Config
+	}
+	if known.CreateTime != nil {
+		p.CreateTime = known.CreateTime
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UpdateTime != nil {
+		p.UpdateTime = known.UpdateTime
+	}
+	if known.UpdatedBy != nil {
+		p.UpdatedBy = known.UpdatedBy
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$configItemDiscriminator")
+	delete(allFields, "config")
+	delete(allFields, "createTime")
+	delete(allFields, "createdBy")
+	delete(allFields, "description")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "name")
+	delete(allFields, "tenantId")
+	delete(allFields, "updateTime")
+	delete(allFields, "updatedBy")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmGuestCustomizationProfile() *VmGuestCustomizationProfile {
+	p := new(VmGuestCustomizationProfile)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmGuestCustomizationProfile"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *VmGuestCustomizationProfile) GetConfig() interface{} {
+	if nil == p.Config {
+		return nil
+	}
+	return p.Config.GetValue()
+}
+
+func (p *VmGuestCustomizationProfile) SetConfig(v interface{}) error {
+	if nil == p.Config {
+		p.Config = NewOneOfVmGuestCustomizationProfileConfig()
+	}
+	e := p.Config.SetValue(v)
+	if nil == e {
+		if nil == p.ConfigItemDiscriminator_ {
+			p.ConfigItemDiscriminator_ = new(string)
+		}
+		*p.ConfigItemDiscriminator_ = *p.Config.Discriminator
+	}
+	return e
+}
+
+/*
+The status of Guest Customization process on the VM.
+*/
+type VmGuestCustomizationStatus int
+
+const (
+	VMGUESTCUSTOMIZATIONSTATUS_UNKNOWN  VmGuestCustomizationStatus = 0
+	VMGUESTCUSTOMIZATIONSTATUS_REDACTED VmGuestCustomizationStatus = 1
+	VMGUESTCUSTOMIZATIONSTATUS_PENDING  VmGuestCustomizationStatus = 2
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *VmGuestCustomizationStatus) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PENDING",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e VmGuestCustomizationStatus) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PENDING",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *VmGuestCustomizationStatus) index(name string) VmGuestCustomizationStatus {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"PENDING",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return VmGuestCustomizationStatus(idx)
+		}
+	}
+	return VMGUESTCUSTOMIZATIONSTATUS_UNKNOWN
+}
+
+func (e *VmGuestCustomizationStatus) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for VmGuestCustomizationStatus:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *VmGuestCustomizationStatus) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e VmGuestCustomizationStatus) Ref() *VmGuestCustomizationStatus {
+	return &e
 }
 
 /*
@@ -16396,7 +27335,20 @@ func (p *VmMigrateToHostParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmMigrateToHostParams(*known)
+	*p = *NewVmMigrateToHostParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Host != nil {
+		p.Host = known.Host
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16405,7 +27357,9 @@ func (p *VmMigrateToHostParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "host")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16414,7 +27368,7 @@ func NewVmMigrateToHostParams() *VmMigrateToHostParams {
 	p := new(VmMigrateToHostParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmMigrateToHostParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16475,6 +27429,10 @@ type VmRecoveryPoint struct {
 	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+	/*
+	  Indicates the total exclusive usage of this recovery point, which is the total space that could be reclaimed after deleting this recovery point.
+	*/
+	TotalExclusiveUsageBytes *int64 `json:"totalExclusiveUsageBytes,omitempty"`
 
 	Vm *Vm `json:"vm,omitempty"`
 	/*
@@ -16528,7 +27486,68 @@ func (p *VmRecoveryPoint) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRecoveryPoint(*known)
+	*p = *NewVmRecoveryPoint()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ApplicationConsistentPropertiesItemDiscriminator_ != nil {
+		p.ApplicationConsistentPropertiesItemDiscriminator_ = known.ApplicationConsistentPropertiesItemDiscriminator_
+	}
+	if known.ApplicationConsistentProperties != nil {
+		p.ApplicationConsistentProperties = known.ApplicationConsistentProperties
+	}
+	if known.ConsistencyGroupExtId != nil {
+		p.ConsistencyGroupExtId = known.ConsistencyGroupExtId
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.DiskRecoveryPoints != nil {
+		p.DiskRecoveryPoints = known.DiskRecoveryPoints
+	}
+	if known.ExpirationTime != nil {
+		p.ExpirationTime = known.ExpirationTime
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.LocationAgnosticId != nil {
+		p.LocationAgnosticId = known.LocationAgnosticId
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.RecoveryPointType != nil {
+		p.RecoveryPointType = known.RecoveryPointType
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TotalExclusiveUsageBytes != nil {
+		p.TotalExclusiveUsageBytes = known.TotalExclusiveUsageBytes
+	}
+	if known.Vm != nil {
+		p.Vm = known.Vm
+	}
+	if known.VmCategories != nil {
+		p.VmCategories = known.VmCategories
+	}
+	if known.VmExtId != nil {
+		p.VmExtId = known.VmExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16547,12 +27566,15 @@ func (p *VmRecoveryPoint) UnmarshalJSON(b []byte) error {
 	delete(allFields, "recoveryPointType")
 	delete(allFields, "status")
 	delete(allFields, "tenantId")
+	delete(allFields, "totalExclusiveUsageBytes")
 	delete(allFields, "vm")
 	delete(allFields, "vmCategories")
 	delete(allFields, "vmExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16561,7 +27583,7 @@ func NewVmRecoveryPoint() *VmRecoveryPoint {
 	p := new(VmRecoveryPoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRecoveryPoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16623,7 +27645,20 @@ func (p *VmReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmReference(*known)
+	*p = *NewVmReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16632,7 +27667,9 @@ func (p *VmReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16641,8 +27678,201 @@ func NewVmReference() *VmReference {
 	p := new(VmReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Guest NIC information object containing fields that can be overridden for a given VM NIC when restoring a VM.
+*/
+type VmRestoreGuestNicInfoOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of static IP addresses to override for the guest NIC.
+	*/
+	GuestStaticIpList []GuestStaticIpSpec `json:"guestStaticIpList,omitempty"`
+}
+
+func (p *VmRestoreGuestNicInfoOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmRestoreGuestNicInfoOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmRestoreGuestNicInfoOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmRestoreGuestNicInfoOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmRestoreGuestNicInfoOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.GuestStaticIpList != nil {
+		p.GuestStaticIpList = known.GuestStaticIpList
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "guestStaticIpList")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmRestoreGuestNicInfoOverrideSpec() *VmRestoreGuestNicInfoOverrideSpec {
+	p := new(VmRestoreGuestNicInfoOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreGuestNicInfoOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Guest tools parameters to override with. Currently, this is only applicable to VMs with NGT installed.
+*/
+type VmRestoreGuestToolsSpecification struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  If set to true, the VM will be restored with clearing all of the in-guest volume group attachments captured in the VM recovery point. Currently, this is only applicable to VMs with NGT installed.
+	*/
+	ShouldClearInGuestVolumeGroupAttachments *bool `json:"shouldClearInGuestVolumeGroupAttachments,omitempty"`
+}
+
+func (p *VmRestoreGuestToolsSpecification) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmRestoreGuestToolsSpecification
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmRestoreGuestToolsSpecification) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmRestoreGuestToolsSpecification
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmRestoreGuestToolsSpecification()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ShouldClearInGuestVolumeGroupAttachments != nil {
+		p.ShouldClearInGuestVolumeGroupAttachments = known.ShouldClearInGuestVolumeGroupAttachments
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "shouldClearInGuestVolumeGroupAttachments")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmRestoreGuestToolsSpecification() *VmRestoreGuestToolsSpecification {
+	p := new(VmRestoreGuestToolsSpecification)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreGuestToolsSpecification"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.ShouldClearInGuestVolumeGroupAttachments = new(bool)
+	*p.ShouldClearInGuestVolumeGroupAttachments = false
 
 	return p
 }
@@ -16705,7 +27935,23 @@ func (p *VmRestoreIpv4ConfigOverrideSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreIpv4ConfigOverrideSpec(*known)
+	*p = *NewVmRestoreIpv4ConfigOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IpAddress != nil {
+		p.IpAddress = known.IpAddress
+	}
+	if known.SecondaryIpAddressList != nil {
+		p.SecondaryIpAddressList = known.SecondaryIpAddressList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16715,7 +27961,9 @@ func (p *VmRestoreIpv4ConfigOverrideSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "secondaryIpAddressList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16724,7 +27972,7 @@ func NewVmRestoreIpv4ConfigOverrideSpec() *VmRestoreIpv4ConfigOverrideSpec {
 	p := new(VmRestoreIpv4ConfigOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreIpv4ConfigOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16739,6 +27987,8 @@ type VmRestoreNicConfigOverrideParams struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	GuestNicInfo *VmRestoreGuestNicInfoOverrideSpec `json:"guestNicInfo,omitempty"`
 	/*
 
 	 */
@@ -16809,12 +28059,41 @@ func (p *VmRestoreNicConfigOverrideParams) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreNicConfigOverrideParams(*known)
+	*p = *NewVmRestoreNicConfigOverrideParams()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.GuestNicInfo != nil {
+		p.GuestNicInfo = known.GuestNicInfo
+	}
+	if known.NicBackingInfoItemDiscriminator_ != nil {
+		p.NicBackingInfoItemDiscriminator_ = known.NicBackingInfoItemDiscriminator_
+	}
+	if known.NicBackingInfo != nil {
+		p.NicBackingInfo = known.NicBackingInfo
+	}
+	if known.NicExtId != nil {
+		p.NicExtId = known.NicExtId
+	}
+	if known.NicNetworkInfoItemDiscriminator_ != nil {
+		p.NicNetworkInfoItemDiscriminator_ = known.NicNetworkInfoItemDiscriminator_
+	}
+	if known.NicNetworkInfo != nil {
+		p.NicNetworkInfo = known.NicNetworkInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "guestNicInfo")
 	delete(allFields, "$nicBackingInfoItemDiscriminator")
 	delete(allFields, "nicBackingInfo")
 	delete(allFields, "nicExtId")
@@ -16822,7 +28101,9 @@ func (p *VmRestoreNicConfigOverrideParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nicNetworkInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16831,7 +28112,7 @@ func NewVmRestoreNicConfigOverrideParams() *VmRestoreNicConfigOverrideParams {
 	p := new(VmRestoreNicConfigOverrideParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreNicConfigOverrideParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16918,7 +28199,23 @@ func (p *VmRestoreNicConfigSpecification) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreNicConfigSpecification(*known)
+	*p = *NewVmRestoreNicConfigSpecification()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NicOverrideList != nil {
+		p.NicOverrideList = known.NicOverrideList
+	}
+	if known.NicRemoveList != nil {
+		p.NicRemoveList = known.NicRemoveList
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -16928,7 +28225,9 @@ func (p *VmRestoreNicConfigSpecification) UnmarshalJSON(b []byte) error {
 	delete(allFields, "nicRemoveList")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -16937,7 +28236,7 @@ func NewVmRestoreNicConfigSpecification() *VmRestoreNicConfigSpecification {
 	p := new(VmRestoreNicConfigSpecification)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreNicConfigSpecification"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16999,7 +28298,23 @@ func (p *VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec) UnmarshalJSON(b []b
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec(*known)
+	*p = *NewVmRestoreVirtualEthernetNicNetworkInfoOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4Config != nil {
+		p.Ipv4Config = known.Ipv4Config
+	}
+	if known.Subnet != nil {
+		p.Subnet = known.Subnet
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -17009,7 +28324,9 @@ func (p *VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec) UnmarshalJSON(b []b
 	delete(allFields, "subnet")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -17018,7 +28335,7 @@ func NewVmRestoreVirtualEthernetNicNetworkInfoOverrideSpec() *VmRestoreVirtualEt
 	p := new(VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreVirtualEthernetNicNetworkInfoOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17080,7 +28397,20 @@ func (p *VmRestoreVirtualEthernetNicOverrideSpec) UnmarshalJSON(b []byte) error 
 	}
 
 	// Step 3: Assign known fields
-	*p = VmRestoreVirtualEthernetNicOverrideSpec(*known)
+	*p = *NewVmRestoreVirtualEthernetNicOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.MacAddress != nil {
+		p.MacAddress = known.MacAddress
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -17089,7 +28419,9 @@ func (p *VmRestoreVirtualEthernetNicOverrideSpec) UnmarshalJSON(b []byte) error 
 	delete(allFields, "macAddress")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -17098,8 +28430,116 @@ func NewVmRestoreVirtualEthernetNicOverrideSpec() *VmRestoreVirtualEthernetNicOv
 	p := new(VmRestoreVirtualEthernetNicOverrideSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmRestoreVirtualEthernetNicOverrideSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Override specification for the VM configuration when reverting a VM to a specific VM Recovery Point.
+*/
+type VmRevertOverrideSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Indicates whether the VM categories should be reverted to the categories captured in the VM Recovery Point.
+	*/
+	ShouldRevertVmCategories *bool `json:"shouldRevertVmCategories,omitempty"`
+	/*
+	  Indicates whether the VM owner should be reverted to the owner captured as part of the VM Recovery Point.
+	*/
+	ShouldRevertVmOwner *bool `json:"shouldRevertVmOwner,omitempty"`
+}
+
+func (p *VmRevertOverrideSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias VmRevertOverrideSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *VmRevertOverrideSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias VmRevertOverrideSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewVmRevertOverrideSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ShouldRevertVmCategories != nil {
+		p.ShouldRevertVmCategories = known.ShouldRevertVmCategories
+	}
+	if known.ShouldRevertVmOwner != nil {
+		p.ShouldRevertVmOwner = known.ShouldRevertVmOwner
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "shouldRevertVmCategories")
+	delete(allFields, "shouldRevertVmOwner")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewVmRevertOverrideSpec() *VmRevertOverrideSpec {
+	p := new(VmRevertOverrideSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "vmm.v4.ahv.config.VmRevertOverrideSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.ShouldRevertVmCategories = new(bool)
+	*p.ShouldRevertVmCategories = false
+	p.ShouldRevertVmOwner = new(bool)
+	*p.ShouldRevertVmOwner = false
 
 	return p
 }
@@ -17162,7 +28602,23 @@ func (p *VmSourceReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VmSourceReference(*known)
+	*p = *NewVmSourceReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EntityType != nil {
+		p.EntityType = known.EntityType
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -17172,7 +28628,9 @@ func (p *VmSourceReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "extId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -17181,7 +28639,7 @@ func NewVmSourceReference() *VmSourceReference {
 	p := new(VmSourceReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VmSourceReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17326,7 +28784,23 @@ func (p *VolumeDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VolumeDiskRecoveryPointReference(*known)
+	*p = *NewVolumeDiskRecoveryPointReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskRecoveryPointExtId != nil {
+		p.DiskRecoveryPointExtId = known.DiskRecoveryPointExtId
+	}
+	if known.VolumeGroupRecoveryPointExtId != nil {
+		p.VolumeGroupRecoveryPointExtId = known.VolumeGroupRecoveryPointExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -17336,7 +28810,9 @@ func (p *VolumeDiskRecoveryPointReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "volumeGroupRecoveryPointExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -17345,7 +28821,7 @@ func NewVolumeDiskRecoveryPointReference() *VolumeDiskRecoveryPointReference {
 	p := new(VolumeDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VolumeDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17411,7 +28887,23 @@ func (p *VolumeDiskReference) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VolumeDiskReference(*known)
+	*p = *NewVolumeDiskReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DiskExtId != nil {
+		p.DiskExtId = known.DiskExtId
+	}
+	if known.VolumeGroupExtId != nil {
+		p.VolumeGroupExtId = known.VolumeGroupExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -17421,7 +28913,9 @@ func (p *VolumeDiskReference) UnmarshalJSON(b []byte) error {
 	delete(allFields, "volumeGroupExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -17430,7 +28924,7 @@ func NewVolumeDiskReference() *VolumeDiskReference {
 	p := new(VolumeDiskReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VolumeDiskReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17498,7 +28992,26 @@ func (p *VtpmConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VtpmConfig(*known)
+	*p = *NewVtpmConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsVtpmEnabled != nil {
+		p.IsVtpmEnabled = known.IsVtpmEnabled
+	}
+	if known.Version != nil {
+		p.Version = known.Version
+	}
+	if known.VtpmDevice != nil {
+		p.VtpmDevice = known.VtpmDevice
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -17509,7 +29022,9 @@ func (p *VtpmConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vtpmDevice")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -17518,7 +29033,7 @@ func NewVtpmConfig() *VtpmConfig {
 	p := new(VtpmConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VtpmConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17533,6 +29048,8 @@ type VtpmDevice struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	BackingFirmwareDiskStorageInfo *BackingFirmwareDiskStorageInfo `json:"backingFirmwareDiskStorageInfo,omitempty"`
 	/*
 	  A globally unique identifier of a VM disk of type UUID.
 	*/
@@ -17580,16 +29097,35 @@ func (p *VtpmDevice) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = VtpmDevice(*known)
+	*p = *NewVtpmDevice()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BackingFirmwareDiskStorageInfo != nil {
+		p.BackingFirmwareDiskStorageInfo = known.BackingFirmwareDiskStorageInfo
+	}
+	if known.DiskExtId != nil {
+		p.DiskExtId = known.DiskExtId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "backingFirmwareDiskStorageInfo")
 	delete(allFields, "diskExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -17598,7 +29134,7 @@ func NewVtpmDevice() *VtpmDevice {
 	p := new(VtpmDevice)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "vmm.v4.ahv.config.VtpmDevice"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17715,23 +29251,23 @@ func (p *OneOfInstallVmGuestToolsApiResponseData) MarshalJSON() ([]byte, error) 
 	return nil, errors.New("No value to marshal for OneOfInstallVmGuestToolsApiResponseData")
 }
 
-type OneOfCreatePcieDeviceApiResponseData struct {
+type OneOfAddVmCustomAttributesApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *import1.TaskReference `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfCreatePcieDeviceApiResponseData() *OneOfCreatePcieDeviceApiResponseData {
-	p := new(OneOfCreatePcieDeviceApiResponseData)
+func NewOneOfAddVmCustomAttributesApiResponseData() *OneOfAddVmCustomAttributesApiResponseData {
+	p := new(OneOfAddVmCustomAttributesApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCreatePcieDeviceApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfAddVmCustomAttributesApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreatePcieDeviceApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfAddVmCustomAttributesApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.TaskReference:
@@ -17766,7 +29302,7 @@ func (p *OneOfCreatePcieDeviceApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfCreatePcieDeviceApiResponseData) GetValue() interface{} {
+func (p *OneOfAddVmCustomAttributesApiResponseData) GetValue() interface{} {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -17776,7 +29312,7 @@ func (p *OneOfCreatePcieDeviceApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfCreatePcieDeviceApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfAddVmCustomAttributesApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType2001 := new(import1.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
@@ -17813,36 +29349,36 @@ func (p *OneOfCreatePcieDeviceApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreatePcieDeviceApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddVmCustomAttributesApiResponseData"))
 }
 
-func (p *OneOfCreatePcieDeviceApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfAddVmCustomAttributesApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfCreatePcieDeviceApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfAddVmCustomAttributesApiResponseData")
 }
 
-type OneOfCrossClusterMigrateVmApiResponseData struct {
+type OneOfAddVmDiskCustomAttributesApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *import1.TaskReference `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfCrossClusterMigrateVmApiResponseData() *OneOfCrossClusterMigrateVmApiResponseData {
-	p := new(OneOfCrossClusterMigrateVmApiResponseData)
+func NewOneOfAddVmDiskCustomAttributesApiResponseData() *OneOfAddVmDiskCustomAttributesApiResponseData {
+	p := new(OneOfAddVmDiskCustomAttributesApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfCrossClusterMigrateVmApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfAddVmDiskCustomAttributesApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCrossClusterMigrateVmApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfAddVmDiskCustomAttributesApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.TaskReference:
@@ -17877,7 +29413,7 @@ func (p *OneOfCrossClusterMigrateVmApiResponseData) SetValue(v interface{}) erro
 	return nil
 }
 
-func (p *OneOfCrossClusterMigrateVmApiResponseData) GetValue() interface{} {
+func (p *OneOfAddVmDiskCustomAttributesApiResponseData) GetValue() interface{} {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -17887,7 +29423,7 @@ func (p *OneOfCrossClusterMigrateVmApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfCrossClusterMigrateVmApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfAddVmDiskCustomAttributesApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType2001 := new(import1.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
@@ -17924,17 +29460,90 @@ func (p *OneOfCrossClusterMigrateVmApiResponseData) UnmarshalJSON(b []byte) erro
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCrossClusterMigrateVmApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddVmDiskCustomAttributesApiResponseData"))
 }
 
-func (p *OneOfCrossClusterMigrateVmApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfAddVmDiskCustomAttributesApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfCrossClusterMigrateVmApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfAddVmDiskCustomAttributesApiResponseData")
+}
+
+type OneOfVmGcProfileConfigConfigOverrideSpec struct {
+	Discriminator *string                               `json:"-"`
+	ObjectType_   *string                               `json:"-"`
+	oneOfType2003 *VmGcProfileSysprepConfigOverrideSpec `json:"-"`
+}
+
+func NewOneOfVmGcProfileConfigConfigOverrideSpec() *OneOfVmGcProfileConfigConfigOverrideSpec {
+	p := new(OneOfVmGcProfileConfigConfigOverrideSpec)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileConfigConfigOverrideSpec) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileConfigConfigOverrideSpec is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileSysprepConfigOverrideSpec:
+		if nil == p.oneOfType2003 {
+			p.oneOfType2003 = new(VmGcProfileSysprepConfigOverrideSpec)
+		}
+		*p.oneOfType2003 = v.(VmGcProfileSysprepConfigOverrideSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2003.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2003.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileConfigConfigOverrideSpec) GetValue() interface{} {
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2003
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileConfigConfigOverrideSpec) UnmarshalJSON(b []byte) error {
+	vOneOfType2003 := new(VmGcProfileSysprepConfigOverrideSpec)
+	if err := json.Unmarshal(b, vOneOfType2003); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileSysprepConfigOverrideSpec" == *vOneOfType2003.ObjectType_ {
+			if nil == p.oneOfType2003 {
+				p.oneOfType2003 = new(VmGcProfileSysprepConfigOverrideSpec)
+			}
+			*p.oneOfType2003 = *vOneOfType2003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2003.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2003.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileConfigConfigOverrideSpec"))
+}
+
+func (p *OneOfVmGcProfileConfigConfigOverrideSpec) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2003)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileConfigConfigOverrideSpec")
 }
 
 type OneOfCloneVmApiResponseData struct {
@@ -18375,228 +29984,6 @@ func (p *OneOfListSerialPortsApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfListSerialPortsApiResponseData")
 }
 
-type OneOfAssociateCategoriesApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfAssociateCategoriesApiResponseData() *OneOfAssociateCategoriesApiResponseData {
-	p := new(OneOfAssociateCategoriesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAssociateCategoriesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAssociateCategoriesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAssociateCategoriesApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfAssociateCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssociateCategoriesApiResponseData"))
-}
-
-func (p *OneOfAssociateCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfAssociateCategoriesApiResponseData")
-}
-
-type OneOfCloneOverrideParamsBootConfig struct {
-	Discriminator *string     `json:"-"`
-	ObjectType_   *string     `json:"-"`
-	oneOfType2001 *LegacyBoot `json:"-"`
-	oneOfType2002 *UefiBoot   `json:"-"`
-}
-
-func NewOneOfCloneOverrideParamsBootConfig() *OneOfCloneOverrideParamsBootConfig {
-	p := new(OneOfCloneOverrideParamsBootConfig)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCloneOverrideParamsBootConfig) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCloneOverrideParamsBootConfig is nil"))
-	}
-	switch v.(type) {
-	case LegacyBoot:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(LegacyBoot)
-		}
-		*p.oneOfType2001 = v.(LegacyBoot)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case UefiBoot:
-		if nil == p.oneOfType2002 {
-			p.oneOfType2002 = new(UefiBoot)
-		}
-		*p.oneOfType2002 = v.(UefiBoot)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2002.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCloneOverrideParamsBootConfig) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2002
-	}
-	return nil
-}
-
-func (p *OneOfCloneOverrideParamsBootConfig) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(LegacyBoot)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.LegacyBoot" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(LegacyBoot)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2002 := new(UefiBoot)
-	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
-		if "vmm.v4.ahv.config.UefiBoot" == *vOneOfType2002.ObjectType_ {
-			if nil == p.oneOfType2002 {
-				p.oneOfType2002 = new(UefiBoot)
-			}
-			*p.oneOfType2002 = *vOneOfType2002
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2002.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCloneOverrideParamsBootConfig"))
-}
-
-func (p *OneOfCloneOverrideParamsBootConfig) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2002)
-	}
-	return nil, errors.New("No value to marshal for OneOfCloneOverrideParamsBootConfig")
-}
-
 type OneOfUpgradeVmGuestToolsApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -18706,117 +30093,6 @@ func (p *OneOfUpgradeVmGuestToolsApiResponseData) MarshalJSON() ([]byte, error) 
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfUpgradeVmGuestToolsApiResponseData")
-}
-
-type OneOfDeletePcieDeviceApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfDeletePcieDeviceApiResponseData() *OneOfDeletePcieDeviceApiResponseData {
-	p := new(OneOfDeletePcieDeviceApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfDeletePcieDeviceApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeletePcieDeviceApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfDeletePcieDeviceApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfDeletePcieDeviceApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeletePcieDeviceApiResponseData"))
-}
-
-func (p *OneOfDeletePcieDeviceApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeletePcieDeviceApiResponseData")
 }
 
 type OneOfDeleteVmRecoveryPointApiResponseData struct {
@@ -19152,30 +30428,73 @@ func (p *OneOfMigrateNicApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfMigrateNicApiResponseData")
 }
 
-type OneOfPowerCycleVmApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
+type OneOfDataSourceReference struct {
+	Discriminator *string                           `json:"-"`
+	ObjectType_   *string                           `json:"-"`
+	oneOfType2002 *VmDiskReference                  `json:"-"`
+	oneOfType2004 *VmDiskRecoveryPointReference     `json:"-"`
+	oneOfType2005 *VolumeDiskRecoveryPointReference `json:"-"`
+	oneOfType2001 *ImageReference                   `json:"-"`
+	oneOfType2003 *VolumeDiskReference              `json:"-"`
+	oneOfType2006 *ExternalDataSourceDiskReference  `json:"-"`
 }
 
-func NewOneOfPowerCycleVmApiResponseData() *OneOfPowerCycleVmApiResponseData {
-	p := new(OneOfPowerCycleVmApiResponseData)
+func NewOneOfDataSourceReference() *OneOfDataSourceReference {
+	p := new(OneOfDataSourceReference)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfPowerCycleVmApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfDataSourceReference) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfPowerCycleVmApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfDataSourceReference is nil"))
 	}
 	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
+	case VmDiskReference:
+		if nil == p.oneOfType2002 {
+			p.oneOfType2002 = new(VmDiskReference)
 		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
+		*p.oneOfType2002 = v.(VmDiskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2002.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+	case VmDiskRecoveryPointReference:
+		if nil == p.oneOfType2004 {
+			p.oneOfType2004 = new(VmDiskRecoveryPointReference)
+		}
+		*p.oneOfType2004 = v.(VmDiskRecoveryPointReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2004.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2004.ObjectType_
+	case VolumeDiskRecoveryPointReference:
+		if nil == p.oneOfType2005 {
+			p.oneOfType2005 = new(VolumeDiskRecoveryPointReference)
+		}
+		*p.oneOfType2005 = v.(VolumeDiskRecoveryPointReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2005.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+	case ImageReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(ImageReference)
+		}
+		*p.oneOfType2001 = v.(ImageReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
@@ -19184,41 +30503,120 @@ func (p *OneOfPowerCycleVmApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
+	case VolumeDiskReference:
+		if nil == p.oneOfType2003 {
+			p.oneOfType2003 = new(VolumeDiskReference)
 		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
+		*p.oneOfType2003 = v.(VolumeDiskReference)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
+		*p.Discriminator = *p.oneOfType2003.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2003.ObjectType_
+	case ExternalDataSourceDiskReference:
+		if nil == p.oneOfType2006 {
+			p.oneOfType2006 = new(ExternalDataSourceDiskReference)
+		}
+		*p.oneOfType2006 = v.(ExternalDataSourceDiskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2006.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2006.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfPowerCycleVmApiResponseData) GetValue() interface{} {
+func (p *OneOfDataSourceReference) GetValue() interface{} {
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2002
+	}
+	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2004
+	}
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2005
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2003
+	}
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2006
 	}
 	return nil
 }
 
-func (p *OneOfPowerCycleVmApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
+func (p *OneOfDataSourceReference) UnmarshalJSON(b []byte) error {
+	vOneOfType2002 := new(VmDiskReference)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if "vmm.v4.ahv.config.VmDiskReference" == *vOneOfType2002.ObjectType_ {
+			if nil == p.oneOfType2002 {
+				p.oneOfType2002 = new(VmDiskReference)
+			}
+			*p.oneOfType2002 = *vOneOfType2002
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2002.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2004 := new(VmDiskRecoveryPointReference)
+	if err := json.Unmarshal(b, vOneOfType2004); err == nil {
+		if "vmm.v4.ahv.config.VmDiskRecoveryPointReference" == *vOneOfType2004.ObjectType_ {
+			if nil == p.oneOfType2004 {
+				p.oneOfType2004 = new(VmDiskRecoveryPointReference)
+			}
+			*p.oneOfType2004 = *vOneOfType2004
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2004.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2004.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2005 := new(VolumeDiskRecoveryPointReference)
+	if err := json.Unmarshal(b, vOneOfType2005); err == nil {
+		if "vmm.v4.ahv.config.VolumeDiskRecoveryPointReference" == *vOneOfType2005.ObjectType_ {
+			if nil == p.oneOfType2005 {
+				p.oneOfType2005 = new(VolumeDiskRecoveryPointReference)
+			}
+			*p.oneOfType2005 = *vOneOfType2005
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2005.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(ImageReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+		if "vmm.v4.ahv.config.ImageReference" == *vOneOfType2001.ObjectType_ {
 			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
+				p.oneOfType2001 = new(ImageReference)
 			}
 			*p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
@@ -19232,35 +30630,65 @@ func (p *OneOfPowerCycleVmApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
+	vOneOfType2003 := new(VolumeDiskReference)
+	if err := json.Unmarshal(b, vOneOfType2003); err == nil {
+		if "vmm.v4.ahv.config.VolumeDiskReference" == *vOneOfType2003.ObjectType_ {
+			if nil == p.oneOfType2003 {
+				p.oneOfType2003 = new(VolumeDiskReference)
 			}
-			*p.oneOfType400 = *vOneOfType400
+			*p.oneOfType2003 = *vOneOfType2003
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
+			*p.Discriminator = *p.oneOfType2003.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2003.ObjectType_
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPowerCycleVmApiResponseData"))
+	vOneOfType2006 := new(ExternalDataSourceDiskReference)
+	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
+		if "vmm.v4.ahv.config.ExternalDataSourceDiskReference" == *vOneOfType2006.ObjectType_ {
+			if nil == p.oneOfType2006 {
+				p.oneOfType2006 = new(ExternalDataSourceDiskReference)
+			}
+			*p.oneOfType2006 = *vOneOfType2006
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2006.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2006.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDataSourceReference"))
 }
 
-func (p *OneOfPowerCycleVmApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfDataSourceReference) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
+	}
+	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2004)
+	}
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2005)
+	}
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2003)
 	}
-	return nil, errors.New("No value to marshal for OneOfPowerCycleVmApiResponseData")
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2006)
+	}
+	return nil, errors.New("No value to marshal for OneOfDataSourceReference")
 }
 
 type OneOfEjectCdRomApiResponseData struct {
@@ -19372,6 +30800,5129 @@ func (p *OneOfEjectCdRomApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfEjectCdRomApiResponseData")
+}
+
+type OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey struct {
+	Discriminator *string                       `json:"-"`
+	ObjectType_   *string                       `json:"-"`
+	oneOfType2015 *VmGcProfileWindowsProductKey `json:"-"`
+	oneOfType2016 *VmGcProfileDiscardSettings   `json:"-"`
+}
+
+func NewOneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey() *OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey {
+	p := new(OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileWindowsProductKey:
+		if nil == p.oneOfType2015 {
+			p.oneOfType2015 = new(VmGcProfileWindowsProductKey)
+		}
+		*p.oneOfType2015 = v.(VmGcProfileWindowsProductKey)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2015.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2015.ObjectType_
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2016 {
+			p.oneOfType2016 = new(VmGcProfileDiscardSettings)
+		}
+		*p.oneOfType2016 = v.(VmGcProfileDiscardSettings)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2016.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2016.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey) GetValue() interface{} {
+	if p.oneOfType2015 != nil && *p.oneOfType2015.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2015
+	}
+	if p.oneOfType2016 != nil && *p.oneOfType2016.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2016
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey) UnmarshalJSON(b []byte) error {
+	vOneOfType2015 := new(VmGcProfileWindowsProductKey)
+	if err := json.Unmarshal(b, vOneOfType2015); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileWindowsProductKey" == *vOneOfType2015.ObjectType_ {
+			if nil == p.oneOfType2015 {
+				p.oneOfType2015 = new(VmGcProfileWindowsProductKey)
+			}
+			*p.oneOfType2015 = *vOneOfType2015
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2015.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2015.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2016 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2016); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2016.ObjectType_ {
+			if nil == p.oneOfType2016 {
+				p.oneOfType2016 = new(VmGcProfileDiscardSettings)
+			}
+			*p.oneOfType2016 = *vOneOfType2016
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2016.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2016.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey"))
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2015 != nil && *p.oneOfType2015.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2015)
+	}
+	if p.oneOfType2016 != nil && *p.oneOfType2016.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2016)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileGeneralSettingsOverrideSpecWindowsProductKey")
+}
+
+type OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner struct {
+	Discriminator *string                     `json:"-"`
+	ObjectType_   *string                     `json:"-"`
+	oneOfType2018 *VmGcProfileDiscardSettings `json:"-"`
+	oneOfType2017 *VmGcProfileRegisteredOwner `json:"-"`
+}
+
+func NewOneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner() *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner {
+	p := new(OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2018 {
+			p.oneOfType2018 = new(VmGcProfileDiscardSettings)
+		}
+		*p.oneOfType2018 = v.(VmGcProfileDiscardSettings)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2018.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2018.ObjectType_
+	case VmGcProfileRegisteredOwner:
+		if nil == p.oneOfType2017 {
+			p.oneOfType2017 = new(VmGcProfileRegisteredOwner)
+		}
+		*p.oneOfType2017 = v.(VmGcProfileRegisteredOwner)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2017.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2017.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner) GetValue() interface{} {
+	if p.oneOfType2018 != nil && *p.oneOfType2018.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2018
+	}
+	if p.oneOfType2017 != nil && *p.oneOfType2017.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2017
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner) UnmarshalJSON(b []byte) error {
+	vOneOfType2018 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2018); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2018.ObjectType_ {
+			if nil == p.oneOfType2018 {
+				p.oneOfType2018 = new(VmGcProfileDiscardSettings)
+			}
+			*p.oneOfType2018 = *vOneOfType2018
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2018.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2018.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2017 := new(VmGcProfileRegisteredOwner)
+	if err := json.Unmarshal(b, vOneOfType2017); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileRegisteredOwner" == *vOneOfType2017.ObjectType_ {
+			if nil == p.oneOfType2017 {
+				p.oneOfType2017 = new(VmGcProfileRegisteredOwner)
+			}
+			*p.oneOfType2017 = *vOneOfType2017
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2017.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2017.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner"))
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2018 != nil && *p.oneOfType2018.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2018)
+	}
+	if p.oneOfType2017 != nil && *p.oneOfType2017.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2017)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOwner")
+}
+
+type OneOfVmBootConfig struct {
+	Discriminator *string     `json:"-"`
+	ObjectType_   *string     `json:"-"`
+	oneOfType2001 *LegacyBoot `json:"-"`
+	oneOfType2002 *UefiBoot   `json:"-"`
+}
+
+func NewOneOfVmBootConfig() *OneOfVmBootConfig {
+	p := new(OneOfVmBootConfig)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmBootConfig) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmBootConfig is nil"))
+	}
+	switch v.(type) {
+	case LegacyBoot:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(LegacyBoot)
+		}
+		*p.oneOfType2001 = v.(LegacyBoot)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case UefiBoot:
+		if nil == p.oneOfType2002 {
+			p.oneOfType2002 = new(UefiBoot)
+		}
+		*p.oneOfType2002 = v.(UefiBoot)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2002.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmBootConfig) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2002
+	}
+	return nil
+}
+
+func (p *OneOfVmBootConfig) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(LegacyBoot)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.LegacyBoot" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(LegacyBoot)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2002 := new(UefiBoot)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if "vmm.v4.ahv.config.UefiBoot" == *vOneOfType2002.ObjectType_ {
+			if nil == p.oneOfType2002 {
+				p.oneOfType2002 = new(UefiBoot)
+			}
+			*p.oneOfType2002 = *vOneOfType2002
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2002.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmBootConfig"))
+}
+
+func (p *OneOfVmBootConfig) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmBootConfig")
+}
+
+type OneOfVmRecoveryPointApplicationConsistentProperties struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import5.VssProperties `json:"-"`
+}
+
+func NewOneOfVmRecoveryPointApplicationConsistentProperties() *OneOfVmRecoveryPointApplicationConsistentProperties {
+	p := new(OneOfVmRecoveryPointApplicationConsistentProperties)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmRecoveryPointApplicationConsistentProperties) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmRecoveryPointApplicationConsistentProperties is nil"))
+	}
+	switch v.(type) {
+	case import5.VssProperties:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import5.VssProperties)
+		}
+		*p.oneOfType2001 = v.(import5.VssProperties)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmRecoveryPointApplicationConsistentProperties) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfVmRecoveryPointApplicationConsistentProperties) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import5.VssProperties)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "dataprotection.v4.common.VssProperties" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import5.VssProperties)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmRecoveryPointApplicationConsistentProperties"))
+}
+
+func (p *OneOfVmRecoveryPointApplicationConsistentProperties) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmRecoveryPointApplicationConsistentProperties")
+}
+
+type OneOfEnableVmCdRomHydrationApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfEnableVmCdRomHydrationApiResponseData() *OneOfEnableVmCdRomHydrationApiResponseData {
+	p := new(OneOfEnableVmCdRomHydrationApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfEnableVmCdRomHydrationApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfEnableVmCdRomHydrationApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfEnableVmCdRomHydrationApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfEnableVmCdRomHydrationApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfEnableVmCdRomHydrationApiResponseData"))
+}
+
+func (p *OneOfEnableVmCdRomHydrationApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfEnableVmCdRomHydrationApiResponseData")
+}
+
+type OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone struct {
+	Discriminator *string                     `json:"-"`
+	ObjectType_   *string                     `json:"-"`
+	oneOfType2012 *VmGcProfileDiscardSettings `json:"-"`
+	oneOfType2011 *VmGcProfileTimezone        `json:"-"`
+}
+
+func NewOneOfVmGcProfileGeneralSettingsOverrideSpecTimezone() *OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone {
+	p := new(OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2012 {
+			p.oneOfType2012 = new(VmGcProfileDiscardSettings)
+		}
+		*p.oneOfType2012 = v.(VmGcProfileDiscardSettings)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2012.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2012.ObjectType_
+	case VmGcProfileTimezone:
+		if nil == p.oneOfType2011 {
+			p.oneOfType2011 = new(VmGcProfileTimezone)
+		}
+		*p.oneOfType2011 = v.(VmGcProfileTimezone)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2011.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2011.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone) GetValue() interface{} {
+	if p.oneOfType2012 != nil && *p.oneOfType2012.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2012
+	}
+	if p.oneOfType2011 != nil && *p.oneOfType2011.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2011
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone) UnmarshalJSON(b []byte) error {
+	vOneOfType2012 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2012); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2012.ObjectType_ {
+			if nil == p.oneOfType2012 {
+				p.oneOfType2012 = new(VmGcProfileDiscardSettings)
+			}
+			*p.oneOfType2012 = *vOneOfType2012
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2012.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2012.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2011 := new(VmGcProfileTimezone)
+	if err := json.Unmarshal(b, vOneOfType2011); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileTimezone" == *vOneOfType2011.ObjectType_ {
+			if nil == p.oneOfType2011 {
+				p.oneOfType2011 = new(VmGcProfileTimezone)
+			}
+			*p.oneOfType2011 = *vOneOfType2011
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2011.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2011.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone"))
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2012 != nil && *p.oneOfType2012.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2012)
+	}
+	if p.oneOfType2011 != nil && *p.oneOfType2011.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2011)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileGeneralSettingsOverrideSpecTimezone")
+}
+
+type OneOfRemoveVmDiskCustomAttributesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfRemoveVmDiskCustomAttributesApiResponseData() *OneOfRemoveVmDiskCustomAttributesApiResponseData {
+	p := new(OneOfRemoveVmDiskCustomAttributesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRemoveVmDiskCustomAttributesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRemoveVmDiskCustomAttributesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRemoveVmDiskCustomAttributesApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfRemoveVmDiskCustomAttributesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRemoveVmDiskCustomAttributesApiResponseData"))
+}
+
+func (p *OneOfRemoveVmDiskCustomAttributesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfRemoveVmDiskCustomAttributesApiResponseData")
+}
+
+type OneOfCreateDiskApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateDiskApiResponseData() *OneOfCreateDiskApiResponseData {
+	p := new(OneOfCreateDiskApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateDiskApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateDiskApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateDiskApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateDiskApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDiskApiResponseData"))
+}
+
+func (p *OneOfCreateDiskApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateDiskApiResponseData")
+}
+
+type OneOfGetCdRomApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *CdRom                 `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGetCdRomApiResponseData() *OneOfGetCdRomApiResponseData {
+	p := new(OneOfGetCdRomApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetCdRomApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetCdRomApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case CdRom:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(CdRom)
+		}
+		*p.oneOfType2001 = v.(CdRom)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetCdRomApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetCdRomApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(CdRom)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.CdRom" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(CdRom)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCdRomApiResponseData"))
+}
+
+func (p *OneOfGetCdRomApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetCdRomApiResponseData")
+}
+
+type OneOfInsertCdRomApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfInsertCdRomApiResponseData() *OneOfInsertCdRomApiResponseData {
+	p := new(OneOfInsertCdRomApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfInsertCdRomApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfInsertCdRomApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfInsertCdRomApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfInsertCdRomApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfInsertCdRomApiResponseData"))
+}
+
+func (p *OneOfInsertCdRomApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfInsertCdRomApiResponseData")
+}
+
+type OneOfUpdateDiskApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateDiskApiResponseData() *OneOfUpdateDiskApiResponseData {
+	p := new(OneOfUpdateDiskApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateDiskApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateDiskApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateDiskApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateDiskApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateDiskApiResponseData"))
+}
+
+func (p *OneOfUpdateDiskApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateDiskApiResponseData")
+}
+
+type OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale struct {
+	Discriminator *string                           `json:"-"`
+	ObjectType_   *string                           `json:"-"`
+	oneOfType2005 *VmGcProfileDiscardSettings       `json:"-"`
+	oneOfType2004 *VmGcProfileLocaleSettingOverride `json:"-"`
+}
+
+func NewOneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale() *OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale {
+	p := new(OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2005 {
+			p.oneOfType2005 = new(VmGcProfileDiscardSettings)
+		}
+		*p.oneOfType2005 = v.(VmGcProfileDiscardSettings)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2005.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+	case VmGcProfileLocaleSettingOverride:
+		if nil == p.oneOfType2004 {
+			p.oneOfType2004 = new(VmGcProfileLocaleSettingOverride)
+		}
+		*p.oneOfType2004 = v.(VmGcProfileLocaleSettingOverride)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2004.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2004.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale) GetValue() interface{} {
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2005
+	}
+	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2004
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale) UnmarshalJSON(b []byte) error {
+	vOneOfType2005 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2005); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2005.ObjectType_ {
+			if nil == p.oneOfType2005 {
+				p.oneOfType2005 = new(VmGcProfileDiscardSettings)
+			}
+			*p.oneOfType2005 = *vOneOfType2005
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2005.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2004 := new(VmGcProfileLocaleSettingOverride)
+	if err := json.Unmarshal(b, vOneOfType2004); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileLocaleSettingOverride" == *vOneOfType2004.ObjectType_ {
+			if nil == p.oneOfType2004 {
+				p.oneOfType2004 = new(VmGcProfileLocaleSettingOverride)
+			}
+			*p.oneOfType2004 = *vOneOfType2004
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2004.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2004.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale"))
+}
+
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2005)
+	}
+	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2004)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileLocaleSettingsOverrideSpecUserLocale")
+}
+
+type OneOfGetGuestToolsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *GuestTools            `json:"-"`
+}
+
+func NewOneOfGetGuestToolsApiResponseData() *OneOfGetGuestToolsApiResponseData {
+	p := new(OneOfGetGuestToolsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetGuestToolsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetGuestToolsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case GuestTools:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(GuestTools)
+		}
+		*p.oneOfType2001 = v.(GuestTools)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetGuestToolsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetGuestToolsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(GuestTools)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.GuestTools" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(GuestTools)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetGuestToolsApiResponseData"))
+}
+
+func (p *OneOfGetGuestToolsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetGuestToolsApiResponseData")
+}
+
+type OneOfVmGcProfileNicConfigOverrideSpecIpv4Config struct {
+	Discriminator *string                               `json:"-"`
+	ObjectType_   *string                               `json:"-"`
+	oneOfType2005 *VmGcProfileUseDhcpOverrideSpec       `json:"-"`
+	oneOfType2006 *VmGcProfileNicIpv4ConfigOverrideSpec `json:"-"`
+}
+
+func NewOneOfVmGcProfileNicConfigOverrideSpecIpv4Config() *OneOfVmGcProfileNicConfigOverrideSpecIpv4Config {
+	p := new(OneOfVmGcProfileNicConfigOverrideSpecIpv4Config)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileNicConfigOverrideSpecIpv4Config) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileNicConfigOverrideSpecIpv4Config is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileUseDhcpOverrideSpec:
+		if nil == p.oneOfType2005 {
+			p.oneOfType2005 = new(VmGcProfileUseDhcpOverrideSpec)
+		}
+		*p.oneOfType2005 = v.(VmGcProfileUseDhcpOverrideSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2005.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+	case VmGcProfileNicIpv4ConfigOverrideSpec:
+		if nil == p.oneOfType2006 {
+			p.oneOfType2006 = new(VmGcProfileNicIpv4ConfigOverrideSpec)
+		}
+		*p.oneOfType2006 = v.(VmGcProfileNicIpv4ConfigOverrideSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2006.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2006.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileNicConfigOverrideSpecIpv4Config) GetValue() interface{} {
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2005
+	}
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2006
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileNicConfigOverrideSpecIpv4Config) UnmarshalJSON(b []byte) error {
+	vOneOfType2005 := new(VmGcProfileUseDhcpOverrideSpec)
+	if err := json.Unmarshal(b, vOneOfType2005); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileUseDhcpOverrideSpec" == *vOneOfType2005.ObjectType_ {
+			if nil == p.oneOfType2005 {
+				p.oneOfType2005 = new(VmGcProfileUseDhcpOverrideSpec)
+			}
+			*p.oneOfType2005 = *vOneOfType2005
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2005.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2006 := new(VmGcProfileNicIpv4ConfigOverrideSpec)
+	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileNicIpv4ConfigOverrideSpec" == *vOneOfType2006.ObjectType_ {
+			if nil == p.oneOfType2006 {
+				p.oneOfType2006 = new(VmGcProfileNicIpv4ConfigOverrideSpec)
+			}
+			*p.oneOfType2006 = *vOneOfType2006
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2006.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2006.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileNicConfigOverrideSpecIpv4Config"))
+}
+
+func (p *OneOfVmGcProfileNicConfigOverrideSpecIpv4Config) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2005)
+	}
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2006)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileNicConfigOverrideSpecIpv4Config")
+}
+
+type OneOfDisassociateCategoriesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDisassociateCategoriesApiResponseData() *OneOfDisassociateCategoriesApiResponseData {
+	p := new(OneOfDisassociateCategoriesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDisassociateCategoriesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDisassociateCategoriesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDisassociateCategoriesApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDisassociateCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDisassociateCategoriesApiResponseData"))
+}
+
+func (p *OneOfDisassociateCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDisassociateCategoriesApiResponseData")
+}
+
+type OneOfGetPcieDeviceApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *PcieDevice            `json:"-"`
+}
+
+func NewOneOfGetPcieDeviceApiResponseData() *OneOfGetPcieDeviceApiResponseData {
+	p := new(OneOfGetPcieDeviceApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetPcieDeviceApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetPcieDeviceApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case PcieDevice:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(PcieDevice)
+		}
+		*p.oneOfType2001 = v.(PcieDevice)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetPcieDeviceApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetPcieDeviceApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(PcieDevice)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.PcieDevice" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(PcieDevice)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetPcieDeviceApiResponseData"))
+}
+
+func (p *OneOfGetPcieDeviceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetPcieDeviceApiResponseData")
+}
+
+type OneOfGetDiskApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *Disk                  `json:"-"`
+}
+
+func NewOneOfGetDiskApiResponseData() *OneOfGetDiskApiResponseData {
+	p := new(OneOfGetDiskApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetDiskApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetDiskApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Disk:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Disk)
+		}
+		*p.oneOfType2001 = v.(Disk)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetDiskApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetDiskApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(Disk)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.Disk" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Disk)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDiskApiResponseData"))
+}
+
+func (p *OneOfGetDiskApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetDiskApiResponseData")
+}
+
+type OneOfCustomizeGuestVmApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCustomizeGuestVmApiResponseData() *OneOfCustomizeGuestVmApiResponseData {
+	p := new(OneOfCustomizeGuestVmApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCustomizeGuestVmApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCustomizeGuestVmApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCustomizeGuestVmApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCustomizeGuestVmApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCustomizeGuestVmApiResponseData"))
+}
+
+func (p *OneOfCustomizeGuestVmApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCustomizeGuestVmApiResponseData")
+}
+
+type OneOfPowerOnVmApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfPowerOnVmApiResponseData() *OneOfPowerOnVmApiResponseData {
+	p := new(OneOfPowerOnVmApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfPowerOnVmApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfPowerOnVmApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfPowerOnVmApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfPowerOnVmApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPowerOnVmApiResponseData"))
+}
+
+func (p *OneOfPowerOnVmApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfPowerOnVmApiResponseData")
+}
+
+type OneOfGetGpuApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *Gpu                   `json:"-"`
+}
+
+func NewOneOfGetGpuApiResponseData() *OneOfGetGpuApiResponseData {
+	p := new(OneOfGetGpuApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetGpuApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetGpuApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Gpu:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Gpu)
+		}
+		*p.oneOfType2001 = v.(Gpu)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetGpuApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetGpuApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(Gpu)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.Gpu" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Gpu)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetGpuApiResponseData"))
+}
+
+func (p *OneOfGetGpuApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetGpuApiResponseData")
+}
+
+type OneOfMigrateVmDisksApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfMigrateVmDisksApiResponseData() *OneOfMigrateVmDisksApiResponseData {
+	p := new(OneOfMigrateVmDisksApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfMigrateVmDisksApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfMigrateVmDisksApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfMigrateVmDisksApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfMigrateVmDisksApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMigrateVmDisksApiResponseData"))
+}
+
+func (p *OneOfMigrateVmDisksApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfMigrateVmDisksApiResponseData")
+}
+
+type OneOfShutdownVmApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfShutdownVmApiResponseData() *OneOfShutdownVmApiResponseData {
+	p := new(OneOfShutdownVmApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfShutdownVmApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfShutdownVmApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfShutdownVmApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfShutdownVmApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfShutdownVmApiResponseData"))
+}
+
+func (p *OneOfShutdownVmApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfShutdownVmApiResponseData")
+}
+
+type OneOfListGpusApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 []Gpu                  `json:"-"`
+}
+
+func NewOneOfListGpusApiResponseData() *OneOfListGpusApiResponseData {
+	p := new(OneOfListGpusApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListGpusApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListGpusApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Gpu:
+		p.oneOfType2001 = v.([]Gpu)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<vmm.v4.ahv.config.Gpu>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<vmm.v4.ahv.config.Gpu>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListGpusApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<vmm.v4.ahv.config.Gpu>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListGpusApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]Gpu)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "vmm.v4.ahv.config.Gpu" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<vmm.v4.ahv.config.Gpu>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<vmm.v4.ahv.config.Gpu>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListGpusApiResponseData"))
+}
+
+func (p *OneOfListGpusApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<vmm.v4.ahv.config.Gpu>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListGpusApiResponseData")
+}
+
+type OneOfUpdateSerialPortApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateSerialPortApiResponseData() *OneOfUpdateSerialPortApiResponseData {
+	p := new(OneOfUpdateSerialPortApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateSerialPortApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateSerialPortApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSerialPortApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateSerialPortApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSerialPortApiResponseData"))
+}
+
+func (p *OneOfUpdateSerialPortApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateSerialPortApiResponseData")
+}
+
+type OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo struct {
+	Discriminator *string                                  `json:"-"`
+	ObjectType_   *string                                  `json:"-"`
+	oneOfType2051 *VmRestoreVirtualEthernetNicOverrideSpec `json:"-"`
+}
+
+func NewOneOfVmRestoreNicConfigOverrideParamsNicBackingInfo() *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo {
+	p := new(OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo is nil"))
+	}
+	switch v.(type) {
+	case VmRestoreVirtualEthernetNicOverrideSpec:
+		if nil == p.oneOfType2051 {
+			p.oneOfType2051 = new(VmRestoreVirtualEthernetNicOverrideSpec)
+		}
+		*p.oneOfType2051 = v.(VmRestoreVirtualEthernetNicOverrideSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2051.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2051.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo) GetValue() interface{} {
+	if p.oneOfType2051 != nil && *p.oneOfType2051.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2051
+	}
+	return nil
+}
+
+func (p *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo) UnmarshalJSON(b []byte) error {
+	vOneOfType2051 := new(VmRestoreVirtualEthernetNicOverrideSpec)
+	if err := json.Unmarshal(b, vOneOfType2051); err == nil {
+		if "vmm.v4.ahv.config.VmRestoreVirtualEthernetNicOverrideSpec" == *vOneOfType2051.ObjectType_ {
+			if nil == p.oneOfType2051 {
+				p.oneOfType2051 = new(VmRestoreVirtualEthernetNicOverrideSpec)
+			}
+			*p.oneOfType2051 = *vOneOfType2051
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2051.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2051.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo"))
+}
+
+func (p *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2051 != nil && *p.oneOfType2051.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2051)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo")
+}
+
+type OneOfGetVmApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 *Vm                    `json:"-"`
+}
+
+func NewOneOfGetVmApiResponseData() *OneOfGetVmApiResponseData {
+	p := new(OneOfGetVmApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetVmApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetVmApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case Vm:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(Vm)
+		}
+		*p.oneOfType2001 = v.(Vm)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetVmApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetVmApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(Vm)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.Vm" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(Vm)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVmApiResponseData"))
+}
+
+func (p *OneOfGetVmApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetVmApiResponseData")
+}
+
+type OneOfUpdateNicApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfUpdateNicApiResponseData() *OneOfUpdateNicApiResponseData {
+	p := new(OneOfUpdateNicApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUpdateNicApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUpdateNicApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUpdateNicApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUpdateNicApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateNicApiResponseData"))
+}
+
+func (p *OneOfUpdateNicApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUpdateNicApiResponseData")
+}
+
+type OneOfDeleteGpuApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteGpuApiResponseData() *OneOfDeleteGpuApiResponseData {
+	p := new(OneOfDeleteGpuApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteGpuApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteGpuApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteGpuApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteGpuApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteGpuApiResponseData"))
+}
+
+func (p *OneOfDeleteGpuApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteGpuApiResponseData")
+}
+
+type OneOfUefiBootBootDevice struct {
+	Discriminator *string         `json:"-"`
+	ObjectType_   *string         `json:"-"`
+	oneOfType2006 *BootDeviceDisk `json:"-"`
+	oneOfType2007 *BootDeviceNic  `json:"-"`
+}
+
+func NewOneOfUefiBootBootDevice() *OneOfUefiBootBootDevice {
+	p := new(OneOfUefiBootBootDevice)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUefiBootBootDevice) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUefiBootBootDevice is nil"))
+	}
+	switch v.(type) {
+	case BootDeviceDisk:
+		if nil == p.oneOfType2006 {
+			p.oneOfType2006 = new(BootDeviceDisk)
+		}
+		*p.oneOfType2006 = v.(BootDeviceDisk)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2006.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2006.ObjectType_
+	case BootDeviceNic:
+		if nil == p.oneOfType2007 {
+			p.oneOfType2007 = new(BootDeviceNic)
+		}
+		*p.oneOfType2007 = v.(BootDeviceNic)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2007.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2007.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUefiBootBootDevice) GetValue() interface{} {
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2006
+	}
+	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2007
+	}
+	return nil
+}
+
+func (p *OneOfUefiBootBootDevice) UnmarshalJSON(b []byte) error {
+	vOneOfType2006 := new(BootDeviceDisk)
+	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
+		if "vmm.v4.ahv.config.BootDeviceDisk" == *vOneOfType2006.ObjectType_ {
+			if nil == p.oneOfType2006 {
+				p.oneOfType2006 = new(BootDeviceDisk)
+			}
+			*p.oneOfType2006 = *vOneOfType2006
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2006.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2006.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2007 := new(BootDeviceNic)
+	if err := json.Unmarshal(b, vOneOfType2007); err == nil {
+		if "vmm.v4.ahv.config.BootDeviceNic" == *vOneOfType2007.ObjectType_ {
+			if nil == p.oneOfType2007 {
+				p.oneOfType2007 = new(BootDeviceNic)
+			}
+			*p.oneOfType2007 = *vOneOfType2007
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2007.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2007.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUefiBootBootDevice"))
+}
+
+func (p *OneOfUefiBootBootDevice) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2006)
+	}
+	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2007)
+	}
+	return nil, errors.New("No value to marshal for OneOfUefiBootBootDevice")
+}
+
+type OneOfListVmsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 []Vm                   `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfListVmsApiResponseData() *OneOfListVmsApiResponseData {
+	p := new(OneOfListVmsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListVmsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListVmsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Vm:
+		p.oneOfType2001 = v.([]Vm)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<vmm.v4.ahv.config.Vm>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<vmm.v4.ahv.config.Vm>"
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListVmsApiResponseData) GetValue() interface{} {
+	if "List<vmm.v4.ahv.config.Vm>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListVmsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new([]Vm)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "vmm.v4.ahv.config.Vm" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<vmm.v4.ahv.config.Vm>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<vmm.v4.ahv.config.Vm>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVmsApiResponseData"))
+}
+
+func (p *OneOfListVmsApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<vmm.v4.ahv.config.Vm>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVmsApiResponseData")
+}
+
+type OneOfDeleteVmGuestCustomizationProfileApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeleteVmGuestCustomizationProfileApiResponseData() *OneOfDeleteVmGuestCustomizationProfileApiResponseData {
+	p := new(OneOfDeleteVmGuestCustomizationProfileApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeleteVmGuestCustomizationProfileApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeleteVmGuestCustomizationProfileApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeleteVmGuestCustomizationProfileApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeleteVmGuestCustomizationProfileApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteVmGuestCustomizationProfileApiResponseData"))
+}
+
+func (p *OneOfDeleteVmGuestCustomizationProfileApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeleteVmGuestCustomizationProfileApiResponseData")
+}
+
+type OneOfPcieDeviceBackingInfo struct {
+	Discriminator *string              `json:"-"`
+	ObjectType_   *string              `json:"-"`
+	oneOfType2001 *PcieDeviceReference `json:"-"`
+}
+
+func NewOneOfPcieDeviceBackingInfo() *OneOfPcieDeviceBackingInfo {
+	p := new(OneOfPcieDeviceBackingInfo)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfPcieDeviceBackingInfo) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfPcieDeviceBackingInfo is nil"))
+	}
+	switch v.(type) {
+	case PcieDeviceReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(PcieDeviceReference)
+		}
+		*p.oneOfType2001 = v.(PcieDeviceReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfPcieDeviceBackingInfo) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfPcieDeviceBackingInfo) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(PcieDeviceReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.PcieDeviceReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(PcieDeviceReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPcieDeviceBackingInfo"))
+}
+
+func (p *OneOfPcieDeviceBackingInfo) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfPcieDeviceBackingInfo")
+}
+
+type OneOfRemoveVmCustomAttributesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfRemoveVmCustomAttributesApiResponseData() *OneOfRemoveVmCustomAttributesApiResponseData {
+	p := new(OneOfRemoveVmCustomAttributesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfRemoveVmCustomAttributesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfRemoveVmCustomAttributesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfRemoveVmCustomAttributesApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfRemoveVmCustomAttributesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfRemoveVmCustomAttributesApiResponseData"))
+}
+
+func (p *OneOfRemoveVmCustomAttributesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfRemoveVmCustomAttributesApiResponseData")
+}
+
+type OneOfDisableVmDiskHydrationApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDisableVmDiskHydrationApiResponseData() *OneOfDisableVmDiskHydrationApiResponseData {
+	p := new(OneOfDisableVmDiskHydrationApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDisableVmDiskHydrationApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDisableVmDiskHydrationApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDisableVmDiskHydrationApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDisableVmDiskHydrationApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDisableVmDiskHydrationApiResponseData"))
+}
+
+func (p *OneOfDisableVmDiskHydrationApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDisableVmDiskHydrationApiResponseData")
+}
+
+type OneOfVmGcProfileGeneralSettingsComputerName struct {
+	Discriminator *string                                 `json:"-"`
+	ObjectType_   *string                                 `json:"-"`
+	oneOfType2009 *VmGcProfileMustProvideDuringDeployment `json:"-"`
+	oneOfType2008 *VmGcProfileUseVmName                   `json:"-"`
+}
+
+func NewOneOfVmGcProfileGeneralSettingsComputerName() *OneOfVmGcProfileGeneralSettingsComputerName {
+	p := new(OneOfVmGcProfileGeneralSettingsComputerName)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsComputerName) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileGeneralSettingsComputerName is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileMustProvideDuringDeployment:
+		if nil == p.oneOfType2009 {
+			p.oneOfType2009 = new(VmGcProfileMustProvideDuringDeployment)
+		}
+		*p.oneOfType2009 = v.(VmGcProfileMustProvideDuringDeployment)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2009.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2009.ObjectType_
+	case VmGcProfileUseVmName:
+		if nil == p.oneOfType2008 {
+			p.oneOfType2008 = new(VmGcProfileUseVmName)
+		}
+		*p.oneOfType2008 = v.(VmGcProfileUseVmName)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2008.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2008.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsComputerName) GetValue() interface{} {
+	if p.oneOfType2009 != nil && *p.oneOfType2009.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2009
+	}
+	if p.oneOfType2008 != nil && *p.oneOfType2008.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2008
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsComputerName) UnmarshalJSON(b []byte) error {
+	vOneOfType2009 := new(VmGcProfileMustProvideDuringDeployment)
+	if err := json.Unmarshal(b, vOneOfType2009); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileMustProvideDuringDeployment" == *vOneOfType2009.ObjectType_ {
+			if nil == p.oneOfType2009 {
+				p.oneOfType2009 = new(VmGcProfileMustProvideDuringDeployment)
+			}
+			*p.oneOfType2009 = *vOneOfType2009
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2009.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2009.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2008 := new(VmGcProfileUseVmName)
+	if err := json.Unmarshal(b, vOneOfType2008); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileUseVmName" == *vOneOfType2008.ObjectType_ {
+			if nil == p.oneOfType2008 {
+				p.oneOfType2008 = new(VmGcProfileUseVmName)
+			}
+			*p.oneOfType2008 = *vOneOfType2008
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2008.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2008.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileGeneralSettingsComputerName"))
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsComputerName) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2009 != nil && *p.oneOfType2009.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2009)
+	}
+	if p.oneOfType2008 != nil && *p.oneOfType2008.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2008)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileGeneralSettingsComputerName")
+}
+
+type OneOfCreateSerialPortApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreateSerialPortApiResponseData() *OneOfCreateSerialPortApiResponseData {
+	p := new(OneOfCreateSerialPortApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreateSerialPortApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreateSerialPortApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreateSerialPortApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreateSerialPortApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateSerialPortApiResponseData"))
+}
+
+func (p *OneOfCreateSerialPortApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreateSerialPortApiResponseData")
+}
+
+type OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName struct {
+	Discriminator *string                           `json:"-"`
+	ObjectType_   *string                           `json:"-"`
+	oneOfType2008 *VmGcProfileComputerName          `json:"-"`
+	oneOfType2010 *VmGcProfileDiscardSettings       `json:"-"`
+	oneOfType2009 *VmGcProfileUseVmNameOverrideSpec `json:"-"`
+}
+
+func NewOneOfVmGcProfileGeneralSettingsOverrideSpecComputerName() *OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName {
+	p := new(OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileComputerName:
+		if nil == p.oneOfType2008 {
+			p.oneOfType2008 = new(VmGcProfileComputerName)
+		}
+		*p.oneOfType2008 = v.(VmGcProfileComputerName)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2008.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2008.ObjectType_
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2010 {
+			p.oneOfType2010 = new(VmGcProfileDiscardSettings)
+		}
+		*p.oneOfType2010 = v.(VmGcProfileDiscardSettings)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2010.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2010.ObjectType_
+	case VmGcProfileUseVmNameOverrideSpec:
+		if nil == p.oneOfType2009 {
+			p.oneOfType2009 = new(VmGcProfileUseVmNameOverrideSpec)
+		}
+		*p.oneOfType2009 = v.(VmGcProfileUseVmNameOverrideSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2009.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2009.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName) GetValue() interface{} {
+	if p.oneOfType2008 != nil && *p.oneOfType2008.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2008
+	}
+	if p.oneOfType2010 != nil && *p.oneOfType2010.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2010
+	}
+	if p.oneOfType2009 != nil && *p.oneOfType2009.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2009
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName) UnmarshalJSON(b []byte) error {
+	vOneOfType2008 := new(VmGcProfileComputerName)
+	if err := json.Unmarshal(b, vOneOfType2008); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileComputerName" == *vOneOfType2008.ObjectType_ {
+			if nil == p.oneOfType2008 {
+				p.oneOfType2008 = new(VmGcProfileComputerName)
+			}
+			*p.oneOfType2008 = *vOneOfType2008
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2008.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2008.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2010 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2010); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2010.ObjectType_ {
+			if nil == p.oneOfType2010 {
+				p.oneOfType2010 = new(VmGcProfileDiscardSettings)
+			}
+			*p.oneOfType2010 = *vOneOfType2010
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2010.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2010.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2009 := new(VmGcProfileUseVmNameOverrideSpec)
+	if err := json.Unmarshal(b, vOneOfType2009); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileUseVmNameOverrideSpec" == *vOneOfType2009.ObjectType_ {
+			if nil == p.oneOfType2009 {
+				p.oneOfType2009 = new(VmGcProfileUseVmNameOverrideSpec)
+			}
+			*p.oneOfType2009 = *vOneOfType2009
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2009.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2009.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName"))
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2008 != nil && *p.oneOfType2008.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2008)
+	}
+	if p.oneOfType2010 != nil && *p.oneOfType2010.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2010)
+	}
+	if p.oneOfType2009 != nil && *p.oneOfType2009.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2009)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileGeneralSettingsOverrideSpecComputerName")
+}
+
+type OneOfGenerateConsoleTokenApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfGenerateConsoleTokenApiResponseData() *OneOfGenerateConsoleTokenApiResponseData {
+	p := new(OneOfGenerateConsoleTokenApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGenerateConsoleTokenApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGenerateConsoleTokenApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGenerateConsoleTokenApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGenerateConsoleTokenApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGenerateConsoleTokenApiResponseData"))
+}
+
+func (p *OneOfGenerateConsoleTokenApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGenerateConsoleTokenApiResponseData")
+}
+
+type OneOfListCdRomsApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+	oneOfType2001 []CdRom                `json:"-"`
+}
+
+func NewOneOfListCdRomsApiResponseData() *OneOfListCdRomsApiResponseData {
+	p := new(OneOfListCdRomsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListCdRomsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListCdRomsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []CdRom:
+		p.oneOfType2001 = v.([]CdRom)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<vmm.v4.ahv.config.CdRom>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<vmm.v4.ahv.config.CdRom>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListCdRomsApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<vmm.v4.ahv.config.CdRom>" == *p.Discriminator {
+		return p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfListCdRomsApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new([]CdRom)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if len(*vOneOfType2001) == 0 || "vmm.v4.ahv.config.CdRom" == *((*vOneOfType2001)[0].ObjectType_) {
+			p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<vmm.v4.ahv.config.CdRom>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<vmm.v4.ahv.config.CdRom>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListCdRomsApiResponseData"))
+}
+
+func (p *OneOfListCdRomsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<vmm.v4.ahv.config.CdRom>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListCdRomsApiResponseData")
+}
+
+type OneOfVmGcProfileSysprepConfigOverrideSpecCustomization struct {
+	Discriminator *string                               `json:"-"`
+	ObjectType_   *string                               `json:"-"`
+	oneOfType2003 *VmGcProfileAnswerFileOverrideSpec    `json:"-"`
+	oneOfType2002 *VmGcProfileSysprepParamsOverrideSpec `json:"-"`
+}
+
+func NewOneOfVmGcProfileSysprepConfigOverrideSpecCustomization() *OneOfVmGcProfileSysprepConfigOverrideSpecCustomization {
+	p := new(OneOfVmGcProfileSysprepConfigOverrideSpecCustomization)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileSysprepConfigOverrideSpecCustomization) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileSysprepConfigOverrideSpecCustomization is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileAnswerFileOverrideSpec:
+		if nil == p.oneOfType2003 {
+			p.oneOfType2003 = new(VmGcProfileAnswerFileOverrideSpec)
+		}
+		*p.oneOfType2003 = v.(VmGcProfileAnswerFileOverrideSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2003.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2003.ObjectType_
+	case VmGcProfileSysprepParamsOverrideSpec:
+		if nil == p.oneOfType2002 {
+			p.oneOfType2002 = new(VmGcProfileSysprepParamsOverrideSpec)
+		}
+		*p.oneOfType2002 = v.(VmGcProfileSysprepParamsOverrideSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2002.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileSysprepConfigOverrideSpecCustomization) GetValue() interface{} {
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2003
+	}
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2002
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileSysprepConfigOverrideSpecCustomization) UnmarshalJSON(b []byte) error {
+	vOneOfType2003 := new(VmGcProfileAnswerFileOverrideSpec)
+	if err := json.Unmarshal(b, vOneOfType2003); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileAnswerFileOverrideSpec" == *vOneOfType2003.ObjectType_ {
+			if nil == p.oneOfType2003 {
+				p.oneOfType2003 = new(VmGcProfileAnswerFileOverrideSpec)
+			}
+			*p.oneOfType2003 = *vOneOfType2003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2003.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2003.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2002 := new(VmGcProfileSysprepParamsOverrideSpec)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileSysprepParamsOverrideSpec" == *vOneOfType2002.ObjectType_ {
+			if nil == p.oneOfType2002 {
+				p.oneOfType2002 = new(VmGcProfileSysprepParamsOverrideSpec)
+			}
+			*p.oneOfType2002 = *vOneOfType2002
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2002.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileSysprepConfigOverrideSpecCustomization"))
+}
+
+func (p *OneOfVmGcProfileSysprepConfigOverrideSpecCustomization) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2003)
+	}
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileSysprepConfigOverrideSpecCustomization")
+}
+
+type OneOfCreatePcieDeviceApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCreatePcieDeviceApiResponseData() *OneOfCreatePcieDeviceApiResponseData {
+	p := new(OneOfCreatePcieDeviceApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCreatePcieDeviceApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCreatePcieDeviceApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCreatePcieDeviceApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCreatePcieDeviceApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreatePcieDeviceApiResponseData"))
+}
+
+func (p *OneOfCreatePcieDeviceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCreatePcieDeviceApiResponseData")
+}
+
+type OneOfCrossClusterMigrateVmApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfCrossClusterMigrateVmApiResponseData() *OneOfCrossClusterMigrateVmApiResponseData {
+	p := new(OneOfCrossClusterMigrateVmApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCrossClusterMigrateVmApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCrossClusterMigrateVmApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCrossClusterMigrateVmApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfCrossClusterMigrateVmApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCrossClusterMigrateVmApiResponseData"))
+}
+
+func (p *OneOfCrossClusterMigrateVmApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfCrossClusterMigrateVmApiResponseData")
+}
+
+type OneOfGetVmGuestCustomizationProfileApiResponseData struct {
+	Discriminator *string                      `json:"-"`
+	ObjectType_   *string                      `json:"-"`
+	oneOfType400  *import2.ErrorResponse       `json:"-"`
+	oneOfType2001 *VmGuestCustomizationProfile `json:"-"`
+}
+
+func NewOneOfGetVmGuestCustomizationProfileApiResponseData() *OneOfGetVmGuestCustomizationProfileApiResponseData {
+	p := new(OneOfGetVmGuestCustomizationProfileApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetVmGuestCustomizationProfileApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetVmGuestCustomizationProfileApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case VmGuestCustomizationProfile:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(VmGuestCustomizationProfile)
+		}
+		*p.oneOfType2001 = v.(VmGuestCustomizationProfile)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetVmGuestCustomizationProfileApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	return nil
+}
+
+func (p *OneOfGetVmGuestCustomizationProfileApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2001 := new(VmGuestCustomizationProfile)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.VmGuestCustomizationProfile" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(VmGuestCustomizationProfile)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVmGuestCustomizationProfileApiResponseData"))
+}
+
+func (p *OneOfGetVmGuestCustomizationProfileApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetVmGuestCustomizationProfileApiResponseData")
+}
+
+type OneOfAssociateCategoriesApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfAssociateCategoriesApiResponseData() *OneOfAssociateCategoriesApiResponseData {
+	p := new(OneOfAssociateCategoriesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfAssociateCategoriesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfAssociateCategoriesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfAssociateCategoriesApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfAssociateCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssociateCategoriesApiResponseData"))
+}
+
+func (p *OneOfAssociateCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfAssociateCategoriesApiResponseData")
+}
+
+type OneOfCloneOverrideParamsBootConfig struct {
+	Discriminator *string     `json:"-"`
+	ObjectType_   *string     `json:"-"`
+	oneOfType2001 *LegacyBoot `json:"-"`
+	oneOfType2002 *UefiBoot   `json:"-"`
+}
+
+func NewOneOfCloneOverrideParamsBootConfig() *OneOfCloneOverrideParamsBootConfig {
+	p := new(OneOfCloneOverrideParamsBootConfig)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfCloneOverrideParamsBootConfig) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfCloneOverrideParamsBootConfig is nil"))
+	}
+	switch v.(type) {
+	case LegacyBoot:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(LegacyBoot)
+		}
+		*p.oneOfType2001 = v.(LegacyBoot)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case UefiBoot:
+		if nil == p.oneOfType2002 {
+			p.oneOfType2002 = new(UefiBoot)
+		}
+		*p.oneOfType2002 = v.(UefiBoot)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2002.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfCloneOverrideParamsBootConfig) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2002
+	}
+	return nil
+}
+
+func (p *OneOfCloneOverrideParamsBootConfig) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(LegacyBoot)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "vmm.v4.ahv.config.LegacyBoot" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(LegacyBoot)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2002 := new(UefiBoot)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if "vmm.v4.ahv.config.UefiBoot" == *vOneOfType2002.ObjectType_ {
+			if nil == p.oneOfType2002 {
+				p.oneOfType2002 = new(UefiBoot)
+			}
+			*p.oneOfType2002 = *vOneOfType2002
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2002.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCloneOverrideParamsBootConfig"))
+}
+
+func (p *OneOfCloneOverrideParamsBootConfig) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
+	}
+	return nil, errors.New("No value to marshal for OneOfCloneOverrideParamsBootConfig")
+}
+
+type OneOfDeletePcieDeviceApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDeletePcieDeviceApiResponseData() *OneOfDeletePcieDeviceApiResponseData {
+	p := new(OneOfDeletePcieDeviceApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDeletePcieDeviceApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDeletePcieDeviceApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDeletePcieDeviceApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDeletePcieDeviceApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeletePcieDeviceApiResponseData"))
+}
+
+func (p *OneOfDeletePcieDeviceApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDeletePcieDeviceApiResponseData")
+}
+
+type OneOfPowerCycleVmApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfPowerCycleVmApiResponseData() *OneOfPowerCycleVmApiResponseData {
+	p := new(OneOfPowerCycleVmApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfPowerCycleVmApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfPowerCycleVmApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfPowerCycleVmApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfPowerCycleVmApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPowerCycleVmApiResponseData"))
+}
+
+func (p *OneOfPowerCycleVmApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfPowerCycleVmApiResponseData")
 }
 
 type OneOfGetSerialPortApiResponseData struct {
@@ -19695,413 +36246,115 @@ func (p *OneOfListVmRecoveryPointsApiResponseData) MarshalJSON() ([]byte, error)
 	return nil, errors.New("No value to marshal for OneOfListVmRecoveryPointsApiResponseData")
 }
 
-type OneOfVmBootConfig struct {
-	Discriminator *string     `json:"-"`
-	ObjectType_   *string     `json:"-"`
-	oneOfType2001 *LegacyBoot `json:"-"`
-	oneOfType2002 *UefiBoot   `json:"-"`
-}
-
-func NewOneOfVmBootConfig() *OneOfVmBootConfig {
-	p := new(OneOfVmBootConfig)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfVmBootConfig) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVmBootConfig is nil"))
-	}
-	switch v.(type) {
-	case LegacyBoot:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(LegacyBoot)
-		}
-		*p.oneOfType2001 = v.(LegacyBoot)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case UefiBoot:
-		if nil == p.oneOfType2002 {
-			p.oneOfType2002 = new(UefiBoot)
-		}
-		*p.oneOfType2002 = v.(UefiBoot)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2002.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfVmBootConfig) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2002
-	}
-	return nil
-}
-
-func (p *OneOfVmBootConfig) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(LegacyBoot)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.LegacyBoot" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(LegacyBoot)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2002 := new(UefiBoot)
-	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
-		if "vmm.v4.ahv.config.UefiBoot" == *vOneOfType2002.ObjectType_ {
-			if nil == p.oneOfType2002 {
-				p.oneOfType2002 = new(UefiBoot)
-			}
-			*p.oneOfType2002 = *vOneOfType2002
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2002.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmBootConfig"))
-}
-
-func (p *OneOfVmBootConfig) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2002)
-	}
-	return nil, errors.New("No value to marshal for OneOfVmBootConfig")
-}
-
-type OneOfVmRecoveryPointApplicationConsistentProperties struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import5.VssProperties `json:"-"`
-}
-
-func NewOneOfVmRecoveryPointApplicationConsistentProperties() *OneOfVmRecoveryPointApplicationConsistentProperties {
-	p := new(OneOfVmRecoveryPointApplicationConsistentProperties)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfVmRecoveryPointApplicationConsistentProperties) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVmRecoveryPointApplicationConsistentProperties is nil"))
-	}
-	switch v.(type) {
-	case import5.VssProperties:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import5.VssProperties)
-		}
-		*p.oneOfType2001 = v.(import5.VssProperties)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfVmRecoveryPointApplicationConsistentProperties) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfVmRecoveryPointApplicationConsistentProperties) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import5.VssProperties)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "dataprotection.v4.common.VssProperties" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import5.VssProperties)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmRecoveryPointApplicationConsistentProperties"))
-}
-
-func (p *OneOfVmRecoveryPointApplicationConsistentProperties) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfVmRecoveryPointApplicationConsistentProperties")
-}
-
-type OneOfDataSourceReference struct {
+type OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale struct {
 	Discriminator *string                           `json:"-"`
 	ObjectType_   *string                           `json:"-"`
-	oneOfType2002 *VmDiskReference                  `json:"-"`
-	oneOfType2004 *VmDiskRecoveryPointReference     `json:"-"`
-	oneOfType2005 *VolumeDiskRecoveryPointReference `json:"-"`
-	oneOfType2001 *ImageReference                   `json:"-"`
-	oneOfType2003 *VolumeDiskReference              `json:"-"`
+	oneOfType2007 *VmGcProfileDiscardSettings       `json:"-"`
+	oneOfType2006 *VmGcProfileLocaleSettingOverride `json:"-"`
 }
 
-func NewOneOfDataSourceReference() *OneOfDataSourceReference {
-	p := new(OneOfDataSourceReference)
+func NewOneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale() *OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale {
+	p := new(OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDataSourceReference) SetValue(v interface{}) error {
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDataSourceReference is nil"))
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale is nil"))
 	}
 	switch v.(type) {
-	case VmDiskReference:
-		if nil == p.oneOfType2002 {
-			p.oneOfType2002 = new(VmDiskReference)
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2007 {
+			p.oneOfType2007 = new(VmGcProfileDiscardSettings)
 		}
-		*p.oneOfType2002 = v.(VmDiskReference)
+		*p.oneOfType2007 = v.(VmGcProfileDiscardSettings)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType2002.ObjectType_
+		*p.Discriminator = *p.oneOfType2007.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
-	case VmDiskRecoveryPointReference:
-		if nil == p.oneOfType2004 {
-			p.oneOfType2004 = new(VmDiskRecoveryPointReference)
+		*p.ObjectType_ = *p.oneOfType2007.ObjectType_
+	case VmGcProfileLocaleSettingOverride:
+		if nil == p.oneOfType2006 {
+			p.oneOfType2006 = new(VmGcProfileLocaleSettingOverride)
 		}
-		*p.oneOfType2004 = v.(VmDiskRecoveryPointReference)
+		*p.oneOfType2006 = v.(VmGcProfileLocaleSettingOverride)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType2004.ObjectType_
+		*p.Discriminator = *p.oneOfType2006.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType2004.ObjectType_
-	case VolumeDiskRecoveryPointReference:
-		if nil == p.oneOfType2005 {
-			p.oneOfType2005 = new(VolumeDiskRecoveryPointReference)
-		}
-		*p.oneOfType2005 = v.(VolumeDiskRecoveryPointReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2005.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2005.ObjectType_
-	case ImageReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(ImageReference)
-		}
-		*p.oneOfType2001 = v.(ImageReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case VolumeDiskReference:
-		if nil == p.oneOfType2003 {
-			p.oneOfType2003 = new(VolumeDiskReference)
-		}
-		*p.oneOfType2003 = v.(VolumeDiskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2003.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2003.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2006.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfDataSourceReference) GetValue() interface{} {
-	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2002
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale) GetValue() interface{} {
+	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2007
 	}
-	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2004
-	}
-	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2005
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2003
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2006
 	}
 	return nil
 }
 
-func (p *OneOfDataSourceReference) UnmarshalJSON(b []byte) error {
-	vOneOfType2002 := new(VmDiskReference)
-	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
-		if "vmm.v4.ahv.config.VmDiskReference" == *vOneOfType2002.ObjectType_ {
-			if nil == p.oneOfType2002 {
-				p.oneOfType2002 = new(VmDiskReference)
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale) UnmarshalJSON(b []byte) error {
+	vOneOfType2007 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2007); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2007.ObjectType_ {
+			if nil == p.oneOfType2007 {
+				p.oneOfType2007 = new(VmGcProfileDiscardSettings)
 			}
-			*p.oneOfType2002 = *vOneOfType2002
+			*p.oneOfType2007 = *vOneOfType2007
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType2002.ObjectType_
+			*p.Discriminator = *p.oneOfType2007.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2007.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType2004 := new(VmDiskRecoveryPointReference)
-	if err := json.Unmarshal(b, vOneOfType2004); err == nil {
-		if "vmm.v4.ahv.config.VmDiskRecoveryPointReference" == *vOneOfType2004.ObjectType_ {
-			if nil == p.oneOfType2004 {
-				p.oneOfType2004 = new(VmDiskRecoveryPointReference)
+	vOneOfType2006 := new(VmGcProfileLocaleSettingOverride)
+	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileLocaleSettingOverride" == *vOneOfType2006.ObjectType_ {
+			if nil == p.oneOfType2006 {
+				p.oneOfType2006 = new(VmGcProfileLocaleSettingOverride)
 			}
-			*p.oneOfType2004 = *vOneOfType2004
+			*p.oneOfType2006 = *vOneOfType2006
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType2004.ObjectType_
+			*p.Discriminator = *p.oneOfType2006.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType2004.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2006.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType2005 := new(VolumeDiskRecoveryPointReference)
-	if err := json.Unmarshal(b, vOneOfType2005); err == nil {
-		if "vmm.v4.ahv.config.VolumeDiskRecoveryPointReference" == *vOneOfType2005.ObjectType_ {
-			if nil == p.oneOfType2005 {
-				p.oneOfType2005 = new(VolumeDiskRecoveryPointReference)
-			}
-			*p.oneOfType2005 = *vOneOfType2005
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2005.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2005.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(ImageReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.ImageReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(ImageReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2003 := new(VolumeDiskReference)
-	if err := json.Unmarshal(b, vOneOfType2003); err == nil {
-		if "vmm.v4.ahv.config.VolumeDiskReference" == *vOneOfType2003.ObjectType_ {
-			if nil == p.oneOfType2003 {
-				p.oneOfType2003 = new(VolumeDiskReference)
-			}
-			*p.oneOfType2003 = *vOneOfType2003
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2003.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2003.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDataSourceReference"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale"))
 }
 
-func (p *OneOfDataSourceReference) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2002)
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2007)
 	}
-	if p.oneOfType2004 != nil && *p.oneOfType2004.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2004)
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2006)
 	}
-	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2005)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2003)
-	}
-	return nil, errors.New("No value to marshal for OneOfDataSourceReference")
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileLocaleSettingsOverrideSpecSystemLocale")
 }
 
 type OneOfCloudInitCloudInitScript struct {
@@ -20326,117 +36579,6 @@ func (p *OneOfDiskBackingInfo) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDiskBackingInfo")
 }
 
-type OneOfCreateDiskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfCreateDiskApiResponseData() *OneOfCreateDiskApiResponseData {
-	p := new(OneOfCreateDiskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateDiskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateDiskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateDiskApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfCreateDiskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateDiskApiResponseData"))
-}
-
-func (p *OneOfCreateDiskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateDiskApiResponseData")
-}
-
 type OneOfAssignVmOwnerApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -20659,228 +36801,6 @@ func (p *OneOfDeleteNicApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDeleteNicApiResponseData")
 }
 
-type OneOfGetCdRomApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *CdRom                 `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfGetCdRomApiResponseData() *OneOfGetCdRomApiResponseData {
-	p := new(OneOfGetCdRomApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetCdRomApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetCdRomApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case CdRom:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(CdRom)
-		}
-		*p.oneOfType2001 = v.(CdRom)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetCdRomApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfGetCdRomApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(CdRom)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.CdRom" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(CdRom)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetCdRomApiResponseData"))
-}
-
-func (p *OneOfGetCdRomApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetCdRomApiResponseData")
-}
-
-type OneOfInsertCdRomApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfInsertCdRomApiResponseData() *OneOfInsertCdRomApiResponseData {
-	p := new(OneOfInsertCdRomApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfInsertCdRomApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfInsertCdRomApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfInsertCdRomApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfInsertCdRomApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfInsertCdRomApiResponseData"))
-}
-
-func (p *OneOfInsertCdRomApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfInsertCdRomApiResponseData")
-}
-
 type OneOfSysprepSysprepScript struct {
 	Discriminator *string          `json:"-"`
 	ObjectType_   *string          `json:"-"`
@@ -20990,117 +36910,6 @@ func (p *OneOfSysprepSysprepScript) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType2002)
 	}
 	return nil, errors.New("No value to marshal for OneOfSysprepSysprepScript")
-}
-
-type OneOfUpdateDiskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateDiskApiResponseData() *OneOfUpdateDiskApiResponseData {
-	p := new(OneOfUpdateDiskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateDiskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateDiskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateDiskApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateDiskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateDiskApiResponseData"))
-}
-
-func (p *OneOfUpdateDiskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateDiskApiResponseData")
 }
 
 type OneOfUpdateGuestToolsApiResponseData struct {
@@ -21214,115 +37023,115 @@ func (p *OneOfUpdateGuestToolsApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfUpdateGuestToolsApiResponseData")
 }
 
-type OneOfGetGuestToolsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *GuestTools            `json:"-"`
+type OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo struct {
+	Discriminator *string                    `json:"-"`
+	ObjectType_   *string                    `json:"-"`
+	oneOfType2006 *VmGcProfileWorkgroup      `json:"-"`
+	oneOfType2007 *VmGcProfileDomainSettings `json:"-"`
 }
 
-func NewOneOfGetGuestToolsApiResponseData() *OneOfGetGuestToolsApiResponseData {
-	p := new(OneOfGetGuestToolsApiResponseData)
+func NewOneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo() *OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo {
+	p := new(OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetGuestToolsApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetGuestToolsApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo is nil"))
 	}
 	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
+	case VmGcProfileWorkgroup:
+		if nil == p.oneOfType2006 {
+			p.oneOfType2006 = new(VmGcProfileWorkgroup)
 		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
+		*p.oneOfType2006 = v.(VmGcProfileWorkgroup)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
+		*p.Discriminator = *p.oneOfType2006.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case GuestTools:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(GuestTools)
+		*p.ObjectType_ = *p.oneOfType2006.ObjectType_
+	case VmGcProfileDomainSettings:
+		if nil == p.oneOfType2007 {
+			p.oneOfType2007 = new(VmGcProfileDomainSettings)
 		}
-		*p.oneOfType2001 = v.(GuestTools)
+		*p.oneOfType2007 = v.(VmGcProfileDomainSettings)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		*p.Discriminator = *p.oneOfType2007.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2007.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfGetGuestToolsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
+func (p *OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo) GetValue() interface{} {
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2006
 	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
+	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2007
 	}
 	return nil
 }
 
-func (p *OneOfGetGuestToolsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
+func (p *OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo) UnmarshalJSON(b []byte) error {
+	vOneOfType2006 := new(VmGcProfileWorkgroup)
+	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileWorkgroup" == *vOneOfType2006.ObjectType_ {
+			if nil == p.oneOfType2006 {
+				p.oneOfType2006 = new(VmGcProfileWorkgroup)
 			}
-			*p.oneOfType400 = *vOneOfType400
+			*p.oneOfType2006 = *vOneOfType2006
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
+			*p.Discriminator = *p.oneOfType2006.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2006.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType2001 := new(GuestTools)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.GuestTools" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(GuestTools)
+	vOneOfType2007 := new(VmGcProfileDomainSettings)
+	if err := json.Unmarshal(b, vOneOfType2007); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDomainSettings" == *vOneOfType2007.ObjectType_ {
+			if nil == p.oneOfType2007 {
+				p.oneOfType2007 = new(VmGcProfileDomainSettings)
 			}
-			*p.oneOfType2001 = *vOneOfType2001
+			*p.oneOfType2007 = *vOneOfType2007
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			*p.Discriminator = *p.oneOfType2007.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2007.ObjectType_
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetGuestToolsApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo"))
 }
 
-func (p *OneOfGetGuestToolsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
+func (p *OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2006)
 	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
+	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2007)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetGuestToolsApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileSysprepParamsWorkgroupOrDomainInfo")
 }
 
 type OneOfUninstallVmGuestToolsApiResponseData struct {
@@ -21436,23 +37245,134 @@ func (p *OneOfUninstallVmGuestToolsApiResponseData) MarshalJSON() ([]byte, error
 	return nil, errors.New("No value to marshal for OneOfUninstallVmGuestToolsApiResponseData")
 }
 
-type OneOfDisassociateCategoriesApiResponseData struct {
+type OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword struct {
+	Discriminator *string                           `json:"-"`
+	ObjectType_   *string                           `json:"-"`
+	oneOfType2013 *VmGcProfileAdministratorPassword `json:"-"`
+	oneOfType2014 *VmGcProfileDiscardSettings       `json:"-"`
+}
+
+func NewOneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword() *OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword {
+	p := new(OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileAdministratorPassword:
+		if nil == p.oneOfType2013 {
+			p.oneOfType2013 = new(VmGcProfileAdministratorPassword)
+		}
+		*p.oneOfType2013 = v.(VmGcProfileAdministratorPassword)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2013.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2013.ObjectType_
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2014 {
+			p.oneOfType2014 = new(VmGcProfileDiscardSettings)
+		}
+		*p.oneOfType2014 = v.(VmGcProfileDiscardSettings)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2014.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2014.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword) GetValue() interface{} {
+	if p.oneOfType2013 != nil && *p.oneOfType2013.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2013
+	}
+	if p.oneOfType2014 != nil && *p.oneOfType2014.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2014
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword) UnmarshalJSON(b []byte) error {
+	vOneOfType2013 := new(VmGcProfileAdministratorPassword)
+	if err := json.Unmarshal(b, vOneOfType2013); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileAdministratorPassword" == *vOneOfType2013.ObjectType_ {
+			if nil == p.oneOfType2013 {
+				p.oneOfType2013 = new(VmGcProfileAdministratorPassword)
+			}
+			*p.oneOfType2013 = *vOneOfType2013
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2013.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2013.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2014 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2014); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2014.ObjectType_ {
+			if nil == p.oneOfType2014 {
+				p.oneOfType2014 = new(VmGcProfileDiscardSettings)
+			}
+			*p.oneOfType2014 = *vOneOfType2014
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2014.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2014.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword"))
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2013 != nil && *p.oneOfType2013.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2013)
+	}
+	if p.oneOfType2014 != nil && *p.oneOfType2014.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2014)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileGeneralSettingsOverrideSpecAdministratorPassword")
+}
+
+type OneOfCreateVmGuestCustomizationProfileApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *import1.TaskReference `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfDisassociateCategoriesApiResponseData() *OneOfDisassociateCategoriesApiResponseData {
-	p := new(OneOfDisassociateCategoriesApiResponseData)
+func NewOneOfCreateVmGuestCustomizationProfileApiResponseData() *OneOfCreateVmGuestCustomizationProfileApiResponseData {
+	p := new(OneOfCreateVmGuestCustomizationProfileApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDisassociateCategoriesApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfCreateVmGuestCustomizationProfileApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDisassociateCategoriesApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfCreateVmGuestCustomizationProfileApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.TaskReference:
@@ -21487,7 +37407,7 @@ func (p *OneOfDisassociateCategoriesApiResponseData) SetValue(v interface{}) err
 	return nil
 }
 
-func (p *OneOfDisassociateCategoriesApiResponseData) GetValue() interface{} {
+func (p *OneOfCreateVmGuestCustomizationProfileApiResponseData) GetValue() interface{} {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -21497,7 +37417,7 @@ func (p *OneOfDisassociateCategoriesApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfDisassociateCategoriesApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfCreateVmGuestCustomizationProfileApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType2001 := new(import1.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
@@ -21534,17 +37454,17 @@ func (p *OneOfDisassociateCategoriesApiResponseData) UnmarshalJSON(b []byte) err
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDisassociateCategoriesApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateVmGuestCustomizationProfileApiResponseData"))
 }
 
-func (p *OneOfDisassociateCategoriesApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfCreateVmGuestCustomizationProfileApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfDisassociateCategoriesApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfCreateVmGuestCustomizationProfileApiResponseData")
 }
 
 type OneOfLegacyBootBootDevice struct {
@@ -21658,117 +37578,6 @@ func (p *OneOfLegacyBootBootDevice) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfLegacyBootBootDevice")
 }
 
-type OneOfGetPcieDeviceApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *PcieDevice            `json:"-"`
-}
-
-func NewOneOfGetPcieDeviceApiResponseData() *OneOfGetPcieDeviceApiResponseData {
-	p := new(OneOfGetPcieDeviceApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetPcieDeviceApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetPcieDeviceApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case PcieDevice:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(PcieDevice)
-		}
-		*p.oneOfType2001 = v.(PcieDevice)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetPcieDeviceApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfGetPcieDeviceApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(PcieDevice)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.PcieDevice" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(PcieDevice)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetPcieDeviceApiResponseData"))
-}
-
-func (p *OneOfGetPcieDeviceApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetPcieDeviceApiResponseData")
-}
-
 type OneOfGetVmRecoveryPointApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -21880,228 +37689,6 @@ func (p *OneOfGetVmRecoveryPointApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGetVmRecoveryPointApiResponseData")
 }
 
-type OneOfGetDiskApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *Disk                  `json:"-"`
-}
-
-func NewOneOfGetDiskApiResponseData() *OneOfGetDiskApiResponseData {
-	p := new(OneOfGetDiskApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetDiskApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetDiskApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Disk:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(Disk)
-		}
-		*p.oneOfType2001 = v.(Disk)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetDiskApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfGetDiskApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(Disk)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.Disk" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(Disk)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetDiskApiResponseData"))
-}
-
-func (p *OneOfGetDiskApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetDiskApiResponseData")
-}
-
-type OneOfCustomizeGuestVmApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfCustomizeGuestVmApiResponseData() *OneOfCustomizeGuestVmApiResponseData {
-	p := new(OneOfCustomizeGuestVmApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCustomizeGuestVmApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCustomizeGuestVmApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCustomizeGuestVmApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfCustomizeGuestVmApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCustomizeGuestVmApiResponseData"))
-}
-
-func (p *OneOfCustomizeGuestVmApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCustomizeGuestVmApiResponseData")
-}
-
 type OneOfPowerOffVmApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -22211,6 +37798,117 @@ func (p *OneOfPowerOffVmApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfPowerOffVmApiResponseData")
+}
+
+type OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage struct {
+	Discriminator *string                           `json:"-"`
+	ObjectType_   *string                           `json:"-"`
+	oneOfType2009 *VmGcProfileDiscardSettings       `json:"-"`
+	oneOfType2008 *VmGcProfileLocaleSettingOverride `json:"-"`
+}
+
+func NewOneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage() *OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage {
+	p := new(OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2009 {
+			p.oneOfType2009 = new(VmGcProfileDiscardSettings)
+		}
+		*p.oneOfType2009 = v.(VmGcProfileDiscardSettings)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2009.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2009.ObjectType_
+	case VmGcProfileLocaleSettingOverride:
+		if nil == p.oneOfType2008 {
+			p.oneOfType2008 = new(VmGcProfileLocaleSettingOverride)
+		}
+		*p.oneOfType2008 = v.(VmGcProfileLocaleSettingOverride)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2008.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2008.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage) GetValue() interface{} {
+	if p.oneOfType2009 != nil && *p.oneOfType2009.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2009
+	}
+	if p.oneOfType2008 != nil && *p.oneOfType2008.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2008
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage) UnmarshalJSON(b []byte) error {
+	vOneOfType2009 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2009); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2009.ObjectType_ {
+			if nil == p.oneOfType2009 {
+				p.oneOfType2009 = new(VmGcProfileDiscardSettings)
+			}
+			*p.oneOfType2009 = *vOneOfType2009
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2009.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2009.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2008 := new(VmGcProfileLocaleSettingOverride)
+	if err := json.Unmarshal(b, vOneOfType2008); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileLocaleSettingOverride" == *vOneOfType2008.ObjectType_ {
+			if nil == p.oneOfType2008 {
+				p.oneOfType2008 = new(VmGcProfileLocaleSettingOverride)
+			}
+			*p.oneOfType2008 = *vOneOfType2008
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2008.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2008.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage"))
+}
+
+func (p *OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2009 != nil && *p.oneOfType2009.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2009)
+	}
+	if p.oneOfType2008 != nil && *p.oneOfType2008.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2008)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileLocaleSettingsOverrideSpecUiLanguage")
 }
 
 type OneOfInsertVmGuestToolsApiResponseData struct {
@@ -22473,117 +38171,6 @@ func (p *OneOfNicNicBackingInfo) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfNicNicBackingInfo")
 }
 
-type OneOfPowerOnVmApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfPowerOnVmApiResponseData() *OneOfPowerOnVmApiResponseData {
-	p := new(OneOfPowerOnVmApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfPowerOnVmApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfPowerOnVmApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfPowerOnVmApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfPowerOnVmApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPowerOnVmApiResponseData"))
-}
-
-func (p *OneOfPowerOnVmApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfPowerOnVmApiResponseData")
-}
-
 type OneOfUpdateVmApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -22695,6 +38282,117 @@ func (p *OneOfUpdateVmApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfUpdateVmApiResponseData")
 }
 
+type OneOfDisableVmCdRomHydrationApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfDisableVmCdRomHydrationApiResponseData() *OneOfDisableVmCdRomHydrationApiResponseData {
+	p := new(OneOfDisableVmCdRomHydrationApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfDisableVmCdRomHydrationApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfDisableVmCdRomHydrationApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfDisableVmCdRomHydrationApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfDisableVmCdRomHydrationApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDisableVmCdRomHydrationApiResponseData"))
+}
+
+func (p *OneOfDisableVmCdRomHydrationApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfDisableVmCdRomHydrationApiResponseData")
+}
+
 type OneOfDiskMigrationParamsMigrateDisks struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -22804,228 +38502,6 @@ func (p *OneOfDiskMigrationParamsMigrateDisks) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType2001)
 	}
 	return nil, errors.New("No value to marshal for OneOfDiskMigrationParamsMigrateDisks")
-}
-
-type OneOfGetGpuApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *Gpu                   `json:"-"`
-}
-
-func NewOneOfGetGpuApiResponseData() *OneOfGetGpuApiResponseData {
-	p := new(OneOfGetGpuApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetGpuApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetGpuApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Gpu:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(Gpu)
-		}
-		*p.oneOfType2001 = v.(Gpu)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetGpuApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfGetGpuApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new(Gpu)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.Gpu" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(Gpu)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetGpuApiResponseData"))
-}
-
-func (p *OneOfGetGpuApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfGetGpuApiResponseData")
-}
-
-type OneOfMigrateVmDisksApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfMigrateVmDisksApiResponseData() *OneOfMigrateVmDisksApiResponseData {
-	p := new(OneOfMigrateVmDisksApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfMigrateVmDisksApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfMigrateVmDisksApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfMigrateVmDisksApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfMigrateVmDisksApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMigrateVmDisksApiResponseData"))
-}
-
-func (p *OneOfMigrateVmDisksApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfMigrateVmDisksApiResponseData")
 }
 
 type OneOfRestoreVmRecoveryPointApiResponseData struct {
@@ -23361,6 +38837,117 @@ func (p *OneOfDeleteSerialPortApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDeleteSerialPortApiResponseData")
 }
 
+type OneOfEnableVmDiskHydrationApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2001 *import1.TaskReference `json:"-"`
+	oneOfType400  *import2.ErrorResponse `json:"-"`
+}
+
+func NewOneOfEnableVmDiskHydrationApiResponseData() *OneOfEnableVmDiskHydrationApiResponseData {
+	p := new(OneOfEnableVmDiskHydrationApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfEnableVmDiskHydrationApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfEnableVmDiskHydrationApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.TaskReference:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(import1.TaskReference)
+		}
+		*p.oneOfType2001 = v.(import1.TaskReference)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case import2.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import2.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import2.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfEnableVmDiskHydrationApiResponseData) GetValue() interface{} {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfEnableVmDiskHydrationApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType2001 := new(import1.TaskReference)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(import1.TaskReference)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import2.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import2.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfEnableVmDiskHydrationApiResponseData"))
+}
+
+func (p *OneOfEnableVmDiskHydrationApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfEnableVmDiskHydrationApiResponseData")
+}
+
 type OneOfCreateVmApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -23472,115 +39059,226 @@ func (p *OneOfCreateVmApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfCreateVmApiResponseData")
 }
 
-type OneOfShutdownVmApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
+type OneOfVmGcProfileSysprepConfigCustomization struct {
+	Discriminator *string                   `json:"-"`
+	ObjectType_   *string                   `json:"-"`
+	oneOfType2002 *VmGcProfileSysprepParams `json:"-"`
+	oneOfType2003 *VmGcProfileAnswerFile    `json:"-"`
 }
 
-func NewOneOfShutdownVmApiResponseData() *OneOfShutdownVmApiResponseData {
-	p := new(OneOfShutdownVmApiResponseData)
+func NewOneOfVmGcProfileSysprepConfigCustomization() *OneOfVmGcProfileSysprepConfigCustomization {
+	p := new(OneOfVmGcProfileSysprepConfigCustomization)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfShutdownVmApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfVmGcProfileSysprepConfigCustomization) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfShutdownVmApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileSysprepConfigCustomization is nil"))
 	}
 	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
+	case VmGcProfileSysprepParams:
+		if nil == p.oneOfType2002 {
+			p.oneOfType2002 = new(VmGcProfileSysprepParams)
 		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
+		*p.oneOfType2002 = v.(VmGcProfileSysprepParams)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		*p.Discriminator = *p.oneOfType2002.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
+		*p.ObjectType_ = *p.oneOfType2002.ObjectType_
+	case VmGcProfileAnswerFile:
+		if nil == p.oneOfType2003 {
+			p.oneOfType2003 = new(VmGcProfileAnswerFile)
 		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
+		*p.oneOfType2003 = v.(VmGcProfileAnswerFile)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
+		*p.Discriminator = *p.oneOfType2003.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2003.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfShutdownVmApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
+func (p *OneOfVmGcProfileSysprepConfigCustomization) GetValue() interface{} {
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2002
 	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2003
 	}
 	return nil
 }
 
-func (p *OneOfShutdownVmApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
+func (p *OneOfVmGcProfileSysprepConfigCustomization) UnmarshalJSON(b []byte) error {
+	vOneOfType2002 := new(VmGcProfileSysprepParams)
+	if err := json.Unmarshal(b, vOneOfType2002); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileSysprepParams" == *vOneOfType2002.ObjectType_ {
+			if nil == p.oneOfType2002 {
+				p.oneOfType2002 = new(VmGcProfileSysprepParams)
 			}
-			*p.oneOfType2001 = *vOneOfType2001
+			*p.oneOfType2002 = *vOneOfType2002
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			*p.Discriminator = *p.oneOfType2002.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2002.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
+	vOneOfType2003 := new(VmGcProfileAnswerFile)
+	if err := json.Unmarshal(b, vOneOfType2003); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileAnswerFile" == *vOneOfType2003.ObjectType_ {
+			if nil == p.oneOfType2003 {
+				p.oneOfType2003 = new(VmGcProfileAnswerFile)
 			}
-			*p.oneOfType400 = *vOneOfType400
+			*p.oneOfType2003 = *vOneOfType2003
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
+			*p.Discriminator = *p.oneOfType2003.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2003.ObjectType_
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfShutdownVmApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileSysprepConfigCustomization"))
 }
 
-func (p *OneOfShutdownVmApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
+func (p *OneOfVmGcProfileSysprepConfigCustomization) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2002 != nil && *p.oneOfType2002.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2002)
 	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
+	if p.oneOfType2003 != nil && *p.oneOfType2003.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2003)
 	}
-	return nil, errors.New("No value to marshal for OneOfShutdownVmApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileSysprepConfigCustomization")
+}
+
+type OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization struct {
+	Discriminator *string                            `json:"-"`
+	ObjectType_   *string                            `json:"-"`
+	oneOfType2019 *VmGcProfileRegisteredOrganization `json:"-"`
+	oneOfType2020 *VmGcProfileDiscardSettings        `json:"-"`
+}
+
+func NewOneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization() *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization {
+	p := new(OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileRegisteredOrganization:
+		if nil == p.oneOfType2019 {
+			p.oneOfType2019 = new(VmGcProfileRegisteredOrganization)
+		}
+		*p.oneOfType2019 = v.(VmGcProfileRegisteredOrganization)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2019.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2019.ObjectType_
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2020 {
+			p.oneOfType2020 = new(VmGcProfileDiscardSettings)
+		}
+		*p.oneOfType2020 = v.(VmGcProfileDiscardSettings)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2020.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2020.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization) GetValue() interface{} {
+	if p.oneOfType2019 != nil && *p.oneOfType2019.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2019
+	}
+	if p.oneOfType2020 != nil && *p.oneOfType2020.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2020
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization) UnmarshalJSON(b []byte) error {
+	vOneOfType2019 := new(VmGcProfileRegisteredOrganization)
+	if err := json.Unmarshal(b, vOneOfType2019); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileRegisteredOrganization" == *vOneOfType2019.ObjectType_ {
+			if nil == p.oneOfType2019 {
+				p.oneOfType2019 = new(VmGcProfileRegisteredOrganization)
+			}
+			*p.oneOfType2019 = *vOneOfType2019
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2019.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2019.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2020 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2020); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2020.ObjectType_ {
+			if nil == p.oneOfType2020 {
+				p.oneOfType2020 = new(VmGcProfileDiscardSettings)
+			}
+			*p.oneOfType2020 = *vOneOfType2020
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2020.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2020.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization"))
+}
+
+func (p *OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2019 != nil && *p.oneOfType2019.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2019)
+	}
+	if p.oneOfType2020 != nil && *p.oneOfType2020.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2020)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileGeneralSettingsOverrideSpecRegisteredOrganization")
 }
 
 type OneOfVmRestoreNicConfigOverrideParamsNicNetworkInfo struct {
@@ -23878,109 +39576,77 @@ func (p *OneOfDeleteVmApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDeleteVmApiResponseData")
 }
 
-type OneOfListGpusApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 []Gpu                  `json:"-"`
+type OneOfVmGuestCustomizationProfileConfig struct {
+	Discriminator *string                   `json:"-"`
+	ObjectType_   *string                   `json:"-"`
+	oneOfType2009 *VmGcProfileSysprepConfig `json:"-"`
 }
 
-func NewOneOfListGpusApiResponseData() *OneOfListGpusApiResponseData {
-	p := new(OneOfListGpusApiResponseData)
+func NewOneOfVmGuestCustomizationProfileConfig() *OneOfVmGuestCustomizationProfileConfig {
+	p := new(OneOfVmGuestCustomizationProfileConfig)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListGpusApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfVmGuestCustomizationProfileConfig) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListGpusApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfVmGuestCustomizationProfileConfig is nil"))
 	}
 	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
+	case VmGcProfileSysprepConfig:
+		if nil == p.oneOfType2009 {
+			p.oneOfType2009 = new(VmGcProfileSysprepConfig)
 		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
+		*p.oneOfType2009 = v.(VmGcProfileSysprepConfig)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
+		*p.Discriminator = *p.oneOfType2009.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Gpu:
-		p.oneOfType2001 = v.([]Gpu)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<vmm.v4.ahv.config.Gpu>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<vmm.v4.ahv.config.Gpu>"
+		*p.ObjectType_ = *p.oneOfType2009.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfListGpusApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<vmm.v4.ahv.config.Gpu>" == *p.Discriminator {
-		return p.oneOfType2001
+func (p *OneOfVmGuestCustomizationProfileConfig) GetValue() interface{} {
+	if p.oneOfType2009 != nil && *p.oneOfType2009.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2009
 	}
 	return nil
 }
 
-func (p *OneOfListGpusApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
+func (p *OneOfVmGuestCustomizationProfileConfig) UnmarshalJSON(b []byte) error {
+	vOneOfType2009 := new(VmGcProfileSysprepConfig)
+	if err := json.Unmarshal(b, vOneOfType2009); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileSysprepConfig" == *vOneOfType2009.ObjectType_ {
+			if nil == p.oneOfType2009 {
+				p.oneOfType2009 = new(VmGcProfileSysprepConfig)
 			}
-			*p.oneOfType400 = *vOneOfType400
+			*p.oneOfType2009 = *vOneOfType2009
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
+			*p.Discriminator = *p.oneOfType2009.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2009.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType2001 := new([]Gpu)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "vmm.v4.ahv.config.Gpu" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<vmm.v4.ahv.config.Gpu>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<vmm.v4.ahv.config.Gpu>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListGpusApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGuestCustomizationProfileConfig"))
 }
 
-func (p *OneOfListGpusApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
+func (p *OneOfVmGuestCustomizationProfileConfig) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2009 != nil && *p.oneOfType2009.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2009)
 	}
-	if "List<vmm.v4.ahv.config.Gpu>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfListGpusApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfVmGuestCustomizationProfileConfig")
 }
 
 type OneOfCreateNicApiResponseData struct {
@@ -24243,117 +39909,6 @@ func (p *OneOfNicNicNetworkInfo) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfNicNicNetworkInfo")
 }
 
-type OneOfUpdateSerialPortApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfUpdateSerialPortApiResponseData() *OneOfUpdateSerialPortApiResponseData {
-	p := new(OneOfUpdateSerialPortApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUpdateSerialPortApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateSerialPortApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUpdateSerialPortApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfUpdateSerialPortApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateSerialPortApiResponseData"))
-}
-
-func (p *OneOfUpdateSerialPortApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfUpdateSerialPortApiResponseData")
-}
-
 type OneOfCreateCdRomApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
@@ -24576,207 +40131,172 @@ func (p *OneOfRebootVmApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfRebootVmApiResponseData")
 }
 
-type OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo struct {
-	Discriminator *string                                  `json:"-"`
-	ObjectType_   *string                                  `json:"-"`
-	oneOfType2051 *VmRestoreVirtualEthernetNicOverrideSpec `json:"-"`
+type OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo struct {
+	Discriminator *string                                `json:"-"`
+	ObjectType_   *string                                `json:"-"`
+	oneOfType2008 *VmGcProfileDiscardSettings            `json:"-"`
+	oneOfType2006 *VmGcProfileWorkgroupOverrideSpec      `json:"-"`
+	oneOfType2007 *VmGcProfileDomainSettingsOverrideSpec `json:"-"`
 }
 
-func NewOneOfVmRestoreNicConfigOverrideParamsNicBackingInfo() *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo {
-	p := new(OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo)
+func NewOneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo() *OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo {
+	p := new(OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo) SetValue(v interface{}) error {
+func (p *OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo is nil"))
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo is nil"))
 	}
 	switch v.(type) {
-	case VmRestoreVirtualEthernetNicOverrideSpec:
-		if nil == p.oneOfType2051 {
-			p.oneOfType2051 = new(VmRestoreVirtualEthernetNicOverrideSpec)
+	case VmGcProfileDiscardSettings:
+		if nil == p.oneOfType2008 {
+			p.oneOfType2008 = new(VmGcProfileDiscardSettings)
 		}
-		*p.oneOfType2051 = v.(VmRestoreVirtualEthernetNicOverrideSpec)
+		*p.oneOfType2008 = v.(VmGcProfileDiscardSettings)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType2051.ObjectType_
+		*p.Discriminator = *p.oneOfType2008.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType2051.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2008.ObjectType_
+	case VmGcProfileWorkgroupOverrideSpec:
+		if nil == p.oneOfType2006 {
+			p.oneOfType2006 = new(VmGcProfileWorkgroupOverrideSpec)
+		}
+		*p.oneOfType2006 = v.(VmGcProfileWorkgroupOverrideSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2006.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2006.ObjectType_
+	case VmGcProfileDomainSettingsOverrideSpec:
+		if nil == p.oneOfType2007 {
+			p.oneOfType2007 = new(VmGcProfileDomainSettingsOverrideSpec)
+		}
+		*p.oneOfType2007 = v.(VmGcProfileDomainSettingsOverrideSpec)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2007.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2007.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo) GetValue() interface{} {
-	if p.oneOfType2051 != nil && *p.oneOfType2051.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2051
+func (p *OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo) GetValue() interface{} {
+	if p.oneOfType2008 != nil && *p.oneOfType2008.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2008
+	}
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2006
+	}
+	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2007
 	}
 	return nil
 }
 
-func (p *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo) UnmarshalJSON(b []byte) error {
-	vOneOfType2051 := new(VmRestoreVirtualEthernetNicOverrideSpec)
-	if err := json.Unmarshal(b, vOneOfType2051); err == nil {
-		if "vmm.v4.ahv.config.VmRestoreVirtualEthernetNicOverrideSpec" == *vOneOfType2051.ObjectType_ {
-			if nil == p.oneOfType2051 {
-				p.oneOfType2051 = new(VmRestoreVirtualEthernetNicOverrideSpec)
+func (p *OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo) UnmarshalJSON(b []byte) error {
+	vOneOfType2008 := new(VmGcProfileDiscardSettings)
+	if err := json.Unmarshal(b, vOneOfType2008); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDiscardSettings" == *vOneOfType2008.ObjectType_ {
+			if nil == p.oneOfType2008 {
+				p.oneOfType2008 = new(VmGcProfileDiscardSettings)
 			}
-			*p.oneOfType2051 = *vOneOfType2051
+			*p.oneOfType2008 = *vOneOfType2008
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType2051.ObjectType_
+			*p.Discriminator = *p.oneOfType2008.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType2051.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2008.ObjectType_
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo"))
-}
-
-func (p *OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2051 != nil && *p.oneOfType2051.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2051)
-	}
-	return nil, errors.New("No value to marshal for OneOfVmRestoreNicConfigOverrideParamsNicBackingInfo")
-}
-
-type OneOfGetVmApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 *Vm                    `json:"-"`
-}
-
-func NewOneOfGetVmApiResponseData() *OneOfGetVmApiResponseData {
-	p := new(OneOfGetVmApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfGetVmApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetVmApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case Vm:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(Vm)
-		}
-		*p.oneOfType2001 = v.(Vm)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfGetVmApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfGetVmApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
+	vOneOfType2006 := new(VmGcProfileWorkgroupOverrideSpec)
+	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileWorkgroupOverrideSpec" == *vOneOfType2006.ObjectType_ {
+			if nil == p.oneOfType2006 {
+				p.oneOfType2006 = new(VmGcProfileWorkgroupOverrideSpec)
 			}
-			*p.oneOfType400 = *vOneOfType400
+			*p.oneOfType2006 = *vOneOfType2006
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
+			*p.Discriminator = *p.oneOfType2006.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2006.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType2001 := new(Vm)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.Vm" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(Vm)
+	vOneOfType2007 := new(VmGcProfileDomainSettingsOverrideSpec)
+	if err := json.Unmarshal(b, vOneOfType2007); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileDomainSettingsOverrideSpec" == *vOneOfType2007.ObjectType_ {
+			if nil == p.oneOfType2007 {
+				p.oneOfType2007 = new(VmGcProfileDomainSettingsOverrideSpec)
 			}
-			*p.oneOfType2001 = *vOneOfType2001
+			*p.oneOfType2007 = *vOneOfType2007
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			*p.Discriminator = *p.oneOfType2007.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2007.ObjectType_
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVmApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo"))
 }
 
-func (p *OneOfGetVmApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
+func (p *OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2008 != nil && *p.oneOfType2008.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2008)
 	}
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2006)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetVmApiResponseData")
+	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2007)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileSysprepParamsOverrideSpecWorkgroupOrDomainInfo")
 }
 
-type OneOfUpdateNicApiResponseData struct {
+type OneOfUpdateVmGuestCustomizationProfileApiResponseData struct {
 	Discriminator *string                `json:"-"`
 	ObjectType_   *string                `json:"-"`
 	oneOfType2001 *import1.TaskReference `json:"-"`
 	oneOfType400  *import2.ErrorResponse `json:"-"`
 }
 
-func NewOneOfUpdateNicApiResponseData() *OneOfUpdateNicApiResponseData {
-	p := new(OneOfUpdateNicApiResponseData)
+func NewOneOfUpdateVmGuestCustomizationProfileApiResponseData() *OneOfUpdateVmGuestCustomizationProfileApiResponseData {
+	p := new(OneOfUpdateVmGuestCustomizationProfileApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfUpdateNicApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfUpdateVmGuestCustomizationProfileApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUpdateNicApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfUpdateVmGuestCustomizationProfileApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.TaskReference:
@@ -24811,7 +40331,7 @@ func (p *OneOfUpdateNicApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfUpdateNicApiResponseData) GetValue() interface{} {
+func (p *OneOfUpdateVmGuestCustomizationProfileApiResponseData) GetValue() interface{} {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType2001
 	}
@@ -24821,7 +40341,7 @@ func (p *OneOfUpdateNicApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfUpdateNicApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfUpdateVmGuestCustomizationProfileApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType2001 := new(import1.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
 		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
@@ -24858,17 +40378,128 @@ func (p *OneOfUpdateNicApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateNicApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUpdateVmGuestCustomizationProfileApiResponseData"))
 }
 
-func (p *OneOfUpdateNicApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfUpdateVmGuestCustomizationProfileApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType2001)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfUpdateNicApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfUpdateVmGuestCustomizationProfileApiResponseData")
+}
+
+type OneOfVmGcProfileNicConfigIpv4Config struct {
+	Discriminator *string                                 `json:"-"`
+	ObjectType_   *string                                 `json:"-"`
+	oneOfType2005 *VmGcProfileUseDhcp                     `json:"-"`
+	oneOfType2006 *VmGcProfileMustProvideDuringDeployment `json:"-"`
+}
+
+func NewOneOfVmGcProfileNicConfigIpv4Config() *OneOfVmGcProfileNicConfigIpv4Config {
+	p := new(OneOfVmGcProfileNicConfigIpv4Config)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfVmGcProfileNicConfigIpv4Config) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfVmGcProfileNicConfigIpv4Config is nil"))
+	}
+	switch v.(type) {
+	case VmGcProfileUseDhcp:
+		if nil == p.oneOfType2005 {
+			p.oneOfType2005 = new(VmGcProfileUseDhcp)
+		}
+		*p.oneOfType2005 = v.(VmGcProfileUseDhcp)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2005.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+	case VmGcProfileMustProvideDuringDeployment:
+		if nil == p.oneOfType2006 {
+			p.oneOfType2006 = new(VmGcProfileMustProvideDuringDeployment)
+		}
+		*p.oneOfType2006 = v.(VmGcProfileMustProvideDuringDeployment)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2006.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2006.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileNicConfigIpv4Config) GetValue() interface{} {
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2005
+	}
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2006
+	}
+	return nil
+}
+
+func (p *OneOfVmGcProfileNicConfigIpv4Config) UnmarshalJSON(b []byte) error {
+	vOneOfType2005 := new(VmGcProfileUseDhcp)
+	if err := json.Unmarshal(b, vOneOfType2005); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileUseDhcp" == *vOneOfType2005.ObjectType_ {
+			if nil == p.oneOfType2005 {
+				p.oneOfType2005 = new(VmGcProfileUseDhcp)
+			}
+			*p.oneOfType2005 = *vOneOfType2005
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2005.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2005.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType2006 := new(VmGcProfileMustProvideDuringDeployment)
+	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
+		if "vmm.v4.ahv.config.VmGcProfileMustProvideDuringDeployment" == *vOneOfType2006.ObjectType_ {
+			if nil == p.oneOfType2006 {
+				p.oneOfType2006 = new(VmGcProfileMustProvideDuringDeployment)
+			}
+			*p.oneOfType2006 = *vOneOfType2006
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2006.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2006.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfVmGcProfileNicConfigIpv4Config"))
+}
+
+func (p *OneOfVmGcProfileNicConfigIpv4Config) MarshalJSON() ([]byte, error) {
+	if p.oneOfType2005 != nil && *p.oneOfType2005.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2005)
+	}
+	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2006)
+	}
+	return nil, errors.New("No value to marshal for OneOfVmGcProfileNicConfigIpv4Config")
 }
 
 type OneOfDeleteDiskApiResponseData struct {
@@ -25093,38 +40724,25 @@ func (p *OneOfGuestCustomizationParamsConfig) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfGuestCustomizationParamsConfig")
 }
 
-type OneOfDeleteGpuApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
+type OneOfListVmGuestCustomizationProfilesApiResponseData struct {
+	Discriminator *string                       `json:"-"`
+	ObjectType_   *string                       `json:"-"`
+	oneOfType400  *import2.ErrorResponse        `json:"-"`
+	oneOfType2001 []VmGuestCustomizationProfile `json:"-"`
 }
 
-func NewOneOfDeleteGpuApiResponseData() *OneOfDeleteGpuApiResponseData {
-	p := new(OneOfDeleteGpuApiResponseData)
+func NewOneOfListVmGuestCustomizationProfilesApiResponseData() *OneOfListVmGuestCustomizationProfilesApiResponseData {
+	p := new(OneOfListVmGuestCustomizationProfilesApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfDeleteGpuApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListVmGuestCustomizationProfilesApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfDeleteGpuApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListVmGuestCustomizationProfilesApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	case import2.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import2.ErrorResponse)
@@ -25138,41 +40756,33 @@ func (p *OneOfDeleteGpuApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []VmGuestCustomizationProfile:
+		p.oneOfType2001 = v.([]VmGuestCustomizationProfile)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<vmm.v4.ahv.config.VmGuestCustomizationProfile>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<vmm.v4.ahv.config.VmGuestCustomizationProfile>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfDeleteGpuApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
+func (p *OneOfListVmGuestCustomizationProfilesApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
+	}
+	if "List<vmm.v4.ahv.config.VmGuestCustomizationProfile>" == *p.Discriminator {
+		return p.oneOfType2001
 	}
 	return nil
 }
 
-func (p *OneOfDeleteGpuApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
+func (p *OneOfListVmGuestCustomizationProfilesApiResponseData) UnmarshalJSON(b []byte) error {
 	vOneOfType400 := new(import2.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
 		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
@@ -25191,233 +40801,32 @@ func (p *OneOfDeleteGpuApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteGpuApiResponseData"))
-}
-
-func (p *OneOfDeleteGpuApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfDeleteGpuApiResponseData")
-}
-
-type OneOfUefiBootBootDevice struct {
-	Discriminator *string         `json:"-"`
-	ObjectType_   *string         `json:"-"`
-	oneOfType2006 *BootDeviceDisk `json:"-"`
-	oneOfType2007 *BootDeviceNic  `json:"-"`
-}
-
-func NewOneOfUefiBootBootDevice() *OneOfUefiBootBootDevice {
-	p := new(OneOfUefiBootBootDevice)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfUefiBootBootDevice) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfUefiBootBootDevice is nil"))
-	}
-	switch v.(type) {
-	case BootDeviceDisk:
-		if nil == p.oneOfType2006 {
-			p.oneOfType2006 = new(BootDeviceDisk)
-		}
-		*p.oneOfType2006 = v.(BootDeviceDisk)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2006.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2006.ObjectType_
-	case BootDeviceNic:
-		if nil == p.oneOfType2007 {
-			p.oneOfType2007 = new(BootDeviceNic)
-		}
-		*p.oneOfType2007 = v.(BootDeviceNic)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2007.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2007.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfUefiBootBootDevice) GetValue() interface{} {
-	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2006
-	}
-	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2007
-	}
-	return nil
-}
-
-func (p *OneOfUefiBootBootDevice) UnmarshalJSON(b []byte) error {
-	vOneOfType2006 := new(BootDeviceDisk)
-	if err := json.Unmarshal(b, vOneOfType2006); err == nil {
-		if "vmm.v4.ahv.config.BootDeviceDisk" == *vOneOfType2006.ObjectType_ {
-			if nil == p.oneOfType2006 {
-				p.oneOfType2006 = new(BootDeviceDisk)
-			}
-			*p.oneOfType2006 = *vOneOfType2006
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2006.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2006.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2007 := new(BootDeviceNic)
-	if err := json.Unmarshal(b, vOneOfType2007); err == nil {
-		if "vmm.v4.ahv.config.BootDeviceNic" == *vOneOfType2007.ObjectType_ {
-			if nil == p.oneOfType2007 {
-				p.oneOfType2007 = new(BootDeviceNic)
-			}
-			*p.oneOfType2007 = *vOneOfType2007
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2007.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2007.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUefiBootBootDevice"))
-}
-
-func (p *OneOfUefiBootBootDevice) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2006 != nil && *p.oneOfType2006.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2006)
-	}
-	if p.oneOfType2007 != nil && *p.oneOfType2007.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2007)
-	}
-	return nil, errors.New("No value to marshal for OneOfUefiBootBootDevice")
-}
-
-type OneOfListVmsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 []Vm                   `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfListVmsApiResponseData() *OneOfListVmsApiResponseData {
-	p := new(OneOfListVmsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListVmsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListVmsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Vm:
-		p.oneOfType2001 = v.([]Vm)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<vmm.v4.ahv.config.Vm>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<vmm.v4.ahv.config.Vm>"
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListVmsApiResponseData) GetValue() interface{} {
-	if "List<vmm.v4.ahv.config.Vm>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfListVmsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new([]Vm)
+	vOneOfType2001 := new([]VmGuestCustomizationProfile)
 	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "vmm.v4.ahv.config.Vm" == *((*vOneOfType2001)[0].ObjectType_) {
+		if len(*vOneOfType2001) == 0 || "vmm.v4.ahv.config.VmGuestCustomizationProfile" == *((*vOneOfType2001)[0].ObjectType_) {
 			p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<vmm.v4.ahv.config.Vm>"
+			*p.Discriminator = "List<vmm.v4.ahv.config.VmGuestCustomizationProfile>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<vmm.v4.ahv.config.Vm>"
+			*p.ObjectType_ = "List<vmm.v4.ahv.config.VmGuestCustomizationProfile>"
 			return nil
 		}
 	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVmsApiResponseData"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListVmGuestCustomizationProfilesApiResponseData"))
 }
 
-func (p *OneOfListVmsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<vmm.v4.ahv.config.Vm>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
+func (p *OneOfListVmGuestCustomizationProfilesApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfListVmsApiResponseData")
+	if "List<vmm.v4.ahv.config.VmGuestCustomizationProfile>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	return nil, errors.New("No value to marshal for OneOfListVmGuestCustomizationProfilesApiResponseData")
 }
 
 type OneOfAssignIpApiResponseData struct {
@@ -25640,79 +41049,6 @@ func (p *OneOfGetNicApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType400)
 	}
 	return nil, errors.New("No value to marshal for OneOfGetNicApiResponseData")
-}
-
-type OneOfPcieDeviceBackingInfo struct {
-	Discriminator *string              `json:"-"`
-	ObjectType_   *string              `json:"-"`
-	oneOfType2001 *PcieDeviceReference `json:"-"`
-}
-
-func NewOneOfPcieDeviceBackingInfo() *OneOfPcieDeviceBackingInfo {
-	p := new(OneOfPcieDeviceBackingInfo)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfPcieDeviceBackingInfo) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfPcieDeviceBackingInfo is nil"))
-	}
-	switch v.(type) {
-	case PcieDeviceReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(PcieDeviceReference)
-		}
-		*p.oneOfType2001 = v.(PcieDeviceReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfPcieDeviceBackingInfo) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfPcieDeviceBackingInfo) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(PcieDeviceReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "vmm.v4.ahv.config.PcieDeviceReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(PcieDeviceReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfPcieDeviceBackingInfo"))
-}
-
-func (p *OneOfPcieDeviceBackingInfo) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfPcieDeviceBackingInfo")
 }
 
 type OneOfListPcieDevicesApiResponseData struct {
@@ -26145,222 +41481,6 @@ func (p *OneOfListNicsApiResponseData) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType2001)
 	}
 	return nil, errors.New("No value to marshal for OneOfListNicsApiResponseData")
-}
-
-type OneOfCreateSerialPortApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType2001 *import1.TaskReference `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-}
-
-func NewOneOfCreateSerialPortApiResponseData() *OneOfCreateSerialPortApiResponseData {
-	p := new(OneOfCreateSerialPortApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfCreateSerialPortApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfCreateSerialPortApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.TaskReference:
-		if nil == p.oneOfType2001 {
-			p.oneOfType2001 = new(import1.TaskReference)
-		}
-		*p.oneOfType2001 = v.(import1.TaskReference)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType2001.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfCreateSerialPortApiResponseData) GetValue() interface{} {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType2001
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfCreateSerialPortApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType2001 := new(import1.TaskReference)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType2001.ObjectType_ {
-			if nil == p.oneOfType2001 {
-				p.oneOfType2001 = new(import1.TaskReference)
-			}
-			*p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType2001.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfCreateSerialPortApiResponseData"))
-}
-
-func (p *OneOfCreateSerialPortApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfCreateSerialPortApiResponseData")
-}
-
-type OneOfListCdRomsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import2.ErrorResponse `json:"-"`
-	oneOfType2001 []CdRom                `json:"-"`
-}
-
-func NewOneOfListCdRomsApiResponseData() *OneOfListCdRomsApiResponseData {
-	p := new(OneOfListCdRomsApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListCdRomsApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListCdRomsApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import2.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import2.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import2.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []CdRom:
-		p.oneOfType2001 = v.([]CdRom)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<vmm.v4.ahv.config.CdRom>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<vmm.v4.ahv.config.CdRom>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListCdRomsApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<vmm.v4.ahv.config.CdRom>" == *p.Discriminator {
-		return p.oneOfType2001
-	}
-	return nil
-}
-
-func (p *OneOfListCdRomsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import2.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "vmm.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import2.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType2001 := new([]CdRom)
-	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
-		if len(*vOneOfType2001) == 0 || "vmm.v4.ahv.config.CdRom" == *((*vOneOfType2001)[0].ObjectType_) {
-			p.oneOfType2001 = *vOneOfType2001
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<vmm.v4.ahv.config.CdRom>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<vmm.v4.ahv.config.CdRom>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListCdRomsApiResponseData"))
-}
-
-func (p *OneOfListCdRomsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<vmm.v4.ahv.config.CdRom>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType2001)
-	}
-	return nil, errors.New("No value to marshal for OneOfListCdRomsApiResponseData")
 }
 
 type FileDetail struct {

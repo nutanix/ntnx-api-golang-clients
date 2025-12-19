@@ -32,6 +32,119 @@ func NewVmApi(apiClient *client.ApiClient) *VmApi {
 	return a
 }
 
+// Adds to the custom attributes of the VM.
+func (api *VmApi) AddVmCustomAttributes(extId *string, body *import10.UpdateCustomAttributesParams, args ...map[string]interface{}) (*import10.AddVmCustomAttributesApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/add-custom-attributes"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.AddVmCustomAttributesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Adds to the custom attributes of the VM disk entity.
+func (api *VmApi) AddVmDiskCustomAttributes(vmExtId *string, extId *string, body *import10.UpdateCustomAttributesParams, args ...map[string]interface{}) (*import10.AddVmDiskCustomAttributesApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}/$actions/add-custom-attributes"
+
+	// verify the required parameter 'vmExtId' is set
+	if nil == vmExtId {
+		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*vmExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.AddVmDiskCustomAttributesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Assigns a specific IP address to a network device attached to a managed network.
 func (api *VmApi) AssignIpById(vmExtId *string, extId *string, body *import10.AssignIpParams, args ...map[string]interface{}) (*import10.AssignIpApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -39,7 +152,7 @@ func (api *VmApi) AssignIpById(vmExtId *string, extId *string, body *import10.As
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/assign-ip"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/assign-ip"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -98,7 +211,7 @@ func (api *VmApi) AssignVmOwner(extId *string, body *import10.OwnershipInfo, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/assign-owner"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/assign-owner"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -152,7 +265,7 @@ func (api *VmApi) AssociateCategories(extId *string, body *import10.AssociateVmC
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/associate-categories"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/associate-categories"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -206,11 +319,15 @@ func (api *VmApi) CloneVm(extId *string, body *import10.CloneOverrideParams, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/clone"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/clone"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
 		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
@@ -256,7 +373,7 @@ func (api *VmApi) CreateCdRom(vmExtId *string, body *import10.CdRom, args ...map
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -310,7 +427,7 @@ func (api *VmApi) CreateDisk(vmExtId *string, body *import10.Disk, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/disks"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -364,7 +481,7 @@ func (api *VmApi) CreateGpu(vmExtId *string, body *import10.Gpu, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/gpus"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/gpus"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -418,7 +535,7 @@ func (api *VmApi) CreateNic(vmExtId *string, body *import10.Nic, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/nics"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -472,7 +589,7 @@ func (api *VmApi) CreatePcieDevice(vmExtId *string, body *import10.PcieDevice, a
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/pcie-devices"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -526,7 +643,7 @@ func (api *VmApi) CreateSerialPort(vmExtId *string, body *import10.SerialPort, a
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -580,7 +697,7 @@ func (api *VmApi) CreateVm(body *import10.Vm, args ...map[string]interface{}) (*
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms"
+	uri := "/api/vmm/v4.2/ahv/config/vms"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -628,7 +745,7 @@ func (api *VmApi) CrossClusterMigrateVm(extId *string, body *import10.VmCrossClu
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/migrate"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/migrate"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -686,7 +803,7 @@ func (api *VmApi) CustomizeGuestVm(extId *string, body *import10.GuestCustomizat
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/customize-guest"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/customize-guest"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -740,7 +857,7 @@ func (api *VmApi) DeleteCdRomById(vmExtId *string, extId *string, args ...map[st
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -795,7 +912,7 @@ func (api *VmApi) DeleteDiskById(vmExtId *string, extId *string, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -850,7 +967,7 @@ func (api *VmApi) DeleteGpuById(vmExtId *string, extId *string, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/gpus/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/gpus/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -905,7 +1022,7 @@ func (api *VmApi) DeleteNicById(vmExtId *string, extId *string, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -960,7 +1077,7 @@ func (api *VmApi) DeletePcieDeviceById(vmExtId *string, extId *string, args ...m
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/pcie-devices/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1015,7 +1132,7 @@ func (api *VmApi) DeleteSerialPortById(vmExtId *string, extId *string, args ...m
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1070,7 +1187,7 @@ func (api *VmApi) DeleteVmById(extId *string, args ...map[string]interface{}) (*
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1113,6 +1230,116 @@ func (api *VmApi) DeleteVmById(extId *string, args ...map[string]interface{}) (*
 	return unmarshalledResp, err
 }
 
+// Disable hydration for a VM CD-ROM. The hydration process will be stopped and the CD-ROM will not be migrated to the local storage container.
+func (api *VmApi) DisableVmCdRomHydration(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.DisableVmCdRomHydrationApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/disable-hydration"
+
+	// verify the required parameter 'vmExtId' is set
+	if nil == vmExtId {
+		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*vmExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.DisableVmCdRomHydrationApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Disable hydration for a VM disk. The hydration process will be stopped and the disk will not be migrated to the local storage container.
+func (api *VmApi) DisableVmDiskHydration(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.DisableVmDiskHydrationApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}/$actions/disable-hydration"
+
+	// verify the required parameter 'vmExtId' is set
+	if nil == vmExtId {
+		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*vmExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.DisableVmDiskHydrationApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Disassociate categories from a virtual machine.
 func (api *VmApi) DisassociateCategories(extId *string, body *import10.DisassociateVmCategoriesParams, args ...map[string]interface{}) (*import10.DisassociateCategoriesApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -1120,7 +1347,7 @@ func (api *VmApi) DisassociateCategories(extId *string, body *import10.Disassoci
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/disassociate-categories"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/disassociate-categories"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1174,7 +1401,7 @@ func (api *VmApi) EjectCdRomById(vmExtId *string, extId *string, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/eject"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/eject"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1222,6 +1449,166 @@ func (api *VmApi) EjectCdRomById(vmExtId *string, extId *string, args ...map[str
 	return unmarshalledResp, err
 }
 
+// Enable a VM CD-ROM to be hydrated to the local storage container in the background. If the VM CD-ROM hydration has been disabled, this will resume the hydration process.
+func (api *VmApi) EnableVmCdRomHydration(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.EnableVmCdRomHydrationApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/enable-hydration"
+
+	// verify the required parameter 'vmExtId' is set
+	if nil == vmExtId {
+		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*vmExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.EnableVmCdRomHydrationApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Enable a VM disk to be hydrated to the local storage container in the background. If the VM disk hydration has been disabled, this will resume the hydration process.
+func (api *VmApi) EnableVmDiskHydration(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.EnableVmDiskHydrationApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}/$actions/enable-hydration"
+
+	// verify the required parameter 'vmExtId' is set
+	if nil == vmExtId {
+		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*vmExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.EnableVmDiskHydrationApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Generates a token to launch a VM console.
+func (api *VmApi) GenerateConsoleTokenById(extId *string, args ...map[string]interface{}) (*import10.GenerateConsoleTokenApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/generate-console-token"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.GenerateConsoleTokenApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Retrieves configuration details for the provided CD-ROM device attached to a virtual machine.
 func (api *VmApi) GetCdRomById(vmExtId *string, extId *string, args ...map[string]interface{}) (*import10.GetCdRomApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -1229,7 +1616,7 @@ func (api *VmApi) GetCdRomById(vmExtId *string, extId *string, args ...map[strin
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1284,7 +1671,7 @@ func (api *VmApi) GetDiskById(vmExtId *string, extId *string, args ...map[string
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1339,7 +1726,7 @@ func (api *VmApi) GetGpuById(vmExtId *string, extId *string, args ...map[string]
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/gpus/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/gpus/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1394,7 +1781,7 @@ func (api *VmApi) GetGuestToolsById(extId *string, args ...map[string]interface{
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/guest-tools"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1444,7 +1831,7 @@ func (api *VmApi) GetNicById(vmExtId *string, extId *string, args ...map[string]
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1499,7 +1886,7 @@ func (api *VmApi) GetPcieDeviceById(vmExtId *string, extId *string, args ...map[
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/pcie-devices/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1554,7 +1941,7 @@ func (api *VmApi) GetSerialPortById(vmExtId *string, extId *string, args ...map[
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1609,7 +1996,7 @@ func (api *VmApi) GetVmById(extId *string, args ...map[string]interface{}) (*imp
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1659,7 +2046,7 @@ func (api *VmApi) InsertCdRomById(vmExtId *string, extId *string, body *import10
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/insert"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms/{extId}/$actions/insert"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1718,7 +2105,7 @@ func (api *VmApi) InsertVmGuestTools(extId *string, body *import10.GuestToolsIns
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/insert-iso"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/guest-tools/$actions/insert-iso"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1772,7 +2159,7 @@ func (api *VmApi) InstallVmGuestTools(extId *string, body *import10.GuestToolsIn
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/install"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/guest-tools/$actions/install"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -1826,7 +2213,7 @@ func (api *VmApi) ListCdRomsByVmId(vmExtId *string, page_ *int, limit_ *int, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/cd-roms"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/cd-roms"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1883,7 +2270,7 @@ func (api *VmApi) ListDisksByVmId(vmExtId *string, page_ *int, limit_ *int, args
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/disks"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -1940,7 +2327,7 @@ func (api *VmApi) ListGpusByVmId(vmExtId *string, page_ *int, limit_ *int, filte
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/gpus"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/gpus"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2000,7 +2387,7 @@ func (api *VmApi) ListNicsByVmId(vmExtId *string, page_ *int, limit_ *int, filte
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/nics"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2060,7 +2447,7 @@ func (api *VmApi) ListPcieDevicesByVmId(vmExtId *string, page_ *int, limit_ *int
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/pcie-devices"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/pcie-devices"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2117,7 +2504,7 @@ func (api *VmApi) ListSerialPortsByVmId(vmExtId *string, page_ *int, limit_ *int
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2174,7 +2561,7 @@ func (api *VmApi) ListVms(page_ *int, limit_ *int, filter_ *string, orderby_ *st
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms"
+	uri := "/api/vmm/v4.2/ahv/config/vms"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -2233,7 +2620,7 @@ func (api *VmApi) MigrateNicById(vmExtId *string, extId *string, body *import10.
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/migrate"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/migrate"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2292,7 +2679,7 @@ func (api *VmApi) MigrateVmDisks(extId *string, body *import10.DiskMigrationPara
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/migrate-vm-disks"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/migrate-vm-disks"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2346,7 +2733,7 @@ func (api *VmApi) MigrateVmToHost(extId *string, body *import10.VmMigrateToHostP
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/migrate-to-host"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/migrate-to-host"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2400,7 +2787,7 @@ func (api *VmApi) PowerCycleVm(extId *string, args ...map[string]interface{}) (*
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/power-cycle"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/power-cycle"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2450,7 +2837,7 @@ func (api *VmApi) PowerOffVm(extId *string, args ...map[string]interface{}) (*im
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/power-off"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/power-off"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2500,7 +2887,7 @@ func (api *VmApi) PowerOnVm(extId *string, args ...map[string]interface{}) (*imp
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/power-on"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/power-on"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2550,7 +2937,7 @@ func (api *VmApi) RebootGuestVm(extId *string, body *import10.GuestPowerOptions,
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/guest-reboot"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/guest-reboot"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2604,7 +2991,7 @@ func (api *VmApi) RebootVm(extId *string, args ...map[string]interface{}) (*impo
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/reboot"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/reboot"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2654,7 +3041,7 @@ func (api *VmApi) ReleaseIpById(vmExtId *string, extId *string, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/release-ip"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId}/$actions/release-ip"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -2702,6 +3089,119 @@ func (api *VmApi) ReleaseIpById(vmExtId *string, extId *string, args ...map[stri
 	return unmarshalledResp, err
 }
 
+// Removes from the custom attributes of the VM.
+func (api *VmApi) RemoveVmCustomAttributes(extId *string, body *import10.UpdateCustomAttributesParams, args ...map[string]interface{}) (*import10.RemoveVmCustomAttributesApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/remove-custom-attributes"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.RemoveVmCustomAttributesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Removes from the custom attributes of the VM Disk entity.
+func (api *VmApi) RemoveVmDiskCustomAttributes(vmExtId *string, extId *string, body *import10.UpdateCustomAttributesParams, args ...map[string]interface{}) (*import10.RemoveVmDiskCustomAttributesApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}/$actions/remove-custom-attributes"
+
+	// verify the required parameter 'vmExtId' is set
+	if nil == vmExtId {
+		return nil, client.ReportError("vmExtId is required and must be specified")
+	}
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*vmExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import10.RemoveVmDiskCustomAttributesApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Force reset of a Virtual Machine, without waiting for the guest VM to shutdown itself. Resetting a VM is faster than power-cycle as the reset occurs within the context of the running virtual machine instance rather than creating a fresh instance.
 func (api *VmApi) ResetVm(extId *string, args ...map[string]interface{}) (*import10.ResetVmApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -2709,7 +3209,7 @@ func (api *VmApi) ResetVm(extId *string, args ...map[string]interface{}) (*impor
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/reset"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/reset"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2752,14 +3252,14 @@ func (api *VmApi) ResetVm(extId *string, args ...map[string]interface{}) (*impor
 	return unmarshalledResp, err
 }
 
-// Revert VM identified by {extId}. This does an in-place VM restore from a specified VM Recovery Point.
+// Revert VM identified by {extId}. This does an in-place VM restore from a specified VM Recovery Point. The project, categories and VM owner reference will not be reverted as part of this operation by default.
 func (api *VmApi) RevertVm(extId *string, body *import10.RevertParams, args ...map[string]interface{}) (*import10.RevertVmApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/revert"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/revert"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2813,7 +3313,7 @@ func (api *VmApi) ShutdownGuestVm(extId *string, body *import10.GuestPowerOption
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/guest-shutdown"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/guest-shutdown"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2867,7 +3367,7 @@ func (api *VmApi) ShutdownVm(extId *string, args ...map[string]interface{}) (*im
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/$actions/shutdown"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/$actions/shutdown"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2917,7 +3417,7 @@ func (api *VmApi) UninstallVmGuestTools(extId *string, args ...map[string]interf
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/uninstall"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/guest-tools/$actions/uninstall"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -2967,7 +3467,7 @@ func (api *VmApi) UpdateDiskById(vmExtId *string, extId *string, body *import10.
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/disks/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -3026,7 +3526,7 @@ func (api *VmApi) UpdateGuestToolsById(extId *string, body *import10.GuestTools,
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/guest-tools"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -3080,7 +3580,7 @@ func (api *VmApi) UpdateNicById(vmExtId *string, extId *string, body *import10.N
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/nics/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -3139,7 +3639,7 @@ func (api *VmApi) UpdateSerialPortById(vmExtId *string, extId *string, body *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{vmExtId}/serial-ports/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
 	if nil == vmExtId {
@@ -3198,7 +3698,7 @@ func (api *VmApi) UpdateVmById(extId *string, body *import10.Vm, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -3252,7 +3752,7 @@ func (api *VmApi) UpgradeVmGuestTools(extId *string, body *import10.GuestToolsUp
 		argMap = args[0]
 	}
 
-	uri := "/api/vmm/v4.1/ahv/config/vms/{extId}/guest-tools/$actions/upgrade"
+	uri := "/api/vmm/v4.2/ahv/config/vms/{extId}/guest-tools/$actions/upgrade"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
