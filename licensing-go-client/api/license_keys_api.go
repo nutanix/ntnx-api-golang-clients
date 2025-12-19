@@ -39,7 +39,7 @@ func (api *LicenseKeysApi) AddLicenseKey(body *import2.LicenseKey, dryrun_ *bool
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/license-keys"
+	uri := "/api/licensing/v4.3/config/license-keys"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -91,7 +91,7 @@ func (api *LicenseKeysApi) AssignLicenseKeys(body *import2.LicenseKeyAssignmentS
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/$actions/assign-license-keys"
+	uri := "/api/licensing/v4.3/config/$actions/assign-license-keys"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -132,6 +132,60 @@ func (api *LicenseKeysApi) AssignLicenseKeys(body *import2.LicenseKeyAssignmentS
 	return unmarshalledResp, err
 }
 
+// Associate parent and child license key.
+func (api *LicenseKeysApi) AssociateLicenseKeys(extId *string, body *import2.AssociateLicenseKeySpec, args ...map[string]interface{}) (*import2.AssociateLicenseKeysApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/licensing/v4.3/config/license-keys/{extId}/$actions/associate-license-keys"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.AssociateLicenseKeysApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
 // Deletes the license key based on the provided external identifier.
 func (api *LicenseKeysApi) DeleteLicenseKeyById(extId *string, args ...map[string]interface{}) (*import2.DeleteLicenseKeyApiResponse, error) {
 	argMap := make(map[string]interface{})
@@ -139,7 +193,7 @@ func (api *LicenseKeysApi) DeleteLicenseKeyById(extId *string, args ...map[strin
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/license-keys/{extId}"
+	uri := "/api/licensing/v4.3/config/license-keys/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -189,7 +243,7 @@ func (api *LicenseKeysApi) GetLicenseKeyById(extId *string, args ...map[string]i
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/license-keys/{extId}"
+	uri := "/api/licensing/v4.3/config/license-keys/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -239,7 +293,7 @@ func (api *LicenseKeysApi) ListLicenseKeys(page_ *int, limit_ *int, filter_ *str
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/license-keys"
+	uri := "/api/licensing/v4.3/config/license-keys"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -290,6 +344,119 @@ func (api *LicenseKeysApi) ListLicenseKeys(page_ *int, limit_ *int, filter_ *str
 	}
 
 	unmarshalledResp := new(import2.ListLicenseKeysApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Fetches the reclaim license tokens for all reclaimed operations.
+func (api *LicenseKeysApi) ListReclaimLicenseTokens(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListReclaimLicenseTokensApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/licensing/v4.3/config/reclaim-license-tokens"
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	}
+	if limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	}
+	if filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	}
+	if orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	}
+	if select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.ListReclaimLicenseTokensApiResponse)
+	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	return unmarshalledResp, err
+}
+
+// Reclaim license key from the cluster.
+func (api *LicenseKeysApi) ReclaimLicenseKey(extId *string, body *import2.ReclaimLicenseKeySpec, args ...map[string]interface{}) (*import2.ReclaimLicenseKeyApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/licensing/v4.3/config/license-keys/{extId}/$actions/reclaim"
+
+	// verify the required parameter 'extId' is set
+	if nil == extId {
+		return nil, client.ReportError("extId is required and must be specified")
+	}
+	// verify the required parameter 'body' is set
+	if nil == body {
+		return nil, client.ReportError("body is required and must be specified")
+	}
+
+	// Path Params
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{"application/json"}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+
+	unmarshalledResp := new(import2.ReclaimLicenseKeyApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

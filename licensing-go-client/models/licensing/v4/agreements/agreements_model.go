@@ -1,7 +1,7 @@
 /*
  * Generated file models/licensing/v4/agreements/agreements_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Licensing APIs
  *
@@ -125,14 +125,14 @@ func NewAcceptance() *Acceptance {
 	p := new(Acceptance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.Acceptance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/agreements/eula/$actions/add-user Post operation
+REST response for all response codes in API path /licensing/v4.3/agreements/eula/$actions/add-user Post operation
 */
 type AddUserApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -232,7 +232,7 @@ func NewAddUserApiResponse() *AddUserApiResponse {
 	p := new(AddUserApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.AddUserApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -385,7 +385,7 @@ func NewEndUser() *EndUser {
 	p := new(EndUser)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.EndUser"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -545,14 +545,14 @@ func NewEula() *Eula {
 	p := new(Eula)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.Eula"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/agreements/eula Get operation
+REST response for all response codes in API path /licensing/v4.3/agreements/eula Get operation
 */
 type GetEulaApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -652,7 +652,7 @@ func NewGetEulaApiResponse() *GetEulaApiResponse {
 	p := new(GetEulaApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.agreements.GetEulaApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

@@ -39,7 +39,7 @@ func (api *LicensesApi) ListAllowances(page_ *int, limit_ *int, filter_ *string,
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/allowances"
+	uri := "/api/licensing/v4.3/config/allowances"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -101,7 +101,7 @@ func (api *LicensesApi) ListCompliances(page_ *int, limit_ *int, filter_ *string
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/compliances"
+	uri := "/api/licensing/v4.3/config/compliances"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -163,7 +163,7 @@ func (api *LicensesApi) ListEntitlements(page_ *int, limit_ *int, filter_ *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/entitlements"
+	uri := "/api/licensing/v4.3/config/entitlements"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -225,7 +225,7 @@ func (api *LicensesApi) ListFeatures(page_ *int, limit_ *int, filter_ *string, o
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/features"
+	uri := "/api/licensing/v4.3/config/features"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -284,7 +284,7 @@ func (api *LicensesApi) ListLicenses(page_ *int, limit_ *int, filter_ *string, o
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/licenses"
+	uri := "/api/licensing/v4.3/config/licenses"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -346,7 +346,7 @@ func (api *LicensesApi) ListRecommendations(page_ *int, limit_ *int, select_ *st
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/recommendations"
+	uri := "/api/licensing/v4.3/config/recommendations"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -399,7 +399,7 @@ func (api *LicensesApi) ListSettings(page_ *int, limit_ *int, args ...map[string
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/settings"
+	uri := "/api/licensing/v4.3/config/settings"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -449,7 +449,7 @@ func (api *LicensesApi) ListViolations(page_ *int, limit_ *int, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/violations"
+	uri := "/api/licensing/v4.3/config/violations"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -499,7 +499,7 @@ func (api *LicensesApi) SyncLicenseState(body *import2.LicenseStateSyncSpec, arg
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.2/config/$actions/sync-license-state"
+	uri := "/api/licensing/v4.3/config/$actions/sync-license-state"
 
 	// verify the required parameter 'body' is set
 	if nil == body {

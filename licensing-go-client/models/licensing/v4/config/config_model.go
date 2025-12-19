@@ -1,7 +1,7 @@
 /*
  * Generated file models/licensing/v4/config/config_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Licensing APIs
  *
@@ -26,7 +26,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/license-keys Post operation
+REST response for all response codes in API path /licensing/v4.3/config/license-keys Post operation
 */
 type AddLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -126,7 +126,7 @@ func NewAddLicenseKeyApiResponse() *AddLicenseKeyApiResponse {
 	p := new(AddLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AddLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -249,7 +249,7 @@ func NewAddLicenseKeyDryRunApiResponse() *AddLicenseKeyDryRunApiResponse {
 	p := new(AddLicenseKeyDryRunApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AddLicenseKeyDryRunApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -390,7 +390,7 @@ func NewAllowance() *Allowance {
 	p := new(Allowance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Allowance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -505,7 +505,7 @@ func NewAllowanceDetail() *AllowanceDetail {
 	p := new(AllowanceDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -617,7 +617,7 @@ func NewAllowanceDetailProjection() *AllowanceDetailProjection {
 	p := new(AllowanceDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -761,14 +761,14 @@ func NewAllowanceProjection() *AllowanceProjection {
 	p := new(AllowanceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/$actions/assign-license-keys Post operation
+REST response for all response codes in API path /licensing/v4.3/config/$actions/assign-license-keys Post operation
 */
 type AssignLicenseKeysApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -868,7 +868,7 @@ func NewAssignLicenseKeysApiResponse() *AssignLicenseKeysApiResponse {
 	p := new(AssignLicenseKeysApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AssignLicenseKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -884,6 +884,236 @@ func (p *AssignLicenseKeysApiResponse) GetData() interface{} {
 func (p *AssignLicenseKeysApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfAssignLicenseKeysApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Payload containing array of key association for associate license key operation.
+*/
+type AssociateLicenseKeySpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Model containing parent key, associated key, association and reclaim rules.
+	*/
+	KeyAssociations []LicenseKeyAssociation `json:"keyAssociations"`
+}
+
+func (p *AssociateLicenseKeySpec) MarshalJSON() ([]byte, error) {
+	type AssociateLicenseKeySpecProxy AssociateLicenseKeySpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*AssociateLicenseKeySpecProxy
+		KeyAssociations []LicenseKeyAssociation `json:"keyAssociations,omitempty"`
+	}{
+		AssociateLicenseKeySpecProxy: (*AssociateLicenseKeySpecProxy)(p),
+		KeyAssociations:              p.KeyAssociations,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AssociateLicenseKeySpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AssociateLicenseKeySpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewAssociateLicenseKeySpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.KeyAssociations != nil {
+		p.KeyAssociations = known.KeyAssociations
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "keyAssociations")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewAssociateLicenseKeySpec() *AssociateLicenseKeySpec {
+	p := new(AssociateLicenseKeySpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.AssociateLicenseKeySpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.3/config/license-keys/{extId}/$actions/associate-license-keys Post operation
+*/
+type AssociateLicenseKeysApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfAssociateLicenseKeysApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *AssociateLicenseKeysApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias AssociateLicenseKeysApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *AssociateLicenseKeysApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias AssociateLicenseKeysApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewAssociateLicenseKeysApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewAssociateLicenseKeysApiResponse() *AssociateLicenseKeysApiResponse {
+	p := new(AssociateLicenseKeysApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.AssociateLicenseKeysApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *AssociateLicenseKeysApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *AssociateLicenseKeysApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfAssociateLicenseKeysApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -1087,7 +1317,7 @@ func NewBaseClusterInfo() *BaseClusterInfo {
 	p := new(BaseClusterInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.BaseClusterInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1201,22 +1431,27 @@ func (p *BaseLicenseInfo) UnmarshalJSON(b []byte) error {
 	*p = *NewBaseLicenseInfo()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.ExpiryDate != "" {
 		parsedExpiryDate, err := time.Parse("2006-01-02", knownFields.ExpiryDate)
@@ -1226,26 +1461,32 @@ func (p *BaseLicenseInfo) UnmarshalJSON(b []byte) error {
 		p.ExpiryDate = &parsedExpiryDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.ExtId != nil {
 		p.ExtId = knownFields.ExtId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Links != nil {
 		p.Links = knownFields.Links
 	}
 	// Handle custom date parsing
+
 	if knownFields.Name != nil {
 		p.Name = knownFields.Name
 	}
 	// Handle custom date parsing
+
 	if knownFields.SubCategory != nil {
 		p.SubCategory = knownFields.SubCategory
 	}
 	// Handle custom date parsing
+
 	if knownFields.TenantId != nil {
 		p.TenantId = knownFields.TenantId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
@@ -1275,7 +1516,7 @@ func NewBaseLicenseInfo() *BaseLicenseInfo {
 	p := new(BaseLicenseInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.BaseLicenseInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1471,7 +1712,7 @@ func NewCapacityViolation() *CapacityViolation {
 	p := new(CapacityViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.CapacityViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1582,7 +1823,7 @@ func NewClusterLicenseKeyMapping() *ClusterLicenseKeyMapping {
 	p := new(ClusterLicenseKeyMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ClusterLicenseKeyMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1690,7 +1931,7 @@ func NewClusterLicenseKeyMappingProjection() *ClusterLicenseKeyMappingProjection
 	p := new(ClusterLicenseKeyMappingProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ClusterLicenseKeyMappingProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1706,7 +1947,8 @@ const (
 	CLUSTERTYPE_REDACTED          ClusterType = 1
 	CLUSTERTYPE_NUTANIX           ClusterType = 2
 	CLUSTERTYPE_VMWARE            ClusterType = 3
-	CLUSTERTYPE_OTHER_NON_NUTANIX ClusterType = 4
+	CLUSTERTYPE_REMOTE_NTNX       ClusterType = 4
+	CLUSTERTYPE_OTHER_NON_NUTANIX ClusterType = 5
 )
 
 // Returns the name of the enum given an ordinal number
@@ -1718,6 +1960,7 @@ func (e *ClusterType) name(index int) string {
 		"$REDACTED",
 		"NUTANIX",
 		"VMWARE",
+		"REMOTE_NTNX",
 		"OTHER_NON_NUTANIX",
 	}
 	if index < 0 || index >= len(names) {
@@ -1734,6 +1977,7 @@ func (e ClusterType) GetName() string {
 		"$REDACTED",
 		"NUTANIX",
 		"VMWARE",
+		"REMOTE_NTNX",
 		"OTHER_NON_NUTANIX",
 	}
 	if index < 0 || index >= len(names) {
@@ -1749,6 +1993,7 @@ func (e *ClusterType) index(name string) ClusterType {
 		"$REDACTED",
 		"NUTANIX",
 		"VMWARE",
+		"REMOTE_NTNX",
 		"OTHER_NON_NUTANIX",
 	}
 	for idx := range names {
@@ -1914,7 +2159,7 @@ func NewCompliance() *Compliance {
 	p := new(Compliance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Compliance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2058,7 +2303,7 @@ func NewComplianceProjection() *ComplianceProjection {
 	p := new(ComplianceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ComplianceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2161,7 +2406,7 @@ func NewConsumption() *Consumption {
 	p := new(Consumption)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Consumption"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2261,7 +2506,7 @@ func NewConsumptionProjection() *ConsumptionProjection {
 	p := new(ConsumptionProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ConsumptionProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2347,7 +2592,7 @@ func (e ConsumptionType) Ref() *ConsumptionType {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/license-keys/{extId} Delete operation
+REST response for all response codes in API path /licensing/v4.3/config/license-keys/{extId} Delete operation
 */
 type DeleteLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2447,7 +2692,7 @@ func NewDeleteLicenseKeyApiResponse() *DeleteLicenseKeyApiResponse {
 	p := new(DeleteLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.DeleteLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2567,7 +2812,7 @@ func NewDryRunCheck() *DryRunCheck {
 	p := new(DryRunCheck)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.DryRunCheck"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2739,7 +2984,7 @@ func NewDryRunValidationResult() *DryRunValidationResult {
 	p := new(DryRunValidationResult)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.DryRunValidationResult"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3169,7 +3414,7 @@ func NewEntitlement() *Entitlement {
 	p := new(Entitlement)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Entitlement"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3279,22 +3524,27 @@ func (p *EntitlementDetail) UnmarshalJSON(b []byte) error {
 	*p = *NewEntitlementDetail()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.EarliestExpiryDate != "" {
 		parsedEarliestExpiryDate, err := time.Parse("2006-01-02", knownFields.EarliestExpiryDate)
@@ -3304,26 +3554,32 @@ func (p *EntitlementDetail) UnmarshalJSON(b []byte) error {
 		p.EarliestExpiryDate = &parsedEarliestExpiryDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.Meter != nil {
 		p.Meter = knownFields.Meter
 	}
 	// Handle custom date parsing
+
 	if knownFields.Name != nil {
 		p.Name = knownFields.Name
 	}
 	// Handle custom date parsing
+
 	if knownFields.Quantity != nil {
 		p.Quantity = knownFields.Quantity
 	}
 	// Handle custom date parsing
+
 	if knownFields.Scope != nil {
 		p.Scope = knownFields.Scope
 	}
 	// Handle custom date parsing
+
 	if knownFields.SubCategory != nil {
 		p.SubCategory = knownFields.SubCategory
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
@@ -3353,7 +3609,7 @@ func NewEntitlementDetail() *EntitlementDetail {
 	p := new(EntitlementDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3460,22 +3716,27 @@ func (p *EntitlementDetailProjection) UnmarshalJSON(b []byte) error {
 	*p = *NewEntitlementDetailProjection()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.EarliestExpiryDate != "" {
 		parsedEarliestExpiryDate, err := time.Parse("2006-01-02", knownFields.EarliestExpiryDate)
@@ -3485,26 +3746,32 @@ func (p *EntitlementDetailProjection) UnmarshalJSON(b []byte) error {
 		p.EarliestExpiryDate = &parsedEarliestExpiryDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.Meter != nil {
 		p.Meter = knownFields.Meter
 	}
 	// Handle custom date parsing
+
 	if knownFields.Name != nil {
 		p.Name = knownFields.Name
 	}
 	// Handle custom date parsing
+
 	if knownFields.Quantity != nil {
 		p.Quantity = knownFields.Quantity
 	}
 	// Handle custom date parsing
+
 	if knownFields.Scope != nil {
 		p.Scope = knownFields.Scope
 	}
 	// Handle custom date parsing
+
 	if knownFields.SubCategory != nil {
 		p.SubCategory = knownFields.SubCategory
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
@@ -3534,7 +3801,7 @@ func NewEntitlementDetailProjection() *EntitlementDetailProjection {
 	p := new(EntitlementDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3694,7 +3961,7 @@ func NewEntitlementProjection() *EntitlementProjection {
 	p := new(EntitlementProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3821,22 +4088,27 @@ func (p *ExpiredLicense) UnmarshalJSON(b []byte) error {
 	*p = *NewExpiredLicense()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.ExpiryDate != "" {
 		parsedExpiryDate, err := time.Parse("2006-01-02", knownFields.ExpiryDate)
@@ -3846,38 +4118,47 @@ func (p *ExpiredLicense) UnmarshalJSON(b []byte) error {
 		p.ExpiryDate = &parsedExpiryDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.ExtId != nil {
 		p.ExtId = knownFields.ExtId
 	}
 	// Handle custom date parsing
+
 	if knownFields.LicenseId != nil {
 		p.LicenseId = knownFields.LicenseId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Links != nil {
 		p.Links = knownFields.Links
 	}
 	// Handle custom date parsing
+
 	if knownFields.Meter != nil {
 		p.Meter = knownFields.Meter
 	}
 	// Handle custom date parsing
+
 	if knownFields.Name != nil {
 		p.Name = knownFields.Name
 	}
 	// Handle custom date parsing
+
 	if knownFields.SubCategory != nil {
 		p.SubCategory = knownFields.SubCategory
 	}
 	// Handle custom date parsing
+
 	if knownFields.TenantId != nil {
 		p.TenantId = knownFields.TenantId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
 	// Handle custom date parsing
+
 	if knownFields.UsedQuantity != nil {
 		p.UsedQuantity = knownFields.UsedQuantity
 	}
@@ -3910,7 +4191,7 @@ func NewExpiredLicense() *ExpiredLicense {
 	p := new(ExpiredLicense)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ExpiredLicense"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4075,7 +4356,7 @@ func NewFeature() *Feature {
 	p := new(Feature)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Feature"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4207,7 +4488,7 @@ func NewFeatureDetail() *FeatureDetail {
 	p := new(FeatureDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4367,7 +4648,7 @@ func NewFeatureProjection() *FeatureProjection {
 	p := new(FeatureProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4489,14 +4770,14 @@ func NewFeatureViolation() *FeatureViolation {
 	p := new(FeatureViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/license-keys/{extId} Get operation
+REST response for all response codes in API path /licensing/v4.3/config/license-keys/{extId} Get operation
 */
 type GetLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4596,7 +4877,7 @@ func NewGetLicenseKeyApiResponse() *GetLicenseKeyApiResponse {
 	p := new(GetLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.GetLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4752,26 +5033,32 @@ func (p *License) UnmarshalJSON(b []byte) error {
 	*p = *NewLicense()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	if knownFields.ConsumptionDetails != nil {
 		p.ConsumptionDetails = knownFields.ConsumptionDetails
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.ExpiryDate != "" {
 		parsedExpiryDate, err := time.Parse("2006-01-02", knownFields.ExpiryDate)
@@ -4781,42 +5068,52 @@ func (p *License) UnmarshalJSON(b []byte) error {
 		p.ExpiryDate = &parsedExpiryDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.ExtId != nil {
 		p.ExtId = knownFields.ExtId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Links != nil {
 		p.Links = knownFields.Links
 	}
 	// Handle custom date parsing
+
 	if knownFields.Meter != nil {
 		p.Meter = knownFields.Meter
 	}
 	// Handle custom date parsing
+
 	if knownFields.Name != nil {
 		p.Name = knownFields.Name
 	}
 	// Handle custom date parsing
+
 	if knownFields.Quantity != nil {
 		p.Quantity = knownFields.Quantity
 	}
 	// Handle custom date parsing
+
 	if knownFields.SalesforceLicenseId != nil {
 		p.SalesforceLicenseId = knownFields.SalesforceLicenseId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Scope != nil {
 		p.Scope = knownFields.Scope
 	}
 	// Handle custom date parsing
+
 	if knownFields.SubCategory != nil {
 		p.SubCategory = knownFields.SubCategory
 	}
 	// Handle custom date parsing
+
 	if knownFields.TenantId != nil {
 		p.TenantId = knownFields.TenantId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
@@ -4851,7 +5148,7 @@ func NewLicense() *License {
 	p := new(License)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.License"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4899,9 +5196,10 @@ const (
 	LICENSECATEGORY_PUBLIC_CLOUD         LicenseCategory = 33
 	LICENSECATEGORY_ADVANCED_REPLICATION LicenseCategory = 34
 	LICENSECATEGORY_NDK                  LicenseCategory = 35
-	LICENSECATEGORY_RET_3Y               LicenseCategory = 36
-	LICENSECATEGORY_RET_5Y               LicenseCategory = 37
-	LICENSECATEGORY_RET_7Y               LicenseCategory = 38
+	LICENSECATEGORY_RET_1Y               LicenseCategory = 36
+	LICENSECATEGORY_RET_3Y               LicenseCategory = 37
+	LICENSECATEGORY_RET_5Y               LicenseCategory = 38
+	LICENSECATEGORY_RET_7Y               LicenseCategory = 39
 )
 
 // Returns the name of the enum given an ordinal number
@@ -4945,6 +5243,7 @@ func (e *LicenseCategory) name(index int) string {
 		"PUBLIC_CLOUD",
 		"ADVANCED_REPLICATION",
 		"NDK",
+		"RET_1Y",
 		"RET_3Y",
 		"RET_5Y",
 		"RET_7Y",
@@ -4995,6 +5294,7 @@ func (e LicenseCategory) GetName() string {
 		"PUBLIC_CLOUD",
 		"ADVANCED_REPLICATION",
 		"NDK",
+		"RET_1Y",
 		"RET_3Y",
 		"RET_5Y",
 		"RET_7Y",
@@ -5044,6 +5344,7 @@ func (e *LicenseCategory) index(name string) LicenseCategory {
 		"PUBLIC_CLOUD",
 		"ADVANCED_REPLICATION",
 		"NDK",
+		"RET_1Y",
 		"RET_3Y",
 		"RET_5Y",
 		"RET_7Y",
@@ -5298,34 +5599,42 @@ func (p *LicenseKey) UnmarshalJSON(b []byte) error {
 	*p = *NewLicenseKey()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.AssignmentDetails != nil {
 		p.AssignmentDetails = knownFields.AssignmentDetails
 	}
 	// Handle custom date parsing
+
 	if knownFields.AssociationDetails != nil {
 		p.AssociationDetails = knownFields.AssociationDetails
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	if knownFields.EnforcementPolicy != nil {
 		p.EnforcementPolicy = knownFields.EnforcementPolicy
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.EntitlementExpiryDate != "" {
 		parsedEntitlementExpiryDate, err := time.Parse("2006-01-02", knownFields.EntitlementExpiryDate)
@@ -5335,42 +5644,52 @@ func (p *LicenseKey) UnmarshalJSON(b []byte) error {
 		p.EntitlementExpiryDate = &parsedEntitlementExpiryDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.ExtId != nil {
 		p.ExtId = knownFields.ExtId
 	}
 	// Handle custom date parsing
+
 	if knownFields.GroupId != nil {
 		p.GroupId = knownFields.GroupId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Key != nil {
 		p.Key = knownFields.Key
 	}
 	// Handle custom date parsing
+
 	if knownFields.Links != nil {
 		p.Links = knownFields.Links
 	}
 	// Handle custom date parsing
+
 	if knownFields.Meter != nil {
 		p.Meter = knownFields.Meter
 	}
 	// Handle custom date parsing
+
 	if knownFields.Quantity != nil {
 		p.Quantity = knownFields.Quantity
 	}
 	// Handle custom date parsing
+
 	if knownFields.SubCategory != nil {
 		p.SubCategory = knownFields.SubCategory
 	}
 	// Handle custom date parsing
+
 	if knownFields.TenantId != nil {
 		p.TenantId = knownFields.TenantId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
 	// Handle custom date parsing
+
 	if knownFields.ValidationDetail != nil {
 		p.ValidationDetail = knownFields.ValidationDetail
 	}
@@ -5407,7 +5726,7 @@ func NewLicenseKey() *LicenseKey {
 	p := new(LicenseKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5510,7 +5829,7 @@ func NewLicenseKeyAssignment() *LicenseKeyAssignment {
 	p := new(LicenseKeyAssignment)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssignment"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5612,7 +5931,7 @@ func NewLicenseKeyAssignmentSpec() *LicenseKeyAssignmentSpec {
 	p := new(LicenseKeyAssignmentSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssignmentSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5738,7 +6057,7 @@ func NewLicenseKeyAssociation() *LicenseKeyAssociation {
 	p := new(LicenseKeyAssociation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssociation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5861,109 +6180,7 @@ func NewLicenseKeyAssociationProjection() *LicenseKeyAssociationProjection {
 	p := new(LicenseKeyAssociationProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssociationProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
-	p.UnknownFields_ = map[string]interface{}{}
-
-	return p
-}
-
-/*
-Payload containing array of key association for associate license key operation.
-*/
-type LicenseKeyAssociationSpec struct {
-	ObjectType_ *string `json:"$objectType,omitempty"`
-
-	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
-
-	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  Model containing parent key, associated key, association and reclaim rules.
-	*/
-	KeyAssociations []LicenseKeyAssociation `json:"keyAssociations"`
-}
-
-func (p *LicenseKeyAssociationSpec) MarshalJSON() ([]byte, error) {
-	type LicenseKeyAssociationSpecProxy LicenseKeyAssociationSpec
-
-	// Step 1: Marshal known fields via proxy to enforce required fields
-	baseStruct := struct {
-		*LicenseKeyAssociationSpecProxy
-		KeyAssociations []LicenseKeyAssociation `json:"keyAssociations,omitempty"`
-	}{
-		LicenseKeyAssociationSpecProxy: (*LicenseKeyAssociationSpecProxy)(p),
-		KeyAssociations:                p.KeyAssociations,
-	}
-
-	known, err := json.Marshal(baseStruct)
-	if err != nil {
-		return nil, err
-	}
-
-	// Step 2: Convert known to map for merging
-	var knownMap map[string]interface{}
-	if err := json.Unmarshal(known, &knownMap); err != nil {
-		return nil, err
-	}
-	delete(knownMap, "$unknownFields")
-
-	// Step 3: Merge unknown fields
-	for k, v := range p.UnknownFields_ {
-		knownMap[k] = v
-	}
-
-	// Step 4: Marshal final merged map
-	return json.Marshal(knownMap)
-}
-
-func (p *LicenseKeyAssociationSpec) UnmarshalJSON(b []byte) error {
-	// Step 1: Unmarshal into a generic map to capture all fields
-	var allFields map[string]interface{}
-	if err := json.Unmarshal(b, &allFields); err != nil {
-		return err
-	}
-
-	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias LicenseKeyAssociationSpec
-	known := &Alias{}
-	if err := json.Unmarshal(b, known); err != nil {
-		return err
-	}
-
-	// Step 3: Assign known fields
-	*p = *NewLicenseKeyAssociationSpec()
-
-	if known.ObjectType_ != nil {
-		p.ObjectType_ = known.ObjectType_
-	}
-	if known.Reserved_ != nil {
-		p.Reserved_ = known.Reserved_
-	}
-	if known.UnknownFields_ != nil {
-		p.UnknownFields_ = known.UnknownFields_
-	}
-	if known.KeyAssociations != nil {
-		p.KeyAssociations = known.KeyAssociations
-	}
-
-	// Step 4: Remove known JSON fields from allFields map
-	delete(allFields, "$objectType")
-	delete(allFields, "$reserved")
-	delete(allFields, "$unknownFields")
-	delete(allFields, "keyAssociations")
-
-	// Step 5: Assign remaining fields to UnknownFields_
-	for key, value := range allFields {
-		p.UnknownFields_[key] = value
-	}
-
-	return nil
-}
-
-func NewLicenseKeyAssociationSpec() *LicenseKeyAssociationSpec {
-	p := new(LicenseKeyAssociationSpec)
-	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssociationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6066,7 +6283,7 @@ func NewLicenseKeyMapping() *LicenseKeyMapping {
 	p := new(LicenseKeyMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6214,38 +6431,47 @@ func (p *LicenseKeyProjection) UnmarshalJSON(b []byte) error {
 	*p = *NewLicenseKeyProjection()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.AssignmentDetails != nil {
 		p.AssignmentDetails = knownFields.AssignmentDetails
 	}
 	// Handle custom date parsing
+
 	if knownFields.AssociationDetails != nil {
 		p.AssociationDetails = knownFields.AssociationDetails
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	if knownFields.ClusterLicenseKeyMappingProjection != nil {
 		p.ClusterLicenseKeyMappingProjection = knownFields.ClusterLicenseKeyMappingProjection
 	}
 	// Handle custom date parsing
+
 	if knownFields.EnforcementPolicy != nil {
 		p.EnforcementPolicy = knownFields.EnforcementPolicy
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.EntitlementExpiryDate != "" {
 		parsedEntitlementExpiryDate, err := time.Parse("2006-01-02", knownFields.EntitlementExpiryDate)
@@ -6255,46 +6481,57 @@ func (p *LicenseKeyProjection) UnmarshalJSON(b []byte) error {
 		p.EntitlementExpiryDate = &parsedEntitlementExpiryDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.ExtId != nil {
 		p.ExtId = knownFields.ExtId
 	}
 	// Handle custom date parsing
+
 	if knownFields.GroupId != nil {
 		p.GroupId = knownFields.GroupId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Key != nil {
 		p.Key = knownFields.Key
 	}
 	// Handle custom date parsing
+
 	if knownFields.LicenseKeyAssociationProjection != nil {
 		p.LicenseKeyAssociationProjection = knownFields.LicenseKeyAssociationProjection
 	}
 	// Handle custom date parsing
+
 	if knownFields.Links != nil {
 		p.Links = knownFields.Links
 	}
 	// Handle custom date parsing
+
 	if knownFields.Meter != nil {
 		p.Meter = knownFields.Meter
 	}
 	// Handle custom date parsing
+
 	if knownFields.Quantity != nil {
 		p.Quantity = knownFields.Quantity
 	}
 	// Handle custom date parsing
+
 	if knownFields.SubCategory != nil {
 		p.SubCategory = knownFields.SubCategory
 	}
 	// Handle custom date parsing
+
 	if knownFields.TenantId != nil {
 		p.TenantId = knownFields.TenantId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
 	// Handle custom date parsing
+
 	if knownFields.ValidationDetail != nil {
 		p.ValidationDetail = knownFields.ValidationDetail
 	}
@@ -6333,7 +6570,7 @@ func NewLicenseKeyProjection() *LicenseKeyProjection {
 	p := new(LicenseKeyProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6547,30 +6784,37 @@ func (p *LicenseProjection) UnmarshalJSON(b []byte) error {
 	*p = *NewLicenseProjection()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	if knownFields.ConsumptionDetails != nil {
 		p.ConsumptionDetails = knownFields.ConsumptionDetails
 	}
 	// Handle custom date parsing
+
 	if knownFields.ConsumptionProjection != nil {
 		p.ConsumptionProjection = knownFields.ConsumptionProjection
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.ExpiryDate != "" {
 		parsedExpiryDate, err := time.Parse("2006-01-02", knownFields.ExpiryDate)
@@ -6580,42 +6824,52 @@ func (p *LicenseProjection) UnmarshalJSON(b []byte) error {
 		p.ExpiryDate = &parsedExpiryDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.ExtId != nil {
 		p.ExtId = knownFields.ExtId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Links != nil {
 		p.Links = knownFields.Links
 	}
 	// Handle custom date parsing
+
 	if knownFields.Meter != nil {
 		p.Meter = knownFields.Meter
 	}
 	// Handle custom date parsing
+
 	if knownFields.Name != nil {
 		p.Name = knownFields.Name
 	}
 	// Handle custom date parsing
+
 	if knownFields.Quantity != nil {
 		p.Quantity = knownFields.Quantity
 	}
 	// Handle custom date parsing
+
 	if knownFields.SalesforceLicenseId != nil {
 		p.SalesforceLicenseId = knownFields.SalesforceLicenseId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Scope != nil {
 		p.Scope = knownFields.Scope
 	}
 	// Handle custom date parsing
+
 	if knownFields.SubCategory != nil {
 		p.SubCategory = knownFields.SubCategory
 	}
 	// Handle custom date parsing
+
 	if knownFields.TenantId != nil {
 		p.TenantId = knownFields.TenantId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
@@ -6651,7 +6905,7 @@ func NewLicenseProjection() *LicenseProjection {
 	p := new(LicenseProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6760,7 +7014,7 @@ func NewLicenseStateSyncSpec() *LicenseStateSyncSpec {
 	p := new(LicenseStateSyncSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseStateSyncSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6978,7 +7232,7 @@ func (e LicenseType) Ref() *LicenseType {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/allowances Get operation
+REST response for all response codes in API path /licensing/v4.3/config/allowances Get operation
 */
 type ListAllowancesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7078,7 +7332,7 @@ func NewListAllowancesApiResponse() *ListAllowancesApiResponse {
 	p := new(ListAllowancesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListAllowancesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7106,7 +7360,7 @@ func (p *ListAllowancesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/compliances Get operation
+REST response for all response codes in API path /licensing/v4.3/config/compliances Get operation
 */
 type ListCompliancesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7206,7 +7460,7 @@ func NewListCompliancesApiResponse() *ListCompliancesApiResponse {
 	p := new(ListCompliancesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListCompliancesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7234,7 +7488,7 @@ func (p *ListCompliancesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/entitlements Get operation
+REST response for all response codes in API path /licensing/v4.3/config/entitlements Get operation
 */
 type ListEntitlementsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7334,7 +7588,7 @@ func NewListEntitlementsApiResponse() *ListEntitlementsApiResponse {
 	p := new(ListEntitlementsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListEntitlementsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7362,7 +7616,7 @@ func (p *ListEntitlementsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/features Get operation
+REST response for all response codes in API path /licensing/v4.3/config/features Get operation
 */
 type ListFeaturesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7462,7 +7716,7 @@ func NewListFeaturesApiResponse() *ListFeaturesApiResponse {
 	p := new(ListFeaturesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListFeaturesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7490,7 +7744,7 @@ func (p *ListFeaturesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/license-keys Get operation
+REST response for all response codes in API path /licensing/v4.3/config/license-keys Get operation
 */
 type ListLicenseKeysApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7590,7 +7844,7 @@ func NewListLicenseKeysApiResponse() *ListLicenseKeysApiResponse {
 	p := new(ListLicenseKeysApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListLicenseKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7618,7 +7872,7 @@ func (p *ListLicenseKeysApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/licenses Get operation
+REST response for all response codes in API path /licensing/v4.3/config/licenses Get operation
 */
 type ListLicensesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7718,7 +7972,7 @@ func NewListLicensesApiResponse() *ListLicensesApiResponse {
 	p := new(ListLicensesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListLicensesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7746,7 +8000,135 @@ func (p *ListLicensesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/recommendations Get operation
+REST response for all response codes in API path /licensing/v4.3/config/reclaim-license-tokens Get operation
+*/
+type ListReclaimLicenseTokensApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfListReclaimLicenseTokensApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListReclaimLicenseTokensApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListReclaimLicenseTokensApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListReclaimLicenseTokensApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListReclaimLicenseTokensApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListReclaimLicenseTokensApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewListReclaimLicenseTokensApiResponse() *ListReclaimLicenseTokensApiResponse {
+	p := new(ListReclaimLicenseTokensApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ListReclaimLicenseTokensApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ListReclaimLicenseTokensApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ListReclaimLicenseTokensApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfListReclaimLicenseTokensApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.3/config/recommendations Get operation
 */
 type ListRecommendationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7846,7 +8228,7 @@ func NewListRecommendationsApiResponse() *ListRecommendationsApiResponse {
 	p := new(ListRecommendationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListRecommendationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7874,7 +8256,7 @@ func (p *ListRecommendationsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/settings Get operation
+REST response for all response codes in API path /licensing/v4.3/config/settings Get operation
 */
 type ListSettingsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7974,7 +8356,7 @@ func NewListSettingsApiResponse() *ListSettingsApiResponse {
 	p := new(ListSettingsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListSettingsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8002,7 +8384,7 @@ func (p *ListSettingsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/violations Get operation
+REST response for all response codes in API path /licensing/v4.3/config/violations Get operation
 */
 type ListViolationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8102,7 +8484,7 @@ func NewListViolationsApiResponse() *ListViolationsApiResponse {
 	p := new(ListViolationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListViolationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8226,7 +8608,7 @@ func NewLogicalVersion() *LogicalVersion {
 	p := new(LogicalVersion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LogicalVersion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8538,7 +8920,7 @@ func NewPortalSetting() *PortalSetting {
 	p := new(PortalSetting)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.PortalSetting"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8738,7 +9120,7 @@ func NewPostPaidConfig() *PostPaidConfig {
 	p := new(PostPaidConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.PostPaidConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8759,6 +9141,7 @@ const (
 	PRODUCTNAME_AOS          ProductName = 6
 	PRODUCTNAME_FILE         ProductName = 7
 	PRODUCTNAME_VOLUME_GROUP ProductName = 8
+	PRODUCTNAME_NDL          ProductName = 9
 )
 
 // Returns the name of the enum given an ordinal number
@@ -8775,6 +9158,7 @@ func (e *ProductName) name(index int) string {
 		"AOS",
 		"FILE",
 		"VOLUME_GROUP",
+		"NDL",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -8795,6 +9179,7 @@ func (e ProductName) GetName() string {
 		"AOS",
 		"FILE",
 		"VOLUME_GROUP",
+		"NDL",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -8814,6 +9199,7 @@ func (e *ProductName) index(name string) ProductName {
 		"AOS",
 		"FILE",
 		"VOLUME_GROUP",
+		"NDL",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -8841,6 +9227,621 @@ func (e *ProductName) MarshalJSON() ([]byte, error) {
 
 func (e ProductName) Ref() *ProductName {
 	return &e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.3/config/license-keys/{extId}/$actions/reclaim Post operation
+*/
+type ReclaimLicenseKeyApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfReclaimLicenseKeyApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ReclaimLicenseKeyApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ReclaimLicenseKeyApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ReclaimLicenseKeyApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ReclaimLicenseKeyApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewReclaimLicenseKeyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewReclaimLicenseKeyApiResponse() *ReclaimLicenseKeyApiResponse {
+	p := new(ReclaimLicenseKeyApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ReclaimLicenseKeyApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *ReclaimLicenseKeyApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *ReclaimLicenseKeyApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfReclaimLicenseKeyApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+Model for capturing attributes required for reclaim.
+*/
+type ReclaimLicenseKeySpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Attribute for capturing license key quantity for reclaim.
+	*/
+	Quantity *int `json:"quantity"`
+}
+
+func (p *ReclaimLicenseKeySpec) MarshalJSON() ([]byte, error) {
+	type ReclaimLicenseKeySpecProxy ReclaimLicenseKeySpec
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ReclaimLicenseKeySpecProxy
+		Quantity *int `json:"quantity,omitempty"`
+	}{
+		ReclaimLicenseKeySpecProxy: (*ReclaimLicenseKeySpecProxy)(p),
+		Quantity:                   p.Quantity,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ReclaimLicenseKeySpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ReclaimLicenseKeySpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewReclaimLicenseKeySpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Quantity != nil {
+		p.Quantity = known.Quantity
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "quantity")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewReclaimLicenseKeySpec() *ReclaimLicenseKeySpec {
+	p := new(ReclaimLicenseKeySpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ReclaimLicenseKeySpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Model for reclaim license token.
+*/
+type ReclaimLicenseToken struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Attribute for license key being reclaimed.
+	*/
+	Key *string `json:"key,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Attribute for capturing reclaimed quantity.
+	*/
+	Quantity *int `json:"quantity,omitempty"`
+	/*
+	  Attribute for capturing reclaim token creation date.
+	*/
+	ReclaimDate *time.Time `json:"reclaimDate,omitempty"`
+	/*
+	  Attribute capturing reclaim token generated.
+	*/
+	ReclaimToken *string `json:"reclaimToken,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ReclaimLicenseToken) MarshalJSON() ([]byte, error) {
+	type ReclaimLicenseTokenProxy ReclaimLicenseToken
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
+		*ReclaimLicenseTokenProxy
+		ReclaimDate string `json:"reclaimDate,omitempty"`
+	}{
+		ReclaimLicenseTokenProxy: (*ReclaimLicenseTokenProxy)(p),
+		ReclaimDate: func() string {
+			if p.ReclaimDate != nil {
+				return p.ReclaimDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ReclaimLicenseToken) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
+	type CustomReclaimLicenseToken struct {
+		ObjectType_    *string                `json:"$objectType,omitempty"`
+		Reserved_      map[string]interface{} `json:"$reserved,omitempty"`
+		UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+		ExtId          *string                `json:"extId,omitempty"`
+		Key            *string                `json:"key,omitempty"`
+		Links          []import2.ApiLink      `json:"links,omitempty"`
+		Quantity       *int                   `json:"quantity,omitempty"`
+		ReclaimDate    string                 `json:"reclaimDate,omitempty"`
+		ReclaimToken   *string                `json:"reclaimToken,omitempty"`
+		TenantId       *string                `json:"tenantId,omitempty"`
+	}
+
+	var knownFields CustomReclaimLicenseToken
+	if err := json.Unmarshal(b, &knownFields); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewReclaimLicenseToken()
+
+	// Handle custom date parsing
+
+	if knownFields.ObjectType_ != nil {
+		p.ObjectType_ = knownFields.ObjectType_
+	}
+	// Handle custom date parsing
+
+	if knownFields.Reserved_ != nil {
+		p.Reserved_ = knownFields.Reserved_
+	}
+	// Handle custom date parsing
+
+	if knownFields.UnknownFields_ != nil {
+		p.UnknownFields_ = knownFields.UnknownFields_
+	}
+	// Handle custom date parsing
+
+	if knownFields.ExtId != nil {
+		p.ExtId = knownFields.ExtId
+	}
+	// Handle custom date parsing
+
+	if knownFields.Key != nil {
+		p.Key = knownFields.Key
+	}
+	// Handle custom date parsing
+
+	if knownFields.Links != nil {
+		p.Links = knownFields.Links
+	}
+	// Handle custom date parsing
+
+	if knownFields.Quantity != nil {
+		p.Quantity = knownFields.Quantity
+	}
+	// Handle custom date parsing
+
+	// Custom date parsing logic for Date field
+	if knownFields.ReclaimDate != "" {
+		parsedReclaimDate, err := time.Parse("2006-01-02", knownFields.ReclaimDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field ReclaimDate in struct ReclaimLicenseToken: %s", err))
+		}
+		p.ReclaimDate = &parsedReclaimDate
+	}
+	// Handle custom date parsing
+
+	if knownFields.ReclaimToken != nil {
+		p.ReclaimToken = knownFields.ReclaimToken
+	}
+	// Handle custom date parsing
+
+	if knownFields.TenantId != nil {
+		p.TenantId = knownFields.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "key")
+	delete(allFields, "links")
+	delete(allFields, "quantity")
+	delete(allFields, "reclaimDate")
+	delete(allFields, "reclaimToken")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewReclaimLicenseToken() *ReclaimLicenseToken {
+	p := new(ReclaimLicenseToken)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ReclaimLicenseToken"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+type ReclaimLicenseTokenProjection struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  A globally unique identifier of an instance that is suitable for external consumption.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+	/*
+	  Attribute for license key being reclaimed.
+	*/
+	Key *string `json:"key,omitempty"`
+	/*
+	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	*/
+	Links []import2.ApiLink `json:"links,omitempty"`
+	/*
+	  Attribute for capturing reclaimed quantity.
+	*/
+	Quantity *int `json:"quantity,omitempty"`
+	/*
+	  Attribute for capturing reclaim token creation date.
+	*/
+	ReclaimDate *time.Time `json:"reclaimDate,omitempty"`
+	/*
+	  Attribute capturing reclaim token generated.
+	*/
+	ReclaimToken *string `json:"reclaimToken,omitempty"`
+	/*
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	*/
+	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ReclaimLicenseTokenProjection) MarshalJSON() ([]byte, error) {
+	type ReclaimLicenseTokenProjectionProxy ReclaimLicenseTokenProjection
+
+	// Step 1: Marshal known fields via proxy to accommodate fields with date format
+	baseStruct := struct {
+		*ReclaimLicenseTokenProjectionProxy
+		ReclaimDate string `json:"reclaimDate,omitempty"`
+	}{
+		ReclaimLicenseTokenProjectionProxy: (*ReclaimLicenseTokenProjectionProxy)(p),
+		ReclaimDate: func() string {
+			if p.ReclaimDate != nil {
+				return p.ReclaimDate.Format("2006-01-02")
+			} else {
+				return ""
+			}
+		}(),
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ReclaimLicenseTokenProjection) UnmarshalJSON(b []byte) error {
+
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields and custom parsing
+	type CustomReclaimLicenseTokenProjection struct {
+		ObjectType_    *string                `json:"$objectType,omitempty"`
+		Reserved_      map[string]interface{} `json:"$reserved,omitempty"`
+		UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+		ExtId          *string                `json:"extId,omitempty"`
+		Key            *string                `json:"key,omitempty"`
+		Links          []import2.ApiLink      `json:"links,omitempty"`
+		Quantity       *int                   `json:"quantity,omitempty"`
+		ReclaimDate    string                 `json:"reclaimDate,omitempty"`
+		ReclaimToken   *string                `json:"reclaimToken,omitempty"`
+		TenantId       *string                `json:"tenantId,omitempty"`
+	}
+
+	var knownFields CustomReclaimLicenseTokenProjection
+	if err := json.Unmarshal(b, &knownFields); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewReclaimLicenseTokenProjection()
+
+	// Handle custom date parsing
+
+	if knownFields.ObjectType_ != nil {
+		p.ObjectType_ = knownFields.ObjectType_
+	}
+	// Handle custom date parsing
+
+	if knownFields.Reserved_ != nil {
+		p.Reserved_ = knownFields.Reserved_
+	}
+	// Handle custom date parsing
+
+	if knownFields.UnknownFields_ != nil {
+		p.UnknownFields_ = knownFields.UnknownFields_
+	}
+	// Handle custom date parsing
+
+	if knownFields.ExtId != nil {
+		p.ExtId = knownFields.ExtId
+	}
+	// Handle custom date parsing
+
+	if knownFields.Key != nil {
+		p.Key = knownFields.Key
+	}
+	// Handle custom date parsing
+
+	if knownFields.Links != nil {
+		p.Links = knownFields.Links
+	}
+	// Handle custom date parsing
+
+	if knownFields.Quantity != nil {
+		p.Quantity = knownFields.Quantity
+	}
+	// Handle custom date parsing
+
+	// Custom date parsing logic for Date field
+	if knownFields.ReclaimDate != "" {
+		parsedReclaimDate, err := time.Parse("2006-01-02", knownFields.ReclaimDate)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Unable to unmarshal field ReclaimDate in struct ReclaimLicenseTokenProjection: %s", err))
+		}
+		p.ReclaimDate = &parsedReclaimDate
+	}
+	// Handle custom date parsing
+
+	if knownFields.ReclaimToken != nil {
+		p.ReclaimToken = knownFields.ReclaimToken
+	}
+	// Handle custom date parsing
+
+	if knownFields.TenantId != nil {
+		p.TenantId = knownFields.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "key")
+	delete(allFields, "links")
+	delete(allFields, "quantity")
+	delete(allFields, "reclaimDate")
+	delete(allFields, "reclaimToken")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewReclaimLicenseTokenProjection() *ReclaimLicenseTokenProjection {
+	p := new(ReclaimLicenseTokenProjection)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.ReclaimLicenseTokenProjection"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -9035,7 +10036,7 @@ func NewRecommendation() *Recommendation {
 	p := new(Recommendation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Recommendation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9136,22 +10137,27 @@ func (p *RecommendationDetail) UnmarshalJSON(b []byte) error {
 	*p = *NewRecommendationDetail()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Comment != nil {
 		p.Comment = knownFields.Comment
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.LicenseExpiryDate != "" {
 		parsedLicenseExpiryDate, err := time.Parse("2006-01-02", knownFields.LicenseExpiryDate)
@@ -9161,14 +10167,17 @@ func (p *RecommendationDetail) UnmarshalJSON(b []byte) error {
 		p.LicenseExpiryDate = &parsedLicenseExpiryDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.LicenseId != nil {
 		p.LicenseId = knownFields.LicenseId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Operation != nil {
 		p.Operation = knownFields.Operation
 	}
 	// Handle custom date parsing
+
 	if knownFields.Scope != nil {
 		p.Scope = knownFields.Scope
 	}
@@ -9195,7 +10204,7 @@ func NewRecommendationDetail() *RecommendationDetail {
 	p := new(RecommendationDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.RecommendationDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9565,7 +10574,7 @@ func NewService() *Service {
 	p := new(Service)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Service"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9691,7 +10700,7 @@ func NewServiceProjection() *ServiceProjection {
 	p := new(ServiceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ServiceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9779,18 +10788,22 @@ func (p *ServiceViolation) UnmarshalJSON(b []byte) error {
 	*p = *NewServiceViolation()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.StartDate != "" {
 		parsedStartDate, err := time.Parse("2006-01-02", knownFields.StartDate)
@@ -9800,6 +10813,7 @@ func (p *ServiceViolation) UnmarshalJSON(b []byte) error {
 		p.StartDate = &parsedStartDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
@@ -9823,7 +10837,7 @@ func NewServiceViolation() *ServiceViolation {
 	p := new(ServiceViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ServiceViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10089,7 +11103,7 @@ func NewSetting() *Setting {
 	p := new(Setting)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Setting"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HasNonCompliantFeatures = new(bool)
@@ -10259,7 +11273,7 @@ func (e SubCategory) Ref() *SubCategory {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.2/config/$actions/sync-license-state Post operation
+REST response for all response codes in API path /licensing/v4.3/config/$actions/sync-license-state Post operation
 */
 type SyncLicenseStateApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10359,7 +11373,7 @@ func NewSyncLicenseStateApiResponse() *SyncLicenseStateApiResponse {
 	p := new(SyncLicenseStateApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.SyncLicenseStateApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10607,22 +11621,27 @@ func (p *Trial) UnmarshalJSON(b []byte) error {
 	*p = *NewTrial()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.EndDate != "" {
 		parsedEndDate, err := time.Parse("2006-01-02", knownFields.EndDate)
@@ -10632,14 +11651,17 @@ func (p *Trial) UnmarshalJSON(b []byte) error {
 		p.EndDate = &parsedEndDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.ExtId != nil {
 		p.ExtId = knownFields.ExtId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Links != nil {
 		p.Links = knownFields.Links
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.StartDate != "" {
 		parsedStartDate, err := time.Parse("2006-01-02", knownFields.StartDate)
@@ -10649,14 +11671,17 @@ func (p *Trial) UnmarshalJSON(b []byte) error {
 		p.StartDate = &parsedStartDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.Status != nil {
 		p.Status = knownFields.Status
 	}
 	// Handle custom date parsing
+
 	if knownFields.TenantId != nil {
 		p.TenantId = knownFields.TenantId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
@@ -10686,7 +11711,7 @@ func NewTrial() *Trial {
 	p := new(Trial)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Trial"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10882,22 +11907,27 @@ func (p *TrialProjection) UnmarshalJSON(b []byte) error {
 	*p = *NewTrialProjection()
 
 	// Handle custom date parsing
+
 	if knownFields.ObjectType_ != nil {
 		p.ObjectType_ = knownFields.ObjectType_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Reserved_ != nil {
 		p.Reserved_ = knownFields.Reserved_
 	}
 	// Handle custom date parsing
+
 	if knownFields.UnknownFields_ != nil {
 		p.UnknownFields_ = knownFields.UnknownFields_
 	}
 	// Handle custom date parsing
+
 	if knownFields.Category != nil {
 		p.Category = knownFields.Category
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.EndDate != "" {
 		parsedEndDate, err := time.Parse("2006-01-02", knownFields.EndDate)
@@ -10907,14 +11937,17 @@ func (p *TrialProjection) UnmarshalJSON(b []byte) error {
 		p.EndDate = &parsedEndDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.ExtId != nil {
 		p.ExtId = knownFields.ExtId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Links != nil {
 		p.Links = knownFields.Links
 	}
 	// Handle custom date parsing
+
 	// Custom date parsing logic for Date field
 	if knownFields.StartDate != "" {
 		parsedStartDate, err := time.Parse("2006-01-02", knownFields.StartDate)
@@ -10924,14 +11957,17 @@ func (p *TrialProjection) UnmarshalJSON(b []byte) error {
 		p.StartDate = &parsedStartDate
 	}
 	// Handle custom date parsing
+
 	if knownFields.Status != nil {
 		p.Status = knownFields.Status
 	}
 	// Handle custom date parsing
+
 	if knownFields.TenantId != nil {
 		p.TenantId = knownFields.TenantId
 	}
 	// Handle custom date parsing
+
 	if knownFields.Type != nil {
 		p.Type = knownFields.Type
 	}
@@ -10961,7 +11997,7 @@ func NewTrialProjection() *TrialProjection {
 	p := new(TrialProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.TrialProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11337,7 +12373,7 @@ func NewViolation() *Violation {
 	p := new(Violation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Violation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12511,6 +13547,248 @@ func (p *OneOfListEntitlementsApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfListEntitlementsApiResponseData")
 }
 
+type OneOfListReclaimLicenseTokensApiResponseData struct {
+	Discriminator  *string                         `json:"-"`
+	ObjectType_    *string                         `json:"-"`
+	oneOfType31021 []ReclaimLicenseToken           `json:"-"`
+	oneOfType401   []ReclaimLicenseTokenProjection `json:"-"`
+	oneOfType400   *import1.ErrorResponse          `json:"-"`
+}
+
+func NewOneOfListReclaimLicenseTokensApiResponseData() *OneOfListReclaimLicenseTokensApiResponseData {
+	p := new(OneOfListReclaimLicenseTokensApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListReclaimLicenseTokensApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListReclaimLicenseTokensApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []ReclaimLicenseToken:
+		p.oneOfType31021 = v.([]ReclaimLicenseToken)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.ReclaimLicenseToken>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.ReclaimLicenseToken>"
+	case []ReclaimLicenseTokenProjection:
+		p.oneOfType401 = v.([]ReclaimLicenseTokenProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.ReclaimLicenseTokenProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.ReclaimLicenseTokenProjection>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListReclaimLicenseTokensApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.config.ReclaimLicenseToken>" == *p.Discriminator {
+		return p.oneOfType31021
+	}
+	if "List<licensing.v4.config.ReclaimLicenseTokenProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListReclaimLicenseTokensApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType31021 := new([]ReclaimLicenseToken)
+	if err := json.Unmarshal(b, vOneOfType31021); err == nil {
+		if len(*vOneOfType31021) == 0 || "licensing.v4.config.ReclaimLicenseToken" == *((*vOneOfType31021)[0].ObjectType_) {
+			p.oneOfType31021 = *vOneOfType31021
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.ReclaimLicenseToken>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.ReclaimLicenseToken>"
+			return nil
+		}
+	}
+	vOneOfType401 := new([]ReclaimLicenseTokenProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || "licensing.v4.config.ReclaimLicenseTokenProjection" == *((*vOneOfType401)[0].ObjectType_) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.ReclaimLicenseTokenProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.ReclaimLicenseTokenProjection>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListReclaimLicenseTokensApiResponseData"))
+}
+
+func (p *OneOfListReclaimLicenseTokensApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.config.ReclaimLicenseToken>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31021)
+	}
+	if "List<licensing.v4.config.ReclaimLicenseTokenProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListReclaimLicenseTokensApiResponseData")
+}
+
+type OneOfReclaimLicenseKeyApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType31016 []import1.AppMessage   `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+}
+
+func NewOneOfReclaimLicenseKeyApiResponseData() *OneOfReclaimLicenseKeyApiResponseData {
+	p := new(OneOfReclaimLicenseKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfReclaimLicenseKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfReclaimLicenseKeyApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []import1.AppMessage:
+		p.oneOfType31016 = v.([]import1.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfReclaimLicenseKeyApiResponseData) GetValue() interface{} {
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType31016
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfReclaimLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType31016 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType31016); err == nil {
+		if len(*vOneOfType31016) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType31016)[0].ObjectType_) {
+			p.oneOfType31016 = *vOneOfType31016
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfReclaimLicenseKeyApiResponseData"))
+}
+
+func (p *OneOfReclaimLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31016)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfReclaimLicenseKeyApiResponseData")
+}
+
 type OneOfListAllowancesApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
@@ -12995,6 +14273,111 @@ func (p *OneOfFeatureValue) MarshalJSON() ([]byte, error) {
 		return json.Marshal(p.oneOfType10022)
 	}
 	return nil, errors.New("No value to marshal for OneOfFeatureValue")
+}
+
+type OneOfAssociateLicenseKeysApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType31024 []import1.AppMessage   `json:"-"`
+}
+
+func NewOneOfAssociateLicenseKeysApiResponseData() *OneOfAssociateLicenseKeysApiResponseData {
+	p := new(OneOfAssociateLicenseKeysApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfAssociateLicenseKeysApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfAssociateLicenseKeysApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []import1.AppMessage:
+		p.oneOfType31024 = v.([]import1.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfAssociateLicenseKeysApiResponseData) GetValue() interface{} {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType31024
+	}
+	return nil
+}
+
+func (p *OneOfAssociateLicenseKeysApiResponseData) UnmarshalJSON(b []byte) error {
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType31024 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType31024); err == nil {
+		if len(*vOneOfType31024) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType31024)[0].ObjectType_) {
+			p.oneOfType31024 = *vOneOfType31024
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+			return nil
+		}
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssociateLicenseKeysApiResponseData"))
+}
+
+func (p *OneOfAssociateLicenseKeysApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31024)
+	}
+	return nil, errors.New("No value to marshal for OneOfAssociateLicenseKeysApiResponseData")
 }
 
 type OneOfAddLicenseKeyApiResponseData struct {
