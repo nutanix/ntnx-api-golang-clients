@@ -1,7 +1,7 @@
 /*
  * Generated file models/microseg/v4/config/config_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Flow Management APIs
  *
@@ -101,7 +101,29 @@ func (p *AdInfo) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AdInfo(*known)
+	*p = *NewAdInfo()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DirectoryServiceReference != nil {
+		p.DirectoryServiceReference = known.DirectoryServiceReference
+	}
+	if known.ObjectIdentifier != nil {
+		p.ObjectIdentifier = known.ObjectIdentifier
+	}
+	if known.ObjectPath != nil {
+		p.ObjectPath = known.ObjectPath
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -113,7 +135,9 @@ func (p *AdInfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "status")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -122,7 +146,7 @@ func NewAdInfo() *AdInfo {
 	p := new(AdInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.AdInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -222,6 +246,10 @@ type AddressGroup struct {
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
+	  The timestamp when the Address Group was created.
+	*/
+	CreationTime *time.Time `json:"creationTime,omitempty"`
+	/*
 	  A user defined annotation for an Address Group.
 	*/
 	Description *string `json:"description,omitempty"`
@@ -237,6 +265,18 @@ type AddressGroup struct {
 	  List of CIDR blocks in the Address Group.
 	*/
 	Ipv4Addresses []import1.IPv4Address `json:"ipv4Addresses,omitempty"`
+	/*
+	  List of Ipv6 CIDR blocks in the Address Group.
+	*/
+	Ipv6Addresses []import1.IPv6Address `json:"ipv6Addresses,omitempty"`
+	/*
+	  List of IPv6 range containing start and end IP.
+	*/
+	Ipv6Ranges []IPv6Range `json:"ipv6Ranges,omitempty"`
+	/*
+	  The timestamp when the Address Group was last updated.
+	*/
+	LastUpdateTime *time.Time `json:"lastUpdateTime,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
@@ -303,24 +343,79 @@ func (p *AddressGroup) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AddressGroup(*known)
+	*p = *NewAddressGroup()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IpRanges != nil {
+		p.IpRanges = known.IpRanges
+	}
+	if known.Ipv4Addresses != nil {
+		p.Ipv4Addresses = known.Ipv4Addresses
+	}
+	if known.Ipv6Addresses != nil {
+		p.Ipv6Addresses = known.Ipv6Addresses
+	}
+	if known.Ipv6Ranges != nil {
+		p.Ipv6Ranges = known.Ipv6Ranges
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.PolicyReferences != nil {
+		p.PolicyReferences = known.PolicyReferences
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "createdBy")
+	delete(allFields, "creationTime")
 	delete(allFields, "description")
 	delete(allFields, "extId")
 	delete(allFields, "ipRanges")
 	delete(allFields, "ipv4Addresses")
+	delete(allFields, "ipv6Addresses")
+	delete(allFields, "ipv6Ranges")
+	delete(allFields, "lastUpdateTime")
 	delete(allFields, "links")
 	delete(allFields, "name")
 	delete(allFields, "policyReferences")
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -329,7 +424,102 @@ func NewAddressGroup() *AddressGroup {
 	p := new(AddressGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.AddressGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+List of IP addresses in the Address Group.
+*/
+type Addresses struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of CIDR blocks in the Address Group.
+	*/
+	Ipv4Addresses []import1.IPv4Address `json:"ipv4Addresses,omitempty"`
+}
+
+func (p *Addresses) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Addresses
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Addresses) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Addresses
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewAddresses()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4Addresses != nil {
+		p.Ipv4Addresses = known.Ipv4Addresses
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "ipv4Addresses")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewAddresses() *Addresses {
+	p := new(Addresses)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.Addresses"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -398,7 +588,20 @@ func (p *AllToAllIsolationGroup) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AllToAllIsolationGroup(*known)
+	*p = *NewAllToAllIsolationGroup()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsolationGroups != nil {
+		p.IsolationGroups = known.IsolationGroups
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -407,7 +610,9 @@ func (p *AllToAllIsolationGroup) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isolationGroups")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -416,7 +621,7 @@ func NewAllToAllIsolationGroup() *AllToAllIsolationGroup {
 	p := new(AllToAllIsolationGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.AllToAllIsolationGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -511,7 +716,25 @@ type AllowedConfig struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of allowed entities in the Entity Group. An allowed entity is a collection of acceptable entites.
+	  List of allowed entities in the Entity Group. An allowed entity is a collection of acceptable entities.
+	The fields 'type' and 'selectBy' must be interpreted together as '<type> BY <selectBy>' to determine which attribute must be populated.
+
+	Based on this combination, populate one of:
+	  - referenceExtIds — for extId based identification
+	  - kubeEntities — for name or label based selection
+	  - addresses — for specific IP address/subnet specification
+	  - ipRanges — for IP range based specification
+
+	Supported type BY selectBy combinations include:
+	  - VM BY CATEGORY_EXT_ID
+	  - SUBNET BY CATEGORY_EXT_ID
+	  - VPC BY CATEGORY_EXT_ID
+	  - KUBE_CLUSTER BY EXT_ID
+	  - KUBE_PODS BY LABELS
+	  - KUBE_NAMESPACE BY NAME
+	  - KUBE_SERVICE BY NAME
+	  - ADDRESS_GROUP BY EXT_ID
+	  - ADDRESS_GROUP BY IP_VALUES
 	*/
 	Entities []AllowedEntity `json:"entities,omitempty"`
 }
@@ -557,7 +780,20 @@ func (p *AllowedConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AllowedConfig(*known)
+	*p = *NewAllowedConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -566,7 +802,9 @@ func (p *AllowedConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "entities")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -575,14 +813,14 @@ func NewAllowedConfig() *AllowedConfig {
 	p := new(AllowedConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.AllowedConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-A collection of acceptable entites in the Entity Group.
+A collection of acceptable entities in the Entity Group.
 */
 type AllowedEntity struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -590,6 +828,10 @@ type AllowedEntity struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Addresses *Addresses `json:"addresses,omitempty"`
+
+	IpRanges *IpRange `json:"ipRanges,omitempty"`
 	/*
 	  List of kube entities in an allowed entity. If the selection type is kube fields, then it is necessary to specify the kubeEntities.
 	*/
@@ -645,19 +887,51 @@ func (p *AllowedEntity) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = AllowedEntity(*known)
+	*p = *NewAllowedEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Addresses != nil {
+		p.Addresses = known.Addresses
+	}
+	if known.IpRanges != nil {
+		p.IpRanges = known.IpRanges
+	}
+	if known.KubeEntities != nil {
+		p.KubeEntities = known.KubeEntities
+	}
+	if known.ReferenceExtIds != nil {
+		p.ReferenceExtIds = known.ReferenceExtIds
+	}
+	if known.SelectBy != nil {
+		p.SelectBy = known.SelectBy
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "addresses")
+	delete(allFields, "ipRanges")
 	delete(allFields, "kubeEntities")
 	delete(allFields, "referenceExtIds")
 	delete(allFields, "selectBy")
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -666,7 +940,7 @@ func NewAllowedEntity() *AllowedEntity {
 	p := new(AllowedEntity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.AllowedEntity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -684,6 +958,7 @@ const (
 	ALLOWEDSELECTBY_EXT_ID          AllowedSelectBy = 3
 	ALLOWEDSELECTBY_NAME            AllowedSelectBy = 4
 	ALLOWEDSELECTBY_LABELS          AllowedSelectBy = 5
+	ALLOWEDSELECTBY_IP_VALUES       AllowedSelectBy = 6
 )
 
 // Returns the name of the enum given an ordinal number
@@ -697,6 +972,7 @@ func (e *AllowedSelectBy) name(index int) string {
 		"EXT_ID",
 		"NAME",
 		"LABELS",
+		"IP_VALUES",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -714,6 +990,7 @@ func (e AllowedSelectBy) GetName() string {
 		"EXT_ID",
 		"NAME",
 		"LABELS",
+		"IP_VALUES",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -730,6 +1007,7 @@ func (e *AllowedSelectBy) index(name string) AllowedSelectBy {
 		"EXT_ID",
 		"NAME",
 		"LABELS",
+		"IP_VALUES",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -774,6 +1052,7 @@ const (
 	ALLOWEDTYPE_KUBE_NAMESPACE AllowedType = 6
 	ALLOWEDTYPE_KUBE_PODS      AllowedType = 7
 	ALLOWEDTYPE_KUBE_SERVICE   AllowedType = 8
+	ALLOWEDTYPE_ADDRESS_GROUP  AllowedType = 9
 )
 
 // Returns the name of the enum given an ordinal number
@@ -790,6 +1069,7 @@ func (e *AllowedType) name(index int) string {
 		"KUBE_NAMESPACE",
 		"KUBE_PODS",
 		"KUBE_SERVICE",
+		"ADDRESS_GROUP",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -810,6 +1090,7 @@ func (e AllowedType) GetName() string {
 		"KUBE_NAMESPACE",
 		"KUBE_PODS",
 		"KUBE_SERVICE",
+		"ADDRESS_GROUP",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -829,6 +1110,7 @@ func (e *AllowedType) index(name string) AllowedType {
 		"KUBE_NAMESPACE",
 		"KUBE_PODS",
 		"KUBE_SERVICE",
+		"ADDRESS_GROUP",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -884,11 +1166,17 @@ type ApplicationRuleSpec struct {
 	*/
 	DestEntityGroupReference *string `json:"destEntityGroupReference,omitempty"`
 
+	DestIpv6Subnet *import1.IPv6Address `json:"destIpv6Subnet,omitempty"`
+
 	DestSubnet *import1.IPv4Address `json:"destSubnet,omitempty"`
 	/*
 	  ICMP Type Code List.
 	*/
 	IcmpServices []IcmpTypeCodeSpec `json:"icmpServices,omitempty"`
+	/*
+	  ICMPv6 Type Code List.
+	*/
+	IcmpV6Services []IcmpV6TypeCodeSpec `json:"icmpV6Services,omitempty"`
 	/*
 	  Denotes whether the rule allows traffic for all protocols. If set to true, the rule allows traffic for all protocols. If set to false or not specified, specifying at least one protocol service or service group is mandatory.
 	*/
@@ -931,6 +1219,8 @@ type ApplicationRuleSpec struct {
 	  External identifier of the entity group belonging to the source group.
 	*/
 	SrcEntityGroupReference *string `json:"srcEntityGroupReference,omitempty"`
+
+	SrcIpv6Subnet *import1.IPv6Address `json:"srcIpv6Subnet,omitempty"`
 
 	SrcSubnet *import1.IPv4Address `json:"srcSubnet,omitempty"`
 
@@ -980,7 +1270,92 @@ func (p *ApplicationRuleSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ApplicationRuleSpec(*known)
+	*p = *NewApplicationRuleSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DestAddressGroupReferences != nil {
+		p.DestAddressGroupReferences = known.DestAddressGroupReferences
+	}
+	if known.DestAllowSpec != nil {
+		p.DestAllowSpec = known.DestAllowSpec
+	}
+	if known.DestCategoryAssociatedEntityType != nil {
+		p.DestCategoryAssociatedEntityType = known.DestCategoryAssociatedEntityType
+	}
+	if known.DestCategoryReferences != nil {
+		p.DestCategoryReferences = known.DestCategoryReferences
+	}
+	if known.DestEntityGroupReference != nil {
+		p.DestEntityGroupReference = known.DestEntityGroupReference
+	}
+	if known.DestIpv6Subnet != nil {
+		p.DestIpv6Subnet = known.DestIpv6Subnet
+	}
+	if known.DestSubnet != nil {
+		p.DestSubnet = known.DestSubnet
+	}
+	if known.IcmpServices != nil {
+		p.IcmpServices = known.IcmpServices
+	}
+	if known.IcmpV6Services != nil {
+		p.IcmpV6Services = known.IcmpV6Services
+	}
+	if known.IsAllProtocolAllowed != nil {
+		p.IsAllProtocolAllowed = known.IsAllProtocolAllowed
+	}
+	if known.NetworkFunctionChainReference != nil {
+		p.NetworkFunctionChainReference = known.NetworkFunctionChainReference
+	}
+	if known.NetworkFunctionReference != nil {
+		p.NetworkFunctionReference = known.NetworkFunctionReference
+	}
+	if known.SecuredGroupCategoryAssociatedEntityType != nil {
+		p.SecuredGroupCategoryAssociatedEntityType = known.SecuredGroupCategoryAssociatedEntityType
+	}
+	if known.SecuredGroupCategoryReferences != nil {
+		p.SecuredGroupCategoryReferences = known.SecuredGroupCategoryReferences
+	}
+	if known.SecuredGroupEntityGroupReference != nil {
+		p.SecuredGroupEntityGroupReference = known.SecuredGroupEntityGroupReference
+	}
+	if known.ServiceGroupReferences != nil {
+		p.ServiceGroupReferences = known.ServiceGroupReferences
+	}
+	if known.SrcAddressGroupReferences != nil {
+		p.SrcAddressGroupReferences = known.SrcAddressGroupReferences
+	}
+	if known.SrcAllowSpec != nil {
+		p.SrcAllowSpec = known.SrcAllowSpec
+	}
+	if known.SrcCategoryAssociatedEntityType != nil {
+		p.SrcCategoryAssociatedEntityType = known.SrcCategoryAssociatedEntityType
+	}
+	if known.SrcCategoryReferences != nil {
+		p.SrcCategoryReferences = known.SrcCategoryReferences
+	}
+	if known.SrcEntityGroupReference != nil {
+		p.SrcEntityGroupReference = known.SrcEntityGroupReference
+	}
+	if known.SrcIpv6Subnet != nil {
+		p.SrcIpv6Subnet = known.SrcIpv6Subnet
+	}
+	if known.SrcSubnet != nil {
+		p.SrcSubnet = known.SrcSubnet
+	}
+	if known.TcpServices != nil {
+		p.TcpServices = known.TcpServices
+	}
+	if known.UdpServices != nil {
+		p.UdpServices = known.UdpServices
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -991,8 +1366,10 @@ func (p *ApplicationRuleSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "destCategoryAssociatedEntityType")
 	delete(allFields, "destCategoryReferences")
 	delete(allFields, "destEntityGroupReference")
+	delete(allFields, "destIpv6Subnet")
 	delete(allFields, "destSubnet")
 	delete(allFields, "icmpServices")
+	delete(allFields, "icmpV6Services")
 	delete(allFields, "isAllProtocolAllowed")
 	delete(allFields, "networkFunctionChainReference")
 	delete(allFields, "networkFunctionReference")
@@ -1005,12 +1382,15 @@ func (p *ApplicationRuleSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "srcCategoryAssociatedEntityType")
 	delete(allFields, "srcCategoryReferences")
 	delete(allFields, "srcEntityGroupReference")
+	delete(allFields, "srcIpv6Subnet")
 	delete(allFields, "srcSubnet")
 	delete(allFields, "tcpServices")
 	delete(allFields, "udpServices")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1019,7 +1399,7 @@ func NewApplicationRuleSpec() *ApplicationRuleSpec {
 	p := new(ApplicationRuleSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ApplicationRuleSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1196,7 +1576,38 @@ func (p *CategoryMapping) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CategoryMapping(*known)
+	*p = *NewCategoryMapping()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AdInfo != nil {
+		p.AdInfo = known.AdInfo
+	}
+	if known.CategoryName != nil {
+		p.CategoryName = known.CategoryName
+	}
+	if known.CategoryValue != nil {
+		p.CategoryValue = known.CategoryValue
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1211,7 +1622,9 @@ func (p *CategoryMapping) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1220,14 +1633,14 @@ func NewCategoryMapping() *CategoryMapping {
 	p := new(CategoryMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CategoryMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/address-groups Post operation
+REST response for all response codes in API path /microseg/v4.2/config/address-groups Post operation
 */
 type CreateAddressGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1286,7 +1699,26 @@ func (p *CreateAddressGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateAddressGroupApiResponse(*known)
+	*p = *NewCreateAddressGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1297,7 +1729,9 @@ func (p *CreateAddressGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1306,7 +1740,7 @@ func NewCreateAddressGroupApiResponse() *CreateAddressGroupApiResponse {
 	p := new(CreateAddressGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateAddressGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1334,7 +1768,7 @@ func (p *CreateAddressGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/directory-server-configs Post operation
+REST response for all response codes in API path /microseg/v4.2/config/directory-server-configs Post operation
 */
 type CreateDirectoryServerConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1393,7 +1827,26 @@ func (p *CreateDirectoryServerConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateDirectoryServerConfigApiResponse(*known)
+	*p = *NewCreateDirectoryServerConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1404,7 +1857,9 @@ func (p *CreateDirectoryServerConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1413,7 +1868,7 @@ func NewCreateDirectoryServerConfigApiResponse() *CreateDirectoryServerConfigApi
 	p := new(CreateDirectoryServerConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateDirectoryServerConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1441,7 +1896,7 @@ func (p *CreateDirectoryServerConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/category-mappings Post operation
+REST response for all response codes in API path /microseg/v4.2/config/category-mappings Post operation
 */
 type CreateDsCategoryMappingApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1500,7 +1955,26 @@ func (p *CreateDsCategoryMappingApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateDsCategoryMappingApiResponse(*known)
+	*p = *NewCreateDsCategoryMappingApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1511,7 +1985,9 @@ func (p *CreateDsCategoryMappingApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1520,7 +1996,7 @@ func NewCreateDsCategoryMappingApiResponse() *CreateDsCategoryMappingApiResponse
 	p := new(CreateDsCategoryMappingApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateDsCategoryMappingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1548,7 +2024,7 @@ func (p *CreateDsCategoryMappingApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/entity-groups Post operation
+REST response for all response codes in API path /microseg/v4.2/config/entity-groups Post operation
 */
 type CreateEntityGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1607,7 +2083,26 @@ func (p *CreateEntityGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateEntityGroupApiResponse(*known)
+	*p = *NewCreateEntityGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1618,7 +2113,9 @@ func (p *CreateEntityGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1627,7 +2124,7 @@ func NewCreateEntityGroupApiResponse() *CreateEntityGroupApiResponse {
 	p := new(CreateEntityGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateEntityGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1655,7 +2152,7 @@ func (p *CreateEntityGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/policies Post operation
+REST response for all response codes in API path /microseg/v4.2/config/policies Post operation
 */
 type CreateNetworkSecurityPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1714,7 +2211,26 @@ func (p *CreateNetworkSecurityPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateNetworkSecurityPolicyApiResponse(*known)
+	*p = *NewCreateNetworkSecurityPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1725,7 +2241,9 @@ func (p *CreateNetworkSecurityPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1734,7 +2252,7 @@ func NewCreateNetworkSecurityPolicyApiResponse() *CreateNetworkSecurityPolicyApi
 	p := new(CreateNetworkSecurityPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateNetworkSecurityPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1762,7 +2280,7 @@ func (p *CreateNetworkSecurityPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/policies/$actions/prepare-export Post operation
+REST response for all response codes in API path /microseg/v4.2/config/policies/$actions/prepare-export Post operation
 */
 type CreateNetworkSecurityPolicyExportApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1821,7 +2339,26 @@ func (p *CreateNetworkSecurityPolicyExportApiResponse) UnmarshalJSON(b []byte) e
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateNetworkSecurityPolicyExportApiResponse(*known)
+	*p = *NewCreateNetworkSecurityPolicyExportApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1832,7 +2369,9 @@ func (p *CreateNetworkSecurityPolicyExportApiResponse) UnmarshalJSON(b []byte) e
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1841,7 +2380,7 @@ func NewCreateNetworkSecurityPolicyExportApiResponse() *CreateNetworkSecurityPol
 	p := new(CreateNetworkSecurityPolicyExportApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateNetworkSecurityPolicyExportApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1869,7 +2408,7 @@ func (p *CreateNetworkSecurityPolicyExportApiResponse) SetData(v interface{}) er
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/policies/$actions/import Post operation
+REST response for all response codes in API path /microseg/v4.2/config/policies/$actions/import Post operation
 */
 type CreateNetworkSecurityPolicyImportApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1928,7 +2467,26 @@ func (p *CreateNetworkSecurityPolicyImportApiResponse) UnmarshalJSON(b []byte) e
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateNetworkSecurityPolicyImportApiResponse(*known)
+	*p = *NewCreateNetworkSecurityPolicyImportApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1939,7 +2497,9 @@ func (p *CreateNetworkSecurityPolicyImportApiResponse) UnmarshalJSON(b []byte) e
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1948,7 +2508,7 @@ func NewCreateNetworkSecurityPolicyImportApiResponse() *CreateNetworkSecurityPol
 	p := new(CreateNetworkSecurityPolicyImportApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateNetworkSecurityPolicyImportApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1976,7 +2536,7 @@ func (p *CreateNetworkSecurityPolicyImportApiResponse) SetData(v interface{}) er
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/service-groups Post operation
+REST response for all response codes in API path /microseg/v4.2/config/service-groups Post operation
 */
 type CreateServiceGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2035,7 +2595,26 @@ func (p *CreateServiceGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = CreateServiceGroupApiResponse(*known)
+	*p = *NewCreateServiceGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2046,7 +2625,9 @@ func (p *CreateServiceGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2055,7 +2636,7 @@ func NewCreateServiceGroupApiResponse() *CreateServiceGroupApiResponse {
 	p := new(CreateServiceGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.CreateServiceGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2083,7 +2664,7 @@ func (p *CreateServiceGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/address-groups/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.2/config/address-groups/{extId} Delete operation
 */
 type DeleteAddressGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2142,7 +2723,26 @@ func (p *DeleteAddressGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteAddressGroupApiResponse(*known)
+	*p = *NewDeleteAddressGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2153,7 +2753,9 @@ func (p *DeleteAddressGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2162,7 +2764,7 @@ func NewDeleteAddressGroupApiResponse() *DeleteAddressGroupApiResponse {
 	p := new(DeleteAddressGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteAddressGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2190,7 +2792,7 @@ func (p *DeleteAddressGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/directory-server-configs/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.2/config/directory-server-configs/{extId} Delete operation
 */
 type DeleteDirectoryServerConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2249,7 +2851,26 @@ func (p *DeleteDirectoryServerConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteDirectoryServerConfigApiResponse(*known)
+	*p = *NewDeleteDirectoryServerConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2260,7 +2881,9 @@ func (p *DeleteDirectoryServerConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2269,7 +2892,7 @@ func NewDeleteDirectoryServerConfigApiResponse() *DeleteDirectoryServerConfigApi
 	p := new(DeleteDirectoryServerConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteDirectoryServerConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2297,7 +2920,7 @@ func (p *DeleteDirectoryServerConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/category-mappings/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.2/config/category-mappings/{extId} Delete operation
 */
 type DeleteDsCategoryMappingApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2356,7 +2979,26 @@ func (p *DeleteDsCategoryMappingApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteDsCategoryMappingApiResponse(*known)
+	*p = *NewDeleteDsCategoryMappingApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2367,7 +3009,9 @@ func (p *DeleteDsCategoryMappingApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2376,7 +3020,7 @@ func NewDeleteDsCategoryMappingApiResponse() *DeleteDsCategoryMappingApiResponse
 	p := new(DeleteDsCategoryMappingApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteDsCategoryMappingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2404,7 +3048,7 @@ func (p *DeleteDsCategoryMappingApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/entity-groups/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.2/config/entity-groups/{extId} Delete operation
 */
 type DeleteEntityGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2463,7 +3107,26 @@ func (p *DeleteEntityGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteEntityGroupApiResponse(*known)
+	*p = *NewDeleteEntityGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2474,7 +3137,9 @@ func (p *DeleteEntityGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2483,7 +3148,7 @@ func NewDeleteEntityGroupApiResponse() *DeleteEntityGroupApiResponse {
 	p := new(DeleteEntityGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteEntityGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2511,7 +3176,7 @@ func (p *DeleteEntityGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/policies/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.2/config/policies/{extId} Delete operation
 */
 type DeleteNetworkSecurityPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2570,7 +3235,26 @@ func (p *DeleteNetworkSecurityPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteNetworkSecurityPolicyApiResponse(*known)
+	*p = *NewDeleteNetworkSecurityPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2581,7 +3265,9 @@ func (p *DeleteNetworkSecurityPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2590,7 +3276,7 @@ func NewDeleteNetworkSecurityPolicyApiResponse() *DeleteNetworkSecurityPolicyApi
 	p := new(DeleteNetworkSecurityPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteNetworkSecurityPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2618,7 +3304,7 @@ func (p *DeleteNetworkSecurityPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/service-groups/{extId} Delete operation
+REST response for all response codes in API path /microseg/v4.2/config/service-groups/{extId} Delete operation
 */
 type DeleteServiceGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2677,7 +3363,26 @@ func (p *DeleteServiceGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DeleteServiceGroupApiResponse(*known)
+	*p = *NewDeleteServiceGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2688,7 +3393,9 @@ func (p *DeleteServiceGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2697,7 +3404,7 @@ func NewDeleteServiceGroupApiResponse() *DeleteServiceGroupApiResponse {
 	p := new(DeleteServiceGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DeleteServiceGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2805,7 +3512,41 @@ func (p *DirectoryServerConfig) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DirectoryServerConfig(*known)
+	*p = *NewDirectoryServerConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DirectoryServiceReference != nil {
+		p.DirectoryServiceReference = known.DirectoryServiceReference
+	}
+	if known.DomainControllers != nil {
+		p.DomainControllers = known.DomainControllers
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsDefaultCategoryEnabled != nil {
+		p.IsDefaultCategoryEnabled = known.IsDefaultCategoryEnabled
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.MatchingCriterias != nil {
+		p.MatchingCriterias = known.MatchingCriterias
+	}
+	if known.ShouldKeepDefaultCategoryOnLogin != nil {
+		p.ShouldKeepDefaultCategoryOnLogin = known.ShouldKeepDefaultCategoryOnLogin
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -2821,7 +3562,9 @@ func (p *DirectoryServerConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2830,7 +3573,7 @@ func NewDirectoryServerConfig() *DirectoryServerConfig {
 	p := new(DirectoryServerConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.DirectoryServerConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2845,13 +3588,23 @@ type EntityGroup struct {
 
 	AllowedConfig *AllowedConfig `json:"allowedConfig,omitempty"`
 	/*
+	  The timestamp when the Entity Group was created.
+	*/
+	CreationTime *time.Time `json:"creationTime,omitempty"`
+	/*
 	  A user defined annotation for an Entity Group.
 	*/
 	Description *string `json:"description,omitempty"`
+
+	ExceptConfig *ExceptConfig `json:"exceptConfig,omitempty"`
 	/*
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
+	/*
+	  The timestamp when the Entity Group was last updated.
+	*/
+	LastUpdateTime *time.Time `json:"lastUpdateTime,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
@@ -2922,15 +3675,61 @@ func (p *EntityGroup) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = EntityGroup(*known)
+	*p = *NewEntityGroup()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AllowedConfig != nil {
+		p.AllowedConfig = known.AllowedConfig
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExceptConfig != nil {
+		p.ExceptConfig = known.ExceptConfig
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.OwnerExtId != nil {
+		p.OwnerExtId = known.OwnerExtId
+	}
+	if known.PolicyExtIds != nil {
+		p.PolicyExtIds = known.PolicyExtIds
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "allowedConfig")
+	delete(allFields, "creationTime")
 	delete(allFields, "description")
+	delete(allFields, "exceptConfig")
 	delete(allFields, "extId")
+	delete(allFields, "lastUpdateTime")
 	delete(allFields, "links")
 	delete(allFields, "name")
 	delete(allFields, "ownerExtId")
@@ -2938,7 +3737,9 @@ func (p *EntityGroup) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -2947,14 +3748,392 @@ func NewEntityGroup() *EntityGroup {
 	p := new(EntityGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.EntityGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/address-groups/{extId} Get operation
+Configuration of except entities in the Entity Group.
+*/
+type ExceptConfig struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of except entities in the Entity Group. An except entity is a collection of entities that are excluded from the entity group.
+	The fields 'type' and 'selectBy' must be interpreted together as '<type> BY <selectBy>' to determine which attribute must be populated.
+
+	Based on this combination, populate one of:
+	  - referenceExtIds — for extId based identification
+	  - addresses — for specific IP address/subnet specification
+	  - ipRanges — for IP range based specification
+
+	Supported type BY selectBy combinations include:
+	  - ADDRESS_GROUP BY EXT_ID
+	  - ADDRESS_GROUP BY IP_VALUES
+	*/
+	Entities []ExceptEntity `json:"entities,omitempty"`
+}
+
+func (p *ExceptConfig) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ExceptConfig
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExceptConfig) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExceptConfig
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewExceptConfig()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Entities != nil {
+		p.Entities = known.Entities
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "entities")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewExceptConfig() *ExceptConfig {
+	p := new(ExceptConfig)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.ExceptConfig"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+An except entity is a collection of entities that are excluded from the Entity Group.
+*/
+type ExceptEntity struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Addresses *Addresses `json:"addresses,omitempty"`
+
+	IpRanges *IpRange `json:"ipRanges,omitempty"`
+	/*
+	  List of reference external identifiers in an except entity. If the selection type is an external identifier, then it is necessary to specify the referenceExtIds.
+	*/
+	ReferenceExtIds []string `json:"referenceExtIds,omitempty"`
+
+	SelectBy *ExceptSelectBy `json:"selectBy,omitempty"`
+
+	Type *ExceptType `json:"type,omitempty"`
+}
+
+func (p *ExceptEntity) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ExceptEntity
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ExceptEntity) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ExceptEntity
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewExceptEntity()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Addresses != nil {
+		p.Addresses = known.Addresses
+	}
+	if known.IpRanges != nil {
+		p.IpRanges = known.IpRanges
+	}
+	if known.ReferenceExtIds != nil {
+		p.ReferenceExtIds = known.ReferenceExtIds
+	}
+	if known.SelectBy != nil {
+		p.SelectBy = known.SelectBy
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "addresses")
+	delete(allFields, "ipRanges")
+	delete(allFields, "referenceExtIds")
+	delete(allFields, "selectBy")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewExceptEntity() *ExceptEntity {
+	p := new(ExceptEntity)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.ExceptEntity"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Select by field for the except entity.
+*/
+type ExceptSelectBy int
+
+const (
+	EXCEPTSELECTBY_UNKNOWN   ExceptSelectBy = 0
+	EXCEPTSELECTBY_REDACTED  ExceptSelectBy = 1
+	EXCEPTSELECTBY_EXT_ID    ExceptSelectBy = 2
+	EXCEPTSELECTBY_IP_VALUES ExceptSelectBy = 3
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ExceptSelectBy) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"EXT_ID",
+		"IP_VALUES",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ExceptSelectBy) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"EXT_ID",
+		"IP_VALUES",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ExceptSelectBy) index(name string) ExceptSelectBy {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"EXT_ID",
+		"IP_VALUES",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ExceptSelectBy(idx)
+		}
+	}
+	return EXCEPTSELECTBY_UNKNOWN
+}
+
+func (e *ExceptSelectBy) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ExceptSelectBy:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ExceptSelectBy) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ExceptSelectBy) Ref() *ExceptSelectBy {
+	return &e
+}
+
+/*
+Type of the except entity.
+*/
+type ExceptType int
+
+const (
+	EXCEPTTYPE_UNKNOWN       ExceptType = 0
+	EXCEPTTYPE_REDACTED      ExceptType = 1
+	EXCEPTTYPE_ADDRESS_GROUP ExceptType = 2
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *ExceptType) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ADDRESS_GROUP",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e ExceptType) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ADDRESS_GROUP",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *ExceptType) index(name string) ExceptType {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ADDRESS_GROUP",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return ExceptType(idx)
+		}
+	}
+	return EXCEPTTYPE_UNKNOWN
+}
+
+func (e *ExceptType) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for ExceptType:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *ExceptType) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e ExceptType) Ref() *ExceptType {
+	return &e
+}
+
+/*
+REST response for all response codes in API path /microseg/v4.2/config/address-groups/{extId} Get operation
 */
 type GetAddressGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3013,7 +4192,26 @@ func (p *GetAddressGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetAddressGroupApiResponse(*known)
+	*p = *NewGetAddressGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3024,7 +4222,9 @@ func (p *GetAddressGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3033,7 +4233,7 @@ func NewGetAddressGroupApiResponse() *GetAddressGroupApiResponse {
 	p := new(GetAddressGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetAddressGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3061,7 +4261,7 @@ func (p *GetAddressGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/directory-server-configs/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.2/config/directory-server-configs/{extId} Get operation
 */
 type GetDirectoryServerConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3120,7 +4320,26 @@ func (p *GetDirectoryServerConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetDirectoryServerConfigApiResponse(*known)
+	*p = *NewGetDirectoryServerConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3131,7 +4350,9 @@ func (p *GetDirectoryServerConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3140,7 +4361,7 @@ func NewGetDirectoryServerConfigApiResponse() *GetDirectoryServerConfigApiRespon
 	p := new(GetDirectoryServerConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetDirectoryServerConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3168,7 +4389,7 @@ func (p *GetDirectoryServerConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/category-mappings/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.2/config/category-mappings/{extId} Get operation
 */
 type GetDsCategoryMappingApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3227,7 +4448,26 @@ func (p *GetDsCategoryMappingApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetDsCategoryMappingApiResponse(*known)
+	*p = *NewGetDsCategoryMappingApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3238,7 +4478,9 @@ func (p *GetDsCategoryMappingApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3247,7 +4489,7 @@ func NewGetDsCategoryMappingApiResponse() *GetDsCategoryMappingApiResponse {
 	p := new(GetDsCategoryMappingApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetDsCategoryMappingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3275,7 +4517,7 @@ func (p *GetDsCategoryMappingApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/entity-groups/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.2/config/entity-groups/{extId} Get operation
 */
 type GetEntityGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3334,7 +4576,26 @@ func (p *GetEntityGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetEntityGroupApiResponse(*known)
+	*p = *NewGetEntityGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3345,7 +4606,9 @@ func (p *GetEntityGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3354,7 +4617,7 @@ func NewGetEntityGroupApiResponse() *GetEntityGroupApiResponse {
 	p := new(GetEntityGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetEntityGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3382,7 +4645,7 @@ func (p *GetEntityGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/policies/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.2/config/policies/{extId} Get operation
 */
 type GetNetworkSecurityPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3441,7 +4704,26 @@ func (p *GetNetworkSecurityPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetNetworkSecurityPolicyApiResponse(*known)
+	*p = *NewGetNetworkSecurityPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3452,7 +4734,9 @@ func (p *GetNetworkSecurityPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3461,7 +4745,7 @@ func NewGetNetworkSecurityPolicyApiResponse() *GetNetworkSecurityPolicyApiRespon
 	p := new(GetNetworkSecurityPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetNetworkSecurityPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3489,7 +4773,7 @@ func (p *GetNetworkSecurityPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/service-groups/{extId} Get operation
+REST response for all response codes in API path /microseg/v4.2/config/service-groups/{extId} Get operation
 */
 type GetServiceGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3548,7 +4832,26 @@ func (p *GetServiceGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = GetServiceGroupApiResponse(*known)
+	*p = *NewGetServiceGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3559,7 +4862,9 @@ func (p *GetServiceGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3568,7 +4873,7 @@ func NewGetServiceGroupApiResponse() *GetServiceGroupApiResponse {
 	p := new(GetServiceGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.GetServiceGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3664,7 +4969,23 @@ func (p *IPv4Range) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IPv4Range(*known)
+	*p = *NewIPv4Range()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EndIp != nil {
+		p.EndIp = known.EndIp
+	}
+	if known.StartIp != nil {
+		p.StartIp = known.StartIp
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3674,7 +4995,9 @@ func (p *IPv4Range) UnmarshalJSON(b []byte) error {
 	delete(allFields, "startIp")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3683,7 +5006,119 @@ func NewIPv4Range() *IPv4Range {
 	p := new(IPv4Range)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.IPv4Range"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+IPv6 range containing start and end IP.
+*/
+type IPv6Range struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  End address of the IPv6 range.
+	*/
+	EndIp *string `json:"endIp"`
+	/*
+	  Start address of the IPv6 range.
+	*/
+	StartIp *string `json:"startIp"`
+}
+
+func (p *IPv6Range) MarshalJSON() ([]byte, error) {
+	type IPv6RangeProxy IPv6Range
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*IPv6RangeProxy
+		EndIp   *string `json:"endIp,omitempty"`
+		StartIp *string `json:"startIp,omitempty"`
+	}{
+		IPv6RangeProxy: (*IPv6RangeProxy)(p),
+		EndIp:          p.EndIp,
+		StartIp:        p.StartIp,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IPv6Range) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IPv6Range
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewIPv6Range()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EndIp != nil {
+		p.EndIp = known.EndIp
+	}
+	if known.StartIp != nil {
+		p.StartIp = known.StartIp
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "endIp")
+	delete(allFields, "startIp")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewIPv6Range() *IPv6Range {
+	p := new(IPv6Range)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.IPv6Range"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3753,7 +5188,26 @@ func (p *IcmpTypeCodeSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IcmpTypeCodeSpec(*known)
+	*p = *NewIcmpTypeCodeSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Code != nil {
+		p.Code = known.Code
+	}
+	if known.IsAllAllowed != nil {
+		p.IsAllAllowed = known.IsAllAllowed
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -3764,7 +5218,9 @@ func (p *IcmpTypeCodeSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3773,7 +5229,121 @@ func NewIcmpTypeCodeSpec() *IcmpTypeCodeSpec {
 	p := new(IcmpTypeCodeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.IcmpTypeCodeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	p.IsAllAllowed = new(bool)
+	*p.IsAllAllowed = false
+
+	return p
+}
+
+/*
+ICMPv6 Type Code Object. This object contains values for Icmpv6 type and Icmpv6 code.
+*/
+type IcmpV6TypeCodeSpec struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  ICMP service Code. Ignore this field if Code has to be ANY.
+	*/
+	Code *int `json:"code,omitempty"`
+	/*
+	  Set this field to true if both Type and Code is ANY.
+	*/
+	IsAllAllowed *bool `json:"isAllAllowed,omitempty"`
+	/*
+	  ICMP service Type. Ignore this field if Type has to be ANY.
+	*/
+	Type *int `json:"type,omitempty"`
+}
+
+func (p *IcmpV6TypeCodeSpec) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IcmpV6TypeCodeSpec
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IcmpV6TypeCodeSpec) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IcmpV6TypeCodeSpec
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewIcmpV6TypeCodeSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Code != nil {
+		p.Code = known.Code
+	}
+	if known.IsAllAllowed != nil {
+		p.IsAllAllowed = known.IsAllAllowed
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "code")
+	delete(allFields, "isAllAllowed")
+	delete(allFields, "type")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewIcmpV6TypeCodeSpec() *IcmpV6TypeCodeSpec {
+	p := new(IcmpV6TypeCodeSpec)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.IcmpV6TypeCodeSpec"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsAllAllowed = new(bool)
@@ -3874,6 +5444,10 @@ type IntraEntityGroupRuleSpec struct {
 	  ICMP Type Code List.
 	*/
 	IcmpServices []IcmpTypeCodeSpec `json:"icmpServices,omitempty"`
+	/*
+	  ICMPv6 Type Code List.
+	*/
+	IcmpV6Services []IcmpV6TypeCodeSpec `json:"icmpV6Services,omitempty"`
 
 	SecuredGroupAction *IntraEntityGroupRuleAction `json:"securedGroupAction"`
 
@@ -3944,13 +5518,51 @@ func (p *IntraEntityGroupRuleSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IntraEntityGroupRuleSpec(*known)
+	*p = *NewIntraEntityGroupRuleSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IcmpServices != nil {
+		p.IcmpServices = known.IcmpServices
+	}
+	if known.IcmpV6Services != nil {
+		p.IcmpV6Services = known.IcmpV6Services
+	}
+	if known.SecuredGroupAction != nil {
+		p.SecuredGroupAction = known.SecuredGroupAction
+	}
+	if known.SecuredGroupCategoryAssociatedEntityType != nil {
+		p.SecuredGroupCategoryAssociatedEntityType = known.SecuredGroupCategoryAssociatedEntityType
+	}
+	if known.SecuredGroupCategoryReferences != nil {
+		p.SecuredGroupCategoryReferences = known.SecuredGroupCategoryReferences
+	}
+	if known.SecuredGroupEntityGroupReference != nil {
+		p.SecuredGroupEntityGroupReference = known.SecuredGroupEntityGroupReference
+	}
+	if known.SecuredGroupServiceReferences != nil {
+		p.SecuredGroupServiceReferences = known.SecuredGroupServiceReferences
+	}
+	if known.TcpServices != nil {
+		p.TcpServices = known.TcpServices
+	}
+	if known.UdpServices != nil {
+		p.UdpServices = known.UdpServices
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "icmpServices")
+	delete(allFields, "icmpV6Services")
 	delete(allFields, "securedGroupAction")
 	delete(allFields, "securedGroupCategoryAssociatedEntityType")
 	delete(allFields, "securedGroupCategoryReferences")
@@ -3960,7 +5572,9 @@ func (p *IntraEntityGroupRuleSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "udpServices")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -3969,7 +5583,102 @@ func NewIntraEntityGroupRuleSpec() *IntraEntityGroupRuleSpec {
 	p := new(IntraEntityGroupRuleSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.IntraEntityGroupRuleSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+IP range containing start and end IP.
+*/
+type IpRange struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of IP range containing start and end IP.
+	*/
+	Ipv4Ranges []IPv4Range `json:"ipv4Ranges,omitempty"`
+}
+
+func (p *IpRange) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias IpRange
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *IpRange) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias IpRange
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewIpRange()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Ipv4Ranges != nil {
+		p.Ipv4Ranges = known.Ipv4Ranges
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "ipv4Ranges")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewIpRange() *IpRange {
+	p := new(IpRange)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "microseg.v4.config.IpRange"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4037,7 +5746,26 @@ func (p *IsolationGroup) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = IsolationGroup(*known)
+	*p = *NewIsolationGroup()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.GroupCategoryAssociatedEntityType != nil {
+		p.GroupCategoryAssociatedEntityType = known.GroupCategoryAssociatedEntityType
+	}
+	if known.GroupCategoryReferences != nil {
+		p.GroupCategoryReferences = known.GroupCategoryReferences
+	}
+	if known.GroupEntityGroupReference != nil {
+		p.GroupEntityGroupReference = known.GroupEntityGroupReference
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4048,7 +5776,9 @@ func (p *IsolationGroup) UnmarshalJSON(b []byte) error {
 	delete(allFields, "groupEntityGroupReference")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4057,14 +5787,14 @@ func NewIsolationGroup() *IsolationGroup {
 	p := new(IsolationGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.IsolationGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/address-groups Get operation
+REST response for all response codes in API path /microseg/v4.2/config/address-groups Get operation
 */
 type ListAddressGroupsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4123,7 +5853,26 @@ func (p *ListAddressGroupsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListAddressGroupsApiResponse(*known)
+	*p = *NewListAddressGroupsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4134,7 +5883,9 @@ func (p *ListAddressGroupsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4143,7 +5894,7 @@ func NewListAddressGroupsApiResponse() *ListAddressGroupsApiResponse {
 	p := new(ListAddressGroupsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListAddressGroupsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4171,7 +5922,7 @@ func (p *ListAddressGroupsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/directory-server-configs Get operation
+REST response for all response codes in API path /microseg/v4.2/config/directory-server-configs Get operation
 */
 type ListDirectoryServerConfigsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4230,7 +5981,26 @@ func (p *ListDirectoryServerConfigsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListDirectoryServerConfigsApiResponse(*known)
+	*p = *NewListDirectoryServerConfigsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4241,7 +6011,9 @@ func (p *ListDirectoryServerConfigsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4250,7 +6022,7 @@ func NewListDirectoryServerConfigsApiResponse() *ListDirectoryServerConfigsApiRe
 	p := new(ListDirectoryServerConfigsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListDirectoryServerConfigsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4278,7 +6050,7 @@ func (p *ListDirectoryServerConfigsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/category-mappings Get operation
+REST response for all response codes in API path /microseg/v4.2/config/category-mappings Get operation
 */
 type ListDsCategoryMappingsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4337,7 +6109,26 @@ func (p *ListDsCategoryMappingsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListDsCategoryMappingsApiResponse(*known)
+	*p = *NewListDsCategoryMappingsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4348,7 +6139,9 @@ func (p *ListDsCategoryMappingsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4357,7 +6150,7 @@ func NewListDsCategoryMappingsApiResponse() *ListDsCategoryMappingsApiResponse {
 	p := new(ListDsCategoryMappingsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListDsCategoryMappingsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4385,7 +6178,7 @@ func (p *ListDsCategoryMappingsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/entity-groups Get operation
+REST response for all response codes in API path /microseg/v4.2/config/entity-groups Get operation
 */
 type ListEntityGroupsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4444,7 +6237,26 @@ func (p *ListEntityGroupsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListEntityGroupsApiResponse(*known)
+	*p = *NewListEntityGroupsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4455,7 +6267,9 @@ func (p *ListEntityGroupsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4464,7 +6278,7 @@ func NewListEntityGroupsApiResponse() *ListEntityGroupsApiResponse {
 	p := new(ListEntityGroupsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListEntityGroupsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4492,7 +6306,7 @@ func (p *ListEntityGroupsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/policies Get operation
+REST response for all response codes in API path /microseg/v4.2/config/policies Get operation
 */
 type ListNetworkSecurityPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4551,7 +6365,26 @@ func (p *ListNetworkSecurityPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListNetworkSecurityPoliciesApiResponse(*known)
+	*p = *NewListNetworkSecurityPoliciesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4562,7 +6395,9 @@ func (p *ListNetworkSecurityPoliciesApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4571,7 +6406,7 @@ func NewListNetworkSecurityPoliciesApiResponse() *ListNetworkSecurityPoliciesApi
 	p := new(ListNetworkSecurityPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListNetworkSecurityPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4599,7 +6434,7 @@ func (p *ListNetworkSecurityPoliciesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/policies/{policyExtId}/rules Get operation
+REST response for all response codes in API path /microseg/v4.2/config/policies/{policyExtId}/rules Get operation
 */
 type ListNetworkSecurityPolicyRulesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4658,7 +6493,26 @@ func (p *ListNetworkSecurityPolicyRulesApiResponse) UnmarshalJSON(b []byte) erro
 	}
 
 	// Step 3: Assign known fields
-	*p = ListNetworkSecurityPolicyRulesApiResponse(*known)
+	*p = *NewListNetworkSecurityPolicyRulesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4669,7 +6523,9 @@ func (p *ListNetworkSecurityPolicyRulesApiResponse) UnmarshalJSON(b []byte) erro
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4678,7 +6534,7 @@ func NewListNetworkSecurityPolicyRulesApiResponse() *ListNetworkSecurityPolicyRu
 	p := new(ListNetworkSecurityPolicyRulesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListNetworkSecurityPolicyRulesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4706,7 +6562,7 @@ func (p *ListNetworkSecurityPolicyRulesApiResponse) SetData(v interface{}) error
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/service-groups Get operation
+REST response for all response codes in API path /microseg/v4.2/config/service-groups Get operation
 */
 type ListServiceGroupsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4765,7 +6621,26 @@ func (p *ListServiceGroupsApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ListServiceGroupsApiResponse(*known)
+	*p = *NewListServiceGroupsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -4776,7 +6651,9 @@ func (p *ListServiceGroupsApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -4785,7 +6662,7 @@ func NewListServiceGroupsApiResponse() *ListServiceGroupsApiResponse {
 	p := new(ListServiceGroupsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ListServiceGroupsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5114,7 +6991,29 @@ func (p *MatchingCriteria) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MatchingCriteria(*known)
+	*p = *NewMatchingCriteria()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Criteria != nil {
+		p.Criteria = known.Criteria
+	}
+	if known.MatchEntity != nil {
+		p.MatchEntity = known.MatchEntity
+	}
+	if known.MatchField != nil {
+		p.MatchField = known.MatchField
+	}
+	if known.MatchType != nil {
+		p.MatchType = known.MatchType
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5126,7 +7025,9 @@ func (p *MatchingCriteria) UnmarshalJSON(b []byte) error {
 	delete(allFields, "matchType")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5135,7 +7036,7 @@ func NewMatchingCriteria() *MatchingCriteria {
 	p := new(MatchingCriteria)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.MatchingCriteria"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5208,7 +7109,23 @@ func (p *MultiEnvIsolationRuleSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = MultiEnvIsolationRuleSpec(*known)
+	*p = *NewMultiEnvIsolationRuleSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SpecItemDiscriminator_ != nil {
+		p.SpecItemDiscriminator_ = known.SpecItemDiscriminator_
+	}
+	if known.Spec != nil {
+		p.Spec = known.Spec
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5218,7 +7135,9 @@ func (p *MultiEnvIsolationRuleSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "spec")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5227,7 +7146,7 @@ func NewMultiEnvIsolationRuleSpec() *MultiEnvIsolationRuleSpec {
 	p := new(MultiEnvIsolationRuleSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.MultiEnvIsolationRuleSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5284,7 +7203,15 @@ type NetworkSecurityPolicy struct {
 	*/
 	IsHitlogEnabled *bool `json:"isHitlogEnabled,omitempty"`
 	/*
-	  If Ipv6 Traffic is allowed.
+	  If policy supports Ipv4 based rules
+	*/
+	IsIpv4AddressScope *bool `json:"isIpv4AddressScope,omitempty"`
+	/*
+	  If policy support Ipv6 based rules
+	*/
+	IsIpv6AddressScope *bool `json:"isIpv6AddressScope,omitempty"`
+	/*
+	  If enabled, IPv6 traffic is allowed regardless of policy configuration. If disabled, IPv6 traffic will follow the policy configuration (if isIpv6AddressScope is enabled).
 	*/
 	IsIpv6TrafficAllowed *bool `json:"isIpv6TrafficAllowed,omitempty"`
 	/*
@@ -5390,7 +7317,83 @@ func (p *NetworkSecurityPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NetworkSecurityPolicy(*known)
+	*p = *NewNetworkSecurityPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IsHitlogEnabled != nil {
+		p.IsHitlogEnabled = known.IsHitlogEnabled
+	}
+	if known.IsIpv4AddressScope != nil {
+		p.IsIpv4AddressScope = known.IsIpv4AddressScope
+	}
+	if known.IsIpv6AddressScope != nil {
+		p.IsIpv6AddressScope = known.IsIpv6AddressScope
+	}
+	if known.IsIpv6TrafficAllowed != nil {
+		p.IsIpv6TrafficAllowed = known.IsIpv6TrafficAllowed
+	}
+	if known.IsSystemDefined != nil {
+		p.IsSystemDefined = known.IsSystemDefined
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NetworkFunctionReferences != nil {
+		p.NetworkFunctionReferences = known.NetworkFunctionReferences
+	}
+	if known.Rules != nil {
+		p.Rules = known.Rules
+	}
+	if known.Scope != nil {
+		p.Scope = known.Scope
+	}
+	if known.ScopeReferences != nil {
+		p.ScopeReferences = known.ScopeReferences
+	}
+	if known.SecuredEntityGroupReferences != nil {
+		p.SecuredEntityGroupReferences = known.SecuredEntityGroupReferences
+	}
+	if known.SecuredGroups != nil {
+		p.SecuredGroups = known.SecuredGroups
+	}
+	if known.State != nil {
+		p.State = known.State
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
+	if known.VpcReferences != nil {
+		p.VpcReferences = known.VpcReferences
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5401,6 +7404,8 @@ func (p *NetworkSecurityPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "description")
 	delete(allFields, "extId")
 	delete(allFields, "isHitlogEnabled")
+	delete(allFields, "isIpv4AddressScope")
+	delete(allFields, "isIpv6AddressScope")
 	delete(allFields, "isIpv6TrafficAllowed")
 	delete(allFields, "isSystemDefined")
 	delete(allFields, "lastUpdateTime")
@@ -5418,7 +7423,9 @@ func (p *NetworkSecurityPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vpcReferences")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5427,7 +7434,7 @@ func NewNetworkSecurityPolicy() *NetworkSecurityPolicy {
 	p := new(NetworkSecurityPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.NetworkSecurityPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5489,7 +7496,20 @@ func (p *NetworkSecurityPolicyExportSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NetworkSecurityPolicyExportSpec(*known)
+	*p = *NewNetworkSecurityPolicyExportSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.PolicyReferences != nil {
+		p.PolicyReferences = known.PolicyReferences
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5498,7 +7518,9 @@ func (p *NetworkSecurityPolicyExportSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "policyReferences")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5507,7 +7529,7 @@ func NewNetworkSecurityPolicyExportSpec() *NetworkSecurityPolicyExportSpec {
 	p := new(NetworkSecurityPolicyExportSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.NetworkSecurityPolicyExportSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5595,7 +7617,38 @@ func (p *NetworkSecurityPolicyRule) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = NetworkSecurityPolicyRule(*known)
+	*p = *NewNetworkSecurityPolicyRule()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.SpecItemDiscriminator_ != nil {
+		p.SpecItemDiscriminator_ = known.SpecItemDiscriminator_
+	}
+	if known.Spec != nil {
+		p.Spec = known.Spec
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -5610,7 +7663,9 @@ func (p *NetworkSecurityPolicyRule) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -5619,7 +7674,7 @@ func NewNetworkSecurityPolicyRule() *NetworkSecurityPolicyRule {
 	p := new(NetworkSecurityPolicyRule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.NetworkSecurityPolicyRule"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6013,6 +8068,10 @@ type ServiceGroup struct {
 	*/
 	CreatedBy *string `json:"createdBy,omitempty"`
 	/*
+	  The timestamp when the Service Group was created.
+	*/
+	CreationTime *time.Time `json:"creationTime,omitempty"`
+	/*
 	  A user defined annotation for a Service Group.
 	*/
 	Description *string `json:"description,omitempty"`
@@ -6025,9 +8084,17 @@ type ServiceGroup struct {
 	*/
 	IcmpServices []IcmpTypeCodeSpec `json:"icmpServices,omitempty"`
 	/*
+	  ICMPv6 Type Code List.
+	*/
+	IcmpV6Services []IcmpV6TypeCodeSpec `json:"icmpV6Services,omitempty"`
+	/*
 	  Service Group is system defined or not.
 	*/
 	IsSystemDefined *bool `json:"isSystemDefined,omitempty"`
+	/*
+	  The timestamp when the Service Group was last updated.
+	*/
+	LastUpdateTime *time.Time `json:"lastUpdateTime,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
@@ -6102,17 +8169,72 @@ func (p *ServiceGroup) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = ServiceGroup(*known)
+	*p = *NewServiceGroup()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CreatedBy != nil {
+		p.CreatedBy = known.CreatedBy
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.IcmpServices != nil {
+		p.IcmpServices = known.IcmpServices
+	}
+	if known.IcmpV6Services != nil {
+		p.IcmpV6Services = known.IcmpV6Services
+	}
+	if known.IsSystemDefined != nil {
+		p.IsSystemDefined = known.IsSystemDefined
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.PolicyReferences != nil {
+		p.PolicyReferences = known.PolicyReferences
+	}
+	if known.TcpServices != nil {
+		p.TcpServices = known.TcpServices
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.UdpServices != nil {
+		p.UdpServices = known.UdpServices
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "createdBy")
+	delete(allFields, "creationTime")
 	delete(allFields, "description")
 	delete(allFields, "extId")
 	delete(allFields, "icmpServices")
+	delete(allFields, "icmpV6Services")
 	delete(allFields, "isSystemDefined")
+	delete(allFields, "lastUpdateTime")
 	delete(allFields, "links")
 	delete(allFields, "name")
 	delete(allFields, "policyReferences")
@@ -6121,7 +8243,9 @@ func (p *ServiceGroup) UnmarshalJSON(b []byte) error {
 	delete(allFields, "udpServices")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6130,7 +8254,7 @@ func NewServiceGroup() *ServiceGroup {
 	p := new(ServiceGroup)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.ServiceGroup"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6222,7 +8346,38 @@ func (p *SyncPolicy) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SyncPolicy(*known)
+	*p = *NewSyncPolicy()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.HasSyncCompatibility != nil {
+		p.HasSyncCompatibility = known.HasSyncCompatibility
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.PolicyExtIds != nil {
+		p.PolicyExtIds = known.PolicyExtIds
+	}
+	if known.SourceDomainManagerExtId != nil {
+		p.SourceDomainManagerExtId = known.SourceDomainManagerExtId
+	}
+	if known.TargetDomainManagerExtId != nil {
+		p.TargetDomainManagerExtId = known.TargetDomainManagerExtId
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6237,7 +8392,9 @@ func (p *SyncPolicy) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6246,7 +8403,7 @@ func NewSyncPolicy() *SyncPolicy {
 	p := new(SyncPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.SyncPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6321,7 +8478,23 @@ func (p *TcpPortRangeSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TcpPortRangeSpec(*known)
+	*p = *NewTcpPortRangeSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EndPort != nil {
+		p.EndPort = known.EndPort
+	}
+	if known.StartPort != nil {
+		p.StartPort = known.StartPort
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6331,7 +8504,9 @@ func (p *TcpPortRangeSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "startPort")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6340,7 +8515,7 @@ func NewTcpPortRangeSpec() *TcpPortRangeSpec {
 	p := new(TcpPortRangeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.TcpPortRangeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6415,7 +8590,23 @@ func (p *TwoEnvIsolationRuleSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TwoEnvIsolationRuleSpec(*known)
+	*p = *NewTwoEnvIsolationRuleSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.FirstIsolationGroup != nil {
+		p.FirstIsolationGroup = known.FirstIsolationGroup
+	}
+	if known.SecondIsolationGroup != nil {
+		p.SecondIsolationGroup = known.SecondIsolationGroup
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6425,7 +8616,9 @@ func (p *TwoEnvIsolationRuleSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "secondIsolationGroup")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6434,7 +8627,7 @@ func NewTwoEnvIsolationRuleSpec() *TwoEnvIsolationRuleSpec {
 	p := new(TwoEnvIsolationRuleSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.TwoEnvIsolationRuleSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6509,7 +8702,23 @@ func (p *UdpPortRangeSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UdpPortRangeSpec(*known)
+	*p = *NewUdpPortRangeSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.EndPort != nil {
+		p.EndPort = known.EndPort
+	}
+	if known.StartPort != nil {
+		p.StartPort = known.StartPort
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6519,7 +8728,9 @@ func (p *UdpPortRangeSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "startPort")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6528,14 +8739,14 @@ func NewUdpPortRangeSpec() *UdpPortRangeSpec {
 	p := new(UdpPortRangeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UdpPortRangeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/address-groups/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.2/config/address-groups/{extId} Put operation
 */
 type UpdateAddressGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6594,7 +8805,26 @@ func (p *UpdateAddressGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateAddressGroupApiResponse(*known)
+	*p = *NewUpdateAddressGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6605,7 +8835,9 @@ func (p *UpdateAddressGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6614,7 +8846,7 @@ func NewUpdateAddressGroupApiResponse() *UpdateAddressGroupApiResponse {
 	p := new(UpdateAddressGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateAddressGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6642,7 +8874,7 @@ func (p *UpdateAddressGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/directory-server-configs/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.2/config/directory-server-configs/{extId} Put operation
 */
 type UpdateDirectoryServerConfigApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6701,7 +8933,26 @@ func (p *UpdateDirectoryServerConfigApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateDirectoryServerConfigApiResponse(*known)
+	*p = *NewUpdateDirectoryServerConfigApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6712,7 +8963,9 @@ func (p *UpdateDirectoryServerConfigApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6721,7 +8974,7 @@ func NewUpdateDirectoryServerConfigApiResponse() *UpdateDirectoryServerConfigApi
 	p := new(UpdateDirectoryServerConfigApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateDirectoryServerConfigApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6749,7 +9002,7 @@ func (p *UpdateDirectoryServerConfigApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/category-mappings/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.2/config/category-mappings/{extId} Put operation
 */
 type UpdateDsCategoryMappingApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6808,7 +9061,26 @@ func (p *UpdateDsCategoryMappingApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateDsCategoryMappingApiResponse(*known)
+	*p = *NewUpdateDsCategoryMappingApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6819,7 +9091,9 @@ func (p *UpdateDsCategoryMappingApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6828,7 +9102,7 @@ func NewUpdateDsCategoryMappingApiResponse() *UpdateDsCategoryMappingApiResponse
 	p := new(UpdateDsCategoryMappingApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateDsCategoryMappingApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6856,7 +9130,7 @@ func (p *UpdateDsCategoryMappingApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/entity-groups/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.2/config/entity-groups/{extId} Put operation
 */
 type UpdateEntityGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6915,7 +9189,26 @@ func (p *UpdateEntityGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateEntityGroupApiResponse(*known)
+	*p = *NewUpdateEntityGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -6926,7 +9219,9 @@ func (p *UpdateEntityGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -6935,7 +9230,7 @@ func NewUpdateEntityGroupApiResponse() *UpdateEntityGroupApiResponse {
 	p := new(UpdateEntityGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateEntityGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6963,7 +9258,7 @@ func (p *UpdateEntityGroupApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/policies/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.2/config/policies/{extId} Put operation
 */
 type UpdateNetworkSecurityPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7022,7 +9317,26 @@ func (p *UpdateNetworkSecurityPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateNetworkSecurityPolicyApiResponse(*known)
+	*p = *NewUpdateNetworkSecurityPolicyApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7033,7 +9347,9 @@ func (p *UpdateNetworkSecurityPolicyApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7042,7 +9358,7 @@ func NewUpdateNetworkSecurityPolicyApiResponse() *UpdateNetworkSecurityPolicyApi
 	p := new(UpdateNetworkSecurityPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateNetworkSecurityPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7070,7 +9386,7 @@ func (p *UpdateNetworkSecurityPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /microseg/v4.1/config/service-groups/{extId} Put operation
+REST response for all response codes in API path /microseg/v4.2/config/service-groups/{extId} Put operation
 */
 type UpdateServiceGroupApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7129,7 +9445,26 @@ func (p *UpdateServiceGroupApiResponse) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpdateServiceGroupApiResponse(*known)
+	*p = *NewUpdateServiceGroupApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -7140,7 +9475,9 @@ func (p *UpdateServiceGroupApiResponse) UnmarshalJSON(b []byte) error {
 	delete(allFields, "metadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -7149,7 +9486,7 @@ func NewUpdateServiceGroupApiResponse() *UpdateServiceGroupApiResponse {
 	p := new(UpdateServiceGroupApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.config.UpdateServiceGroupApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

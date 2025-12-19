@@ -43,7 +43,7 @@ func (api *NetworkSecurityPoliciesApi) ApplyNetworkSecurityPolicyImport(path *st
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/policies/$actions/import"
+	uri := "/api/microseg/v4.2/config/policies/$actions/import"
 
 	// verify the required parameter 'path' is set
 	if nil == path {
@@ -110,7 +110,7 @@ func (api *NetworkSecurityPoliciesApi) CreateNetworkSecurityPolicy(body *import1
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/policies"
+	uri := "/api/microseg/v4.2/config/policies"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -158,7 +158,7 @@ func (api *NetworkSecurityPoliciesApi) DeleteNetworkSecurityPolicyById(extId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/policies/{extId}"
+	uri := "/api/microseg/v4.2/config/policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -208,7 +208,7 @@ func (api *NetworkSecurityPoliciesApi) ExportNetworkSecurityPolicy(body *import1
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/policies/$actions/prepare-export"
+	uri := "/api/microseg/v4.2/config/policies/$actions/prepare-export"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -251,7 +251,7 @@ func (api *NetworkSecurityPoliciesApi) GetNetworkSecurityPolicyById(extId *strin
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/policies/{extId}"
+	uri := "/api/microseg/v4.2/config/policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -301,7 +301,7 @@ func (api *NetworkSecurityPoliciesApi) ListNetworkSecurityPolicies(page_ *int, l
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/policies"
+	uri := "/api/microseg/v4.2/config/policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -389,7 +389,7 @@ func (api *NetworkSecurityPoliciesApi) ListNetworkSecurityPolicyRules(policyExtI
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/policies/{policyExtId}/rules"
+	uri := "/api/microseg/v4.2/config/policies/{policyExtId}/rules"
 
 	// verify the required parameter 'policyExtId' is set
 	if nil == policyExtId {
@@ -455,7 +455,7 @@ func (api *NetworkSecurityPoliciesApi) UpdateNetworkSecurityPolicyById(extId *st
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/policies/{extId}"
+	uri := "/api/microseg/v4.2/config/policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

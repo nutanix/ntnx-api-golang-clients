@@ -1,7 +1,7 @@
 /*
  * Generated file models/microseg/v4/operation/operation_model.go.
  *
- * Product version: 4.1.1
+ * Product version: 4.2.1
  *
  * Part of the Nutanix Flow Management APIs
  *
@@ -90,7 +90,23 @@ func (p *DryRunSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DryRunSpec(*known)
+	*p = *NewDryRunSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.PolicyNames != nil {
+		p.PolicyNames = known.PolicyNames
+	}
+	if known.ShouldIncludeSecureSubnetsInfo != nil {
+		p.ShouldIncludeSecureSubnetsInfo = known.ShouldIncludeSecureSubnetsInfo
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -100,7 +116,9 @@ func (p *DryRunSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldIncludeSecureSubnetsInfo")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -109,7 +127,7 @@ func NewDryRunSpec() *DryRunSpec {
 	p := new(DryRunSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.DryRunSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -186,7 +204,38 @@ func (p *DryRunSummary) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = DryRunSummary(*known)
+	*p = *NewDryRunSummary()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CountSummary != nil {
+		p.CountSummary = known.CountSummary
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.PolicySummaries != nil {
+		p.PolicySummaries = known.PolicySummaries
+	}
+	if known.SubnetSummaries != nil {
+		p.SubnetSummaries = known.SubnetSummaries
+	}
+	if known.SummaryFailures != nil {
+		p.SummaryFailures = known.SummaryFailures
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -201,7 +250,9 @@ func (p *DryRunSummary) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -210,7 +261,7 @@ func NewDryRunSummary() *DryRunSummary {
 	p := new(DryRunSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.DryRunSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -294,7 +345,26 @@ func (p *PolicyCount) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PolicyCount(*known)
+	*p = *NewPolicyCount()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.NewPoliciesCount != nil {
+		p.NewPoliciesCount = known.NewPoliciesCount
+	}
+	if known.OldPoliciesCount != nil {
+		p.OldPoliciesCount = known.OldPoliciesCount
+	}
+	if known.SystemDefinedPoliciesCount != nil {
+		p.SystemDefinedPoliciesCount = known.SystemDefinedPoliciesCount
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -305,7 +375,9 @@ func (p *PolicyCount) UnmarshalJSON(b []byte) error {
 	delete(allFields, "systemDefinedPoliciesCount")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -314,7 +386,7 @@ func NewPolicyCount() *PolicyCount {
 	p := new(PolicyCount)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyCount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -376,7 +448,23 @@ func (p *PolicyCountByType) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PolicyCountByType(*known)
+	*p = *NewPolicyCountByType()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CountSummary != nil {
+		p.CountSummary = known.CountSummary
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -386,7 +474,9 @@ func (p *PolicyCountByType) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -395,7 +485,7 @@ func NewPolicyCountByType() *PolicyCountByType {
 	p := new(PolicyCountByType)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyCountByType"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -498,7 +588,41 @@ func (p *PolicyMetadata) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PolicyMetadata(*known)
+	*p = *NewPolicyMetadata()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.Options != nil {
+		p.Options = known.Options
+	}
+	if known.PreviewReference != nil {
+		p.PreviewReference = known.PreviewReference
+	}
+	if known.SecuredGroupCategoryReferences != nil {
+		p.SecuredGroupCategoryReferences = known.SecuredGroupCategoryReferences
+	}
+	if known.State != nil {
+		p.State = known.State
+	}
+	if known.Type != nil {
+		p.Type = known.Type
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -514,7 +638,9 @@ func (p *PolicyMetadata) UnmarshalJSON(b []byte) error {
 	delete(allFields, "type")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -523,7 +649,7 @@ func NewPolicyMetadata() *PolicyMetadata {
 	p := new(PolicyMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -597,7 +723,32 @@ func (p *PolicyPreview) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PolicyPreview(*known)
+	*p = *NewPolicyPreview()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.NewPolicySpec != nil {
+		p.NewPolicySpec = known.NewPolicySpec
+	}
+	if known.SystemGeneratedPolicies != nil {
+		p.SystemGeneratedPolicies = known.SystemGeneratedPolicies
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -610,7 +761,9 @@ func (p *PolicyPreview) UnmarshalJSON(b []byte) error {
 	delete(allFields, "tenantId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -619,7 +772,7 @@ func NewPolicyPreview() *PolicyPreview {
 	p := new(PolicyPreview)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyPreview"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -700,7 +853,26 @@ func (p *PolicyUpgradeSummary) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = PolicyUpgradeSummary(*known)
+	*p = *NewPolicyUpgradeSummary()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.PolicyMetadata != nil {
+		p.PolicyMetadata = known.PolicyMetadata
+	}
+	if known.PolicyName != nil {
+		p.PolicyName = known.PolicyName
+	}
+	if known.SystemGenPolicyMetadata != nil {
+		p.SystemGenPolicyMetadata = known.SystemGenPolicyMetadata
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -711,7 +883,9 @@ func (p *PolicyUpgradeSummary) UnmarshalJSON(b []byte) error {
 	delete(allFields, "systemGenPolicyMetadata")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -720,7 +894,7 @@ func NewPolicyUpgradeSummary() *PolicyUpgradeSummary {
 	p := new(PolicyUpgradeSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.PolicyUpgradeSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -740,7 +914,7 @@ type SecurityPolicyOptions struct {
 	*/
 	IsHitlogEnabled *bool `json:"isHitlogEnabled,omitempty"`
 	/*
-	  If Ipv6 Traffic is allowed.
+	  If enabled, IPv6 traffic is allowed regardless of policy configuration. If disabled, IPv6 traffic will follow the policy configuration (if isIpv6AddressScope is enabled).
 	*/
 	IsIpv6TrafficAllowed *bool `json:"isIpv6TrafficAllowed,omitempty"`
 }
@@ -786,7 +960,23 @@ func (p *SecurityPolicyOptions) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SecurityPolicyOptions(*known)
+	*p = *NewSecurityPolicyOptions()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.IsHitlogEnabled != nil {
+		p.IsHitlogEnabled = known.IsHitlogEnabled
+	}
+	if known.IsIpv6TrafficAllowed != nil {
+		p.IsIpv6TrafficAllowed = known.IsIpv6TrafficAllowed
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -796,7 +986,9 @@ func (p *SecurityPolicyOptions) UnmarshalJSON(b []byte) error {
 	delete(allFields, "isIpv6TrafficAllowed")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -805,7 +997,7 @@ func NewSecurityPolicyOptions() *SecurityPolicyOptions {
 	p := new(SecurityPolicyOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.SecurityPolicyOptions"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsHitlogEnabled = new(bool)
@@ -980,7 +1172,26 @@ func (p *SubnetUpgradeSummary) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = SubnetUpgradeSummary(*known)
+	*p = *NewSubnetUpgradeSummary()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SubnetReference != nil {
+		p.SubnetReference = known.SubnetReference
+	}
+	if known.VlanID != nil {
+		p.VlanID = known.VlanID
+	}
+	if known.VlanName != nil {
+		p.VlanName = known.VlanName
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -991,7 +1202,9 @@ func (p *SubnetUpgradeSummary) UnmarshalJSON(b []byte) error {
 	delete(allFields, "vlanName")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1000,7 +1213,7 @@ func NewSubnetUpgradeSummary() *SubnetUpgradeSummary {
 	p := new(SubnetUpgradeSummary)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.SubnetUpgradeSummary"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1070,7 +1283,23 @@ func (p *TotalPolicyCount) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = TotalPolicyCount(*known)
+	*p = *NewTotalPolicyCount()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.PolicyTypeCountsSummary != nil {
+		p.PolicyTypeCountsSummary = known.PolicyTypeCountsSummary
+	}
+	if known.TotalCountsSummary != nil {
+		p.TotalCountsSummary = known.TotalCountsSummary
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1080,7 +1309,9 @@ func (p *TotalPolicyCount) UnmarshalJSON(b []byte) error {
 	delete(allFields, "totalCountsSummary")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1089,7 +1320,7 @@ func NewTotalPolicyCount() *TotalPolicyCount {
 	p := new(TotalPolicyCount)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.TotalPolicyCount"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1187,7 +1418,23 @@ func (p *UpgradeJob) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpgradeJob(*known)
+	*p = *NewUpgradeJob()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.SpecItemDiscriminator_ != nil {
+		p.SpecItemDiscriminator_ = known.SpecItemDiscriminator_
+	}
+	if known.Spec != nil {
+		p.Spec = known.Spec
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1197,7 +1444,9 @@ func (p *UpgradeJob) UnmarshalJSON(b []byte) error {
 	delete(allFields, "spec")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1206,7 +1455,7 @@ func NewUpgradeJob() *UpgradeJob {
 	p := new(UpgradeJob)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.UpgradeJob"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1306,7 +1555,23 @@ func (p *UpgradeSpec) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 3: Assign known fields
-	*p = UpgradeSpec(*known)
+	*p = *NewUpgradeSpec()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ShouldSetMonitorMode != nil {
+		p.ShouldSetMonitorMode = known.ShouldSetMonitorMode
+	}
+	if known.ShouldUpgradeSecuredSubnetsOnly != nil {
+		p.ShouldUpgradeSecuredSubnetsOnly = known.ShouldUpgradeSecuredSubnetsOnly
+	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
@@ -1316,7 +1581,9 @@ func (p *UpgradeSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "shouldUpgradeSecuredSubnetsOnly")
 
 	// Step 5: Assign remaining fields to UnknownFields_
-	p.UnknownFields_ = allFields
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
 
 	return nil
 }
@@ -1325,7 +1592,7 @@ func NewUpgradeSpec() *UpgradeSpec {
 	p := new(UpgradeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "microseg.v4.operation.UpgradeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

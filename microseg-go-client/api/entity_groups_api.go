@@ -39,7 +39,7 @@ func (api *EntityGroupsApi) CreateEntityGroup(body *import1.EntityGroup, args ..
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/entity-groups"
+	uri := "/api/microseg/v4.2/config/entity-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *EntityGroupsApi) DeleteEntityGroupById(extId *string, args ...map[str
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/entity-groups/{extId}"
+	uri := "/api/microseg/v4.2/config/entity-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *EntityGroupsApi) GetEntityGroupById(extId *string, args ...map[string
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/entity-groups/{extId}"
+	uri := "/api/microseg/v4.2/config/entity-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *EntityGroupsApi) ListEntityGroups(page_ *int, limit_ *int, filter_ *s
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/entity-groups"
+	uri := "/api/microseg/v4.2/config/entity-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *EntityGroupsApi) UpdateEntityGroupById(extId *string, body *import1.E
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/entity-groups/{extId}"
+	uri := "/api/microseg/v4.2/config/entity-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {

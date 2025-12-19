@@ -39,7 +39,7 @@ func (api *AddressGroupsApi) CreateAddressGroup(body *import1.AddressGroup, args
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/address-groups"
+	uri := "/api/microseg/v4.2/config/address-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == body {
@@ -87,7 +87,7 @@ func (api *AddressGroupsApi) DeleteAddressGroupById(extId *string, args ...map[s
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/address-groups/{extId}"
+	uri := "/api/microseg/v4.2/config/address-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -137,7 +137,7 @@ func (api *AddressGroupsApi) GetAddressGroupById(extId *string, args ...map[stri
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/address-groups/{extId}"
+	uri := "/api/microseg/v4.2/config/address-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
@@ -187,7 +187,7 @@ func (api *AddressGroupsApi) ListAddressGroups(page_ *int, limit_ *int, filter_ 
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/address-groups"
+	uri := "/api/microseg/v4.2/config/address-groups"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -246,7 +246,7 @@ func (api *AddressGroupsApi) UpdateAddressGroupById(extId *string, body *import1
 		argMap = args[0]
 	}
 
-	uri := "/api/microseg/v4.1/config/address-groups/{extId}"
+	uri := "/api/microseg/v4.2/config/address-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == extId {
