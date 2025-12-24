@@ -10,7 +10,28 @@ The Go client for Nutanix Objects Storage Management APIs is designed for Go cli
 
 ## Version
 - API version: v4.0
-- Package version: v4.0.1
+- Package version: v4.0.2
+## Version Negotiation
+
+By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/client"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+ApiClientInstance.Host = "10.19.50.27"
+ApiClientInstance.Username = "admin"
+ApiClientInstance.Password = "password"
+ApiClientInstance.AllowVersionNegotiation = false // Disables automatic version negotiation
+```
+
+When version negotiation is disabled, the client will use the SDK's default API version.
 
 ## Requirements.
 Go 1.17 or above are fully supported and tested.
@@ -31,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.0.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.0.2
 ```
 
 #### Using go modules
@@ -60,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.0.1
+	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.0.2
 )
 ```
 
@@ -204,7 +225,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "CDc9A12d-DAA4-C504-f9FB-58CBD263BdBC"
+extId := "1ACdcACe-54D7-8A44-b88a-28cE6DFBfc8d"
 
 // 
 getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)
@@ -252,7 +273,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "CDc9A12d-DAA4-C504-f9FB-58CBD263BdBC"
+extId := "1ACdcACe-54D7-8A44-b88a-28cE6DFBfc8d"
 
 // 
 getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)

@@ -1,7 +1,7 @@
 /*
  * Generated file models/objects/v4/stats/stats_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.0.2
  *
  * Part of the Nutanix Objects Storage Management APIs
  *
@@ -41,6 +41,84 @@ type GetObjectstoreStatsApiResponse struct {
 	Data *OneOfGetObjectstoreStatsApiResponseData `json:"data,omitempty"`
 
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetObjectstoreStatsApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetObjectstoreStatsApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetObjectstoreStatsApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetObjectstoreStatsApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetObjectstoreStatsApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewGetObjectstoreStatsApiResponse() *GetObjectstoreStatsApiResponse {
@@ -177,9 +255,175 @@ type ObjectstoreStats struct {
 	*/
 	StorageUsageBytes []import3.TimeIntValuePair `json:"storageUsageBytes,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *ObjectstoreStats) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ObjectstoreStats
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ObjectstoreStats) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ObjectstoreStats
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewObjectstoreStats()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.BucketCount != nil {
+		p.BucketCount = known.BucketCount
+	}
+	if known.DeleteRequestsPerSecond != nil {
+		p.DeleteRequestsPerSecond = known.DeleteRequestsPerSecond
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.GetBucketOperationsPerSecond != nil {
+		p.GetBucketOperationsPerSecond = known.GetBucketOperationsPerSecond
+	}
+	if known.GetObjectTtfbMsecs != nil {
+		p.GetObjectTtfbMsecs = known.GetObjectTtfbMsecs
+	}
+	if known.GetRequestThroughputBytesPerSecond != nil {
+		p.GetRequestThroughputBytesPerSecond = known.GetRequestThroughputBytesPerSecond
+	}
+	if known.GetRequestsPerSecond != nil {
+		p.GetRequestsPerSecond = known.GetRequestsPerSecond
+	}
+	if known.HeadRequestsPerSecond != nil {
+		p.HeadRequestsPerSecond = known.HeadRequestsPerSecond
+	}
+	if known.InboundBytesPerSecond != nil {
+		p.InboundBytesPerSecond = known.InboundBytesPerSecond
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.ListMultipartUploadsOperationsPerSecond != nil {
+		p.ListMultipartUploadsOperationsPerSecond = known.ListMultipartUploadsOperationsPerSecond
+	}
+	if known.MultipartUploadStartOperationsPerSecond != nil {
+		p.MultipartUploadStartOperationsPerSecond = known.MultipartUploadStartOperationsPerSecond
+	}
+	if known.NfsReadRequestsPerSecond != nil {
+		p.NfsReadRequestsPerSecond = known.NfsReadRequestsPerSecond
+	}
+	if known.NfsReadThroughputBytesPerSecond != nil {
+		p.NfsReadThroughputBytesPerSecond = known.NfsReadThroughputBytesPerSecond
+	}
+	if known.NfsWriteRequestsPerSecond != nil {
+		p.NfsWriteRequestsPerSecond = known.NfsWriteRequestsPerSecond
+	}
+	if known.NfsWriteThroughputBytesPerSecond != nil {
+		p.NfsWriteThroughputBytesPerSecond = known.NfsWriteThroughputBytesPerSecond
+	}
+	if known.ObjectCount != nil {
+		p.ObjectCount = known.ObjectCount
+	}
+	if known.ObjectOperationsPerSecond != nil {
+		p.ObjectOperationsPerSecond = known.ObjectOperationsPerSecond
+	}
+	if known.OutboundBytesPerSecond != nil {
+		p.OutboundBytesPerSecond = known.OutboundBytesPerSecond
+	}
+	if known.PostRequestsPerSecond != nil {
+		p.PostRequestsPerSecond = known.PostRequestsPerSecond
+	}
+	if known.PutRequestThroughputBytesPerSecond != nil {
+		p.PutRequestThroughputBytesPerSecond = known.PutRequestThroughputBytesPerSecond
+	}
+	if known.PutRequestsPerSecond != nil {
+		p.PutRequestsPerSecond = known.PutRequestsPerSecond
+	}
+	if known.SelectObjectContentOperationsPerSecond != nil {
+		p.SelectObjectContentOperationsPerSecond = known.SelectObjectContentOperationsPerSecond
+	}
+	if known.StorageUsageBytes != nil {
+		p.StorageUsageBytes = known.StorageUsageBytes
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "bucketCount")
+	delete(allFields, "deleteRequestsPerSecond")
+	delete(allFields, "extId")
+	delete(allFields, "getBucketOperationsPerSecond")
+	delete(allFields, "getObjectTtfbMsecs")
+	delete(allFields, "getRequestThroughputBytesPerSecond")
+	delete(allFields, "getRequestsPerSecond")
+	delete(allFields, "headRequestsPerSecond")
+	delete(allFields, "inboundBytesPerSecond")
+	delete(allFields, "links")
+	delete(allFields, "listMultipartUploadsOperationsPerSecond")
+	delete(allFields, "multipartUploadStartOperationsPerSecond")
+	delete(allFields, "nfsReadRequestsPerSecond")
+	delete(allFields, "nfsReadThroughputBytesPerSecond")
+	delete(allFields, "nfsWriteRequestsPerSecond")
+	delete(allFields, "nfsWriteThroughputBytesPerSecond")
+	delete(allFields, "objectCount")
+	delete(allFields, "objectOperationsPerSecond")
+	delete(allFields, "outboundBytesPerSecond")
+	delete(allFields, "postRequestsPerSecond")
+	delete(allFields, "putRequestThroughputBytesPerSecond")
+	delete(allFields, "putRequestsPerSecond")
+	delete(allFields, "selectObjectContentOperationsPerSecond")
+	delete(allFields, "storageUsageBytes")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewObjectstoreStats() *ObjectstoreStats {
@@ -209,6 +453,80 @@ type TimeFloatValuePair struct {
 	  Value of the stat at the recorded date and time in extended ISO-8601 format.
 	*/
 	Value *float32 `json:"value,omitempty"`
+}
+
+func (p *TimeFloatValuePair) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias TimeFloatValuePair
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *TimeFloatValuePair) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias TimeFloatValuePair
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewTimeFloatValuePair()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Timestamp != nil {
+		p.Timestamp = known.Timestamp
+	}
+	if known.Value != nil {
+		p.Value = known.Value
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "timestamp")
+	delete(allFields, "value")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewTimeFloatValuePair() *TimeFloatValuePair {

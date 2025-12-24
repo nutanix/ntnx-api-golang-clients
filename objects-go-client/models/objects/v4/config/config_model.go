@@ -1,7 +1,7 @@
 /*
  * Generated file models/objects/v4/config/config_model.go.
  *
- * Product version: 4.0.1
+ * Product version: 4.0.2
  *
  * Part of the Nutanix Objects Storage Management APIs
  *
@@ -67,9 +67,115 @@ type Certificate struct {
 	*/
 	ShouldGenerate *bool `json:"shouldGenerate,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *Certificate) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias Certificate
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *Certificate) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias Certificate
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewCertificate()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AlternateFqdns != nil {
+		p.AlternateFqdns = known.AlternateFqdns
+	}
+	if known.AlternateIps != nil {
+		p.AlternateIps = known.AlternateIps
+	}
+	if known.Ca != nil {
+		p.Ca = known.Ca
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+	if known.PrivateKey != nil {
+		p.PrivateKey = known.PrivateKey
+	}
+	if known.PublicCert != nil {
+		p.PublicCert = known.PublicCert
+	}
+	if known.ShouldGenerate != nil {
+		p.ShouldGenerate = known.ShouldGenerate
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "alternateFqdns")
+	delete(allFields, "alternateIps")
+	delete(allFields, "ca")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "metadata")
+	delete(allFields, "privateKey")
+	delete(allFields, "publicCert")
+	delete(allFields, "shouldGenerate")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewCertificate() *Certificate {
@@ -126,9 +232,115 @@ type CertificateProjection struct {
 	*/
 	ShouldGenerate *bool `json:"shouldGenerate,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
+}
+
+func (p *CertificateProjection) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CertificateProjection
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CertificateProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CertificateProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewCertificateProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.AlternateFqdns != nil {
+		p.AlternateFqdns = known.AlternateFqdns
+	}
+	if known.AlternateIps != nil {
+		p.AlternateIps = known.AlternateIps
+	}
+	if known.Ca != nil {
+		p.Ca = known.Ca
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+	if known.PrivateKey != nil {
+		p.PrivateKey = known.PrivateKey
+	}
+	if known.PublicCert != nil {
+		p.PublicCert = known.PublicCert
+	}
+	if known.ShouldGenerate != nil {
+		p.ShouldGenerate = known.ShouldGenerate
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "alternateFqdns")
+	delete(allFields, "alternateIps")
+	delete(allFields, "ca")
+	delete(allFields, "extId")
+	delete(allFields, "links")
+	delete(allFields, "metadata")
+	delete(allFields, "privateKey")
+	delete(allFields, "publicCert")
+	delete(allFields, "shouldGenerate")
+	delete(allFields, "tenantId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewCertificateProjection() *CertificateProjection {
@@ -161,6 +373,84 @@ type CreateCertificateApiResponse struct {
 	Data *OneOfCreateCertificateApiResponseData `json:"data,omitempty"`
 
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *CreateCertificateApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CreateCertificateApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CreateCertificateApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CreateCertificateApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewCreateCertificateApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewCreateCertificateApiResponse() *CreateCertificateApiResponse {
@@ -213,6 +503,84 @@ type CreateObjectstoreApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *CreateObjectstoreApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias CreateObjectstoreApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *CreateObjectstoreApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias CreateObjectstoreApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewCreateObjectstoreApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
 func NewCreateObjectstoreApiResponse() *CreateObjectstoreApiResponse {
 	p := new(CreateObjectstoreApiResponse)
 	p.ObjectType_ = new(string)
@@ -261,6 +629,84 @@ type DeleteObjectstoreApiResponse struct {
 	Data *OneOfDeleteObjectstoreApiResponseData `json:"data,omitempty"`
 
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *DeleteObjectstoreApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DeleteObjectstoreApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DeleteObjectstoreApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DeleteObjectstoreApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDeleteObjectstoreApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewDeleteObjectstoreApiResponse() *DeleteObjectstoreApiResponse {
@@ -313,6 +759,84 @@ type GetCaApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetCaApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetCaApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetCaApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetCaApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetCaApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
 func NewGetCaApiResponse() *GetCaApiResponse {
 	p := new(GetCaApiResponse)
 	p.ObjectType_ = new(string)
@@ -361,6 +885,84 @@ type GetCertificateApiResponse struct {
 	Data *OneOfGetCertificateApiResponseData `json:"data,omitempty"`
 
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetCertificateApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetCertificateApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetCertificateApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetCertificateApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetCertificateApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewGetCertificateApiResponse() *GetCertificateApiResponse {
@@ -413,6 +1015,84 @@ type GetObjectstoreApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *GetObjectstoreApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetObjectstoreApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetObjectstoreApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetObjectstoreApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetObjectstoreApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
 func NewGetObjectstoreApiResponse() *GetObjectstoreApiResponse {
 	p := new(GetObjectstoreApiResponse)
 	p.ObjectType_ = new(string)
@@ -463,6 +1143,84 @@ type ListCertificatesApiResponse struct {
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
 }
 
+func (p *ListCertificatesApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListCertificatesApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListCertificatesApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListCertificatesApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListCertificatesApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
 func NewListCertificatesApiResponse() *ListCertificatesApiResponse {
 	p := new(ListCertificatesApiResponse)
 	p.ObjectType_ = new(string)
@@ -511,6 +1269,84 @@ type ListObjectstoresApiResponse struct {
 	Data *OneOfListObjectstoresApiResponseData `json:"data,omitempty"`
 
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *ListObjectstoresApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ListObjectstoresApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ListObjectstoresApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ListObjectstoresApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewListObjectstoresApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewListObjectstoresApiResponse() *ListObjectstoresApiResponse {
@@ -619,7 +1455,7 @@ type ObjectStore struct {
 
 	StorageNetworkVip *import1.IPAddress `json:"storageNetworkVip,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -630,13 +1466,159 @@ type ObjectStore struct {
 
 func (p *ObjectStore) MarshalJSON() ([]byte, error) {
 	type ObjectStoreProxy ObjectStore
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*ObjectStoreProxy
 		Name *string `json:"name,omitempty"`
 	}{
 		ObjectStoreProxy: (*ObjectStoreProxy)(p),
 		Name:             p.Name,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ObjectStore) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ObjectStore
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewObjectStore()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CertificateExtIds != nil {
+		p.CertificateExtIds = known.CertificateExtIds
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.DeploymentVersion != nil {
+		p.DeploymentVersion = known.DeploymentVersion
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.Domain != nil {
+		p.Domain = known.Domain
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NumWorkerNodes != nil {
+		p.NumWorkerNodes = known.NumWorkerNodes
+	}
+	if known.PublicNetworkIps != nil {
+		p.PublicNetworkIps = known.PublicNetworkIps
+	}
+	if known.PublicNetworkReference != nil {
+		p.PublicNetworkReference = known.PublicNetworkReference
+	}
+	if known.Region != nil {
+		p.Region = known.Region
+	}
+	if known.State != nil {
+		p.State = known.State
+	}
+	if known.StorageNetworkDnsIp != nil {
+		p.StorageNetworkDnsIp = known.StorageNetworkDnsIp
+	}
+	if known.StorageNetworkReference != nil {
+		p.StorageNetworkReference = known.StorageNetworkReference
+	}
+	if known.StorageNetworkVip != nil {
+		p.StorageNetworkVip = known.StorageNetworkVip
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TotalCapacityGiB != nil {
+		p.TotalCapacityGiB = known.TotalCapacityGiB
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "certificateExtIds")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "creationTime")
+	delete(allFields, "deploymentVersion")
+	delete(allFields, "description")
+	delete(allFields, "domain")
+	delete(allFields, "extId")
+	delete(allFields, "lastUpdateTime")
+	delete(allFields, "links")
+	delete(allFields, "metadata")
+	delete(allFields, "name")
+	delete(allFields, "numWorkerNodes")
+	delete(allFields, "publicNetworkIps")
+	delete(allFields, "publicNetworkReference")
+	delete(allFields, "region")
+	delete(allFields, "state")
+	delete(allFields, "storageNetworkDnsIp")
+	delete(allFields, "storageNetworkReference")
+	delete(allFields, "storageNetworkVip")
+	delete(allFields, "tenantId")
+	delete(allFields, "totalCapacityGiB")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewObjectStore() *ObjectStore {
@@ -726,7 +1708,7 @@ type ObjectStoreProjection struct {
 
 	StorageNetworkVip *import1.IPAddress `json:"storageNetworkVip,omitempty"`
 	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this Id to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
+	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
 	*/
 	TenantId *string `json:"tenantId,omitempty"`
 	/*
@@ -737,13 +1719,163 @@ type ObjectStoreProjection struct {
 
 func (p *ObjectStoreProjection) MarshalJSON() ([]byte, error) {
 	type ObjectStoreProjectionProxy ObjectStoreProjection
-	return json.Marshal(struct {
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
 		*ObjectStoreProjectionProxy
 		Name *string `json:"name,omitempty"`
 	}{
 		ObjectStoreProjectionProxy: (*ObjectStoreProjectionProxy)(p),
 		Name:                       p.Name,
-	})
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ObjectStoreProjection) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ObjectStoreProjection
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewObjectStoreProjection()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.CertificateExtIds != nil {
+		p.CertificateExtIds = known.CertificateExtIds
+	}
+	if known.CertificateProjection != nil {
+		p.CertificateProjection = known.CertificateProjection
+	}
+	if known.ClusterExtId != nil {
+		p.ClusterExtId = known.ClusterExtId
+	}
+	if known.CreationTime != nil {
+		p.CreationTime = known.CreationTime
+	}
+	if known.DeploymentVersion != nil {
+		p.DeploymentVersion = known.DeploymentVersion
+	}
+	if known.Description != nil {
+		p.Description = known.Description
+	}
+	if known.Domain != nil {
+		p.Domain = known.Domain
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.LastUpdateTime != nil {
+		p.LastUpdateTime = known.LastUpdateTime
+	}
+	if known.Links != nil {
+		p.Links = known.Links
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+	if known.Name != nil {
+		p.Name = known.Name
+	}
+	if known.NumWorkerNodes != nil {
+		p.NumWorkerNodes = known.NumWorkerNodes
+	}
+	if known.PublicNetworkIps != nil {
+		p.PublicNetworkIps = known.PublicNetworkIps
+	}
+	if known.PublicNetworkReference != nil {
+		p.PublicNetworkReference = known.PublicNetworkReference
+	}
+	if known.Region != nil {
+		p.Region = known.Region
+	}
+	if known.State != nil {
+		p.State = known.State
+	}
+	if known.StorageNetworkDnsIp != nil {
+		p.StorageNetworkDnsIp = known.StorageNetworkDnsIp
+	}
+	if known.StorageNetworkReference != nil {
+		p.StorageNetworkReference = known.StorageNetworkReference
+	}
+	if known.StorageNetworkVip != nil {
+		p.StorageNetworkVip = known.StorageNetworkVip
+	}
+	if known.TenantId != nil {
+		p.TenantId = known.TenantId
+	}
+	if known.TotalCapacityGiB != nil {
+		p.TotalCapacityGiB = known.TotalCapacityGiB
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "certificateExtIds")
+	delete(allFields, "certificateProjection")
+	delete(allFields, "clusterExtId")
+	delete(allFields, "creationTime")
+	delete(allFields, "deploymentVersion")
+	delete(allFields, "description")
+	delete(allFields, "domain")
+	delete(allFields, "extId")
+	delete(allFields, "lastUpdateTime")
+	delete(allFields, "links")
+	delete(allFields, "metadata")
+	delete(allFields, "name")
+	delete(allFields, "numWorkerNodes")
+	delete(allFields, "publicNetworkIps")
+	delete(allFields, "publicNetworkReference")
+	delete(allFields, "region")
+	delete(allFields, "state")
+	delete(allFields, "storageNetworkDnsIp")
+	delete(allFields, "storageNetworkReference")
+	delete(allFields, "storageNetworkVip")
+	delete(allFields, "tenantId")
+	delete(allFields, "totalCapacityGiB")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewObjectStoreProjection() *ObjectStoreProjection {
@@ -884,6 +2016,84 @@ type UpdateObjectstoreApiResponse struct {
 	Data *OneOfUpdateObjectstoreApiResponseData `json:"data,omitempty"`
 
 	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *UpdateObjectstoreApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UpdateObjectstoreApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UpdateObjectstoreApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UpdateObjectstoreApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUpdateObjectstoreApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
 }
 
 func NewUpdateObjectstoreApiResponse() *UpdateObjectstoreApiResponse {
