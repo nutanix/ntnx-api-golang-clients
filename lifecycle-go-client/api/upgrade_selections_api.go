@@ -1,8 +1,10 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
+	import15 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/upgradeselections"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/resources"
 	"net/http"
 	"net/url"
@@ -10,6 +12,12 @@ import (
 )
 
 type UpgradeSelectionsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *UpgradeSelectionsServiceApi
+}
+
+type UpgradeSelectionsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,11 +37,41 @@ func NewUpgradeSelectionsApi(apiClient *client.ApiClient) *UpgradeSelectionsApi 
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewUpgradeSelectionsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewUpgradeSelectionsServiceApi(apiClient *client.ApiClient) *UpgradeSelectionsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &UpgradeSelectionsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Create an LCM Upgrade Selection
 func (api *UpgradeSelectionsApi) CreateUpgradeSelection(body *import1.UpgradeSelection, args ...map[string]interface{}) (*import1.CreateUpgradeSelectionApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.CreateUpgradeSelection(context.Background(), &import15.CreateUpgradeSelectionRequest{
+		Body: body,
+	}, args...)
+}
+
+// Create an LCM Upgrade Selection
+func (api *UpgradeSelectionsServiceApi) CreateUpgradeSelection(ctx context.Context, request *import15.CreateUpgradeSelectionRequest, args ...map[string]interface{}) (*import1.CreateUpgradeSelectionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -42,7 +80,7 @@ func (api *UpgradeSelectionsApi) CreateUpgradeSelection(body *import1.UpgradeSel
 	uri := "/api/lifecycle/v4.2/resources/upgrade-selections"
 
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
@@ -70,7 +108,7 @@ func (api *UpgradeSelectionsApi) CreateUpgradeSelection(body *import1.UpgradeSel
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -82,6 +120,16 @@ func (api *UpgradeSelectionsApi) CreateUpgradeSelection(body *import1.UpgradeSel
 
 // Delete upgrade selection for the specified ExtId
 func (api *UpgradeSelectionsApi) DeleteUpgradeSelectionById(extId *string, args ...map[string]interface{}) (*import1.DeleteUpgradeSelectionApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.DeleteUpgradeSelectionById(context.Background(), &import15.DeleteUpgradeSelectionByIdRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Delete upgrade selection for the specified ExtId
+func (api *UpgradeSelectionsServiceApi) DeleteUpgradeSelectionById(ctx context.Context, request *import15.DeleteUpgradeSelectionByIdRequest, args ...map[string]interface{}) (*import1.DeleteUpgradeSelectionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -90,12 +138,12 @@ func (api *UpgradeSelectionsApi) DeleteUpgradeSelectionById(extId *string, args 
 	uri := "/api/lifecycle/v4.2/resources/upgrade-selections/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -120,7 +168,7 @@ func (api *UpgradeSelectionsApi) DeleteUpgradeSelectionById(extId *string, args 
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -132,6 +180,16 @@ func (api *UpgradeSelectionsApi) DeleteUpgradeSelectionById(extId *string, args 
 
 // Generates the download_helper.zip file which contains scripts and instructions for downloading the LCM darksite bundles required for upgrades. Once the task is successfully completed, the url to download the download_helper.zip file is stored in the completion_details field of the task.
 func (api *UpgradeSelectionsApi) ExportUpgradeSelection(extId *string, args ...map[string]interface{}) (*import1.ExportUpgradeSelectionApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ExportUpgradeSelection(context.Background(), &import15.ExportUpgradeSelectionRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Generates the download_helper.zip file which contains scripts and instructions for downloading the LCM darksite bundles required for upgrades. Once the task is successfully completed, the url to download the download_helper.zip file is stored in the completion_details field of the task.
+func (api *UpgradeSelectionsServiceApi) ExportUpgradeSelection(ctx context.Context, request *import15.ExportUpgradeSelectionRequest, args ...map[string]interface{}) (*import1.ExportUpgradeSelectionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -140,12 +198,12 @@ func (api *UpgradeSelectionsApi) ExportUpgradeSelection(extId *string, args ...m
 	uri := "/api/lifecycle/v4.2/resources/upgrade-selections/{extId}/$actions/export"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -170,7 +228,7 @@ func (api *UpgradeSelectionsApi) ExportUpgradeSelection(extId *string, args ...m
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -182,6 +240,16 @@ func (api *UpgradeSelectionsApi) ExportUpgradeSelection(extId *string, args ...m
 
 // Get upgrade selection details for upgrade selction id
 func (api *UpgradeSelectionsApi) GetUpgradeSelectionById(extId *string, args ...map[string]interface{}) (*import1.GetUpgradeSelectionApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetUpgradeSelectionById(context.Background(), &import15.GetUpgradeSelectionByIdRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Get upgrade selection details for upgrade selction id
+func (api *UpgradeSelectionsServiceApi) GetUpgradeSelectionById(ctx context.Context, request *import15.GetUpgradeSelectionByIdRequest, args ...map[string]interface{}) (*import1.GetUpgradeSelectionApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -190,12 +258,12 @@ func (api *UpgradeSelectionsApi) GetUpgradeSelectionById(extId *string, args ...
 	uri := "/api/lifecycle/v4.2/resources/upgrade-selections/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -220,7 +288,7 @@ func (api *UpgradeSelectionsApi) GetUpgradeSelectionById(extId *string, args ...
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -232,6 +300,20 @@ func (api *UpgradeSelectionsApi) GetUpgradeSelectionById(extId *string, args ...
 
 // Query list of Upgrade Selections
 func (api *UpgradeSelectionsApi) ListUpgradeSelections(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListUpgradeSelectionsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewUpgradeSelectionsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListUpgradeSelections(context.Background(), &import15.ListUpgradeSelectionsRequest{
+		Page_:    page_,
+		Limit_:   limit_,
+		Filter_:  filter_,
+		Orderby_: orderby_,
+		Select_:  select_,
+	}, args...)
+}
+
+// Query list of Upgrade Selections
+func (api *UpgradeSelectionsServiceApi) ListUpgradeSelections(ctx context.Context, request *import15.ListUpgradeSelectionsRequest, args ...map[string]interface{}) (*import1.ListUpgradeSelectionsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -250,20 +332,20 @@ func (api *UpgradeSelectionsApi) ListUpgradeSelections(page_ *int, limit_ *int, 
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -279,7 +361,7 @@ func (api *UpgradeSelectionsApi) ListUpgradeSelections(page_ *int, limit_ *int, 
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}

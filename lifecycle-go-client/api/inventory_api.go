@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
+	import8 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/inventory"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type InventoryApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *InventoryServiceApi
+}
+
+type InventoryServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,11 +37,43 @@ func NewInventoryApi(apiClient *client.ApiClient) *InventoryApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewInventoryServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewInventoryServiceApi(apiClient *client.ApiClient) *InventoryServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &InventoryServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Perform an LCM inventory operation.
-func (api *InventoryApi) PerformInventory(xClusterId *string, body *import3.InventorySpec, dryrun_ *bool, args ...map[string]interface{}) (*import3.InventoryApiResponse, error) {
+func (api *InventoryApi) PerformInventory(xClusterId *string, body *import5.InventorySpec, dryrun_ *bool, args ...map[string]interface{}) (*import5.InventoryApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewInventoryServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.PerformInventory(context.Background(), &import8.PerformInventoryRequest{
+		XClusterId: xClusterId,
+		Body:       body,
+		Dryrun_:    dryrun_,
+	}, args...)
+}
+
+// Perform an LCM inventory operation.
+func (api *InventoryServiceApi) PerformInventory(ctx context.Context, request *import8.PerformInventoryRequest, args ...map[string]interface{}) (*import5.InventoryApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -52,11 +92,11 @@ func (api *InventoryApi) PerformInventory(xClusterId *string, body *import3.Inve
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if dryrun_ != nil {
-		queryParams.Add("$dryrun", client.ParameterToString(*dryrun_, ""))
+	if request.Dryrun_ != nil {
+		queryParams.Add("$dryrun", client.ParameterToString(*request.Dryrun_, ""))
 	}
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	if request.XClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*request.XClusterId, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -72,12 +112,12 @@ func (api *InventoryApi) PerformInventory(xClusterId *string, body *import3.Inve
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.InventoryApiResponse)
+	unmarshalledResp := new(import5.InventoryApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

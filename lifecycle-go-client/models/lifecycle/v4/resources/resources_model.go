@@ -1,11 +1,11 @@
 /*
  * Generated file models/lifecycle/v4/resources/resources_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.2.2
  *
  * Part of the Nutanix Lifecycle Management APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -7598,7 +7598,7 @@ type UpgradeSelection struct {
 	/*
 	  List of upgrades whose selection is made
 	*/
-	SelectedUpgrades []import1.EntityUpdateSpec `json:"selectedUpgrades,omitempty"`
+	SelectedUpgrades []import1.EntityUpdateSpec `json:"selectedUpgrades"`
 
 	Status *UpgradeSelectionStatus `json:"status,omitempty"`
 	/*
@@ -7608,11 +7608,18 @@ type UpgradeSelection struct {
 }
 
 func (p *UpgradeSelection) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias UpgradeSelection
+	type UpgradeSelectionProxy UpgradeSelection
 
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*UpgradeSelectionProxy
+		SelectedUpgrades []import1.EntityUpdateSpec `json:"selectedUpgrades,omitempty"`
+	}{
+		UpgradeSelectionProxy: (*UpgradeSelectionProxy)(p),
+		SelectedUpgrades:      p.SelectedUpgrades,
+	}
+
+	known, err := json.Marshal(baseStruct)
 	if err != nil {
 		return nil, err
 	}

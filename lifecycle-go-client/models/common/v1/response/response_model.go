@@ -1,11 +1,11 @@
 /*
  * Generated file models/common/v1/response/response_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.2.2
  *
  * Part of the Nutanix Lifecycle Management APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 

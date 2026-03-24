@@ -1,9 +1,11 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/operations"
+	import11 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/request/notifications"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/lifecycle-go-client/v4/models/lifecycle/v4/resources"
 	"net/http"
 	"net/url"
@@ -11,6 +13,12 @@ import (
 )
 
 type NotificationsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *NotificationsServiceApi
+}
+
+type NotificationsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -30,11 +38,42 @@ func NewNotificationsApi(apiClient *client.ApiClient) *NotificationsApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewNotificationsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewNotificationsServiceApi(apiClient *client.ApiClient) *NotificationsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &NotificationsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Compute LCM upgrade notifications for given set of entities to update along with a target version. The notifications are computed based on the current state of the entities and the target version. Once the task is successfully completed, the resource identifier for the computation result is stored in the completion_details field of the task. The result can then be retrieved using the resource id via the GET notifications/ endpoint.
-func (api *NotificationsApi) ComputeNotifications(body *import1.NotificationsSpec, xClusterId *string, args ...map[string]interface{}) (*import3.ComputeNotificationsApiResponse, error) {
+func (api *NotificationsApi) ComputeNotifications(body *import1.NotificationsSpec, xClusterId *string, args ...map[string]interface{}) (*import5.ComputeNotificationsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewNotificationsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ComputeNotifications(context.Background(), &import11.ComputeNotificationsRequest{
+		Body:       body,
+		XClusterId: xClusterId,
+	}, args...)
+}
+
+// Compute LCM upgrade notifications for given set of entities to update along with a target version. The notifications are computed based on the current state of the entities and the target version. Once the task is successfully completed, the resource identifier for the computation result is stored in the completion_details field of the task. The result can then be retrieved using the resource id via the GET notifications/ endpoint.
+func (api *NotificationsServiceApi) ComputeNotifications(ctx context.Context, request *import11.ComputeNotificationsRequest, args ...map[string]interface{}) (*import5.ComputeNotificationsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -43,7 +82,7 @@ func (api *NotificationsApi) ComputeNotifications(body *import1.NotificationsSpe
 	uri := "/api/lifecycle/v4.2/operations/$actions/compute-notifications"
 
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
@@ -57,8 +96,8 @@ func (api *NotificationsApi) ComputeNotifications(body *import1.NotificationsSpe
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	if request.XClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*request.XClusterId, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -74,18 +113,28 @@ func (api *NotificationsApi) ComputeNotifications(body *import1.NotificationsSpe
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.ComputeNotificationsApiResponse)
+	unmarshalledResp := new(import5.ComputeNotificationsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // LCM upgrade notification details for UUID. The resource is valid for 1 hour from the time it was created using the computeNotifications endpoint.
 func (api *NotificationsApi) GetNotificationById(extId *string, args ...map[string]interface{}) (*import1.GetNotificationsByIdApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewNotificationsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetNotificationById(context.Background(), &import11.GetNotificationByIdRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// LCM upgrade notification details for UUID. The resource is valid for 1 hour from the time it was created using the computeNotifications endpoint.
+func (api *NotificationsServiceApi) GetNotificationById(ctx context.Context, request *import11.GetNotificationByIdRequest, args ...map[string]interface{}) (*import1.GetNotificationsByIdApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -94,12 +143,12 @@ func (api *NotificationsApi) GetNotificationById(extId *string, args ...map[stri
 	uri := "/api/lifecycle/v4.2/resources/notifications/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -124,7 +173,7 @@ func (api *NotificationsApi) GetNotificationById(extId *string, args ...map[stri
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
