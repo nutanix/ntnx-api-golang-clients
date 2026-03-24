@@ -10,7 +10,7 @@ The Go client for Nutanix Security APIs is designed for Go client application de
 
 ## Version
 - API version: v4.1
-- Package version: v4.1.1
+- Package version: v4.1.2
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/...@v4.1.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4/...@v4.1.2
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4 v4.1.1
+	github.com/nutanix/ntnx-api-golang-clients/security-go-client/v4 v4.1.2
 )
 ```
 
@@ -225,7 +225,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CredentialsApiInstance = api.NewCredentialsApi(ApiClientInstance)
-extId := "B0aaBf90-c2c6-3E61-e7f1-e0Ce40ea38Eb"
+extId := "11eD8a3D-1E7C-e14b-8cE9-dead15d4cdE2"
 
 // 
 getResponse, err := CredentialsApiInstance.GetCredentialById(&extId)
@@ -273,7 +273,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 CredentialsApiInstance = api.NewCredentialsApi(ApiClientInstance)
-extId := "B0aaBf90-c2c6-3E61-e7f1-e0Ce40ea38Eb"
+extId := "11eD8a3D-1E7C-e14b-8cE9-dead15d4cdE2"
 
 // 
 getResponse, err := CredentialsApiInstance.GetCredentialById(&extId)
