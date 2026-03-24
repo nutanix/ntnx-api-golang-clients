@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/config"
+	import10 "github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/models/clustermgmt/v4/request/passwordmanager"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type PasswordManagerApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *PasswordManagerServiceApi
+}
+
+type PasswordManagerServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,11 +37,42 @@ func NewPasswordManagerApi(apiClient *client.ApiClient) *PasswordManagerApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewPasswordManagerServiceApi(a.ApiClient)
+
 	return a
 }
 
-// This API allows you to start a password change for a system user on Nutanix products, including AOS, Prism Central (PC), and AHV. For AOS and PC, the password change affects the cluster-wide system accounts nutanix and admin. For AHV, it operates at the node level for the root and admin accounts (admin only if a password exists; by default, admin is locked). Use this API to securely update credentials in alignment with your cluster or node configuration.
+func NewPasswordManagerServiceApi(apiClient *client.ApiClient) *PasswordManagerServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &PasswordManagerServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
+	return a
+}
+
+// Initiate change password request for a system user on a supported product.
 func (api *PasswordManagerApi) ChangeSystemUserPasswordById(extId *string, body *import1.ChangePasswordSpec, args ...map[string]interface{}) (*import1.ChangeSystemUserPasswordApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewPasswordManagerServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ChangeSystemUserPasswordById(context.Background(), &import10.ChangeSystemUserPasswordByIdRequest{
+		ExtId: extId,
+		Body:  body,
+	}, args...)
+}
+
+// Initiate change password request for a system user on a supported product.
+func (api *PasswordManagerServiceApi) ChangeSystemUserPasswordById(ctx context.Context, request *import10.ChangeSystemUserPasswordByIdRequest, args ...map[string]interface{}) (*import1.ChangeSystemUserPasswordApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -42,16 +81,16 @@ func (api *PasswordManagerApi) ChangeSystemUserPasswordById(extId *string, body 
 	uri := "/api/clustermgmt/v4.2/config/system-user-passwords/{extId}/$actions/change-password"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -74,9 +113,9 @@ func (api *PasswordManagerApi) ChangeSystemUserPasswordById(extId *string, body 
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -86,8 +125,23 @@ func (api *PasswordManagerApi) ChangeSystemUserPasswordById(extId *string, body 
 	return unmarshalledResp, err
 }
 
-// This API allows you to view password status for a system user on Nutanix products, including AOS, Prism Central (PC), and AHV.
+// Lists password status of system user accounts on supported products.
 func (api *PasswordManagerApi) ListSystemUserPasswords(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListSystemUserPasswordsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewPasswordManagerServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListSystemUserPasswords(context.Background(), &import10.ListSystemUserPasswordsRequest{
+		Page_:    page_,
+		Limit_:   limit_,
+		Filter_:  filter_,
+		Orderby_: orderby_,
+		Expand_:  expand_,
+		Select_:  select_,
+	}, args...)
+}
+
+// Lists password status of system user accounts on supported products.
+func (api *PasswordManagerServiceApi) ListSystemUserPasswords(ctx context.Context, request *import10.ListSystemUserPasswordsRequest, args ...map[string]interface{}) (*import1.ListSystemUserPasswordsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -106,23 +160,23 @@ func (api *PasswordManagerApi) ListSystemUserPasswords(page_ *int, limit_ *int, 
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
-	if expand_ != nil {
-		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	if request.Expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*request.Expand_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -136,9 +190,9 @@ func (api *PasswordManagerApi) ListSystemUserPasswords(page_ *int, limit_ *int, 
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}

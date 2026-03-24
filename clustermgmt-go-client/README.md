@@ -10,7 +10,7 @@ The Go client for Nutanix Cluster Management APIs is designed for Go client appl
 
 ## Version
 - API version: v4.2
-- Package version: v4.2.1
+- Package version: v4.2.2
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/...@v4.2.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4/...@v4.2.2
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4 v4.2.1
+	github.com/nutanix/ntnx-api-golang-clients/clustermgmt-go-client/v4 v4.2.2
 )
 ```
 
@@ -225,7 +225,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ClustersApiInstance = api.NewClustersApi(ApiClientInstance)
-extId := "cF3fAcDf-61fb-DBac-3Dcb-ACfF2f5fC8A6"
+extId := "173BAeBF-6aA1-C275-d8eb-d8dBfAAAEc31"
 expand_ := "string_sample_data"
 
 // 
@@ -274,7 +274,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ClustersApiInstance = api.NewClustersApi(ApiClientInstance)
-extId := "cF3fAcDf-61fb-DBac-3Dcb-ACfF2f5fC8A6"
+extId := "173BAeBF-6aA1-C275-d8eb-d8dBfAAAEc31"
 expand_ := "string_sample_data"
 
 // 

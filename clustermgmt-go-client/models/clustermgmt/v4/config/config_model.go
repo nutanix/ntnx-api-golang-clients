@@ -1,11 +1,11 @@
 /*
  * Generated file models/clustermgmt/v4/config/config_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.2.2
  *
  * Part of the Nutanix Cluster Management APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -29918,6 +29918,10 @@ type UnconfiguredNodeListItem struct {
 
 	IpmiIp *import4.IPAddress `json:"ipmiIp,omitempty"`
 	/*
+	  Indicates whether a CVM exists on the node.
+	*/
+	IsCvmExists *bool `json:"isCvmExists,omitempty"`
+	/*
 	  Secure boot status.
 	*/
 	IsSecureBooted *bool `json:"isSecureBooted,omitempty"`
@@ -30043,6 +30047,9 @@ func (p *UnconfiguredNodeListItem) UnmarshalJSON(b []byte) error {
 	if known.IpmiIp != nil {
 		p.IpmiIp = known.IpmiIp
 	}
+	if known.IsCvmExists != nil {
+		p.IsCvmExists = known.IsCvmExists
+	}
 	if known.IsSecureBooted != nil {
 		p.IsSecureBooted = known.IsSecureBooted
 	}
@@ -30086,6 +30093,7 @@ func (p *UnconfiguredNodeListItem) UnmarshalJSON(b []byte) error {
 	delete(allFields, "hypervisorVersion")
 	delete(allFields, "interfaceIpv6")
 	delete(allFields, "ipmiIp")
+	delete(allFields, "isCvmExists")
 	delete(allFields, "isSecureBooted")
 	delete(allFields, "luksStatus")
 	delete(allFields, "nodePosition")
