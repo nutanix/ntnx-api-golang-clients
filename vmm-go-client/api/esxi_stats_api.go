@@ -1,10 +1,12 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/common/v1/stats"
 	import2 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/esxi/stats"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/vmm-go-client/v4/models/vmm/v4/request/esxistats"
 	"net/http"
 	"net/url"
 	"strings"
@@ -12,6 +14,12 @@ import (
 )
 
 type EsxiStatsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *EsxiStatsServiceApi
+}
+
+type EsxiStatsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -31,11 +39,47 @@ func NewEsxiStatsApi(apiClient *client.ApiClient) *EsxiStatsApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewEsxiStatsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewEsxiStatsServiceApi(apiClient *client.ApiClient) *EsxiStatsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &EsxiStatsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Fetches the stats for the specified VM disk. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
 func (api *EsxiStatsApi) GetDiskStatsById(vmExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import2.GetDiskStatsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewEsxiStatsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetDiskStatsById(context.Background(), &import3.GetDiskStatsByIdRequest{
+		VmExtId:           vmExtId,
+		ExtId:             extId,
+		StartTime_:        startTime_,
+		EndTime_:          endTime_,
+		SamplingInterval_: samplingInterval_,
+		StatType_:         statType_,
+		Select_:           select_,
+	}, args...)
+}
+
+// Fetches the stats for the specified VM disk. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
+func (api *EsxiStatsServiceApi) GetDiskStatsById(ctx context.Context, request *import3.GetDiskStatsByIdRequest, args ...map[string]interface{}) (*import2.GetDiskStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -44,25 +88,25 @@ func (api *EsxiStatsApi) GetDiskStatsById(vmExtId *string, extId *string, startT
 	uri := "/api/vmm/v4.2/esxi/stats/vms/{vmExtId}/disks/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
-	if nil == vmExtId {
+	if nil == request.VmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
 	}
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'startTime_' is set
-	if nil == startTime_ {
+	if nil == request.StartTime_ {
 		return nil, client.ReportError("startTime_ is required and must be specified")
 	}
 	// verify the required parameter 'endTime_' is set
-	if nil == endTime_ {
+	if nil == request.EndTime_ {
 		return nil, client.ReportError("endTime_ is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*vmExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*request.VmExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -74,17 +118,17 @@ func (api *EsxiStatsApi) GetDiskStatsById(vmExtId *string, extId *string, startT
 	accepts := []string{"application/json"}
 
 	// Query Params
-	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	if samplingInterval_ != nil {
-		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
+	queryParams.Add("$startTime", client.ParameterToString(*request.StartTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*request.EndTime_, ""))
+	if request.SamplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*request.SamplingInterval_, ""))
 	}
-	if statType_ != nil {
-		statType_QueryParamEnumVal := statType_.GetName()
+	if request.StatType_ != nil {
+		statType_QueryParamEnumVal := request.StatType_.GetName()
 		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -100,7 +144,7 @@ func (api *EsxiStatsApi) GetDiskStatsById(vmExtId *string, extId *string, startT
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -112,6 +156,22 @@ func (api *EsxiStatsApi) GetDiskStatsById(vmExtId *string, extId *string, startT
 
 // Fetches the stats for the specified VM NIC. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
 func (api *EsxiStatsApi) GetNicStatsById(vmExtId *string, extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import2.GetNicStatsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewEsxiStatsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetNicStatsById(context.Background(), &import3.GetNicStatsByIdRequest{
+		VmExtId:           vmExtId,
+		ExtId:             extId,
+		StartTime_:        startTime_,
+		EndTime_:          endTime_,
+		SamplingInterval_: samplingInterval_,
+		StatType_:         statType_,
+		Select_:           select_,
+	}, args...)
+}
+
+// Fetches the stats for the specified VM NIC. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
+func (api *EsxiStatsServiceApi) GetNicStatsById(ctx context.Context, request *import3.GetNicStatsByIdRequest, args ...map[string]interface{}) (*import2.GetNicStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -120,25 +180,25 @@ func (api *EsxiStatsApi) GetNicStatsById(vmExtId *string, extId *string, startTi
 	uri := "/api/vmm/v4.2/esxi/stats/vms/{vmExtId}/nics/{extId}"
 
 	// verify the required parameter 'vmExtId' is set
-	if nil == vmExtId {
+	if nil == request.VmExtId {
 		return nil, client.ReportError("vmExtId is required and must be specified")
 	}
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'startTime_' is set
-	if nil == startTime_ {
+	if nil == request.StartTime_ {
 		return nil, client.ReportError("startTime_ is required and must be specified")
 	}
 	// verify the required parameter 'endTime_' is set
-	if nil == endTime_ {
+	if nil == request.EndTime_ {
 		return nil, client.ReportError("endTime_ is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*vmExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"vmExtId"+"}", url.PathEscape(client.ParameterToString(*request.VmExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -150,17 +210,17 @@ func (api *EsxiStatsApi) GetNicStatsById(vmExtId *string, extId *string, startTi
 	accepts := []string{"application/json"}
 
 	// Query Params
-	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	if samplingInterval_ != nil {
-		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
+	queryParams.Add("$startTime", client.ParameterToString(*request.StartTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*request.EndTime_, ""))
+	if request.SamplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*request.SamplingInterval_, ""))
 	}
-	if statType_ != nil {
-		statType_QueryParamEnumVal := statType_.GetName()
+	if request.StatType_ != nil {
+		statType_QueryParamEnumVal := request.StatType_.GetName()
 		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -176,7 +236,7 @@ func (api *EsxiStatsApi) GetNicStatsById(vmExtId *string, extId *string, startTi
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -188,6 +248,21 @@ func (api *EsxiStatsApi) GetNicStatsById(vmExtId *string, extId *string, startTi
 
 // Get VM stats for a given VM. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
 func (api *EsxiStatsApi) GetVmStatsById(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import2.GetVmStatsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewEsxiStatsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetVmStatsById(context.Background(), &import3.GetVmStatsByIdRequest{
+		ExtId:             extId,
+		StartTime_:        startTime_,
+		EndTime_:          endTime_,
+		SamplingInterval_: samplingInterval_,
+		StatType_:         statType_,
+		Select_:           select_,
+	}, args...)
+}
+
+// Get VM stats for a given VM. Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/checkScore'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data
+func (api *EsxiStatsServiceApi) GetVmStatsById(ctx context.Context, request *import3.GetVmStatsByIdRequest, args ...map[string]interface{}) (*import2.GetVmStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -196,20 +271,20 @@ func (api *EsxiStatsApi) GetVmStatsById(extId *string, startTime_ *time.Time, en
 	uri := "/api/vmm/v4.2/esxi/stats/vms/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'startTime_' is set
-	if nil == startTime_ {
+	if nil == request.StartTime_ {
 		return nil, client.ReportError("startTime_ is required and must be specified")
 	}
 	// verify the required parameter 'endTime_' is set
-	if nil == endTime_ {
+	if nil == request.EndTime_ {
 		return nil, client.ReportError("endTime_ is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -221,17 +296,17 @@ func (api *EsxiStatsApi) GetVmStatsById(extId *string, startTime_ *time.Time, en
 	accepts := []string{"application/json"}
 
 	// Query Params
-	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	if samplingInterval_ != nil {
-		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
+	queryParams.Add("$startTime", client.ParameterToString(*request.StartTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*request.EndTime_, ""))
+	if request.SamplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*request.SamplingInterval_, ""))
 	}
-	if statType_ != nil {
-		statType_QueryParamEnumVal := statType_.GetName()
+	if request.StatType_ != nil {
+		statType_QueryParamEnumVal := request.StatType_.GetName()
 		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -247,7 +322,7 @@ func (api *EsxiStatsApi) GetVmStatsById(extId *string, startTime_ *time.Time, en
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -259,6 +334,24 @@ func (api *EsxiStatsApi) GetVmStatsById(extId *string, startTime_ *time.Time, en
 
 // List VM stats for all VMs.  Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/controllerNumIo,stats/hypervisorNumIo'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data; 6) '$orderby'; 7) '$page'; 8) '$limit'; and 9) '$filter': the OData filter to use, e.g. 'stats/hypervisorCpuUsagePpm gt 100000 and stats/guestMemoryUsagePpm lt 2000000.'
 func (api *EsxiStatsApi) ListVmStats(startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import1.DownSamplingOperator, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListVmStatsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewEsxiStatsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListVmStats(context.Background(), &import3.ListVmStatsRequest{
+		StartTime_:        startTime_,
+		EndTime_:          endTime_,
+		SamplingInterval_: samplingInterval_,
+		StatType_:         statType_,
+		Page_:             page_,
+		Limit_:            limit_,
+		Filter_:           filter_,
+		Orderby_:          orderby_,
+		Select_:           select_,
+	}, args...)
+}
+
+// List VM stats for all VMs.  Users can fetch the stats by specifying the following params in the request query: 1) '$select': comma-separated attributes with the prefix 'stats/', e.g. 'stats/controllerNumIo,stats/hypervisorNumIo'. 2) '$startTime': the start time for which stats should be reported, e.g. '2023-01-01T12:00:00.000-08:00'; 3) '$endTime': the end time for which stats should be reported; 4) '$samplingInterval': the sampling interval in seconds at which statistical data should be collected; 5) '$statType': the down-sampling operator to use while performing down-sampling on stats data; 6) '$orderby'; 7) '$page'; 8) '$limit'; and 9) '$filter': the OData filter to use, e.g. 'stats/hypervisorCpuUsagePpm gt 100000 and stats/guestMemoryUsagePpm lt 2000000.'
+func (api *EsxiStatsServiceApi) ListVmStats(ctx context.Context, request *import3.ListVmStatsRequest, args ...map[string]interface{}) (*import2.ListVmStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -267,11 +360,11 @@ func (api *EsxiStatsApi) ListVmStats(startTime_ *time.Time, endTime_ *time.Time,
 	uri := "/api/vmm/v4.2/esxi/stats/vms"
 
 	// verify the required parameter 'startTime_' is set
-	if nil == startTime_ {
+	if nil == request.StartTime_ {
 		return nil, client.ReportError("startTime_ is required and must be specified")
 	}
 	// verify the required parameter 'endTime_' is set
-	if nil == endTime_ {
+	if nil == request.EndTime_ {
 		return nil, client.ReportError("endTime_ is required and must be specified")
 	}
 
@@ -286,29 +379,29 @@ func (api *EsxiStatsApi) ListVmStats(startTime_ *time.Time, endTime_ *time.Time,
 	accepts := []string{"application/json"}
 
 	// Query Params
-	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	if samplingInterval_ != nil {
-		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
+	queryParams.Add("$startTime", client.ParameterToString(*request.StartTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*request.EndTime_, ""))
+	if request.SamplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*request.SamplingInterval_, ""))
 	}
-	if statType_ != nil {
-		statType_QueryParamEnumVal := statType_.GetName()
+	if request.StatType_ != nil {
+		statType_QueryParamEnumVal := request.StatType_.GetName()
 		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
 	}
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -324,7 +417,7 @@ func (api *EsxiStatsApi) ListVmStats(startTime_ *time.Time, endTime_ *time.Time,
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}

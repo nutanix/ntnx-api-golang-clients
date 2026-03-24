@@ -1,11 +1,11 @@
 /*
  * Generated file models/vmm/v4/ahv/config/config_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.2.2
  *
  * Part of the Nutanix Virtual Machine Management APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -10225,6 +10225,9 @@ func NewGuestPowerStateTransitionConfig() *GuestPowerStateTransitionConfig {
 	return p
 }
 
+/*
+List of static IP addresses to override for the guest NIC.
+*/
 type GuestStaticIpSpec struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
@@ -10232,7 +10235,7 @@ type GuestStaticIpSpec struct {
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  List of gateway IPv4 addresses to override for the guest NIC's particular static IP.
+	  List of gateway IPv4 addresses to override for the guest NIC's particular static IP. This will completely replace the existing gateway IPv4 address list for the NIC.
 	*/
 	GatewayIpv4AddressList []import4.IPv4Address `json:"gatewayIpv4AddressList,omitempty"`
 
@@ -27693,9 +27696,7 @@ type VmRestoreGuestNicInfoOverrideSpec struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  List of static IP addresses to override for the guest NIC.
-	*/
+
 	GuestStaticIpList []GuestStaticIpSpec `json:"guestStaticIpList,omitempty"`
 }
 
