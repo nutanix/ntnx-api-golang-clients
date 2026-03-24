@@ -1,11 +1,11 @@
 /*
  * Generated file models/prism/v4/management/management_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Prism APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -120,7 +120,7 @@ func NewAOSRemoteClusterSpec() *AOSRemoteClusterSpec {
 	p := new(AOSRemoteClusterSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.AOSRemoteClusterSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -236,7 +236,7 @@ func NewAWSS3Config() *AWSS3Config {
 	p := new(AWSS3Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.AWSS3Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Region = new(string)
@@ -351,7 +351,7 @@ func NewAccessKeyCredentials() *AccessKeyCredentials {
 	p := new(AccessKeyCredentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.AccessKeyCredentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -453,7 +453,7 @@ func NewBackupPolicy() *BackupPolicy {
 	p := new(BackupPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.BackupPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -604,7 +604,7 @@ func NewBackupTarget() *BackupTarget {
 	p := new(BackupTarget)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.BackupTarget"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -821,7 +821,7 @@ func NewClusterLocation() *ClusterLocation {
 	p := new(ClusterLocation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ClusterLocation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -952,7 +952,7 @@ func NewClusterReference() *ClusterReference {
 	p := new(ClusterReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ClusterReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1062,7 +1062,7 @@ func NewClusterRegistrationSpec() *ClusterRegistrationSpec {
 	p := new(ClusterRegistrationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ClusterRegistrationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1264,7 +1264,7 @@ func NewClusterUnregistrationSpec() *ClusterUnregistrationSpec {
 	p := new(ClusterUnregistrationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ClusterUnregistrationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1289,6 +1289,11 @@ type ConnectionConfig struct {
 	HasCustomCertificate *bool `json:"hasCustomCertificate,omitempty"`
 
 	IpAddressOrHostname *import2.IPAddressOrFQDN `json:"ipAddressOrHostname"`
+	/*
+	  The port of the object store endpoint where backup data of domain manager
+	is stored.
+	*/
+	Port *int `json:"port,omitempty"`
 	/*
 	  Skips the verification of the certificate during communication with the object store endpoint.
 	*/
@@ -1363,6 +1368,9 @@ func (p *ConnectionConfig) UnmarshalJSON(b []byte) error {
 	if known.IpAddressOrHostname != nil {
 		p.IpAddressOrHostname = known.IpAddressOrHostname
 	}
+	if known.Port != nil {
+		p.Port = known.Port
+	}
 	if known.ShouldSkipCertificateValidation != nil {
 		p.ShouldSkipCertificateValidation = known.ShouldSkipCertificateValidation
 	}
@@ -1374,6 +1382,7 @@ func (p *ConnectionConfig) UnmarshalJSON(b []byte) error {
 	delete(allFields, "certificate")
 	delete(allFields, "hasCustomCertificate")
 	delete(allFields, "ipAddressOrHostname")
+	delete(allFields, "port")
 	delete(allFields, "shouldSkipCertificateValidation")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -1388,9 +1397,11 @@ func NewConnectionConfig() *ConnectionConfig {
 	p := new(ConnectionConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ConnectionConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
+	p.Port = new(int)
+	*p.Port = 443
 	p.ShouldSkipCertificateValidation = new(bool)
 	*p.ShouldSkipCertificateValidation = false
 
@@ -1491,7 +1502,7 @@ func NewConnectionConfigurationSpec() *ConnectionConfigurationSpec {
 	p := new(ConnectionConfigurationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ConnectionConfigurationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1591,7 +1602,7 @@ func NewConnectionUnconfigurationSpec() *ConnectionUnconfigurationSpec {
 	p := new(ConnectionUnconfigurationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ConnectionUnconfigurationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1681,7 +1692,7 @@ func (e ConnectivityStatus) Ref() *ConnectivityStatus {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets Post operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets Post operation
 */
 type CreateBackupTargetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1781,7 +1792,7 @@ func NewCreateBackupTargetApiResponse() *CreateBackupTargetApiResponse {
 	p := new(CreateBackupTargetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.CreateBackupTargetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1809,7 +1820,7 @@ func (p *CreateBackupTargetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/restore-sources Post operation
+REST response for all response codes in API path /prism/v4.3/management/restore-sources Post operation
 */
 type CreateRestoreSourceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1909,7 +1920,7 @@ func NewCreateRestoreSourceApiResponse() *CreateRestoreSourceApiResponse {
 	p := new(CreateRestoreSourceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.CreateRestoreSourceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2030,14 +2041,14 @@ func NewCredentials() *Credentials {
 	p := new(Credentials)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.Credentials"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Delete operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Delete operation
 */
 type DeleteBackupTargetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2137,7 +2148,7 @@ func NewDeleteBackupTargetApiResponse() *DeleteBackupTargetApiResponse {
 	p := new(DeleteBackupTargetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.DeleteBackupTargetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2165,7 +2176,7 @@ func (p *DeleteBackupTargetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/restore-sources/{extId} Delete operation
+REST response for all response codes in API path /prism/v4.3/management/restore-sources/{extId} Delete operation
 */
 type DeleteRestoreSourceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2265,7 +2276,7 @@ func NewDeleteRestoreSourceApiResponse() *DeleteRestoreSourceApiResponse {
 	p := new(DeleteRestoreSourceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.DeleteRestoreSourceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2476,7 +2487,7 @@ func NewDomainManagerRemoteClusterSpec() *DomainManagerRemoteClusterSpec {
 	p := new(DomainManagerRemoteClusterSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.DomainManagerRemoteClusterSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2664,7 +2675,7 @@ func NewFlowControllerMetadata() *FlowControllerMetadata {
 	p := new(FlowControllerMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.FlowControllerMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2757,7 +2768,7 @@ func NewGenericMetadata() *GenericMetadata {
 	p := new(GenericMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GenericMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2889,7 +2900,7 @@ func NewGenericS3Config() *GenericS3Config {
 	p := new(GenericS3Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GenericS3Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Region = new(string)
@@ -2920,7 +2931,7 @@ func (p *GenericS3Config) SetCredentials(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Get operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Get operation
 */
 type GetBackupTargetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3020,7 +3031,7 @@ func NewGetBackupTargetApiResponse() *GetBackupTargetApiResponse {
 	p := new(GetBackupTargetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetBackupTargetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3048,7 +3059,7 @@ func (p *GetBackupTargetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/products/{extId} Get operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/products/{extId} Get operation
 */
 type GetProductApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3148,7 +3159,7 @@ func NewGetProductApiResponse() *GetProductApiResponse {
 	p := new(GetProductApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetProductApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3176,7 +3187,7 @@ func (p *GetProductApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/registrations/{extId} Get operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/registrations/{extId} Get operation
 */
 type GetRegistrationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3276,7 +3287,7 @@ func NewGetRegistrationApiResponse() *GetRegistrationApiResponse {
 	p := new(GetRegistrationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetRegistrationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3304,7 +3315,7 @@ func (p *GetRegistrationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId} Get operation
+REST response for all response codes in API path /prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId} Get operation
 */
 type GetRestorePointApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3404,7 +3415,7 @@ func NewGetRestorePointApiResponse() *GetRestorePointApiResponse {
 	p := new(GetRestorePointApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetRestorePointApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3432,7 +3443,7 @@ func (p *GetRestorePointApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/restore-sources/{extId} Get operation
+REST response for all response codes in API path /prism/v4.3/management/restore-sources/{extId} Get operation
 */
 type GetRestoreSourceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3532,7 +3543,7 @@ func NewGetRestoreSourceApiResponse() *GetRestoreSourceApiResponse {
 	p := new(GetRestoreSourceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.GetRestoreSourceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3560,7 +3571,7 @@ func (p *GetRestoreSourceApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets Get operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets Get operation
 */
 type ListBackupTargetsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3660,7 +3671,7 @@ func NewListBackupTargetsApiResponse() *ListBackupTargetsApiResponse {
 	p := new(ListBackupTargetsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListBackupTargetsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3688,7 +3699,7 @@ func (p *ListBackupTargetsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/products Get operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/products Get operation
 */
 type ListProductsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3788,7 +3799,7 @@ func NewListProductsApiResponse() *ListProductsApiResponse {
 	p := new(ListProductsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListProductsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3816,7 +3827,7 @@ func (p *ListProductsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/registrations Get operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/registrations Get operation
 */
 type ListRegistrationApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -3916,7 +3927,7 @@ func NewListRegistrationApiResponse() *ListRegistrationApiResponse {
 	p := new(ListRegistrationApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListRegistrationApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3944,7 +3955,7 @@ func (p *ListRegistrationApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers Get operation
+REST response for all response codes in API path /prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers Get operation
 */
 type ListRestorableDomainManagersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4044,7 +4055,7 @@ func NewListRestorableDomainManagersApiResponse() *ListRestorableDomainManagersA
 	p := new(ListRestorableDomainManagersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListRestorableDomainManagersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4072,7 +4083,7 @@ func (p *ListRestorableDomainManagersApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points Get operation
+REST response for all response codes in API path /prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points Get operation
 */
 type ListRestorePointsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4172,7 +4183,7 @@ func NewListRestorePointsApiResponse() *ListRestorePointsApiResponse {
 	p := new(ListRestorePointsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ListRestorePointsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4325,7 +4336,7 @@ func NewNutanixObjectsConfig() *NutanixObjectsConfig {
 	p := new(NutanixObjectsConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.NutanixObjectsConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Region = new(string)
@@ -4465,7 +4476,7 @@ func NewObjectStoreLocation() *ObjectStoreLocation {
 	p := new(ObjectStoreLocation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ObjectStoreLocation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4665,7 +4676,7 @@ func NewProduct() *Product {
 	p := new(Product)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.Product"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4796,7 +4807,7 @@ func (e ProductName) Ref() *ProductName {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{extId}/$actions/register Post operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{extId}/$actions/register Post operation
 */
 type RegisterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4896,7 +4907,7 @@ func NewRegisterApiResponse() *RegisterApiResponse {
 	p := new(RegisterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RegisterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5059,7 +5070,7 @@ func NewRegistration() *Registration {
 	p := new(Registration)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.Registration"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5234,7 +5245,7 @@ func NewRemoteCluster() *RemoteCluster {
 	p := new(RemoteCluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RemoteCluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5342,7 +5353,7 @@ func NewRemoteClusterSpec() *RemoteClusterSpec {
 	p := new(RemoteClusterSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RemoteClusterSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5445,7 +5456,7 @@ func NewResourceSpec() *ResourceSpec {
 	p := new(ResourceSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.ResourceSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5617,7 +5628,7 @@ func NewRestorableDomainManager() *RestorableDomainManager {
 	p := new(RestorableDomainManager)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestorableDomainManager"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldEnableHighAvailability = new(bool)
@@ -5627,7 +5638,7 @@ func NewRestorableDomainManager() *RestorableDomainManager {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore Post operation
+REST response for all response codes in API path /prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore Post operation
 */
 type RestoreApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -5727,7 +5738,7 @@ func NewRestoreApiResponse() *RestoreApiResponse {
 	p := new(RestoreApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestoreApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5873,7 +5884,7 @@ func NewRestorePoint() *RestorePoint {
 	p := new(RestorePoint)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestorePoint"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6000,7 +6011,7 @@ func NewRestoreSource() *RestoreSource {
 	p := new(RestoreSource)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestoreSource"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6121,7 +6132,7 @@ func NewRestoreSpec() *RestoreSpec {
 	p := new(RestoreSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RestoreSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6223,7 +6234,7 @@ func NewRootCertRemoveSpec() *RootCertRemoveSpec {
 	p := new(RootCertRemoveSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RootCertRemoveSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6349,7 +6360,7 @@ func NewRootCertificateAddSpec() *RootCertificateAddSpec {
 	p := new(RootCertificateAddSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.RootCertificateAddSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6459,7 +6470,7 @@ func NewS3Config() *S3Config {
 	p := new(S3Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.S3Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Region = new(string)
@@ -6469,7 +6480,7 @@ func NewS3Config() *S3Config {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{extId}/$actions/unregister Post operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{extId}/$actions/unregister Post operation
 */
 type UnregisterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6569,7 +6580,7 @@ func NewUnregisterApiResponse() *UnregisterApiResponse {
 	p := new(UnregisterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.UnregisterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6597,7 +6608,7 @@ func (p *UnregisterApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Put operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId} Put operation
 */
 type UpdateBackupTargetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6697,7 +6708,7 @@ func NewUpdateBackupTargetApiResponse() *UpdateBackupTargetApiResponse {
 	p := new(UpdateBackupTargetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.UpdateBackupTargetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6725,7 +6736,7 @@ func (p *UpdateBackupTargetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/management/domain-managers/{domainManagerExtId}/products/{extId} Put operation
+REST response for all response codes in API path /prism/v4.3/management/domain-managers/{domainManagerExtId}/products/{extId} Put operation
 */
 type UpdateProductApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -6825,7 +6836,7 @@ func NewUpdateProductApiResponse() *UpdateProductApiResponse {
 	p := new(UpdateProductApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.management.UpdateProductApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

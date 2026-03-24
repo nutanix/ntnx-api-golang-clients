@@ -1,11 +1,11 @@
 /*
  * Generated file models/prism/v4/trust/trust_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Prism APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -116,7 +116,7 @@ func NewApiLink() *ApiLink {
 	p := new(ApiLink)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.ApiLink"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -209,7 +209,7 @@ func NewApiResponseMetadata() *ApiResponseMetadata {
 	p := new(ApiResponseMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.ApiResponseMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -306,7 +306,7 @@ func NewAuthMetadata() *AuthMetadata {
 	p := new(AuthMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.AuthMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -430,7 +430,7 @@ func NewSignedCertDetails() *SignedCertDetails {
 	p := new(SignedCertDetails)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.SignedCertDetails"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -532,7 +532,7 @@ func NewTrust() *Trust {
 	p := new(Trust)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.trust.Trust"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

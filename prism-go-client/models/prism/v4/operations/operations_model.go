@@ -1,11 +1,11 @@
 /*
  * Generated file models/prism/v4/operations/operations_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Prism APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -285,7 +285,7 @@ func NewBatch() *Batch {
 	p := new(Batch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.Batch"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -550,7 +550,7 @@ func NewBatchSpec() *BatchSpec {
 	p := new(BatchSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -686,7 +686,7 @@ func NewBatchSpecMetadata() *BatchSpecMetadata {
 	p := new(BatchSpecMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ChunkSize = new(int)
@@ -792,7 +792,7 @@ func NewBatchSpecPayload() *BatchSpecPayload {
 	p := new(BatchSpecPayload)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayload"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -891,7 +891,7 @@ func NewBatchSpecPayloadMetadata() *BatchSpecPayloadMetadata {
 	p := new(BatchSpecPayloadMetadata)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1003,7 +1003,7 @@ func NewBatchSpecPayloadMetadataHeader() *BatchSpecPayloadMetadataHeader {
 	p := new(BatchSpecPayloadMetadataHeader)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataHeader"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1115,14 +1115,14 @@ func NewBatchSpecPayloadMetadataPath() *BatchSpecPayloadMetadataPath {
 	p := new(BatchSpecPayloadMetadataPath)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataPath"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/operations/batches/{extId} Get operation
+REST response for all response codes in API path /prism/v4.3/operations/batches/{extId} Get operation
 */
 type GetBatchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1222,7 +1222,7 @@ func NewGetBatchApiResponse() *GetBatchApiResponse {
 	p := new(GetBatchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.GetBatchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1250,7 +1250,7 @@ func (p *GetBatchApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/operations/batches Get operation
+REST response for all response codes in API path /prism/v4.3/operations/batches Get operation
 */
 type ListBatchesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1350,7 +1350,7 @@ func NewListBatchesApiResponse() *ListBatchesApiResponse {
 	p := new(ListBatchesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.ListBatchesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1378,7 +1378,7 @@ func (p *ListBatchesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /prism/v4.2/operations/$actions/batch Post operation
+REST response for all response codes in API path /prism/v4.3/operations/$actions/batch Post operation
 */
 type SubmitBatchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1478,7 +1478,7 @@ func NewSubmitBatchApiResponse() *SubmitBatchApiResponse {
 	p := new(SubmitBatchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.operations.SubmitBatchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

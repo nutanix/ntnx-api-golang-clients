@@ -1,11 +1,11 @@
 /*
  * Generated file models/prism/v4/mgmt/mgmt_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Prism APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -229,7 +229,7 @@ func NewEnvironmentInfo() *EnvironmentInfo {
 	p := new(EnvironmentInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.mgmt.EnvironmentInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -531,7 +531,7 @@ func NewLbAddress() *LbAddress {
 	p := new(LbAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "prism.v4.mgmt.LbAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

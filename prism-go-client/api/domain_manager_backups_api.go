@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/management"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/management"
+	import7 "github.com/nutanix/ntnx-api-golang-clients/prism-go-client/v4/models/prism/v4/request/domainmanagerbackups"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type DomainManagerBackupsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *DomainManagerBackupsServiceApi
+}
+
+type DomainManagerBackupsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,29 +37,60 @@ func NewDomainManagerBackupsApi(apiClient *client.ApiClient) *DomainManagerBacku
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewDomainManagerBackupsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewDomainManagerBackupsServiceApi(apiClient *client.ApiClient) *DomainManagerBackupsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &DomainManagerBackupsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Creates a cluster or object store as the backup target. For a given Prism Central, there can be up to 3 clusters as backup targets  and 1 object store as backup target. If any cluster or object store is not eligible for backup or  lacks appropriate permissions, the API request will fail.  For object store backup targets, specifying backup policy is mandatory along  with the location of the object store.
-func (api *DomainManagerBackupsApi) CreateBackupTarget(domainManagerExtId *string, body *import3.BackupTarget, args ...map[string]interface{}) (*import3.CreateBackupTargetApiResponse, error) {
+func (api *DomainManagerBackupsApi) CreateBackupTarget(domainManagerExtId *string, body *import5.BackupTarget, args ...map[string]interface{}) (*import5.CreateBackupTargetApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.CreateBackupTarget(context.Background(), &import7.CreateBackupTargetRequest{
+		DomainManagerExtId: domainManagerExtId,
+		Body:               body,
+	}, args...)
+}
+
+// Creates a cluster or object store as the backup target. For a given Prism Central, there can be up to 3 clusters as backup targets  and 1 object store as backup target. If any cluster or object store is not eligible for backup or  lacks appropriate permissions, the API request will fail.  For object store backup targets, specifying backup policy is mandatory along  with the location of the object store.
+func (api *DomainManagerBackupsServiceApi) CreateBackupTarget(ctx context.Context, request *import7.CreateBackupTargetRequest, args ...map[string]interface{}) (*import5.CreateBackupTargetApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets"
+	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets"
 
 	// verify the required parameter 'domainManagerExtId' is set
-	if nil == domainManagerExtId {
+	if nil == request.DomainManagerExtId {
 		return nil, client.ReportError("domainManagerExtId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*domainManagerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*request.DomainManagerExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -74,29 +113,39 @@ func (api *DomainManagerBackupsApi) CreateBackupTarget(domainManagerExtId *strin
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.CreateBackupTargetApiResponse)
+	unmarshalledResp := new(import5.CreateBackupTargetApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Creates a restore source pointing to a cluster or object store to restore the domain manager. The created  restore source is intended to be deleted after use. If the restore source is not deleted using the deleteRestoreSource API, then it is auto-deleted after sometime. Also note that a restore  source will not contain a backup policy. It is only used to access the backup data at the location from where  the Prism Central may be restored. Credentials used to access the restore source are not validated at the time  of creation of the restore source. They are validated when the restore source is used to fetch data.
-func (api *DomainManagerBackupsApi) CreateRestoreSource(body *import3.RestoreSource, args ...map[string]interface{}) (*import3.CreateRestoreSourceApiResponse, error) {
+func (api *DomainManagerBackupsApi) CreateRestoreSource(body *import5.RestoreSource, args ...map[string]interface{}) (*import5.CreateRestoreSourceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.CreateRestoreSource(context.Background(), &import7.CreateRestoreSourceRequest{
+		Body: body,
+	}, args...)
+}
+
+// Creates a restore source pointing to a cluster or object store to restore the domain manager. The created  restore source is intended to be deleted after use. If the restore source is not deleted using the deleteRestoreSource API, then it is auto-deleted after sometime. Also note that a restore  source will not contain a backup policy. It is only used to access the backup data at the location from where  the Prism Central may be restored. Credentials used to access the restore source are not validated at the time  of creation of the restore source. They are validated when the restore source is used to fetch data.
+func (api *DomainManagerBackupsServiceApi) CreateRestoreSource(ctx context.Context, request *import7.CreateRestoreSourceRequest, args ...map[string]interface{}) (*import5.CreateRestoreSourceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/restore-sources"
+	uri := "/api/prism/v4.3/management/restore-sources"
 
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
@@ -122,39 +171,50 @@ func (api *DomainManagerBackupsApi) CreateRestoreSource(body *import3.RestoreSou
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.CreateRestoreSourceApiResponse)
+	unmarshalledResp := new(import5.CreateRestoreSourceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Removes cluster/object store from the backup targets. This will stop the cluster/object store  from backing up Prism Central data.
-func (api *DomainManagerBackupsApi) DeleteBackupTargetById(domainManagerExtId *string, extId *string, args ...map[string]interface{}) (*import3.DeleteBackupTargetApiResponse, error) {
+func (api *DomainManagerBackupsApi) DeleteBackupTargetById(domainManagerExtId *string, extId *string, args ...map[string]interface{}) (*import5.DeleteBackupTargetApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.DeleteBackupTargetById(context.Background(), &import7.DeleteBackupTargetByIdRequest{
+		DomainManagerExtId: domainManagerExtId,
+		ExtId:              extId,
+	}, args...)
+}
+
+// Removes cluster/object store from the backup targets. This will stop the cluster/object store  from backing up Prism Central data.
+func (api *DomainManagerBackupsServiceApi) DeleteBackupTargetById(ctx context.Context, request *import7.DeleteBackupTargetByIdRequest, args ...map[string]interface{}) (*import5.DeleteBackupTargetApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
-	if nil == domainManagerExtId {
+	if nil == request.DomainManagerExtId {
 		return nil, client.ReportError("domainManagerExtId is required and must be specified")
 	}
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*domainManagerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*request.DomainManagerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -177,34 +237,44 @@ func (api *DomainManagerBackupsApi) DeleteBackupTargetById(domainManagerExtId *s
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.DeleteBackupTargetApiResponse)
+	unmarshalledResp := new(import5.DeleteBackupTargetApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Deletes a restore source on a cluster/object store.
-func (api *DomainManagerBackupsApi) DeleteRestoreSourceById(extId *string, args ...map[string]interface{}) (*import3.DeleteRestoreSourceApiResponse, error) {
+func (api *DomainManagerBackupsApi) DeleteRestoreSourceById(extId *string, args ...map[string]interface{}) (*import5.DeleteRestoreSourceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.DeleteRestoreSourceById(context.Background(), &import7.DeleteRestoreSourceByIdRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Deletes a restore source on a cluster/object store.
+func (api *DomainManagerBackupsServiceApi) DeleteRestoreSourceById(ctx context.Context, request *import7.DeleteRestoreSourceByIdRequest, args ...map[string]interface{}) (*import5.DeleteRestoreSourceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/restore-sources/{extId}"
+	uri := "/api/prism/v4.3/management/restore-sources/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -227,39 +297,50 @@ func (api *DomainManagerBackupsApi) DeleteRestoreSourceById(extId *string, args 
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.DeleteRestoreSourceApiResponse)
+	unmarshalledResp := new(import5.DeleteRestoreSourceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves the backup targets (cluster or object store) from a domain manager and returns the backup configuration and lastSyncTimestamp parameter to the user.
-func (api *DomainManagerBackupsApi) GetBackupTargetById(domainManagerExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetBackupTargetApiResponse, error) {
+func (api *DomainManagerBackupsApi) GetBackupTargetById(domainManagerExtId *string, extId *string, args ...map[string]interface{}) (*import5.GetBackupTargetApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetBackupTargetById(context.Background(), &import7.GetBackupTargetByIdRequest{
+		DomainManagerExtId: domainManagerExtId,
+		ExtId:              extId,
+	}, args...)
+}
+
+// Retrieves the backup targets (cluster or object store) from a domain manager and returns the backup configuration and lastSyncTimestamp parameter to the user.
+func (api *DomainManagerBackupsServiceApi) GetBackupTargetById(ctx context.Context, request *import7.GetBackupTargetByIdRequest, args ...map[string]interface{}) (*import5.GetBackupTargetApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
-	if nil == domainManagerExtId {
+	if nil == request.DomainManagerExtId {
 		return nil, client.ReportError("domainManagerExtId is required and must be specified")
 	}
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*domainManagerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*request.DomainManagerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -282,44 +363,56 @@ func (api *DomainManagerBackupsApi) GetBackupTargetById(domainManagerExtId *stri
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.GetBackupTargetApiResponse)
+	unmarshalledResp := new(import5.GetBackupTargetApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves detailed information about a specific recovery point and provides essential domain manager information stored in the backup, which is required for the restoration process.
-func (api *DomainManagerBackupsApi) GetRestorePointById(restoreSourceExtId *string, restorableDomainManagerExtId *string, extId *string, args ...map[string]interface{}) (*import3.GetRestorePointApiResponse, error) {
+func (api *DomainManagerBackupsApi) GetRestorePointById(restoreSourceExtId *string, restorableDomainManagerExtId *string, extId *string, args ...map[string]interface{}) (*import5.GetRestorePointApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetRestorePointById(context.Background(), &import7.GetRestorePointByIdRequest{
+		RestoreSourceExtId:           restoreSourceExtId,
+		RestorableDomainManagerExtId: restorableDomainManagerExtId,
+		ExtId:                        extId,
+	}, args...)
+}
+
+// Retrieves detailed information about a specific recovery point and provides essential domain manager information stored in the backup, which is required for the restoration process.
+func (api *DomainManagerBackupsServiceApi) GetRestorePointById(ctx context.Context, request *import7.GetRestorePointByIdRequest, args ...map[string]interface{}) (*import5.GetRestorePointApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}"
+	uri := "/api/prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}"
 
 	// verify the required parameter 'restoreSourceExtId' is set
-	if nil == restoreSourceExtId {
+	if nil == request.RestoreSourceExtId {
 		return nil, client.ReportError("restoreSourceExtId is required and must be specified")
 	}
 	// verify the required parameter 'restorableDomainManagerExtId' is set
-	if nil == restorableDomainManagerExtId {
+	if nil == request.RestorableDomainManagerExtId {
 		return nil, client.ReportError("restorableDomainManagerExtId is required and must be specified")
 	}
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"restoreSourceExtId"+"}", url.PathEscape(client.ParameterToString(*restoreSourceExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"restorableDomainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*restorableDomainManagerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"restoreSourceExtId"+"}", url.PathEscape(client.ParameterToString(*request.RestoreSourceExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"restorableDomainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*request.RestorableDomainManagerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -342,34 +435,44 @@ func (api *DomainManagerBackupsApi) GetRestorePointById(restoreSourceExtId *stri
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.GetRestorePointApiResponse)
+	unmarshalledResp := new(import5.GetRestorePointApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Retrieves the restore source from the PE cache store and returns the restore source configuration and external identifier to the user.
-func (api *DomainManagerBackupsApi) GetRestoreSourceById(extId *string, args ...map[string]interface{}) (*import3.GetRestoreSourceApiResponse, error) {
+func (api *DomainManagerBackupsApi) GetRestoreSourceById(extId *string, args ...map[string]interface{}) (*import5.GetRestoreSourceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetRestoreSourceById(context.Background(), &import7.GetRestoreSourceByIdRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Retrieves the restore source from the PE cache store and returns the restore source configuration and external identifier to the user.
+func (api *DomainManagerBackupsServiceApi) GetRestoreSourceById(ctx context.Context, request *import7.GetRestoreSourceByIdRequest, args ...map[string]interface{}) (*import5.GetRestoreSourceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/restore-sources/{extId}"
+	uri := "/api/prism/v4.3/management/restore-sources/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -392,34 +495,44 @@ func (api *DomainManagerBackupsApi) GetRestoreSourceById(extId *string, args ...
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.GetRestoreSourceApiResponse)
+	unmarshalledResp := new(import5.GetRestoreSourceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists backup targets (cluster or object store) configured for a given domain manager.
-func (api *DomainManagerBackupsApi) ListBackupTargets(domainManagerExtId *string, args ...map[string]interface{}) (*import3.ListBackupTargetsApiResponse, error) {
+func (api *DomainManagerBackupsApi) ListBackupTargets(domainManagerExtId *string, args ...map[string]interface{}) (*import5.ListBackupTargetsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListBackupTargets(context.Background(), &import7.ListBackupTargetsRequest{
+		DomainManagerExtId: domainManagerExtId,
+	}, args...)
+}
+
+// Lists backup targets (cluster or object store) configured for a given domain manager.
+func (api *DomainManagerBackupsServiceApi) ListBackupTargets(ctx context.Context, request *import7.ListBackupTargetsRequest, args ...map[string]interface{}) (*import5.ListBackupTargetsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets"
+	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets"
 
 	// verify the required parameter 'domainManagerExtId' is set
-	if nil == domainManagerExtId {
+	if nil == request.DomainManagerExtId {
 		return nil, client.ReportError("domainManagerExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*domainManagerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*request.DomainManagerExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -442,34 +555,47 @@ func (api *DomainManagerBackupsApi) ListBackupTargets(domainManagerExtId *string
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.ListBackupTargetsApiResponse)
+	unmarshalledResp := new(import5.ListBackupTargetsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists all the domain managers backed up at the object store/cluster.
-func (api *DomainManagerBackupsApi) ListRestorableDomainManagers(restoreSourceExtId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import3.ListRestorableDomainManagersApiResponse, error) {
+func (api *DomainManagerBackupsApi) ListRestorableDomainManagers(restoreSourceExtId *string, page_ *int, limit_ *int, filter_ *string, args ...map[string]interface{}) (*import5.ListRestorableDomainManagersApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListRestorableDomainManagers(context.Background(), &import7.ListRestorableDomainManagersRequest{
+		RestoreSourceExtId: restoreSourceExtId,
+		Page_:              page_,
+		Limit_:             limit_,
+		Filter_:            filter_,
+	}, args...)
+}
+
+// Lists all the domain managers backed up at the object store/cluster.
+func (api *DomainManagerBackupsServiceApi) ListRestorableDomainManagers(ctx context.Context, request *import7.ListRestorableDomainManagersRequest, args ...map[string]interface{}) (*import5.ListRestorableDomainManagersApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers"
+	uri := "/api/prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers"
 
 	// verify the required parameter 'restoreSourceExtId' is set
-	if nil == restoreSourceExtId {
+	if nil == request.RestoreSourceExtId {
 		return nil, client.ReportError("restoreSourceExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"restoreSourceExtId"+"}", url.PathEscape(client.ParameterToString(*restoreSourceExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"restoreSourceExtId"+"}", url.PathEscape(client.ParameterToString(*request.RestoreSourceExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -481,14 +607,14 @@ func (api *DomainManagerBackupsApi) ListRestorableDomainManagers(restoreSourceEx
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -502,39 +628,55 @@ func (api *DomainManagerBackupsApi) ListRestorableDomainManagers(restoreSourceEx
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.ListRestorableDomainManagersApiResponse)
+	unmarshalledResp := new(import5.ListRestorableDomainManagersApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // The list restore points API allows you to retrieve a list of available restore points,  which are snapshots of the domain manager taken at different times. These restore points can be used to revert the domain manager to a previous state. The list response includes the creation time and identifier ID for the configuration data.<br>  1. For cluster-based backups, only the most recent restore point is available, as backups are continuous.<br> 2. For object store-based backups, multiple restore points may be available, depending on the configured  Recovery Point Objective (RPO) and the retention period set on the bucket.
-func (api *DomainManagerBackupsApi) ListRestorePoints(restoreSourceExtId *string, restorableDomainManagerExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListRestorePointsApiResponse, error) {
+func (api *DomainManagerBackupsApi) ListRestorePoints(restoreSourceExtId *string, restorableDomainManagerExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import5.ListRestorePointsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListRestorePoints(context.Background(), &import7.ListRestorePointsRequest{
+		RestoreSourceExtId:           restoreSourceExtId,
+		RestorableDomainManagerExtId: restorableDomainManagerExtId,
+		Page_:                        page_,
+		Limit_:                       limit_,
+		Filter_:                      filter_,
+		Orderby_:                     orderby_,
+		Select_:                      select_,
+	}, args...)
+}
+
+// The list restore points API allows you to retrieve a list of available restore points,  which are snapshots of the domain manager taken at different times. These restore points can be used to revert the domain manager to a previous state. The list response includes the creation time and identifier ID for the configuration data.<br>  1. For cluster-based backups, only the most recent restore point is available, as backups are continuous.<br> 2. For object store-based backups, multiple restore points may be available, depending on the configured  Recovery Point Objective (RPO) and the retention period set on the bucket.
+func (api *DomainManagerBackupsServiceApi) ListRestorePoints(ctx context.Context, request *import7.ListRestorePointsRequest, args ...map[string]interface{}) (*import5.ListRestorePointsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points"
+	uri := "/api/prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points"
 
 	// verify the required parameter 'restoreSourceExtId' is set
-	if nil == restoreSourceExtId {
+	if nil == request.RestoreSourceExtId {
 		return nil, client.ReportError("restoreSourceExtId is required and must be specified")
 	}
 	// verify the required parameter 'restorableDomainManagerExtId' is set
-	if nil == restorableDomainManagerExtId {
+	if nil == request.RestorableDomainManagerExtId {
 		return nil, client.ReportError("restorableDomainManagerExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"restoreSourceExtId"+"}", url.PathEscape(client.ParameterToString(*restoreSourceExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"restorableDomainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*restorableDomainManagerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"restoreSourceExtId"+"}", url.PathEscape(client.ParameterToString(*request.RestoreSourceExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"restorableDomainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*request.RestorableDomainManagerExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -546,20 +688,20 @@ func (api *DomainManagerBackupsApi) ListRestorePoints(restoreSourceExtId *string
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -573,48 +715,61 @@ func (api *DomainManagerBackupsApi) ListRestorePoints(restoreSourceExtId *string
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.ListRestorePointsApiResponse)
+	unmarshalledResp := new(import5.ListRestorePointsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // The restore domain manager is a task-driven operation to restore a domain manager from a cluster or object store  backup location based on the selected restore point.
-func (api *DomainManagerBackupsApi) Restore(restoreSourceExtId *string, restorableDomainManagerExtId *string, extId *string, body *import3.RestoreSpec, args ...map[string]interface{}) (*import3.RestoreApiResponse, error) {
+func (api *DomainManagerBackupsApi) Restore(restoreSourceExtId *string, restorableDomainManagerExtId *string, extId *string, body *import5.RestoreSpec, args ...map[string]interface{}) (*import5.RestoreApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.Restore(context.Background(), &import7.RestoreRequest{
+		RestoreSourceExtId:           restoreSourceExtId,
+		RestorableDomainManagerExtId: restorableDomainManagerExtId,
+		ExtId:                        extId,
+		Body:                         body,
+	}, args...)
+}
+
+// The restore domain manager is a task-driven operation to restore a domain manager from a cluster or object store  backup location based on the selected restore point.
+func (api *DomainManagerBackupsServiceApi) Restore(ctx context.Context, request *import7.RestoreRequest, args ...map[string]interface{}) (*import5.RestoreApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore"
+	uri := "/api/prism/v4.3/management/restore-sources/{restoreSourceExtId}/restorable-domain-managers/{restorableDomainManagerExtId}/restore-points/{extId}/$actions/restore"
 
 	// verify the required parameter 'restoreSourceExtId' is set
-	if nil == restoreSourceExtId {
+	if nil == request.RestoreSourceExtId {
 		return nil, client.ReportError("restoreSourceExtId is required and must be specified")
 	}
 	// verify the required parameter 'restorableDomainManagerExtId' is set
-	if nil == restorableDomainManagerExtId {
+	if nil == request.RestorableDomainManagerExtId {
 		return nil, client.ReportError("restorableDomainManagerExtId is required and must be specified")
 	}
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"restoreSourceExtId"+"}", url.PathEscape(client.ParameterToString(*restoreSourceExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"restorableDomainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*restorableDomainManagerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"restoreSourceExtId"+"}", url.PathEscape(client.ParameterToString(*request.RestoreSourceExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"restorableDomainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*request.RestorableDomainManagerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -637,43 +792,55 @@ func (api *DomainManagerBackupsApi) Restore(restoreSourceExtId *string, restorab
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.RestoreApiResponse)
+	unmarshalledResp := new(import5.RestoreApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Updates the credentials, RP0, or certificates (for Nutanix Objects only) of the given object store based on the user requirements.  RPO is mandatory to be passed in payload. Credentials and certificates are optional to pass in update backup target api. If credentials or certificates are not passed then these will not be updated for a backup target.
-func (api *DomainManagerBackupsApi) UpdateBackupTargetById(domainManagerExtId *string, extId *string, body *import3.BackupTarget, args ...map[string]interface{}) (*import3.UpdateBackupTargetApiResponse, error) {
+func (api *DomainManagerBackupsApi) UpdateBackupTargetById(domainManagerExtId *string, extId *string, body *import5.BackupTarget, args ...map[string]interface{}) (*import5.UpdateBackupTargetApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewDomainManagerBackupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.UpdateBackupTargetById(context.Background(), &import7.UpdateBackupTargetByIdRequest{
+		DomainManagerExtId: domainManagerExtId,
+		ExtId:              extId,
+		Body:               body,
+	}, args...)
+}
+
+// Updates the credentials, RP0, or certificates (for Nutanix Objects only) of the given object store based on the user requirements.  RPO is mandatory to be passed in payload. Credentials and certificates are optional to pass in update backup target api. If credentials or certificates are not passed then these will not be updated for a backup target.
+func (api *DomainManagerBackupsServiceApi) UpdateBackupTargetById(ctx context.Context, request *import7.UpdateBackupTargetByIdRequest, args ...map[string]interface{}) (*import5.UpdateBackupTargetApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/prism/v4.2/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
+	uri := "/api/prism/v4.3/management/domain-managers/{domainManagerExtId}/backup-targets/{extId}"
 
 	// verify the required parameter 'domainManagerExtId' is set
-	if nil == domainManagerExtId {
+	if nil == request.DomainManagerExtId {
 		return nil, client.ReportError("domainManagerExtId is required and must be specified")
 	}
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*domainManagerExtId, "")), -1)
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"domainManagerExtId"+"}", url.PathEscape(client.ParameterToString(*request.DomainManagerExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -696,14 +863,14 @@ func (api *DomainManagerBackupsApi) UpdateBackupTargetById(domainManagerExtId *s
 		}
 	}
 
-	authNames := []string{"basicAuthScheme"}
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPut, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import3.UpdateBackupTargetApiResponse)
+	unmarshalledResp := new(import5.UpdateBackupTargetApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
