@@ -1,11 +1,11 @@
 /*
  * Generated file models/networking/v4/error/error_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Networking APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -149,7 +149,7 @@ func NewAppMessage() *AppMessage {
 	p := new(AppMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.error.AppMessage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.Locale = new(string)
@@ -253,7 +253,7 @@ func NewErrorResponse() *ErrorResponse {
 	p := new(ErrorResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.error.ErrorResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -401,7 +401,7 @@ func NewSchemaValidationError() *SchemaValidationError {
 	p := new(SchemaValidationError)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.error.SchemaValidationError"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -512,7 +512,7 @@ func NewSchemaValidationErrorMessage() *SchemaValidationErrorMessage {
 	p := new(SchemaValidationErrorMessage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.error.SchemaValidationErrorMessage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

@@ -1,10 +1,12 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/common/v1/stats"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/stats"
+	import12 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/common/v1/stats"
+	import16 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/request/loadbalancersessionstats"
+	import13 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/stats"
 	"net/http"
 	"net/url"
 	"strings"
@@ -12,6 +14,12 @@ import (
 )
 
 type LoadBalancerSessionStatsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *LoadBalancerSessionStatsServiceApi
+}
+
+type LoadBalancerSessionStatsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -31,33 +39,68 @@ func NewLoadBalancerSessionStatsApi(apiClient *client.ApiClient) *LoadBalancerSe
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewLoadBalancerSessionStatsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewLoadBalancerSessionStatsServiceApi(apiClient *client.ApiClient) *LoadBalancerSessionStatsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &LoadBalancerSessionStatsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Get load balancer session listener and target statistics
-func (api *LoadBalancerSessionStatsApi) GetLoadBalancerSessionStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import3.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import4.LoadBalancerSessionStatsApiResponse, error) {
+func (api *LoadBalancerSessionStatsApi) GetLoadBalancerSessionStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import12.DownSamplingOperator, select_ *string, args ...map[string]interface{}) (*import13.LoadBalancerSessionStatsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewLoadBalancerSessionStatsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetLoadBalancerSessionStats(context.Background(), &import16.GetLoadBalancerSessionStatsRequest{
+		ExtId:             extId,
+		StartTime_:        startTime_,
+		EndTime_:          endTime_,
+		SamplingInterval_: samplingInterval_,
+		StatType_:         statType_,
+		Select_:           select_,
+	}, args...)
+}
+
+// Get load balancer session listener and target statistics
+func (api *LoadBalancerSessionStatsServiceApi) GetLoadBalancerSessionStats(ctx context.Context, request *import16.GetLoadBalancerSessionStatsRequest, args ...map[string]interface{}) (*import13.LoadBalancerSessionStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/stats/load-balancer-sessions/{extId}"
+	uri := "/api/networking/v4.3/stats/load-balancer-sessions/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'startTime_' is set
-	if nil == startTime_ {
+	if nil == request.StartTime_ {
 		return nil, client.ReportError("startTime_ is required and must be specified")
 	}
 	// verify the required parameter 'endTime_' is set
-	if nil == endTime_ {
+	if nil == request.EndTime_ {
 		return nil, client.ReportError("endTime_ is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -69,17 +112,17 @@ func (api *LoadBalancerSessionStatsApi) GetLoadBalancerSessionStats(extId *strin
 	accepts := []string{"application/json"}
 
 	// Query Params
-	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	if samplingInterval_ != nil {
-		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
+	queryParams.Add("$startTime", client.ParameterToString(*request.StartTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*request.EndTime_, ""))
+	if request.SamplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*request.SamplingInterval_, ""))
 	}
-	if statType_ != nil {
-		statType_QueryParamEnumVal := statType_.GetName()
+	if request.StatType_ != nil {
+		statType_QueryParamEnumVal := request.StatType_.GetName()
 		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -95,12 +138,12 @@ func (api *LoadBalancerSessionStatsApi) GetLoadBalancerSessionStats(extId *strin
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import4.LoadBalancerSessionStatsApiResponse)
+	unmarshalledResp := new(import13.LoadBalancerSessionStatsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

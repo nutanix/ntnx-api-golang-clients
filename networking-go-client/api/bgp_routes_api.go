@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/request/bgproutes"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type BgpRoutesApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *BgpRoutesServiceApi
+}
+
+type BgpRoutesServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,30 +37,61 @@ func NewBgpRoutesApi(apiClient *client.ApiClient) *BgpRoutesApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewBgpRoutesServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewBgpRoutesServiceApi(apiClient *client.ApiClient) *BgpRoutesServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &BgpRoutesServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Get the specified read-only route of the specified BGP session.
-func (api *BgpRoutesApi) GetRouteForBgpSessionById(extId *string, bgpSessionExtId *string, args ...map[string]interface{}) (*import2.GetBgpRouteApiResponse, error) {
+func (api *BgpRoutesApi) GetRouteForBgpSessionById(extId *string, bgpSessionExtId *string, args ...map[string]interface{}) (*import4.GetBgpRouteApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewBgpRoutesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetRouteForBgpSessionById(context.Background(), &import5.GetRouteForBgpSessionByIdRequest{
+		ExtId:           extId,
+		BgpSessionExtId: bgpSessionExtId,
+	}, args...)
+}
+
+// Get the specified read-only route of the specified BGP session.
+func (api *BgpRoutesServiceApi) GetRouteForBgpSessionById(ctx context.Context, request *import5.GetRouteForBgpSessionByIdRequest, args ...map[string]interface{}) (*import4.GetBgpRouteApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId}"
+	uri := "/api/networking/v4.3/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'bgpSessionExtId' is set
-	if nil == bgpSessionExtId {
+	if nil == request.BgpSessionExtId {
 		return nil, client.ReportError("bgpSessionExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
-	uri = strings.Replace(uri, "{"+"bgpSessionExtId"+"}", url.PathEscape(client.ParameterToString(*bgpSessionExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"bgpSessionExtId"+"}", url.PathEscape(client.ParameterToString(*request.BgpSessionExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -77,32 +116,46 @@ func (api *BgpRoutesApi) GetRouteForBgpSessionById(extId *string, bgpSessionExtI
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.GetBgpRouteApiResponse)
+	unmarshalledResp := new(import4.GetBgpRouteApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Lists read-only routes of the specified BGP session.
-func (api *BgpRoutesApi) ListRoutesByBgpSessionId(bgpSessionExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListBgpRoutesApiResponse, error) {
+func (api *BgpRoutesApi) ListRoutesByBgpSessionId(bgpSessionExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import4.ListBgpRoutesApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewBgpRoutesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListRoutesByBgpSessionId(context.Background(), &import5.ListRoutesByBgpSessionIdRequest{
+		BgpSessionExtId: bgpSessionExtId,
+		Page_:           page_,
+		Limit_:          limit_,
+		Filter_:         filter_,
+		Orderby_:        orderby_,
+	}, args...)
+}
+
+// Lists read-only routes of the specified BGP session.
+func (api *BgpRoutesServiceApi) ListRoutesByBgpSessionId(ctx context.Context, request *import5.ListRoutesByBgpSessionIdRequest, args ...map[string]interface{}) (*import4.ListBgpRoutesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/config/bgp-sessions/{bgpSessionExtId}/bgp-routes"
+	uri := "/api/networking/v4.3/config/bgp-sessions/{bgpSessionExtId}/bgp-routes"
 
 	// verify the required parameter 'bgpSessionExtId' is set
-	if nil == bgpSessionExtId {
+	if nil == request.BgpSessionExtId {
 		return nil, client.ReportError("bgpSessionExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"bgpSessionExtId"+"}", url.PathEscape(client.ParameterToString(*bgpSessionExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"bgpSessionExtId"+"}", url.PathEscape(client.ParameterToString(*request.BgpSessionExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -114,17 +167,17 @@ func (api *BgpRoutesApi) ListRoutesByBgpSessionId(bgpSessionExtId *string, page_
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -140,12 +193,12 @@ func (api *BgpRoutesApi) ListRoutesByBgpSessionId(bgpSessionExtId *string, page_
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListBgpRoutesApiResponse)
+	unmarshalledResp := new(import4.ListBgpRoutesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

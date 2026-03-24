@@ -1,11 +1,11 @@
 /*
  * Generated file models/networking/v4/stats/stats_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Networking APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -25,7 +25,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /networking/v4.2/stats/layer2-stretches/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/stats/layer2-stretches/{extId} Get operation
 */
 type GetLayer2StretchStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -125,7 +125,7 @@ func NewGetLayer2StretchStatsApiResponse() *GetLayer2StretchStatsApiResponse {
 	p := new(GetLayer2StretchStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.GetLayer2StretchStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -153,7 +153,7 @@ func (p *GetLayer2StretchStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/stats/traffic-mirrors/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/stats/traffic-mirrors/{extId} Get operation
 */
 type GetTrafficMirrorStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -253,7 +253,7 @@ func NewGetTrafficMirrorStatsApiResponse() *GetTrafficMirrorStatsApiResponse {
 	p := new(GetTrafficMirrorStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.GetTrafficMirrorStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -281,7 +281,7 @@ func (p *GetTrafficMirrorStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/stats/vpc/{vpcExtId}/external-subnets/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/stats/vpc/{vpcExtId}/external-subnets/{extId} Get operation
 */
 type GetVpcNsStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -381,7 +381,7 @@ func NewGetVpcNsStatsApiResponse() *GetVpcNsStatsApiResponse {
 	p := new(GetVpcNsStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.GetVpcNsStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -409,7 +409,7 @@ func (p *GetVpcNsStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/stats/vpn-connections/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/stats/vpn-connections/{extId} Get operation
 */
 type GetVpnConnectionStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -509,7 +509,7 @@ func NewGetVpnConnectionStatsApiResponse() *GetVpnConnectionStatsApiResponse {
 	p := new(GetVpnConnectionStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.GetVpnConnectionStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -671,7 +671,7 @@ func NewLayer2StretchStats() *Layer2StretchStats {
 	p := new(Layer2StretchStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.Layer2StretchStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -787,7 +787,7 @@ func NewListenerStats() *ListenerStats {
 	p := new(ListenerStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.ListenerStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -920,14 +920,14 @@ func NewLoadBalancerSessionStats() *LoadBalancerSessionStats {
 	p := new(LoadBalancerSessionStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.LoadBalancerSessionStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/stats/load-balancer-sessions/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/stats/load-balancer-sessions/{extId} Get operation
 */
 type LoadBalancerSessionStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1027,7 +1027,7 @@ func NewLoadBalancerSessionStatsApiResponse() *LoadBalancerSessionStatsApiRespon
 	p := new(LoadBalancerSessionStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.LoadBalancerSessionStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1158,7 +1158,7 @@ func NewRoutingPolicyClearCountersSpec() *RoutingPolicyClearCountersSpec {
 	p := new(RoutingPolicyClearCountersSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.RoutingPolicyClearCountersSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1275,7 +1275,7 @@ func NewStatsQueryResponseBase() *StatsQueryResponseBase {
 	p := new(StatsQueryResponseBase)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.StatsQueryResponseBase"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1391,14 +1391,14 @@ func NewTargetStats() *TargetStats {
 	p := new(TargetStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.TargetStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/stats/routing-policies/$actions/clear Post operation
+REST response for all response codes in API path /networking/v4.3/stats/routing-policies/$actions/clear Post operation
 */
 type TaskReferenceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1498,7 +1498,7 @@ func NewTaskReferenceApiResponse() *TaskReferenceApiResponse {
 	p := new(TaskReferenceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.TaskReferenceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1652,7 +1652,7 @@ func NewTrafficMirrorStats() *TrafficMirrorStats {
 	p := new(TrafficMirrorStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.TrafficMirrorStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1833,7 +1833,7 @@ func NewVpcNsStats() *VpcNsStats {
 	p := new(VpcNsStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.VpcNsStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1966,7 +1966,7 @@ func NewVpnConnectionStats() *VpnConnectionStats {
 	p := new(VpnConnectionStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.stats.VpnConnectionStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

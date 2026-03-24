@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/aws/config"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/request/awsvpcs"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type AwsVpcsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *AwsVpcsServiceApi
+}
+
+type AwsVpcsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,20 +37,50 @@ func NewAwsVpcsApi(apiClient *client.ApiClient) *AwsVpcsApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewAwsVpcsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewAwsVpcsServiceApi(apiClient *client.ApiClient) *AwsVpcsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &AwsVpcsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Get the list of NC2 AWS VPCs associated with a Cluster.
 func (api *AwsVpcsApi) ListAwsVpcs(xClusterId *string, args ...map[string]interface{}) (*import1.ListAwsVpcsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewAwsVpcsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListAwsVpcs(context.Background(), &import3.ListAwsVpcsRequest{
+		XClusterId: xClusterId,
+	}, args...)
+}
+
+// Get the list of NC2 AWS VPCs associated with a Cluster.
+func (api *AwsVpcsServiceApi) ListAwsVpcs(ctx context.Context, request *import3.ListAwsVpcsRequest, args ...map[string]interface{}) (*import1.ListAwsVpcsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/aws/config/vpcs"
+	uri := "/api/networking/v4.3/aws/config/vpcs"
 
 	// verify the required parameter 'xClusterId' is set
-	if nil == xClusterId {
+	if nil == request.XClusterId {
 		return nil, client.ReportError("xClusterId is required and must be specified")
 	}
 
@@ -56,7 +94,7 @@ func (api *AwsVpcsApi) ListAwsVpcs(xClusterId *string, args ...map[string]interf
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	headerParams["X-Cluster-Id"] = client.ParameterToString(*request.XClusterId, "")
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -71,7 +109,7 @@ func (api *AwsVpcsApi) ListAwsVpcs(xClusterId *string, args ...map[string]interf
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}

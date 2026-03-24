@@ -1,11 +1,11 @@
 /*
  * Generated file models/networking/v4/config/config_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Networking APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -208,7 +208,7 @@ func NewAddressTypeObject() *AddressTypeObject {
 	p := new(AddressTypeObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AddressTypeObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -445,7 +445,7 @@ func NewAnc() *Anc {
 	p := new(Anc)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Anc"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -917,7 +917,7 @@ func NewAuthorizationData() *AuthorizationData {
 	p := new(AuthorizationData)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AuthorizationData"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1019,7 +1019,7 @@ func NewAwsConfig() *AwsConfig {
 	p := new(AwsConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AwsConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1127,7 +1127,7 @@ func NewAwsExternalSubnetConfig() *AwsExternalSubnetConfig {
 	p := new(AwsExternalSubnetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AwsExternalSubnetConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1277,7 +1277,7 @@ func NewAwsSubnetConfig() *AwsSubnetConfig {
 	p := new(AwsSubnetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AwsSubnetConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1407,7 +1407,7 @@ func NewAzureConfig() *AzureConfig {
 	p := new(AzureConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AzureConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsScaleOut = new(bool)
@@ -1548,7 +1548,7 @@ func NewAzureExternalSubnetBinding() *AzureExternalSubnetBinding {
 	p := new(AzureExternalSubnetBinding)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AzureExternalSubnetBinding"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1664,7 +1664,7 @@ func NewAzureExternalSubnetConfig() *AzureExternalSubnetConfig {
 	p := new(AzureExternalSubnetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.AzureExternalSubnetConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1809,7 +1809,7 @@ func NewBaseRoute() *BaseRoute {
 	p := new(BaseRoute)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BaseRoute"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1921,7 +1921,7 @@ func NewBgpCommunity() *BgpCommunity {
 	p := new(BgpCommunity)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpCommunity"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2032,7 +2032,7 @@ func NewBgpConfig() *BgpConfig {
 	p := new(BgpConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldRedistributeRoutes = new(bool)
@@ -2143,7 +2143,7 @@ func NewBgpInfo() *BgpInfo {
 	p := new(BgpInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2319,7 +2319,7 @@ func NewBgpRoute() *BgpRoute {
 	p := new(BgpRoute)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpRoute"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2634,7 +2634,7 @@ func NewBgpSession() *BgpSession {
 	p := new(BgpSession)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpSession"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2869,7 +2869,7 @@ func NewBgpSessionProjection() *BgpSessionProjection {
 	p := new(BgpSessionProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BgpSessionProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3114,7 +3114,7 @@ func NewBridge() *Bridge {
 	p := new(Bridge)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Bridge"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3269,7 +3269,7 @@ func NewBridgeProjection() *BridgeProjection {
 	p := new(BridgeProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.BridgeProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3381,7 +3381,7 @@ func NewCapability() *Capability {
 	p := new(Capability)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Capability"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3481,7 +3481,7 @@ func NewCapabilityConfig() *CapabilityConfig {
 	p := new(CapabilityConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.CapabilityConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3753,7 +3753,7 @@ func NewCategoryTarget() *CategoryTarget {
 	p := new(CategoryTarget)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.CategoryTarget"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3854,7 +3854,7 @@ func NewCategoryVnicSelector() *CategoryVnicSelector {
 	p := new(CategoryVnicSelector)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.CategoryVnicSelector"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4063,7 +4063,7 @@ func NewCluster() *Cluster {
 	p := new(Cluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Cluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4202,7 +4202,7 @@ func NewClusterCapability() *ClusterCapability {
 	p := new(ClusterCapability)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterCapability"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4321,7 +4321,7 @@ func NewClusterFlowStatus() *ClusterFlowStatus {
 	p := new(ClusterFlowStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterFlowStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4438,7 +4438,7 @@ func NewClusterHealth() *ClusterHealth {
 	p := new(ClusterHealth)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterHealth"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4550,7 +4550,7 @@ func NewClusterStatus() *ClusterStatus {
 	p := new(ClusterStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ClusterStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4752,7 +4752,7 @@ func NewDataPlaneHealthCheckConfig() *DataPlaneHealthCheckConfig {
 	p := new(DataPlaneHealthCheckConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.DataPlaneHealthCheckConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.FailureThreshold = new(int)
@@ -4975,7 +4975,7 @@ func NewDhcpOptions() *DhcpOptions {
 	p := new(DhcpOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.DhcpOptions"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5084,7 +5084,7 @@ func NewDpdConfig() *DpdConfig {
 	p := new(DpdConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.DpdConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5361,7 +5361,7 @@ func NewExportScope() *ExportScope {
 	p := new(ExportScope)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ExportScope"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5545,7 +5545,7 @@ func NewExternalDhcpServer() *ExternalDhcpServer {
 	p := new(ExternalDhcpServer)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ExternalDhcpServer"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5679,7 +5679,7 @@ func NewExternalSubnet() *ExternalSubnet {
 	p := new(ExternalSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ExternalSubnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5861,7 +5861,7 @@ func NewFloatingIPAddress() *FloatingIPAddress {
 	p := new(FloatingIPAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIPAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5975,7 +5975,7 @@ func NewFloatingIPv4Address() *FloatingIPv4Address {
 	p := new(FloatingIPv4Address)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIPv4Address"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.PrefixLength = new(int)
@@ -6081,7 +6081,7 @@ func NewFloatingIPv6Address() *FloatingIPv6Address {
 	p := new(FloatingIPv6Address)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIPv6Address"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.PrefixLength = new(int)
@@ -6318,7 +6318,7 @@ func NewFloatingIp() *FloatingIp {
 	p := new(FloatingIp)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIp"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6586,7 +6586,7 @@ func NewFloatingIpProjection() *FloatingIpProjection {
 	p := new(FloatingIpProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FloatingIpProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6739,7 +6739,7 @@ func NewFlowGateway() *FlowGateway {
 	p := new(FlowGateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGateway"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6863,7 +6863,7 @@ func NewFlowGatewayKeepAliveRequestSpec() *FlowGatewayKeepAliveRequestSpec {
 	p := new(FlowGatewayKeepAliveRequestSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGatewayKeepAliveRequestSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7051,7 +7051,7 @@ func NewFlowGatewayStatus() *FlowGatewayStatus {
 	p := new(FlowGatewayStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.FlowGatewayStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7084,10 +7084,16 @@ type Gateway struct {
 	  Third-party gateway vendor.
 	*/
 	GatewayDeviceVendor *string `json:"gatewayDeviceVendor,omitempty"`
+
+	HighAvailabilityGroup *HighAvailabilityGroup `json:"highAvailabilityGroup,omitempty"`
 	/*
 	  Software version installed on the gateway appliance.
 	*/
 	InstalledSoftwareVersion *string `json:"installedSoftwareVersion,omitempty"`
+	/*
+	  Indicates whether the gateway can be used to service a subnet extension's datapath.
+	*/
+	IsActive *bool `json:"isActive,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
@@ -7197,8 +7203,14 @@ func (p *Gateway) UnmarshalJSON(b []byte) error {
 	if known.GatewayDeviceVendor != nil {
 		p.GatewayDeviceVendor = known.GatewayDeviceVendor
 	}
+	if known.HighAvailabilityGroup != nil {
+		p.HighAvailabilityGroup = known.HighAvailabilityGroup
+	}
 	if known.InstalledSoftwareVersion != nil {
 		p.InstalledSoftwareVersion = known.InstalledSoftwareVersion
+	}
+	if known.IsActive != nil {
+		p.IsActive = known.IsActive
 	}
 	if known.Links != nil {
 		p.Links = known.Links
@@ -7246,7 +7258,9 @@ func (p *Gateway) UnmarshalJSON(b []byte) error {
 	delete(allFields, "description")
 	delete(allFields, "extId")
 	delete(allFields, "gatewayDeviceVendor")
+	delete(allFields, "highAvailabilityGroup")
 	delete(allFields, "installedSoftwareVersion")
+	delete(allFields, "isActive")
 	delete(allFields, "links")
 	delete(allFields, "metadata")
 	delete(allFields, "name")
@@ -7272,7 +7286,7 @@ func NewGateway() *Gateway {
 	p := new(Gateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Gateway"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7473,7 +7487,7 @@ func NewGatewayDeployment() *GatewayDeployment {
 	p := new(GatewayDeployment)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayDeployment"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldSynchronizeSystemDnsServers = new(bool)
@@ -7485,7 +7499,7 @@ func NewGatewayDeployment() *GatewayDeployment {
 }
 
 /*
-Network interface used to deliver network services. If the client  supplies a VPC reference, but does not specify a VPC subnet, the gateway will be deployed on an auto-configured dedicated subnet  within the VPC. If the client specifies a VPC subnet, the gateway  will be deployed on that subnet. If the gateway is deployed on a VLAN subnet, with or without IPAM, then statically-allocated IP addresses on that subnet must be provided for each interface.
+Network interface used to deliver network services. If the client supplies a VPC reference, but does not specify a VPC subnet, the gateway will be deployed on an auto-configured dedicated subnet within the VPC. If the client specifies a VPC subnet, the gateway will be deployed on that subnet. If the gateway is deployed on a VLAN subnet, with or without IPAM, then statically-allocated IP addresses on that subnet must be provided for each interface.
 */
 type GatewayInterface struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7601,7 +7615,7 @@ func NewGatewayInterface() *GatewayInterface {
 	p := new(GatewayInterface)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayInterface"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7724,7 +7738,7 @@ func NewGatewayManagementInterface() *GatewayManagementInterface {
 	p := new(GatewayManagementInterface)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayManagementInterface"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7844,7 +7858,7 @@ func NewGatewayNic() *GatewayNic {
 	p := new(GatewayNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7945,7 +7959,7 @@ func NewGatewayNodeReference() *GatewayNodeReference {
 	p := new(GatewayNodeReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayNodeReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8040,7 +8054,7 @@ func NewGatewayNodesSelector() *GatewayNodesSelector {
 	p := new(GatewayNodesSelector)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayNodesSelector"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8070,10 +8084,16 @@ type GatewayProjection struct {
 	  Third-party gateway vendor.
 	*/
 	GatewayDeviceVendor *string `json:"gatewayDeviceVendor,omitempty"`
+
+	HighAvailabilityGroup *HighAvailabilityGroup `json:"highAvailabilityGroup,omitempty"`
 	/*
 	  Software version installed on the gateway appliance.
 	*/
 	InstalledSoftwareVersion *string `json:"installedSoftwareVersion,omitempty"`
+	/*
+	  Indicates whether the gateway can be used to service a subnet extension's datapath.
+	*/
+	IsActive *bool `json:"isActive,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
@@ -8185,8 +8205,14 @@ func (p *GatewayProjection) UnmarshalJSON(b []byte) error {
 	if known.GatewayDeviceVendor != nil {
 		p.GatewayDeviceVendor = known.GatewayDeviceVendor
 	}
+	if known.HighAvailabilityGroup != nil {
+		p.HighAvailabilityGroup = known.HighAvailabilityGroup
+	}
 	if known.InstalledSoftwareVersion != nil {
 		p.InstalledSoftwareVersion = known.InstalledSoftwareVersion
+	}
+	if known.IsActive != nil {
+		p.IsActive = known.IsActive
 	}
 	if known.Links != nil {
 		p.Links = known.Links
@@ -8240,7 +8266,9 @@ func (p *GatewayProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "description")
 	delete(allFields, "extId")
 	delete(allFields, "gatewayDeviceVendor")
+	delete(allFields, "highAvailabilityGroup")
 	delete(allFields, "installedSoftwareVersion")
+	delete(allFields, "isActive")
 	delete(allFields, "links")
 	delete(allFields, "metadata")
 	delete(allFields, "name")
@@ -8268,7 +8296,7 @@ func NewGatewayProjection() *GatewayProjection {
 	p := new(GatewayProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GatewayProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8449,7 +8477,7 @@ func NewGcpConfig() *GcpConfig {
 	p := new(GcpConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GcpConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8557,7 +8585,7 @@ func NewGcpExternalSubnetConfig() *GcpExternalSubnetConfig {
 	p := new(GcpExternalSubnetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GcpExternalSubnetConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8669,7 +8697,7 @@ func NewGcpSubnetConfig() *GcpSubnetConfig {
 	p := new(GcpSubnetConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GcpSubnetConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsNatEnabled = new(bool)
@@ -8679,7 +8707,7 @@ func NewGcpSubnetConfig() *GcpSubnetConfig {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/bgp-sessions/{bgpSessionExtId}/bgp-routes/{extId} Get operation
 */
 type GetBgpRouteApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8779,7 +8807,7 @@ func NewGetBgpRouteApiResponse() *GetBgpRouteApiResponse {
 	p := new(GetBgpRouteApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetBgpRouteApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8807,7 +8835,7 @@ func (p *GetBgpRouteApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/bgp-sessions/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/bgp-sessions/{extId} Get operation
 */
 type GetBgpSessionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8907,7 +8935,7 @@ func NewGetBgpSessionApiResponse() *GetBgpSessionApiResponse {
 	p := new(GetBgpSessionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetBgpSessionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8935,7 +8963,7 @@ func (p *GetBgpSessionApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/floating-ips/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/floating-ips/{extId} Get operation
 */
 type GetFloatingIpApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9035,7 +9063,7 @@ func NewGetFloatingIpApiResponse() *GetFloatingIpApiResponse {
 	p := new(GetFloatingIpApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetFloatingIpApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9063,7 +9091,7 @@ func (p *GetFloatingIpApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/gateways/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/gateways/{extId} Get operation
 */
 type GetGatewayApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9163,7 +9191,7 @@ func NewGetGatewayApiResponse() *GetGatewayApiResponse {
 	p := new(GetGatewayApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetGatewayApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9191,7 +9219,7 @@ func (p *GetGatewayApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/ipfix-exporters/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/ipfix-exporters/{extId} Get operation
 */
 type GetIPFIXExporterApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9291,7 +9319,7 @@ func NewGetIPFIXExporterApiResponse() *GetIPFIXExporterApiResponse {
 	p := new(GetIPFIXExporterApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetIPFIXExporterApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9319,7 +9347,7 @@ func (p *GetIPFIXExporterApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/layer2-stretches/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/layer2-stretches/{extId} Get operation
 */
 type GetLayer2StretchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9419,7 +9447,7 @@ func NewGetLayer2StretchApiResponse() *GetLayer2StretchApiResponse {
 	p := new(GetLayer2StretchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetLayer2StretchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9447,7 +9475,7 @@ func (p *GetLayer2StretchApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses/{extId} Get operation
 */
 type GetLearnedMacAddressApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9547,7 +9575,7 @@ func NewGetLearnedMacAddressApiResponse() *GetLearnedMacAddressApiResponse {
 	p := new(GetLearnedMacAddressApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetLearnedMacAddressApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9575,7 +9603,7 @@ func (p *GetLearnedMacAddressApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/load-balancer-sessions/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/load-balancer-sessions/{extId} Get operation
 */
 type GetLoadBalancerSessionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9675,7 +9703,7 @@ func NewGetLoadBalancerSessionApiResponse() *GetLoadBalancerSessionApiResponse {
 	p := new(GetLoadBalancerSessionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetLoadBalancerSessionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9703,7 +9731,7 @@ func (p *GetLoadBalancerSessionApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/controllers/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/controllers/{extId} Get operation
 */
 type GetNetworkControllerApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9803,7 +9831,7 @@ func NewGetNetworkControllerApiResponse() *GetNetworkControllerApiResponse {
 	p := new(GetNetworkControllerApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetNetworkControllerApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9831,7 +9859,7 @@ func (p *GetNetworkControllerApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/network-functions/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/network-functions/{extId} Get operation
 */
 type GetNetworkFunctionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9931,7 +9959,7 @@ func NewGetNetworkFunctionApiResponse() *GetNetworkFunctionApiResponse {
 	p := new(GetNetworkFunctionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetNetworkFunctionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9959,7 +9987,7 @@ func (p *GetNetworkFunctionApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/nic-profiles/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/nic-profiles/{extId} Get operation
 */
 type GetNicProfileApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10059,7 +10087,7 @@ func NewGetNicProfileApiResponse() *GetNicProfileApiResponse {
 	p := new(GetNicProfileApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetNicProfileApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10087,7 +10115,7 @@ func (p *GetNicProfileApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/clusters/{clusterExtId}/remote-subnets/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/clusters/{clusterExtId}/remote-subnets/{extId} Get operation
 */
 type GetRemoteSubnetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10187,7 +10215,7 @@ func NewGetRemoteSubnetApiResponse() *GetRemoteSubnetApiResponse {
 	p := new(GetRemoteSubnetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetRemoteSubnetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10215,7 +10243,7 @@ func (p *GetRemoteSubnetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/route-tables/{routeTableExtId}/routes/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/route-tables/{routeTableExtId}/routes/{extId} Get operation
 */
 type GetRouteApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10315,7 +10343,7 @@ func NewGetRouteApiResponse() *GetRouteApiResponse {
 	p := new(GetRouteApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetRouteApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10343,7 +10371,7 @@ func (p *GetRouteApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/route-tables/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/route-tables/{extId} Get operation
 */
 type GetRouteTableApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10443,7 +10471,7 @@ func NewGetRouteTableApiResponse() *GetRouteTableApiResponse {
 	p := new(GetRouteTableApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetRouteTableApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10471,7 +10499,7 @@ func (p *GetRouteTableApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/routing-policies/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/routing-policies/{extId} Get operation
 */
 type GetRoutingPolicyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10571,7 +10599,7 @@ func NewGetRoutingPolicyApiResponse() *GetRoutingPolicyApiResponse {
 	p := new(GetRoutingPolicyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetRoutingPolicyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10599,7 +10627,7 @@ func (p *GetRoutingPolicyApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/subnets/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/subnets/{extId} Get operation
 */
 type GetSubnetApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10699,7 +10727,7 @@ func NewGetSubnetApiResponse() *GetSubnetApiResponse {
 	p := new(GetSubnetApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetSubnetApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10727,7 +10755,7 @@ func (p *GetSubnetApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/traffic-mirrors/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/traffic-mirrors/{extId} Get operation
 */
 type GetTrafficMirrorApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10827,7 +10855,7 @@ func NewGetTrafficMirrorApiResponse() *GetTrafficMirrorApiResponse {
 	p := new(GetTrafficMirrorApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetTrafficMirrorApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10855,7 +10883,7 @@ func (p *GetTrafficMirrorApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/uplink-bonds/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/uplink-bonds/{extId} Get operation
 */
 type GetUplinkBondApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -10955,7 +10983,7 @@ func NewGetUplinkBondApiResponse() *GetUplinkBondApiResponse {
 	p := new(GetUplinkBondApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetUplinkBondApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10983,7 +11011,7 @@ func (p *GetUplinkBondApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/virtual-switches/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/virtual-switches/{extId} Get operation
 */
 type GetVirtualSwitchApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -11083,7 +11111,7 @@ func NewGetVirtualSwitchApiResponse() *GetVirtualSwitchApiResponse {
 	p := new(GetVirtualSwitchApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetVirtualSwitchApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11111,7 +11139,7 @@ func (p *GetVirtualSwitchApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/vpcs/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/vpcs/{extId} Get operation
 */
 type GetVpcApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -11211,7 +11239,7 @@ func NewGetVpcApiResponse() *GetVpcApiResponse {
 	p := new(GetVpcApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetVpcApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11239,7 +11267,7 @@ func (p *GetVpcApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/vpn-connections/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/vpn-connections/{extId} Get operation
 */
 type GetVpnConnectionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -11339,7 +11367,7 @@ func NewGetVpnConnectionApiResponse() *GetVpnConnectionApiResponse {
 	p := new(GetVpnConnectionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.GetVpnConnectionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11479,7 +11507,7 @@ func NewHealthCheck() *HealthCheck {
 	p := new(HealthCheck)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.HealthCheck"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.FailureThreshold = new(int)
@@ -11574,6 +11602,185 @@ func (e HealthStatus) Ref() *HealthStatus {
 }
 
 /*
+High availability algorithm type used for the group.
+*/
+type HighAvailabilityAlgorithm int
+
+const (
+	HIGHAVAILABILITYALGORITHM_UNKNOWN       HighAvailabilityAlgorithm = 0
+	HIGHAVAILABILITYALGORITHM_REDACTED      HighAvailabilityAlgorithm = 1
+	HIGHAVAILABILITYALGORITHM_ACTIVE_BACKUP HighAvailabilityAlgorithm = 2
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *HighAvailabilityAlgorithm) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ACTIVE_BACKUP",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e HighAvailabilityAlgorithm) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ACTIVE_BACKUP",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *HighAvailabilityAlgorithm) index(name string) HighAvailabilityAlgorithm {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"ACTIVE_BACKUP",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return HighAvailabilityAlgorithm(idx)
+		}
+	}
+	return HIGHAVAILABILITYALGORITHM_UNKNOWN
+}
+
+func (e *HighAvailabilityAlgorithm) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for HighAvailabilityAlgorithm:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *HighAvailabilityAlgorithm) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e HighAvailabilityAlgorithm) Ref() *HighAvailabilityAlgorithm {
+	return &e
+}
+
+type HighAvailabilityGroup struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+
+	Algorithm *HighAvailabilityAlgorithm `json:"algorithm,omitempty"`
+	/*
+	  Indicates whether high availability is enabled.
+	*/
+	IsHaEnabled *bool `json:"isHaEnabled,omitempty"`
+
+	PeeredGateways []PeeredGateway `json:"peeredGateways,omitempty"`
+}
+
+func (p *HighAvailabilityGroup) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias HighAvailabilityGroup
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *HighAvailabilityGroup) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias HighAvailabilityGroup
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewHighAvailabilityGroup()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.Algorithm != nil {
+		p.Algorithm = known.Algorithm
+	}
+	if known.IsHaEnabled != nil {
+		p.IsHaEnabled = known.IsHaEnabled
+	}
+	if known.PeeredGateways != nil {
+		p.PeeredGateways = known.PeeredGateways
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "algorithm")
+	delete(allFields, "isHaEnabled")
+	delete(allFields, "peeredGateways")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewHighAvailabilityGroup() *HighAvailabilityGroup {
+	p := new(HighAvailabilityGroup)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.HighAvailabilityGroup"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 High availability configuration used between virtual NIC pairs. Traffic is only redirected to the ACTIVE NIC pair
 */
 type HighAvailabilityMode int
@@ -11646,6 +11853,190 @@ func (e *HighAvailabilityMode) MarshalJSON() ([]byte, error) {
 
 func (e HighAvailabilityMode) Ref() *HighAvailabilityMode {
 	return &e
+}
+
+/*
+State of the connection being serviced by the high-availability group.
+*/
+type HighAvailabilityState int
+
+const (
+	HIGHAVAILABILITYSTATE_UNKNOWN              HighAvailabilityState = 0
+	HIGHAVAILABILITYSTATE_REDACTED             HighAvailabilityState = 1
+	HIGHAVAILABILITYSTATE_NORMAL               HighAvailabilityState = 2
+	HIGHAVAILABILITYSTATE_FAILOVER_IN_PROGRESS HighAvailabilityState = 3
+	HIGHAVAILABILITYSTATE_FAILOVER_FAILED      HighAvailabilityState = 4
+)
+
+// Returns the name of the enum given an ordinal number
+//
+// Deprecated: Please use GetName instead of name
+func (e *HighAvailabilityState) name(index int) string {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NORMAL",
+		"FAILOVER_IN_PROGRESS",
+		"FAILOVER_FAILED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the name of the enum
+func (e HighAvailabilityState) GetName() string {
+	index := int(e)
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NORMAL",
+		"FAILOVER_IN_PROGRESS",
+		"FAILOVER_FAILED",
+	}
+	if index < 0 || index >= len(names) {
+		return "$UNKNOWN"
+	}
+	return names[index]
+}
+
+// Returns the enum type given a string value
+func (e *HighAvailabilityState) index(name string) HighAvailabilityState {
+	names := [...]string{
+		"$UNKNOWN",
+		"$REDACTED",
+		"NORMAL",
+		"FAILOVER_IN_PROGRESS",
+		"FAILOVER_FAILED",
+	}
+	for idx := range names {
+		if names[idx] == name {
+			return HighAvailabilityState(idx)
+		}
+	}
+	return HIGHAVAILABILITYSTATE_UNKNOWN
+}
+
+func (e *HighAvailabilityState) UnmarshalJSON(b []byte) error {
+	var enumStr string
+	if err := json.Unmarshal(b, &enumStr); err != nil {
+		return errors.New(fmt.Sprintf("Unable to unmarshal for HighAvailabilityState:%s", err))
+	}
+	*e = e.index(enumStr)
+	return nil
+}
+
+func (e *HighAvailabilityState) MarshalJSON() ([]byte, error) {
+	b := bytes.NewBufferString(`"`)
+	b.WriteString(e.name(int(*e)))
+	b.WriteString(`"`)
+	return b.Bytes(), nil
+}
+
+func (e HighAvailabilityState) Ref() *HighAvailabilityState {
+	return &e
+}
+
+/*
+Status of the connection being serviced by the high-availability group
+*/
+type HighAvailabilityStatus struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  Detailed text describing the most recent configuration failure.
+	*/
+	ErrorDetails *string `json:"errorDetails,omitempty"`
+
+	State *HighAvailabilityState `json:"state,omitempty"`
+}
+
+func (p *HighAvailabilityStatus) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias HighAvailabilityStatus
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *HighAvailabilityStatus) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias HighAvailabilityStatus
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewHighAvailabilityStatus()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ErrorDetails != nil {
+		p.ErrorDetails = known.ErrorDetails
+	}
+	if known.State != nil {
+		p.State = known.State
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "errorDetails")
+	delete(allFields, "state")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewHighAvailabilityStatus() *HighAvailabilityStatus {
+	p := new(HighAvailabilityStatus)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.HighAvailabilityStatus"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -11782,7 +12173,7 @@ func NewHost() *Host {
 	p := new(Host)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Host"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11877,7 +12268,7 @@ func NewHostNic() *HostNic {
 	p := new(HostNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.HostNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12085,7 +12476,7 @@ func NewHostNicReference() *HostNicReference {
 	p := new(HostNicReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.HostNicReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12188,7 +12579,7 @@ func NewICMPObject() *ICMPObject {
 	p := new(ICMPObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ICMPObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12287,7 +12678,7 @@ func NewIPConfig() *IPConfig {
 	p := new(IPConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12481,7 +12872,7 @@ func NewIPFIXExporter() *IPFIXExporter {
 	p := new(IPFIXExporter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPFIXExporter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12590,7 +12981,7 @@ func NewIPPoolUsage() *IPPoolUsage {
 	p := new(IPPoolUsage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPPoolUsage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12689,7 +13080,7 @@ func NewIPSubnet() *IPSubnet {
 	p := new(IPSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPSubnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12817,7 +13208,7 @@ func NewIPUsage() *IPUsage {
 	p := new(IPUsage)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPUsage"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12937,7 +13328,7 @@ func NewIPv4Config() *IPv4Config {
 	p := new(IPv4Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13045,7 +13436,7 @@ func NewIPv4Pool() *IPv4Pool {
 	p := new(IPv4Pool)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Pool"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13155,7 +13546,7 @@ func NewIPv4Subnet() *IPv4Subnet {
 	p := new(IPv4Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv4Subnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13275,7 +13666,7 @@ func NewIPv6Config() *IPv6Config {
 	p := new(IPv6Config)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv6Config"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13383,7 +13774,7 @@ func NewIPv6Pool() *IPv6Pool {
 	p := new(IPv6Pool)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv6Pool"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13493,7 +13884,7 @@ func NewIPv6Subnet() *IPv6Subnet {
 	p := new(IPv6Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IPv6Subnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -13610,7 +14001,7 @@ func NewIbgpConfig() *IbgpConfig {
 	p := new(IbgpConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IbgpConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldRedistributeRoutes = new(bool)
@@ -13722,7 +14113,7 @@ func NewIgmpSpec() *IgmpSpec {
 	p := new(IgmpSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IgmpSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsSnoopingEnabled = new(bool)
@@ -13836,7 +14227,7 @@ func NewInternalRoutingConfig() *InternalRoutingConfig {
 	p := new(InternalRoutingConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.InternalRoutingConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14049,7 +14440,7 @@ func NewIpReserveSpec() *IpReserveSpec {
 	p := new(IpReserveSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IpReserveSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14179,7 +14570,7 @@ func NewIpUnreserveSpec() *IpUnreserveSpec {
 	p := new(IpUnreserveSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IpUnreserveSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14357,7 +14748,7 @@ func NewIpsecConfig() *IpsecConfig {
 	p := new(IpsecConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.IpsecConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14465,7 +14856,7 @@ func NewKubernetesCluster() *KubernetesCluster {
 	p := new(KubernetesCluster)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.KubernetesCluster"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14487,6 +14878,8 @@ type Layer2Stretch struct {
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
+
+	HighAvailabilityStatus *HighAvailabilityStatus `json:"highAvailabilityStatus,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
@@ -14587,6 +14980,9 @@ func (p *Layer2Stretch) UnmarshalJSON(b []byte) error {
 	if known.ExtId != nil {
 		p.ExtId = known.ExtId
 	}
+	if known.HighAvailabilityStatus != nil {
+		p.HighAvailabilityStatus = known.HighAvailabilityStatus
+	}
 	if known.Links != nil {
 		p.Links = known.Links
 	}
@@ -14625,6 +15021,7 @@ func (p *Layer2Stretch) UnmarshalJSON(b []byte) error {
 	delete(allFields, "connectionType")
 	delete(allFields, "description")
 	delete(allFields, "extId")
+	delete(allFields, "highAvailabilityStatus")
 	delete(allFields, "links")
 	delete(allFields, "localSiteParams")
 	delete(allFields, "metadata")
@@ -14648,7 +15045,7 @@ func NewLayer2Stretch() *Layer2Stretch {
 	p := new(Layer2Stretch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2Stretch"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14670,6 +15067,8 @@ type Layer2StretchProjection struct {
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
+
+	HighAvailabilityStatus *HighAvailabilityStatus `json:"highAvailabilityStatus,omitempty"`
 	/*
 	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
 	*/
@@ -14770,6 +15169,9 @@ func (p *Layer2StretchProjection) UnmarshalJSON(b []byte) error {
 	if known.ExtId != nil {
 		p.ExtId = known.ExtId
 	}
+	if known.HighAvailabilityStatus != nil {
+		p.HighAvailabilityStatus = known.HighAvailabilityStatus
+	}
 	if known.Links != nil {
 		p.Links = known.Links
 	}
@@ -14808,6 +15210,7 @@ func (p *Layer2StretchProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "connectionType")
 	delete(allFields, "description")
 	delete(allFields, "extId")
+	delete(allFields, "highAvailabilityStatus")
 	delete(allFields, "links")
 	delete(allFields, "localSiteParams")
 	delete(allFields, "metadata")
@@ -14831,7 +15234,7 @@ func NewLayer2StretchProjection() *Layer2StretchProjection {
 	p := new(Layer2StretchProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Layer2StretchProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -14930,7 +15333,7 @@ func NewLayerFourProtocolObject() *LayerFourProtocolObject {
 	p := new(LayerFourProtocolObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LayerFourProtocolObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15075,14 +15478,14 @@ func NewLearnedMacAddress() *LearnedMacAddress {
 	p := new(LearnedMacAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LearnedMacAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/bgp-sessions/{bgpSessionExtId}/bgp-routes Get operation
+REST response for all response codes in API path /networking/v4.3/config/bgp-sessions/{bgpSessionExtId}/bgp-routes Get operation
 */
 type ListBgpRoutesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -15182,7 +15585,7 @@ func NewListBgpRoutesApiResponse() *ListBgpRoutesApiResponse {
 	p := new(ListBgpRoutesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListBgpRoutesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15210,7 +15613,7 @@ func (p *ListBgpRoutesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/bgp-sessions Get operation
+REST response for all response codes in API path /networking/v4.3/config/bgp-sessions Get operation
 */
 type ListBgpSessionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -15310,7 +15713,7 @@ func NewListBgpSessionsApiResponse() *ListBgpSessionsApiResponse {
 	p := new(ListBgpSessionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListBgpSessionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15338,7 +15741,7 @@ func (p *ListBgpSessionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/capabilities Get operation
+REST response for all response codes in API path /networking/v4.3/config/capabilities Get operation
 */
 type ListClusterCapabilitiesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -15438,7 +15841,7 @@ func NewListClusterCapabilitiesApiResponse() *ListClusterCapabilitiesApiResponse
 	p := new(ListClusterCapabilitiesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListClusterCapabilitiesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15466,7 +15869,7 @@ func (p *ListClusterCapabilitiesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/floating-ips Get operation
+REST response for all response codes in API path /networking/v4.3/config/floating-ips Get operation
 */
 type ListFloatingIpsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -15566,7 +15969,7 @@ func NewListFloatingIpsApiResponse() *ListFloatingIpsApiResponse {
 	p := new(ListFloatingIpsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListFloatingIpsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15594,7 +15997,7 @@ func (p *ListFloatingIpsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/gateways Get operation
+REST response for all response codes in API path /networking/v4.3/config/gateways Get operation
 */
 type ListGatewaysApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -15694,7 +16097,7 @@ func NewListGatewaysApiResponse() *ListGatewaysApiResponse {
 	p := new(ListGatewaysApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListGatewaysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15722,7 +16125,7 @@ func (p *ListGatewaysApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/ipfix-exporters Get operation
+REST response for all response codes in API path /networking/v4.3/config/ipfix-exporters Get operation
 */
 type ListIPFIXExportersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -15822,7 +16225,7 @@ func NewListIPFIXExportersApiResponse() *ListIPFIXExportersApiResponse {
 	p := new(ListIPFIXExportersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListIPFIXExportersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15850,7 +16253,7 @@ func (p *ListIPFIXExportersApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/layer2-stretches Get operation
+REST response for all response codes in API path /networking/v4.3/config/layer2-stretches Get operation
 */
 type ListLayer2StretchesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -15950,7 +16353,7 @@ func NewListLayer2StretchesApiResponse() *ListLayer2StretchesApiResponse {
 	p := new(ListLayer2StretchesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListLayer2StretchesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -15978,7 +16381,7 @@ func (p *ListLayer2StretchesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses Get operation
+REST response for all response codes in API path /networking/v4.3/config/layer2-stretches/{layer2StretchExtId}/learned-mac-addresses Get operation
 */
 type ListLearnedMacAddressesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -16078,7 +16481,7 @@ func NewListLearnedMacAddressesApiResponse() *ListLearnedMacAddressesApiResponse
 	p := new(ListLearnedMacAddressesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListLearnedMacAddressesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16106,7 +16509,7 @@ func (p *ListLearnedMacAddressesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/load-balancer-sessions Get operation
+REST response for all response codes in API path /networking/v4.3/config/load-balancer-sessions Get operation
 */
 type ListLoadBalancerSessionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -16206,7 +16609,7 @@ func NewListLoadBalancerSessionsApiResponse() *ListLoadBalancerSessionsApiRespon
 	p := new(ListLoadBalancerSessionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListLoadBalancerSessionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16234,7 +16637,7 @@ func (p *ListLoadBalancerSessionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/controllers Get operation
+REST response for all response codes in API path /networking/v4.3/config/controllers Get operation
 */
 type ListNetworkControllersApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -16334,7 +16737,7 @@ func NewListNetworkControllersApiResponse() *ListNetworkControllersApiResponse {
 	p := new(ListNetworkControllersApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListNetworkControllersApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16362,7 +16765,7 @@ func (p *ListNetworkControllersApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/network-functions Get operation
+REST response for all response codes in API path /networking/v4.3/config/network-functions Get operation
 */
 type ListNetworkFunctionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -16462,7 +16865,7 @@ func NewListNetworkFunctionsApiResponse() *ListNetworkFunctionsApiResponse {
 	p := new(ListNetworkFunctionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListNetworkFunctionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16490,7 +16893,7 @@ func (p *ListNetworkFunctionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/nic-profiles Get operation
+REST response for all response codes in API path /networking/v4.3/config/nic-profiles Get operation
 */
 type ListNicProfilesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -16590,7 +16993,7 @@ func NewListNicProfilesApiResponse() *ListNicProfilesApiResponse {
 	p := new(ListNicProfilesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListNicProfilesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16618,7 +17021,7 @@ func (p *ListNicProfilesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/node-schedulable-statuses Get operation
+REST response for all response codes in API path /networking/v4.3/config/node-schedulable-statuses Get operation
 */
 type ListNodeSchedulableStatusesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -16718,7 +17121,7 @@ func NewListNodeSchedulableStatusesApiResponse() *ListNodeSchedulableStatusesApi
 	p := new(ListNodeSchedulableStatusesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListNodeSchedulableStatusesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16746,7 +17149,7 @@ func (p *ListNodeSchedulableStatusesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/clusters/{clusterExtId}/remote-subnets Get operation
+REST response for all response codes in API path /networking/v4.3/config/clusters/{clusterExtId}/remote-subnets Get operation
 */
 type ListRemoteSubnetsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -16846,7 +17249,7 @@ func NewListRemoteSubnetsApiResponse() *ListRemoteSubnetsApiResponse {
 	p := new(ListRemoteSubnetsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListRemoteSubnetsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -16874,7 +17277,7 @@ func (p *ListRemoteSubnetsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/route-tables Get operation
+REST response for all response codes in API path /networking/v4.3/config/route-tables Get operation
 */
 type ListRouteTablesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -16974,7 +17377,7 @@ func NewListRouteTablesApiResponse() *ListRouteTablesApiResponse {
 	p := new(ListRouteTablesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListRouteTablesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17002,7 +17405,7 @@ func (p *ListRouteTablesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/route-tables/{routeTableExtId}/routes Get operation
+REST response for all response codes in API path /networking/v4.3/config/route-tables/{routeTableExtId}/routes Get operation
 */
 type ListRoutesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -17102,7 +17505,7 @@ func NewListRoutesApiResponse() *ListRoutesApiResponse {
 	p := new(ListRoutesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListRoutesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17130,7 +17533,7 @@ func (p *ListRoutesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/routing-policies Get operation
+REST response for all response codes in API path /networking/v4.3/config/routing-policies Get operation
 */
 type ListRoutingPoliciesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -17230,7 +17633,7 @@ func NewListRoutingPoliciesApiResponse() *ListRoutingPoliciesApiResponse {
 	p := new(ListRoutingPoliciesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListRoutingPoliciesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17258,7 +17661,7 @@ func (p *ListRoutingPoliciesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/subnets/{subnetExtId}/reserved-ips Get operation
+REST response for all response codes in API path /networking/v4.3/config/subnets/{subnetExtId}/reserved-ips Get operation
 */
 type ListSubnetReservedIpsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -17358,7 +17761,7 @@ func NewListSubnetReservedIpsApiResponse() *ListSubnetReservedIpsApiResponse {
 	p := new(ListSubnetReservedIpsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListSubnetReservedIpsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17386,7 +17789,7 @@ func (p *ListSubnetReservedIpsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/subnets/{subnetExtId}/vnics Get operation
+REST response for all response codes in API path /networking/v4.3/config/subnets/{subnetExtId}/vnics Get operation
 */
 type ListSubnetVnicsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -17486,7 +17889,7 @@ func NewListSubnetVnicsApiResponse() *ListSubnetVnicsApiResponse {
 	p := new(ListSubnetVnicsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListSubnetVnicsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17514,7 +17917,7 @@ func (p *ListSubnetVnicsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/subnets Get operation
+REST response for all response codes in API path /networking/v4.3/config/subnets Get operation
 */
 type ListSubnetsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -17614,7 +18017,7 @@ func NewListSubnetsApiResponse() *ListSubnetsApiResponse {
 	p := new(ListSubnetsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListSubnetsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17642,7 +18045,7 @@ func (p *ListSubnetsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/traffic-mirrors Get operation
+REST response for all response codes in API path /networking/v4.3/config/traffic-mirrors Get operation
 */
 type ListTrafficMirrorsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -17742,7 +18145,7 @@ func NewListTrafficMirrorsApiResponse() *ListTrafficMirrorsApiResponse {
 	p := new(ListTrafficMirrorsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListTrafficMirrorsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17770,7 +18173,7 @@ func (p *ListTrafficMirrorsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/uplink-bonds Get operation
+REST response for all response codes in API path /networking/v4.3/config/uplink-bonds Get operation
 */
 type ListUplinkBondsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -17870,7 +18273,7 @@ func NewListUplinkBondsApiResponse() *ListUplinkBondsApiResponse {
 	p := new(ListUplinkBondsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListUplinkBondsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -17898,7 +18301,7 @@ func (p *ListUplinkBondsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/virtual-switches Get operation
+REST response for all response codes in API path /networking/v4.3/config/virtual-switches Get operation
 */
 type ListVirtualSwitchesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -17998,7 +18401,7 @@ func NewListVirtualSwitchesApiResponse() *ListVirtualSwitchesApiResponse {
 	p := new(ListVirtualSwitchesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListVirtualSwitchesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18026,7 +18429,7 @@ func (p *ListVirtualSwitchesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/vpc-virtual-switch-mappings Get operation
+REST response for all response codes in API path /networking/v4.3/config/vpc-virtual-switch-mappings Get operation
 */
 type ListVpcVirtualSwitchMappingsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -18126,7 +18529,7 @@ func NewListVpcVirtualSwitchMappingsApiResponse() *ListVpcVirtualSwitchMappingsA
 	p := new(ListVpcVirtualSwitchMappingsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListVpcVirtualSwitchMappingsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18154,7 +18557,7 @@ func (p *ListVpcVirtualSwitchMappingsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/vpcs Get operation
+REST response for all response codes in API path /networking/v4.3/config/vpcs Get operation
 */
 type ListVpcsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -18254,7 +18657,7 @@ func NewListVpcsApiResponse() *ListVpcsApiResponse {
 	p := new(ListVpcsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListVpcsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18282,7 +18685,7 @@ func (p *ListVpcsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/vpn-connections Get operation
+REST response for all response codes in API path /networking/v4.3/config/vpn-connections Get operation
 */
 type ListVpnConnectionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -18382,7 +18785,7 @@ func NewListVpnConnectionsApiResponse() *ListVpnConnectionsApiResponse {
 	p := new(ListVpnConnectionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListVpnConnectionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18410,7 +18813,7 @@ func (p *ListVpnConnectionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs Get operation
+REST response for all response codes in API path /networking/v4.3/config/vpn-connections/{vpnConnectionExtId}/vpn-vendor-configs Get operation
 */
 type ListVpnVendorConfigsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -18510,7 +18913,7 @@ func NewListVpnVendorConfigsApiResponse() *ListVpnVendorConfigsApiResponse {
 	p := new(ListVpnVendorConfigsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ListVpnVendorConfigsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18649,7 +19052,7 @@ func NewListener() *Listener {
 	p := new(Listener)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Listener"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18834,7 +19237,7 @@ func NewLoadBalancerSession() *LoadBalancerSession {
 	p := new(LoadBalancerSession)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LoadBalancerSession"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -18950,7 +19353,7 @@ func NewLoadBalancerSessionAssociation() *LoadBalancerSessionAssociation {
 	p := new(LoadBalancerSessionAssociation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LoadBalancerSessionAssociation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19135,7 +19538,7 @@ func NewLoadBalancerSessionProjection() *LoadBalancerSessionProjection {
 	p := new(LoadBalancerSessionProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LoadBalancerSessionProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19330,7 +19733,7 @@ func NewLocalBgpGateway() *LocalBgpGateway {
 	p := new(LocalBgpGateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalBgpGateway"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19448,7 +19851,7 @@ func NewLocalBgpService() *LocalBgpService {
 	p := new(LocalBgpService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalBgpService"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsBgpAddPathEnabled = new(bool)
@@ -19570,7 +19973,7 @@ func NewLocalNetworkServices() *LocalNetworkServices {
 	p := new(LocalNetworkServices)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalNetworkServices"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19669,7 +20072,7 @@ func NewLocalVpnService() *LocalVpnService {
 	p := new(LocalVpnService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalVpnService"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19771,7 +20174,7 @@ func NewLocalVtepService() *LocalVtepService {
 	p := new(LocalVtepService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.LocalVtepService"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -19902,7 +20305,7 @@ func NewMacAddress() *MacAddress {
 	p := new(MacAddress)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.MacAddress"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20200,7 +20603,7 @@ func NewNetworkCloudConfig() *NetworkCloudConfig {
 	p := new(NetworkCloudConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkCloudConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20362,7 +20765,7 @@ func NewNetworkController() *NetworkController {
 	p := new(NetworkController)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkController"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20535,7 +20938,7 @@ func NewNetworkFunction() *NetworkFunction {
 	p := new(NetworkFunction)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkFunction"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20708,7 +21111,7 @@ func NewNetworkFunctionProjection() *NetworkFunctionProjection {
 	p := new(NetworkFunctionProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkFunctionProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20825,7 +21228,7 @@ func NewNetworkingBaseModel() *NetworkingBaseModel {
 	p := new(NetworkingBaseModel)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NetworkingBaseModel"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -20947,7 +21350,7 @@ func NewNexthop() *Nexthop {
 	p := new(Nexthop)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Nexthop"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21257,7 +21660,7 @@ func NewNicPair() *NicPair {
 	p := new(NicPair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NicPair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsEnabled = new(bool)
@@ -21423,7 +21826,7 @@ func NewNicProfile() *NicProfile {
 	p := new(NicProfile)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NicProfile"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21586,7 +21989,7 @@ func NewNicProfileProjection() *NicProfileProjection {
 	p := new(NicProfileProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NicProfileProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21703,7 +22106,7 @@ func NewNicTarget() *NicTarget {
 	p := new(NicTarget)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NicTarget"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21812,7 +22215,7 @@ func NewNodeHealth() *NodeHealth {
 	p := new(NodeHealth)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NodeHealth"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -21931,7 +22334,7 @@ func NewNodeSchedulableStatus() *NodeSchedulableStatus {
 	p := new(NodeSchedulableStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NodeSchedulableStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22047,7 +22450,7 @@ func NewNodeSchedulableStatusProjection() *NodeSchedulableStatusProjection {
 	p := new(NodeSchedulableStatusProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NodeSchedulableStatusProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22146,7 +22549,7 @@ func NewNodeServiceHealth() *NodeServiceHealth {
 	p := new(NodeServiceHealth)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.NodeServiceHealth"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22330,7 +22733,7 @@ func NewOspfConfig() *OspfConfig {
 	p := new(OspfConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.OspfConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22413,6 +22816,107 @@ func (e *OwnerType) MarshalJSON() ([]byte, error) {
 
 func (e OwnerType) Ref() *OwnerType {
 	return &e
+}
+
+/*
+Information about a peered gateway in a high availability group.
+*/
+type PeeredGateway struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  External ID of the peered gateway.
+	*/
+	ExtId *string `json:"extId,omitempty"`
+
+	Status *Status `json:"status,omitempty"`
+}
+
+func (p *PeeredGateway) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias PeeredGateway
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *PeeredGateway) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias PeeredGateway
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewPeeredGateway()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ExtId != nil {
+		p.ExtId = known.ExtId
+	}
+	if known.Status != nil {
+		p.Status = known.Status
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "extId")
+	delete(allFields, "status")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewPeeredGateway() *PeeredGateway {
+	p := new(PeeredGateway)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.PeeredGateway"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
 }
 
 /*
@@ -22521,7 +23025,7 @@ func NewPortRange() *PortRange {
 	p := new(PortRange)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.PortRange"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22631,7 +23135,109 @@ func NewPrivateIpAssociation() *PrivateIpAssociation {
 	p := new(PrivateIpAssociation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.PrivateIpAssociation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
+Reference to project an entity is shared or unshared with.
+*/
+type ProjectReference struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  UUID of the project that an entity is shared or unshared with.
+	*/
+	ProjectExtId *string `json:"projectExtId"`
+}
+
+func (p *ProjectReference) MarshalJSON() ([]byte, error) {
+	type ProjectReferenceProxy ProjectReference
+
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*ProjectReferenceProxy
+		ProjectExtId *string `json:"projectExtId,omitempty"`
+	}{
+		ProjectReferenceProxy: (*ProjectReferenceProxy)(p),
+		ProjectExtId:          p.ProjectExtId,
+	}
+
+	known, err := json.Marshal(baseStruct)
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ProjectReference) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ProjectReference
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewProjectReference()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ProjectExtId != nil {
+		p.ProjectExtId = known.ProjectExtId
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "projectExtId")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewProjectReference() *ProjectReference {
+	p := new(ProjectReference)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "networking.v4.config.ProjectReference"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -22809,7 +23415,7 @@ func NewProtocolNumberObject() *ProtocolNumberObject {
 	p := new(ProtocolNumberObject)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ProtocolNumberObject"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23005,7 +23611,7 @@ func NewPublicIpMapping() *PublicIpMapping {
 	p := new(PublicIpMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.PublicIpMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23108,7 +23714,7 @@ func NewQosConfig() *QosConfig {
 	p := new(QosConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.QosConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23211,7 +23817,7 @@ func NewQuerierSpec() *QuerierSpec {
 	p := new(QuerierSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.QuerierSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsQuerierEnabled = new(bool)
@@ -23324,7 +23930,7 @@ func NewRemoteBgpGateway() *RemoteBgpGateway {
 	p := new(RemoteBgpGateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteBgpGateway"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23434,7 +24040,7 @@ func NewRemoteBgpService() *RemoteBgpService {
 	p := new(RemoteBgpService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteBgpService"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23539,7 +24145,7 @@ func NewRemoteNetworkServices() *RemoteNetworkServices {
 	p := new(RemoteNetworkServices)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteNetworkServices"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -23866,7 +24472,7 @@ func NewRemoteSubnet() *RemoteSubnet {
 	p := new(RemoteSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteSubnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24122,14 +24728,14 @@ func NewRemoteVpnConnection() *RemoteVpnConnection {
 	p := new(RemoteVpnConnection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVpnConnection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/clusters/{clusterExtId}/remote-vpn-connections/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/clusters/{clusterExtId}/remote-vpn-connections/{extId} Get operation
 */
 type RemoteVpnConnectionApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24229,7 +24835,7 @@ func NewRemoteVpnConnectionApiResponse() *RemoteVpnConnectionApiResponse {
 	p := new(RemoteVpnConnectionApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVpnConnectionApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24257,7 +24863,7 @@ func (p *RemoteVpnConnectionApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/clusters/{clusterExtId}/remote-vpn-connections Get operation
+REST response for all response codes in API path /networking/v4.3/config/clusters/{clusterExtId}/remote-vpn-connections Get operation
 */
 type RemoteVpnConnectionListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24357,7 +24963,7 @@ func NewRemoteVpnConnectionListApiResponse() *RemoteVpnConnectionListApiResponse
 	p := new(RemoteVpnConnectionListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVpnConnectionListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24491,7 +25097,7 @@ func NewRemoteVpnService() *RemoteVpnService {
 	p := new(RemoteVpnService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVpnService"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldInstallXiRoute = new(bool)
@@ -24518,6 +25124,12 @@ type RemoteVtepGateway struct {
 	  A globally unique identifier of an instance that is suitable for external consumption.
 	*/
 	ExtId *string `json:"extId,omitempty"`
+
+	HighAvailabilityGroup *HighAvailabilityGroup `json:"highAvailabilityGroup,omitempty"`
+	/*
+	  Indicates whether the gateway can be used to service a subnet extension's datapath.
+	*/
+	IsActive *bool `json:"isActive,omitempty"`
 	/*
 	  If set to true, the VTEP gateway is local. When set to false, the VTEP gateway is remote.
 	*/
@@ -24611,6 +25223,12 @@ func (p *RemoteVtepGateway) UnmarshalJSON(b []byte) error {
 	if known.ExtId != nil {
 		p.ExtId = known.ExtId
 	}
+	if known.HighAvailabilityGroup != nil {
+		p.HighAvailabilityGroup = known.HighAvailabilityGroup
+	}
+	if known.IsActive != nil {
+		p.IsActive = known.IsActive
+	}
 	if known.IsLocal != nil {
 		p.IsLocal = known.IsLocal
 	}
@@ -24643,6 +25261,8 @@ func (p *RemoteVtepGateway) UnmarshalJSON(b []byte) error {
 	delete(allFields, "clusterName")
 	delete(allFields, "clusterReference")
 	delete(allFields, "extId")
+	delete(allFields, "highAvailabilityGroup")
+	delete(allFields, "isActive")
 	delete(allFields, "isLocal")
 	delete(allFields, "links")
 	delete(allFields, "metadata")
@@ -24664,14 +25284,14 @@ func NewRemoteVtepGateway() *RemoteVtepGateway {
 	p := new(RemoteVtepGateway)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVtepGateway"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/clusters/{clusterExtId}/remote-vtep-gateways/{extId} Get operation
+REST response for all response codes in API path /networking/v4.3/config/clusters/{clusterExtId}/remote-vtep-gateways/{extId} Get operation
 */
 type RemoteVtepGatewayApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24771,7 +25391,7 @@ func NewRemoteVtepGatewayApiResponse() *RemoteVtepGatewayApiResponse {
 	p := new(RemoteVtepGatewayApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVtepGatewayApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -24799,7 +25419,7 @@ func (p *RemoteVtepGatewayApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/clusters/{clusterExtId}/remote-vtep-gateways Get operation
+REST response for all response codes in API path /networking/v4.3/config/clusters/{clusterExtId}/remote-vtep-gateways Get operation
 */
 type RemoteVtepGatewayListApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -24899,7 +25519,7 @@ func NewRemoteVtepGatewayListApiResponse() *RemoteVtepGatewayListApiResponse {
 	p := new(RemoteVtepGatewayListApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVtepGatewayListApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25023,7 +25643,7 @@ func NewRemoteVtepService() *RemoteVtepService {
 	p := new(RemoteVtepService)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVtepService"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.VxlanPort = new(int)
@@ -25043,6 +25663,8 @@ type RemoteVtepStretchStatus struct {
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 
 	Address *import1.IPAddress `json:"address,omitempty"`
+
+	HighAvailabilityStatus *HighAvailabilityStatus `json:"highAvailabilityStatus,omitempty"`
 
 	Status *StretchStatus `json:"status,omitempty"`
 }
@@ -25102,6 +25724,9 @@ func (p *RemoteVtepStretchStatus) UnmarshalJSON(b []byte) error {
 	if known.Address != nil {
 		p.Address = known.Address
 	}
+	if known.HighAvailabilityStatus != nil {
+		p.HighAvailabilityStatus = known.HighAvailabilityStatus
+	}
 	if known.Status != nil {
 		p.Status = known.Status
 	}
@@ -25111,6 +25736,7 @@ func (p *RemoteVtepStretchStatus) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "address")
+	delete(allFields, "highAvailabilityStatus")
 	delete(allFields, "status")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -25125,7 +25751,7 @@ func NewRemoteVtepStretchStatus() *RemoteVtepStretchStatus {
 	p := new(RemoteVtepStretchStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RemoteVtepStretchStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25323,7 +25949,7 @@ func NewRerouteParam() *RerouteParam {
 	p := new(RerouteParam)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RerouteParam"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25533,7 +26159,7 @@ func NewReservedIp() *ReservedIp {
 	p := new(ReservedIp)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.ReservedIp"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25731,7 +26357,7 @@ func NewRoute() *Route {
 	p := new(Route)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Route"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -25864,7 +26490,7 @@ func NewRouteTable() *RouteTable {
 	p := new(RouteTable)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RouteTable"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -26121,7 +26747,7 @@ func NewRoutingPolicy() *RoutingPolicy {
 	p := new(RoutingPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -26233,7 +26859,7 @@ func NewRoutingPolicyAction() *RoutingPolicyAction {
 	p := new(RoutingPolicyAction)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyAction"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -26452,7 +27078,7 @@ func NewRoutingPolicyMatchCondition() *RoutingPolicyMatchCondition {
 	p := new(RoutingPolicyMatchCondition)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyMatchCondition"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -26650,7 +27276,7 @@ func NewRoutingPolicyProjection() *RoutingPolicyProjection {
 	p := new(RoutingPolicyProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -26766,7 +27392,7 @@ func NewRoutingPolicyRule() *RoutingPolicyRule {
 	p := new(RoutingPolicyRule)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.RoutingPolicyRule"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsBidirectional = new(bool)
@@ -26947,7 +27573,7 @@ func NewSharedServiceHealth() *SharedServiceHealth {
 	p := new(SharedServiceHealth)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SharedServiceHealth"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -27047,6 +27673,8 @@ type SiteParams struct {
 	ConnectionReference *string `json:"connectionReference,omitempty"`
 
 	DefaultGatewayIPAddress *import1.IPAddress `json:"defaultGatewayIPAddress,omitempty"`
+
+	HighAvailabilityGroup *HighAvailabilityGroup `json:"highAvailabilityGroup,omitempty"`
 	/*
 	  Prism Central cluster reference.
 	*/
@@ -27119,6 +27747,9 @@ func (p *SiteParams) UnmarshalJSON(b []byte) error {
 	if known.DefaultGatewayIPAddress != nil {
 		p.DefaultGatewayIPAddress = known.DefaultGatewayIPAddress
 	}
+	if known.HighAvailabilityGroup != nil {
+		p.HighAvailabilityGroup = known.HighAvailabilityGroup
+	}
 	if known.PcClusterReference != nil {
 		p.PcClusterReference = known.PcClusterReference
 	}
@@ -27138,6 +27769,7 @@ func (p *SiteParams) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "connectionReference")
 	delete(allFields, "defaultGatewayIPAddress")
+	delete(allFields, "highAvailabilityGroup")
 	delete(allFields, "pcClusterReference")
 	delete(allFields, "stretchInterfaceIpAddress")
 	delete(allFields, "stretchSubnetReference")
@@ -27155,7 +27787,7 @@ func NewSiteParams() *SiteParams {
 	p := new(SiteParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SiteParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -27167,10 +27799,13 @@ Up/Down status of component.
 type State int
 
 const (
-	STATE_UNKNOWN  State = 0
-	STATE_REDACTED State = 1
-	STATE_UP       State = 2
-	STATE_DOWN     State = 3
+	STATE_UNKNOWN              State = 0
+	STATE_REDACTED             State = 1
+	STATE_UP                   State = 2
+	STATE_DOWN                 State = 3
+	STATE_RECOVERY_STARTED     State = 4
+	STATE_RECOVERY_IN_PROGRESS State = 5
+	STATE_RECOVERY_COMPLETED   State = 6
 )
 
 // Returns the name of the enum given an ordinal number
@@ -27182,6 +27817,9 @@ func (e *State) name(index int) string {
 		"$REDACTED",
 		"UP",
 		"DOWN",
+		"RECOVERY_STARTED",
+		"RECOVERY_IN_PROGRESS",
+		"RECOVERY_COMPLETED",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -27197,6 +27835,9 @@ func (e State) GetName() string {
 		"$REDACTED",
 		"UP",
 		"DOWN",
+		"RECOVERY_STARTED",
+		"RECOVERY_IN_PROGRESS",
+		"RECOVERY_COMPLETED",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -27211,6 +27852,9 @@ func (e *State) index(name string) State {
 		"$REDACTED",
 		"UP",
 		"DOWN",
+		"RECOVERY_STARTED",
+		"RECOVERY_IN_PROGRESS",
+		"RECOVERY_COMPLETED",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -27335,7 +27979,7 @@ func NewStatus() *Status {
 	p := new(Status)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Status"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -27529,7 +28173,7 @@ func NewStretchStatus() *StretchStatus {
 	p := new(StretchStatus)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.StretchStatus"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -27848,7 +28492,7 @@ func NewSubnet() *Subnet {
 	p := new(Subnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Subnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -27947,7 +28591,7 @@ func NewSubnetInfo() *SubnetInfo {
 	p := new(SubnetInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SubnetInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -28281,7 +28925,7 @@ func NewSubnetProjection() *SubnetProjection {
 	p := new(SubnetProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.SubnetProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -28459,7 +29103,7 @@ func NewTarget() *Target {
 	p := new(Target)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Target"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -28545,7 +29189,7 @@ func (e TargetHealth) Ref() *TargetHealth {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/config/vpn-connections/{extId} Put operation
+REST response for all response codes in API path /networking/v4.3/config/vpn-connections/{extId} Put operation
 */
 type TaskReferenceApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -28645,7 +29289,7 @@ func NewTaskReferenceApiResponse() *TaskReferenceApiResponse {
 	p := new(TaskReferenceApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.TaskReferenceApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -28940,7 +29584,7 @@ func NewTrafficMirror() *TrafficMirror {
 	p := new(TrafficMirror)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.TrafficMirror"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsEnabled = new(bool)
@@ -29061,7 +29705,7 @@ func NewTrafficMirrorPort() *TrafficMirrorPort {
 	p := new(TrafficMirrorPort)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.TrafficMirrorPort"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -29266,7 +29910,7 @@ func NewTrafficMirrorSourcePort() *TrafficMirrorSourcePort {
 	p := new(TrafficMirrorSourcePort)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.TrafficMirrorSourcePort"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -29682,7 +30326,7 @@ func NewUplinkBond() *UplinkBond {
 	p := new(UplinkBond)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.UplinkBond"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -29951,7 +30595,7 @@ func NewUplinkBondVirtualSwitchInfo() *UplinkBondVirtualSwitchInfo {
 	p := new(UplinkBondVirtualSwitchInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.UplinkBondVirtualSwitchInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -30067,7 +30711,7 @@ func NewVirtualIP() *VirtualIP {
 	p := new(VirtualIP)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VirtualIP"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -30285,7 +30929,7 @@ func NewVirtualSwitch() *VirtualSwitch {
 	p := new(VirtualSwitch)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VirtualSwitch"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsDefault = new(bool)
@@ -30507,7 +31151,7 @@ func NewVirtualSwitchProjection() *VirtualSwitchProjection {
 	p := new(VirtualSwitchProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VirtualSwitchProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsDefault = new(bool)
@@ -30616,7 +31260,7 @@ func NewVlanSubnetMigrationSpec() *VlanSubnetMigrationSpec {
 	p := new(VlanSubnetMigrationSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VlanSubnetMigrationSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -30711,7 +31355,7 @@ func NewVm() *Vm {
 	p := new(Vm)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Vm"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -30806,7 +31450,7 @@ func NewVmNic() *VmNic {
 	p := new(VmNic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VmNic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -30922,7 +31566,7 @@ func NewVmNicAssociation() *VmNicAssociation {
 	p := new(VmNicAssociation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VmNicAssociation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -31014,7 +31658,7 @@ func NewVmNicProjection() *VmNicProjection {
 	p := new(VmNicProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VmNicProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -31106,7 +31750,7 @@ func NewVmProjection() *VmProjection {
 	p := new(VmProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VmProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -31263,7 +31907,7 @@ func NewVnic() *Vnic {
 	p := new(Vnic)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Vnic"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -31391,7 +32035,7 @@ func NewVnicMigrationItemSpec() *VnicMigrationItemSpec {
 	p := new(VnicMigrationItemSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VnicMigrationItemSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -31576,7 +32220,7 @@ func NewVpc() *Vpc {
 	p := new(Vpc)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Vpc"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -31671,7 +32315,7 @@ func NewVpcDhcpOptions() *VpcDhcpOptions {
 	p := new(VpcDhcpOptions)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcDhcpOptions"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -31766,7 +32410,7 @@ func NewVpcGlobalConfig() *VpcGlobalConfig {
 	p := new(VpcGlobalConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcGlobalConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.IsOverlappingErpsEnabled = new(bool)
@@ -31864,7 +32508,7 @@ func NewVpcName() *VpcName {
 	p := new(VpcName)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcName"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -31956,7 +32600,7 @@ func NewVpcNameProjection() *VpcNameProjection {
 	p := new(VpcNameProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcNameProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -32138,7 +32782,7 @@ func NewVpcProjection() *VpcProjection {
 	p := new(VpcProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -32362,7 +33006,7 @@ func NewVpcVirtualSwitchMapping() *VpcVirtualSwitchMapping {
 	p := new(VpcVirtualSwitchMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpcVirtualSwitchMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -32495,7 +33139,7 @@ func NewVpnAppliance() *VpnAppliance {
 	p := new(VpnAppliance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpnAppliance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -32719,7 +33363,7 @@ func NewVpnConnection() *VpnConnection {
 	p := new(VpnConnection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.VpnConnection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -32812,7 +33456,7 @@ func NewVtep() *Vtep {
 	p := new(Vtep)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.config.Vtep"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

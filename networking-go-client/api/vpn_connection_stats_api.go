@@ -1,10 +1,12 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/common/v1/stats"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/stats"
+	import12 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/common/v1/stats"
+	import38 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/request/vpnconnectionstats"
+	import13 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/stats"
 	"net/http"
 	"net/url"
 	"strings"
@@ -12,6 +14,12 @@ import (
 )
 
 type VpnConnectionStatsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *VpnConnectionStatsServiceApi
+}
+
+type VpnConnectionStatsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -31,33 +39,70 @@ func NewVpnConnectionStatsApi(apiClient *client.ApiClient) *VpnConnectionStatsAp
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewVpnConnectionStatsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewVpnConnectionStatsServiceApi(apiClient *client.ApiClient) *VpnConnectionStatsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &VpnConnectionStatsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Get VPN connection statistics.
-func (api *VpnConnectionStatsApi) GetVpnConnectionStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import3.DownSamplingOperator, page_ *int, limit_ *int, select_ *string, args ...map[string]interface{}) (*import4.GetVpnConnectionStatsApiResponse, error) {
+func (api *VpnConnectionStatsApi) GetVpnConnectionStats(extId *string, startTime_ *time.Time, endTime_ *time.Time, samplingInterval_ *int, statType_ *import12.DownSamplingOperator, page_ *int, limit_ *int, select_ *string, args ...map[string]interface{}) (*import13.GetVpnConnectionStatsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewVpnConnectionStatsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetVpnConnectionStats(context.Background(), &import38.GetVpnConnectionStatsRequest{
+		ExtId:             extId,
+		StartTime_:        startTime_,
+		EndTime_:          endTime_,
+		SamplingInterval_: samplingInterval_,
+		StatType_:         statType_,
+		Page_:             page_,
+		Limit_:            limit_,
+		Select_:           select_,
+	}, args...)
+}
+
+// Get VPN connection statistics.
+func (api *VpnConnectionStatsServiceApi) GetVpnConnectionStats(ctx context.Context, request *import38.GetVpnConnectionStatsRequest, args ...map[string]interface{}) (*import13.GetVpnConnectionStatsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/stats/vpn-connections/{extId}"
+	uri := "/api/networking/v4.3/stats/vpn-connections/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'startTime_' is set
-	if nil == startTime_ {
+	if nil == request.StartTime_ {
 		return nil, client.ReportError("startTime_ is required and must be specified")
 	}
 	// verify the required parameter 'endTime_' is set
-	if nil == endTime_ {
+	if nil == request.EndTime_ {
 		return nil, client.ReportError("endTime_ is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -69,23 +114,23 @@ func (api *VpnConnectionStatsApi) GetVpnConnectionStats(extId *string, startTime
 	accepts := []string{"application/json"}
 
 	// Query Params
-	queryParams.Add("$startTime", client.ParameterToString(*startTime_, ""))
-	queryParams.Add("$endTime", client.ParameterToString(*endTime_, ""))
-	if samplingInterval_ != nil {
-		queryParams.Add("$samplingInterval", client.ParameterToString(*samplingInterval_, ""))
+	queryParams.Add("$startTime", client.ParameterToString(*request.StartTime_, ""))
+	queryParams.Add("$endTime", client.ParameterToString(*request.EndTime_, ""))
+	if request.SamplingInterval_ != nil {
+		queryParams.Add("$samplingInterval", client.ParameterToString(*request.SamplingInterval_, ""))
 	}
-	if statType_ != nil {
-		statType_QueryParamEnumVal := statType_.GetName()
+	if request.StatType_ != nil {
+		statType_QueryParamEnumVal := request.StatType_.GetName()
 		queryParams.Add("$statType", client.ParameterToString(statType_QueryParamEnumVal, ""))
 	}
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -101,12 +146,12 @@ func (api *VpnConnectionStatsApi) GetVpnConnectionStats(extId *string, startTime
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import4.GetVpnConnectionStatsApiResponse)
+	unmarshalledResp := new(import13.GetVpnConnectionStatsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

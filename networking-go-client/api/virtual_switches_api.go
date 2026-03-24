@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
+	import34 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/request/virtualswitches"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type VirtualSwitchesApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *VirtualSwitchesServiceApi
+}
+
+type VirtualSwitchesServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,20 +37,51 @@ func NewVirtualSwitchesApi(apiClient *client.ApiClient) *VirtualSwitchesApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewVirtualSwitchesServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewVirtualSwitchesServiceApi(apiClient *client.ApiClient) *VirtualSwitchesServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &VirtualSwitchesServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Create a Virtual Switch.
-func (api *VirtualSwitchesApi) CreateVirtualSwitch(body *import2.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+func (api *VirtualSwitchesApi) CreateVirtualSwitch(body *import4.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewVirtualSwitchesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.CreateVirtualSwitch(context.Background(), &import34.CreateVirtualSwitchRequest{
+		Body:       body,
+		XClusterId: xClusterId,
+	}, args...)
+}
+
+// Create a Virtual Switch.
+func (api *VirtualSwitchesServiceApi) CreateVirtualSwitch(ctx context.Context, request *import34.CreateVirtualSwitchRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/config/virtual-switches"
+	uri := "/api/networking/v4.3/config/virtual-switches"
 
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
@@ -56,8 +95,8 @@ func (api *VirtualSwitchesApi) CreateVirtualSwitch(body *import2.VirtualSwitch, 
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	if request.XClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*request.XClusterId, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -73,32 +112,43 @@ func (api *VirtualSwitchesApi) CreateVirtualSwitch(body *import2.VirtualSwitch, 
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.TaskReferenceApiResponse)
+	unmarshalledResp := new(import4.TaskReferenceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Delete a Virtual Switch.
-func (api *VirtualSwitchesApi) DeleteVirtualSwitchById(extId *string, xClusterId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+func (api *VirtualSwitchesApi) DeleteVirtualSwitchById(extId *string, xClusterId *string, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewVirtualSwitchesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.DeleteVirtualSwitchById(context.Background(), &import34.DeleteVirtualSwitchByIdRequest{
+		ExtId:      extId,
+		XClusterId: xClusterId,
+	}, args...)
+}
+
+// Delete a Virtual Switch.
+func (api *VirtualSwitchesServiceApi) DeleteVirtualSwitchById(ctx context.Context, request *import34.DeleteVirtualSwitchByIdRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.3/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -109,8 +159,8 @@ func (api *VirtualSwitchesApi) DeleteVirtualSwitchById(extId *string, xClusterId
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	if request.XClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*request.XClusterId, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -126,32 +176,43 @@ func (api *VirtualSwitchesApi) DeleteVirtualSwitchById(extId *string, xClusterId
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.TaskReferenceApiResponse)
+	unmarshalledResp := new(import4.TaskReferenceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Get single Virtual Switch given its UUID.
-func (api *VirtualSwitchesApi) GetVirtualSwitchById(extId *string, xClusterId *string, args ...map[string]interface{}) (*import2.GetVirtualSwitchApiResponse, error) {
+func (api *VirtualSwitchesApi) GetVirtualSwitchById(extId *string, xClusterId *string, args ...map[string]interface{}) (*import4.GetVirtualSwitchApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewVirtualSwitchesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetVirtualSwitchById(context.Background(), &import34.GetVirtualSwitchByIdRequest{
+		ExtId:      extId,
+		XClusterId: xClusterId,
+	}, args...)
+}
+
+// Get single Virtual Switch given its UUID.
+func (api *VirtualSwitchesServiceApi) GetVirtualSwitchById(ctx context.Context, request *import34.GetVirtualSwitchByIdRequest, args ...map[string]interface{}) (*import4.GetVirtualSwitchApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.3/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -162,8 +223,8 @@ func (api *VirtualSwitchesApi) GetVirtualSwitchById(extId *string, xClusterId *s
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	if request.XClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*request.XClusterId, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -179,24 +240,38 @@ func (api *VirtualSwitchesApi) GetVirtualSwitchById(extId *string, xClusterId *s
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.GetVirtualSwitchApiResponse)
+	unmarshalledResp := new(import4.GetVirtualSwitchApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Get list of Virtual Switches.
-func (api *VirtualSwitchesApi) ListVirtualSwitches(xClusterId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import2.ListVirtualSwitchesApiResponse, error) {
+func (api *VirtualSwitchesApi) ListVirtualSwitches(xClusterId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import4.ListVirtualSwitchesApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewVirtualSwitchesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListVirtualSwitches(context.Background(), &import34.ListVirtualSwitchesRequest{
+		XClusterId: xClusterId,
+		Page_:      page_,
+		Limit_:     limit_,
+		Filter_:    filter_,
+		Orderby_:   orderby_,
+	}, args...)
+}
+
+// Get list of Virtual Switches.
+func (api *VirtualSwitchesServiceApi) ListVirtualSwitches(ctx context.Context, request *import34.ListVirtualSwitchesRequest, args ...map[string]interface{}) (*import4.ListVirtualSwitchesApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/config/virtual-switches"
+	uri := "/api/networking/v4.3/config/virtual-switches"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -209,20 +284,20 @@ func (api *VirtualSwitchesApi) ListVirtualSwitches(xClusterId *string, page_ *in
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	if request.XClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*request.XClusterId, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -238,36 +313,48 @@ func (api *VirtualSwitchesApi) ListVirtualSwitches(xClusterId *string, page_ *in
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListVirtualSwitchesApiResponse)
+	unmarshalledResp := new(import4.ListVirtualSwitchesApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Update a Virtual Switch.
-func (api *VirtualSwitchesApi) UpdateVirtualSwitchById(extId *string, body *import2.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+func (api *VirtualSwitchesApi) UpdateVirtualSwitchById(extId *string, body *import4.VirtualSwitch, xClusterId *string, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewVirtualSwitchesServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.UpdateVirtualSwitchById(context.Background(), &import34.UpdateVirtualSwitchByIdRequest{
+		ExtId:      extId,
+		Body:       body,
+		XClusterId: xClusterId,
+	}, args...)
+}
+
+// Update a Virtual Switch.
+func (api *VirtualSwitchesServiceApi) UpdateVirtualSwitchById(ctx context.Context, request *import34.UpdateVirtualSwitchByIdRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/config/virtual-switches/{extId}"
+	uri := "/api/networking/v4.3/config/virtual-switches/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -278,8 +365,8 @@ func (api *VirtualSwitchesApi) UpdateVirtualSwitchById(extId *string, body *impo
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
-	if xClusterId != nil {
-		headerParams["X-Cluster-Id"] = client.ParameterToString(*xClusterId, "")
+	if request.XClusterId != nil {
+		headerParams["X-Cluster-Id"] = client.ParameterToString(*request.XClusterId, "")
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -295,12 +382,12 @@ func (api *VirtualSwitchesApi) UpdateVirtualSwitchById(extId *string, body *impo
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPut, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPut, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.TaskReferenceApiResponse)
+	unmarshalledResp := new(import4.TaskReferenceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

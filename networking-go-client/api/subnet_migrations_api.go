@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/client"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/config"
+	import28 "github.com/nutanix/ntnx-api-golang-clients/networking-go-client/v4/models/networking/v4/request/subnetmigrations"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type SubnetMigrationsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *SubnetMigrationsServiceApi
+}
+
+type SubnetMigrationsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,20 +37,50 @@ func NewSubnetMigrationsApi(apiClient *client.ApiClient) *SubnetMigrationsApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewSubnetMigrationsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewSubnetMigrationsServiceApi(apiClient *client.ApiClient) *SubnetMigrationsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &SubnetMigrationsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Migrate VLAN subnets from VLAN basic to VLAN advanced.
-func (api *SubnetMigrationsApi) MigrateSubnets(body *import2.VlanSubnetMigrationSpec, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+func (api *SubnetMigrationsApi) MigrateSubnets(body *import4.VlanSubnetMigrationSpec, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewSubnetMigrationsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.MigrateSubnets(context.Background(), &import28.MigrateSubnetsRequest{
+		Body: body,
+	}, args...)
+}
+
+// Migrate VLAN subnets from VLAN basic to VLAN advanced.
+func (api *SubnetMigrationsServiceApi) MigrateSubnets(ctx context.Context, request *import28.MigrateSubnetsRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/config/$actions/migrate-subnets"
+	uri := "/api/networking/v4.3/config/$actions/migrate-subnets"
 
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
@@ -70,36 +108,47 @@ func (api *SubnetMigrationsApi) MigrateSubnets(body *import2.VlanSubnetMigration
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.TaskReferenceApiResponse)
+	unmarshalledResp := new(import4.TaskReferenceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Migrate vNICs from Acropolis to Atlas or vice-versa.
-func (api *SubnetMigrationsApi) MigrateVnicById(extId *string, body *import2.VnicMigrationItemSpec, args ...map[string]interface{}) (*import2.TaskReferenceApiResponse, error) {
+func (api *SubnetMigrationsApi) MigrateVnicById(extId *string, body *import4.VnicMigrationItemSpec, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewSubnetMigrationsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.MigrateVnicById(context.Background(), &import28.MigrateVnicByIdRequest{
+		ExtId: extId,
+		Body:  body,
+	}, args...)
+}
+
+// Migrate vNICs from Acropolis to Atlas or vice-versa.
+func (api *SubnetMigrationsServiceApi) MigrateVnicById(ctx context.Context, request *import28.MigrateVnicByIdRequest, args ...map[string]interface{}) (*import4.TaskReferenceApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/networking/v4.2/config/vnics/{extId}/$actions/migrate"
+	uri := "/api/networking/v4.3/config/vnics/{extId}/$actions/migrate"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -124,12 +173,12 @@ func (api *SubnetMigrationsApi) MigrateVnicById(extId *string, body *import2.Vni
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.TaskReferenceApiResponse)
+	unmarshalledResp := new(import4.TaskReferenceApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

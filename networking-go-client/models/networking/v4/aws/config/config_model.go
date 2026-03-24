@@ -1,11 +1,11 @@
 /*
  * Generated file models/networking/v4/aws/config/config_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Networking APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -199,7 +199,7 @@ func NewAwsSubnet() *AwsSubnet {
 	p := new(AwsSubnet)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.AwsSubnet"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -351,7 +351,7 @@ func NewAwsVpc() *AwsVpc {
 	p := new(AwsVpc)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.AwsVpc"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -475,7 +475,7 @@ func NewCapabilities() *Capabilities {
 	p := new(Capabilities)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.Capabilities"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -561,7 +561,7 @@ func (e CloudType) Ref() *CloudType {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/aws/config/subnets Get operation
+REST response for all response codes in API path /networking/v4.3/aws/config/subnets Get operation
 */
 type ListAwsSubnetsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -661,7 +661,7 @@ func NewListAwsSubnetsApiResponse() *ListAwsSubnetsApiResponse {
 	p := new(ListAwsSubnetsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.ListAwsSubnetsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -689,7 +689,7 @@ func (p *ListAwsSubnetsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /networking/v4.2/aws/config/vpcs Get operation
+REST response for all response codes in API path /networking/v4.3/aws/config/vpcs Get operation
 */
 type ListAwsVpcsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -789,7 +789,7 @@ func NewListAwsVpcsApiResponse() *ListAwsVpcsApiResponse {
 	p := new(ListAwsVpcsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.ListAwsVpcsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -929,7 +929,7 @@ func NewSubnetCapabilities() *SubnetCapabilities {
 	p := new(SubnetCapabilities)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "networking.v4.aws.config.SubnetCapabilities"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
