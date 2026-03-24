@@ -1,11 +1,11 @@
 /*
  * Generated file models/iam/v4/authz/authz_model.go.
  *
- * Product version: 4.1.1-beta-2
+ * Product version: 4.1.2-beta-2
  *
  * Part of the Nutanix Identity and Access Management APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 

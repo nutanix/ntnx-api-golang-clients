@@ -1,11 +1,11 @@
 /*
  * Generated file models/iam/v4/authn/authn_model.go.
  *
- * Product version: 4.1.1-beta-2
+ * Product version: 4.1.2-beta-2
  *
  * Part of the Nutanix Identity and Access Management APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -9354,6 +9354,10 @@ type OidcUserinfo struct {
 	*/
 	CustomClaims map[string]string `json:"customClaims,omitempty"`
 	/*
+	  Default Landing Page for User
+	*/
+	DefaultLandingPagePath *string `json:"defaultLandingPagePath,omitempty"`
+	/*
 	  Email address of the subject.
 	*/
 	Email *string `json:"email,omitempty"`
@@ -9491,6 +9495,9 @@ func (p *OidcUserinfo) UnmarshalJSON(b []byte) error {
 	if known.CustomClaims != nil {
 		p.CustomClaims = known.CustomClaims
 	}
+	if known.DefaultLandingPagePath != nil {
+		p.DefaultLandingPagePath = known.DefaultLandingPagePath
+	}
 	if known.Email != nil {
 		p.Email = known.Email
 	}
@@ -9561,6 +9568,7 @@ func (p *OidcUserinfo) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$unknownFields")
 	delete(allFields, "connectorId")
 	delete(allFields, "customClaims")
+	delete(allFields, "defaultLandingPagePath")
 	delete(allFields, "email")
 	delete(allFields, "exp")
 	delete(allFields, "extId")
@@ -11450,7 +11458,7 @@ type TokenRequest struct {
 	/*
 	  Scopes for the OIDC token.
 	*/
-	Scope *string `json:"scope"`
+	Scope *string `json:"scope,omitempty"`
 	/*
 	  Subject token for the OIDC token request.
 	*/
@@ -11467,12 +11475,10 @@ func (p *TokenRequest) MarshalJSON() ([]byte, error) {
 		*TokenRequestProxy
 		ClientId  *string    `json:"client_id,omitempty"`
 		GrantType *GrantType `json:"grant_type,omitempty"`
-		Scope     *string    `json:"scope,omitempty"`
 	}{
 		TokenRequestProxy: (*TokenRequestProxy)(p),
 		ClientId:          p.ClientId,
 		GrantType:         p.GrantType,
-		Scope:             p.Scope,
 	}
 
 	known, err := json.Marshal(baseStruct)
@@ -12341,6 +12347,10 @@ type User struct {
 
 	CreationType *CreationType `json:"creationType,omitempty"`
 	/*
+	  Default Landing Page for User
+	*/
+	DefaultLandingPagePath *string `json:"defaultLandingPagePath,omitempty"`
+	/*
 	  Description of the user.
 	*/
 	Description *string `json:"description,omitempty"`
@@ -12485,6 +12495,9 @@ func (p *User) UnmarshalJSON(b []byte) error {
 	if known.CreationType != nil {
 		p.CreationType = known.CreationType
 	}
+	if known.DefaultLandingPagePath != nil {
+		p.DefaultLandingPagePath = known.DefaultLandingPagePath
+	}
 	if known.Description != nil {
 		p.Description = known.Description
 	}
@@ -12555,6 +12568,7 @@ func (p *User) UnmarshalJSON(b []byte) error {
 	delete(allFields, "createdBy")
 	delete(allFields, "createdTime")
 	delete(allFields, "creationType")
+	delete(allFields, "defaultLandingPagePath")
 	delete(allFields, "description")
 	delete(allFields, "displayName")
 	delete(allFields, "emailId")
