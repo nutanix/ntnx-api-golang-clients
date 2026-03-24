@@ -1,8 +1,10 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/monitoring-go-client/v4/client"
+	import7 "github.com/nutanix/ntnx-api-golang-clients/monitoring-go-client/v4/models/monitoring/v4/request/managealerts"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/monitoring-go-client/v4/models/monitoring/v4/serviceability"
 	"net/http"
 	"net/url"
@@ -10,6 +12,12 @@ import (
 )
 
 type ManageAlertsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *ManageAlertsServiceApi
+}
+
+type ManageAlertsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,11 +37,42 @@ func NewManageAlertsApi(apiClient *client.ApiClient) *ManageAlertsApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewManageAlertsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewManageAlertsServiceApi(apiClient *client.ApiClient) *ManageAlertsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &ManageAlertsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Acknowledges or resolves the alert identified by external identifier.
 func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertActionSpec, args ...map[string]interface{}) (*import1.ManageAlertApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewManageAlertsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ManageAlert(context.Background(), &import7.ManageAlertRequest{
+		ExtId: extId,
+		Body:  body,
+	}, args...)
+}
+
+// Acknowledges or resolves the alert identified by external identifier.
+func (api *ManageAlertsServiceApi) ManageAlert(ctx context.Context, request *import7.ManageAlertRequest, args ...map[string]interface{}) (*import1.ManageAlertApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -42,16 +81,16 @@ func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertAction
 	uri := "/api/monitoring/v4.2/serviceability/alerts/{extId}/$actions/manage-alert"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -76,7 +115,7 @@ func (api *ManageAlertsApi) ManageAlert(extId *string, body *import1.AlertAction
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
