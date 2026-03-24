@@ -39,7 +39,7 @@ var (
 	uriCheck                = regexp.MustCompile(`/(?P<namespace>[-\w]+)/v\d+\.\d+(\.[a|b]\d+)?/(?P<suffix>.*)`)
 	contentDispositionCheck = regexp.MustCompile("attachment;\\s*filename=\"(.*)\"")
 	retryStatusList         = []int{408, 429, 503, 504}
-	userAgent               = "Nutanix-datapolicies/v4.2.1"
+	userAgent               = "Nutanix-datapolicies/v4.2.2"
 )
 
 /*
@@ -170,18 +170,27 @@ func (a *ApiClient) AddDefaultHeader(headerName string, headerValue string) {
 	a.defaultHeaders[headerName] = headerValue
 }
 
-// Makes the HTTP request with given options and returns response body as byte array.
+// Makes the HTTP request with given options which returns response body as byte array.
 func (a *ApiClient) CallApi(uri *string, httpMethod string, body interface{},
+	queryParams url.Values, headerParams map[string]string, formParams url.Values,
+	accepts []string, contentType []string, authNames []string) (interface{}, error) {
+
+	return a.CallApiWithContext(context.Background(), uri, httpMethod, body, queryParams, headerParams,
+		formParams, accepts, contentType, authNames)
+}
+
+// Makes the HTTP request with context and given options which returns response body as byte array.
+func (a *ApiClient) CallApiWithContext(ctx context.Context, uri *string, httpMethod string, body interface{},
 	queryParams url.Values, headerParams map[string]string, formParams url.Values,
 	accepts []string, contentType []string, authNames []string) (interface{}, error) {
 	if a.AllowVersionNegotiation && !a.negotiationCompleted {
 		a.NegotiateVersion(authNames)
 	}
-	return a.callApiInternal(uri, httpMethod, body, queryParams, headerParams,
+	return a.callApiInternal(ctx, uri, httpMethod, body, queryParams, headerParams,
 		formParams, accepts, contentType, authNames)
 }
 
-func (a *ApiClient) callApiInternal(uri *string, httpMethod string, body interface{},
+func (a *ApiClient) callApiInternal(ctx context.Context, uri *string, httpMethod string, body interface{},
 	queryParams url.Values, headerParams map[string]string, formParams url.Values,
 	accepts []string, contentType []string, authNames []string) (interface{}, error) {
 
@@ -232,7 +241,7 @@ func (a *ApiClient) callApiInternal(uri *string, httpMethod string, body interfa
 		addEtagReferenceToHeader(body, headerParams)
 	}
 
-	request, err := a.prepareRequest(path, httpMethod, body, headerParams, queryParams, formParams, authNames)
+	request, err := a.prepareRequest(ctx, path, httpMethod, body, headerParams, queryParams, formParams, authNames)
 	if err != nil {
 		a.logger.Error(err.Error())
 		return nil, err
@@ -260,7 +269,7 @@ func (a *ApiClient) callApiInternal(uri *string, httpMethod string, body interfa
 	// Retry one more time without the cookie but with basic auth header
 	if response != nil && response.StatusCode == 401 && len(a.cookie) > 0 {
 		a.logger.Debug("Retrying the request to refresh cookie...")
-		request, _ = a.prepareRequest(path, httpMethod, body, headerParams, queryParams, formParams, authNames)
+		request, _ = a.prepareRequest(ctx, path, httpMethod, body, headerParams, queryParams, formParams, authNames)
 		a.refreshCookie = true
 		if len(a.previousAuth) > 0 {
 			request.Header["Authorization"] = []string{a.previousAuth}
@@ -278,7 +287,7 @@ func (a *ApiClient) callApiInternal(uri *string, httpMethod string, body interfa
 		if response.Header != nil && response.Header.Get("Location") != "" {
 			location := response.Header.Get("Location")
 			a.logger.Info("Redirecting to : " + location)
-			request, _ = a.prepareRequest(location, httpMethod, body, headerParams, queryParams, formParams, authNames)
+			request, _ = a.prepareRequest(ctx, location, httpMethod, body, headerParams, queryParams, formParams, authNames)
 			if response.Header.Get("X-Redirect-Token") != "" {
 				request.Header["Cookie"] = []string{response.Header.Get("X-Redirect-Token")}
 			}
@@ -686,6 +695,7 @@ func (a *ApiClient) selectHeaderAccept(accepts []string) string {
 
 // Build the request
 func (a *ApiClient) prepareRequest(
+	ctx context.Context,
 	path string, method string,
 	postBody interface{},
 	headerParams map[string]string,
@@ -764,6 +774,13 @@ func (a *ApiClient) prepareRequest(
 
 	// Add the user agent to the request.
 	localVarRequest.Header["User-Agent"] = []string{userAgent}
+
+	// Set the context to the request
+	if ctx != nil {
+		localVarRequest = localVarRequest.WithContext(ctx)
+	} else {
+		a.logger.Warnf("Context is nil. Using background context.")
+	}
 
 	// Authentication
 	a.SetUserName(a.Username)
@@ -896,7 +913,7 @@ func (a *ApiClient) getVersionDetails(version string) map[string]string {
 func (a *ApiClient) NegotiateVersion(authNames []string) {
 	path := new(string)
 	*path = "/api/datapolicies/unversioned/info"
-	response, err := a.callApiInternal(path, http.MethodOptions, nil, url.Values{}, make(map[string]string),
+	response, err := a.callApiInternal(context.Background(), path, http.MethodOptions, nil, url.Values{}, make(map[string]string),
 		url.Values{}, []string{}, []string{"application/json"}, authNames)
 	if nil == err {
 		unmarshalledResp := make(map[string]interface{})
