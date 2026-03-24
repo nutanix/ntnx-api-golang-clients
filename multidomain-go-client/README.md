@@ -9,8 +9,8 @@ The Go client for Nutanix Multidomain Versioned APIs is designed for Go client a
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.2
-- Package version: v4.2.1
+- API version: v4.3
+- Package version: v4.3.1
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/...@v4.2.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/...@v4.3.1
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4 v4.2.1
+	github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4 v4.3.1
 )
 ```
 
@@ -225,7 +225,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ExternalRepositoriesApiInstance = api.NewExternalRepositoriesApi(ApiClientInstance)
-extId := "36AfD70F-EDFE-bFBe-16fF-Eec4fFAcDCAe"
+extId := "2f6EEEA8-8F1d-D2a0-3af1-Dd3bE0AfDfEF"
 
 // 
 getResponse, err := ExternalRepositoriesApiInstance.GetExternalRepositoryById(&extId)
@@ -273,7 +273,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ExternalRepositoriesApiInstance = api.NewExternalRepositoriesApi(ApiClientInstance)
-extId := "36AfD70F-EDFE-bFBe-16fF-Eec4fFAcDCAe"
+extId := "2f6EEEA8-8F1d-D2a0-3af1-Dd3bE0AfDfEF"
 
 // 
 getResponse, err := ExternalRepositoriesApiInstance.GetExternalRepositoryById(&extId)
@@ -345,7 +345,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=multidomain&version=v4.2&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=multidomain&version=v4.3&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).

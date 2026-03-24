@@ -5,29 +5,29 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/config"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/request/externalrepositories"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/multidomain-go-client/v4/models/multidomain/v4/request/registereddomains"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type ExternalRepositoriesApi struct {
+type RegisteredDomainsApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
-	ServiceClient *ExternalRepositoriesServiceApi
+	ServiceClient *RegisteredDomainsServiceApi
 }
 
-type ExternalRepositoriesServiceApi struct {
+type RegisteredDomainsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewExternalRepositoriesApi(apiClient *client.ApiClient) *ExternalRepositoriesApi {
+func NewRegisteredDomainsApi(apiClient *client.ApiClient) *RegisteredDomainsApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ExternalRepositoriesApi{
+	a := &RegisteredDomainsApi{
 		ApiClient: apiClient,
 	}
 
@@ -37,17 +37,17 @@ func NewExternalRepositoriesApi(apiClient *client.ApiClient) *ExternalRepositori
 		a.headersToSkip[header] = true
 	}
 
-	a.ServiceClient = NewExternalRepositoriesServiceApi(a.ApiClient)
+	a.ServiceClient = NewRegisteredDomainsServiceApi(a.ApiClient)
 
 	return a
 }
 
-func NewExternalRepositoriesServiceApi(apiClient *client.ApiClient) *ExternalRepositoriesServiceApi {
+func NewRegisteredDomainsServiceApi(apiClient *client.ApiClient) *RegisteredDomainsServiceApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ExternalRepositoriesServiceApi{
+	a := &RegisteredDomainsServiceApi{
 		ApiClient: apiClient,
 	}
 
@@ -60,24 +60,24 @@ func NewExternalRepositoriesServiceApi(apiClient *client.ApiClient) *ExternalRep
 	return a
 }
 
-// Creates an external repository.
-func (api *ExternalRepositoriesApi) CreateExternalRepository(body *import1.ExternalRepository, args ...map[string]interface{}) (*import1.CreateExternalRepositoryApiResponse, error) {
+// Creates a new registered domain and saves it to database.
+func (api *RegisteredDomainsApi) CreateRegisteredDomain(body *import1.RegisteredDomain, args ...map[string]interface{}) (*import1.CreateRegisteredDomainApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewExternalRepositoriesServiceApi(api.ApiClient)
+		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateExternalRepository(context.Background(), &import2.CreateExternalRepositoryRequest{
+	return api.ServiceClient.CreateRegisteredDomain(context.Background(), &import6.CreateRegisteredDomainRequest{
 		Body: body,
 	}, args...)
 }
 
-// Creates an external repository.
-func (api *ExternalRepositoriesServiceApi) CreateExternalRepository(ctx context.Context, request *import2.CreateExternalRepositoryRequest, args ...map[string]interface{}) (*import1.CreateExternalRepositoryApiResponse, error) {
+// Creates a new registered domain and saves it to database.
+func (api *RegisteredDomainsServiceApi) CreateRegisteredDomain(ctx context.Context, request *import6.CreateRegisteredDomainRequest, args ...map[string]interface{}) (*import1.CreateRegisteredDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/external-repositories"
+	uri := "/api/multidomain/v4.3/config/registered-domains"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -113,29 +113,29 @@ func (api *ExternalRepositoriesServiceApi) CreateExternalRepository(ctx context.
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.CreateExternalRepositoryApiResponse)
+	unmarshalledResp := new(import1.CreateRegisteredDomainApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Deletes an external repository by ID.
-func (api *ExternalRepositoriesApi) DeleteExternalRepositoryById(extId *string, args ...map[string]interface{}) (*import1.DeleteExternalRepositoryApiResponse, error) {
+// Deletes the registered domain with the requested external identifier.
+func (api *RegisteredDomainsApi) DeleteRegisteredDomainById(extId *string, args ...map[string]interface{}) (*import1.DeleteRegisteredDomainApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewExternalRepositoriesServiceApi(api.ApiClient)
+		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteExternalRepositoryById(context.Background(), &import2.DeleteExternalRepositoryByIdRequest{
+	return api.ServiceClient.DeleteRegisteredDomainById(context.Background(), &import6.DeleteRegisteredDomainByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
-// Deletes an external repository by ID.
-func (api *ExternalRepositoriesServiceApi) DeleteExternalRepositoryById(ctx context.Context, request *import2.DeleteExternalRepositoryByIdRequest, args ...map[string]interface{}) (*import1.DeleteExternalRepositoryApiResponse, error) {
+// Deletes the registered domain with the requested external identifier.
+func (api *RegisteredDomainsServiceApi) DeleteRegisteredDomainById(ctx context.Context, request *import6.DeleteRegisteredDomainByIdRequest, args ...map[string]interface{}) (*import1.DeleteRegisteredDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/external-repositories/{extId}"
+	uri := "/api/multidomain/v4.3/config/registered-domains/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -173,29 +173,30 @@ func (api *ExternalRepositoriesServiceApi) DeleteExternalRepositoryById(ctx cont
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.DeleteExternalRepositoryApiResponse)
+	unmarshalledResp := new(import1.DeleteRegisteredDomainApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Gets an external repository by ID.
-func (api *ExternalRepositoriesApi) GetExternalRepositoryById(extId *string, args ...map[string]interface{}) (*import1.GetExternalRepositoryApiResponse, error) {
+// Retrieves the registered domain by its external identifier.
+func (api *RegisteredDomainsApi) GetRegisteredDomainById(extId *string, select_ *string, args ...map[string]interface{}) (*import1.GetRegisteredDomainApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewExternalRepositoriesServiceApi(api.ApiClient)
+		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetExternalRepositoryById(context.Background(), &import2.GetExternalRepositoryByIdRequest{
-		ExtId: extId,
+	return api.ServiceClient.GetRegisteredDomainById(context.Background(), &import6.GetRegisteredDomainByIdRequest{
+		ExtId:   extId,
+		Select_: select_,
 	}, args...)
 }
 
-// Gets an external repository by ID.
-func (api *ExternalRepositoriesServiceApi) GetExternalRepositoryById(ctx context.Context, request *import2.GetExternalRepositoryByIdRequest, args ...map[string]interface{}) (*import1.GetExternalRepositoryApiResponse, error) {
+// Retrieves the registered domain by its external identifier.
+func (api *RegisteredDomainsServiceApi) GetRegisteredDomainById(ctx context.Context, request *import6.GetRegisteredDomainByIdRequest, args ...map[string]interface{}) (*import1.GetRegisteredDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/external-repositories/{extId}"
+	uri := "/api/multidomain/v4.3/config/registered-domains/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -214,6 +215,10 @@ func (api *ExternalRepositoriesServiceApi) GetExternalRepositoryById(ctx context
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -233,33 +238,34 @@ func (api *ExternalRepositoriesServiceApi) GetExternalRepositoryById(ctx context
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.GetExternalRepositoryApiResponse)
+	unmarshalledResp := new(import1.GetRegisteredDomainApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Get all external repositories.
-func (api *ExternalRepositoriesApi) ListExternalRepositories(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListExternalRepositoriesApiResponse, error) {
+// List all registered domains.
+func (api *RegisteredDomainsApi) ListRegisteredDomains(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListRegisteredDomainsApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewExternalRepositoriesServiceApi(api.ApiClient)
+		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListExternalRepositories(context.Background(), &import2.ListExternalRepositoriesRequest{
+	return api.ServiceClient.ListRegisteredDomains(context.Background(), &import6.ListRegisteredDomainsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
 		Orderby_: orderby_,
+		Expand_:  expand_,
 		Select_:  select_,
 	}, args...)
 }
 
-// Get all external repositories.
-func (api *ExternalRepositoriesServiceApi) ListExternalRepositories(ctx context.Context, request *import2.ListExternalRepositoriesRequest, args ...map[string]interface{}) (*import1.ListExternalRepositoriesApiResponse, error) {
+// List all registered domains.
+func (api *RegisteredDomainsServiceApi) ListRegisteredDomains(ctx context.Context, request *import6.ListRegisteredDomainsRequest, args ...map[string]interface{}) (*import1.ListRegisteredDomainsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/external-repositories"
+	uri := "/api/multidomain/v4.3/config/registered-domains"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -284,6 +290,9 @@ func (api *ExternalRepositoriesServiceApi) ListExternalRepositories(ctx context.
 	if request.Orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
+	if request.Expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*request.Expand_, ""))
+	}
 	if request.Select_ != nil {
 		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
@@ -306,30 +315,30 @@ func (api *ExternalRepositoriesServiceApi) ListExternalRepositories(ctx context.
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.ListExternalRepositoriesApiResponse)
+	unmarshalledResp := new(import1.ListRegisteredDomainsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
-// Task ID corresponding to the external repository update operation.
-func (api *ExternalRepositoriesApi) UpdateExternalRepositoryById(extId *string, body *import1.ExternalRepository, args ...map[string]interface{}) (*import1.UpdateExternalRepositoryApiResponse, error) {
+// Updates a registered domain by its external identifier.
+func (api *RegisteredDomainsApi) UpdateRegisteredDomainById(extId *string, body *import1.RegisteredDomain, args ...map[string]interface{}) (*import1.UpdateRegisteredDomainApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewExternalRepositoriesServiceApi(api.ApiClient)
+		api.ServiceClient = NewRegisteredDomainsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateExternalRepositoryById(context.Background(), &import2.UpdateExternalRepositoryByIdRequest{
+	return api.ServiceClient.UpdateRegisteredDomainById(context.Background(), &import6.UpdateRegisteredDomainByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
-// Task ID corresponding to the external repository update operation.
-func (api *ExternalRepositoriesServiceApi) UpdateExternalRepositoryById(ctx context.Context, request *import2.UpdateExternalRepositoryByIdRequest, args ...map[string]interface{}) (*import1.UpdateExternalRepositoryApiResponse, error) {
+// Updates a registered domain by its external identifier.
+func (api *RegisteredDomainsServiceApi) UpdateRegisteredDomainById(ctx context.Context, request *import6.UpdateRegisteredDomainByIdRequest, args ...map[string]interface{}) (*import1.UpdateRegisteredDomainApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/multidomain/v4.3/config/external-repositories/{extId}"
+	uri := "/api/multidomain/v4.3/config/registered-domains/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -371,7 +380,7 @@ func (api *ExternalRepositoriesServiceApi) UpdateExternalRepositoryById(ctx cont
 		return nil, err
 	}
 
-	unmarshalledResp := new(import1.UpdateExternalRepositoryApiResponse)
+	unmarshalledResp := new(import1.UpdateRegisteredDomainApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
