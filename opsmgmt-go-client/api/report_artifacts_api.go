@@ -1,12 +1,14 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/client"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/config"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/response"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/content"
+	import4 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/config"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/response"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/content"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/request/reportartifacts"
 	"net/http"
 	"net/url"
 	"os"
@@ -14,6 +16,12 @@ import (
 )
 
 type ReportArtifactsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *ReportArtifactsServiceApi
+}
+
+type ReportArtifactsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -33,11 +41,41 @@ func NewReportArtifactsApi(apiClient *client.ApiClient) *ReportArtifactsApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewReportArtifactsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewReportArtifactsServiceApi(apiClient *client.ApiClient) *ReportArtifactsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &ReportArtifactsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // This operation creates a report artifact using the provided artifact type and file type.
-func (api *ReportArtifactsApi) CreateReportArtifact(body *import2.ReportArtifact, args ...map[string]interface{}) (*import2.CreateReportArtifactApiResponse, error) {
+func (api *ReportArtifactsApi) CreateReportArtifact(body *import3.ReportArtifact, args ...map[string]interface{}) (*import3.CreateReportArtifactApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewReportArtifactsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.CreateReportArtifact(context.Background(), &import6.CreateReportArtifactRequest{
+		Body: body,
+	}, args...)
+}
+
+// This operation creates a report artifact using the provided artifact type and file type.
+func (api *ReportArtifactsServiceApi) CreateReportArtifact(ctx context.Context, request *import6.CreateReportArtifactRequest, args ...map[string]interface{}) (*import3.CreateReportArtifactApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -46,7 +84,7 @@ func (api *ReportArtifactsApi) CreateReportArtifact(body *import2.ReportArtifact
 	uri := "/api/opsmgmt/v4.0/content/report-artifacts"
 
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
@@ -74,18 +112,28 @@ func (api *ReportArtifactsApi) CreateReportArtifact(body *import2.ReportArtifact
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.CreateReportArtifactApiResponse)
+	unmarshalledResp := new(import3.CreateReportArtifactApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // This operation downloads the artifact with the given UUID.
-func (api *ReportArtifactsApi) DownloadArtifactFile(reportArtifactExtId *string, args ...map[string]interface{}) (*import2.DownloadArtifactileApiResponse, error) {
+func (api *ReportArtifactsApi) DownloadArtifactFile(reportArtifactExtId *string, args ...map[string]interface{}) (*import3.DownloadArtifactileApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewReportArtifactsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.DownloadArtifactFile(context.Background(), &import6.DownloadArtifactFileRequest{
+		ReportArtifactExtId: reportArtifactExtId,
+	}, args...)
+}
+
+// This operation downloads the artifact with the given UUID.
+func (api *ReportArtifactsServiceApi) DownloadArtifactFile(ctx context.Context, request *import6.DownloadArtifactFileRequest, args ...map[string]interface{}) (*import3.DownloadArtifactileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -94,12 +142,12 @@ func (api *ReportArtifactsApi) DownloadArtifactFile(reportArtifactExtId *string,
 	uri := "/api/opsmgmt/v4.0/content/report-artifacts/{reportArtifactExtId}/file"
 
 	// verify the required parameter 'reportArtifactExtId' is set
-	if nil == reportArtifactExtId {
+	if nil == request.ReportArtifactExtId {
 		return nil, client.ReportError("reportArtifactExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"reportArtifactExtId"+"}", url.PathEscape(client.ParameterToString(*reportArtifactExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"reportArtifactExtId"+"}", url.PathEscape(client.ParameterToString(*request.ReportArtifactExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -124,7 +172,7 @@ func (api *ReportArtifactsApi) DownloadArtifactFile(reportArtifactExtId *string,
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -138,15 +186,15 @@ func (api *ReportArtifactsApi) DownloadArtifactFile(reportArtifactExtId *string,
 				return nil, err
 			}
 
-			response := import2.NewDownloadArtifactileApiResponse()
-			fileDetail := import2.NewFileDetail()
+			response := import3.NewDownloadArtifactileApiResponse()
+			fileDetail := import3.NewFileDetail()
 			fileDetail.Path = filePath
 
 			flagName := "hasError"
 			flagValue := false
-			var flags []import3.Flag
-			flags = append(flags, import3.Flag{Name: &flagName, Value: &flagValue})
-			metadata := import4.NewApiResponseMetadata()
+			var flags []import4.Flag
+			flags = append(flags, import4.Flag{Name: &flagName, Value: &flagValue})
+			metadata := import5.NewApiResponseMetadata()
 			metadata.Flags = flags
 			response.Metadata = metadata
 			err = response.SetData(*fileDetail)
@@ -158,13 +206,26 @@ func (api *ReportArtifactsApi) DownloadArtifactFile(reportArtifactExtId *string,
 		}
 	}
 
-	unmarshalledResp := new(import2.DownloadArtifactileApiResponse)
+	unmarshalledResp := new(import3.DownloadArtifactileApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // Endpoint for listing all report artifacts accessible to the user matching the filter criteria.
-func (api *ReportArtifactsApi) ListReportArtifacts(page_ *int, limit_ *int, filter_ *string, select_ *string, args ...map[string]interface{}) (*import2.ListReportArtifactsApiResponse, error) {
+func (api *ReportArtifactsApi) ListReportArtifacts(page_ *int, limit_ *int, filter_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListReportArtifactsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewReportArtifactsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListReportArtifacts(context.Background(), &import6.ListReportArtifactsRequest{
+		Page_:   page_,
+		Limit_:  limit_,
+		Filter_: filter_,
+		Select_: select_,
+	}, args...)
+}
+
+// Endpoint for listing all report artifacts accessible to the user matching the filter criteria.
+func (api *ReportArtifactsServiceApi) ListReportArtifacts(ctx context.Context, request *import6.ListReportArtifactsRequest, args ...map[string]interface{}) (*import3.ListReportArtifactsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -183,17 +244,17 @@ func (api *ReportArtifactsApi) ListReportArtifacts(page_ *int, limit_ *int, filt
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -209,18 +270,29 @@ func (api *ReportArtifactsApi) ListReportArtifacts(page_ *int, limit_ *int, filt
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.ListReportArtifactsApiResponse)
+	unmarshalledResp := new(import3.ListReportArtifactsApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }
 
 // This operation uploads an artifact file to the provided UUID.
-func (api *ReportArtifactsApi) UploadArtifactFile(reportArtifactExtId *string, path *string, args ...map[string]interface{}) (*import2.UploadArtifactApiResponse, error) {
+func (api *ReportArtifactsApi) UploadArtifactFile(reportArtifactExtId *string, path *string, args ...map[string]interface{}) (*import3.UploadArtifactApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewReportArtifactsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.UploadArtifactFile(context.Background(), &import6.UploadArtifactFileRequest{
+		ReportArtifactExtId: reportArtifactExtId,
+		Path:                path,
+	}, args...)
+}
+
+// This operation uploads an artifact file to the provided UUID.
+func (api *ReportArtifactsServiceApi) UploadArtifactFile(ctx context.Context, request *import6.UploadArtifactFileRequest, args ...map[string]interface{}) (*import3.UploadArtifactApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -229,16 +301,16 @@ func (api *ReportArtifactsApi) UploadArtifactFile(reportArtifactExtId *string, p
 	uri := "/api/opsmgmt/v4.0/content/report-artifacts/{reportArtifactExtId}/$actions/upload"
 
 	// verify the required parameter 'reportArtifactExtId' is set
-	if nil == reportArtifactExtId {
+	if nil == request.ReportArtifactExtId {
 		return nil, client.ReportError("reportArtifactExtId is required and must be specified")
 	}
 	// verify the required parameter 'path' is set
-	if nil == path {
+	if nil == request.Path {
 		return nil, client.ReportError("path is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"reportArtifactExtId"+"}", url.PathEscape(client.ParameterToString(*reportArtifactExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"reportArtifactExtId"+"}", url.PathEscape(client.ParameterToString(*request.ReportArtifactExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -261,7 +333,7 @@ func (api *ReportArtifactsApi) UploadArtifactFile(reportArtifactExtId *string, p
 		}
 	}
 
-	file, err := os.Open(*path)
+	file, err := os.Open(*request.Path)
 	if err != nil {
 		return nil, err
 	}
@@ -275,12 +347,12 @@ func (api *ReportArtifactsApi) UploadArtifactFile(reportArtifactExtId *string, p
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, file, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, file, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
 
-	unmarshalledResp := new(import2.UploadArtifactApiResponse)
+	unmarshalledResp := new(import3.UploadArtifactApiResponse)
 	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
 	return unmarshalledResp, err
 }

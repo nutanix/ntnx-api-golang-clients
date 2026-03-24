@@ -10,7 +10,7 @@ The Go client for Nutanix Cloud Management Platform APIs is designed for Go clie
 
 ## Version
 - API version: v4.0
-- Package version: v4.0.3
+- Package version: v4.0.4
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...@v4.0.3
+$ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...@v4.0.4
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4 v4.0.3
+	github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4 v4.0.4
 )
 ```
 
@@ -225,7 +225,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ReportConfigApiInstance = api.NewReportConfigApi(ApiClientInstance)
-extId := "1Da7Fd42-B26D-dDFF-2cAa-AdDAF9cCB37d"
+extId := "c5a5afEd-6DaE-c2f9-d5fb-bAadde1Fb121"
 
 // 
 getResponse, err := ReportConfigApiInstance.GetReportConfigById(&extId)
@@ -273,7 +273,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ReportConfigApiInstance = api.NewReportConfigApi(ApiClientInstance)
-extId := "1Da7Fd42-B26D-dDFF-2cAa-AdDAF9cCB37d"
+extId := "c5a5afEd-6DaE-c2f9-d5fb-bAadde1Fb121"
 
 // 
 getResponse, err := ReportConfigApiInstance.GetReportConfigById(&extId)
