@@ -1,0 +1,12 @@
+package networksecuritypolicies
+
+import (
+	import1 "github.com/nutanix/ntnx-api-golang-clients/microseg-go-client/v4/models/microseg/v4/config"
+)
+
+// This file holds the request struct for the ExportNetworkSecurityPolicy operation.
+
+type ExportNetworkSecurityPolicyRequest struct {
+	// A list of network security policy external identifiers to export.
+	Body *import1.NetworkSecurityPolicyExportSpec
+}
