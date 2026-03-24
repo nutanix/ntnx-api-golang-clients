@@ -10,7 +10,7 @@ The Go client for Nutanix Objects Storage Management APIs is designed for Go cli
 
 ## Version
 - API version: v4.0
-- Package version: v4.0.2
+- Package version: v4.0.3
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.0.2
+$ go get github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4/...@v4.0.3
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.0.2
+	github.com/nutanix/ntnx-api-golang-clients/objects-go-client/v4 v4.0.3
 )
 ```
 
@@ -225,7 +225,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "1ACdcACe-54D7-8A44-b88a-28cE6DFBfc8d"
+extId := "ecDF47Bf-0A5c-8BBe-c35A-e6F8aaaBbEf0"
 
 // 
 getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)
@@ -273,7 +273,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 ObjectStoresApiInstance = api.NewObjectStoresApi(ApiClientInstance)
-extId := "1ACdcACe-54D7-8A44-b88a-28cE6DFBfc8d"
+extId := "ecDF47Bf-0A5c-8BBe-c35A-e6F8aaaBbEf0"
 
 // 
 getResponse, err := ObjectStoresApiInstance.GetObjectstoreById(&extId)
