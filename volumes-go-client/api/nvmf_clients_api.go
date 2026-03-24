@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/volumes-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/volumes-go-client/v4/models/volumes/v4/config"
+	import3 "github.com/nutanix/ntnx-api-golang-clients/volumes-go-client/v4/models/volumes/v4/request/nvmfclients"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type NvmfClientsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *NvmfClientsServiceApi
+}
+
+type NvmfClientsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,11 +37,41 @@ func NewNvmfClientsApi(apiClient *client.ApiClient) *NvmfClientsApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewNvmfClientsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewNvmfClientsServiceApi(apiClient *client.ApiClient) *NvmfClientsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &NvmfClientsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Fetches NVMe-TCP client details identified by its external identifier.
 func (api *NvmfClientsApi) GetNvmfClientById(extId *string, args ...map[string]interface{}) (*import1.GetNvmfClientApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewNvmfClientsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetNvmfClientById(context.Background(), &import3.GetNvmfClientByIdRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Fetches NVMe-TCP client details identified by its external identifier.
+func (api *NvmfClientsServiceApi) GetNvmfClientById(ctx context.Context, request *import3.GetNvmfClientByIdRequest, args ...map[string]interface{}) (*import1.GetNvmfClientApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -42,12 +80,12 @@ func (api *NvmfClientsApi) GetNvmfClientById(extId *string, args ...map[string]i
 	uri := "/api/volumes/v4.2/config/nvmf-clients/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -72,7 +110,7 @@ func (api *NvmfClientsApi) GetNvmfClientById(extId *string, args ...map[string]i
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -84,6 +122,21 @@ func (api *NvmfClientsApi) GetNvmfClientById(extId *string, args ...map[string]i
 
 // Fetches a list of all the NVMe-TCP clients.
 func (api *NvmfClientsApi) ListNvmfClients(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListNvmfClientsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewNvmfClientsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListNvmfClients(context.Background(), &import3.ListNvmfClientsRequest{
+		Page_:    page_,
+		Limit_:   limit_,
+		Filter_:  filter_,
+		Orderby_: orderby_,
+		Expand_:  expand_,
+		Select_:  select_,
+	}, args...)
+}
+
+// Fetches a list of all the NVMe-TCP clients.
+func (api *NvmfClientsServiceApi) ListNvmfClients(ctx context.Context, request *import3.ListNvmfClientsRequest, args ...map[string]interface{}) (*import1.ListNvmfClientsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -102,23 +155,23 @@ func (api *NvmfClientsApi) ListNvmfClients(page_ *int, limit_ *int, filter_ *str
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
-	if expand_ != nil {
-		queryParams.Add("$expand", client.ParameterToString(*expand_, ""))
+	if request.Expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*request.Expand_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -134,7 +187,7 @@ func (api *NvmfClientsApi) ListNvmfClients(page_ *int, limit_ *int, filter_ *str
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
