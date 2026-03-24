@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/models/licensing/v4/agreements"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/licensing-go-client/v4/models/licensing/v4/request/enduserlicenseagreement"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type EndUserLicenseAgreementApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *EndUserLicenseAgreementServiceApi
+}
+
+type EndUserLicenseAgreementServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,11 +37,41 @@ func NewEndUserLicenseAgreementApi(apiClient *client.ApiClient) *EndUserLicenseA
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewEndUserLicenseAgreementServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewEndUserLicenseAgreementServiceApi(apiClient *client.ApiClient) *EndUserLicenseAgreementServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &EndUserLicenseAgreementServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // API for allowing users to accept End User License Agreement.
 func (api *EndUserLicenseAgreementApi) AddUser(body *import1.EndUser, args ...map[string]interface{}) (*import1.AddUserApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewEndUserLicenseAgreementServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.AddUser(context.Background(), &import2.AddUserRequest{
+		Body: body,
+	}, args...)
+}
+
+// API for allowing users to accept End User License Agreement.
+func (api *EndUserLicenseAgreementServiceApi) AddUser(ctx context.Context, request *import2.AddUserRequest, args ...map[string]interface{}) (*import1.AddUserApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -42,7 +80,7 @@ func (api *EndUserLicenseAgreementApi) AddUser(body *import1.EndUser, args ...ma
 	uri := "/api/licensing/v4.3/agreements/eula/$actions/add-user"
 
 	// verify the required parameter 'body' is set
-	if nil == body {
+	if nil == request.Body {
 		return nil, client.ReportError("body is required and must be specified")
 	}
 
@@ -70,7 +108,7 @@ func (api *EndUserLicenseAgreementApi) AddUser(body *import1.EndUser, args ...ma
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodPost, body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -82,6 +120,14 @@ func (api *EndUserLicenseAgreementApi) AddUser(body *import1.EndUser, args ...ma
 
 // API to fetch active End User License Agreement.
 func (api *EndUserLicenseAgreementApi) GetEula(args ...map[string]interface{}) (*import1.GetEulaApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewEndUserLicenseAgreementServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetEula(context.Background(), &import2.GetEulaRequest{}, args...)
+}
+
+// API to fetch active End User License Agreement.
+func (api *EndUserLicenseAgreementServiceApi) GetEula(ctx context.Context, request *import2.GetEulaRequest, args ...map[string]interface{}) (*import1.GetEulaApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
@@ -113,7 +159,7 @@ func (api *EndUserLicenseAgreementApi) GetEula(args ...map[string]interface{}) (
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
