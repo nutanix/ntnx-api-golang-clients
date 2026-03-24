@@ -1,11 +1,11 @@
 /*
  * Generated file models/aiops/v4/config/config_model.go.
  *
- * Product version: 4.2.1-beta-1
+ * Product version: 4.2.2-beta-1
  *
  * Part of the Nutanix AIOps APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
