@@ -1,11 +1,11 @@
 /*
  * Generated file models/dataprotection/v4/content/content_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Data Protection APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -117,7 +117,7 @@ func NewBaseRecoveryPointSpec() *BaseRecoveryPointSpec {
 	p := new(BaseRecoveryPointSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.BaseRecoveryPointSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -237,14 +237,14 @@ func NewChangedRegion() *ChangedRegion {
 	p := new(ChangedRegion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedRegion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.2/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
+REST response for all response codes in API path /dataprotection/v4.3/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
 */
 type ChangedVmRegionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -344,7 +344,7 @@ func NewChangedVmRegionsApiResponse() *ChangedVmRegionsApiResponse {
 	p := new(ChangedVmRegionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedVmRegionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -372,7 +372,7 @@ func (p *ChangedVmRegionsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.2/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
+REST response for all response codes in API path /dataprotection/v4.3/content/recovery-points/{recoveryPointExtId}/volume-group-recovery-points/{volumeGroupRecoveryPointExtId}/disk-recovery-points/{extId}/$actions/compute-changed-regions Post operation
 */
 type ChangedVolumeGroupRegionsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -472,7 +472,7 @@ func NewChangedVolumeGroupRegionsApiResponse() *ChangedVolumeGroupRegionsApiResp
 	p := new(ChangedVolumeGroupRegionsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ChangedVolumeGroupRegionsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -690,7 +690,7 @@ func NewClusterDiscoverSpec() *ClusterDiscoverSpec {
 	p := new(ClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -837,7 +837,7 @@ func NewComputeChangedRegionsClusterDiscoverSpec() *ComputeChangedRegionsCluster
 	p := new(ComputeChangedRegionsClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.ComputeChangedRegionsClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -961,7 +961,7 @@ func NewDiskRecoveryPointReference() *DiskRecoveryPointReference {
 	p := new(DiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.DiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1045,14 +1045,14 @@ func NewFileWrapper() *FileWrapper {
 	p := new(FileWrapper)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.FileWrapper"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.2/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata Get operation
+REST response for all response codes in API path /dataprotection/v4.3/content/recovery-points/{recoveryPointExtId}/vm-recovery-points/{vmRecoveryPointExtId}/vss-metadata Get operation
 */
 type GetVssMetadataApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1152,7 +1152,7 @@ func NewGetVssMetadataApiResponse() *GetVssMetadataApiResponse {
 	p := new(GetVssMetadataApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.GetVssMetadataApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1275,7 +1275,7 @@ func NewGetVssMetadataClusterDiscoverSpec() *GetVssMetadataClusterDiscoverSpec {
 	p := new(GetVssMetadataClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.GetVssMetadataClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1465,7 +1465,7 @@ func NewVmDiskRecoveryPointClusterDiscoverSpec() *VmDiskRecoveryPointClusterDisc
 	p := new(VmDiskRecoveryPointClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmDiskRecoveryPointClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1576,7 +1576,7 @@ func NewVmDiskRecoveryPointReference() *VmDiskRecoveryPointReference {
 	p := new(VmDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1711,7 +1711,7 @@ func NewVmRecoveryPointChangedRegionsComputeSpec() *VmRecoveryPointChangedRegion
 	p := new(VmRecoveryPointChangedRegionsComputeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VmRecoveryPointChangedRegionsComputeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1822,7 +1822,7 @@ func NewVolumeGroupDiskRecoveryPointClusterDiscoverSpec() *VolumeGroupDiskRecove
 	p := new(VolumeGroupDiskRecoveryPointClusterDiscoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupDiskRecoveryPointClusterDiscoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1933,7 +1933,7 @@ func NewVolumeGroupDiskRecoveryPointReference() *VolumeGroupDiskRecoveryPointRef
 	p := new(VolumeGroupDiskRecoveryPointReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupDiskRecoveryPointReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2068,7 +2068,7 @@ func NewVolumeGroupRecoveryPointChangedRegionsComputeSpec() *VolumeGroupRecovery
 	p := new(VolumeGroupRecoveryPointChangedRegionsComputeSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.content.VolumeGroupRecoveryPointChangedRegionsComputeSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

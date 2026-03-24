@@ -1,11 +1,11 @@
 /*
  * Generated file models/dataprotection/v4/operations/operations_model.go.
  *
- * Product version: 4.2.1
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Data Protection APIs
  *
- * (c) 2025 Nutanix Inc.  All rights reserved
+ * (c) 2026 Nutanix Inc.  All rights reserved
  *
  */
 
@@ -131,14 +131,14 @@ func NewBaseRecoveryPlanActionSpec() *BaseRecoveryPlanActionSpec {
 	p := new(BaseRecoveryPlanActionSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.BaseRecoveryPlanActionSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.2/operations/recovery-plans/{recoveryPlanExtId}/$actions/clean-up-resources Post operation
+REST response for all response codes in API path /dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/clean-up-resources Post operation
 */
 type CleanupRecoveryPlanResourcesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -238,7 +238,7 @@ func NewCleanupRecoveryPlanResourcesApiResponse() *CleanupRecoveryPlanResourcesA
 	p := new(CleanupRecoveryPlanResourcesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.CleanupRecoveryPlanResourcesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -266,7 +266,7 @@ func (p *CleanupRecoveryPlanResourcesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.2/operations/recovery-plans/{recoveryPlanExtId}/$actions/planned-failover Post operation
+REST response for all response codes in API path /dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/planned-failover Post operation
 */
 type PlannedFailoverRecoveryPlanApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -366,7 +366,7 @@ func NewPlannedFailoverRecoveryPlanApiResponse() *PlannedFailoverRecoveryPlanApi
 	p := new(PlannedFailoverRecoveryPlanApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.PlannedFailoverRecoveryPlanApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -515,7 +515,7 @@ func NewPlannedFailoverSpec() *PlannedFailoverSpec {
 	p := new(PlannedFailoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.PlannedFailoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.ShouldIgnoreWarnings = new(bool)
@@ -527,7 +527,7 @@ func NewPlannedFailoverSpec() *PlannedFailoverSpec {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.2/operations/recovery-plans/{recoveryPlanExtId}/$actions/test-failover Post operation
+REST response for all response codes in API path /dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/test-failover Post operation
 */
 type TestFailoverRecoveryPlanApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -627,7 +627,7 @@ func NewTestFailoverRecoveryPlanApiResponse() *TestFailoverRecoveryPlanApiRespon
 	p := new(TestFailoverRecoveryPlanApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.TestFailoverRecoveryPlanApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -667,6 +667,10 @@ type TestFailoverSpec struct {
 	  List of failover directions from source disaster recovery location to target disaster recovery location.<br> For example, when failing over virtual machines (VMs) and volume groups from clusters C1, C2 registered to domain manager PC1 on source location to cluster C3 registered to domain manager PC1 on target location, there must be one direction between source location (PC1, C1) to target location (PC1, C3) and another mapping between source location (PC1, C2) and target location (PC1, C3).<br> Domain manager is a required parameter while describing disaster recovery location in failover directions.<br> When creating a Recovery Plan Job across two domain managers, the source clusters are not required.<br> Failover direction contains clusters only when failing over between primary and secondary clusters registered to the same domain manager.
 	*/
 	FailoverDirections []import1.FailoverDirection `json:"failoverDirections"`
+	/*
+	  Indicates whether to enable Instant Restore. This feature allows a workload, such as a virtual machine (VM), to be quickly restored and powered on directly from an external backup repository on a Nutanix AOS cluster, without waiting for a full data transfer.
+	*/
+	IsInstantRestore *bool `json:"isInstantRestore,omitempty"`
 	/*
 	  Name of the Recovery Plan Job.
 	*/
@@ -741,6 +745,9 @@ func (p *TestFailoverSpec) UnmarshalJSON(b []byte) error {
 	if known.FailoverDirections != nil {
 		p.FailoverDirections = known.FailoverDirections
 	}
+	if known.IsInstantRestore != nil {
+		p.IsInstantRestore = known.IsInstantRestore
+	}
 	if known.Name != nil {
 		p.Name = known.Name
 	}
@@ -753,6 +760,7 @@ func (p *TestFailoverSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "failoverDirections")
+	delete(allFields, "isInstantRestore")
 	delete(allFields, "name")
 	delete(allFields, "shouldIgnoreWarnings")
 
@@ -768,9 +776,11 @@ func NewTestFailoverSpec() *TestFailoverSpec {
 	p := new(TestFailoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.TestFailoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
+	p.IsInstantRestore = new(bool)
+	*p.IsInstantRestore = false
 	p.ShouldIgnoreWarnings = new(bool)
 	*p.ShouldIgnoreWarnings = false
 
@@ -778,7 +788,7 @@ func NewTestFailoverSpec() *TestFailoverSpec {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.2/operations/recovery-plans/{recoveryPlanExtId}/$actions/unplanned-failover Post operation
+REST response for all response codes in API path /dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/unplanned-failover Post operation
 */
 type UnplannedFailoverRecoveryPlanApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -878,7 +888,7 @@ func NewUnplannedFailoverRecoveryPlanApiResponse() *UnplannedFailoverRecoveryPla
 	p := new(UnplannedFailoverRecoveryPlanApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.UnplannedFailoverRecoveryPlanApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -918,6 +928,10 @@ type UnplannedFailoverSpec struct {
 	  List of failover directions from source disaster recovery location to target disaster recovery location.<br> For example, when failing over virtual machines (VMs) and volume groups from clusters C1, C2 registered to domain manager PC1 on source location to cluster C3 registered to domain manager PC1 on target location, there must be one direction between source location (PC1, C1) to target location (PC1, C3) and another mapping between source location (PC1, C2) and target location (PC1, C3).<br> Domain manager is a required parameter while describing disaster recovery location in failover directions.<br> When creating a Recovery Plan Job across two domain managers, the source clusters are not required.<br> Failover direction contains clusters only when failing over between primary and secondary clusters registered to the same domain manager.
 	*/
 	FailoverDirections []import1.FailoverDirection `json:"failoverDirections"`
+	/*
+	  Indicates whether this is an instant restore task.
+	*/
+	IsInstantRestore *bool `json:"isInstantRestore,omitempty"`
 	/*
 	  Name of the Recovery Plan Job.
 	*/
@@ -996,6 +1010,9 @@ func (p *UnplannedFailoverSpec) UnmarshalJSON(b []byte) error {
 	if known.FailoverDirections != nil {
 		p.FailoverDirections = known.FailoverDirections
 	}
+	if known.IsInstantRestore != nil {
+		p.IsInstantRestore = known.IsInstantRestore
+	}
 	if known.Name != nil {
 		p.Name = known.Name
 	}
@@ -1011,6 +1028,7 @@ func (p *UnplannedFailoverSpec) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
 	delete(allFields, "failoverDirections")
+	delete(allFields, "isInstantRestore")
 	delete(allFields, "name")
 	delete(allFields, "recoveryReferenceTime")
 	delete(allFields, "shouldIgnoreWarnings")
@@ -1027,9 +1045,11 @@ func NewUnplannedFailoverSpec() *UnplannedFailoverSpec {
 	p := new(UnplannedFailoverSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.UnplannedFailoverSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
+	p.IsInstantRestore = new(bool)
+	*p.IsInstantRestore = false
 	p.ShouldIgnoreWarnings = new(bool)
 	*p.ShouldIgnoreWarnings = false
 
@@ -1037,7 +1057,7 @@ func NewUnplannedFailoverSpec() *UnplannedFailoverSpec {
 }
 
 /*
-REST response for all response codes in API path /dataprotection/v4.2/operations/recovery-plans/{recoveryPlanExtId}/$actions/validate Post operation
+REST response for all response codes in API path /dataprotection/v4.3/operations/recovery-plans/{recoveryPlanExtId}/$actions/validate Post operation
 */
 type ValidateRecoveryPlanApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1137,7 +1157,7 @@ func NewValidateRecoveryPlanApiResponse() *ValidateRecoveryPlanApiResponse {
 	p := new(ValidateRecoveryPlanApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.ValidateRecoveryPlanApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1258,7 +1278,7 @@ func NewValidateSpec() *ValidateSpec {
 	p := new(ValidateSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "dataprotection.v4.operations.ValidateSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

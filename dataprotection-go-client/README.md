@@ -9,8 +9,8 @@ The Go client for Nutanix Data Protection APIs is designed for Go client applica
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.2
-- Package version: v4.2.1
+- API version: v4.3
+- Package version: v4.3.1
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/...@v4.2.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/...@v4.3.1
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4 v4.2.1
+	github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4 v4.3.1
 )
 ```
 
@@ -208,7 +208,7 @@ ApiClientInstance.RetryInterval = 5 * time.Second // Interval (in time.Duration)
 
 ### Invoking an operation
 ```go
-
+// The following sample code is an example and does not reflect the real APIs provided by this client.
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/api"
@@ -216,7 +216,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	ConsistencyGroupsApiInstance *api.ConsistencyGroupsApi
+	SampleApiInstance *api.SampleApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -224,11 +224,11 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ConsistencyGroupsApiInstance = api.NewConsistencyGroupsApi(ApiClientInstance)
-extId := "9CC09eA1-61fB-eC0D-eAB2-E6E3DD30db8e"
+SampleApiInstance = api.SampleApi(ApiClientInstance)
+var extId string = '8a17d0bb-3147-4f3a-bbbd-48ad2a4c19fc' // UUID.
 
-// 
-getResponse, err := ConsistencyGroupsApiInstance.GetConsistencyGroupById(&extId)
+// Get sample entity by ID
+response, err := SampleApiInstance.GetSampleEntityById(&extId)
 if err != nil {
 ....
 }
@@ -256,46 +256,43 @@ You can also modify the headers sent with each individual operation:
 #### Operation specific headers
 Nutanix APIs require that concurrent updates are protected using [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) headers. This would mean that the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header received in the response of a fetch (GET) operation should be used as an [If-Match](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match) header for the modification (PUT) operation.
 ```go
+// The following sample code is an example and does not reflect the real APIs provided by this client.
 import (
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/client"
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/api"
-    // import request body DTO for put api
 )
 
 var (
 	ApiClientInstance *client.ApiClient
-	ConsistencyGroupsApiInstance *api.ConsistencyGroupsApi
+	SampleApiInstance *api.SampleApi
 )
 
 ApiClientInstance = client.NewApiClient()
-// Configure the client as shown in a previous step
+// Configure the client as shown in the previous step
 // ...
 
 // Initialize the API
-ConsistencyGroupsApiInstance = api.NewConsistencyGroupsApi(ApiClientInstance)
-extId := "9CC09eA1-61fB-eC0D-eAB2-E6E3DD30db8e"
+SampleApiInstance = api.SampleApi(ApiClientInstance)
+var extId string = '8a17d0bb-3147-4f3a-bbbd-48ad2a4c19fc' // UUID.
 
-// 
-getResponse, err := ConsistencyGroupsApiInstance.GetConsistencyGroupById(&extId)
+// Get sample entity by ID
+response, err := SampleApiInstance.GetSampleEntityById(&extId)
 if err != nil {
-    ....
+....
 }
 
 // Extract E-Tag Header
-etagValue := ApiClientInstance.GetEtag(getResponse)
+etagValue := ApiClientInstance.GetEtag(response)
+    
+// The following sample code is an example and does not reflect the real APIs provided by this client.
 
+// Update sample entity by ID
 args := make(map[string] interface {})
 args["If-Match"] = etagValue
-// ...
-// Perform update call with received E-Tag reference
-// initialize/change parameters for update
-// ...
-consistencyGroup := getResponse.GetData().(import1.ConsistencyGroup)
-
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := ConsistencyGroupsApiInstance.UpdateConsistencyGroupById(&consistencyGroup&extId, , args)
+response, err := SampleApiInstance.UpdateSampleEntityById(&body, &extId, args)
 if err != nil {
-....
+    ....
 }
 ```
 
@@ -345,7 +342,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=dataprotection&version=v4.2&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=dataprotection&version=v4.3&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).

@@ -1,15 +1,23 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/dataprotection/v4/config"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/dataprotection-go-client/v4/models/dataprotection/v4/request/recoveryplanjobs"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 type RecoveryPlanJobsApi struct {
+	ApiClient     *client.ApiClient
+	headersToSkip map[string]bool
+	ServiceClient *RecoveryPlanJobsServiceApi
+}
+
+type RecoveryPlanJobsServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
@@ -29,25 +37,55 @@ func NewRecoveryPlanJobsApi(apiClient *client.ApiClient) *RecoveryPlanJobsApi {
 		a.headersToSkip[header] = true
 	}
 
+	a.ServiceClient = NewRecoveryPlanJobsServiceApi(a.ApiClient)
+
+	return a
+}
+
+func NewRecoveryPlanJobsServiceApi(apiClient *client.ApiClient) *RecoveryPlanJobsServiceApi {
+	if apiClient == nil {
+		apiClient = client.NewApiClient()
+	}
+
+	a := &RecoveryPlanJobsServiceApi{
+		ApiClient: apiClient,
+	}
+
+	headers := []string{"authorization", "cookie", "host", "user-agent"}
+	a.headersToSkip = make(map[string]bool)
+	for _, header := range headers {
+		a.headersToSkip[header] = true
+	}
+
 	return a
 }
 
 // Delete the Recovery Plan Job for the provided {extId}.
 func (api *RecoveryPlanJobsApi) DeleteRecoveryPlanJobById(extId *string, args ...map[string]interface{}) (*import1.DeleteRecoveryPlanJobApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewRecoveryPlanJobsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.DeleteRecoveryPlanJobById(context.Background(), &import6.DeleteRecoveryPlanJobByIdRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Delete the Recovery Plan Job for the provided {extId}.
+func (api *RecoveryPlanJobsServiceApi) DeleteRecoveryPlanJobById(ctx context.Context, request *import6.DeleteRecoveryPlanJobByIdRequest, args ...map[string]interface{}) (*import1.DeleteRecoveryPlanJobApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.2/config/recovery-plan-jobs/{extId}"
+	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -72,7 +110,7 @@ func (api *RecoveryPlanJobsApi) DeleteRecoveryPlanJobById(extId *string, args ..
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodDelete, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -84,20 +122,30 @@ func (api *RecoveryPlanJobsApi) DeleteRecoveryPlanJobById(extId *string, args ..
 
 // Get the recovery plan job for the provided {extId}.
 func (api *RecoveryPlanJobsApi) GetRecoveryPlanJobById(extId *string, args ...map[string]interface{}) (*import1.GetRecoveryPlanJobApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewRecoveryPlanJobsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.GetRecoveryPlanJobById(context.Background(), &import6.GetRecoveryPlanJobByIdRequest{
+		ExtId: extId,
+	}, args...)
+}
+
+// Get the recovery plan job for the provided {extId}.
+func (api *RecoveryPlanJobsServiceApi) GetRecoveryPlanJobById(ctx context.Context, request *import6.GetRecoveryPlanJobByIdRequest, args ...map[string]interface{}) (*import1.GetRecoveryPlanJobApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.2/config/recovery-plan-jobs/{extId}"
+	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs/{extId}"
 
 	// verify the required parameter 'extId' is set
-	if nil == extId {
+	if nil == request.ExtId {
 		return nil, client.ReportError("extId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*extId, "")), -1)
+	uri = strings.Replace(uri, "{"+"extId"+"}", url.PathEscape(client.ParameterToString(*request.ExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -122,7 +170,7 @@ func (api *RecoveryPlanJobsApi) GetRecoveryPlanJobById(extId *string, args ...ma
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -134,20 +182,34 @@ func (api *RecoveryPlanJobsApi) GetRecoveryPlanJobById(extId *string, args ...ma
 
 // Status of the steps executed in a recovery plan job.
 func (api *RecoveryPlanJobsApi) ListExecutionStepsByRecoveryPlanJobId(recoveryPlanJobExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListRecoveryPlanJobExecutionStepsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewRecoveryPlanJobsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListExecutionStepsByRecoveryPlanJobId(context.Background(), &import6.ListExecutionStepsByRecoveryPlanJobIdRequest{
+		RecoveryPlanJobExtId: recoveryPlanJobExtId,
+		Page_:                page_,
+		Limit_:               limit_,
+		Filter_:              filter_,
+		Orderby_:             orderby_,
+	}, args...)
+}
+
+// Status of the steps executed in a recovery plan job.
+func (api *RecoveryPlanJobsServiceApi) ListExecutionStepsByRecoveryPlanJobId(ctx context.Context, request *import6.ListExecutionStepsByRecoveryPlanJobIdRequest, args ...map[string]interface{}) (*import1.ListRecoveryPlanJobExecutionStepsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.2/config/recovery-plan-jobs/{recoveryPlanJobExtId}/execution-steps"
+	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs/{recoveryPlanJobExtId}/execution-steps"
 
 	// verify the required parameter 'recoveryPlanJobExtId' is set
-	if nil == recoveryPlanJobExtId {
+	if nil == request.RecoveryPlanJobExtId {
 		return nil, client.ReportError("recoveryPlanJobExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"recoveryPlanJobExtId"+"}", url.PathEscape(client.ParameterToString(*recoveryPlanJobExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"recoveryPlanJobExtId"+"}", url.PathEscape(client.ParameterToString(*request.RecoveryPlanJobExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -159,17 +221,17 @@ func (api *RecoveryPlanJobsApi) ListExecutionStepsByRecoveryPlanJobId(recoveryPl
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -185,7 +247,7 @@ func (api *RecoveryPlanJobsApi) ListExecutionStepsByRecoveryPlanJobId(recoveryPl
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -197,12 +259,26 @@ func (api *RecoveryPlanJobsApi) ListExecutionStepsByRecoveryPlanJobId(recoveryPl
 
 // List recovery plan jobs.
 func (api *RecoveryPlanJobsApi) ListRecoveryPlanJobs(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListRecoveryPlanJobsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewRecoveryPlanJobsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListRecoveryPlanJobs(context.Background(), &import6.ListRecoveryPlanJobsRequest{
+		Page_:    page_,
+		Limit_:   limit_,
+		Filter_:  filter_,
+		Orderby_: orderby_,
+		Select_:  select_,
+	}, args...)
+}
+
+// List recovery plan jobs.
+func (api *RecoveryPlanJobsServiceApi) ListRecoveryPlanJobs(ctx context.Context, request *import6.ListRecoveryPlanJobsRequest, args ...map[string]interface{}) (*import1.ListRecoveryPlanJobsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.2/config/recovery-plan-jobs"
+	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -215,20 +291,20 @@ func (api *RecoveryPlanJobsApi) ListRecoveryPlanJobs(page_ *int, limit_ *int, fi
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
-	if select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*select_, ""))
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -244,7 +320,7 @@ func (api *RecoveryPlanJobsApi) ListRecoveryPlanJobs(page_ *int, limit_ *int, fi
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -256,20 +332,34 @@ func (api *RecoveryPlanJobsApi) ListRecoveryPlanJobs(page_ *int, limit_ *int, fi
 
 // Status of the validation errors that occurred in a recovery plan job. It returns the list of validation errors and warnings. Each error includes an error code (e.g., DP-303001) that can be used to identify the specific issue and resolution steps.<br><br> The error guide is present in the Recovery Plan Validation Errors Guide. For detailed error code descriptions, causes, impacts, and resolution steps, refer to <a href='https://portal.nutanix.com/page/documents/list?type=software&filterKey=software&filterVal=Nutanix%20Disaster%20Recovery' target='_blank'>Nutanix Disaster Recovery Documentation</a>.
 func (api *RecoveryPlanJobsApi) ListValidationErrorsByRecoveryPlanJobId(recoveryPlanJobExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, args ...map[string]interface{}) (*import1.ListRecoveryPlanJobValidationErrorsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewRecoveryPlanJobsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListValidationErrorsByRecoveryPlanJobId(context.Background(), &import6.ListValidationErrorsByRecoveryPlanJobIdRequest{
+		RecoveryPlanJobExtId: recoveryPlanJobExtId,
+		Page_:                page_,
+		Limit_:               limit_,
+		Filter_:              filter_,
+		Orderby_:             orderby_,
+	}, args...)
+}
+
+// Status of the validation errors that occurred in a recovery plan job. It returns the list of validation errors and warnings. Each error includes an error code (e.g., DP-303001) that can be used to identify the specific issue and resolution steps.<br><br> The error guide is present in the Recovery Plan Validation Errors Guide. For detailed error code descriptions, causes, impacts, and resolution steps, refer to <a href='https://portal.nutanix.com/page/documents/list?type=software&filterKey=software&filterVal=Nutanix%20Disaster%20Recovery' target='_blank'>Nutanix Disaster Recovery Documentation</a>.
+func (api *RecoveryPlanJobsServiceApi) ListValidationErrorsByRecoveryPlanJobId(ctx context.Context, request *import6.ListValidationErrorsByRecoveryPlanJobIdRequest, args ...map[string]interface{}) (*import1.ListRecoveryPlanJobValidationErrorsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/dataprotection/v4.2/config/recovery-plan-jobs/{recoveryPlanJobExtId}/validation-errors"
+	uri := "/api/dataprotection/v4.3/config/recovery-plan-jobs/{recoveryPlanJobExtId}/validation-errors"
 
 	// verify the required parameter 'recoveryPlanJobExtId' is set
-	if nil == recoveryPlanJobExtId {
+	if nil == request.RecoveryPlanJobExtId {
 		return nil, client.ReportError("recoveryPlanJobExtId is required and must be specified")
 	}
 
 	// Path Params
-	uri = strings.Replace(uri, "{"+"recoveryPlanJobExtId"+"}", url.PathEscape(client.ParameterToString(*recoveryPlanJobExtId, "")), -1)
+	uri = strings.Replace(uri, "{"+"recoveryPlanJobExtId"+"}", url.PathEscape(client.ParameterToString(*request.RecoveryPlanJobExtId, "")), -1)
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -281,17 +371,17 @@ func (api *RecoveryPlanJobsApi) ListValidationErrorsByRecoveryPlanJobId(recovery
 	accepts := []string{"application/json"}
 
 	// Query Params
-	if page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*page_, ""))
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
 	}
-	if limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*limit_, ""))
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
 	}
-	if filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*filter_, ""))
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
 	}
-	if orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*orderby_, ""))
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
@@ -307,7 +397,7 @@ func (api *RecoveryPlanJobsApi) ListValidationErrorsByRecoveryPlanJobId(recovery
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApi(&uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
