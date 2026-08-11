@@ -10,7 +10,7 @@ The Go client for Nutanix AIOps APIs is designed for Go client application devel
 
 ## Version
 - API version: v4.2.b1
-- Package version: v4.2.2-beta.1
+- Package version: v4.2.3-beta.1
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/...@v4.2.2-beta.1
+$ go get github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/...@v4.2.3-beta.1
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4 v4.2.2-beta.1
+	github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4 v4.2.3-beta.1
 )
 ```
 
@@ -158,6 +158,43 @@ ApiClientInstance.Proxy.Port = 1080
 ```
 
 
+
+### Additional CA Certificates
+To trust additional CA certificates (e.g. self-signed or custom root CAs), use the `SetAdditionalCertificates` method with PEM-encoded certificate data. Both single and multiple certificates in the PEM data are supported.
+
+Certificate validity is checked lazily on the next request. If the PEM data contains no valid certificates, a warning is logged and the additional certificates are not applied.
+
+Passing `nil` or empty bytes to `SetAdditionalCertificates` is equivalent to calling `ClearAdditionalCertificates`. 
+This will remove all additional certificates previously added to the trustStore and restore trustStore its original
+state.
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/aiops-go-client/v4/client"
+	"os"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+// Configure the client as shown in the previous step
+// ...
+
+caCert, err := os.ReadFile("/path/to/ca-certificate.pem")
+if err != nil {
+	// handle error
+}
+// No error is returned for invalid PEM — a warning is logged on the next request instead
+ApiClientInstance.SetAdditionalCertificates(caCert)
+
+// Passing nil or empty bytes clears any previously set additional CA certificates
+ApiClientInstance.SetAdditionalCertificates(nil)
+
+// Alternatively, clear explicitly
+ApiClientInstance.ClearAdditionalCertificates()
+```
 
 ### Authentication
 Nutanix APIs currently support two type of authentication schemes:
@@ -324,7 +361,7 @@ ApiClientInstance = client.NewApiClient()
 
 // Initialize the API
 StatsApiInstance = api.NewStatsApi(ApiClientInstance)
-sourceExtId := "Fad2dcFF-3d0D-dE3B-B4CB-D1a0cb0FCAdf"
+sourceExtId := "1D1F09ba-fcad-136B-FccB-12D48BFFc0f3"
 page_ := 0
 limit_ := 50
 filter_ := "string_sample_data"

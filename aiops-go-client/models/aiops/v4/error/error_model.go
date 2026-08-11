@@ -1,7 +1,7 @@
 /*
  * Generated file models/aiops/v4/error/error_model.go.
  *
- * Product version: 4.2.2-beta-1
+ * Product version: 4.2.3-beta-1
  *
  * Part of the Nutanix AIOps APIs
  *
@@ -523,6 +523,8 @@ type OneOfErrorResponseError struct {
 	ObjectType_   *string                `json:"-"`
 	oneOfType201  []AppMessage           `json:"-"`
 	oneOfType202  *SchemaValidationError `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfErrorResponseError() *OneOfErrorResponseError {
@@ -567,6 +569,9 @@ func (p *OneOfErrorResponseError) SetValue(v interface{}) error {
 }
 
 func (p *OneOfErrorResponseError) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "List<aiops.v4.error.AppMessage>" == *p.Discriminator {
 		return p.oneOfType201
 	}
@@ -577,9 +582,76 @@ func (p *OneOfErrorResponseError) GetValue() interface{} {
 }
 
 func (p *OneOfErrorResponseError) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<aiops.v4.error.AppMessage>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType201 := new([]AppMessage)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType201)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType201 == nil || len(*vOneOfType201) == 0 || ((*vOneOfType201)[0].ObjectType_ != nil && "aiops.v4.error.AppMessage" == *((*vOneOfType201)[0].ObjectType_)) {
+							p.oneOfType201 = *vOneOfType201
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<aiops.v4.error.AppMessage>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<aiops.v4.error.AppMessage>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType202 := new(SchemaValidationError)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType202)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType202.ObjectType_ != nil && "aiops.v4.error.SchemaValidationError" == *vOneOfType202.ObjectType_ {
+							if nil == p.oneOfType202 {
+								p.oneOfType202 = new(SchemaValidationError)
+							}
+							*p.oneOfType202 = *vOneOfType202
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType202.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType202.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType201 := new([]AppMessage)
 	if err := json.Unmarshal(b, vOneOfType201); err == nil {
-		if len(*vOneOfType201) == 0 || "aiops.v4.error.AppMessage" == *((*vOneOfType201)[0].ObjectType_) {
+		if len(*vOneOfType201) == 0 || (vOneOfType201 != nil && (*vOneOfType201)[0].ObjectType_ != nil && "aiops.v4.error.AppMessage" == *((*vOneOfType201)[0].ObjectType_)) {
 			p.oneOfType201 = *vOneOfType201
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -594,7 +666,7 @@ func (p *OneOfErrorResponseError) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType202 := new(SchemaValidationError)
 	if err := json.Unmarshal(b, vOneOfType202); err == nil {
-		if "aiops.v4.error.SchemaValidationError" == *vOneOfType202.ObjectType_ {
+		if vOneOfType202.ObjectType_ != nil && "aiops.v4.error.SchemaValidationError" == *vOneOfType202.ObjectType_ {
 			if nil == p.oneOfType202 {
 				p.oneOfType202 = new(SchemaValidationError)
 			}
@@ -610,10 +682,31 @@ func (p *OneOfErrorResponseError) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfErrorResponseError"))
 }
 
 func (p *OneOfErrorResponseError) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "List<aiops.v4.error.AppMessage>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType201)
 	}

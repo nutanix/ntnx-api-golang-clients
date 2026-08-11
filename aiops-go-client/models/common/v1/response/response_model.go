@@ -1,7 +1,7 @@
 /*
  * Generated file models/common/v1/response/response_model.go.
  *
- * Product version: 4.2.2-beta-1
+ * Product version: 4.2.3-beta-1
  *
  * Part of the Nutanix AIOps APIs
  *
