@@ -81,7 +81,7 @@ func (api *VolumeGroupsServiceApi) AssociateCategory(ctx context.Context, reques
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}/$actions/associate-category"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}/$actions/associate-category"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -122,9 +122,15 @@ func (api *VolumeGroupsServiceApi) AssociateCategory(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.AssociateCategoryApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -146,7 +152,7 @@ func (api *VolumeGroupsServiceApi) AttachIscsiClient(ctx context.Context, reques
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}/$actions/attach-iscsi-client"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}/$actions/attach-iscsi-client"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -187,9 +193,15 @@ func (api *VolumeGroupsServiceApi) AttachIscsiClient(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.AttachIscsiClientApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -211,7 +223,7 @@ func (api *VolumeGroupsServiceApi) AttachNvmfClient(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}/$actions/attach-nvmf-client"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}/$actions/attach-nvmf-client"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -252,9 +264,15 @@ func (api *VolumeGroupsServiceApi) AttachNvmfClient(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.AttachNvmfClientApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -276,7 +294,7 @@ func (api *VolumeGroupsServiceApi) AttachVm(ctx context.Context, request *import
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}/$actions/attach-vm"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}/$actions/attach-vm"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -317,9 +335,15 @@ func (api *VolumeGroupsServiceApi) AttachVm(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.AttachVmApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -341,7 +365,7 @@ func (api *VolumeGroupsServiceApi) CreateVolumeDisk(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{volumeGroupExtId}/disks"
+	uri := "/api/volumes/v4.3/config/volume-groups/{volumeGroupExtId}/disks"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -382,9 +406,15 @@ func (api *VolumeGroupsServiceApi) CreateVolumeDisk(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateVolumeDiskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -405,7 +435,7 @@ func (api *VolumeGroupsServiceApi) CreateVolumeGroup(ctx context.Context, reques
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups"
+	uri := "/api/volumes/v4.3/config/volume-groups"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -440,9 +470,15 @@ func (api *VolumeGroupsServiceApi) CreateVolumeGroup(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateVolumeGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -464,7 +500,7 @@ func (api *VolumeGroupsServiceApi) DeleteVolumeDiskById(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
+	uri := "/api/volumes/v4.3/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -506,9 +542,15 @@ func (api *VolumeGroupsServiceApi) DeleteVolumeDiskById(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteVolumeDiskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -529,7 +571,7 @@ func (api *VolumeGroupsServiceApi) DeleteVolumeGroupById(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -566,9 +608,15 @@ func (api *VolumeGroupsServiceApi) DeleteVolumeGroupById(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteVolumeGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -590,7 +638,7 @@ func (api *VolumeGroupsServiceApi) DetachIscsiClient(ctx context.Context, reques
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}/$actions/detach-iscsi-client"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}/$actions/detach-iscsi-client"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -631,9 +679,15 @@ func (api *VolumeGroupsServiceApi) DetachIscsiClient(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DetachIscsiClientApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -655,7 +709,7 @@ func (api *VolumeGroupsServiceApi) DetachNvmfClient(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}/$actions/detach-nvmf-client"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}/$actions/detach-nvmf-client"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -696,9 +750,15 @@ func (api *VolumeGroupsServiceApi) DetachNvmfClient(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DetachNvmfClientApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -720,7 +780,7 @@ func (api *VolumeGroupsServiceApi) DetachVm(ctx context.Context, request *import
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}/$actions/detach-vm"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}/$actions/detach-vm"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -761,9 +821,15 @@ func (api *VolumeGroupsServiceApi) DetachVm(ctx context.Context, request *import
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DetachVmApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -785,7 +851,7 @@ func (api *VolumeGroupsServiceApi) DisassociateCategory(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}/$actions/disassociate-category"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}/$actions/disassociate-category"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -826,20 +892,27 @@ func (api *VolumeGroupsServiceApi) DisassociateCategory(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DisassociateCategoryApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Query the Volume Disk identified by {extId} in the Volume Group identified by {volumeGroupExtId}.
-func (api *VolumeGroupsApi) GetVolumeDiskById(volumeGroupExtId *string, extId *string, args ...map[string]interface{}) (*import1.GetVolumeDiskApiResponse, error) {
+func (api *VolumeGroupsApi) GetVolumeDiskById(volumeGroupExtId *string, extId *string, expand_ *string, args ...map[string]interface{}) (*import1.GetVolumeDiskApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVolumeGroupsServiceApi(api.ApiClient)
 	}
 	return api.ServiceClient.GetVolumeDiskById(context.Background(), &import6.GetVolumeDiskByIdRequest{
 		VolumeGroupExtId: volumeGroupExtId,
 		ExtId:            extId,
+		Expand_:          expand_,
 	}, args...)
 }
 
@@ -850,7 +923,7 @@ func (api *VolumeGroupsServiceApi) GetVolumeDiskById(ctx context.Context, reques
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
+	uri := "/api/volumes/v4.3/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -874,6 +947,10 @@ func (api *VolumeGroupsServiceApi) GetVolumeDiskById(ctx context.Context, reques
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if request.Expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*request.Expand_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -892,9 +969,15 @@ func (api *VolumeGroupsServiceApi) GetVolumeDiskById(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetVolumeDiskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -921,7 +1004,7 @@ func (api *VolumeGroupsServiceApi) GetVolumeDiskStats(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/stats/volume-groups/{volumeGroupExtId}/disks/{extId}"
+	uri := "/api/volumes/v4.3/stats/volume-groups/{volumeGroupExtId}/disks/{extId}"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -984,13 +1067,19 @@ func (api *VolumeGroupsServiceApi) GetVolumeDiskStats(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.GetVolumeDiskStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
-// Query the Volume Group identified by {extId}.
+// Query the Volume Group identified by {extId}. This endpoint does not support $expand on volumeGroupStats. Use the Volume Group List API for expand on volumeGroupStats instead.
 func (api *VolumeGroupsApi) GetVolumeGroupById(extId *string, expand_ *string, args ...map[string]interface{}) (*import1.GetVolumeGroupApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVolumeGroupsServiceApi(api.ApiClient)
@@ -1001,14 +1090,14 @@ func (api *VolumeGroupsApi) GetVolumeGroupById(extId *string, expand_ *string, a
 	}, args...)
 }
 
-// Query the Volume Group identified by {extId}.
+// Query the Volume Group identified by {extId}. This endpoint does not support $expand on volumeGroupStats. Use the Volume Group List API for expand on volumeGroupStats instead.
 func (api *VolumeGroupsServiceApi) GetVolumeGroupById(ctx context.Context, request *import6.GetVolumeGroupByIdRequest, args ...map[string]interface{}) (*import1.GetVolumeGroupApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1049,9 +1138,15 @@ func (api *VolumeGroupsServiceApi) GetVolumeGroupById(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetVolumeGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1076,7 +1171,7 @@ func (api *VolumeGroupsServiceApi) GetVolumeGroupMetadataById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{volumeGroupExtId}/metadata"
+	uri := "/api/volumes/v4.3/config/volume-groups/{volumeGroupExtId}/metadata"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -1113,9 +1208,15 @@ func (api *VolumeGroupsServiceApi) GetVolumeGroupMetadataById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetVolumeGroupMetadataApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1141,7 +1242,7 @@ func (api *VolumeGroupsServiceApi) GetVolumeGroupStats(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/stats/volume-groups/{extId}"
+	uri := "/api/volumes/v4.3/stats/volume-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1199,9 +1300,15 @@ func (api *VolumeGroupsServiceApi) GetVolumeGroupStats(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import5.GetVolumeGroupStatsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1228,7 +1335,7 @@ func (api *VolumeGroupsServiceApi) ListCategoryAssociationsByVolumeGroupId(ctx c
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{volumeGroupExtId}/category-associations"
+	uri := "/api/volumes/v4.3/config/volume-groups/{volumeGroupExtId}/category-associations"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -1272,9 +1379,15 @@ func (api *VolumeGroupsServiceApi) ListCategoryAssociationsByVolumeGroupId(ctx c
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListCategoryAssociationsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1305,7 +1418,7 @@ func (api *VolumeGroupsServiceApi) ListExternalIscsiAttachmentsByVolumeGroupId(c
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{volumeGroupExtId}/external-iscsi-attachments"
+	uri := "/api/volumes/v4.3/config/volume-groups/{volumeGroupExtId}/external-iscsi-attachments"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -1361,9 +1474,15 @@ func (api *VolumeGroupsServiceApi) ListExternalIscsiAttachmentsByVolumeGroupId(c
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListExternalIscsiAttachmentsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1392,7 +1511,7 @@ func (api *VolumeGroupsServiceApi) ListVmAttachmentsByVolumeGroupId(ctx context.
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{volumeGroupExtId}/vm-attachments"
+	uri := "/api/volumes/v4.3/config/volume-groups/{volumeGroupExtId}/vm-attachments"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -1442,14 +1561,20 @@ func (api *VolumeGroupsServiceApi) ListVmAttachmentsByVolumeGroupId(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListVmAttachmentsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Query the list of disks corresponding to a Volume Group identified by {volumeGroupExtId}.
-func (api *VolumeGroupsApi) ListVolumeDisksByVolumeGroupId(volumeGroupExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListVolumeDisksApiResponse, error) {
+func (api *VolumeGroupsApi) ListVolumeDisksByVolumeGroupId(volumeGroupExtId *string, page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListVolumeDisksApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewVolumeGroupsServiceApi(api.ApiClient)
 	}
@@ -1459,6 +1584,7 @@ func (api *VolumeGroupsApi) ListVolumeDisksByVolumeGroupId(volumeGroupExtId *str
 		Limit_:           limit_,
 		Filter_:          filter_,
 		Orderby_:         orderby_,
+		Expand_:          expand_,
 		Select_:          select_,
 	}, args...)
 }
@@ -1470,7 +1596,7 @@ func (api *VolumeGroupsServiceApi) ListVolumeDisksByVolumeGroupId(ctx context.Co
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{volumeGroupExtId}/disks"
+	uri := "/api/volumes/v4.3/config/volume-groups/{volumeGroupExtId}/disks"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -1479,80 +1605,6 @@ func (api *VolumeGroupsServiceApi) ListVolumeDisksByVolumeGroupId(ctx context.Co
 
 	// Path Params
 	uri = strings.Replace(uri, "{"+"volumeGroupExtId"+"}", url.PathEscape(client.ParameterToString(*request.VolumeGroupExtId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/json"}
-
-	// Query Params
-	if request.Page_ != nil {
-		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
-	}
-	if request.Limit_ != nil {
-		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
-	}
-	if request.Filter_ != nil {
-		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
-	}
-	if request.Orderby_ != nil {
-		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
-	}
-	if request.Select_ != nil {
-		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
-	}
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-
-	unmarshalledResp := new(import1.ListVolumeDisksApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
-	return unmarshalledResp, err
-}
-
-// Query the list of Volume Groups.
-func (api *VolumeGroupsApi) ListVolumeGroups(page_ *int, limit_ *int, filter_ *string, orderby_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListVolumeGroupsApiResponse, error) {
-	if api.ServiceClient == nil {
-		api.ServiceClient = NewVolumeGroupsServiceApi(api.ApiClient)
-	}
-	return api.ServiceClient.ListVolumeGroups(context.Background(), &import6.ListVolumeGroupsRequest{
-		Page_:    page_,
-		Limit_:   limit_,
-		Filter_:  filter_,
-		Orderby_: orderby_,
-		Expand_:  expand_,
-		Select_:  select_,
-	}, args...)
-}
-
-// Query the list of Volume Groups.
-func (api *VolumeGroupsServiceApi) ListVolumeGroups(ctx context.Context, request *import6.ListVolumeGroupsRequest, args ...map[string]interface{}) (*import1.ListVolumeGroupsApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/volumes/v4.2/config/volume-groups"
-
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
 	formParams := url.Values{}
@@ -1600,9 +1652,102 @@ func (api *VolumeGroupsServiceApi) ListVolumeGroups(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import1.ListVolumeDisksApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
+	return unmarshalledResp, err
+}
+
+// Query the list of Volume Groups.
+func (api *VolumeGroupsApi) ListVolumeGroups(page_ *int, limit_ *int, filter_ *string, orderby_ *string, apply_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListVolumeGroupsApiResponse, error) {
+	if api.ServiceClient == nil {
+		api.ServiceClient = NewVolumeGroupsServiceApi(api.ApiClient)
+	}
+	return api.ServiceClient.ListVolumeGroups(context.Background(), &import6.ListVolumeGroupsRequest{
+		Page_:    page_,
+		Limit_:   limit_,
+		Filter_:  filter_,
+		Orderby_: orderby_,
+		Apply_:   apply_,
+		Expand_:  expand_,
+		Select_:  select_,
+	}, args...)
+}
+
+// Query the list of Volume Groups.
+func (api *VolumeGroupsServiceApi) ListVolumeGroups(ctx context.Context, request *import6.ListVolumeGroupsRequest, args ...map[string]interface{}) (*import1.ListVolumeGroupsApiResponse, error) {
+	argMap := make(map[string]interface{})
+	if len(args) > 0 {
+		argMap = args[0]
+	}
+
+	uri := "/api/volumes/v4.3/config/volume-groups"
+
+	headerParams := make(map[string]string)
+	queryParams := url.Values{}
+	formParams := url.Values{}
+
+	// to determine the Content-Type header
+	contentTypes := []string{}
+
+	// to determine the Accept header
+	accepts := []string{"application/json"}
+
+	// Query Params
+	if request.Page_ != nil {
+		queryParams.Add("$page", client.ParameterToString(*request.Page_, ""))
+	}
+	if request.Limit_ != nil {
+		queryParams.Add("$limit", client.ParameterToString(*request.Limit_, ""))
+	}
+	if request.Filter_ != nil {
+		queryParams.Add("$filter", client.ParameterToString(*request.Filter_, ""))
+	}
+	if request.Orderby_ != nil {
+		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
+	}
+	if request.Apply_ != nil {
+		queryParams.Add("$apply", client.ParameterToString(*request.Apply_, ""))
+	}
+	if request.Expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*request.Expand_, ""))
+	}
+	if request.Select_ != nil {
+		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
+	}
+	// Headers provided explicitly on operation takes precedence
+	for headerKey, value := range argMap {
+		// Skip platform generated headers
+		if !api.headersToSkip[strings.ToLower(headerKey)] {
+			if value != nil {
+				if headerValue, headerValueOk := value.(*string); headerValueOk {
+					headerParams[headerKey] = *headerValue
+				}
+			}
+		}
+	}
+
+	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
+
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	if nil != err || nil == apiClientResponse {
+		return nil, err
+	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
+
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListVolumeGroupsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1624,7 +1769,7 @@ func (api *VolumeGroupsServiceApi) RevertVolumeGroup(ctx context.Context, reques
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}/$actions/revert"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}/$actions/revert"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1665,9 +1810,15 @@ func (api *VolumeGroupsServiceApi) RevertVolumeGroup(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.RevertVolumeGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1690,7 +1841,7 @@ func (api *VolumeGroupsServiceApi) UpdateVolumeDiskById(ctx context.Context, req
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
+	uri := "/api/volumes/v4.3/config/volume-groups/{volumeGroupExtId}/disks/{extId}"
 
 	// verify the required parameter 'volumeGroupExtId' is set
 	if nil == request.VolumeGroupExtId {
@@ -1736,9 +1887,15 @@ func (api *VolumeGroupsServiceApi) UpdateVolumeDiskById(ctx context.Context, req
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateVolumeDiskApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -1760,7 +1917,7 @@ func (api *VolumeGroupsServiceApi) UpdateVolumeGroupById(ctx context.Context, re
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/volume-groups/{extId}"
+	uri := "/api/volumes/v4.3/config/volume-groups/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -1801,8 +1958,14 @@ func (api *VolumeGroupsServiceApi) UpdateVolumeGroupById(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateVolumeGroupApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

@@ -77,7 +77,7 @@ func (api *NvmfClientsServiceApi) GetNvmfClientById(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/nvmf-clients/{extId}"
+	uri := "/api/volumes/v4.3/config/nvmf-clients/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *NvmfClientsServiceApi) GetNvmfClientById(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetNvmfClientApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -142,7 +148,7 @@ func (api *NvmfClientsServiceApi) ListNvmfClients(ctx context.Context, request *
 		argMap = args[0]
 	}
 
-	uri := "/api/volumes/v4.2/config/nvmf-clients"
+	uri := "/api/volumes/v4.3/config/nvmf-clients"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -191,8 +197,14 @@ func (api *NvmfClientsServiceApi) ListNvmfClients(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListNvmfClientsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

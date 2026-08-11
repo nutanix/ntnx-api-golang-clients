@@ -1,5 +1,5 @@
 /*
- * Generated file models/common/v1/response/response_model.go.
+ * Generated file models/prism/v4/operations/operations_model.go.
  *
  * Product version: 4.3.1
  *
@@ -10,37 +10,32 @@
  */
 
 /*
-  Nutanix Standard Response Format
+  Module prism.v4.operations of Nutanix Volumes APIs
 */
-package response
+package operations
 
 import (
 	"encoding/json"
-	import1 "github.com/nutanix/ntnx-api-golang-clients/volumes-go-client/v4/models/common/v1/config"
 )
 
 /*
-A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+The metadata section on the input specification for performing the batch operation.
 */
-type ApiLink struct {
+type BatchSpecPayloadMetadata struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
-	/*
-	  The URL at which the entity described by the link can be accessed.
-	*/
-	Href *string `json:"href,omitempty"`
-	/*
-	  A name that identifies the relationship of the link to the object that is returned by the URL.  The unique value of "self" identifies the URL for the object.
-	*/
-	Rel *string `json:"rel,omitempty"`
+
+	Headers []BatchSpecPayloadMetadataHeader `json:"headers,omitempty"`
+
+	Path []BatchSpecPayloadMetadataPath `json:"path,omitempty"`
 }
 
-func (p *ApiLink) MarshalJSON() ([]byte, error) {
+func (p *BatchSpecPayloadMetadata) MarshalJSON() ([]byte, error) {
 	// Create Alias to avoid infinite recursion
-	type Alias ApiLink
+	type Alias BatchSpecPayloadMetadata
 
 	// Step 1: Marshal the known fields
 	known, err := json.Marshal(Alias(*p))
@@ -64,7 +59,7 @@ func (p *ApiLink) MarshalJSON() ([]byte, error) {
 	return json.Marshal(knownMap)
 }
 
-func (p *ApiLink) UnmarshalJSON(b []byte) error {
+func (p *BatchSpecPayloadMetadata) UnmarshalJSON(b []byte) error {
 	// Step 1: Unmarshal into a generic map to capture all fields
 	var allFields map[string]interface{}
 	if err := json.Unmarshal(b, &allFields); err != nil {
@@ -72,14 +67,14 @@ func (p *ApiLink) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias ApiLink
+	type Alias BatchSpecPayloadMetadata
 	known := &Alias{}
 	if err := json.Unmarshal(b, known); err != nil {
 		return err
 	}
 
 	// Step 3: Assign known fields
-	*p = *NewApiLink()
+	*p = *NewBatchSpecPayloadMetadata()
 
 	if known.ObjectType_ != nil {
 		p.ObjectType_ = known.ObjectType_
@@ -90,19 +85,19 @@ func (p *ApiLink) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
-	if known.Href != nil {
-		p.Href = known.Href
+	if known.Headers != nil {
+		p.Headers = known.Headers
 	}
-	if known.Rel != nil {
-		p.Rel = known.Rel
+	if known.Path != nil {
+		p.Path = known.Path
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "href")
-	delete(allFields, "rel")
+	delete(allFields, "headers")
+	delete(allFields, "path")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -112,53 +107,50 @@ func (p *ApiLink) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func NewApiLink() *ApiLink {
-	p := new(ApiLink)
+func NewBatchSpecPayloadMetadata() *BatchSpecPayloadMetadata {
+	p := new(BatchSpecPayloadMetadata)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "common.v1.response.ApiLink"
-	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
+	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadata"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-The metadata associated with an API response. This value is always present and minimally contains the self-link for the API request that produced this response. It also contains pagination data for the paginated requests.
+The metadata section on the input specification for performing the batch operation.
 */
-type ApiResponseMetadata struct {
+type BatchSpecPayloadMetadataHeader struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  An array of entity-specific metadata
+	  The name of the header parameter.
 	*/
-	ExtraInfo []import1.KVPair `json:"extraInfo,omitempty"`
+	Name *string `json:"name"`
 	/*
-	  An array of flags that may indicate the status of the response. For example, a flag with the name 'isPaginated' and value 'false', indicates that the response is not paginated.
+	  The value of the header parameter.
 	*/
-	Flags []import1.Flag `json:"flags,omitempty"`
-	/*
-	  An array of HATEOAS style links for the response that may also include pagination links for list operations.
-	*/
-	Links []ApiLink `json:"links,omitempty"`
-	/*
-	  Information, Warning or Error messages that might provide additional contextual information related to the operation.
-	*/
-	Messages []import1.Message `json:"messages,omitempty"`
-	/*
-	  The total number of entities that are available on the server for this type.
-	*/
-	TotalAvailableResults *int `json:"totalAvailableResults,omitempty"`
+	Value *string `json:"value"`
 }
 
-func (p *ApiResponseMetadata) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias ApiResponseMetadata
+func (p *BatchSpecPayloadMetadataHeader) MarshalJSON() ([]byte, error) {
+	type BatchSpecPayloadMetadataHeaderProxy BatchSpecPayloadMetadataHeader
 
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BatchSpecPayloadMetadataHeaderProxy
+		Name  *string `json:"name,omitempty"`
+		Value *string `json:"value,omitempty"`
+	}{
+		BatchSpecPayloadMetadataHeaderProxy: (*BatchSpecPayloadMetadataHeaderProxy)(p),
+		Name:                                p.Name,
+		Value:                               p.Value,
+	}
+
+	known, err := json.Marshal(baseStruct)
 	if err != nil {
 		return nil, err
 	}
@@ -179,7 +171,7 @@ func (p *ApiResponseMetadata) MarshalJSON() ([]byte, error) {
 	return json.Marshal(knownMap)
 }
 
-func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
+func (p *BatchSpecPayloadMetadataHeader) UnmarshalJSON(b []byte) error {
 	// Step 1: Unmarshal into a generic map to capture all fields
 	var allFields map[string]interface{}
 	if err := json.Unmarshal(b, &allFields); err != nil {
@@ -187,14 +179,14 @@ func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias ApiResponseMetadata
+	type Alias BatchSpecPayloadMetadataHeader
 	known := &Alias{}
 	if err := json.Unmarshal(b, known); err != nil {
 		return err
 	}
 
 	// Step 3: Assign known fields
-	*p = *NewApiResponseMetadata()
+	*p = *NewBatchSpecPayloadMetadataHeader()
 
 	if known.ObjectType_ != nil {
 		p.ObjectType_ = known.ObjectType_
@@ -205,31 +197,19 @@ func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
-	if known.ExtraInfo != nil {
-		p.ExtraInfo = known.ExtraInfo
+	if known.Name != nil {
+		p.Name = known.Name
 	}
-	if known.Flags != nil {
-		p.Flags = known.Flags
-	}
-	if known.Links != nil {
-		p.Links = known.Links
-	}
-	if known.Messages != nil {
-		p.Messages = known.Messages
-	}
-	if known.TotalAvailableResults != nil {
-		p.TotalAvailableResults = known.TotalAvailableResults
+	if known.Value != nil {
+		p.Value = known.Value
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "extraInfo")
-	delete(allFields, "flags")
-	delete(allFields, "links")
-	delete(allFields, "messages")
-	delete(allFields, "totalAvailableResults")
+	delete(allFields, "name")
+	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -239,45 +219,50 @@ func (p *ApiResponseMetadata) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func NewApiResponseMetadata() *ApiResponseMetadata {
-	p := new(ApiResponseMetadata)
+func NewBatchSpecPayloadMetadataHeader() *BatchSpecPayloadMetadataHeader {
+	p := new(BatchSpecPayloadMetadataHeader)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "common.v1.response.ApiResponseMetadata"
-	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
+	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataHeader"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-A model that represents an object instance that is accessible through an API endpoint.  Instances of this type get an extId field that contains the globally unique identifier for that instance.  Externally accessible instances are always tenant aware and, therefore, extend the TenantAwareModel
+The metadata section on the input specification for performing the batch operation.
 */
-type ExternalizableAbstractModel struct {
+type BatchSpecPayloadMetadataPath struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
 
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
 	/*
-	  A globally unique identifier of an instance that is suitable for external consumption.
+	  The name of the  path parameter.
 	*/
-	ExtId *string `json:"extId,omitempty"`
+	Name *string `json:"name"`
 	/*
-	  A HATEOAS style link for the response.  Each link contains a user-friendly name identifying the link and an address for retrieving the particular resource.
+	  The value of the  path parameter.
 	*/
-	Links []ApiLink `json:"links,omitempty"`
-	/*
-	  A globally unique identifier that represents the tenant that owns this entity. The system automatically assigns it, and it and is immutable from an API consumer perspective (some use cases may cause this ID to change - For instance, a use case may require the transfer of ownership of the entity, but these cases are handled automatically on the server).
-	*/
-	TenantId *string `json:"tenantId,omitempty"`
+	Value *string `json:"value"`
 }
 
-func (p *ExternalizableAbstractModel) MarshalJSON() ([]byte, error) {
-	// Create Alias to avoid infinite recursion
-	type Alias ExternalizableAbstractModel
+func (p *BatchSpecPayloadMetadataPath) MarshalJSON() ([]byte, error) {
+	type BatchSpecPayloadMetadataPathProxy BatchSpecPayloadMetadataPath
 
-	// Step 1: Marshal the known fields
-	known, err := json.Marshal(Alias(*p))
+	// Step 1: Marshal known fields via proxy to enforce required fields
+	baseStruct := struct {
+		*BatchSpecPayloadMetadataPathProxy
+		Name  *string `json:"name,omitempty"`
+		Value *string `json:"value,omitempty"`
+	}{
+		BatchSpecPayloadMetadataPathProxy: (*BatchSpecPayloadMetadataPathProxy)(p),
+		Name:                              p.Name,
+		Value:                             p.Value,
+	}
+
+	known, err := json.Marshal(baseStruct)
 	if err != nil {
 		return nil, err
 	}
@@ -298,7 +283,7 @@ func (p *ExternalizableAbstractModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(knownMap)
 }
 
-func (p *ExternalizableAbstractModel) UnmarshalJSON(b []byte) error {
+func (p *BatchSpecPayloadMetadataPath) UnmarshalJSON(b []byte) error {
 	// Step 1: Unmarshal into a generic map to capture all fields
 	var allFields map[string]interface{}
 	if err := json.Unmarshal(b, &allFields); err != nil {
@@ -306,14 +291,14 @@ func (p *ExternalizableAbstractModel) UnmarshalJSON(b []byte) error {
 	}
 
 	// Step 2: Unmarshal into a temporary struct with known fields
-	type Alias ExternalizableAbstractModel
+	type Alias BatchSpecPayloadMetadataPath
 	known := &Alias{}
 	if err := json.Unmarshal(b, known); err != nil {
 		return err
 	}
 
 	// Step 3: Assign known fields
-	*p = *NewExternalizableAbstractModel()
+	*p = *NewBatchSpecPayloadMetadataPath()
 
 	if known.ObjectType_ != nil {
 		p.ObjectType_ = known.ObjectType_
@@ -324,23 +309,19 @@ func (p *ExternalizableAbstractModel) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
-	if known.ExtId != nil {
-		p.ExtId = known.ExtId
+	if known.Name != nil {
+		p.Name = known.Name
 	}
-	if known.Links != nil {
-		p.Links = known.Links
-	}
-	if known.TenantId != nil {
-		p.TenantId = known.TenantId
+	if known.Value != nil {
+		p.Value = known.Value
 	}
 
 	// Step 4: Remove known JSON fields from allFields map
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
-	delete(allFields, "extId")
-	delete(allFields, "links")
-	delete(allFields, "tenantId")
+	delete(allFields, "name")
+	delete(allFields, "value")
 
 	// Step 5: Assign remaining fields to UnknownFields_
 	for key, value := range allFields {
@@ -350,11 +331,11 @@ func (p *ExternalizableAbstractModel) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func NewExternalizableAbstractModel() *ExternalizableAbstractModel {
-	p := new(ExternalizableAbstractModel)
+func NewBatchSpecPayloadMetadataPath() *BatchSpecPayloadMetadataPath {
+	p := new(BatchSpecPayloadMetadataPath)
 	p.ObjectType_ = new(string)
-	*p.ObjectType_ = "common.v1.response.ExternalizableAbstractModel"
-	p.Reserved_ = map[string]interface{}{"$fv": "v1.r0"}
+	*p.ObjectType_ = "prism.v4.operations.BatchSpecPayloadMetadataPath"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p

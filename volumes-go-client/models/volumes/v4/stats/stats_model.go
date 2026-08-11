@@ -1,7 +1,7 @@
 /*
  * Generated file models/volumes/v4/stats/stats_model.go.
  *
- * Product version: 4.2.2
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Volumes APIs
  *
@@ -24,7 +24,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /volumes/v4.2/stats/volume-groups/{volumeGroupExtId}/disks/{extId} Get operation
+REST response for all response codes in API path /volumes/v4.3/stats/volume-groups/{volumeGroupExtId}/disks/{extId} Get operation
 */
 type GetVolumeDiskStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -124,7 +124,7 @@ func NewGetVolumeDiskStatsApiResponse() *GetVolumeDiskStatsApiResponse {
 	p := new(GetVolumeDiskStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.GetVolumeDiskStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -152,7 +152,7 @@ func (p *GetVolumeDiskStatsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /volumes/v4.2/stats/volume-groups/{extId} Get operation
+REST response for all response codes in API path /volumes/v4.3/stats/volume-groups/{extId} Get operation
 */
 type GetVolumeGroupStatsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -252,7 +252,7 @@ func NewGetVolumeGroupStatsApiResponse() *GetVolumeGroupStatsApiResponse {
 	p := new(GetVolumeGroupStatsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.GetVolumeGroupStatsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -373,7 +373,7 @@ func NewTimeValuePair() *TimeValuePair {
 	p := new(TimeValuePair)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.TimeValuePair"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -572,7 +572,7 @@ func NewVolumeDiskStats() *VolumeDiskStats {
 	p := new(VolumeDiskStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeDiskStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -768,7 +768,7 @@ func NewVolumeDiskStatsProjection() *VolumeDiskStatsProjection {
 	p := new(VolumeDiskStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeDiskStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -783,6 +783,10 @@ type VolumeGroupStats struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The capacity of the Volume Group in bytes.
+	*/
+	CapacityBytes []TimeValuePair `json:"capacityBytes,omitempty"`
 	/*
 	  Controller average I/O latency measured in microseconds.
 	*/
@@ -897,6 +901,9 @@ func (p *VolumeGroupStats) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
+	if known.CapacityBytes != nil {
+		p.CapacityBytes = known.CapacityBytes
+	}
 	if known.ControllerAvgIOLatencyUsecs != nil {
 		p.ControllerAvgIOLatencyUsecs = known.ControllerAvgIOLatencyUsecs
 	}
@@ -947,6 +954,7 @@ func (p *VolumeGroupStats) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "capacityBytes")
 	delete(allFields, "controllerAvgIOLatencyUsecs")
 	delete(allFields, "controllerAvgReadIOLatencyUsecs")
 	delete(allFields, "controllerAvgWriteIOLatencyUsecs")
@@ -975,7 +983,7 @@ func NewVolumeGroupStats() *VolumeGroupStats {
 	p := new(VolumeGroupStats)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeGroupStats"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -987,6 +995,10 @@ type VolumeGroupStatsProjection struct {
 	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
 
 	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  The capacity of the Volume Group in bytes.
+	*/
+	CapacityBytes []TimeValuePair `json:"capacityBytes,omitempty"`
 	/*
 	  Controller average I/O latency measured in microseconds.
 	*/
@@ -1101,6 +1113,9 @@ func (p *VolumeGroupStatsProjection) UnmarshalJSON(b []byte) error {
 	if known.UnknownFields_ != nil {
 		p.UnknownFields_ = known.UnknownFields_
 	}
+	if known.CapacityBytes != nil {
+		p.CapacityBytes = known.CapacityBytes
+	}
 	if known.ControllerAvgIOLatencyUsecs != nil {
 		p.ControllerAvgIOLatencyUsecs = known.ControllerAvgIOLatencyUsecs
 	}
@@ -1151,6 +1166,7 @@ func (p *VolumeGroupStatsProjection) UnmarshalJSON(b []byte) error {
 	delete(allFields, "$objectType")
 	delete(allFields, "$reserved")
 	delete(allFields, "$unknownFields")
+	delete(allFields, "capacityBytes")
 	delete(allFields, "controllerAvgIOLatencyUsecs")
 	delete(allFields, "controllerAvgReadIOLatencyUsecs")
 	delete(allFields, "controllerAvgWriteIOLatencyUsecs")
@@ -1179,17 +1195,20 @@ func NewVolumeGroupStatsProjection() *VolumeGroupStatsProjection {
 	p := new(VolumeGroupStatsProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "volumes.v4.stats.VolumeGroupStatsProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 type OneOfGetVolumeGroupStatsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *VolumeGroupStats      `json:"-"`
+	Discriminator *string                     `json:"-"`
+	ObjectType_   *string                     `json:"-"`
+	oneOfType400  *import1.ErrorResponse      `json:"-"`
+	oneOfType2001 *VolumeGroupStats           `json:"-"`
+	oneOfType401  *VolumeGroupStatsProjection `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetVolumeGroupStatsApiResponseData() *OneOfGetVolumeGroupStatsApiResponseData {
@@ -1218,18 +1237,31 @@ func (p *OneOfGetVolumeGroupStatsApiResponseData) SetValue(v interface{}) error 
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
 	case VolumeGroupStats:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(VolumeGroupStats)
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(VolumeGroupStats)
 		}
-		*p.oneOfType0 = v.(VolumeGroupStats)
+		*p.oneOfType2001 = v.(VolumeGroupStats)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+	case VolumeGroupStatsProjection:
+		if nil == p.oneOfType401 {
+			p.oneOfType401 = new(VolumeGroupStatsProjection)
+		}
+		*p.oneOfType401 = v.(VolumeGroupStatsProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType401.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -1237,19 +1269,126 @@ func (p *OneOfGetVolumeGroupStatsApiResponseData) SetValue(v interface{}) error 
 }
 
 func (p *OneOfGetVolumeGroupStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType401
 	}
 	return nil
 }
 
 func (p *OneOfGetVolumeGroupStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(VolumeGroupStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "volumes.v4.stats.VolumeGroupStats" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(VolumeGroupStats)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new(VolumeGroupStatsProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType401.ObjectType_ != nil && "volumes.v4.stats.VolumeGroupStatsProjection" == *vOneOfType401.ObjectType_ {
+							if nil == p.oneOfType401 {
+								p.oneOfType401 = new(VolumeGroupStatsProjection)
+							}
+							*p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType401.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType401.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -1265,42 +1404,87 @@ func (p *OneOfGetVolumeGroupStatsApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
-	vOneOfType0 := new(VolumeGroupStats)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "volumes.v4.stats.VolumeGroupStats" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(VolumeGroupStats)
+	vOneOfType2001 := new(VolumeGroupStats)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "volumes.v4.stats.VolumeGroupStats" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(VolumeGroupStats)
 			}
-			*p.oneOfType0 = *vOneOfType0
+			*p.oneOfType2001 = *vOneOfType2001
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 			return nil
 		}
+	}
+	vOneOfType401 := new(VolumeGroupStatsProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if vOneOfType401.ObjectType_ != nil && "volumes.v4.stats.VolumeGroupStatsProjection" == *vOneOfType401.ObjectType_ {
+			if nil == p.oneOfType401 {
+				p.oneOfType401 = new(VolumeGroupStatsProjection)
+			}
+			*p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType401.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
 	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVolumeGroupStatsApiResponseData"))
 }
 
 func (p *OneOfGetVolumeGroupStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
 	}
 	return nil, errors.New("No value to marshal for OneOfGetVolumeGroupStatsApiResponseData")
 }
 
 type OneOfGetVolumeDiskStatsApiResponseData struct {
-	Discriminator *string                `json:"-"`
-	ObjectType_   *string                `json:"-"`
-	oneOfType400  *import1.ErrorResponse `json:"-"`
-	oneOfType0    *VolumeDiskStats       `json:"-"`
+	Discriminator *string                    `json:"-"`
+	ObjectType_   *string                    `json:"-"`
+	oneOfType400  *import1.ErrorResponse     `json:"-"`
+	oneOfType401  *VolumeDiskStatsProjection `json:"-"`
+	oneOfType2001 *VolumeDiskStats           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfGetVolumeDiskStatsApiResponseData() *OneOfGetVolumeDiskStatsApiResponseData {
@@ -1328,19 +1512,32 @@ func (p *OneOfGetVolumeDiskStatsApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case VolumeDiskStats:
-		if nil == p.oneOfType0 {
-			p.oneOfType0 = new(VolumeDiskStats)
+	case VolumeDiskStatsProjection:
+		if nil == p.oneOfType401 {
+			p.oneOfType401 = new(VolumeDiskStatsProjection)
 		}
-		*p.oneOfType0 = v.(VolumeDiskStats)
+		*p.oneOfType401 = v.(VolumeDiskStatsProjection)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType0.ObjectType_
+		*p.Discriminator = *p.oneOfType401.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType0.ObjectType_
+		*p.ObjectType_ = *p.oneOfType401.ObjectType_
+	case VolumeDiskStats:
+		if nil == p.oneOfType2001 {
+			p.oneOfType2001 = new(VolumeDiskStats)
+		}
+		*p.oneOfType2001 = v.(VolumeDiskStats)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType2001.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType2001.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -1348,19 +1545,126 @@ func (p *OneOfGetVolumeDiskStatsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfGetVolumeDiskStatsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType0
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType401
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType2001
 	}
 	return nil
 }
 
 func (p *OneOfGetVolumeDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new(VolumeDiskStatsProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType401.ObjectType_ != nil && "volumes.v4.stats.VolumeDiskStatsProjection" == *vOneOfType401.ObjectType_ {
+							if nil == p.oneOfType401 {
+								p.oneOfType401 = new(VolumeDiskStatsProjection)
+							}
+							*p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType401.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType401.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2001 := new(VolumeDiskStats)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2001)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2001.ObjectType_ != nil && "volumes.v4.stats.VolumeDiskStats" == *vOneOfType2001.ObjectType_ {
+							if nil == p.oneOfType2001 {
+								p.oneOfType2001 = new(VolumeDiskStats)
+							}
+							*p.oneOfType2001 = *vOneOfType2001
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2001.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "volumes.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -1376,33 +1680,75 @@ func (p *OneOfGetVolumeDiskStatsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType0 := new(VolumeDiskStats)
-	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "volumes.v4.stats.VolumeDiskStats" == *vOneOfType0.ObjectType_ {
-			if nil == p.oneOfType0 {
-				p.oneOfType0 = new(VolumeDiskStats)
+	vOneOfType401 := new(VolumeDiskStatsProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if vOneOfType401.ObjectType_ != nil && "volumes.v4.stats.VolumeDiskStatsProjection" == *vOneOfType401.ObjectType_ {
+			if nil == p.oneOfType401 {
+				p.oneOfType401 = new(VolumeDiskStatsProjection)
 			}
-			*p.oneOfType0 = *vOneOfType0
+			*p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType0.ObjectType_
+			*p.Discriminator = *p.oneOfType401.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType0.ObjectType_
+			*p.ObjectType_ = *p.oneOfType401.ObjectType_
 			return nil
 		}
+	}
+	vOneOfType2001 := new(VolumeDiskStats)
+	if err := json.Unmarshal(b, vOneOfType2001); err == nil {
+		if vOneOfType2001.ObjectType_ != nil && "volumes.v4.stats.VolumeDiskStats" == *vOneOfType2001.ObjectType_ {
+			if nil == p.oneOfType2001 {
+				p.oneOfType2001 = new(VolumeDiskStats)
+			}
+			*p.oneOfType2001 = *vOneOfType2001
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType2001.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType2001.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
 	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetVolumeDiskStatsApiResponseData"))
 }
 
 func (p *OneOfGetVolumeDiskStatsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType0)
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType2001 != nil && *p.oneOfType2001.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType2001)
 	}
 	return nil, errors.New("No value to marshal for OneOfGetVolumeDiskStatsApiResponseData")
 }
