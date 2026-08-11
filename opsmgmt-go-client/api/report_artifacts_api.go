@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/client"
-	import4 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/config"
-	import5 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/response"
-	import3 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/content"
-	import6 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/request/reportartifacts"
+	import7 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/config"
+	import8 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/response"
+	import6 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/content"
+	import9 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/request/reportartifacts"
 	"net/http"
 	"net/url"
 	"os"
@@ -65,23 +65,23 @@ func NewReportArtifactsServiceApi(apiClient *client.ApiClient) *ReportArtifactsS
 }
 
 // This operation creates a report artifact using the provided artifact type and file type.
-func (api *ReportArtifactsApi) CreateReportArtifact(body *import3.ReportArtifact, args ...map[string]interface{}) (*import3.CreateReportArtifactApiResponse, error) {
+func (api *ReportArtifactsApi) CreateReportArtifact(body *import6.ReportArtifact, args ...map[string]interface{}) (*import6.CreateReportArtifactApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewReportArtifactsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateReportArtifact(context.Background(), &import6.CreateReportArtifactRequest{
+	return api.ServiceClient.CreateReportArtifact(context.Background(), &import9.CreateReportArtifactRequest{
 		Body: body,
 	}, args...)
 }
 
 // This operation creates a report artifact using the provided artifact type and file type.
-func (api *ReportArtifactsServiceApi) CreateReportArtifact(ctx context.Context, request *import6.CreateReportArtifactRequest, args ...map[string]interface{}) (*import3.CreateReportArtifactApiResponse, error) {
+func (api *ReportArtifactsServiceApi) CreateReportArtifact(ctx context.Context, request *import9.CreateReportArtifactRequest, args ...map[string]interface{}) (*import6.CreateReportArtifactApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/content/report-artifacts"
+	uri := "/api/opsmgmt/v4.1.b1/content/report-artifacts"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -116,30 +116,36 @@ func (api *ReportArtifactsServiceApi) CreateReportArtifact(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import3.CreateReportArtifactApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.CreateReportArtifactApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // This operation downloads the artifact with the given UUID.
-func (api *ReportArtifactsApi) DownloadArtifactFile(reportArtifactExtId *string, args ...map[string]interface{}) (*import3.DownloadArtifactileApiResponse, error) {
+func (api *ReportArtifactsApi) DownloadArtifactFile(reportArtifactExtId *string, args ...map[string]interface{}) (*import6.DownloadArtifactileApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewReportArtifactsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DownloadArtifactFile(context.Background(), &import6.DownloadArtifactFileRequest{
+	return api.ServiceClient.DownloadArtifactFile(context.Background(), &import9.DownloadArtifactFileRequest{
 		ReportArtifactExtId: reportArtifactExtId,
 	}, args...)
 }
 
 // This operation downloads the artifact with the given UUID.
-func (api *ReportArtifactsServiceApi) DownloadArtifactFile(ctx context.Context, request *import6.DownloadArtifactFileRequest, args ...map[string]interface{}) (*import3.DownloadArtifactileApiResponse, error) {
+func (api *ReportArtifactsServiceApi) DownloadArtifactFile(ctx context.Context, request *import9.DownloadArtifactFileRequest, args ...map[string]interface{}) (*import6.DownloadArtifactileApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/content/report-artifacts/{reportArtifactExtId}/file"
+	uri := "/api/opsmgmt/v4.1.b1/content/report-artifacts/{reportArtifactExtId}/file"
 
 	// verify the required parameter 'reportArtifactExtId' is set
 	if nil == request.ReportArtifactExtId {
@@ -176,6 +182,9 @@ func (api *ReportArtifactsServiceApi) DownloadArtifactFile(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
 	binaryMediaTypes := []string{"application/octet-stream", "application/pdf", "application/zip"}
 	if httpResponse, ok := apiClientResponse.(*http.Response); ok {
@@ -186,15 +195,15 @@ func (api *ReportArtifactsServiceApi) DownloadArtifactFile(ctx context.Context, 
 				return nil, err
 			}
 
-			response := import3.NewDownloadArtifactileApiResponse()
-			fileDetail := import3.NewFileDetail()
+			response := import6.NewDownloadArtifactileApiResponse()
+			fileDetail := import6.NewFileDetail()
 			fileDetail.Path = filePath
 
 			flagName := "hasError"
 			flagValue := false
-			var flags []import4.Flag
-			flags = append(flags, import4.Flag{Name: &flagName, Value: &flagValue})
-			metadata := import5.NewApiResponseMetadata()
+			var flags []import7.Flag
+			flags = append(flags, import7.Flag{Name: &flagName, Value: &flagValue})
+			metadata := import8.NewApiResponseMetadata()
 			metadata.Flags = flags
 			response.Metadata = metadata
 			err = response.SetData(*fileDetail)
@@ -206,17 +215,20 @@ func (api *ReportArtifactsServiceApi) DownloadArtifactFile(ctx context.Context, 
 		}
 	}
 
-	unmarshalledResp := new(import3.DownloadArtifactileApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.DownloadArtifactileApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Endpoint for listing all report artifacts accessible to the user matching the filter criteria.
-func (api *ReportArtifactsApi) ListReportArtifacts(page_ *int, limit_ *int, filter_ *string, select_ *string, args ...map[string]interface{}) (*import3.ListReportArtifactsApiResponse, error) {
+func (api *ReportArtifactsApi) ListReportArtifacts(page_ *int, limit_ *int, filter_ *string, select_ *string, args ...map[string]interface{}) (*import6.ListReportArtifactsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewReportArtifactsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListReportArtifacts(context.Background(), &import6.ListReportArtifactsRequest{
+	return api.ServiceClient.ListReportArtifacts(context.Background(), &import9.ListReportArtifactsRequest{
 		Page_:   page_,
 		Limit_:  limit_,
 		Filter_: filter_,
@@ -225,13 +237,13 @@ func (api *ReportArtifactsApi) ListReportArtifacts(page_ *int, limit_ *int, filt
 }
 
 // Endpoint for listing all report artifacts accessible to the user matching the filter criteria.
-func (api *ReportArtifactsServiceApi) ListReportArtifacts(ctx context.Context, request *import6.ListReportArtifactsRequest, args ...map[string]interface{}) (*import3.ListReportArtifactsApiResponse, error) {
+func (api *ReportArtifactsServiceApi) ListReportArtifacts(ctx context.Context, request *import9.ListReportArtifactsRequest, args ...map[string]interface{}) (*import6.ListReportArtifactsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/content/report-artifacts"
+	uri := "/api/opsmgmt/v4.1.b1/content/report-artifacts"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -274,31 +286,37 @@ func (api *ReportArtifactsServiceApi) ListReportArtifacts(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import3.ListReportArtifactsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.ListReportArtifactsApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // This operation uploads an artifact file to the provided UUID.
-func (api *ReportArtifactsApi) UploadArtifactFile(reportArtifactExtId *string, path *string, args ...map[string]interface{}) (*import3.UploadArtifactApiResponse, error) {
+func (api *ReportArtifactsApi) UploadArtifactFile(reportArtifactExtId *string, path *string, args ...map[string]interface{}) (*import6.UploadArtifactApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewReportArtifactsServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UploadArtifactFile(context.Background(), &import6.UploadArtifactFileRequest{
+	return api.ServiceClient.UploadArtifactFile(context.Background(), &import9.UploadArtifactFileRequest{
 		ReportArtifactExtId: reportArtifactExtId,
 		Path:                path,
 	}, args...)
 }
 
 // This operation uploads an artifact file to the provided UUID.
-func (api *ReportArtifactsServiceApi) UploadArtifactFile(ctx context.Context, request *import6.UploadArtifactFileRequest, args ...map[string]interface{}) (*import3.UploadArtifactApiResponse, error) {
+func (api *ReportArtifactsServiceApi) UploadArtifactFile(ctx context.Context, request *import9.UploadArtifactFileRequest, args ...map[string]interface{}) (*import6.UploadArtifactApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/content/report-artifacts/{reportArtifactExtId}/$actions/upload"
+	uri := "/api/opsmgmt/v4.1.b1/content/report-artifacts/{reportArtifactExtId}/$actions/upload"
 
 	// verify the required parameter 'reportArtifactExtId' is set
 	if nil == request.ReportArtifactExtId {
@@ -351,8 +369,14 @@ func (api *ReportArtifactsServiceApi) UploadArtifactFile(ctx context.Context, re
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
-	unmarshalledResp := new(import3.UploadArtifactApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	// Response is already []byte (JSON content)
+	unmarshalledResp := new(import6.UploadArtifactApiResponse)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

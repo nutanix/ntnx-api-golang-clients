@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/config"
-	import2 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/request/globalreportsetting"
+	import5 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/request/globalreportsetting"
 	"net/http"
 	"net/url"
 	"strings"
@@ -65,19 +65,19 @@ func (api *GlobalReportSettingApi) GetGlobalReportSetting(userExtId *string, arg
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewGlobalReportSettingServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetGlobalReportSetting(context.Background(), &import2.GetGlobalReportSettingRequest{
+	return api.ServiceClient.GetGlobalReportSetting(context.Background(), &import5.GetGlobalReportSettingRequest{
 		UserExtId: userExtId,
 	}, args...)
 }
 
 // This operation retrieves the global report setting belonging to the user.
-func (api *GlobalReportSettingServiceApi) GetGlobalReportSetting(ctx context.Context, request *import2.GetGlobalReportSettingRequest, args ...map[string]interface{}) (*import1.GetGlobalReportSettingApiResponse, error) {
+func (api *GlobalReportSettingServiceApi) GetGlobalReportSetting(ctx context.Context, request *import5.GetGlobalReportSettingRequest, args ...map[string]interface{}) (*import1.GetGlobalReportSettingApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/config/user/{userExtId}/global-report-setting"
+	uri := "/api/opsmgmt/v4.1.b1/config/user/{userExtId}/global-report-setting"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == request.UserExtId {
@@ -114,9 +114,15 @@ func (api *GlobalReportSettingServiceApi) GetGlobalReportSetting(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetGlobalReportSettingApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -125,20 +131,20 @@ func (api *GlobalReportSettingApi) UpdateGlobalReportSetting(userExtId *string, 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewGlobalReportSettingServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateGlobalReportSetting(context.Background(), &import2.UpdateGlobalReportSettingRequest{
+	return api.ServiceClient.UpdateGlobalReportSetting(context.Background(), &import5.UpdateGlobalReportSettingRequest{
 		UserExtId: userExtId,
 		Body:      body,
 	}, args...)
 }
 
 // This operation updates the global report setting belonging to the user.
-func (api *GlobalReportSettingServiceApi) UpdateGlobalReportSetting(ctx context.Context, request *import2.UpdateGlobalReportSettingRequest, args ...map[string]interface{}) (*import1.UpdateGlobalReportSettingsApiResponse, error) {
+func (api *GlobalReportSettingServiceApi) UpdateGlobalReportSetting(ctx context.Context, request *import5.UpdateGlobalReportSettingRequest, args ...map[string]interface{}) (*import1.UpdateGlobalReportSettingsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/config/user/{userExtId}/global-report-setting"
+	uri := "/api/opsmgmt/v4.1.b1/config/user/{userExtId}/global-report-setting"
 
 	// verify the required parameter 'userExtId' is set
 	if nil == request.UserExtId {
@@ -179,8 +185,14 @@ func (api *GlobalReportSettingServiceApi) UpdateGlobalReportSetting(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateGlobalReportSettingsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

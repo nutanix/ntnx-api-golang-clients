@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/client"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/config"
-	import7 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/request/reportconfig"
+	import10 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/request/reportconfig"
 	"net/http"
 	"net/url"
 	"strings"
@@ -65,19 +65,19 @@ func (api *ReportConfigApi) CreateReportConfig(body *import1.ReportConfig, args 
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewReportConfigServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateReportConfig(context.Background(), &import7.CreateReportConfigRequest{
+	return api.ServiceClient.CreateReportConfig(context.Background(), &import10.CreateReportConfigRequest{
 		Body: body,
 	}, args...)
 }
 
 // Create a custom report configuration using the request body.
-func (api *ReportConfigServiceApi) CreateReportConfig(ctx context.Context, request *import7.CreateReportConfigRequest, args ...map[string]interface{}) (*import1.CreateReportConfigApiResponse, error) {
+func (api *ReportConfigServiceApi) CreateReportConfig(ctx context.Context, request *import10.CreateReportConfigRequest, args ...map[string]interface{}) (*import1.CreateReportConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/config/report-configs"
+	uri := "/api/opsmgmt/v4.1.b1/config/report-configs"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *ReportConfigServiceApi) CreateReportConfig(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateReportConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -123,19 +129,19 @@ func (api *ReportConfigApi) DeleteReportConfigById(extId *string, args ...map[st
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewReportConfigServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteReportConfigById(context.Background(), &import7.DeleteReportConfigByIdRequest{
+	return api.ServiceClient.DeleteReportConfigById(context.Background(), &import10.DeleteReportConfigByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Deletes a report configuration with the given UUID.
-func (api *ReportConfigServiceApi) DeleteReportConfigById(ctx context.Context, request *import7.DeleteReportConfigByIdRequest, args ...map[string]interface{}) (*import1.DeleteReportConfigApiResponse, error) {
+func (api *ReportConfigServiceApi) DeleteReportConfigById(ctx context.Context, request *import10.DeleteReportConfigByIdRequest, args ...map[string]interface{}) (*import1.DeleteReportConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/config/report-configs/{extId}"
+	uri := "/api/opsmgmt/v4.1.b1/config/report-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *ReportConfigServiceApi) DeleteReportConfigById(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteReportConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -183,19 +195,19 @@ func (api *ReportConfigApi) GetReportConfigById(extId *string, args ...map[strin
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewReportConfigServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.GetReportConfigById(context.Background(), &import7.GetReportConfigByIdRequest{
+	return api.ServiceClient.GetReportConfigById(context.Background(), &import10.GetReportConfigByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
 // Returns report configuration information for the provided UUID.
-func (api *ReportConfigServiceApi) GetReportConfigById(ctx context.Context, request *import7.GetReportConfigByIdRequest, args ...map[string]interface{}) (*import1.GetReportConfigApiResponse, error) {
+func (api *ReportConfigServiceApi) GetReportConfigById(ctx context.Context, request *import10.GetReportConfigByIdRequest, args ...map[string]interface{}) (*import1.GetReportConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/config/report-configs/{extId}"
+	uri := "/api/opsmgmt/v4.1.b1/config/report-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -232,9 +244,15 @@ func (api *ReportConfigServiceApi) GetReportConfigById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetReportConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -243,7 +261,7 @@ func (api *ReportConfigApi) ListReportConfigs(page_ *int, limit_ *int, filter_ *
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewReportConfigServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListReportConfigs(context.Background(), &import7.ListReportConfigsRequest{
+	return api.ServiceClient.ListReportConfigs(context.Background(), &import10.ListReportConfigsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -253,13 +271,13 @@ func (api *ReportConfigApi) ListReportConfigs(page_ *int, limit_ *int, filter_ *
 }
 
 // Endpoint for listing all report configurations accessible to the user that match the filter criteria.
-func (api *ReportConfigServiceApi) ListReportConfigs(ctx context.Context, request *import7.ListReportConfigsRequest, args ...map[string]interface{}) (*import1.ListReportConfigsApiResponse, error) {
+func (api *ReportConfigServiceApi) ListReportConfigs(ctx context.Context, request *import10.ListReportConfigsRequest, args ...map[string]interface{}) (*import1.ListReportConfigsApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/config/report-configs"
+	uri := "/api/opsmgmt/v4.1.b1/config/report-configs"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -305,9 +323,15 @@ func (api *ReportConfigServiceApi) ListReportConfigs(ctx context.Context, reques
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListReportConfigsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -316,20 +340,20 @@ func (api *ReportConfigApi) UpdateReportConfigById(extId *string, body *import1.
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewReportConfigServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.UpdateReportConfigById(context.Background(), &import7.UpdateReportConfigByIdRequest{
+	return api.ServiceClient.UpdateReportConfigById(context.Background(), &import10.UpdateReportConfigByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
 // Updates the report configuration information for the provided UUID with the given specifications.
-func (api *ReportConfigServiceApi) UpdateReportConfigById(ctx context.Context, request *import7.UpdateReportConfigByIdRequest, args ...map[string]interface{}) (*import1.UpdateReportConfigApiResponse, error) {
+func (api *ReportConfigServiceApi) UpdateReportConfigById(ctx context.Context, request *import10.UpdateReportConfigByIdRequest, args ...map[string]interface{}) (*import1.UpdateReportConfigApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.0/config/report-configs/{extId}"
+	uri := "/api/opsmgmt/v4.1.b1/config/report-configs/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -370,8 +394,14 @@ func (api *ReportConfigServiceApi) UpdateReportConfigById(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateReportConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

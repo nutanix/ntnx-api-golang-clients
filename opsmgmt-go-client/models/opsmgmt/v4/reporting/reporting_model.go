@@ -1,7 +1,7 @@
 /*
  * Generated file models/opsmgmt/v4/reporting/reporting_model.go.
  *
- * Product version: 4.0.4
+ * Product version: 4.1.1-beta-1
  *
  * Part of the Nutanix Cloud Management Platform APIs
  *
@@ -188,7 +188,7 @@ func NewCustomView() *CustomView {
 	p := new(CustomView)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.CustomView"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -304,7 +304,7 @@ func NewField() *Field {
 	p := new(Field)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.Field"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -406,7 +406,7 @@ func NewFileWrapper() *FileWrapper {
 	p := new(FileWrapper)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.FileWrapper"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -508,7 +508,7 @@ func NewImportExportParams() *ImportExportParams {
 	p := new(ImportExportParams)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.ImportExportParams"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -626,7 +626,7 @@ func NewNotificationPolicy() *NotificationPolicy {
 	p := new(NotificationPolicy)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.NotificationPolicy"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -966,7 +966,7 @@ func NewPredefinedView() *PredefinedView {
 	p := new(PredefinedView)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.PredefinedView"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1076,7 +1076,7 @@ func NewRecipient() *Recipient {
 	p := new(Recipient)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.Recipient"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1103,6 +1103,10 @@ type ReportCustomization struct {
 	  Custom header HTML for the report.
 	*/
 	HeaderHtml *string `json:"headerHtml,omitempty"`
+	/*
+	  Flag to enable/disable table of contents in the report.
+	*/
+	IsTableOfContentsEnabled *bool `json:"isTableOfContentsEnabled,omitempty"`
 	/*
 	  Custom logo for the report as selected by the user. The logo extID can be fetched using report artifact list API.
 	*/
@@ -1170,6 +1174,9 @@ func (p *ReportCustomization) UnmarshalJSON(b []byte) error {
 	if known.HeaderHtml != nil {
 		p.HeaderHtml = known.HeaderHtml
 	}
+	if known.IsTableOfContentsEnabled != nil {
+		p.IsTableOfContentsEnabled = known.IsTableOfContentsEnabled
+	}
 	if known.LogoImageExtId != nil {
 		p.LogoImageExtId = known.LogoImageExtId
 	}
@@ -1181,6 +1188,7 @@ func (p *ReportCustomization) UnmarshalJSON(b []byte) error {
 	delete(allFields, "cssStyleSheet")
 	delete(allFields, "footerHtml")
 	delete(allFields, "headerHtml")
+	delete(allFields, "isTableOfContentsEnabled")
 	delete(allFields, "logoImageExtId")
 
 	// Step 5: Assign remaining fields to UnknownFields_
@@ -1195,8 +1203,11 @@ func NewReportCustomization() *ReportCustomization {
 	p := new(ReportCustomization)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.ReportCustomization"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
+
+	p.IsTableOfContentsEnabled = new(bool)
+	*p.IsTableOfContentsEnabled = true
 
 	return p
 }
@@ -1505,7 +1516,7 @@ func NewView() *View {
 	p := new(View)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.View"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1787,7 +1798,7 @@ func NewViewReport() *ViewReport {
 	p := new(ViewReport)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "opsmgmt.v4.reporting.ViewReport"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r0"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r1.b1"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1798,6 +1809,8 @@ type OneOfViewType_ struct {
 	ObjectType_   *string         `json:"-"`
 	oneOfType1    *PredefinedView `json:"-"`
 	oneOfType0    *CustomView     `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfViewType_() *OneOfViewType_ {
@@ -1845,6 +1858,9 @@ func (p *OneOfViewType_) SetValue(v interface{}) error {
 }
 
 func (p *OneOfViewType_) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType1
 	}
@@ -1855,9 +1871,79 @@ func (p *OneOfViewType_) GetValue() interface{} {
 }
 
 func (p *OneOfViewType_) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(PredefinedView)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "opsmgmt.v4.reporting.PredefinedView" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(PredefinedView)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(CustomView)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "opsmgmt.v4.reporting.CustomView" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(CustomView)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType1 := new(PredefinedView)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "opsmgmt.v4.reporting.PredefinedView" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "opsmgmt.v4.reporting.PredefinedView" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(PredefinedView)
 			}
@@ -1875,7 +1961,7 @@ func (p *OneOfViewType_) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new(CustomView)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "opsmgmt.v4.reporting.CustomView" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "opsmgmt.v4.reporting.CustomView" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(CustomView)
 			}
@@ -1891,10 +1977,31 @@ func (p *OneOfViewType_) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfViewType_"))
 }
 
 func (p *OneOfViewType_) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType1 != nil && *p.oneOfType1.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType1)
 	}

@@ -9,8 +9,8 @@ The Go client for Nutanix Cloud Management Platform APIs is designed for Go clie
 - Use standard methods for installation.
 
 ## Version
-- API version: v4.0
-- Package version: v4.0.4
+- API version: v4.1.b1
+- Package version: v4.1.1-beta.1
 ## Version Negotiation
 
 By default, the client negotiates the API version with the server to ensure compatibility. Version negotiation is **enabled by default**. To disable version negotiation and use a fixed API version, set the `AllowVersionNegotiation` property to `false` in the client configuration:
@@ -52,7 +52,7 @@ $ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...
 ##### Install a specific version
 
 ```shell
-$ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...@v4.0.4
+$ go get github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/...@v4.1.1-beta.1
 ```
 
 #### Using go modules
@@ -81,7 +81,7 @@ module your-module
 go {GO_VERSION}
 
 require (
-	github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4 v4.0.4
+	github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4 v4.1.1-beta.1
 )
 ```
 
@@ -159,6 +159,43 @@ ApiClientInstance.Proxy.Port = 1080
 
 
 
+### Additional CA Certificates
+To trust additional CA certificates (e.g. self-signed or custom root CAs), use the `SetAdditionalCertificates` method with PEM-encoded certificate data. Both single and multiple certificates in the PEM data are supported.
+
+Certificate validity is checked lazily on the next request. If the PEM data contains no valid certificates, a warning is logged and the additional certificates are not applied.
+
+Passing `nil` or empty bytes to `SetAdditionalCertificates` is equivalent to calling `ClearAdditionalCertificates`. 
+This will remove all additional certificates previously added to the trustStore and restore trustStore its original
+state.
+
+```go
+import (
+	"github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/client"
+	"os"
+)
+
+var (
+	ApiClientInstance *client.ApiClient
+)
+
+ApiClientInstance = client.NewApiClient()
+// Configure the client as shown in the previous step
+// ...
+
+caCert, err := os.ReadFile("/path/to/ca-certificate.pem")
+if err != nil {
+	// handle error
+}
+// No error is returned for invalid PEM — a warning is logged on the next request instead
+ApiClientInstance.SetAdditionalCertificates(caCert)
+
+// Passing nil or empty bytes clears any previously set additional CA certificates
+ApiClientInstance.SetAdditionalCertificates(nil)
+
+// Alternatively, clear explicitly
+ApiClientInstance.ClearAdditionalCertificates()
+```
+
 ### Authentication
 Nutanix APIs currently support two type of authentication schemes:
 
@@ -216,7 +253,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	ReportConfigApiInstance *api.ReportConfigApi
+	DashboardApiInstance *api.DashboardApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -224,11 +261,11 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ReportConfigApiInstance = api.NewReportConfigApi(ApiClientInstance)
-extId := "c5a5afEd-6DaE-c2f9-d5fb-bAadde1Fb121"
+DashboardApiInstance = api.NewDashboardApi(ApiClientInstance)
+extId := "1C775c20-eff8-cB8c-1Dee-f175A752BE3B"
 
 // 
-getResponse, err := ReportConfigApiInstance.GetReportConfigById(&extId)
+getResponse, err := DashboardApiInstance.GetDashboardById(&extId)
 if err != nil {
 ....
 }
@@ -264,7 +301,7 @@ import (
 
 var (
 	ApiClientInstance *client.ApiClient
-	ReportConfigApiInstance *api.ReportConfigApi
+	DashboardApiInstance *api.DashboardApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -272,11 +309,11 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ReportConfigApiInstance = api.NewReportConfigApi(ApiClientInstance)
-extId := "c5a5afEd-6DaE-c2f9-d5fb-bAadde1Fb121"
+DashboardApiInstance = api.NewDashboardApi(ApiClientInstance)
+extId := "1C775c20-eff8-cB8c-1Dee-f175A752BE3B"
 
 // 
-getResponse, err := ReportConfigApiInstance.GetReportConfigById(&extId)
+getResponse, err := DashboardApiInstance.GetDashboardById(&extId)
 if err != nil {
     ....
 }
@@ -290,10 +327,10 @@ args["If-Match"] = etagValue
 // Perform update call with received E-Tag reference
 // initialize/change parameters for update
 // ...
-reportConfig := getResponse.GetData().(import1.ReportConfig)
+dashboard := getResponse.GetData().(import1.Dashboard)
 
 // The body parameter in the following operation is received from the previous GET request's response which needs to be updated.
-response, err := ReportConfigApiInstance.UpdateReportConfigById(&reportConfig&extId, , args)
+response, err := DashboardApiInstance.UpdateDashboardById(&dashboard&extId, , args)
 if err != nil {
 ....
 }
@@ -318,7 +355,7 @@ import (
 )
 var (
 	ApiClientInstance *client.ApiClient
-	ReportConfigApiInstance *api.ReportConfigApi
+	DashboardApiInstance *api.DashboardApi
 )
 
 ApiClientInstance = client.NewApiClient()
@@ -326,7 +363,7 @@ ApiClientInstance = client.NewApiClient()
 // ...
 
 // Initialize the API
-ReportConfigApiInstance = api.NewReportConfigApi(ApiClientInstance)
+DashboardApiInstance = api.NewDashboardApi(ApiClientInstance)
 page_ := 0
 limit_ := 50
 filter_ := "string_sample_data"
@@ -334,7 +371,7 @@ orderby_ := "string_sample_data"
 select_ := "string_sample_data"
 
 // 
-response, err := ReportConfigApiInstance.ListReportConfigs(&page_, &limit_, &filter_, &orderby_, &select_)
+response, err := DashboardApiInstance.ListDashboards(&page_, &limit_, &filter_, &orderby_, &select_)
 if err != nil {
     ....
 }
@@ -345,7 +382,7 @@ The list of filterable and sortable fields with expansion keys can be found in t
 
 ## API Reference
 
-This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=opsmgmt&version=v4.0&language=go). This documentation is auto-generated, and the location may change.
+This library has a full set of [API Reference Documentation](https://developers.nutanix.com/sdk-reference?namespace=opsmgmt&version=v4.1.b1&language=go). This documentation is auto-generated, and the location may change.
 
 ## License
 This library is licensed under Apache 2.0 license. Full license text is available in [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt).

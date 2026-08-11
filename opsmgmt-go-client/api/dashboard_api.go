@@ -4,33 +4,30 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/client"
-	import7 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/config"
-	import8 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/common/v1/response"
 	import1 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/config"
-	import6 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/content"
-	import11 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/request/reports"
+	import2 "github.com/nutanix/ntnx-api-golang-clients/opsmgmt-go-client/v4/models/opsmgmt/v4/request/dashboard"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-type ReportsApi struct {
+type DashboardApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
-	ServiceClient *ReportsServiceApi
+	ServiceClient *DashboardServiceApi
 }
 
-type ReportsServiceApi struct {
+type DashboardServiceApi struct {
 	ApiClient     *client.ApiClient
 	headersToSkip map[string]bool
 }
 
-func NewReportsApi(apiClient *client.ApiClient) *ReportsApi {
+func NewDashboardApi(apiClient *client.ApiClient) *DashboardApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ReportsApi{
+	a := &DashboardApi{
 		ApiClient: apiClient,
 	}
 
@@ -40,17 +37,17 @@ func NewReportsApi(apiClient *client.ApiClient) *ReportsApi {
 		a.headersToSkip[header] = true
 	}
 
-	a.ServiceClient = NewReportsServiceApi(a.ApiClient)
+	a.ServiceClient = NewDashboardServiceApi(a.ApiClient)
 
 	return a
 }
 
-func NewReportsServiceApi(apiClient *client.ApiClient) *ReportsServiceApi {
+func NewDashboardServiceApi(apiClient *client.ApiClient) *DashboardServiceApi {
 	if apiClient == nil {
 		apiClient = client.NewApiClient()
 	}
 
-	a := &ReportsServiceApi{
+	a := &DashboardServiceApi{
 		ApiClient: apiClient,
 	}
 
@@ -63,24 +60,24 @@ func NewReportsServiceApi(apiClient *client.ApiClient) *ReportsServiceApi {
 	return a
 }
 
-// Creates a report for the specified report configuration UUID.
-func (api *ReportsApi) CreateReport(body *import1.Report, args ...map[string]interface{}) (*import1.CreateReportApiResponse, error) {
+// Create a new dashboard.
+func (api *DashboardApi) CreateDashboard(body *import1.Dashboard, args ...map[string]interface{}) (*import1.CreateDashboardApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewReportsServiceApi(api.ApiClient)
+		api.ServiceClient = NewDashboardServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.CreateReport(context.Background(), &import11.CreateReportRequest{
+	return api.ServiceClient.CreateDashboard(context.Background(), &import2.CreateDashboardRequest{
 		Body: body,
 	}, args...)
 }
 
-// Creates a report for the specified report configuration UUID.
-func (api *ReportsServiceApi) CreateReport(ctx context.Context, request *import11.CreateReportRequest, args ...map[string]interface{}) (*import1.CreateReportApiResponse, error) {
+// Create a new dashboard.
+func (api *DashboardServiceApi) CreateDashboard(ctx context.Context, request *import2.CreateDashboardRequest, args ...map[string]interface{}) (*import1.CreateDashboardApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.1.b1/config/reports"
+	uri := "/api/opsmgmt/v4.1.b1/config/dashboards"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -120,31 +117,31 @@ func (api *ReportsServiceApi) CreateReport(ctx context.Context, request *import1
 	}
 
 	// Response is already []byte (JSON content)
-	unmarshalledResp := new(import1.CreateReportApiResponse)
+	unmarshalledResp := new(import1.CreateDashboardApiResponse)
 	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
 		return nil, err
 	}
 	return unmarshalledResp, err
 }
 
-// Deletes the report associated with the given UUID.
-func (api *ReportsApi) DeleteReportById(extId *string, args ...map[string]interface{}) (*import1.DeleteReportApiResponse, error) {
+// Delete an existing dashboard.
+func (api *DashboardApi) DeleteDashboardById(extId *string, args ...map[string]interface{}) (*import1.DeleteDashboardApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewReportsServiceApi(api.ApiClient)
+		api.ServiceClient = NewDashboardServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DeleteReportById(context.Background(), &import11.DeleteReportByIdRequest{
+	return api.ServiceClient.DeleteDashboardById(context.Background(), &import2.DeleteDashboardByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
-// Deletes the report associated with the given UUID.
-func (api *ReportsServiceApi) DeleteReportById(ctx context.Context, request *import11.DeleteReportByIdRequest, args ...map[string]interface{}) (*import1.DeleteReportApiResponse, error) {
+// Delete an existing dashboard.
+func (api *DashboardServiceApi) DeleteDashboardById(ctx context.Context, request *import2.DeleteDashboardByIdRequest, args ...map[string]interface{}) (*import1.DeleteDashboardApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.1.b1/config/reports/{extId}"
+	uri := "/api/opsmgmt/v4.1.b1/config/dashboards/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -186,126 +183,31 @@ func (api *ReportsServiceApi) DeleteReportById(ctx context.Context, request *imp
 	}
 
 	// Response is already []byte (JSON content)
-	unmarshalledResp := new(import1.DeleteReportApiResponse)
+	unmarshalledResp := new(import1.DeleteDashboardApiResponse)
 	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
 		return nil, err
 	}
 	return unmarshalledResp, err
 }
 
-// Downloads a generated report by utilizing the given report type and UUID.
-func (api *ReportsApi) DownloadReport(reportExtId *string, args ...map[string]interface{}) (*import6.DownloadReportApiResponse, error) {
+// Get a dashboard by ID.
+func (api *DashboardApi) GetDashboardById(extId *string, args ...map[string]interface{}) (*import1.GetDashboardApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewReportsServiceApi(api.ApiClient)
+		api.ServiceClient = NewDashboardServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.DownloadReport(context.Background(), &import11.DownloadReportRequest{
-		ReportExtId: reportExtId,
-	}, args...)
-}
-
-// Downloads a generated report by utilizing the given report type and UUID.
-func (api *ReportsServiceApi) DownloadReport(ctx context.Context, request *import11.DownloadReportRequest, args ...map[string]interface{}) (*import6.DownloadReportApiResponse, error) {
-	argMap := make(map[string]interface{})
-	if len(args) > 0 {
-		argMap = args[0]
-	}
-
-	uri := "/api/opsmgmt/v4.1.b1/content/reports/{reportExtId}/file"
-
-	// verify the required parameter 'reportExtId' is set
-	if nil == request.ReportExtId {
-		return nil, client.ReportError("reportExtId is required and must be specified")
-	}
-
-	// Path Params
-	uri = strings.Replace(uri, "{"+"reportExtId"+"}", url.PathEscape(client.ParameterToString(*request.ReportExtId, "")), -1)
-	headerParams := make(map[string]string)
-	queryParams := url.Values{}
-	formParams := url.Values{}
-
-	// to determine the Content-Type header
-	contentTypes := []string{}
-
-	// to determine the Accept header
-	accepts := []string{"application/pdf", "application/zip", "application/json"}
-
-	// Headers provided explicitly on operation takes precedence
-	for headerKey, value := range argMap {
-		// Skip platform generated headers
-		if !api.headersToSkip[strings.ToLower(headerKey)] {
-			if value != nil {
-				if headerValue, headerValueOk := value.(*string); headerValueOk {
-					headerParams[headerKey] = *headerValue
-				}
-			}
-		}
-	}
-
-	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
-
-	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodGet, nil, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
-	if nil != err || nil == apiClientResponse {
-		return nil, err
-	}
-	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
-		return nil, nil
-	}
-
-	binaryMediaTypes := []string{"application/octet-stream", "application/pdf", "application/zip"}
-	if httpResponse, ok := apiClientResponse.(*http.Response); ok {
-		if api.ApiClient.Contains(binaryMediaTypes, httpResponse.Header.Get("Content-Type")) {
-			// Download file
-			filePath, err := api.ApiClient.DownloadFile(httpResponse)
-			if err != nil {
-				return nil, err
-			}
-
-			response := import6.NewDownloadReportApiResponse()
-			fileDetail := import6.NewFileDetail()
-			fileDetail.Path = filePath
-
-			flagName := "hasError"
-			flagValue := false
-			var flags []import7.Flag
-			flags = append(flags, import7.Flag{Name: &flagName, Value: &flagValue})
-			metadata := import8.NewApiResponseMetadata()
-			metadata.Flags = flags
-			response.Metadata = metadata
-			err = response.SetData(*fileDetail)
-			if err != nil {
-				return nil, err
-			}
-
-			return response, err
-		}
-	}
-
-	// Response is already []byte (JSON content)
-	unmarshalledResp := new(import6.DownloadReportApiResponse)
-	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
-		return nil, err
-	}
-	return unmarshalledResp, err
-}
-
-// Fetches the report associated with the given UUID.
-func (api *ReportsApi) GetReportById(extId *string, args ...map[string]interface{}) (*import1.GetReportApiResponse, error) {
-	if api.ServiceClient == nil {
-		api.ServiceClient = NewReportsServiceApi(api.ApiClient)
-	}
-	return api.ServiceClient.GetReportById(context.Background(), &import11.GetReportByIdRequest{
+	return api.ServiceClient.GetDashboardById(context.Background(), &import2.GetDashboardByIdRequest{
 		ExtId: extId,
 	}, args...)
 }
 
-// Fetches the report associated with the given UUID.
-func (api *ReportsServiceApi) GetReportById(ctx context.Context, request *import11.GetReportByIdRequest, args ...map[string]interface{}) (*import1.GetReportApiResponse, error) {
+// Get a dashboard by ID.
+func (api *DashboardServiceApi) GetDashboardById(ctx context.Context, request *import2.GetDashboardByIdRequest, args ...map[string]interface{}) (*import1.GetDashboardApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.1.b1/config/reports/{extId}"
+	uri := "/api/opsmgmt/v4.1.b1/config/dashboards/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -347,19 +249,19 @@ func (api *ReportsServiceApi) GetReportById(ctx context.Context, request *import
 	}
 
 	// Response is already []byte (JSON content)
-	unmarshalledResp := new(import1.GetReportApiResponse)
+	unmarshalledResp := new(import1.GetDashboardApiResponse)
 	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
 		return nil, err
 	}
 	return unmarshalledResp, err
 }
 
-// Fetches a list of all the generated reports
-func (api *ReportsApi) ListReports(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListReportsApiResponse, error) {
+// List all dashboards.
+func (api *DashboardApi) ListDashboards(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListDashboardApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewReportsServiceApi(api.ApiClient)
+		api.ServiceClient = NewDashboardServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.ListReports(context.Background(), &import11.ListReportsRequest{
+	return api.ServiceClient.ListDashboards(context.Background(), &import2.ListDashboardsRequest{
 		Page_:    page_,
 		Limit_:   limit_,
 		Filter_:  filter_,
@@ -368,14 +270,14 @@ func (api *ReportsApi) ListReports(page_ *int, limit_ *int, filter_ *string, ord
 	}, args...)
 }
 
-// Fetches a list of all the generated reports
-func (api *ReportsServiceApi) ListReports(ctx context.Context, request *import11.ListReportsRequest, args ...map[string]interface{}) (*import1.ListReportsApiResponse, error) {
+// List all dashboards.
+func (api *DashboardServiceApi) ListDashboards(ctx context.Context, request *import2.ListDashboardsRequest, args ...map[string]interface{}) (*import1.ListDashboardApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.1.b1/config/reports"
+	uri := "/api/opsmgmt/v4.1.b1/config/dashboards"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -426,32 +328,32 @@ func (api *ReportsServiceApi) ListReports(ctx context.Context, request *import11
 	}
 
 	// Response is already []byte (JSON content)
-	unmarshalledResp := new(import1.ListReportsApiResponse)
+	unmarshalledResp := new(import1.ListDashboardApiResponse)
 	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
 		return nil, err
 	}
 	return unmarshalledResp, err
 }
 
-// Notifies the specified recipients by emailing the generated reports for the given UUID.
-func (api *ReportsApi) NotifyReport(extId *string, body *import1.ReportNotificationSpec, args ...map[string]interface{}) (*import1.NotifyReportApiResponse, error) {
+// Update an existing dashboard.
+func (api *DashboardApi) UpdateDashboardById(extId *string, body *import1.Dashboard, args ...map[string]interface{}) (*import1.UpdateDashboardApiResponse, error) {
 	if api.ServiceClient == nil {
-		api.ServiceClient = NewReportsServiceApi(api.ApiClient)
+		api.ServiceClient = NewDashboardServiceApi(api.ApiClient)
 	}
-	return api.ServiceClient.NotifyReport(context.Background(), &import11.NotifyReportRequest{
+	return api.ServiceClient.UpdateDashboardById(context.Background(), &import2.UpdateDashboardByIdRequest{
 		ExtId: extId,
 		Body:  body,
 	}, args...)
 }
 
-// Notifies the specified recipients by emailing the generated reports for the given UUID.
-func (api *ReportsServiceApi) NotifyReport(ctx context.Context, request *import11.NotifyReportRequest, args ...map[string]interface{}) (*import1.NotifyReportApiResponse, error) {
+// Update an existing dashboard.
+func (api *DashboardServiceApi) UpdateDashboardById(ctx context.Context, request *import2.UpdateDashboardByIdRequest, args ...map[string]interface{}) (*import1.UpdateDashboardApiResponse, error) {
 	argMap := make(map[string]interface{})
 	if len(args) > 0 {
 		argMap = args[0]
 	}
 
-	uri := "/api/opsmgmt/v4.1.b1/config/reports/{extId}/$actions/notify-recipients"
+	uri := "/api/opsmgmt/v4.1.b1/config/dashboards/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -488,7 +390,7 @@ func (api *ReportsServiceApi) NotifyReport(ctx context.Context, request *import1
 
 	authNames := []string{"apiKeyAuthScheme", "basicAuthScheme"}
 
-	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPost, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
+	apiClientResponse, err := api.ApiClient.CallApiWithContext(ctx, &uri, http.MethodPut, request.Body, queryParams, headerParams, formParams, accepts, contentTypes, authNames)
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
@@ -497,7 +399,7 @@ func (api *ReportsServiceApi) NotifyReport(ctx context.Context, request *import1
 	}
 
 	// Response is already []byte (JSON content)
-	unmarshalledResp := new(import1.NotifyReportApiResponse)
+	unmarshalledResp := new(import1.UpdateDashboardApiResponse)
 	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
 		return nil, err
 	}
