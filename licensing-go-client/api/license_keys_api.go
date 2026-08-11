@@ -78,7 +78,7 @@ func (api *LicenseKeysServiceApi) AddLicenseKey(ctx context.Context, request *im
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/config/license-keys"
+	uri := "/api/licensing/v4.4/config/license-keys"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -117,9 +117,15 @@ func (api *LicenseKeysServiceApi) AddLicenseKey(ctx context.Context, request *im
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.AddLicenseKeyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -140,7 +146,7 @@ func (api *LicenseKeysServiceApi) AssignLicenseKeys(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/config/$actions/assign-license-keys"
+	uri := "/api/licensing/v4.4/config/$actions/assign-license-keys"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -175,9 +181,15 @@ func (api *LicenseKeysServiceApi) AssignLicenseKeys(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.AssignLicenseKeysApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -199,7 +211,7 @@ func (api *LicenseKeysServiceApi) AssociateLicenseKeys(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/config/license-keys/{extId}/$actions/associate-license-keys"
+	uri := "/api/licensing/v4.4/config/license-keys/{extId}/$actions/associate-license-keys"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -240,9 +252,15 @@ func (api *LicenseKeysServiceApi) AssociateLicenseKeys(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.AssociateLicenseKeysApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -263,7 +281,7 @@ func (api *LicenseKeysServiceApi) DeleteLicenseKeyById(ctx context.Context, requ
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/config/license-keys/{extId}"
+	uri := "/api/licensing/v4.4/config/license-keys/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -300,9 +318,15 @@ func (api *LicenseKeysServiceApi) DeleteLicenseKeyById(ctx context.Context, requ
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.DeleteLicenseKeyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -323,7 +347,7 @@ func (api *LicenseKeysServiceApi) GetLicenseKeyById(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/config/license-keys/{extId}"
+	uri := "/api/licensing/v4.4/config/license-keys/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -360,9 +384,15 @@ func (api *LicenseKeysServiceApi) GetLicenseKeyById(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.GetLicenseKeyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -388,7 +418,7 @@ func (api *LicenseKeysServiceApi) ListLicenseKeys(ctx context.Context, request *
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/config/license-keys"
+	uri := "/api/licensing/v4.4/config/license-keys"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -437,9 +467,15 @@ func (api *LicenseKeysServiceApi) ListLicenseKeys(ctx context.Context, request *
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.ListLicenseKeysApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -464,7 +500,7 @@ func (api *LicenseKeysServiceApi) ListReclaimLicenseTokens(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/config/reclaim-license-tokens"
+	uri := "/api/licensing/v4.4/config/reclaim-license-tokens"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -510,9 +546,15 @@ func (api *LicenseKeysServiceApi) ListReclaimLicenseTokens(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.ListReclaimLicenseTokensApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -534,7 +576,7 @@ func (api *LicenseKeysServiceApi) ReclaimLicenseKey(ctx context.Context, request
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/config/license-keys/{extId}/$actions/reclaim"
+	uri := "/api/licensing/v4.4/config/license-keys/{extId}/$actions/reclaim"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -575,8 +617,14 @@ func (api *LicenseKeysServiceApi) ReclaimLicenseKey(ctx context.Context, request
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import3.ReclaimLicenseKeyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

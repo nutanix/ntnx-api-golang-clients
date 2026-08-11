@@ -1,7 +1,7 @@
 /*
  * Generated file models/licensing/v4/config/config_model.go.
  *
- * Product version: 4.3.2
+ * Product version: 4.4.1
  *
  * Part of the Nutanix Licensing APIs
  *
@@ -26,7 +26,7 @@ import (
 )
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/license-keys Post operation
+REST response for all response codes in API path /licensing/v4.4/config/license-keys Post operation
 */
 type AddLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -126,7 +126,7 @@ func NewAddLicenseKeyApiResponse() *AddLicenseKeyApiResponse {
 	p := new(AddLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AddLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -249,7 +249,7 @@ func NewAddLicenseKeyDryRunApiResponse() *AddLicenseKeyDryRunApiResponse {
 	p := new(AddLicenseKeyDryRunApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AddLicenseKeyDryRunApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -390,7 +390,7 @@ func NewAllowance() *Allowance {
 	p := new(Allowance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Allowance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -505,7 +505,7 @@ func NewAllowanceDetail() *AllowanceDetail {
 	p := new(AllowanceDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -617,7 +617,7 @@ func NewAllowanceDetailProjection() *AllowanceDetailProjection {
 	p := new(AllowanceDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -761,14 +761,14 @@ func NewAllowanceProjection() *AllowanceProjection {
 	p := new(AllowanceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AllowanceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/$actions/assign-license-keys Post operation
+REST response for all response codes in API path /licensing/v4.4/config/$actions/assign-license-keys Post operation
 */
 type AssignLicenseKeysApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -868,7 +868,7 @@ func NewAssignLicenseKeysApiResponse() *AssignLicenseKeysApiResponse {
 	p := new(AssignLicenseKeysApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AssignLicenseKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -991,14 +991,14 @@ func NewAssociateLicenseKeySpec() *AssociateLicenseKeySpec {
 	p := new(AssociateLicenseKeySpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AssociateLicenseKeySpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/license-keys/{extId}/$actions/associate-license-keys Post operation
+REST response for all response codes in API path /licensing/v4.4/config/license-keys/{extId}/$actions/associate-license-keys Post operation
 */
 type AssociateLicenseKeysApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -1098,7 +1098,7 @@ func NewAssociateLicenseKeysApiResponse() *AssociateLicenseKeysApiResponse {
 	p := new(AssociateLicenseKeysApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.AssociateLicenseKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1317,7 +1317,7 @@ func NewBaseClusterInfo() *BaseClusterInfo {
 	p := new(BaseClusterInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.BaseClusterInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1516,7 +1516,7 @@ func NewBaseLicenseInfo() *BaseLicenseInfo {
 	p := new(BaseLicenseInfo)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.BaseLicenseInfo"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1712,7 +1712,7 @@ func NewCapacityViolation() *CapacityViolation {
 	p := new(CapacityViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.CapacityViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1823,7 +1823,7 @@ func NewClusterLicenseKeyMapping() *ClusterLicenseKeyMapping {
 	p := new(ClusterLicenseKeyMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ClusterLicenseKeyMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1931,7 +1931,7 @@ func NewClusterLicenseKeyMappingProjection() *ClusterLicenseKeyMappingProjection
 	p := new(ClusterLicenseKeyMappingProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ClusterLicenseKeyMappingProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2159,7 +2159,7 @@ func NewCompliance() *Compliance {
 	p := new(Compliance)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Compliance"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2303,7 +2303,7 @@ func NewComplianceProjection() *ComplianceProjection {
 	p := new(ComplianceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ComplianceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2406,7 +2406,7 @@ func NewConsumption() *Consumption {
 	p := new(Consumption)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Consumption"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2506,7 +2506,7 @@ func NewConsumptionProjection() *ConsumptionProjection {
 	p := new(ConsumptionProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ConsumptionProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2592,7 +2592,7 @@ func (e ConsumptionType) Ref() *ConsumptionType {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/license-keys/{extId} Delete operation
+REST response for all response codes in API path /licensing/v4.4/config/license-keys/{extId} Delete operation
 */
 type DeleteLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -2692,7 +2692,7 @@ func NewDeleteLicenseKeyApiResponse() *DeleteLicenseKeyApiResponse {
 	p := new(DeleteLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.DeleteLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2708,6 +2708,134 @@ func (p *DeleteLicenseKeyApiResponse) GetData() interface{} {
 func (p *DeleteLicenseKeyApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfDeleteLicenseKeyApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.4/config/cluster-summary-file Get operation
+*/
+type DownloadClusterSummaryFileApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfDownloadClusterSummaryFileApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *DownloadClusterSummaryFileApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias DownloadClusterSummaryFileApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *DownloadClusterSummaryFileApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias DownloadClusterSummaryFileApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewDownloadClusterSummaryFileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewDownloadClusterSummaryFileApiResponse() *DownloadClusterSummaryFileApiResponse {
+	p := new(DownloadClusterSummaryFileApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.DownloadClusterSummaryFileApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *DownloadClusterSummaryFileApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *DownloadClusterSummaryFileApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfDownloadClusterSummaryFileApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -2812,7 +2940,7 @@ func NewDryRunCheck() *DryRunCheck {
 	p := new(DryRunCheck)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.DryRunCheck"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -2984,7 +3112,7 @@ func NewDryRunValidationResult() *DryRunValidationResult {
 	p := new(DryRunValidationResult)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.DryRunValidationResult"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3414,7 +3542,7 @@ func NewEntitlement() *Entitlement {
 	p := new(Entitlement)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Entitlement"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3609,7 +3737,7 @@ func NewEntitlementDetail() *EntitlementDetail {
 	p := new(EntitlementDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3801,7 +3929,7 @@ func NewEntitlementDetailProjection() *EntitlementDetailProjection {
 	p := new(EntitlementDetailProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementDetailProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -3961,7 +4089,7 @@ func NewEntitlementProjection() *EntitlementProjection {
 	p := new(EntitlementProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.EntitlementProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4191,7 +4319,7 @@ func NewExpiredLicense() *ExpiredLicense {
 	p := new(ExpiredLicense)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ExpiredLicense"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4356,7 +4484,7 @@ func NewFeature() *Feature {
 	p := new(Feature)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Feature"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4488,7 +4616,7 @@ func NewFeatureDetail() *FeatureDetail {
 	p := new(FeatureDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4648,7 +4776,7 @@ func NewFeatureProjection() *FeatureProjection {
 	p := new(FeatureProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4770,14 +4898,14 @@ func NewFeatureViolation() *FeatureViolation {
 	p := new(FeatureViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.FeatureViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/license-keys/{extId} Get operation
+REST response for all response codes in API path /licensing/v4.4/config/license-keys/{extId} Get operation
 */
 type GetLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -4877,7 +5005,7 @@ func NewGetLicenseKeyApiResponse() *GetLicenseKeyApiResponse {
 	p := new(GetLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.GetLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -4893,6 +5021,134 @@ func (p *GetLicenseKeyApiResponse) GetData() interface{} {
 func (p *GetLicenseKeyApiResponse) SetData(v interface{}) error {
 	if nil == p.Data {
 		p.Data = NewOneOfGetLicenseKeyApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.4/config/settings/{extId} Get operation
+*/
+type GetSettingApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfGetSettingApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *GetSettingApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias GetSettingApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *GetSettingApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias GetSettingApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewGetSettingApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewGetSettingApiResponse() *GetSettingApiResponse {
+	p := new(GetSettingApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.GetSettingApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *GetSettingApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *GetSettingApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfGetSettingApiResponseData()
 	}
 	e := p.Data.SetValue(v)
 	if nil == e {
@@ -5148,7 +5404,7 @@ func NewLicense() *License {
 	p := new(License)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.License"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5726,7 +5982,7 @@ func NewLicenseKey() *LicenseKey {
 	p := new(LicenseKey)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKey"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5829,7 +6085,7 @@ func NewLicenseKeyAssignment() *LicenseKeyAssignment {
 	p := new(LicenseKeyAssignment)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssignment"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -5931,7 +6187,7 @@ func NewLicenseKeyAssignmentSpec() *LicenseKeyAssignmentSpec {
 	p := new(LicenseKeyAssignmentSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssignmentSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6057,7 +6313,7 @@ func NewLicenseKeyAssociation() *LicenseKeyAssociation {
 	p := new(LicenseKeyAssociation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssociation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6180,7 +6436,7 @@ func NewLicenseKeyAssociationProjection() *LicenseKeyAssociationProjection {
 	p := new(LicenseKeyAssociationProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyAssociationProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6283,7 +6539,7 @@ func NewLicenseKeyMapping() *LicenseKeyMapping {
 	p := new(LicenseKeyMapping)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyMapping"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6570,7 +6826,7 @@ func NewLicenseKeyProjection() *LicenseKeyProjection {
 	p := new(LicenseKeyProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseKeyProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -6905,7 +7161,7 @@ func NewLicenseProjection() *LicenseProjection {
 	p := new(LicenseProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7014,7 +7270,7 @@ func NewLicenseStateSyncSpec() *LicenseStateSyncSpec {
 	p := new(LicenseStateSyncSpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LicenseStateSyncSpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7232,7 +7488,7 @@ func (e LicenseType) Ref() *LicenseType {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/allowances Get operation
+REST response for all response codes in API path /licensing/v4.4/config/allowances Get operation
 */
 type ListAllowancesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7332,7 +7588,7 @@ func NewListAllowancesApiResponse() *ListAllowancesApiResponse {
 	p := new(ListAllowancesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListAllowancesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7360,7 +7616,7 @@ func (p *ListAllowancesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/compliances Get operation
+REST response for all response codes in API path /licensing/v4.4/config/compliances Get operation
 */
 type ListCompliancesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7460,7 +7716,7 @@ func NewListCompliancesApiResponse() *ListCompliancesApiResponse {
 	p := new(ListCompliancesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListCompliancesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7488,7 +7744,7 @@ func (p *ListCompliancesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/entitlements Get operation
+REST response for all response codes in API path /licensing/v4.4/config/entitlements Get operation
 */
 type ListEntitlementsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7588,7 +7844,7 @@ func NewListEntitlementsApiResponse() *ListEntitlementsApiResponse {
 	p := new(ListEntitlementsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListEntitlementsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7616,7 +7872,7 @@ func (p *ListEntitlementsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/features Get operation
+REST response for all response codes in API path /licensing/v4.4/config/features Get operation
 */
 type ListFeaturesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7716,7 +7972,7 @@ func NewListFeaturesApiResponse() *ListFeaturesApiResponse {
 	p := new(ListFeaturesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListFeaturesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7744,7 +8000,7 @@ func (p *ListFeaturesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/license-keys Get operation
+REST response for all response codes in API path /licensing/v4.4/config/license-keys Get operation
 */
 type ListLicenseKeysApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7844,7 +8100,7 @@ func NewListLicenseKeysApiResponse() *ListLicenseKeysApiResponse {
 	p := new(ListLicenseKeysApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListLicenseKeysApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -7872,7 +8128,7 @@ func (p *ListLicenseKeysApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/licenses Get operation
+REST response for all response codes in API path /licensing/v4.4/config/licenses Get operation
 */
 type ListLicensesApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -7972,7 +8228,7 @@ func NewListLicensesApiResponse() *ListLicensesApiResponse {
 	p := new(ListLicensesApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListLicensesApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8000,7 +8256,7 @@ func (p *ListLicensesApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/reclaim-license-tokens Get operation
+REST response for all response codes in API path /licensing/v4.4/config/reclaim-license-tokens Get operation
 */
 type ListReclaimLicenseTokensApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8100,7 +8356,7 @@ func NewListReclaimLicenseTokensApiResponse() *ListReclaimLicenseTokensApiRespon
 	p := new(ListReclaimLicenseTokensApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListReclaimLicenseTokensApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8128,7 +8384,7 @@ func (p *ListReclaimLicenseTokensApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/recommendations Get operation
+REST response for all response codes in API path /licensing/v4.4/config/recommendations Get operation
 */
 type ListRecommendationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8228,7 +8484,7 @@ func NewListRecommendationsApiResponse() *ListRecommendationsApiResponse {
 	p := new(ListRecommendationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListRecommendationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8256,7 +8512,7 @@ func (p *ListRecommendationsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/settings Get operation
+REST response for all response codes in API path /licensing/v4.4/config/settings Get operation
 */
 type ListSettingsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8356,7 +8612,7 @@ func NewListSettingsApiResponse() *ListSettingsApiResponse {
 	p := new(ListSettingsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListSettingsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8384,7 +8640,7 @@ func (p *ListSettingsApiResponse) SetData(v interface{}) error {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/violations Get operation
+REST response for all response codes in API path /licensing/v4.4/config/violations Get operation
 */
 type ListViolationsApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -8484,7 +8740,7 @@ func NewListViolationsApiResponse() *ListViolationsApiResponse {
 	p := new(ListViolationsApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ListViolationsApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8608,7 +8864,7 @@ func NewLogicalVersion() *LogicalVersion {
 	p := new(LogicalVersion)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.LogicalVersion"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -8920,7 +9176,7 @@ func NewPortalSetting() *PortalSetting {
 	p := new(PortalSetting)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.PortalSetting"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9120,7 +9376,7 @@ func NewPostPaidConfig() *PostPaidConfig {
 	p := new(PostPaidConfig)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.PostPaidConfig"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9230,7 +9486,7 @@ func (e ProductName) Ref() *ProductName {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/license-keys/{extId}/$actions/reclaim Post operation
+REST response for all response codes in API path /licensing/v4.4/config/license-keys/{extId}/$actions/reclaim Post operation
 */
 type ReclaimLicenseKeyApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -9330,7 +9586,7 @@ func NewReclaimLicenseKeyApiResponse() *ReclaimLicenseKeyApiResponse {
 	p := new(ReclaimLicenseKeyApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ReclaimLicenseKeyApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9453,7 +9709,7 @@ func NewReclaimLicenseKeySpec() *ReclaimLicenseKeySpec {
 	p := new(ReclaimLicenseKeySpec)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ReclaimLicenseKeySpec"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9647,7 +9903,7 @@ func NewReclaimLicenseToken() *ReclaimLicenseToken {
 	p := new(ReclaimLicenseToken)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ReclaimLicenseToken"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -9838,7 +10094,7 @@ func NewReclaimLicenseTokenProjection() *ReclaimLicenseTokenProjection {
 	p := new(ReclaimLicenseTokenProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ReclaimLicenseTokenProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10036,7 +10292,7 @@ func NewRecommendation() *Recommendation {
 	p := new(Recommendation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Recommendation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10204,7 +10460,7 @@ func NewRecommendationDetail() *RecommendationDetail {
 	p := new(RecommendationDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.RecommendationDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10574,7 +10830,7 @@ func NewService() *Service {
 	p := new(Service)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Service"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10700,7 +10956,7 @@ func NewServiceProjection() *ServiceProjection {
 	p := new(ServiceProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ServiceProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -10837,14 +11093,14 @@ func NewServiceViolation() *ServiceViolation {
 	p := new(ServiceViolation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.ServiceViolation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
 }
 
 /*
-Possible values are LICENSE-EXPIRED, FEATURE-VIOLATION and CAPACITY-VIOLATION.
+Possible values are LICENSE-EXPIRED, FEATURE-VIOLATION, CAPACITY-VIOLATION, and UNLICENSED-CLUSTER.
 */
 type ServiceViolationType int
 
@@ -10854,6 +11110,7 @@ const (
 	SERVICEVIOLATIONTYPE_LICENSE_EXPIRED    ServiceViolationType = 2
 	SERVICEVIOLATIONTYPE_FEATURE_VIOLATION  ServiceViolationType = 3
 	SERVICEVIOLATIONTYPE_CAPACITY_VIOLATION ServiceViolationType = 4
+	SERVICEVIOLATIONTYPE_UNLICENSED_CLUSTER ServiceViolationType = 5
 )
 
 // Returns the name of the enum given an ordinal number
@@ -10866,6 +11123,7 @@ func (e *ServiceViolationType) name(index int) string {
 		"LICENSE_EXPIRED",
 		"FEATURE_VIOLATION",
 		"CAPACITY_VIOLATION",
+		"UNLICENSED_CLUSTER",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -10882,6 +11140,7 @@ func (e ServiceViolationType) GetName() string {
 		"LICENSE_EXPIRED",
 		"FEATURE_VIOLATION",
 		"CAPACITY_VIOLATION",
+		"UNLICENSED_CLUSTER",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -10897,6 +11156,7 @@ func (e *ServiceViolationType) index(name string) ServiceViolationType {
 		"LICENSE_EXPIRED",
 		"FEATURE_VIOLATION",
 		"CAPACITY_VIOLATION",
+		"UNLICENSED_CLUSTER",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -11103,7 +11363,7 @@ func NewSetting() *Setting {
 	p := new(Setting)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Setting"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	p.HasNonCompliantFeatures = new(bool)
@@ -11273,7 +11533,7 @@ func (e SubCategory) Ref() *SubCategory {
 }
 
 /*
-REST response for all response codes in API path /licensing/v4.3/config/$actions/sync-license-state Post operation
+REST response for all response codes in API path /licensing/v4.4/config/$actions/sync-license-state Post operation
 */
 type SyncLicenseStateApiResponse struct {
 	ObjectType_ *string `json:"$objectType,omitempty"`
@@ -11373,7 +11633,7 @@ func NewSyncLicenseStateApiResponse() *SyncLicenseStateApiResponse {
 	p := new(SyncLicenseStateApiResponse)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.SyncLicenseStateApiResponse"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11711,7 +11971,7 @@ func NewTrial() *Trial {
 	p := new(Trial)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Trial"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -11997,7 +12257,7 @@ func NewTrialProjection() *TrialProjection {
 	p := new(TrialProjection)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.TrialProjection"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12155,6 +12415,134 @@ func (e *TrialType) MarshalJSON() ([]byte, error) {
 
 func (e TrialType) Ref() *TrialType {
 	return &e
+}
+
+/*
+REST response for all response codes in API path /licensing/v4.4/config/$actions/upload-license-summary-file Post operation
+*/
+type UploadLicenseSummaryFileApiResponse struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+
+	 */
+	DataItemDiscriminator_ *string `json:"$dataItemDiscriminator,omitempty"`
+
+	Data *OneOfUploadLicenseSummaryFileApiResponseData `json:"data,omitempty"`
+
+	Metadata *import2.ApiResponseMetadata `json:"metadata,omitempty"`
+}
+
+func (p *UploadLicenseSummaryFileApiResponse) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias UploadLicenseSummaryFileApiResponse
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *UploadLicenseSummaryFileApiResponse) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias UploadLicenseSummaryFileApiResponse
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewUploadLicenseSummaryFileApiResponse()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.DataItemDiscriminator_ != nil {
+		p.DataItemDiscriminator_ = known.DataItemDiscriminator_
+	}
+	if known.Data != nil {
+		p.Data = known.Data
+	}
+	if known.Metadata != nil {
+		p.Metadata = known.Metadata
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "$dataItemDiscriminator")
+	delete(allFields, "data")
+	delete(allFields, "metadata")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewUploadLicenseSummaryFileApiResponse() *UploadLicenseSummaryFileApiResponse {
+	p := new(UploadLicenseSummaryFileApiResponse)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "licensing.v4.config.UploadLicenseSummaryFileApiResponse"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+func (p *UploadLicenseSummaryFileApiResponse) GetData() interface{} {
+	if nil == p.Data {
+		return nil
+	}
+	return p.Data.GetValue()
+}
+
+func (p *UploadLicenseSummaryFileApiResponse) SetData(v interface{}) error {
+	if nil == p.Data {
+		p.Data = NewOneOfUploadLicenseSummaryFileApiResponseData()
+	}
+	e := p.Data.SetValue(v)
+	if nil == e {
+		if nil == p.DataItemDiscriminator_ {
+			p.DataItemDiscriminator_ = new(string)
+		}
+		*p.DataItemDiscriminator_ = *p.Data.Discriminator
+	}
+	return e
 }
 
 /*
@@ -12373,7 +12761,7 @@ func NewViolation() *Violation {
 	p := new(Violation)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "licensing.v4.config.Violation"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r4"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -12382,9 +12770,11 @@ func NewViolation() *Violation {
 type OneOfListCompliancesApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
-	oneOfType21015 []Compliance           `json:"-"`
 	oneOfType401   []ComplianceProjection `json:"-"`
 	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType21015 []Compliance           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListCompliancesApiResponseData() *OneOfListCompliancesApiResponseData {
@@ -12399,16 +12789,6 @@ func (p *OneOfListCompliancesApiResponseData) SetValue(v interface{}) error {
 		return errors.New(fmt.Sprintf("OneOfListCompliancesApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []Compliance:
-		p.oneOfType21015 = v.([]Compliance)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.Compliance>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.Compliance>"
 	case []ComplianceProjection:
 		p.oneOfType401 = v.([]ComplianceProjection)
 		if nil == p.Discriminator {
@@ -12432,6 +12812,16 @@ func (p *OneOfListCompliancesApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []Compliance:
+		p.oneOfType21015 = v.([]Compliance)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Compliance>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Compliance>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -12439,8 +12829,8 @@ func (p *OneOfListCompliancesApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfListCompliancesApiResponseData) GetValue() interface{} {
-	if "List<licensing.v4.config.Compliance>" == *p.Discriminator {
-		return p.oneOfType21015
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
 	}
 	if "List<licensing.v4.config.ComplianceProjection>" == *p.Discriminator {
 		return p.oneOfType401
@@ -12448,28 +12838,111 @@ func (p *OneOfListCompliancesApiResponseData) GetValue() interface{} {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
+	if "List<licensing.v4.config.Compliance>" == *p.Discriminator {
+		return p.oneOfType21015
+	}
 	return nil
 }
 
 func (p *OneOfListCompliancesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType21015 := new([]Compliance)
-	if err := json.Unmarshal(b, vOneOfType21015); err == nil {
-		if len(*vOneOfType21015) == 0 || "licensing.v4.config.Compliance" == *((*vOneOfType21015)[0].ObjectType_) {
-			p.oneOfType21015 = *vOneOfType21015
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.ComplianceProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]ComplianceProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.ComplianceProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.ComplianceProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.ComplianceProjection>"
+							return nil
+						}
+					}
+				}
 			}
-			*p.Discriminator = "List<licensing.v4.config.Compliance>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
 			}
-			*p.ObjectType_ = "List<licensing.v4.config.Compliance>"
-			return nil
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.Compliance>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21015 := new([]Compliance)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21015)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType21015 == nil || len(*vOneOfType21015) == 0 || ((*vOneOfType21015)[0].ObjectType_ != nil && "licensing.v4.config.Compliance" == *((*vOneOfType21015)[0].ObjectType_)) {
+							p.oneOfType21015 = *vOneOfType21015
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.Compliance>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.Compliance>"
+							return nil
+						}
+					}
+				}
+			}
 		}
 	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType401 := new([]ComplianceProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.ComplianceProjection" == *((*vOneOfType401)[0].ObjectType_) {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.ComplianceProjection" == *((*vOneOfType401)[0].ObjectType_)) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -12484,7 +12957,7 @@ func (p *OneOfListCompliancesApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -12500,12 +12973,45 @@ func (p *OneOfListCompliancesApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType21015 := new([]Compliance)
+	if err := json.Unmarshal(b, vOneOfType21015); err == nil {
+		if len(*vOneOfType21015) == 0 || (vOneOfType21015 != nil && (*vOneOfType21015)[0].ObjectType_ != nil && "licensing.v4.config.Compliance" == *((*vOneOfType21015)[0].ObjectType_)) {
+			p.oneOfType21015 = *vOneOfType21015
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Compliance>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Compliance>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListCompliancesApiResponseData"))
 }
 
 func (p *OneOfListCompliancesApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<licensing.v4.config.Compliance>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21015)
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
 	}
 	if "List<licensing.v4.config.ComplianceProjection>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType401)
@@ -12513,38 +13019,54 @@ func (p *OneOfListCompliancesApiResponseData) MarshalJSON() ([]byte, error) {
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
+	if "List<licensing.v4.config.Compliance>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21015)
+	}
 	return nil, errors.New("No value to marshal for OneOfListCompliancesApiResponseData")
 }
 
-type OneOfListRecommendationsApiResponseData struct {
+type OneOfListLicenseKeysApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
-	oneOfType21003 []Recommendation       `json:"-"`
+	oneOfType401   []LicenseKeyProjection `json:"-"`
+	oneOfType31007 []LicenseKey           `json:"-"`
 	oneOfType400   *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfListRecommendationsApiResponseData() *OneOfListRecommendationsApiResponseData {
-	p := new(OneOfListRecommendationsApiResponseData)
+func NewOneOfListLicenseKeysApiResponseData() *OneOfListLicenseKeysApiResponseData {
+	p := new(OneOfListLicenseKeysApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListRecommendationsApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListLicenseKeysApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListRecommendationsApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListLicenseKeysApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []Recommendation:
-		p.oneOfType21003 = v.([]Recommendation)
+	case []LicenseKeyProjection:
+		p.oneOfType401 = v.([]LicenseKeyProjection)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<licensing.v4.config.Recommendation>"
+		*p.Discriminator = "List<licensing.v4.config.LicenseKeyProjection>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<licensing.v4.config.Recommendation>"
+		*p.ObjectType_ = "List<licensing.v4.config.LicenseKeyProjection>"
+	case []LicenseKey:
+		p.oneOfType31007 = v.([]LicenseKey)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.LicenseKey>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.LicenseKey>"
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -12564,9 +13086,15 @@ func (p *OneOfListRecommendationsApiResponseData) SetValue(v interface{}) error 
 	return nil
 }
 
-func (p *OneOfListRecommendationsApiResponseData) GetValue() interface{} {
-	if "List<licensing.v4.config.Recommendation>" == *p.Discriminator {
-		return p.oneOfType21003
+func (p *OneOfListLicenseKeysApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "List<licensing.v4.config.LicenseKeyProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if "List<licensing.v4.config.LicenseKey>" == *p.Discriminator {
+		return p.oneOfType31007
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -12574,25 +13102,135 @@ func (p *OneOfListRecommendationsApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfListRecommendationsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType21003 := new([]Recommendation)
-	if err := json.Unmarshal(b, vOneOfType21003); err == nil {
-		if len(*vOneOfType21003) == 0 || "licensing.v4.config.Recommendation" == *((*vOneOfType21003)[0].ObjectType_) {
-			p.oneOfType21003 = *vOneOfType21003
+func (p *OneOfListLicenseKeysApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.LicenseKeyProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]LicenseKeyProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.LicenseKeyProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.LicenseKeyProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.LicenseKeyProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.LicenseKey>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType31007 := new([]LicenseKey)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType31007)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType31007 == nil || len(*vOneOfType31007) == 0 || ((*vOneOfType31007)[0].ObjectType_ != nil && "licensing.v4.config.LicenseKey" == *((*vOneOfType31007)[0].ObjectType_)) {
+							p.oneOfType31007 = *vOneOfType31007
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.LicenseKey>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.LicenseKey>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType401 := new([]LicenseKeyProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.LicenseKeyProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<licensing.v4.config.Recommendation>"
+			*p.Discriminator = "List<licensing.v4.config.LicenseKeyProjection>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<licensing.v4.config.Recommendation>"
+			*p.ObjectType_ = "List<licensing.v4.config.LicenseKeyProjection>"
+			return nil
+		}
+	}
+	vOneOfType31007 := new([]LicenseKey)
+	if err := json.Unmarshal(b, vOneOfType31007); err == nil {
+		if len(*vOneOfType31007) == 0 || (vOneOfType31007 != nil && (*vOneOfType31007)[0].ObjectType_ != nil && "licensing.v4.config.LicenseKey" == *((*vOneOfType31007)[0].ObjectType_)) {
+			p.oneOfType31007 = *vOneOfType31007
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.LicenseKey>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.LicenseKey>"
 			return nil
 		}
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -12608,48 +13246,419 @@ func (p *OneOfListRecommendationsApiResponseData) UnmarshalJSON(b []byte) error 
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRecommendationsApiResponseData"))
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLicenseKeysApiResponseData"))
 }
 
-func (p *OneOfListRecommendationsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<licensing.v4.config.Recommendation>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21003)
+func (p *OneOfListLicenseKeysApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "List<licensing.v4.config.LicenseKeyProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if "List<licensing.v4.config.LicenseKey>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31007)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfListRecommendationsApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListLicenseKeysApiResponseData")
 }
 
-type OneOfListSettingsApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType21005 []Setting              `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
+type OneOfAddLicenseKeyApiResponseData struct {
+	Discriminator  *string                         `json:"-"`
+	ObjectType_    *string                         `json:"-"`
+	oneOfType401   *LicenseKeyProjection           `json:"-"`
+	oneOfType31003 *LicenseKey                     `json:"-"`
+	oneOfType400   *import1.ErrorResponse          `json:"-"`
+	oneOfType403   *AddLicenseKeyDryRunApiResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfListSettingsApiResponseData() *OneOfListSettingsApiResponseData {
-	p := new(OneOfListSettingsApiResponseData)
+func NewOneOfAddLicenseKeyApiResponseData() *OneOfAddLicenseKeyApiResponseData {
+	p := new(OneOfAddLicenseKeyApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListSettingsApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfAddLicenseKeyApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListSettingsApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfAddLicenseKeyApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []Setting:
-		p.oneOfType21005 = v.([]Setting)
+	case LicenseKeyProjection:
+		if nil == p.oneOfType401 {
+			p.oneOfType401 = new(LicenseKeyProjection)
+		}
+		*p.oneOfType401 = v.(LicenseKeyProjection)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<licensing.v4.config.Setting>"
+		*p.Discriminator = *p.oneOfType401.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<licensing.v4.config.Setting>"
+		*p.ObjectType_ = *p.oneOfType401.ObjectType_
+	case LicenseKey:
+		if nil == p.oneOfType31003 {
+			p.oneOfType31003 = new(LicenseKey)
+		}
+		*p.oneOfType31003 = v.(LicenseKey)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType31003.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType31003.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case AddLicenseKeyDryRunApiResponse:
+		if nil == p.oneOfType403 {
+			p.oneOfType403 = new(AddLicenseKeyDryRunApiResponse)
+		}
+		*p.oneOfType403 = v.(AddLicenseKeyDryRunApiResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType403.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType403.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfAddLicenseKeyApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType401
+	}
+	if p.oneOfType31003 != nil && *p.oneOfType31003.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType31003
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if p.oneOfType403 != nil && *p.oneOfType403.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType403
+	}
+	return nil
+}
+
+func (p *OneOfAddLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new(LicenseKeyProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType401.ObjectType_ != nil && "licensing.v4.config.LicenseKeyProjection" == *vOneOfType401.ObjectType_ {
+							if nil == p.oneOfType401 {
+								p.oneOfType401 = new(LicenseKeyProjection)
+							}
+							*p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType401.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType401.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType31003 := new(LicenseKey)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType31003)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType31003.ObjectType_ != nil && "licensing.v4.config.LicenseKey" == *vOneOfType31003.ObjectType_ {
+							if nil == p.oneOfType31003 {
+								p.oneOfType31003 = new(LicenseKey)
+							}
+							*p.oneOfType31003 = *vOneOfType31003
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType31003.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType31003.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType403 := new(AddLicenseKeyDryRunApiResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType403)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType403.ObjectType_ != nil && "licensing.v4.config.AddLicenseKeyDryRunApiResponse" == *vOneOfType403.ObjectType_ {
+							if nil == p.oneOfType403 {
+								p.oneOfType403 = new(AddLicenseKeyDryRunApiResponse)
+							}
+							*p.oneOfType403 = *vOneOfType403
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType403.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType403.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType401 := new(LicenseKeyProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if vOneOfType401.ObjectType_ != nil && "licensing.v4.config.LicenseKeyProjection" == *vOneOfType401.ObjectType_ {
+			if nil == p.oneOfType401 {
+				p.oneOfType401 = new(LicenseKeyProjection)
+			}
+			*p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType401.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType31003 := new(LicenseKey)
+	if err := json.Unmarshal(b, vOneOfType31003); err == nil {
+		if vOneOfType31003.ObjectType_ != nil && "licensing.v4.config.LicenseKey" == *vOneOfType31003.ObjectType_ {
+			if nil == p.oneOfType31003 {
+				p.oneOfType31003 = new(LicenseKey)
+			}
+			*p.oneOfType31003 = *vOneOfType31003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType31003.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType31003.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType403 := new(AddLicenseKeyDryRunApiResponse)
+	if err := json.Unmarshal(b, vOneOfType403); err == nil {
+		if vOneOfType403.ObjectType_ != nil && "licensing.v4.config.AddLicenseKeyDryRunApiResponse" == *vOneOfType403.ObjectType_ {
+			if nil == p.oneOfType403 {
+				p.oneOfType403 = new(AddLicenseKeyDryRunApiResponse)
+			}
+			*p.oneOfType403 = *vOneOfType403
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType403.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType403.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddLicenseKeyApiResponseData"))
+}
+
+func (p *OneOfAddLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType31003 != nil && *p.oneOfType31003.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType31003)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType403 != nil && *p.oneOfType403.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType403)
+	}
+	return nil, errors.New("No value to marshal for OneOfAddLicenseKeyApiResponseData")
+}
+
+type OneOfListViolationsApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType21008 []Violation            `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfListViolationsApiResponseData() *OneOfListViolationsApiResponseData {
+	p := new(OneOfListViolationsApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListViolationsApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListViolationsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Violation:
+		p.oneOfType21008 = v.([]Violation)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Violation>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Violation>"
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -12669,9 +13678,12 @@ func (p *OneOfListSettingsApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfListSettingsApiResponseData) GetValue() interface{} {
-	if "List<licensing.v4.config.Setting>" == *p.Discriminator {
-		return p.oneOfType21005
+func (p *OneOfListViolationsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "List<licensing.v4.config.Violation>" == *p.Discriminator {
+		return p.oneOfType21008
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -12679,25 +13691,92 @@ func (p *OneOfListSettingsApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfListSettingsApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType21005 := new([]Setting)
-	if err := json.Unmarshal(b, vOneOfType21005); err == nil {
-		if len(*vOneOfType21005) == 0 || "licensing.v4.config.Setting" == *((*vOneOfType21005)[0].ObjectType_) {
-			p.oneOfType21005 = *vOneOfType21005
+func (p *OneOfListViolationsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.Violation>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21008 := new([]Violation)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21008)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType21008 == nil || len(*vOneOfType21008) == 0 || ((*vOneOfType21008)[0].ObjectType_ != nil && "licensing.v4.config.Violation" == *((*vOneOfType21008)[0].ObjectType_)) {
+							p.oneOfType21008 = *vOneOfType21008
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.Violation>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.Violation>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType21008 := new([]Violation)
+	if err := json.Unmarshal(b, vOneOfType21008); err == nil {
+		if len(*vOneOfType21008) == 0 || (vOneOfType21008 != nil && (*vOneOfType21008)[0].ObjectType_ != nil && "licensing.v4.config.Violation" == *((*vOneOfType21008)[0].ObjectType_)) {
+			p.oneOfType21008 = *vOneOfType21008
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<licensing.v4.config.Setting>"
+			*p.Discriminator = "List<licensing.v4.config.Violation>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<licensing.v4.config.Setting>"
+			*p.ObjectType_ = "List<licensing.v4.config.Violation>"
 			return nil
 		}
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -12713,17 +13792,38 @@ func (p *OneOfListSettingsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSettingsApiResponseData"))
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListViolationsApiResponseData"))
 }
 
-func (p *OneOfListSettingsApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<licensing.v4.config.Setting>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21005)
+func (p *OneOfListViolationsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "List<licensing.v4.config.Violation>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21008)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfListSettingsApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListViolationsApiResponseData")
 }
 
 type OneOfFeatureProjectionValue struct {
@@ -12731,6 +13831,8 @@ type OneOfFeatureProjectionValue struct {
 	ObjectType_    *string `json:"-"`
 	oneOfType10032 *int    `json:"-"`
 	oneOfType10022 *bool   `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfFeatureProjectionValue() *OneOfFeatureProjectionValue {
@@ -12778,6 +13880,9 @@ func (p *OneOfFeatureProjectionValue) SetValue(v interface{}) error {
 }
 
 func (p *OneOfFeatureProjectionValue) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "Integer" == *p.Discriminator {
 		return *p.oneOfType10032
 	}
@@ -12788,6 +13893,70 @@ func (p *OneOfFeatureProjectionValue) GetValue() interface{} {
 }
 
 func (p *OneOfFeatureProjectionValue) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["Integer"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType10032 := new(int)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType10032)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType10032 {
+							p.oneOfType10032 = new(int)
+						}
+						*p.oneOfType10032 = *vOneOfType10032
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "Integer"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "Integer"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["Boolean"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType10022 := new(bool)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType10022)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType10022 {
+							p.oneOfType10022 = new(bool)
+						}
+						*p.oneOfType10022 = *vOneOfType10022
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "Boolean"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "Boolean"
+						return nil
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType10032 := new(int)
 	if err := json.Unmarshal(b, vOneOfType10032); err == nil {
 		if nil == p.oneOfType10032 {
@@ -12820,10 +13989,31 @@ func (p *OneOfFeatureProjectionValue) UnmarshalJSON(b []byte) error {
 		*p.ObjectType_ = "Boolean"
 		return nil
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFeatureProjectionValue"))
 }
 
 func (p *OneOfFeatureProjectionValue) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "Integer" == *p.Discriminator {
 		return json.Marshal(p.oneOfType10032)
 	}
@@ -12833,26 +14023,41 @@ func (p *OneOfFeatureProjectionValue) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfFeatureProjectionValue")
 }
 
-type OneOfListFeaturesApiResponseData struct {
+type OneOfGetLicenseKeyApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
+	oneOfType401   *LicenseKeyProjection  `json:"-"`
 	oneOfType400   *import1.ErrorResponse `json:"-"`
-	oneOfType21003 []Feature              `json:"-"`
-	oneOfType401   []FeatureProjection    `json:"-"`
+	oneOfType31013 *LicenseKey            `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfListFeaturesApiResponseData() *OneOfListFeaturesApiResponseData {
-	p := new(OneOfListFeaturesApiResponseData)
+func NewOneOfGetLicenseKeyApiResponseData() *OneOfGetLicenseKeyApiResponseData {
+	p := new(OneOfGetLicenseKeyApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListFeaturesApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfGetLicenseKeyApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListFeaturesApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfGetLicenseKeyApiResponseData is nil"))
 	}
 	switch v.(type) {
+	case LicenseKeyProjection:
+		if nil == p.oneOfType401 {
+			p.oneOfType401 = new(LicenseKeyProjection)
+		}
+		*p.oneOfType401 = v.(LicenseKeyProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType401.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType401.ObjectType_
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -12866,49 +14071,164 @@ func (p *OneOfListFeaturesApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Feature:
-		p.oneOfType21003 = v.([]Feature)
+	case LicenseKey:
+		if nil == p.oneOfType31013 {
+			p.oneOfType31013 = new(LicenseKey)
+		}
+		*p.oneOfType31013 = v.(LicenseKey)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<licensing.v4.config.Feature>"
+		*p.Discriminator = *p.oneOfType31013.ObjectType_
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<licensing.v4.config.Feature>"
-	case []FeatureProjection:
-		p.oneOfType401 = v.([]FeatureProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.FeatureProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.FeatureProjection>"
+		*p.ObjectType_ = *p.oneOfType31013.ObjectType_
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfListFeaturesApiResponseData) GetValue() interface{} {
+func (p *OneOfGetLicenseKeyApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType401
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<licensing.v4.config.Feature>" == *p.Discriminator {
-		return p.oneOfType21003
-	}
-	if "List<licensing.v4.config.FeatureProjection>" == *p.Discriminator {
-		return p.oneOfType401
+	if p.oneOfType31013 != nil && *p.oneOfType31013.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType31013
 	}
 	return nil
 }
 
-func (p *OneOfListFeaturesApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfGetLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new(LicenseKeyProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType401.ObjectType_ != nil && "licensing.v4.config.LicenseKeyProjection" == *vOneOfType401.ObjectType_ {
+							if nil == p.oneOfType401 {
+								p.oneOfType401 = new(LicenseKeyProjection)
+							}
+							*p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType401.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType401.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType31013 := new(LicenseKey)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType31013)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType31013.ObjectType_ != nil && "licensing.v4.config.LicenseKey" == *vOneOfType31013.ObjectType_ {
+							if nil == p.oneOfType31013 {
+								p.oneOfType31013 = new(LicenseKey)
+							}
+							*p.oneOfType31013 = *vOneOfType31013
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType31013.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType31013.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType401 := new(LicenseKeyProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if vOneOfType401.ObjectType_ != nil && "licensing.v4.config.LicenseKeyProjection" == *vOneOfType401.ObjectType_ {
+			if nil == p.oneOfType401 {
+				p.oneOfType401 = new(LicenseKeyProjection)
+			}
+			*p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType401.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType401.ObjectType_
+			return nil
+		}
+	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -12924,50 +14244,317 @@ func (p *OneOfListFeaturesApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType21003 := new([]Feature)
-	if err := json.Unmarshal(b, vOneOfType21003); err == nil {
-		if len(*vOneOfType21003) == 0 || "licensing.v4.config.Feature" == *((*vOneOfType21003)[0].ObjectType_) {
-			p.oneOfType21003 = *vOneOfType21003
+	vOneOfType31013 := new(LicenseKey)
+	if err := json.Unmarshal(b, vOneOfType31013); err == nil {
+		if vOneOfType31013.ObjectType_ != nil && "licensing.v4.config.LicenseKey" == *vOneOfType31013.ObjectType_ {
+			if nil == p.oneOfType31013 {
+				p.oneOfType31013 = new(LicenseKey)
+			}
+			*p.oneOfType31013 = *vOneOfType31013
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<licensing.v4.config.Feature>"
+			*p.Discriminator = *p.oneOfType31013.ObjectType_
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<licensing.v4.config.Feature>"
+			*p.ObjectType_ = *p.oneOfType31013.ObjectType_
 			return nil
 		}
 	}
-	vOneOfType401 := new([]FeatureProjection)
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetLicenseKeyApiResponseData"))
+}
+
+func (p *OneOfGetLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if p.oneOfType31013 != nil && *p.oneOfType31013.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType31013)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetLicenseKeyApiResponseData")
+}
+
+type OneOfListAllowancesApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType401   []AllowanceProjection  `json:"-"`
+	oneOfType21012 []Allowance            `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfListAllowancesApiResponseData() *OneOfListAllowancesApiResponseData {
+	p := new(OneOfListAllowancesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListAllowancesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListAllowancesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []AllowanceProjection:
+		p.oneOfType401 = v.([]AllowanceProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.AllowanceProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.AllowanceProjection>"
+	case []Allowance:
+		p.oneOfType21012 = v.([]Allowance)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Allowance>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Allowance>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListAllowancesApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<licensing.v4.config.AllowanceProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	if "List<licensing.v4.config.Allowance>" == *p.Discriminator {
+		return p.oneOfType21012
+	}
+	return nil
+}
+
+func (p *OneOfListAllowancesApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.AllowanceProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]AllowanceProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.AllowanceProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.AllowanceProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.AllowanceProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.Allowance>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21012 := new([]Allowance)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21012)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType21012 == nil || len(*vOneOfType21012) == 0 || ((*vOneOfType21012)[0].ObjectType_ != nil && "licensing.v4.config.Allowance" == *((*vOneOfType21012)[0].ObjectType_)) {
+							p.oneOfType21012 = *vOneOfType21012
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.Allowance>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.Allowance>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]AllowanceProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.FeatureProjection" == *((*vOneOfType401)[0].ObjectType_) {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.AllowanceProjection" == *((*vOneOfType401)[0].ObjectType_)) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<licensing.v4.config.FeatureProjection>"
+			*p.Discriminator = "List<licensing.v4.config.AllowanceProjection>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<licensing.v4.config.FeatureProjection>"
+			*p.ObjectType_ = "List<licensing.v4.config.AllowanceProjection>"
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListFeaturesApiResponseData"))
+	vOneOfType21012 := new([]Allowance)
+	if err := json.Unmarshal(b, vOneOfType21012); err == nil {
+		if len(*vOneOfType21012) == 0 || (vOneOfType21012 != nil && (*vOneOfType21012)[0].ObjectType_ != nil && "licensing.v4.config.Allowance" == *((*vOneOfType21012)[0].ObjectType_)) {
+			p.oneOfType21012 = *vOneOfType21012
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Allowance>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Allowance>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListAllowancesApiResponseData"))
 }
 
-func (p *OneOfListFeaturesApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfListAllowancesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if "List<licensing.v4.config.Feature>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21003)
-	}
-	if "List<licensing.v4.config.FeatureProjection>" == *p.Discriminator {
+	if "List<licensing.v4.config.AllowanceProjection>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType401)
 	}
-	return nil, errors.New("No value to marshal for OneOfListFeaturesApiResponseData")
+	if "List<licensing.v4.config.Allowance>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21012)
+	}
+	return nil, errors.New("No value to marshal for OneOfListAllowancesApiResponseData")
 }
 
 type OneOfSyncLicenseStateApiResponseData struct {
@@ -12975,6 +14562,8 @@ type OneOfSyncLicenseStateApiResponseData struct {
 	ObjectType_    *string                `json:"-"`
 	oneOfType21017 *import3.TaskReference `json:"-"`
 	oneOfType400   *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfSyncLicenseStateApiResponseData() *OneOfSyncLicenseStateApiResponseData {
@@ -13022,6 +14611,9 @@ func (p *OneOfSyncLicenseStateApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfSyncLicenseStateApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType21017 != nil && *p.oneOfType21017.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType21017
 	}
@@ -13032,9 +14624,79 @@ func (p *OneOfSyncLicenseStateApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfSyncLicenseStateApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21017 := new(import3.TaskReference)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21017)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType21017.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType21017.ObjectType_ {
+							if nil == p.oneOfType21017 {
+								p.oneOfType21017 = new(import3.TaskReference)
+							}
+							*p.oneOfType21017 = *vOneOfType21017
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType21017.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType21017.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType21017 := new(import3.TaskReference)
 	if err := json.Unmarshal(b, vOneOfType21017); err == nil {
-		if "prism.v4.config.TaskReference" == *vOneOfType21017.ObjectType_ {
+		if vOneOfType21017.ObjectType_ != nil && "prism.v4.config.TaskReference" == *vOneOfType21017.ObjectType_ {
 			if nil == p.oneOfType21017 {
 				p.oneOfType21017 = new(import3.TaskReference)
 			}
@@ -13052,7 +14714,7 @@ func (p *OneOfSyncLicenseStateApiResponseData) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -13068,10 +14730,31 @@ func (p *OneOfSyncLicenseStateApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfSyncLicenseStateApiResponseData"))
 }
 
 func (p *OneOfSyncLicenseStateApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType21017 != nil && *p.oneOfType21017.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType21017)
 	}
@@ -13081,116 +14764,13 @@ func (p *OneOfSyncLicenseStateApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfSyncLicenseStateApiResponseData")
 }
 
-type OneOfAssignLicenseKeysApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
-	oneOfType31009 []import1.AppMessage   `json:"-"`
-}
-
-func NewOneOfAssignLicenseKeysApiResponseData() *OneOfAssignLicenseKeysApiResponseData {
-	p := new(OneOfAssignLicenseKeysApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAssignLicenseKeysApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAssignLicenseKeysApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []import1.AppMessage:
-		p.oneOfType31009 = v.([]import1.AppMessage)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAssignLicenseKeysApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return p.oneOfType31009
-	}
-	return nil
-}
-
-func (p *OneOfAssignLicenseKeysApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType31009 := new([]import1.AppMessage)
-	if err := json.Unmarshal(b, vOneOfType31009); err == nil {
-		if len(*vOneOfType31009) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType31009)[0].ObjectType_) {
-			p.oneOfType31009 = *vOneOfType31009
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssignLicenseKeysApiResponseData"))
-}
-
-func (p *OneOfAssignLicenseKeysApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType31009)
-	}
-	return nil, errors.New("No value to marshal for OneOfAssignLicenseKeysApiResponseData")
-}
-
 type OneOfDeleteLicenseKeyApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
 	oneOfType400   *import1.ErrorResponse `json:"-"`
 	oneOfType31011 *interface{}           `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfDeleteLicenseKeyApiResponseData() *OneOfDeleteLicenseKeyApiResponseData {
@@ -13240,6 +14820,9 @@ func (p *OneOfDeleteLicenseKeyApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfDeleteLicenseKeyApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
@@ -13268,9 +14851,48 @@ func (p *OneOfDeleteLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -13286,10 +14908,31 @@ func (p *OneOfDeleteLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDeleteLicenseKeyApiResponseData"))
 }
 
 func (p *OneOfDeleteLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
@@ -13299,23 +14942,1225 @@ func (p *OneOfDeleteLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("No value to marshal for OneOfDeleteLicenseKeyApiResponseData")
 }
 
-type OneOfGetLicenseKeyApiResponseData struct {
+type OneOfListSettingsApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
+	oneOfType21005 []Setting              `json:"-"`
 	oneOfType400   *import1.ErrorResponse `json:"-"`
-	oneOfType31013 *LicenseKey            `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfGetLicenseKeyApiResponseData() *OneOfGetLicenseKeyApiResponseData {
-	p := new(OneOfGetLicenseKeyApiResponseData)
+func NewOneOfListSettingsApiResponseData() *OneOfListSettingsApiResponseData {
+	p := new(OneOfListSettingsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfGetLicenseKeyApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListSettingsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfGetLicenseKeyApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListSettingsApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Setting:
+		p.oneOfType21005 = v.([]Setting)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Setting>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Setting>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListSettingsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "List<licensing.v4.config.Setting>" == *p.Discriminator {
+		return p.oneOfType21005
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfListSettingsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.Setting>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21005 := new([]Setting)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21005)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType21005 == nil || len(*vOneOfType21005) == 0 || ((*vOneOfType21005)[0].ObjectType_ != nil && "licensing.v4.config.Setting" == *((*vOneOfType21005)[0].ObjectType_)) {
+							p.oneOfType21005 = *vOneOfType21005
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.Setting>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.Setting>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType21005 := new([]Setting)
+	if err := json.Unmarshal(b, vOneOfType21005); err == nil {
+		if len(*vOneOfType21005) == 0 || (vOneOfType21005 != nil && (*vOneOfType21005)[0].ObjectType_ != nil && "licensing.v4.config.Setting" == *((*vOneOfType21005)[0].ObjectType_)) {
+			p.oneOfType21005 = *vOneOfType21005
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Setting>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Setting>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListSettingsApiResponseData"))
+}
+
+func (p *OneOfListSettingsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "List<licensing.v4.config.Setting>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21005)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfListSettingsApiResponseData")
+}
+
+type OneOfUploadLicenseSummaryFileApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType2080 *string                `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfUploadLicenseSummaryFileApiResponseData() *OneOfUploadLicenseSummaryFileApiResponseData {
+	p := new(OneOfUploadLicenseSummaryFileApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfUploadLicenseSummaryFileApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfUploadLicenseSummaryFileApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case string:
+		if nil == p.oneOfType2080 {
+			p.oneOfType2080 = new(string)
+		}
+		*p.oneOfType2080 = v.(string)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "String"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "String"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfUploadLicenseSummaryFileApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "String" == *p.Discriminator {
+		return *p.oneOfType2080
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfUploadLicenseSummaryFileApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["String"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2080 := new(string)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2080)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType2080 {
+							p.oneOfType2080 = new(string)
+						}
+						*p.oneOfType2080 = *vOneOfType2080
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "String"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "String"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType2080 := new(string)
+	if err := json.Unmarshal(b, vOneOfType2080); err == nil {
+		if nil == p.oneOfType2080 {
+			p.oneOfType2080 = new(string)
+		}
+		*p.oneOfType2080 = *vOneOfType2080
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "String"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "String"
+		return nil
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfUploadLicenseSummaryFileApiResponseData"))
+}
+
+func (p *OneOfUploadLicenseSummaryFileApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "String" == *p.Discriminator {
+		return json.Marshal(p.oneOfType2080)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfUploadLicenseSummaryFileApiResponseData")
+}
+
+type OneOfGetSettingApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType21023 *Setting               `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfGetSettingApiResponseData() *OneOfGetSettingApiResponseData {
+	p := new(OneOfGetSettingApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfGetSettingApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfGetSettingApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case Setting:
+		if nil == p.oneOfType21023 {
+			p.oneOfType21023 = new(Setting)
+		}
+		*p.oneOfType21023 = v.(Setting)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType21023.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType21023.ObjectType_
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfGetSettingApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType21023 != nil && *p.oneOfType21023.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType21023
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfGetSettingApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21023 := new(Setting)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21023)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType21023.ObjectType_ != nil && "licensing.v4.config.Setting" == *vOneOfType21023.ObjectType_ {
+							if nil == p.oneOfType21023 {
+								p.oneOfType21023 = new(Setting)
+							}
+							*p.oneOfType21023 = *vOneOfType21023
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType21023.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType21023.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType21023 := new(Setting)
+	if err := json.Unmarshal(b, vOneOfType21023); err == nil {
+		if vOneOfType21023.ObjectType_ != nil && "licensing.v4.config.Setting" == *vOneOfType21023.ObjectType_ {
+			if nil == p.oneOfType21023 {
+				p.oneOfType21023 = new(Setting)
+			}
+			*p.oneOfType21023 = *vOneOfType21023
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType21023.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType21023.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetSettingApiResponseData"))
+}
+
+func (p *OneOfGetSettingApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType21023 != nil && *p.oneOfType21023.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType21023)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfGetSettingApiResponseData")
+}
+
+type OneOfAssociateLicenseKeysApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType31024 []import1.AppMessage   `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfAssociateLicenseKeysApiResponseData() *OneOfAssociateLicenseKeysApiResponseData {
+	p := new(OneOfAssociateLicenseKeysApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfAssociateLicenseKeysApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfAssociateLicenseKeysApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []import1.AppMessage:
+		p.oneOfType31024 = v.([]import1.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfAssociateLicenseKeysApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType31024
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfAssociateLicenseKeysApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.error.AppMessage>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType31024 := new([]import1.AppMessage)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType31024)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType31024 == nil || len(*vOneOfType31024) == 0 || ((*vOneOfType31024)[0].ObjectType_ != nil && "licensing.v4.error.AppMessage" == *((*vOneOfType31024)[0].ObjectType_)) {
+							p.oneOfType31024 = *vOneOfType31024
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType31024 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType31024); err == nil {
+		if len(*vOneOfType31024) == 0 || (vOneOfType31024 != nil && (*vOneOfType31024)[0].ObjectType_ != nil && "licensing.v4.error.AppMessage" == *((*vOneOfType31024)[0].ObjectType_)) {
+			p.oneOfType31024 = *vOneOfType31024
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssociateLicenseKeysApiResponseData"))
+}
+
+func (p *OneOfAssociateLicenseKeysApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31024)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfAssociateLicenseKeysApiResponseData")
+}
+
+type OneOfAssignLicenseKeysApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType31009 []import1.AppMessage   `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfAssignLicenseKeysApiResponseData() *OneOfAssignLicenseKeysApiResponseData {
+	p := new(OneOfAssignLicenseKeysApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfAssignLicenseKeysApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfAssignLicenseKeysApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []import1.AppMessage:
+		p.oneOfType31009 = v.([]import1.AppMessage)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfAssignLicenseKeysApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType31009
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	return nil
+}
+
+func (p *OneOfAssignLicenseKeysApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.error.AppMessage>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType31009 := new([]import1.AppMessage)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType31009)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType31009 == nil || len(*vOneOfType31009) == 0 || ((*vOneOfType31009)[0].ObjectType_ != nil && "licensing.v4.error.AppMessage" == *((*vOneOfType31009)[0].ObjectType_)) {
+							p.oneOfType31009 = *vOneOfType31009
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType31009 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType31009); err == nil {
+		if len(*vOneOfType31009) == 0 || (vOneOfType31009 != nil && (*vOneOfType31009)[0].ObjectType_ != nil && "licensing.v4.error.AppMessage" == *((*vOneOfType31009)[0].ObjectType_)) {
+			p.oneOfType31009 = *vOneOfType31009
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssignLicenseKeysApiResponseData"))
+}
+
+func (p *OneOfAssignLicenseKeysApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31009)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	return nil, errors.New("No value to marshal for OneOfAssignLicenseKeysApiResponseData")
+}
+
+type OneOfFeatureValue struct {
+	Discriminator  *string `json:"-"`
+	ObjectType_    *string `json:"-"`
+	oneOfType10032 *int    `json:"-"`
+	oneOfType10022 *bool   `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfFeatureValue() *OneOfFeatureValue {
+	p := new(OneOfFeatureValue)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfFeatureValue) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfFeatureValue is nil"))
+	}
+	switch v.(type) {
+	case int:
+		if nil == p.oneOfType10032 {
+			p.oneOfType10032 = new(int)
+		}
+		*p.oneOfType10032 = v.(int)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Integer"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Integer"
+	case bool:
+		if nil == p.oneOfType10022 {
+			p.oneOfType10022 = new(bool)
+		}
+		*p.oneOfType10022 = v.(bool)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Boolean"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Boolean"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfFeatureValue) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "Integer" == *p.Discriminator {
+		return *p.oneOfType10032
+	}
+	if "Boolean" == *p.Discriminator {
+		return *p.oneOfType10022
+	}
+	return nil
+}
+
+func (p *OneOfFeatureValue) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["Integer"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType10032 := new(int)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType10032)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType10032 {
+							p.oneOfType10032 = new(int)
+						}
+						*p.oneOfType10032 = *vOneOfType10032
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "Integer"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "Integer"
+						return nil
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["Boolean"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType10022 := new(bool)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType10022)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType10022 {
+							p.oneOfType10022 = new(bool)
+						}
+						*p.oneOfType10022 = *vOneOfType10022
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "Boolean"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "Boolean"
+						return nil
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType10032 := new(int)
+	if err := json.Unmarshal(b, vOneOfType10032); err == nil {
+		if nil == p.oneOfType10032 {
+			p.oneOfType10032 = new(int)
+		}
+		*p.oneOfType10032 = *vOneOfType10032
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Integer"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Integer"
+		return nil
+	}
+	vOneOfType10022 := new(bool)
+	if err := json.Unmarshal(b, vOneOfType10022); err == nil {
+		if nil == p.oneOfType10022 {
+			p.oneOfType10022 = new(bool)
+		}
+		*p.oneOfType10022 = *vOneOfType10022
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "Boolean"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "Boolean"
+		return nil
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFeatureValue"))
+}
+
+func (p *OneOfFeatureValue) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "Integer" == *p.Discriminator {
+		return json.Marshal(p.oneOfType10032)
+	}
+	if "Boolean" == *p.Discriminator {
+		return json.Marshal(p.oneOfType10022)
+	}
+	return nil, errors.New("No value to marshal for OneOfFeatureValue")
+}
+
+type OneOfReclaimLicenseKeyApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType31016 []import1.AppMessage   `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfReclaimLicenseKeyApiResponseData() *OneOfReclaimLicenseKeyApiResponseData {
+	p := new(OneOfReclaimLicenseKeyApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfReclaimLicenseKeyApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfReclaimLicenseKeyApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.ErrorResponse:
@@ -13331,39 +16176,106 @@ func (p *OneOfGetLicenseKeyApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case LicenseKey:
-		if nil == p.oneOfType31013 {
-			p.oneOfType31013 = new(LicenseKey)
-		}
-		*p.oneOfType31013 = v.(LicenseKey)
+	case []import1.AppMessage:
+		p.oneOfType31016 = v.([]import1.AppMessage)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = *p.oneOfType31013.ObjectType_
+		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = *p.oneOfType31013.ObjectType_
+		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfGetLicenseKeyApiResponseData) GetValue() interface{} {
+func (p *OneOfReclaimLicenseKeyApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if p.oneOfType31013 != nil && *p.oneOfType31013.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType31013
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return p.oneOfType31016
 	}
 	return nil
 }
 
-func (p *OneOfGetLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfReclaimLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.error.AppMessage>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType31016 := new([]import1.AppMessage)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType31016)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType31016 == nil || len(*vOneOfType31016) == 0 || ((*vOneOfType31016)[0].ObjectType_ != nil && "licensing.v4.error.AppMessage" == *((*vOneOfType31016)[0].ObjectType_)) {
+							p.oneOfType31016 = *vOneOfType31016
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -13379,43 +16291,63 @@ func (p *OneOfGetLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType31013 := new(LicenseKey)
-	if err := json.Unmarshal(b, vOneOfType31013); err == nil {
-		if "licensing.v4.config.LicenseKey" == *vOneOfType31013.ObjectType_ {
-			if nil == p.oneOfType31013 {
-				p.oneOfType31013 = new(LicenseKey)
-			}
-			*p.oneOfType31013 = *vOneOfType31013
+	vOneOfType31016 := new([]import1.AppMessage)
+	if err := json.Unmarshal(b, vOneOfType31016); err == nil {
+		if len(*vOneOfType31016) == 0 || (vOneOfType31016 != nil && (*vOneOfType31016)[0].ObjectType_ != nil && "licensing.v4.error.AppMessage" == *((*vOneOfType31016)[0].ObjectType_)) {
+			p.oneOfType31016 = *vOneOfType31016
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = *p.oneOfType31013.ObjectType_
+			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = *p.oneOfType31013.ObjectType_
+			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfGetLicenseKeyApiResponseData"))
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfReclaimLicenseKeyApiResponseData"))
 }
 
-func (p *OneOfGetLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
+func (p *OneOfReclaimLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	if p.oneOfType31013 != nil && *p.oneOfType31013.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType31013)
+	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType31016)
 	}
-	return nil, errors.New("No value to marshal for OneOfGetLicenseKeyApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfReclaimLicenseKeyApiResponseData")
 }
 
 type OneOfListEntitlementsApiResponseData struct {
 	Discriminator  *string                 `json:"-"`
 	ObjectType_    *string                 `json:"-"`
 	oneOfType401   []EntitlementProjection `json:"-"`
-	oneOfType400   *import1.ErrorResponse  `json:"-"`
 	oneOfType21010 []Entitlement           `json:"-"`
+	oneOfType400   *import1.ErrorResponse  `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListEntitlementsApiResponseData() *OneOfListEntitlementsApiResponseData {
@@ -13440,6 +16372,16 @@ func (p *OneOfListEntitlementsApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = "List<licensing.v4.config.EntitlementProjection>"
+	case []Entitlement:
+		p.oneOfType21010 = v.([]Entitlement)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Entitlement>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Entitlement>"
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -13453,16 +16395,6 @@ func (p *OneOfListEntitlementsApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Entitlement:
-		p.oneOfType21010 = v.([]Entitlement)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.Entitlement>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.Entitlement>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -13470,22 +16402,120 @@ func (p *OneOfListEntitlementsApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfListEntitlementsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "List<licensing.v4.config.EntitlementProjection>" == *p.Discriminator {
 		return p.oneOfType401
 	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
 	if "List<licensing.v4.config.Entitlement>" == *p.Discriminator {
 		return p.oneOfType21010
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
 func (p *OneOfListEntitlementsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.EntitlementProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]EntitlementProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.EntitlementProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.EntitlementProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.EntitlementProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.Entitlement>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21010 := new([]Entitlement)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21010)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType21010 == nil || len(*vOneOfType21010) == 0 || ((*vOneOfType21010)[0].ObjectType_ != nil && "licensing.v4.config.Entitlement" == *((*vOneOfType21010)[0].ObjectType_)) {
+							p.oneOfType21010 = *vOneOfType21010
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.Entitlement>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.Entitlement>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType401 := new([]EntitlementProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.EntitlementProjection" == *((*vOneOfType401)[0].ObjectType_) {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.EntitlementProjection" == *((*vOneOfType401)[0].ObjectType_)) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -13498,9 +16528,24 @@ func (p *OneOfListEntitlementsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType21010 := new([]Entitlement)
+	if err := json.Unmarshal(b, vOneOfType21010); err == nil {
+		if len(*vOneOfType21010) == 0 || (vOneOfType21010 != nil && (*vOneOfType21010)[0].ObjectType_ != nil && "licensing.v4.config.Entitlement" == *((*vOneOfType21010)[0].ObjectType_)) {
+			p.oneOfType21010 = *vOneOfType21010
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Entitlement>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Entitlement>"
+			return nil
+		}
+	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -13516,35 +16561,299 @@ func (p *OneOfListEntitlementsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType21010 := new([]Entitlement)
-	if err := json.Unmarshal(b, vOneOfType21010); err == nil {
-		if len(*vOneOfType21010) == 0 || "licensing.v4.config.Entitlement" == *((*vOneOfType21010)[0].ObjectType_) {
-			p.oneOfType21010 = *vOneOfType21010
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.Entitlement>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.Entitlement>"
-			return nil
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
 		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
 	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListEntitlementsApiResponseData"))
 }
 
 func (p *OneOfListEntitlementsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "List<licensing.v4.config.EntitlementProjection>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType401)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
 	}
 	if "List<licensing.v4.config.Entitlement>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType21010)
 	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
 	return nil, errors.New("No value to marshal for OneOfListEntitlementsApiResponseData")
+}
+
+type OneOfListFeaturesApiResponseData struct {
+	Discriminator  *string                `json:"-"`
+	ObjectType_    *string                `json:"-"`
+	oneOfType21003 []Feature              `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	oneOfType401   []FeatureProjection    `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
+}
+
+func NewOneOfListFeaturesApiResponseData() *OneOfListFeaturesApiResponseData {
+	p := new(OneOfListFeaturesApiResponseData)
+	p.Discriminator = new(string)
+	p.ObjectType_ = new(string)
+	return p
+}
+
+func (p *OneOfListFeaturesApiResponseData) SetValue(v interface{}) error {
+	if nil == p {
+		return errors.New(fmt.Sprintf("OneOfListFeaturesApiResponseData is nil"))
+	}
+	switch v.(type) {
+	case []Feature:
+		p.oneOfType21003 = v.([]Feature)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.Feature>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.Feature>"
+	case import1.ErrorResponse:
+		if nil == p.oneOfType400 {
+			p.oneOfType400 = new(import1.ErrorResponse)
+		}
+		*p.oneOfType400 = v.(import1.ErrorResponse)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = *p.oneOfType400.ObjectType_
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.oneOfType400.ObjectType_
+	case []FeatureProjection:
+		p.oneOfType401 = v.([]FeatureProjection)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.FeatureProjection>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.FeatureProjection>"
+	default:
+		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
+	}
+	return nil
+}
+
+func (p *OneOfListFeaturesApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if "List<licensing.v4.config.Feature>" == *p.Discriminator {
+		return p.oneOfType21003
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
+	}
+	if "List<licensing.v4.config.FeatureProjection>" == *p.Discriminator {
+		return p.oneOfType401
+	}
+	return nil
+}
+
+func (p *OneOfListFeaturesApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.Feature>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21003 := new([]Feature)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21003)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType21003 == nil || len(*vOneOfType21003) == 0 || ((*vOneOfType21003)[0].ObjectType_ != nil && "licensing.v4.config.Feature" == *((*vOneOfType21003)[0].ObjectType_)) {
+							p.oneOfType21003 = *vOneOfType21003
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.Feature>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.Feature>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.FeatureProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]FeatureProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.FeatureProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.FeatureProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.FeatureProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType21003 := new([]Feature)
+	if err := json.Unmarshal(b, vOneOfType21003); err == nil {
+		if len(*vOneOfType21003) == 0 || (vOneOfType21003 != nil && (*vOneOfType21003)[0].ObjectType_ != nil && "licensing.v4.config.Feature" == *((*vOneOfType21003)[0].ObjectType_)) {
+			p.oneOfType21003 = *vOneOfType21003
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.Feature>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.Feature>"
+			return nil
+		}
+	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	vOneOfType401 := new([]FeatureProjection)
+	if err := json.Unmarshal(b, vOneOfType401); err == nil {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.FeatureProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+			p.oneOfType401 = *vOneOfType401
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = "List<licensing.v4.config.FeatureProjection>"
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = "List<licensing.v4.config.FeatureProjection>"
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListFeaturesApiResponseData"))
+}
+
+func (p *OneOfListFeaturesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if "List<licensing.v4.config.Feature>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21003)
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
+	if "List<licensing.v4.config.FeatureProjection>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType401)
+	}
+	return nil, errors.New("No value to marshal for OneOfListFeaturesApiResponseData")
 }
 
 type OneOfListReclaimLicenseTokensApiResponseData struct {
@@ -13553,6 +16862,8 @@ type OneOfListReclaimLicenseTokensApiResponseData struct {
 	oneOfType31021 []ReclaimLicenseToken           `json:"-"`
 	oneOfType401   []ReclaimLicenseTokenProjection `json:"-"`
 	oneOfType400   *import1.ErrorResponse          `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListReclaimLicenseTokensApiResponseData() *OneOfListReclaimLicenseTokensApiResponseData {
@@ -13607,6 +16918,9 @@ func (p *OneOfListReclaimLicenseTokensApiResponseData) SetValue(v interface{}) e
 }
 
 func (p *OneOfListReclaimLicenseTokensApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "List<licensing.v4.config.ReclaimLicenseToken>" == *p.Discriminator {
 		return p.oneOfType31021
 	}
@@ -13620,9 +16934,104 @@ func (p *OneOfListReclaimLicenseTokensApiResponseData) GetValue() interface{} {
 }
 
 func (p *OneOfListReclaimLicenseTokensApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.ReclaimLicenseToken>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType31021 := new([]ReclaimLicenseToken)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType31021)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType31021 == nil || len(*vOneOfType31021) == 0 || ((*vOneOfType31021)[0].ObjectType_ != nil && "licensing.v4.config.ReclaimLicenseToken" == *((*vOneOfType31021)[0].ObjectType_)) {
+							p.oneOfType31021 = *vOneOfType31021
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.ReclaimLicenseToken>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.ReclaimLicenseToken>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.ReclaimLicenseTokenProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]ReclaimLicenseTokenProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.ReclaimLicenseTokenProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.ReclaimLicenseTokenProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.ReclaimLicenseTokenProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType31021 := new([]ReclaimLicenseToken)
 	if err := json.Unmarshal(b, vOneOfType31021); err == nil {
-		if len(*vOneOfType31021) == 0 || "licensing.v4.config.ReclaimLicenseToken" == *((*vOneOfType31021)[0].ObjectType_) {
+		if len(*vOneOfType31021) == 0 || (vOneOfType31021 != nil && (*vOneOfType31021)[0].ObjectType_ != nil && "licensing.v4.config.ReclaimLicenseToken" == *((*vOneOfType31021)[0].ObjectType_)) {
 			p.oneOfType31021 = *vOneOfType31021
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -13637,7 +17046,7 @@ func (p *OneOfListReclaimLicenseTokensApiResponseData) UnmarshalJSON(b []byte) e
 	}
 	vOneOfType401 := new([]ReclaimLicenseTokenProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.ReclaimLicenseTokenProjection" == *((*vOneOfType401)[0].ObjectType_) {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.ReclaimLicenseTokenProjection" == *((*vOneOfType401)[0].ObjectType_)) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -13652,7 +17061,7 @@ func (p *OneOfListReclaimLicenseTokensApiResponseData) UnmarshalJSON(b []byte) e
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -13668,10 +17077,31 @@ func (p *OneOfListReclaimLicenseTokensApiResponseData) UnmarshalJSON(b []byte) e
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListReclaimLicenseTokensApiResponseData"))
 }
 
 func (p *OneOfListReclaimLicenseTokensApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "List<licensing.v4.config.ReclaimLicenseToken>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType31021)
 	}
@@ -13684,35 +17114,40 @@ func (p *OneOfListReclaimLicenseTokensApiResponseData) MarshalJSON() ([]byte, er
 	return nil, errors.New("No value to marshal for OneOfListReclaimLicenseTokensApiResponseData")
 }
 
-type OneOfReclaimLicenseKeyApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType31016 []import1.AppMessage   `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
+type OneOfDownloadClusterSummaryFileApiResponseData struct {
+	Discriminator *string                `json:"-"`
+	ObjectType_   *string                `json:"-"`
+	oneOfType4000 *FileDetail            `json:"-"`
+	oneOfType400  *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfReclaimLicenseKeyApiResponseData() *OneOfReclaimLicenseKeyApiResponseData {
-	p := new(OneOfReclaimLicenseKeyApiResponseData)
+func NewOneOfDownloadClusterSummaryFileApiResponseData() *OneOfDownloadClusterSummaryFileApiResponseData {
+	p := new(OneOfDownloadClusterSummaryFileApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfReclaimLicenseKeyApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfDownloadClusterSummaryFileApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfReclaimLicenseKeyApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfDownloadClusterSummaryFileApiResponseData is nil"))
 	}
 	switch v.(type) {
-	case []import1.AppMessage:
-		p.oneOfType31016 = v.([]import1.AppMessage)
+	case FileDetail:
+		if nil == p.oneOfType4000 {
+			p.oneOfType4000 = new(FileDetail)
+		}
+		*p.oneOfType4000 = v.(FileDetail)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
+		*p.Discriminator = "FileDetail"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
+		*p.ObjectType_ = "FileDetail"
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -13732,9 +17167,12 @@ func (p *OneOfReclaimLicenseKeyApiResponseData) SetValue(v interface{}) error {
 	return nil
 }
 
-func (p *OneOfReclaimLicenseKeyApiResponseData) GetValue() interface{} {
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return p.oneOfType31016
+func (p *OneOfDownloadClusterSummaryFileApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
+	if p.oneOfType4000 != nil && "FileDetail" == *p.Discriminator {
+		return *p.oneOfType4000
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
@@ -13742,25 +17180,93 @@ func (p *OneOfReclaimLicenseKeyApiResponseData) GetValue() interface{} {
 	return nil
 }
 
-func (p *OneOfReclaimLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType31016 := new([]import1.AppMessage)
-	if err := json.Unmarshal(b, vOneOfType31016); err == nil {
-		if len(*vOneOfType31016) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType31016)[0].ObjectType_) {
-			p.oneOfType31016 = *vOneOfType31016
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
+func (p *OneOfDownloadClusterSummaryFileApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["FileDetail"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType4000 := new(FileDetail)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType4000)
+					if unmarshalErr == nil {
+						if nil == p.oneOfType4000 {
+							p.oneOfType4000 = new(FileDetail)
+						}
+						*p.oneOfType4000 = *vOneOfType4000
+						if nil == p.Discriminator {
+							p.Discriminator = new(string)
+						}
+						*p.Discriminator = "FileDetail"
+						if nil == p.ObjectType_ {
+							p.ObjectType_ = new(string)
+						}
+						*p.ObjectType_ = "FileDetail"
+						return nil
+					}
+				}
 			}
-			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
-			return nil
 		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
+	vOneOfType4000 := new(FileDetail)
+	if err := json.Unmarshal(b, vOneOfType4000); err == nil {
+		if nil == p.oneOfType4000 {
+			p.oneOfType4000 = new(FileDetail)
+		}
+		*p.oneOfType4000 = *vOneOfType4000
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "FileDetail"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "FileDetail"
+		return nil
 	}
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -13776,162 +17282,48 @@ func (p *OneOfReclaimLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfReclaimLicenseKeyApiResponseData"))
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfDownloadClusterSummaryFileApiResponseData"))
 }
 
-func (p *OneOfReclaimLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType31016)
+func (p *OneOfDownloadClusterSummaryFileApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
+	if p.oneOfType4000 != nil && "FileDetail" == *p.Discriminator {
+		return json.Marshal(p.oneOfType4000)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfReclaimLicenseKeyApiResponseData")
-}
-
-type OneOfListAllowancesApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType21012 []Allowance            `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
-	oneOfType401   []AllowanceProjection  `json:"-"`
-}
-
-func NewOneOfListAllowancesApiResponseData() *OneOfListAllowancesApiResponseData {
-	p := new(OneOfListAllowancesApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListAllowancesApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListAllowancesApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case []Allowance:
-		p.oneOfType21012 = v.([]Allowance)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.Allowance>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.Allowance>"
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []AllowanceProjection:
-		p.oneOfType401 = v.([]AllowanceProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.AllowanceProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.AllowanceProjection>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListAllowancesApiResponseData) GetValue() interface{} {
-	if "List<licensing.v4.config.Allowance>" == *p.Discriminator {
-		return p.oneOfType21012
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<licensing.v4.config.AllowanceProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	return nil
-}
-
-func (p *OneOfListAllowancesApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType21012 := new([]Allowance)
-	if err := json.Unmarshal(b, vOneOfType21012); err == nil {
-		if len(*vOneOfType21012) == 0 || "licensing.v4.config.Allowance" == *((*vOneOfType21012)[0].ObjectType_) {
-			p.oneOfType21012 = *vOneOfType21012
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.Allowance>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.Allowance>"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType401 := new([]AllowanceProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.AllowanceProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.AllowanceProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.AllowanceProjection>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListAllowancesApiResponseData"))
-}
-
-func (p *OneOfListAllowancesApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<licensing.v4.config.Allowance>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21012)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<licensing.v4.config.AllowanceProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	return nil, errors.New("No value to marshal for OneOfListAllowancesApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfDownloadClusterSummaryFileApiResponseData")
 }
 
 type OneOfListLicensesApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
 	oneOfType401   []LicenseProjection    `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
 	oneOfType21003 []License              `json:"-"`
+	oneOfType400   *import1.ErrorResponse `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfListLicensesApiResponseData() *OneOfListLicensesApiResponseData {
@@ -13956,6 +17348,16 @@ func (p *OneOfListLicensesApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = "List<licensing.v4.config.LicenseProjection>"
+	case []License:
+		p.oneOfType21003 = v.([]License)
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		*p.Discriminator = "List<licensing.v4.config.License>"
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = "List<licensing.v4.config.License>"
 	case import1.ErrorResponse:
 		if nil == p.oneOfType400 {
 			p.oneOfType400 = new(import1.ErrorResponse)
@@ -13969,16 +17371,6 @@ func (p *OneOfListLicensesApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []License:
-		p.oneOfType21003 = v.([]License)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.License>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.License>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
@@ -13986,22 +17378,120 @@ func (p *OneOfListLicensesApiResponseData) SetValue(v interface{}) error {
 }
 
 func (p *OneOfListLicensesApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if "List<licensing.v4.config.LicenseProjection>" == *p.Discriminator {
 		return p.oneOfType401
 	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
 	if "List<licensing.v4.config.License>" == *p.Discriminator {
 		return p.oneOfType21003
+	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return *p.oneOfType400
 	}
 	return nil
 }
 
 func (p *OneOfListLicensesApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.LicenseProjection>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType401 := new([]LicenseProjection)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType401)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType401 == nil || len(*vOneOfType401) == 0 || ((*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.LicenseProjection" == *((*vOneOfType401)[0].ObjectType_)) {
+							p.oneOfType401 = *vOneOfType401
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.LicenseProjection>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.LicenseProjection>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.License>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21003 := new([]License)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21003)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType21003 == nil || len(*vOneOfType21003) == 0 || ((*vOneOfType21003)[0].ObjectType_ != nil && "licensing.v4.config.License" == *((*vOneOfType21003)[0].ObjectType_)) {
+							p.oneOfType21003 = *vOneOfType21003
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.License>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.License>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType401 := new([]LicenseProjection)
 	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.LicenseProjection" == *((*vOneOfType401)[0].ObjectType_) {
+		if len(*vOneOfType401) == 0 || (vOneOfType401 != nil && (*vOneOfType401)[0].ObjectType_ != nil && "licensing.v4.config.LicenseProjection" == *((*vOneOfType401)[0].ObjectType_)) {
 			p.oneOfType401 = *vOneOfType401
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -14014,27 +17504,9 @@ func (p *OneOfListLicensesApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
 	vOneOfType21003 := new([]License)
 	if err := json.Unmarshal(b, vOneOfType21003); err == nil {
-		if len(*vOneOfType21003) == 0 || "licensing.v4.config.License" == *((*vOneOfType21003)[0].ObjectType_) {
+		if len(*vOneOfType21003) == 0 || (vOneOfType21003 != nil && (*vOneOfType21003)[0].ObjectType_ != nil && "licensing.v4.config.License" == *((*vOneOfType21003)[0].ObjectType_)) {
 			p.oneOfType21003 = *vOneOfType21003
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
@@ -14047,39 +17519,80 @@ func (p *OneOfListLicensesApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	vOneOfType400 := new(import1.ErrorResponse)
+	if err := json.Unmarshal(b, vOneOfType400); err == nil {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+			if nil == p.oneOfType400 {
+				p.oneOfType400 = new(import1.ErrorResponse)
+			}
+			*p.oneOfType400 = *vOneOfType400
+			if nil == p.Discriminator {
+				p.Discriminator = new(string)
+			}
+			*p.Discriminator = *p.oneOfType400.ObjectType_
+			if nil == p.ObjectType_ {
+				p.ObjectType_ = new(string)
+			}
+			*p.ObjectType_ = *p.oneOfType400.ObjectType_
+			return nil
+		}
+	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLicensesApiResponseData"))
 }
 
 func (p *OneOfListLicensesApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if "List<licensing.v4.config.LicenseProjection>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType401)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
 	}
 	if "List<licensing.v4.config.License>" == *p.Discriminator {
 		return json.Marshal(p.oneOfType21003)
 	}
+	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
+		return json.Marshal(p.oneOfType400)
+	}
 	return nil, errors.New("No value to marshal for OneOfListLicensesApiResponseData")
 }
 
-type OneOfListViolationsApiResponseData struct {
+type OneOfListRecommendationsApiResponseData struct {
 	Discriminator  *string                `json:"-"`
 	ObjectType_    *string                `json:"-"`
 	oneOfType400   *import1.ErrorResponse `json:"-"`
-	oneOfType21008 []Violation            `json:"-"`
+	oneOfType21003 []Recommendation       `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
-func NewOneOfListViolationsApiResponseData() *OneOfListViolationsApiResponseData {
-	p := new(OneOfListViolationsApiResponseData)
+func NewOneOfListRecommendationsApiResponseData() *OneOfListRecommendationsApiResponseData {
+	p := new(OneOfListRecommendationsApiResponseData)
 	p.Discriminator = new(string)
 	p.ObjectType_ = new(string)
 	return p
 }
 
-func (p *OneOfListViolationsApiResponseData) SetValue(v interface{}) error {
+func (p *OneOfListRecommendationsApiResponseData) SetValue(v interface{}) error {
 	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListViolationsApiResponseData is nil"))
+		return errors.New(fmt.Sprintf("OneOfListRecommendationsApiResponseData is nil"))
 	}
 	switch v.(type) {
 	case import1.ErrorResponse:
@@ -14095,36 +17608,106 @@ func (p *OneOfListViolationsApiResponseData) SetValue(v interface{}) error {
 			p.ObjectType_ = new(string)
 		}
 		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []Violation:
-		p.oneOfType21008 = v.([]Violation)
+	case []Recommendation:
+		p.oneOfType21003 = v.([]Recommendation)
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "List<licensing.v4.config.Violation>"
+		*p.Discriminator = "List<licensing.v4.config.Recommendation>"
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "List<licensing.v4.config.Violation>"
+		*p.ObjectType_ = "List<licensing.v4.config.Recommendation>"
 	default:
 		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
 	}
 	return nil
 }
 
-func (p *OneOfListViolationsApiResponseData) GetValue() interface{} {
+func (p *OneOfListRecommendationsApiResponseData) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType400
 	}
-	if "List<licensing.v4.config.Violation>" == *p.Discriminator {
-		return p.oneOfType21008
+	if "List<licensing.v4.config.Recommendation>" == *p.Discriminator {
+		return p.oneOfType21003
 	}
 	return nil
 }
 
-func (p *OneOfListViolationsApiResponseData) UnmarshalJSON(b []byte) error {
+func (p *OneOfListRecommendationsApiResponseData) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType400 := new(import1.ErrorResponse)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType400)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+							if nil == p.oneOfType400 {
+								p.oneOfType400 = new(import1.ErrorResponse)
+							}
+							*p.oneOfType400 = *vOneOfType400
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType400.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType400.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["List<licensing.v4.config.Recommendation>"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType21003 := new([]Recommendation)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType21003)
+					if unmarshalErr == nil {
+						// For arrays, verify the array item ObjectType matches
+						if vOneOfType21003 == nil || len(*vOneOfType21003) == 0 || ((*vOneOfType21003)[0].ObjectType_ != nil && "licensing.v4.config.Recommendation" == *((*vOneOfType21003)[0].ObjectType_)) {
+							p.oneOfType21003 = *vOneOfType21003
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = "List<licensing.v4.config.Recommendation>"
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = "List<licensing.v4.config.Recommendation>"
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType400 := new(import1.ErrorResponse)
 	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
+		if vOneOfType400.ObjectType_ != nil && "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
 			if nil == p.oneOfType400 {
 				p.oneOfType400 = new(import1.ErrorResponse)
 			}
@@ -14140,530 +17723,53 @@ func (p *OneOfListViolationsApiResponseData) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
-	vOneOfType21008 := new([]Violation)
-	if err := json.Unmarshal(b, vOneOfType21008); err == nil {
-		if len(*vOneOfType21008) == 0 || "licensing.v4.config.Violation" == *((*vOneOfType21008)[0].ObjectType_) {
-			p.oneOfType21008 = *vOneOfType21008
+	vOneOfType21003 := new([]Recommendation)
+	if err := json.Unmarshal(b, vOneOfType21003); err == nil {
+		if len(*vOneOfType21003) == 0 || (vOneOfType21003 != nil && (*vOneOfType21003)[0].ObjectType_ != nil && "licensing.v4.config.Recommendation" == *((*vOneOfType21003)[0].ObjectType_)) {
+			p.oneOfType21003 = *vOneOfType21003
 			if nil == p.Discriminator {
 				p.Discriminator = new(string)
 			}
-			*p.Discriminator = "List<licensing.v4.config.Violation>"
+			*p.Discriminator = "List<licensing.v4.config.Recommendation>"
 			if nil == p.ObjectType_ {
 				p.ObjectType_ = new(string)
 			}
-			*p.ObjectType_ = "List<licensing.v4.config.Violation>"
+			*p.ObjectType_ = "List<licensing.v4.config.Recommendation>"
 			return nil
 		}
 	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListViolationsApiResponseData"))
-}
-
-func (p *OneOfListViolationsApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<licensing.v4.config.Violation>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType21008)
-	}
-	return nil, errors.New("No value to marshal for OneOfListViolationsApiResponseData")
-}
-
-type OneOfFeatureValue struct {
-	Discriminator  *string `json:"-"`
-	ObjectType_    *string `json:"-"`
-	oneOfType10032 *int    `json:"-"`
-	oneOfType10022 *bool   `json:"-"`
-}
-
-func NewOneOfFeatureValue() *OneOfFeatureValue {
-	p := new(OneOfFeatureValue)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfFeatureValue) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfFeatureValue is nil"))
-	}
-	switch v.(type) {
-	case int:
-		if nil == p.oneOfType10032 {
-			p.oneOfType10032 = new(int)
-		}
-		*p.oneOfType10032 = v.(int)
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
 		if nil == p.Discriminator {
 			p.Discriminator = new(string)
 		}
-		*p.Discriminator = "Integer"
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
 		if nil == p.ObjectType_ {
 			p.ObjectType_ = new(string)
 		}
-		*p.ObjectType_ = "Integer"
-	case bool:
-		if nil == p.oneOfType10022 {
-			p.oneOfType10022 = new(bool)
-		}
-		*p.oneOfType10022 = v.(bool)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "Boolean"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "Boolean"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfFeatureValue) GetValue() interface{} {
-	if "Integer" == *p.Discriminator {
-		return *p.oneOfType10032
-	}
-	if "Boolean" == *p.Discriminator {
-		return *p.oneOfType10022
-	}
-	return nil
-}
-
-func (p *OneOfFeatureValue) UnmarshalJSON(b []byte) error {
-	vOneOfType10032 := new(int)
-	if err := json.Unmarshal(b, vOneOfType10032); err == nil {
-		if nil == p.oneOfType10032 {
-			p.oneOfType10032 = new(int)
-		}
-		*p.oneOfType10032 = *vOneOfType10032
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "Integer"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "Integer"
+		*p.ObjectType_ = *p.Discriminator
 		return nil
 	}
-	vOneOfType10022 := new(bool)
-	if err := json.Unmarshal(b, vOneOfType10022); err == nil {
-		if nil == p.oneOfType10022 {
-			p.oneOfType10022 = new(bool)
-		}
-		*p.oneOfType10022 = *vOneOfType10022
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "Boolean"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "Boolean"
-		return nil
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfFeatureValue"))
+	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListRecommendationsApiResponseData"))
 }
 
-func (p *OneOfFeatureValue) MarshalJSON() ([]byte, error) {
-	if "Integer" == *p.Discriminator {
-		return json.Marshal(p.oneOfType10032)
-	}
-	if "Boolean" == *p.Discriminator {
-		return json.Marshal(p.oneOfType10022)
-	}
-	return nil, errors.New("No value to marshal for OneOfFeatureValue")
-}
-
-type OneOfAssociateLicenseKeysApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
-	oneOfType31024 []import1.AppMessage   `json:"-"`
-}
-
-func NewOneOfAssociateLicenseKeysApiResponseData() *OneOfAssociateLicenseKeysApiResponseData {
-	p := new(OneOfAssociateLicenseKeysApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAssociateLicenseKeysApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAssociateLicenseKeysApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	case []import1.AppMessage:
-		p.oneOfType31024 = v.([]import1.AppMessage)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.error.AppMessage>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAssociateLicenseKeysApiResponseData) GetValue() interface{} {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return p.oneOfType31024
-	}
-	return nil
-}
-
-func (p *OneOfAssociateLicenseKeysApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType31024 := new([]import1.AppMessage)
-	if err := json.Unmarshal(b, vOneOfType31024); err == nil {
-		if len(*vOneOfType31024) == 0 || "licensing.v4.error.AppMessage" == *((*vOneOfType31024)[0].ObjectType_) {
-			p.oneOfType31024 = *vOneOfType31024
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.error.AppMessage>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.error.AppMessage>"
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAssociateLicenseKeysApiResponseData"))
-}
-
-func (p *OneOfAssociateLicenseKeysApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	if "List<licensing.v4.error.AppMessage>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType31024)
-	}
-	return nil, errors.New("No value to marshal for OneOfAssociateLicenseKeysApiResponseData")
-}
-
-type OneOfAddLicenseKeyApiResponseData struct {
-	Discriminator  *string                         `json:"-"`
-	ObjectType_    *string                         `json:"-"`
-	oneOfType401   *AddLicenseKeyDryRunApiResponse `json:"-"`
-	oneOfType31003 *LicenseKey                     `json:"-"`
-	oneOfType400   *import1.ErrorResponse          `json:"-"`
-}
-
-func NewOneOfAddLicenseKeyApiResponseData() *OneOfAddLicenseKeyApiResponseData {
-	p := new(OneOfAddLicenseKeyApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfAddLicenseKeyApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfAddLicenseKeyApiResponseData is nil"))
-	}
-	switch v.(type) {
-	case AddLicenseKeyDryRunApiResponse:
-		if nil == p.oneOfType401 {
-			p.oneOfType401 = new(AddLicenseKeyDryRunApiResponse)
-		}
-		*p.oneOfType401 = v.(AddLicenseKeyDryRunApiResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType401.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType401.ObjectType_
-	case LicenseKey:
-		if nil == p.oneOfType31003 {
-			p.oneOfType31003 = new(LicenseKey)
-		}
-		*p.oneOfType31003 = v.(LicenseKey)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType31003.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType31003.ObjectType_
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfAddLicenseKeyApiResponseData) GetValue() interface{} {
-	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType401
-	}
-	if p.oneOfType31003 != nil && *p.oneOfType31003.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType31003
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfAddLicenseKeyApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType401 := new(AddLicenseKeyDryRunApiResponse)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if "licensing.v4.config.AddLicenseKeyDryRunApiResponse" == *vOneOfType401.ObjectType_ {
-			if nil == p.oneOfType401 {
-				p.oneOfType401 = new(AddLicenseKeyDryRunApiResponse)
-			}
-			*p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType401.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType401.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType31003 := new(LicenseKey)
-	if err := json.Unmarshal(b, vOneOfType31003); err == nil {
-		if "licensing.v4.config.LicenseKey" == *vOneOfType31003.ObjectType_ {
-			if nil == p.oneOfType31003 {
-				p.oneOfType31003 = new(LicenseKey)
-			}
-			*p.oneOfType31003 = *vOneOfType31003
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType31003.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType31003.ObjectType_
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfAddLicenseKeyApiResponseData"))
-}
-
-func (p *OneOfAddLicenseKeyApiResponseData) MarshalJSON() ([]byte, error) {
-	if p.oneOfType401 != nil && *p.oneOfType401.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	if p.oneOfType31003 != nil && *p.oneOfType31003.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType31003)
+func (p *OneOfListRecommendationsApiResponseData) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
 	}
 	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType400)
 	}
-	return nil, errors.New("No value to marshal for OneOfAddLicenseKeyApiResponseData")
-}
-
-type OneOfListLicenseKeysApiResponseData struct {
-	Discriminator  *string                `json:"-"`
-	ObjectType_    *string                `json:"-"`
-	oneOfType31007 []LicenseKey           `json:"-"`
-	oneOfType401   []LicenseKeyProjection `json:"-"`
-	oneOfType400   *import1.ErrorResponse `json:"-"`
-}
-
-func NewOneOfListLicenseKeysApiResponseData() *OneOfListLicenseKeysApiResponseData {
-	p := new(OneOfListLicenseKeysApiResponseData)
-	p.Discriminator = new(string)
-	p.ObjectType_ = new(string)
-	return p
-}
-
-func (p *OneOfListLicenseKeysApiResponseData) SetValue(v interface{}) error {
-	if nil == p {
-		return errors.New(fmt.Sprintf("OneOfListLicenseKeysApiResponseData is nil"))
+	if "List<licensing.v4.config.Recommendation>" == *p.Discriminator {
+		return json.Marshal(p.oneOfType21003)
 	}
-	switch v.(type) {
-	case []LicenseKey:
-		p.oneOfType31007 = v.([]LicenseKey)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.LicenseKey>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.LicenseKey>"
-	case []LicenseKeyProjection:
-		p.oneOfType401 = v.([]LicenseKeyProjection)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = "List<licensing.v4.config.LicenseKeyProjection>"
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = "List<licensing.v4.config.LicenseKeyProjection>"
-	case import1.ErrorResponse:
-		if nil == p.oneOfType400 {
-			p.oneOfType400 = new(import1.ErrorResponse)
-		}
-		*p.oneOfType400 = v.(import1.ErrorResponse)
-		if nil == p.Discriminator {
-			p.Discriminator = new(string)
-		}
-		*p.Discriminator = *p.oneOfType400.ObjectType_
-		if nil == p.ObjectType_ {
-			p.ObjectType_ = new(string)
-		}
-		*p.ObjectType_ = *p.oneOfType400.ObjectType_
-	default:
-		return errors.New(fmt.Sprintf("%T(%v) is not expected type", v, v))
-	}
-	return nil
-}
-
-func (p *OneOfListLicenseKeysApiResponseData) GetValue() interface{} {
-	if "List<licensing.v4.config.LicenseKey>" == *p.Discriminator {
-		return p.oneOfType31007
-	}
-	if "List<licensing.v4.config.LicenseKeyProjection>" == *p.Discriminator {
-		return p.oneOfType401
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return *p.oneOfType400
-	}
-	return nil
-}
-
-func (p *OneOfListLicenseKeysApiResponseData) UnmarshalJSON(b []byte) error {
-	vOneOfType31007 := new([]LicenseKey)
-	if err := json.Unmarshal(b, vOneOfType31007); err == nil {
-		if len(*vOneOfType31007) == 0 || "licensing.v4.config.LicenseKey" == *((*vOneOfType31007)[0].ObjectType_) {
-			p.oneOfType31007 = *vOneOfType31007
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.LicenseKey>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.LicenseKey>"
-			return nil
-		}
-	}
-	vOneOfType401 := new([]LicenseKeyProjection)
-	if err := json.Unmarshal(b, vOneOfType401); err == nil {
-		if len(*vOneOfType401) == 0 || "licensing.v4.config.LicenseKeyProjection" == *((*vOneOfType401)[0].ObjectType_) {
-			p.oneOfType401 = *vOneOfType401
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = "List<licensing.v4.config.LicenseKeyProjection>"
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = "List<licensing.v4.config.LicenseKeyProjection>"
-			return nil
-		}
-	}
-	vOneOfType400 := new(import1.ErrorResponse)
-	if err := json.Unmarshal(b, vOneOfType400); err == nil {
-		if "licensing.v4.error.ErrorResponse" == *vOneOfType400.ObjectType_ {
-			if nil == p.oneOfType400 {
-				p.oneOfType400 = new(import1.ErrorResponse)
-			}
-			*p.oneOfType400 = *vOneOfType400
-			if nil == p.Discriminator {
-				p.Discriminator = new(string)
-			}
-			*p.Discriminator = *p.oneOfType400.ObjectType_
-			if nil == p.ObjectType_ {
-				p.ObjectType_ = new(string)
-			}
-			*p.ObjectType_ = *p.oneOfType400.ObjectType_
-			return nil
-		}
-	}
-	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfListLicenseKeysApiResponseData"))
-}
-
-func (p *OneOfListLicenseKeysApiResponseData) MarshalJSON() ([]byte, error) {
-	if "List<licensing.v4.config.LicenseKey>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType31007)
-	}
-	if "List<licensing.v4.config.LicenseKeyProjection>" == *p.Discriminator {
-		return json.Marshal(p.oneOfType401)
-	}
-	if p.oneOfType400 != nil && *p.oneOfType400.ObjectType_ == *p.Discriminator {
-		return json.Marshal(p.oneOfType400)
-	}
-	return nil, errors.New("No value to marshal for OneOfListLicenseKeysApiResponseData")
+	return nil, errors.New("No value to marshal for OneOfListRecommendationsApiResponseData")
 }
 
 type FileDetail struct {

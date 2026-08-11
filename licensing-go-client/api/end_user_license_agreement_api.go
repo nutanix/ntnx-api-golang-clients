@@ -77,7 +77,7 @@ func (api *EndUserLicenseAgreementServiceApi) AddUser(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/agreements/eula/$actions/add-user"
+	uri := "/api/licensing/v4.4/agreements/eula/$actions/add-user"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *EndUserLicenseAgreementServiceApi) AddUser(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.AddUserApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -133,7 +139,7 @@ func (api *EndUserLicenseAgreementServiceApi) GetEula(ctx context.Context, reque
 		argMap = args[0]
 	}
 
-	uri := "/api/licensing/v4.3/agreements/eula"
+	uri := "/api/licensing/v4.4/agreements/eula"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -163,8 +169,14 @@ func (api *EndUserLicenseAgreementServiceApi) GetEula(ctx context.Context, reque
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetEulaApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
