@@ -77,7 +77,7 @@ func (api *UserDefinedPoliciesServiceApi) CreateUdaPolicy(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/user-defined-policies"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -112,9 +112,15 @@ func (api *UserDefinedPoliciesServiceApi) CreateUdaPolicy(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CreateUdaPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -135,7 +141,7 @@ func (api *UserDefinedPoliciesServiceApi) DeleteUdaPolicyById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies/{extId}"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/user-defined-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -172,9 +178,15 @@ func (api *UserDefinedPoliciesServiceApi) DeleteUdaPolicyById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.DeleteUdaPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -195,7 +207,7 @@ func (api *UserDefinedPoliciesServiceApi) FindConflictingUdaPolicies(ctx context
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies/$actions/find-conflicts"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/user-defined-policies/$actions/find-conflicts"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -230,9 +242,15 @@ func (api *UserDefinedPoliciesServiceApi) FindConflictingUdaPolicies(ctx context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.FindConflictingUdaPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -253,7 +271,7 @@ func (api *UserDefinedPoliciesServiceApi) GetUdaPolicyById(ctx context.Context, 
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies/{extId}"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/user-defined-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -290,9 +308,15 @@ func (api *UserDefinedPoliciesServiceApi) GetUdaPolicyById(ctx context.Context, 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetUdaPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -317,7 +341,7 @@ func (api *UserDefinedPoliciesServiceApi) ListUdaPolicies(ctx context.Context, r
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/user-defined-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -363,9 +387,15 @@ func (api *UserDefinedPoliciesServiceApi) ListUdaPolicies(ctx context.Context, r
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListUdaPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -387,7 +417,7 @@ func (api *UserDefinedPoliciesServiceApi) UpdateUdaPolicyById(ctx context.Contex
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/user-defined-policies/{extId}"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/user-defined-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -428,8 +458,14 @@ func (api *UserDefinedPoliciesServiceApi) UpdateUdaPolicyById(ctx context.Contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateUdaPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

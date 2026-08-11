@@ -78,7 +78,7 @@ func (api *SystemDefinedPoliciesServiceApi) GetClusterConfigById(ctx context.Con
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId}"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId}"
 
 	// verify the required parameter 'systemDefinedPolicyExtId' is set
 	if nil == request.SystemDefinedPolicyExtId {
@@ -120,9 +120,15 @@ func (api *SystemDefinedPoliciesServiceApi) GetClusterConfigById(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetClusterConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -143,7 +149,7 @@ func (api *SystemDefinedPoliciesServiceApi) GetSdaPolicyById(ctx context.Context
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/system-defined-policies/{extId}"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/system-defined-policies/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -180,9 +186,15 @@ func (api *SystemDefinedPoliciesServiceApi) GetSdaPolicyById(ctx context.Context
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetSdaPolicyApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -208,7 +220,7 @@ func (api *SystemDefinedPoliciesServiceApi) ListClusterConfigsBySdaId(ctx contex
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs"
 
 	// verify the required parameter 'systemDefinedPolicyExtId' is set
 	if nil == request.SystemDefinedPolicyExtId {
@@ -261,9 +273,15 @@ func (api *SystemDefinedPoliciesServiceApi) ListClusterConfigsBySdaId(ctx contex
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListClusterConfigsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -288,7 +306,7 @@ func (api *SystemDefinedPoliciesServiceApi) ListSdaPolicies(ctx context.Context,
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/system-defined-policies"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/system-defined-policies"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -334,9 +352,15 @@ func (api *SystemDefinedPoliciesServiceApi) ListSdaPolicies(ctx context.Context,
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListSdaPoliciesApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -359,7 +383,7 @@ func (api *SystemDefinedPoliciesServiceApi) UpdateClusterConfigById(ctx context.
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId}"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/system-defined-policies/{systemDefinedPolicyExtId}/cluster-configs/{extId}"
 
 	// verify the required parameter 'systemDefinedPolicyExtId' is set
 	if nil == request.SystemDefinedPolicyExtId {
@@ -405,8 +429,14 @@ func (api *SystemDefinedPoliciesServiceApi) UpdateClusterConfigById(ctx context.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateClusterConfigApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

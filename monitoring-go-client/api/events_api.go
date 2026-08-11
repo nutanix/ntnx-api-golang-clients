@@ -77,7 +77,7 @@ func (api *EventsServiceApi) GetEventById(ctx context.Context, request *import6.
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/events/{extId}"
+	uri := "/api/monitoring/v4.3/serviceability/events/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *EventsServiceApi) GetEventById(ctx context.Context, request *import6.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetEventApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -141,7 +147,7 @@ func (api *EventsServiceApi) ListEvents(ctx context.Context, request *import6.Li
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/events"
+	uri := "/api/monitoring/v4.3/serviceability/events"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -187,8 +193,14 @@ func (api *EventsServiceApi) ListEvents(ctx context.Context, request *import6.Li
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListEventsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

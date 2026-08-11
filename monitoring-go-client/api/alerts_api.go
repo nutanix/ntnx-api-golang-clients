@@ -61,12 +61,13 @@ func NewAlertsServiceApi(apiClient *client.ApiClient) *AlertsServiceApi {
 }
 
 // Fetches the details of an alert identified by external identifier.
-func (api *AlertsApi) GetAlertById(extId *string, args ...map[string]interface{}) (*import1.GetAlertApiResponse, error) {
+func (api *AlertsApi) GetAlertById(extId *string, expand_ *string, args ...map[string]interface{}) (*import1.GetAlertApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewAlertsServiceApi(api.ApiClient)
 	}
 	return api.ServiceClient.GetAlertById(context.Background(), &import3.GetAlertByIdRequest{
-		ExtId: extId,
+		ExtId:   extId,
+		Expand_: expand_,
 	}, args...)
 }
 
@@ -77,7 +78,7 @@ func (api *AlertsServiceApi) GetAlertById(ctx context.Context, request *import3.
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/{extId}"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -96,6 +97,10 @@ func (api *AlertsServiceApi) GetAlertById(ctx context.Context, request *import3.
 	// to determine the Accept header
 	accepts := []string{"application/json"}
 
+	// Query Params
+	if request.Expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*request.Expand_, ""))
+	}
 	// Headers provided explicitly on operation takes precedence
 	for headerKey, value := range argMap {
 		// Skip platform generated headers
@@ -114,14 +119,20 @@ func (api *AlertsServiceApi) GetAlertById(ctx context.Context, request *import3.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetAlertApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
 // Fetches a list of alerts.
-func (api *AlertsApi) ListAlerts(page_ *int, limit_ *int, filter_ *string, orderby_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListAlertsApiResponse, error) {
+func (api *AlertsApi) ListAlerts(page_ *int, limit_ *int, filter_ *string, orderby_ *string, apply_ *string, expand_ *string, select_ *string, args ...map[string]interface{}) (*import1.ListAlertsApiResponse, error) {
 	if api.ServiceClient == nil {
 		api.ServiceClient = NewAlertsServiceApi(api.ApiClient)
 	}
@@ -130,6 +141,8 @@ func (api *AlertsApi) ListAlerts(page_ *int, limit_ *int, filter_ *string, order
 		Limit_:   limit_,
 		Filter_:  filter_,
 		Orderby_: orderby_,
+		Apply_:   apply_,
+		Expand_:  expand_,
 		Select_:  select_,
 	}, args...)
 }
@@ -141,7 +154,7 @@ func (api *AlertsServiceApi) ListAlerts(ctx context.Context, request *import3.Li
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts"
+	uri := "/api/monitoring/v4.3/serviceability/alerts"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -166,6 +179,12 @@ func (api *AlertsServiceApi) ListAlerts(ctx context.Context, request *import3.Li
 	if request.Orderby_ != nil {
 		queryParams.Add("$orderby", client.ParameterToString(*request.Orderby_, ""))
 	}
+	if request.Apply_ != nil {
+		queryParams.Add("$apply", client.ParameterToString(*request.Apply_, ""))
+	}
+	if request.Expand_ != nil {
+		queryParams.Add("$expand", client.ParameterToString(*request.Expand_, ""))
+	}
 	if request.Select_ != nil {
 		queryParams.Add("$select", client.ParameterToString(*request.Select_, ""))
 	}
@@ -187,8 +206,14 @@ func (api *AlertsServiceApi) ListAlerts(ctx context.Context, request *import3.Li
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListAlertsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

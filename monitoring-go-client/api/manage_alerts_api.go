@@ -78,7 +78,7 @@ func (api *ManageAlertsServiceApi) ManageAlert(ctx context.Context, request *imp
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/{extId}/$actions/manage-alert"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/{extId}/$actions/manage-alert"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -119,8 +119,14 @@ func (api *ManageAlertsServiceApi) ManageAlert(ctx context.Context, request *imp
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ManageAlertApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

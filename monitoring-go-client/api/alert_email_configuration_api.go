@@ -75,7 +75,7 @@ func (api *AlertEmailConfigurationServiceApi) GetAlertEmailConfiguration(ctx con
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/email-config"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/email-config"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -105,9 +105,15 @@ func (api *AlertEmailConfigurationServiceApi) GetAlertEmailConfiguration(ctx con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetAlertEmailConfigurationApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -128,7 +134,7 @@ func (api *AlertEmailConfigurationServiceApi) UpdateAlertEmailConfiguration(ctx 
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/alerts/email-config"
+	uri := "/api/monitoring/v4.3/serviceability/alerts/email-config"
 
 	// verify the required parameter 'body' is set
 	if nil == request.Body {
@@ -163,8 +169,14 @@ func (api *AlertEmailConfigurationServiceApi) UpdateAlertEmailConfiguration(ctx 
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.UpdateAlertEmailConfigurationApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

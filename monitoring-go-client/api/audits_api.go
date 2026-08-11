@@ -77,7 +77,7 @@ func (api *AuditsServiceApi) GetAuditById(ctx context.Context, request *import4.
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/audits/{extId}"
+	uri := "/api/monitoring/v4.3/serviceability/audits/{extId}"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -114,9 +114,15 @@ func (api *AuditsServiceApi) GetAuditById(ctx context.Context, request *import4.
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.GetAuditApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -141,7 +147,7 @@ func (api *AuditsServiceApi) ListAudits(ctx context.Context, request *import4.Li
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/audits"
+	uri := "/api/monitoring/v4.3/serviceability/audits"
 
 	headerParams := make(map[string]string)
 	queryParams := url.Values{}
@@ -187,8 +193,14 @@ func (api *AuditsServiceApi) ListAudits(ctx context.Context, request *import4.Li
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListAuditsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

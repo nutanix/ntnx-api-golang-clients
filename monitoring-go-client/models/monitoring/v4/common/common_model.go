@@ -1,7 +1,7 @@
 /*
  * Generated file models/monitoring/v4/common/common_model.go.
  *
- * Product version: 4.2.2
+ * Product version: 4.3.1
  *
  * Part of the Nutanix Monitoring APIs
  *
@@ -127,7 +127,7 @@ func NewAlertEntityReference() *AlertEntityReference {
 	p := new(AlertEntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.AlertEntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -229,7 +229,7 @@ func NewBoolValue() *BoolValue {
 	p := new(BoolValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.BoolValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -332,7 +332,7 @@ func NewCauseAndResolution() *CauseAndResolution {
 	p := new(CauseAndResolution)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.CauseAndResolution"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -687,7 +687,7 @@ func NewDoubleValue() *DoubleValue {
 	p := new(DoubleValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.DoubleValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -798,7 +798,7 @@ func NewEntityReference() *EntityReference {
 	p := new(EntityReference)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.EntityReference"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -900,7 +900,7 @@ func NewFloatValue() *FloatValue {
 	p := new(FloatValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.FloatValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1010,6 +1010,229 @@ func (e ImpactType) Ref() *ImpactType {
 }
 
 /*
+Instances of different entities impacted by the alert, event or audit.
+*/
+type ImpactedEntities struct {
+	ObjectType_ *string `json:"$objectType,omitempty"`
+
+	Reserved_ map[string]interface{} `json:"$reserved,omitempty"`
+
+	UnknownFields_ map[string]interface{} `json:"$unknownFields,omitempty"`
+	/*
+	  List of action rule instances impacted by the alert, event or audit.
+	*/
+	ActionRules []string `json:"actionRules,omitempty"`
+	/*
+	  List of cluster instances impacted by the alert, event or audit.
+	*/
+	Clusters []string `json:"clusters,omitempty"`
+	/*
+	  List of container instances impacted by the alert, event or audit.
+	*/
+	Containers []string `json:"containers,omitempty"`
+	/*
+	  List of disk instances impacted by the alert, event or audit.
+	*/
+	Disks []string `json:"disks,omitempty"`
+	/*
+	  List of Microsoft SQL Server database instances impacted by the alert, event or audit.
+	*/
+	MicrosoftSqlserverDatabases []string `json:"microsoftSqlserverDatabases,omitempty"`
+	/*
+	  List of Microsoft SQL Server instances impacted by the alert, event or audit.
+	*/
+	MicrosoftSqlserverInstances []string `json:"microsoftSqlserverInstances,omitempty"`
+	/*
+	  List of Microsoft SQL Server query instances impacted by the alert, event or audit.
+	*/
+	MicrosoftSqlserverQueries []string `json:"microsoftSqlserverQueries,omitempty"`
+	/*
+	  List of node instances impacted by the alert, event or audit.
+	*/
+	Nodes []string `json:"nodes,omitempty"`
+	/*
+	  List of protection rule instances impacted by the alert, event or audit.
+	*/
+	ProtectionRules []string `json:"protectionRules,omitempty"`
+	/*
+	  List of recovery plan instances impacted by the alert, event or audit.
+	*/
+	RecoveryPlans []string `json:"recoveryPlans,omitempty"`
+	/*
+	  List of storage pool instances impacted by the alert, event or audit.
+	*/
+	StoragePools []string `json:"storagePools,omitempty"`
+	/*
+	  List of vCenter cluster instances impacted by the alert, event or audit.
+	*/
+	VcenterClusters []string `json:"vcenterClusters,omitempty"`
+	/*
+	  List of vCenter container instances impacted by the alert, event or audit.
+	*/
+	VcenterContainers []string `json:"vcenterContainers,omitempty"`
+	/*
+	  List of vCenter node instances impacted by the alert, event or audit.
+	*/
+	VcenterNodes []string `json:"vcenterNodes,omitempty"`
+	/*
+	  List of vCenter VM instances impacted by the alert, event or audit.
+	*/
+	VcenterVms []string `json:"vcenterVms,omitempty"`
+	/*
+	  List of VM instances impacted by the alert, event or audit.
+	*/
+	Vms []string `json:"vms,omitempty"`
+	/*
+	  List of volume group instances impacted by the alert, event or audit.
+	*/
+	VolumeGroups []string `json:"volumeGroups,omitempty"`
+}
+
+func (p *ImpactedEntities) MarshalJSON() ([]byte, error) {
+	// Create Alias to avoid infinite recursion
+	type Alias ImpactedEntities
+
+	// Step 1: Marshal the known fields
+	known, err := json.Marshal(Alias(*p))
+	if err != nil {
+		return nil, err
+	}
+
+	// Step 2: Convert known to map for merging
+	var knownMap map[string]interface{}
+	if err := json.Unmarshal(known, &knownMap); err != nil {
+		return nil, err
+	}
+	delete(knownMap, "$unknownFields")
+
+	// Step 3: Merge unknown fields
+	for k, v := range p.UnknownFields_ {
+		knownMap[k] = v
+	}
+
+	// Step 4: Marshal final merged map
+	return json.Marshal(knownMap)
+}
+
+func (p *ImpactedEntities) UnmarshalJSON(b []byte) error {
+	// Step 1: Unmarshal into a generic map to capture all fields
+	var allFields map[string]interface{}
+	if err := json.Unmarshal(b, &allFields); err != nil {
+		return err
+	}
+
+	// Step 2: Unmarshal into a temporary struct with known fields
+	type Alias ImpactedEntities
+	known := &Alias{}
+	if err := json.Unmarshal(b, known); err != nil {
+		return err
+	}
+
+	// Step 3: Assign known fields
+	*p = *NewImpactedEntities()
+
+	if known.ObjectType_ != nil {
+		p.ObjectType_ = known.ObjectType_
+	}
+	if known.Reserved_ != nil {
+		p.Reserved_ = known.Reserved_
+	}
+	if known.UnknownFields_ != nil {
+		p.UnknownFields_ = known.UnknownFields_
+	}
+	if known.ActionRules != nil {
+		p.ActionRules = known.ActionRules
+	}
+	if known.Clusters != nil {
+		p.Clusters = known.Clusters
+	}
+	if known.Containers != nil {
+		p.Containers = known.Containers
+	}
+	if known.Disks != nil {
+		p.Disks = known.Disks
+	}
+	if known.MicrosoftSqlserverDatabases != nil {
+		p.MicrosoftSqlserverDatabases = known.MicrosoftSqlserverDatabases
+	}
+	if known.MicrosoftSqlserverInstances != nil {
+		p.MicrosoftSqlserverInstances = known.MicrosoftSqlserverInstances
+	}
+	if known.MicrosoftSqlserverQueries != nil {
+		p.MicrosoftSqlserverQueries = known.MicrosoftSqlserverQueries
+	}
+	if known.Nodes != nil {
+		p.Nodes = known.Nodes
+	}
+	if known.ProtectionRules != nil {
+		p.ProtectionRules = known.ProtectionRules
+	}
+	if known.RecoveryPlans != nil {
+		p.RecoveryPlans = known.RecoveryPlans
+	}
+	if known.StoragePools != nil {
+		p.StoragePools = known.StoragePools
+	}
+	if known.VcenterClusters != nil {
+		p.VcenterClusters = known.VcenterClusters
+	}
+	if known.VcenterContainers != nil {
+		p.VcenterContainers = known.VcenterContainers
+	}
+	if known.VcenterNodes != nil {
+		p.VcenterNodes = known.VcenterNodes
+	}
+	if known.VcenterVms != nil {
+		p.VcenterVms = known.VcenterVms
+	}
+	if known.Vms != nil {
+		p.Vms = known.Vms
+	}
+	if known.VolumeGroups != nil {
+		p.VolumeGroups = known.VolumeGroups
+	}
+
+	// Step 4: Remove known JSON fields from allFields map
+	delete(allFields, "$objectType")
+	delete(allFields, "$reserved")
+	delete(allFields, "$unknownFields")
+	delete(allFields, "actionRules")
+	delete(allFields, "clusters")
+	delete(allFields, "containers")
+	delete(allFields, "disks")
+	delete(allFields, "microsoftSqlserverDatabases")
+	delete(allFields, "microsoftSqlserverInstances")
+	delete(allFields, "microsoftSqlserverQueries")
+	delete(allFields, "nodes")
+	delete(allFields, "protectionRules")
+	delete(allFields, "recoveryPlans")
+	delete(allFields, "storagePools")
+	delete(allFields, "vcenterClusters")
+	delete(allFields, "vcenterContainers")
+	delete(allFields, "vcenterNodes")
+	delete(allFields, "vcenterVms")
+	delete(allFields, "vms")
+	delete(allFields, "volumeGroups")
+
+	// Step 5: Assign remaining fields to UnknownFields_
+	for key, value := range allFields {
+		p.UnknownFields_[key] = value
+	}
+
+	return nil
+}
+
+func NewImpactedEntities() *ImpactedEntities {
+	p := new(ImpactedEntities)
+	p.ObjectType_ = new(string)
+	*p.ObjectType_ = "monitoring.v4.common.ImpactedEntities"
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
+	p.UnknownFields_ = map[string]interface{}{}
+
+	return p
+}
+
+/*
 Denotes a value of type integer.
 */
 type IntValue struct {
@@ -1105,7 +1328,7 @@ func NewIntValue() *IntValue {
 	p := new(IntValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.IntValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1283,7 +1506,7 @@ func NewMetricDetail() *MetricDetail {
 	p := new(MetricDetail)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.MetricDetail"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1362,6 +1585,8 @@ const (
 	OPERATIONTYPE_GENERATEURL                 OperationType = 43
 	OPERATIONTYPE_DOWNLOAD                    OperationType = 44
 	OPERATIONTYPE_IMAGEMIGRATETOCR            OperationType = 45
+	OPERATIONTYPE_SYNC                        OperationType = 46
+	OPERATIONTYPE_SUBSCRIBE                   OperationType = 47
 )
 
 // Returns the name of the enum given an ordinal number
@@ -1415,6 +1640,8 @@ func (e *OperationType) name(index int) string {
 		"GENERATEURL",
 		"DOWNLOAD",
 		"IMAGEMIGRATETOCR",
+		"SYNC",
+		"SUBSCRIBE",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1472,6 +1699,8 @@ func (e OperationType) GetName() string {
 		"GENERATEURL",
 		"DOWNLOAD",
 		"IMAGEMIGRATETOCR",
+		"SYNC",
+		"SUBSCRIBE",
 	}
 	if index < 0 || index >= len(names) {
 		return "$UNKNOWN"
@@ -1528,6 +1757,8 @@ func (e *OperationType) index(name string) OperationType {
 		"GENERATEURL",
 		"DOWNLOAD",
 		"IMAGEMIGRATETOCR",
+		"SYNC",
+		"SUBSCRIBE",
 	}
 	for idx := range names {
 		if names[idx] == name {
@@ -1657,7 +1888,7 @@ func NewParameter() *Parameter {
 	p := new(Parameter)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.Parameter"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1863,7 +2094,7 @@ func NewStringValue() *StringValue {
 	p := new(StringValue)
 	p.ObjectType_ = new(string)
 	*p.ObjectType_ = "monitoring.v4.common.StringValue"
-	p.Reserved_ = map[string]interface{}{"$fv": "v4.r2"}
+	p.Reserved_ = map[string]interface{}{"$fv": "v4.r3"}
 	p.UnknownFields_ = map[string]interface{}{}
 
 	return p
@@ -1876,6 +2107,8 @@ type OneOfMetricDetailMetricValue struct {
 	oneOfType3    *IntValue    `json:"-"`
 	oneOfType2    *DoubleValue `json:"-"`
 	oneOfType1    *BoolValue   `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfMetricDetailMetricValue() *OneOfMetricDetailMetricValue {
@@ -1949,6 +2182,9 @@ func (p *OneOfMetricDetailMetricValue) SetValue(v interface{}) error {
 }
 
 func (p *OneOfMetricDetailMetricValue) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -1965,9 +2201,141 @@ func (p *OneOfMetricDetailMetricValue) GetValue() interface{} {
 }
 
 func (p *OneOfMetricDetailMetricValue) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(StringValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(StringValue)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType3 := new(IntValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType3)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType3.ObjectType_ != nil && "monitoring.v4.common.IntValue" == *vOneOfType3.ObjectType_ {
+							if nil == p.oneOfType3 {
+								p.oneOfType3 = new(IntValue)
+							}
+							*p.oneOfType3 = *vOneOfType3
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType3.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType3.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2 := new(DoubleValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2.ObjectType_ != nil && "monitoring.v4.common.DoubleValue" == *vOneOfType2.ObjectType_ {
+							if nil == p.oneOfType2 {
+								p.oneOfType2 = new(DoubleValue)
+							}
+							*p.oneOfType2 = *vOneOfType2
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(BoolValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(BoolValue)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(StringValue)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(StringValue)
 			}
@@ -1985,7 +2353,7 @@ func (p *OneOfMetricDetailMetricValue) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType3 := new(IntValue)
 	if err := json.Unmarshal(b, vOneOfType3); err == nil {
-		if "monitoring.v4.common.IntValue" == *vOneOfType3.ObjectType_ {
+		if vOneOfType3.ObjectType_ != nil && "monitoring.v4.common.IntValue" == *vOneOfType3.ObjectType_ {
 			if nil == p.oneOfType3 {
 				p.oneOfType3 = new(IntValue)
 			}
@@ -2003,7 +2371,7 @@ func (p *OneOfMetricDetailMetricValue) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2 := new(DoubleValue)
 	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "monitoring.v4.common.DoubleValue" == *vOneOfType2.ObjectType_ {
+		if vOneOfType2.ObjectType_ != nil && "monitoring.v4.common.DoubleValue" == *vOneOfType2.ObjectType_ {
 			if nil == p.oneOfType2 {
 				p.oneOfType2 = new(DoubleValue)
 			}
@@ -2021,7 +2389,7 @@ func (p *OneOfMetricDetailMetricValue) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1 := new(BoolValue)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(BoolValue)
 			}
@@ -2037,10 +2405,31 @@ func (p *OneOfMetricDetailMetricValue) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMetricDetailMetricValue"))
 }
 
 func (p *OneOfMetricDetailMetricValue) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -2062,6 +2451,8 @@ type OneOfParameterParamValue struct {
 	oneOfType0    *StringValue `json:"-"`
 	oneOfType1    *BoolValue   `json:"-"`
 	oneOfType2    *IntValue    `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfParameterParamValue() *OneOfParameterParamValue {
@@ -2122,6 +2513,9 @@ func (p *OneOfParameterParamValue) SetValue(v interface{}) error {
 }
 
 func (p *OneOfParameterParamValue) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType0
 	}
@@ -2135,9 +2529,110 @@ func (p *OneOfParameterParamValue) GetValue() interface{} {
 }
 
 func (p *OneOfParameterParamValue) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(StringValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(StringValue)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(BoolValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(BoolValue)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2 := new(IntValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2.ObjectType_ != nil && "monitoring.v4.common.IntValue" == *vOneOfType2.ObjectType_ {
+							if nil == p.oneOfType2 {
+								p.oneOfType2 = new(IntValue)
+							}
+							*p.oneOfType2 = *vOneOfType2
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType0 := new(StringValue)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(StringValue)
 			}
@@ -2155,7 +2650,7 @@ func (p *OneOfParameterParamValue) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1 := new(BoolValue)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(BoolValue)
 			}
@@ -2173,7 +2668,7 @@ func (p *OneOfParameterParamValue) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2 := new(IntValue)
 	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "monitoring.v4.common.IntValue" == *vOneOfType2.ObjectType_ {
+		if vOneOfType2.ObjectType_ != nil && "monitoring.v4.common.IntValue" == *vOneOfType2.ObjectType_ {
 			if nil == p.oneOfType2 {
 				p.oneOfType2 = new(IntValue)
 			}
@@ -2189,10 +2684,31 @@ func (p *OneOfParameterParamValue) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfParameterParamValue"))
 }
 
 func (p *OneOfParameterParamValue) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType0 != nil && *p.oneOfType0.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType0)
 	}
@@ -2212,6 +2728,8 @@ type OneOfMetricDetailThresholdValue struct {
 	oneOfType2    *DoubleValue `json:"-"`
 	oneOfType1    *BoolValue   `json:"-"`
 	oneOfType0    *StringValue `json:"-"`
+	// Holds data with unknown oneOf types
+	UnknownValue_ interface{} `json:"-"`
 }
 
 func NewOneOfMetricDetailThresholdValue() *OneOfMetricDetailThresholdValue {
@@ -2285,6 +2803,9 @@ func (p *OneOfMetricDetailThresholdValue) SetValue(v interface{}) error {
 }
 
 func (p *OneOfMetricDetailThresholdValue) GetValue() interface{} {
+	if p.UnknownValue_ != nil {
+		return p.UnknownValue_
+	}
 	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
 		return *p.oneOfType3
 	}
@@ -2301,9 +2822,141 @@ func (p *OneOfMetricDetailThresholdValue) GetValue() interface{} {
 }
 
 func (p *OneOfMetricDetailThresholdValue) UnmarshalJSON(b []byte) error {
+	p.UnknownValue_ = nil
+	// Try to handle nested structure like {"": {"value": {...}}}
+	// This recursively unwraps {"field": {"value": {...}}} patterns for nested oneOf fields
+	var rawMap map[string]interface{}
+	if err := json.Unmarshal(b, &rawMap); err == nil {
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType3 := new(IntValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType3)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType3.ObjectType_ != nil && "monitoring.v4.common.IntValue" == *vOneOfType3.ObjectType_ {
+							if nil == p.oneOfType3 {
+								p.oneOfType3 = new(IntValue)
+							}
+							*p.oneOfType3 = *vOneOfType3
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType3.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType3.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType2 := new(DoubleValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType2)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType2.ObjectType_ != nil && "monitoring.v4.common.DoubleValue" == *vOneOfType2.ObjectType_ {
+							if nil == p.oneOfType2 {
+								p.oneOfType2 = new(DoubleValue)
+							}
+							*p.oneOfType2 = *vOneOfType2
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType2.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType2.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType1 := new(BoolValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType1)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType1.ObjectType_ != nil && "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
+							if nil == p.oneOfType1 {
+								p.oneOfType1 = new(BoolValue)
+							}
+							*p.oneOfType1 = *vOneOfType1
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType1.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType1.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+		// Check if this field name exists in the map (handles nested structure)
+		if nestedMap, ok := rawMap["ObjectType_"].(map[string]interface{}); ok {
+			// Check for "value" wrapper
+			if valueData, ok := nestedMap["value"]; ok {
+				valueJSON, marshalErr := json.Marshal(valueData)
+				if marshalErr == nil {
+					vOneOfType0 := new(StringValue)
+					var unmarshalErr error
+					// Unmarshal - if vField has oneOf fields, their UnmarshalJSON will handle nested patterns recursively
+					unmarshalErr = json.Unmarshal(valueJSON, vOneOfType0)
+					if unmarshalErr == nil {
+						// For struct items, verify the ObjectType matches
+						if vOneOfType0.ObjectType_ != nil && "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
+							if nil == p.oneOfType0 {
+								p.oneOfType0 = new(StringValue)
+							}
+							*p.oneOfType0 = *vOneOfType0
+							if nil == p.Discriminator {
+								p.Discriminator = new(string)
+							}
+							*p.Discriminator = *p.oneOfType0.ObjectType_
+							if nil == p.ObjectType_ {
+								p.ObjectType_ = new(string)
+							}
+							*p.ObjectType_ = *p.oneOfType0.ObjectType_
+							return nil
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Fallback: try direct unmarshalling (for non-nested structures)
 	vOneOfType3 := new(IntValue)
 	if err := json.Unmarshal(b, vOneOfType3); err == nil {
-		if "monitoring.v4.common.IntValue" == *vOneOfType3.ObjectType_ {
+		if vOneOfType3.ObjectType_ != nil && "monitoring.v4.common.IntValue" == *vOneOfType3.ObjectType_ {
 			if nil == p.oneOfType3 {
 				p.oneOfType3 = new(IntValue)
 			}
@@ -2321,7 +2974,7 @@ func (p *OneOfMetricDetailThresholdValue) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType2 := new(DoubleValue)
 	if err := json.Unmarshal(b, vOneOfType2); err == nil {
-		if "monitoring.v4.common.DoubleValue" == *vOneOfType2.ObjectType_ {
+		if vOneOfType2.ObjectType_ != nil && "monitoring.v4.common.DoubleValue" == *vOneOfType2.ObjectType_ {
 			if nil == p.oneOfType2 {
 				p.oneOfType2 = new(DoubleValue)
 			}
@@ -2339,7 +2992,7 @@ func (p *OneOfMetricDetailThresholdValue) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType1 := new(BoolValue)
 	if err := json.Unmarshal(b, vOneOfType1); err == nil {
-		if "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
+		if vOneOfType1.ObjectType_ != nil && "monitoring.v4.common.BoolValue" == *vOneOfType1.ObjectType_ {
 			if nil == p.oneOfType1 {
 				p.oneOfType1 = new(BoolValue)
 			}
@@ -2357,7 +3010,7 @@ func (p *OneOfMetricDetailThresholdValue) UnmarshalJSON(b []byte) error {
 	}
 	vOneOfType0 := new(StringValue)
 	if err := json.Unmarshal(b, vOneOfType0); err == nil {
-		if "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
+		if vOneOfType0.ObjectType_ != nil && "monitoring.v4.common.StringValue" == *vOneOfType0.ObjectType_ {
 			if nil == p.oneOfType0 {
 				p.oneOfType0 = new(StringValue)
 			}
@@ -2373,10 +3026,31 @@ func (p *OneOfMetricDetailThresholdValue) UnmarshalJSON(b []byte) error {
 			return nil
 		}
 	}
+	// Store raw when no known variant matched
+	var unknownRaw map[string]interface{}
+	if err := json.Unmarshal(b, &unknownRaw); err == nil {
+		p.UnknownValue_ = unknownRaw
+		if nil == p.Discriminator {
+			p.Discriminator = new(string)
+		}
+		if ot, ok := unknownRaw["$objectType"].(string); ok && ot != "" {
+			*p.Discriminator = ot
+		} else {
+			*p.Discriminator = "UNKNOWN"
+		}
+		if nil == p.ObjectType_ {
+			p.ObjectType_ = new(string)
+		}
+		*p.ObjectType_ = *p.Discriminator
+		return nil
+	}
 	return errors.New(fmt.Sprintf("Unable to unmarshal for OneOfMetricDetailThresholdValue"))
 }
 
 func (p *OneOfMetricDetailThresholdValue) MarshalJSON() ([]byte, error) {
+	if p.UnknownValue_ != nil {
+		return json.Marshal(p.UnknownValue_)
+	}
 	if p.oneOfType3 != nil && *p.oneOfType3.ObjectType_ == *p.Discriminator {
 		return json.Marshal(p.oneOfType3)
 	}

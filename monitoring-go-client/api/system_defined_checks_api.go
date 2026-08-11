@@ -78,7 +78,7 @@ func (api *SystemDefinedChecksServiceApi) RunSystemDefinedChecks(ctx context.Con
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/clusters/{clusterExtId}/$actions/run-system-defined-checks"
+	uri := "/api/monitoring/v4.3/serviceability/clusters/{clusterExtId}/$actions/run-system-defined-checks"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -119,8 +119,14 @@ func (api *SystemDefinedChecksServiceApi) RunSystemDefinedChecks(ctx context.Con
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.RunSystemDefinedChecksApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }

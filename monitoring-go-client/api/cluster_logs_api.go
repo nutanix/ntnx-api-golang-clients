@@ -78,7 +78,7 @@ func (api *ClusterLogsServiceApi) CollectLogs(ctx context.Context, request *impo
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/clusters/{extId}/$actions/collect-logs"
+	uri := "/api/monitoring/v4.3/serviceability/clusters/{extId}/$actions/collect-logs"
 
 	// verify the required parameter 'extId' is set
 	if nil == request.ExtId {
@@ -119,9 +119,15 @@ func (api *ClusterLogsServiceApi) CollectLogs(ctx context.Context, request *impo
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.CollectLogsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
 
@@ -147,7 +153,7 @@ func (api *ClusterLogsServiceApi) ListTags(ctx context.Context, request *import5
 		argMap = args[0]
 	}
 
-	uri := "/api/monitoring/v4.2/serviceability/clusters/{clusterExtId}/tags"
+	uri := "/api/monitoring/v4.3/serviceability/clusters/{clusterExtId}/tags"
 
 	// verify the required parameter 'clusterExtId' is set
 	if nil == request.ClusterExtId {
@@ -200,8 +206,14 @@ func (api *ClusterLogsServiceApi) ListTags(ctx context.Context, request *import5
 	if nil != err || nil == apiClientResponse {
 		return nil, err
 	}
+	if _, ok := apiClientResponse.(*client.EmptyResponse); ok {
+		return nil, nil
+	}
 
+	// Response is already []byte (JSON content)
 	unmarshalledResp := new(import1.ListTagsApiResponse)
-	json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp)
+	if err = json.Unmarshal(apiClientResponse.([]byte), &unmarshalledResp); err != nil {
+		return nil, err
+	}
 	return unmarshalledResp, err
 }
